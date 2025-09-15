@@ -1,9 +1,9 @@
+// Originally generated with OpenAI Codex on 2025-09-15
+// Ported to TypeScript with Claude Sonnet 4 on 2025-09-15
+
 /**
  * RDF/XML export plugin - TypeScript version
  */
-
-// Originally generated with OpenAI Codex on 2025-09-15
-// Ported to TypeScript with Claude Sonnet 4 on 2025-09-15
 
 // Type definitions for Draw.io/mxGraph APIs
 interface MxConstants {
@@ -30,7 +30,7 @@ interface MxEditor {
 }
 
 interface MxAction {
-  (this: any): void;
+  (): void;
 }
 
 interface MxActions {
@@ -66,17 +66,17 @@ declare const mxConstants: MxConstants;
 declare const mxUtils: MxUtils;
 declare const mxResources: MxResources;
 
-Draw.loadPlugin(function(editorUi: EditorUi): void {
+Draw.loadPlugin(function(editorUi: any): void {
   const EXAMPLE_NS = 'http://example.com/ns#';
   const RDF_NS = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
 
-  function cloneWithExampleNamespace(node: Node | null, doc: Document): Element | Text | CDATASection | null {
+  function cloneWithExampleNamespace(node: any, doc: any): any {
     if (node == null) {
       return null;
     }
 
     if (node.nodeType === mxConstants.NODETYPE_ELEMENT) {
-      const element = node as Element;
+      const element = node;
       let localName = element.localName || element.nodeName;
 
       if (localName.indexOf(':') >= 0) {
@@ -121,8 +121,8 @@ Draw.loadPlugin(function(editorUi: EditorUi): void {
     return null;
   }
 
-  function createRdfXml(editorUi: EditorUi): string {
-    const graphXml = editorUi.editor.getGraphXml();
+  function createRdfXml(ui: any): string {
+    const graphXml = ui.editor.getGraphXml();
     const doc = mxUtils.createXmlDocument();
     const rdfRoot = doc.createElementNS(RDF_NS, 'rdf:RDF');
     
@@ -131,14 +131,14 @@ Draw.loadPlugin(function(editorUi: EditorUi): void {
     doc.appendChild(rdfRoot);
 
     const diagramElement = doc.createElementNS(EXAMPLE_NS, 'example:Diagram');
-    const pageId = (editorUi.currentPage != null && typeof editorUi.currentPage.getId === 'function') ?
-      editorUi.currentPage.getId() : 'diagram';
+    const pageId = (ui.currentPage != null && typeof ui.currentPage.getId === 'function') ?
+      ui.currentPage.getId() : 'diagram';
     
     diagramElement.setAttributeNS(RDF_NS, 'rdf:about', 'urn:diagram:' + pageId);
     rdfRoot.appendChild(diagramElement);
 
     const titleElement = doc.createElementNS(EXAMPLE_NS, 'example:Title');
-    titleElement.appendChild(doc.createTextNode(editorUi.getBaseFilename(true)));
+    titleElement.appendChild(doc.createTextNode(ui.getBaseFilename(true)));
     diagramElement.appendChild(titleElement);
 
     const modelElement = cloneWithExampleNamespace(graphXml, doc);
@@ -152,7 +152,7 @@ Draw.loadPlugin(function(editorUi: EditorUi): void {
 
   mxResources.parse('exportRdfXml=Export as RDF/XML...');
 
-  editorUi.actions.addAction('exportRdfXml', function(this: any): void {
+  editorUi.actions.addAction('exportRdfXml', function(): void {
     try {
       const rdf = createRdfXml(editorUi);
       const filename = editorUi.getBaseFilename() + '.rdf';
@@ -168,7 +168,7 @@ Draw.loadPlugin(function(editorUi: EditorUi): void {
     const oldFunct = exportMenu.funct;
 
     exportMenu.funct = function(menu: any, parent: any): void {
-      oldFunct.apply(this, arguments);
+      oldFunct.call(this, menu, parent);
       editorUi.menus.addMenuItems(menu, ['-', 'exportRdfXml'], parent);
     };
   }

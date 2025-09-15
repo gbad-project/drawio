@@ -1,0 +1,18 @@
+{
+  "name": "rdfexport",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "volta": {
+    "node": "22.19.0"
+  },
+  "scripts": {
+    "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts"
+  }
+}
