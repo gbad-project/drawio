@@ -91,7 +91,7 @@ Draw.loadPlugin(function(editorUi)
                 titleElement.appendChild(doc.createTextNode(editorUi.getBaseFilename(true)));
                 diagramElement.appendChild(titleElement);
 
-                var modelElement = cloneWithExampleNamespace(graphXml.documentElement, doc);
+                var modelElement = cloneWithExampleNamespace(graphXml, doc);
 
                 if (modelElement != null)
                 {

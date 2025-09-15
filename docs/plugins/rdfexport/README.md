@@ -24,9 +24,11 @@ based on the current diagram name.
 * The RDF/XML document declares the namespaces `rdf` and `example`.
 * A root `<example:Diagram>` element is created for the current page with a
   stable `rdf:about` identifier (`urn:diagram:{pageId}`).
-* The existing Draw.io `<mxGraphModel>` tree is cloned under the
-  `<example:Diagram>` node, but every element is recreated in the `example`
-  namespace. Attribute names and values are preserved verbatim.
+* The existing Draw.io `<mxGraphModel>` tree returned by
+  `editorUi.editor.getGraphXml()` is cloned under the `<example:Diagram>` node,
+  ensuring the entire diagram structure is included while recreating each
+  element in the `example` namespace. Attribute names and values are preserved
+  verbatim.
 * The exporter intentionally avoids using additional RDF tooling so that the
   plugin remains small and dependency free.
 
