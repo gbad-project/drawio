@@ -29,7 +29,7 @@ If you are using a draw.io project/product and have issues or questions about th
 Running
 -------
 
-One way to run draw.io is to fork this project, [publish the master branch to GitHub pages](https://help.github.com/categories/github-pages-basics/) and the [pages sites](https://jgraph.github.io/drawio/src/main/webapp/index.html) will have the full editor functionality (sans the integrations).
+One way to run draw.io is to fork this project, [publish the master branch to GitHub pages](https://help.github.com/categories/github-pages-basics/) and the [pages sites](https://gbad-project.github.io/drawio/src/main/webapp/index.html) will have the full editor functionality (sans the integrations).
 
 Another way is to use [the recommended Docker project](https://github.com/jgraph/docker-drawio) or to download [draw.io Desktop](https://get.diagrams.net).
 
