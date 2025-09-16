@@ -290,28 +290,43 @@ class DrawioParser {
     }
   }
   private _cleanForId(id: string): string {
-    let de_prefixed = id.startsWith("rr:template=") ? de_prefixed = id.substring("rr:template=".length)
+    const de_prefixed = id.startsWith("rr:template=") ? id.substring("rr:template=".length)
                     : id.startsWith("rr:constant=") ? id.substring("rr:constant=".length)
                     : id.startsWith("rml:reference=") ? id.substring("rml:reference=".length)
                     : id;
     return de_prefixed.replace(/[^a-zA-Z0-9_-]/g, '_');
   }
   private _disaggregate(value: string): string[] {
-    const iteratorRegex = /\{([A-Z_]+)_(\d+)\.\.(\d+)\}/;
-    const match = value.match(iteratorRegex);
-    if (match) {
-        const [fullMatch, prefix, start, end] = match;
-        const results: string[] = [];
-        for (let i = parseInt(start, 10); i <= parseInt(end, 10); i++) {
-            const replaced = value.replace(fullMatch, `{${prefix}_${i}}`);
-            results.push(...this._disaggregate(replaced));
+    const allMatchesRegex = /\{([^}]+?)\}/g;
+    const matches = value.match(allMatchesRegex);
+
+    if (matches) {
+      for (const match of matches) {
+        const innerContent = match.substring(1, match.length - 1);
+        const iteratorRegex = /(\d+)\.\.(\d+)/;
+        const iteratorMatch = innerContent.match(iteratorRegex);
+
+        if (iteratorMatch) {
+          const [iteratorFullMatch, startStr, endStr] = iteratorMatch;
+          const start = parseInt(startStr, 10);
+          const end = parseInt(endStr, 10);
+          const results: string[] = [];
+
+          for (let i = start; i <= end; i++) {
+            const newInnerContent = innerContent.replace(iteratorFullMatch, i.toString());
+            const newValue = value.replace(match, `{${newInnerContent}}`);
+            results.push(...this._disaggregate(newValue));
+          }
+          return results;
         }
-        return results;
+      }
     }
+
     const refdFileMask = "{REFD_FILE}";
     if (value.includes(refdFileMask)) {
         return [value.replace(refdFileMask, "{REFD}"), value.replace(refdFileMask, "{REF_FILE}")];
     }
+
     return [value];
   }
   private _extractMnemonic(template: string | undefined): string | undefined {
@@ -320,6 +335,12 @@ class DrawioParser {
     const match = template.match(/\{([A-Z:_0-9\.]+)\}/);
     return match ? match[1] : undefined;
   }
+  private _decamelize(s: string): string {
+    const camelCasePattern = /(?<=[a-z])(?=[A-Z])/g;
+    s = s.replace(camelCasePattern, ' ');
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
   private _prettifyRdfsLabel(value: string): string {
     let pretty = value;
     try {
@@ -333,56 +354,93 @@ class DrawioParser {
     if (pretty.startsWith('/')) {
         pretty = pretty.substring(1);
     }
-    // Simplified version of python's logic
-    const kbRegex = /KB\/([^\/]+)\/(.*)/;
-    const kbMatch = pretty.match(kbRegex);
-    if (kbMatch) {
-        return `${kbMatch[1]}: ${kbMatch[2]}`;
+
+    const schemaTerm = 'Schema';
+    const kbTerm = 'KB';
+    const schemaRegex = new RegExp(`^(${schemaTerm}|Description-Listings|Authority|Mapping)\/([A-Za-z_]+)(#.*|\/.*)?$`, 'i');
+
+    if (pretty.toLowerCase().startsWith(schemaTerm.toLowerCase() + '/')) {
+        pretty = pretty.substring(schemaTerm.length + 1);
+        const match = pretty.match(schemaRegex);
+        if (match) {
+            const ricoClassIshTerm = this._decamelize(match[2]);
+            const lastTerm = match[3];
+            if (!lastTerm) {
+                pretty = ricoClassIshTerm;
+            } else if (lastTerm.startsWith('#')) {
+                pretty = `${ricoClassIshTerm}: ${lastTerm.substring(1)}`;
+            } else if (lastTerm.startsWith('/')) {
+                pretty = lastTerm.substring(1);
+            }
+        }
     }
+
+    if (pretty.toLowerCase().startsWith(kbTerm.toLowerCase() + '/')) {
+        pretty = pretty.substring(kbTerm.length + 1);
+        const mnemonicRegex = /([a-zA-Z]+)\/(\{([^}]+)\})\/?(.*)/;
+        const match = pretty.match(mnemonicRegex);
+        if (match) {
+            const ricoIshClass = this._decamelize(match[1]);
+            const mnemonicMask = match[2];
+            const optionalRest = match[4];
+            pretty = `${mnemonicMask} (${ricoIshClass})`;
+            if (optionalRest) {
+                pretty = `${mnemonicMask} (${ricoIshClass} - ${optionalRest})`;
+            }
+        }
+    }
+
     return pretty;
   }
-  public parse(): TriplesMap[] {
-    const blocks: { [key: string]: { types: Set<string>, facts: { [predicate: string]: Set<string> } } } = {};
+  private * _yieldTriples(): Generator<{subject: string, predicate: string, object: string}> {
     for (const item of this._yieldIndividualsAndArrows()) {
-        if ('ricClass' in item) {
-            const { identifier, ricClass } = item;
-            if (!blocks[identifier]) blocks[identifier] = { types: new Set(), facts: {} };
-            blocks[identifier].types.add(ricClass);
-        } else {
-            const { identifier, source, target } = item;
-            if (!blocks[source]) blocks[source] = { types: new Set(), facts: {} };
-            if (!blocks[source].facts[identifier]) blocks[source].facts[identifier] = new Set();
-            blocks[source].facts[identifier].add(target);
-        }
+      if ('ricClass' in item) {
+        // console.log("yielded individual:", item);
+        yield { subject: item.identifier, predicate: "rdf:type", object: item.ricClass };
+      } else {
+        // console.log("yielded arrow:", item);
+        yield { subject: item.source, predicate: item.identifier, object: item.target };
+      }
     }
+  }
 
-    const expandedBlocks: { [key: string]: { types: Set<string>, facts: { [predicate: string]: Set<string> } } } = {};
-    for (const identifier in blocks) {
-        const disaggregatedIdentifiers = this._disaggregate(identifier);
-        for (const disaggregatedIdentifier of disaggregatedIdentifiers) {
-            if (!expandedBlocks[disaggregatedIdentifier]) {
-                expandedBlocks[disaggregatedIdentifier] = { types: new Set(blocks[identifier].types), facts: {} };
-            } else {
-                 blocks[identifier].types.forEach(t => expandedBlocks[disaggregatedIdentifier].types.add(t));
-            }
+  private _disaggregate_triples(triple: {subject: string, predicate: string, object: string}): {subject: string, predicate: string, object: string}[] {
+    const disaggregatedSubjects = this._disaggregate(triple.subject);
+    const disaggregatedObjects = this._disaggregate(triple.object);
+    const results: {subject: string, predicate: string, object: string}[] = [];
 
-            for (const predicate in blocks[identifier].facts) {
-                if (!expandedBlocks[disaggregatedIdentifier].facts[predicate]) {
-                    expandedBlocks[disaggregatedIdentifier].facts[predicate] = new Set();
-                }
-                for (const object of blocks[identifier].facts[predicate]) {
-                    const disaggregatedObjects = this._disaggregate(object);
-                    for (const disaggregatedObject of disaggregatedObjects) {
-                        expandedBlocks[disaggregatedIdentifier].facts[predicate].add(disaggregatedObject);
-                    }
-                }
-            }
+    for (const subject of disaggregatedSubjects) {
+      for (const object of disaggregatedObjects) {
+        results.push({ subject, predicate: triple.predicate, object });
+      }
+    }
+    return results;
+  }
+
+  public parse(): TriplesMap[] {
+    const disaggregatedTriples: {subject: string, predicate: string, object: string}[] = [];
+    for (const triple of this._yieldTriples()) {
+      disaggregatedTriples.push(...this._disaggregate_triples(triple));
+    }
+    // console.log("disaggregatedTriples:", disaggregatedTriples);
+
+    const blocks: { [key: string]: { types: Set<string>, facts: { [predicate: string]: Set<string> } } } = {};
+    for (const triple of disaggregatedTriples) {
+      if (triple.predicate === 'rdf:type') {
+        if (!blocks[triple.subject]) blocks[triple.subject] = { types: new Set(), facts: {} };
+        blocks[triple.subject].types.add(triple.object);
+      } else {
+        if (!blocks[triple.subject]) blocks[triple.subject] = { types: new Set(), facts: {} };
+        if (!blocks[triple.subject].facts[triple.predicate]) {
+            blocks[triple.subject].facts[triple.predicate] = new Set();
         }
+        blocks[triple.subject].facts[triple.predicate].add(triple.object);
+      }
     }
 
     const triplesMaps: TriplesMap[] = [];
-    for (const identifier in expandedBlocks) {
-        const block = expandedBlocks[identifier];
+    for (const identifier in blocks) {
+        const block = blocks[identifier];
         const subjectMap: SubjectMap = { class: Array.from(block.types) };
 
         if (identifier.startsWith("rr:template=")) {
@@ -402,7 +460,7 @@ class DrawioParser {
         for(const predicate in block.facts) {
             for(const object of block.facts[predicate]) {
                 let objectMap: ObjectMap = {};
-                if(expandedBlocks[object]) {
+                if(blocks[object]) {
                     objectMap.parentTriplesMap = this._cleanForId(object);
                     objectMap.termType = "IRI";
                 } else {
@@ -539,7 +597,12 @@ class RmlSerializer {
         if (pom.objectMap.parentTriplesMap) {
           this.store.addQuad(omNode, namedNode(expandPrefix("rr:parentTriplesMap")), this._createNode(pom.objectMap.parentTriplesMap));
         } else if (pom.objectMap.reference) {
-          this.store.addQuad(omNode, namedNode(expandPrefix("rml:reference")), literal(pom.objectMap.reference));
+          const privateMnemonics = ['ARCHAU', 'CMTAU'];
+          if (privateMnemonics.includes(pom.objectMap.reference)) {
+            this.store.addQuad(omNode, namedNode(expandPrefix("rr:constant")), this._createNode(`censored#${pom.objectMap.reference}`));
+          } else {
+            this.store.addQuad(omNode, namedNode(expandPrefix("rml:reference")), literal(pom.objectMap.reference));
+          }
         } else if (pom.objectMap.template) {
           let template = pom.objectMap.template.replace(/{UUID[^}]*}/g, `urn:uuid:${tm.uuid}`);
           this.store.addQuad(omNode, namedNode(expandPrefix("rr:template")), literal(template));

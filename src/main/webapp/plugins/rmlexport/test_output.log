@@ -1,0 +1,40 @@
+$ bun --check test
+bun test v1.2.14 (6a363a38)
+
+tests/rmlexport.test.ts:
+Generated store size: 5544, Expected store size: 8864
+52 |       console.log(
+53 |         `Generated store size: ${generatedQuads.length}, Expected store size: ${expectedQuads.length}`,
+54 |       );
+55 |     }
+56 |
+57 |     expect(areIsomorphic).toBe(true);
+                               ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: false
+
+      at <anonymous> (/app/src/main/webapp/plugins/rmlexport/tests/rmlexport.test.ts:57:27)
+(fail) General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: rdfexport plugin exports RML [1146.97ms]
+Generated store size: 2699, Expected store size: 6146
+52 |       console.log(
+53 |         `Generated store size: ${generatedQuads.length}, Expected store size: ${expectedQuads.length}`,
+54 |       );
+55 |     }
+56 |
+57 |     expect(areIsomorphic).toBe(true);
+                               ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: false
+
+      at <anonymous> (/app/src/main/webapp/plugins/rmlexport/tests/rmlexport.test.ts:57:27)
+(fail) General Authority to RiC-O Model_2025-06-25_PZ.drawio: rdfexport plugin exports RML [221.71ms]
+
+ 0 pass
+ 2 fail
+ 2 expect() calls
+Ran 2 tests across 1 files. [2.72s]
+error: script "test" exited with code 1

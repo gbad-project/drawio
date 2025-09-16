@@ -2,42 +2,12 @@ import { test, expect } from "bun:test";
 import * as fs from "fs";
 import * as path from "path";
 import { createRml } from "../src/rmlexport";
-import { Store, Parser, Quad } from "n3";
-import type { Term } from "n3";
+import { Store, Parser } from "n3";
+import { isomorphic } from "rdf-isomorphic";
 
 const fixturesPath = path.join(import.meta.dir, "fixtures");
 const files = fs.readdirSync(fixturesPath);
 const drawioFiles = files.filter((file) => file.endsWith(".drawio"));
-
-function termToString(term: Term): string {
-  if (term.termType === "BlankNode") {
-    return "_:b"; // Canonical representation for blank nodes
-  }
-  return term.value;
-}
-
-function quadToString(quad: Quad): string {
-  return `${termToString(quad.subject)} ${termToString(quad.predicate)} ${termToString(quad.object)}.`;
-}
-
-function areGraphsIsomorphic(g1: Store, g2: Store): boolean {
-  if (g1.size !== g2.size) {
-    return false;
-  }
-
-  const g1Quads = g1.getQuads(null, null, null, null).map(quadToString).sort();
-  const g2Quads = g2.getQuads(null, null, null, null).map(quadToString).sort();
-
-  if (g1Quads.length !== g2Quads.length) return false;
-
-  for (let i = 0; i < g1Quads.length; i++) {
-    if (g1Quads[i] !== g2Quads[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
 
 function parseRml(rml: string, baseIRI: string): Store {
   const store = new Store();
@@ -66,22 +36,25 @@ for (const file of drawioFiles) {
     const expectedRml = fs.readFileSync(rmlPath, "utf-8");
 
     const rml = await createRml(drawioContent, csvFile);
+    fs.writeFileSync(path.join(fixturesPath, "generated.rml"), rml);
 
     // Use the file path of the RML fixture as the base IRI for parsing.
     const baseIRI = `file://${rmlPath}`;
     const generatedStore = parseRml(rml, baseIRI);
     const expectedStore = parseRml(expectedRml, baseIRI);
 
-    const isomorphic = areGraphsIsomorphic(generatedStore, expectedStore);
+    const expectedQuads = expectedStore.getQuads(null, null, null, null);
+    const generatedQuads = generatedStore.getQuads(null, null, null, null);
+    const areIsomorphic = isomorphic(expectedQuads, generatedQuads);
 
-    if (!isomorphic) {
+    if (!areIsomorphic) {
       // console.log("Generated RML:", rml);
       // console.log("Expected RML:", expectedRml);
       console.log(
-        `Generated store size: ${generatedStore.size}, Expected store size: ${expectedStore.size}`,
+        `Generated store size: ${generatedQuads.length}, Expected store size: ${expectedQuads.length}`,
       );
     }
 
-    expect(isomorphic).toBe(true);
+    expect(areIsomorphic).toBe(true);
   });
 }

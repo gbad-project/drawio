@@ -1,0 +1,2510 @@
+@prefix : <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#>.
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/>.
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
+@prefix ql: <http://semweb.mmlab.be/ns/ql#>.
+@prefix fnml: <http://semweb.mmlab.be/ns/fnml#>.
+@prefix fno: <https://w3id.org/function/ontology#>.
+@prefix idlab-fn: <https://w3id.org/imec/idlab/function#>.
+@prefix grel: <http://users.ugent.be/~bjdmeest/function/grel.ttl#>.
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#>.
+
+:rr_template___KB__RICO_AUTHTP____HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6938;
+    rr:subjectMap _:n3-6939;
+    rr:predicateObjectMap _:n3-6952.
+_:n3-6938 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6939 rr:class rico:Thing;
+    fnml:functionValue _:n3-6940;
+    rr:termType rr:IRI.
+_:n3-6940 rr:predicateObjectMap _:n3-6941, _:n3-6943, _:n3-6950.
+_:n3-6941 rr:predicate fno:executes;
+    rr:objectMap _:n3-6942.
+_:n3-6942 rr:constant grel:controls_if.
+_:n3-6943 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-6944.
+_:n3-6944 fnml:functionValue _:n3-6945.
+_:n3-6945 rr:predicateObjectMap _:n3-6946, _:n3-6948.
+_:n3-6946 rr:predicate fno:executes;
+    rr:objectMap _:n3-6947.
+_:n3-6947 rr:constant idlab-fn:isNull.
+_:n3-6948 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-6949.
+_:n3-6949 rml:reference "RICO_AUTHTP".
+_:n3-6950 rr:predicate grel:any_false;
+    rr:objectMap _:n3-6951.
+_:n3-6951 rr:template "rr:template \"/KB/{RICO_AUTHTP}/ {HEADING}".
+_:n3-6952 rr:predicate rdfs:label;
+    rr:objectMap _:n3-6953.
+_:n3-6953 rr:template "rr:template \"/KB/{RICO_AUTHTP}/ {HEADING}";
+    rr:termType rr:Literal.
+:rr_template____KB___AgencyReferenceCode__REFA_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6954;
+    rr:subjectMap _:n3-6955;
+    rr:predicateObjectMap _:n3-6968.
+_:n3-6954 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6955 rr:class rico:Identifier;
+    fnml:functionValue _:n3-6956;
+    rr:termType rr:IRI.
+_:n3-6956 rr:predicateObjectMap _:n3-6957, _:n3-6959, _:n3-6966.
+_:n3-6957 rr:predicate fno:executes;
+    rr:objectMap _:n3-6958.
+_:n3-6958 rr:constant grel:controls_if.
+_:n3-6959 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-6960.
+_:n3-6960 fnml:functionValue _:n3-6961.
+_:n3-6961 rr:predicateObjectMap _:n3-6962, _:n3-6964.
+_:n3-6962 rr:predicate fno:executes;
+    rr:objectMap _:n3-6963.
+_:n3-6963 rr:constant idlab-fn:isNull.
+_:n3-6964 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-6965.
+_:n3-6965 rml:reference "REFA".
+_:n3-6966 rr:predicate grel:any_false;
+    rr:objectMap _:n3-6967.
+_:n3-6967 rr:template "rr:template \"/ KB / AgencyReferenceCode/{REFA}".
+_:n3-6968 rr:predicate rdfs:label;
+    rr:objectMap _:n3-6969.
+_:n3-6969 rr:template "rr:template \"/ KB / AgencyReferenceCode/{REFA}";
+    rr:termType rr:Literal.
+:rr_template____KB___NaturalAgentName___NAME_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6970;
+    rr:subjectMap _:n3-6971;
+    rr:predicateObjectMap _:n3-6972.
+_:n3-6970 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6971 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / NaturalAgentName/{ NAME}";
+    rr:termType rr:IRI.
+_:n3-6972 rr:predicate rdfs:label;
+    rr:objectMap _:n3-6973.
+_:n3-6973 rr:template "rr:template \"/ KB / NaturalAgentName/{ NAME}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date____DATEEX_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6974;
+    rr:subjectMap _:n3-6975;
+    rr:predicateObjectMap _:n3-6976.
+_:n3-6974 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6975 rr:class rico:Date;
+    rr:template "rr:template \"/KB/Date /{ DATEEX_BEGINNING}";
+    rr:termType rr:IRI.
+_:n3-6976 rr:predicate rdfs:label;
+    rr:objectMap _:n3-6977.
+_:n3-6977 rr:template "rr:template \"/KB/Date /{ DATEEX_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date____DATEEX_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6978;
+    rr:subjectMap _:n3-6979;
+    rr:predicateObjectMap _:n3-6980.
+_:n3-6978 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6979 rr:class rico:Date;
+    rr:template "rr:template \"/KB/Date /{ DATEEX_END}";
+    rr:termType rr:IRI.
+_:n3-6980 rr:predicate rdfs:label;
+    rr:objectMap _:n3-6981.
+_:n3-6981 rr:template "rr:template \"/KB/Date /{ DATEEX_END}";
+    rr:termType rr:Literal.
+:rr_template____KB___Mandate__AA_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6982;
+    rr:subjectMap _:n3-6983;
+    rr:predicateObjectMap _:n3-6996.
+_:n3-6982 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6983 rr:class rico:Mandate;
+    fnml:functionValue _:n3-6984;
+    rr:termType rr:IRI.
+_:n3-6984 rr:predicateObjectMap _:n3-6985, _:n3-6987, _:n3-6994.
+_:n3-6985 rr:predicate fno:executes;
+    rr:objectMap _:n3-6986.
+_:n3-6986 rr:constant grel:controls_if.
+_:n3-6987 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-6988.
+_:n3-6988 fnml:functionValue _:n3-6989.
+_:n3-6989 rr:predicateObjectMap _:n3-6990, _:n3-6992.
+_:n3-6990 rr:predicate fno:executes;
+    rr:objectMap _:n3-6991.
+_:n3-6991 rr:constant idlab-fn:isNull.
+_:n3-6992 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-6993.
+_:n3-6993 rml:reference "AA".
+_:n3-6994 rr:predicate grel:any_false;
+    rr:objectMap _:n3-6995.
+_:n3-6995 rr:template "rr:template \"/ KB / Mandate/{AA}".
+_:n3-6996 rr:predicate rdfs:label;
+    rr:objectMap _:n3-6997.
+_:n3-6997 rr:template "rr:template \"/ KB / Mandate/{AA}";
+    rr:termType rr:Literal.
+:rr_template____KB___AuthorityRecord__HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-6998;
+    rr:subjectMap _:n3-6999;
+    rr:predicateObjectMap _:n3-7012.
+_:n3-6998 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-6999 rr:class rico:Record;
+    fnml:functionValue _:n3-7000;
+    rr:termType rr:IRI.
+_:n3-7000 rr:predicateObjectMap _:n3-7001, _:n3-7003, _:n3-7010.
+_:n3-7001 rr:predicate fno:executes;
+    rr:objectMap _:n3-7002.
+_:n3-7002 rr:constant grel:controls_if.
+_:n3-7003 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7004.
+_:n3-7004 fnml:functionValue _:n3-7005.
+_:n3-7005 rr:predicateObjectMap _:n3-7006, _:n3-7008.
+_:n3-7006 rr:predicate fno:executes;
+    rr:objectMap _:n3-7007.
+_:n3-7007 rr:constant idlab-fn:isNull.
+_:n3-7008 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7009.
+_:n3-7009 rml:reference "HEADING".
+_:n3-7010 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7011.
+_:n3-7011 rr:template "rr:template \"/ KB / AuthorityRecord/{HEADING}".
+_:n3-7012 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7013.
+_:n3-7013 rr:template "rr:template \"/ KB / AuthorityRecord/{HEADING}";
+    rr:termType rr:Literal.
+:rr_constant____Schema_Authority__AuthorityRecord a rr:TriplesMap;
+    rml:logicalSource _:n3-7014;
+    rr:subjectMap _:n3-7015;
+    rr:predicateObjectMap _:n3-7016.
+_:n3-7014 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7015 rr:class rico:DocumentaryFormType;
+    rr:template "rr:constant \" /Schema/Authority/ AuthorityRecord";
+    rr:termType rr:IRI.
+_:n3-7016 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7017.
+_:n3-7017 rr:template "rr:constant \" /Schema/Authority/ AuthorityRecord";
+    rr:termType rr:Literal.
+:rr_template____Schema_Authority_WebReady____WEBA__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7018;
+    rr:subjectMap _:n3-7019;
+    rr:predicateObjectMap _:n3-7020.
+_:n3-7018 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7019 rr:class rico:RecordState;
+    rr:template "rr:template \"/ Schema/Authority/WebReady# { WEBA }";
+    rr:termType rr:IRI.
+_:n3-7020 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7021.
+_:n3-7021 rr:template "rr:template \"/ Schema/Authority/WebReady# { WEBA }";
+    rr:termType rr:Literal.
+:rr_template____Schema_Authority__Status____STATUSA__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7022;
+    rr:subjectMap _:n3-7023;
+    rr:predicateObjectMap _:n3-7024.
+_:n3-7022 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7023 rr:class rico:RecordState;
+    rr:template "rr:template \"/ Schema/Authority/ Status# { STATUSA }";
+    rr:termType rr:IRI.
+_:n3-7024 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7025.
+_:n3-7025 rr:template "rr:template \"/ Schema/Authority/ Status# { STATUSA }";
+    rr:termType rr:Literal.
+:rr_constant___Schema_Authority_AgencyReferenceCode a rr:TriplesMap;
+    rml:logicalSource _:n3-7026;
+    rr:subjectMap _:n3-7027;
+    rr:predicateObjectMap _:n3-7028.
+_:n3-7026 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7027 rr:class rico:IdentifierType;
+    rr:template "rr:constant \"/Schema/Authority/AgencyReferenceCode";
+    rr:termType rr:IRI.
+_:n3-7028 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7029.
+_:n3-7029 rr:template "rr:constant \"/Schema/Authority/AgencyReferenceCode";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_1_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7030;
+    rr:subjectMap _:n3-7031;
+    rr:predicateObjectMap _:n3-7044.
+_:n3-7030 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7031 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7032;
+    rr:termType rr:IRI.
+_:n3-7032 rr:predicateObjectMap _:n3-7033, _:n3-7035, _:n3-7042.
+_:n3-7033 rr:predicate fno:executes;
+    rr:objectMap _:n3-7034.
+_:n3-7034 rr:constant grel:controls_if.
+_:n3-7035 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7036.
+_:n3-7036 fnml:functionValue _:n3-7037.
+_:n3-7037 rr:predicateObjectMap _:n3-7038, _:n3-7040.
+_:n3-7038 rr:predicate fno:executes;
+    rr:objectMap _:n3-7039.
+_:n3-7039 rr:constant idlab-fn:isNull.
+_:n3-7040 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7041.
+_:n3-7041 rml:reference "CONTAG_1".
+_:n3-7042 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7043.
+_:n3-7043 rr:template "rr:template\"/KB/Agent/{CONTAG_1}".
+_:n3-7044 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7045.
+_:n3-7045 rr:template "rr:template\"/KB/Agent/{CONTAG_1}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_2_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7046;
+    rr:subjectMap _:n3-7047;
+    rr:predicateObjectMap _:n3-7060.
+_:n3-7046 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7047 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7048;
+    rr:termType rr:IRI.
+_:n3-7048 rr:predicateObjectMap _:n3-7049, _:n3-7051, _:n3-7058.
+_:n3-7049 rr:predicate fno:executes;
+    rr:objectMap _:n3-7050.
+_:n3-7050 rr:constant grel:controls_if.
+_:n3-7051 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7052.
+_:n3-7052 fnml:functionValue _:n3-7053.
+_:n3-7053 rr:predicateObjectMap _:n3-7054, _:n3-7056.
+_:n3-7054 rr:predicate fno:executes;
+    rr:objectMap _:n3-7055.
+_:n3-7055 rr:constant idlab-fn:isNull.
+_:n3-7056 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7057.
+_:n3-7057 rml:reference "CONTAG_2".
+_:n3-7058 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7059.
+_:n3-7059 rr:template "rr:template\"/KB/Agent/{CONTAG_2}".
+_:n3-7060 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7061.
+_:n3-7061 rr:template "rr:template\"/KB/Agent/{CONTAG_2}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_3_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7062;
+    rr:subjectMap _:n3-7063;
+    rr:predicateObjectMap _:n3-7076.
+_:n3-7062 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7063 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7064;
+    rr:termType rr:IRI.
+_:n3-7064 rr:predicateObjectMap _:n3-7065, _:n3-7067, _:n3-7074.
+_:n3-7065 rr:predicate fno:executes;
+    rr:objectMap _:n3-7066.
+_:n3-7066 rr:constant grel:controls_if.
+_:n3-7067 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7068.
+_:n3-7068 fnml:functionValue _:n3-7069.
+_:n3-7069 rr:predicateObjectMap _:n3-7070, _:n3-7072.
+_:n3-7070 rr:predicate fno:executes;
+    rr:objectMap _:n3-7071.
+_:n3-7071 rr:constant idlab-fn:isNull.
+_:n3-7072 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7073.
+_:n3-7073 rml:reference "CONTAG_3".
+_:n3-7074 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7075.
+_:n3-7075 rr:template "rr:template\"/KB/Agent/{CONTAG_3}".
+_:n3-7076 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7077.
+_:n3-7077 rr:template "rr:template\"/KB/Agent/{CONTAG_3}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_4_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7078;
+    rr:subjectMap _:n3-7079;
+    rr:predicateObjectMap _:n3-7092.
+_:n3-7078 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7079 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7080;
+    rr:termType rr:IRI.
+_:n3-7080 rr:predicateObjectMap _:n3-7081, _:n3-7083, _:n3-7090.
+_:n3-7081 rr:predicate fno:executes;
+    rr:objectMap _:n3-7082.
+_:n3-7082 rr:constant grel:controls_if.
+_:n3-7083 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7084.
+_:n3-7084 fnml:functionValue _:n3-7085.
+_:n3-7085 rr:predicateObjectMap _:n3-7086, _:n3-7088.
+_:n3-7086 rr:predicate fno:executes;
+    rr:objectMap _:n3-7087.
+_:n3-7087 rr:constant idlab-fn:isNull.
+_:n3-7088 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7089.
+_:n3-7089 rml:reference "CONTAG_4".
+_:n3-7090 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7091.
+_:n3-7091 rr:template "rr:template\"/KB/Agent/{CONTAG_4}".
+_:n3-7092 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7093.
+_:n3-7093 rr:template "rr:template\"/KB/Agent/{CONTAG_4}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_5_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7094;
+    rr:subjectMap _:n3-7095;
+    rr:predicateObjectMap _:n3-7108.
+_:n3-7094 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7095 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7096;
+    rr:termType rr:IRI.
+_:n3-7096 rr:predicateObjectMap _:n3-7097, _:n3-7099, _:n3-7106.
+_:n3-7097 rr:predicate fno:executes;
+    rr:objectMap _:n3-7098.
+_:n3-7098 rr:constant grel:controls_if.
+_:n3-7099 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7100.
+_:n3-7100 fnml:functionValue _:n3-7101.
+_:n3-7101 rr:predicateObjectMap _:n3-7102, _:n3-7104.
+_:n3-7102 rr:predicate fno:executes;
+    rr:objectMap _:n3-7103.
+_:n3-7103 rr:constant idlab-fn:isNull.
+_:n3-7104 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7105.
+_:n3-7105 rml:reference "CONTAG_5".
+_:n3-7106 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7107.
+_:n3-7107 rr:template "rr:template\"/KB/Agent/{CONTAG_5}".
+_:n3-7108 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7109.
+_:n3-7109 rr:template "rr:template\"/KB/Agent/{CONTAG_5}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_6_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7110;
+    rr:subjectMap _:n3-7111;
+    rr:predicateObjectMap _:n3-7124.
+_:n3-7110 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7111 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7112;
+    rr:termType rr:IRI.
+_:n3-7112 rr:predicateObjectMap _:n3-7113, _:n3-7115, _:n3-7122.
+_:n3-7113 rr:predicate fno:executes;
+    rr:objectMap _:n3-7114.
+_:n3-7114 rr:constant grel:controls_if.
+_:n3-7115 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7116.
+_:n3-7116 fnml:functionValue _:n3-7117.
+_:n3-7117 rr:predicateObjectMap _:n3-7118, _:n3-7120.
+_:n3-7118 rr:predicate fno:executes;
+    rr:objectMap _:n3-7119.
+_:n3-7119 rr:constant idlab-fn:isNull.
+_:n3-7120 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7121.
+_:n3-7121 rml:reference "CONTAG_6".
+_:n3-7122 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7123.
+_:n3-7123 rr:template "rr:template\"/KB/Agent/{CONTAG_6}".
+_:n3-7124 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7125.
+_:n3-7125 rr:template "rr:template\"/KB/Agent/{CONTAG_6}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_7_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7126;
+    rr:subjectMap _:n3-7127;
+    rr:predicateObjectMap _:n3-7140.
+_:n3-7126 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7127 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7128;
+    rr:termType rr:IRI.
+_:n3-7128 rr:predicateObjectMap _:n3-7129, _:n3-7131, _:n3-7138.
+_:n3-7129 rr:predicate fno:executes;
+    rr:objectMap _:n3-7130.
+_:n3-7130 rr:constant grel:controls_if.
+_:n3-7131 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7132.
+_:n3-7132 fnml:functionValue _:n3-7133.
+_:n3-7133 rr:predicateObjectMap _:n3-7134, _:n3-7136.
+_:n3-7134 rr:predicate fno:executes;
+    rr:objectMap _:n3-7135.
+_:n3-7135 rr:constant idlab-fn:isNull.
+_:n3-7136 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7137.
+_:n3-7137 rml:reference "CONTAG_7".
+_:n3-7138 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7139.
+_:n3-7139 rr:template "rr:template\"/KB/Agent/{CONTAG_7}".
+_:n3-7140 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7141.
+_:n3-7141 rr:template "rr:template\"/KB/Agent/{CONTAG_7}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_8_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7142;
+    rr:subjectMap _:n3-7143;
+    rr:predicateObjectMap _:n3-7156.
+_:n3-7142 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7143 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7144;
+    rr:termType rr:IRI.
+_:n3-7144 rr:predicateObjectMap _:n3-7145, _:n3-7147, _:n3-7154.
+_:n3-7145 rr:predicate fno:executes;
+    rr:objectMap _:n3-7146.
+_:n3-7146 rr:constant grel:controls_if.
+_:n3-7147 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7148.
+_:n3-7148 fnml:functionValue _:n3-7149.
+_:n3-7149 rr:predicateObjectMap _:n3-7150, _:n3-7152.
+_:n3-7150 rr:predicate fno:executes;
+    rr:objectMap _:n3-7151.
+_:n3-7151 rr:constant idlab-fn:isNull.
+_:n3-7152 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7153.
+_:n3-7153 rml:reference "CONTAG_8".
+_:n3-7154 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7155.
+_:n3-7155 rr:template "rr:template\"/KB/Agent/{CONTAG_8}".
+_:n3-7156 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7157.
+_:n3-7157 rr:template "rr:template\"/KB/Agent/{CONTAG_8}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_9_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7158;
+    rr:subjectMap _:n3-7159;
+    rr:predicateObjectMap _:n3-7172.
+_:n3-7158 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7159 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7160;
+    rr:termType rr:IRI.
+_:n3-7160 rr:predicateObjectMap _:n3-7161, _:n3-7163, _:n3-7170.
+_:n3-7161 rr:predicate fno:executes;
+    rr:objectMap _:n3-7162.
+_:n3-7162 rr:constant grel:controls_if.
+_:n3-7163 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7164.
+_:n3-7164 fnml:functionValue _:n3-7165.
+_:n3-7165 rr:predicateObjectMap _:n3-7166, _:n3-7168.
+_:n3-7166 rr:predicate fno:executes;
+    rr:objectMap _:n3-7167.
+_:n3-7167 rr:constant idlab-fn:isNull.
+_:n3-7168 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7169.
+_:n3-7169 rml:reference "CONTAG_9".
+_:n3-7170 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7171.
+_:n3-7171 rr:template "rr:template\"/KB/Agent/{CONTAG_9}".
+_:n3-7172 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7173.
+_:n3-7173 rr:template "rr:template\"/KB/Agent/{CONTAG_9}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_10_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7174;
+    rr:subjectMap _:n3-7175;
+    rr:predicateObjectMap _:n3-7188.
+_:n3-7174 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7175 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7176;
+    rr:termType rr:IRI.
+_:n3-7176 rr:predicateObjectMap _:n3-7177, _:n3-7179, _:n3-7186.
+_:n3-7177 rr:predicate fno:executes;
+    rr:objectMap _:n3-7178.
+_:n3-7178 rr:constant grel:controls_if.
+_:n3-7179 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7180.
+_:n3-7180 fnml:functionValue _:n3-7181.
+_:n3-7181 rr:predicateObjectMap _:n3-7182, _:n3-7184.
+_:n3-7182 rr:predicate fno:executes;
+    rr:objectMap _:n3-7183.
+_:n3-7183 rr:constant idlab-fn:isNull.
+_:n3-7184 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7185.
+_:n3-7185 rml:reference "CONTAG_10".
+_:n3-7186 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7187.
+_:n3-7187 rr:template "rr:template\"/KB/Agent/{CONTAG_10}".
+_:n3-7188 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7189.
+_:n3-7189 rr:template "rr:template\"/KB/Agent/{CONTAG_10}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_11_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7190;
+    rr:subjectMap _:n3-7191;
+    rr:predicateObjectMap _:n3-7204.
+_:n3-7190 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7191 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7192;
+    rr:termType rr:IRI.
+_:n3-7192 rr:predicateObjectMap _:n3-7193, _:n3-7195, _:n3-7202.
+_:n3-7193 rr:predicate fno:executes;
+    rr:objectMap _:n3-7194.
+_:n3-7194 rr:constant grel:controls_if.
+_:n3-7195 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7196.
+_:n3-7196 fnml:functionValue _:n3-7197.
+_:n3-7197 rr:predicateObjectMap _:n3-7198, _:n3-7200.
+_:n3-7198 rr:predicate fno:executes;
+    rr:objectMap _:n3-7199.
+_:n3-7199 rr:constant idlab-fn:isNull.
+_:n3-7200 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7201.
+_:n3-7201 rml:reference "CONTAG_11".
+_:n3-7202 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7203.
+_:n3-7203 rr:template "rr:template\"/KB/Agent/{CONTAG_11}".
+_:n3-7204 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7205.
+_:n3-7205 rr:template "rr:template\"/KB/Agent/{CONTAG_11}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_12_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7206;
+    rr:subjectMap _:n3-7207;
+    rr:predicateObjectMap _:n3-7220.
+_:n3-7206 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7207 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7208;
+    rr:termType rr:IRI.
+_:n3-7208 rr:predicateObjectMap _:n3-7209, _:n3-7211, _:n3-7218.
+_:n3-7209 rr:predicate fno:executes;
+    rr:objectMap _:n3-7210.
+_:n3-7210 rr:constant grel:controls_if.
+_:n3-7211 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7212.
+_:n3-7212 fnml:functionValue _:n3-7213.
+_:n3-7213 rr:predicateObjectMap _:n3-7214, _:n3-7216.
+_:n3-7214 rr:predicate fno:executes;
+    rr:objectMap _:n3-7215.
+_:n3-7215 rr:constant idlab-fn:isNull.
+_:n3-7216 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7217.
+_:n3-7217 rml:reference "CONTAG_12".
+_:n3-7218 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7219.
+_:n3-7219 rr:template "rr:template\"/KB/Agent/{CONTAG_12}".
+_:n3-7220 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7221.
+_:n3-7221 rr:template "rr:template\"/KB/Agent/{CONTAG_12}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_13_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7222;
+    rr:subjectMap _:n3-7223;
+    rr:predicateObjectMap _:n3-7236.
+_:n3-7222 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7223 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7224;
+    rr:termType rr:IRI.
+_:n3-7224 rr:predicateObjectMap _:n3-7225, _:n3-7227, _:n3-7234.
+_:n3-7225 rr:predicate fno:executes;
+    rr:objectMap _:n3-7226.
+_:n3-7226 rr:constant grel:controls_if.
+_:n3-7227 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7228.
+_:n3-7228 fnml:functionValue _:n3-7229.
+_:n3-7229 rr:predicateObjectMap _:n3-7230, _:n3-7232.
+_:n3-7230 rr:predicate fno:executes;
+    rr:objectMap _:n3-7231.
+_:n3-7231 rr:constant idlab-fn:isNull.
+_:n3-7232 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7233.
+_:n3-7233 rml:reference "CONTAG_13".
+_:n3-7234 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7235.
+_:n3-7235 rr:template "rr:template\"/KB/Agent/{CONTAG_13}".
+_:n3-7236 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7237.
+_:n3-7237 rr:template "rr:template\"/KB/Agent/{CONTAG_13}";
+    rr:termType rr:Literal.
+:rr_template__KB_Agent__CONTAG_14_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7238;
+    rr:subjectMap _:n3-7239;
+    rr:predicateObjectMap _:n3-7252.
+_:n3-7238 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7239 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-7240;
+    rr:termType rr:IRI.
+_:n3-7240 rr:predicateObjectMap _:n3-7241, _:n3-7243, _:n3-7250.
+_:n3-7241 rr:predicate fno:executes;
+    rr:objectMap _:n3-7242.
+_:n3-7242 rr:constant grel:controls_if.
+_:n3-7243 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7244.
+_:n3-7244 fnml:functionValue _:n3-7245.
+_:n3-7245 rr:predicateObjectMap _:n3-7246, _:n3-7248.
+_:n3-7246 rr:predicate fno:executes;
+    rr:objectMap _:n3-7247.
+_:n3-7247 rr:constant idlab-fn:isNull.
+_:n3-7248 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7249.
+_:n3-7249 rml:reference "CONTAG_14".
+_:n3-7250 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7251.
+_:n3-7251 rr:template "rr:template\"/KB/Agent/{CONTAG_14}".
+_:n3-7252 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7253.
+_:n3-7253 rr:template "rr:template\"/KB/Agent/{CONTAG_14}";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_1___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7254;
+    rr:subjectMap _:n3-7255;
+    rr:predicateObjectMap _:n3-7268.
+_:n3-7254 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7255 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7256;
+    rr:termType rr:IRI.
+_:n3-7256 rr:predicateObjectMap _:n3-7257, _:n3-7259, _:n3-7266.
+_:n3-7257 rr:predicate fno:executes;
+    rr:objectMap _:n3-7258.
+_:n3-7258 rr:constant grel:controls_if.
+_:n3-7259 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7260.
+_:n3-7260 fnml:functionValue _:n3-7261.
+_:n3-7261 rr:predicateObjectMap _:n3-7262, _:n3-7264.
+_:n3-7262 rr:predicate fno:executes;
+    rr:objectMap _:n3-7263.
+_:n3-7263 rr:constant idlab-fn:isNull.
+_:n3-7264 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7265.
+_:n3-7265 rml:reference "CONTAG_1".
+_:n3-7266 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7267.
+_:n3-7267 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_1}/{HEADING}/urn:uuid:urn:uuid:3e443793-458a-556e-8bfe-9aed07626299".
+_:n3-7268 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7269.
+_:n3-7269 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_1}/{HEADING}/urn:uuid:urn:uuid:3e443793-458a-556e-8bfe-9aed07626299";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_2___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7270;
+    rr:subjectMap _:n3-7271;
+    rr:predicateObjectMap _:n3-7284.
+_:n3-7270 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7271 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7272;
+    rr:termType rr:IRI.
+_:n3-7272 rr:predicateObjectMap _:n3-7273, _:n3-7275, _:n3-7282.
+_:n3-7273 rr:predicate fno:executes;
+    rr:objectMap _:n3-7274.
+_:n3-7274 rr:constant grel:controls_if.
+_:n3-7275 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7276.
+_:n3-7276 fnml:functionValue _:n3-7277.
+_:n3-7277 rr:predicateObjectMap _:n3-7278, _:n3-7280.
+_:n3-7278 rr:predicate fno:executes;
+    rr:objectMap _:n3-7279.
+_:n3-7279 rr:constant idlab-fn:isNull.
+_:n3-7280 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7281.
+_:n3-7281 rml:reference "CONTAG_2".
+_:n3-7282 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7283.
+_:n3-7283 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_2}/{HEADING}/urn:uuid:urn:uuid:c087be93-691c-5afa-964b-3ac34ad79dc4".
+_:n3-7284 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7285.
+_:n3-7285 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_2}/{HEADING}/urn:uuid:urn:uuid:c087be93-691c-5afa-964b-3ac34ad79dc4";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_3___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7286;
+    rr:subjectMap _:n3-7287;
+    rr:predicateObjectMap _:n3-7300.
+_:n3-7286 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7287 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7288;
+    rr:termType rr:IRI.
+_:n3-7288 rr:predicateObjectMap _:n3-7289, _:n3-7291, _:n3-7298.
+_:n3-7289 rr:predicate fno:executes;
+    rr:objectMap _:n3-7290.
+_:n3-7290 rr:constant grel:controls_if.
+_:n3-7291 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7292.
+_:n3-7292 fnml:functionValue _:n3-7293.
+_:n3-7293 rr:predicateObjectMap _:n3-7294, _:n3-7296.
+_:n3-7294 rr:predicate fno:executes;
+    rr:objectMap _:n3-7295.
+_:n3-7295 rr:constant idlab-fn:isNull.
+_:n3-7296 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7297.
+_:n3-7297 rml:reference "CONTAG_3".
+_:n3-7298 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7299.
+_:n3-7299 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_3}/{HEADING}/urn:uuid:urn:uuid:19e413f9-6dcf-5e0b-bd02-7f3810a84a36".
+_:n3-7300 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7301.
+_:n3-7301 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_3}/{HEADING}/urn:uuid:urn:uuid:19e413f9-6dcf-5e0b-bd02-7f3810a84a36";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_4___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7302;
+    rr:subjectMap _:n3-7303;
+    rr:predicateObjectMap _:n3-7316.
+_:n3-7302 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7303 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7304;
+    rr:termType rr:IRI.
+_:n3-7304 rr:predicateObjectMap _:n3-7305, _:n3-7307, _:n3-7314.
+_:n3-7305 rr:predicate fno:executes;
+    rr:objectMap _:n3-7306.
+_:n3-7306 rr:constant grel:controls_if.
+_:n3-7307 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7308.
+_:n3-7308 fnml:functionValue _:n3-7309.
+_:n3-7309 rr:predicateObjectMap _:n3-7310, _:n3-7312.
+_:n3-7310 rr:predicate fno:executes;
+    rr:objectMap _:n3-7311.
+_:n3-7311 rr:constant idlab-fn:isNull.
+_:n3-7312 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7313.
+_:n3-7313 rml:reference "CONTAG_4".
+_:n3-7314 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7315.
+_:n3-7315 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_4}/{HEADING}/urn:uuid:urn:uuid:e34d51ef-a99b-5eaf-b0a0-dc32d4c24cbb".
+_:n3-7316 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7317.
+_:n3-7317 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_4}/{HEADING}/urn:uuid:urn:uuid:e34d51ef-a99b-5eaf-b0a0-dc32d4c24cbb";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_5___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7318;
+    rr:subjectMap _:n3-7319;
+    rr:predicateObjectMap _:n3-7332.
+_:n3-7318 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7319 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7320;
+    rr:termType rr:IRI.
+_:n3-7320 rr:predicateObjectMap _:n3-7321, _:n3-7323, _:n3-7330.
+_:n3-7321 rr:predicate fno:executes;
+    rr:objectMap _:n3-7322.
+_:n3-7322 rr:constant grel:controls_if.
+_:n3-7323 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7324.
+_:n3-7324 fnml:functionValue _:n3-7325.
+_:n3-7325 rr:predicateObjectMap _:n3-7326, _:n3-7328.
+_:n3-7326 rr:predicate fno:executes;
+    rr:objectMap _:n3-7327.
+_:n3-7327 rr:constant idlab-fn:isNull.
+_:n3-7328 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7329.
+_:n3-7329 rml:reference "CONTAG_5".
+_:n3-7330 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7331.
+_:n3-7331 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_5}/{HEADING}/urn:uuid:urn:uuid:e6a6b73d-94df-536a-92a2-04db302a1382".
+_:n3-7332 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7333.
+_:n3-7333 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_5}/{HEADING}/urn:uuid:urn:uuid:e6a6b73d-94df-536a-92a2-04db302a1382";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_6___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7334;
+    rr:subjectMap _:n3-7335;
+    rr:predicateObjectMap _:n3-7348.
+_:n3-7334 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7335 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7336;
+    rr:termType rr:IRI.
+_:n3-7336 rr:predicateObjectMap _:n3-7337, _:n3-7339, _:n3-7346.
+_:n3-7337 rr:predicate fno:executes;
+    rr:objectMap _:n3-7338.
+_:n3-7338 rr:constant grel:controls_if.
+_:n3-7339 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7340.
+_:n3-7340 fnml:functionValue _:n3-7341.
+_:n3-7341 rr:predicateObjectMap _:n3-7342, _:n3-7344.
+_:n3-7342 rr:predicate fno:executes;
+    rr:objectMap _:n3-7343.
+_:n3-7343 rr:constant idlab-fn:isNull.
+_:n3-7344 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7345.
+_:n3-7345 rml:reference "CONTAG_6".
+_:n3-7346 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7347.
+_:n3-7347 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_6}/{HEADING}/urn:uuid:urn:uuid:fefb7a2e-9814-58ff-84a8-090808c0ae54".
+_:n3-7348 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7349.
+_:n3-7349 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_6}/{HEADING}/urn:uuid:urn:uuid:fefb7a2e-9814-58ff-84a8-090808c0ae54";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_7___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7350;
+    rr:subjectMap _:n3-7351;
+    rr:predicateObjectMap _:n3-7364.
+_:n3-7350 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7351 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7352;
+    rr:termType rr:IRI.
+_:n3-7352 rr:predicateObjectMap _:n3-7353, _:n3-7355, _:n3-7362.
+_:n3-7353 rr:predicate fno:executes;
+    rr:objectMap _:n3-7354.
+_:n3-7354 rr:constant grel:controls_if.
+_:n3-7355 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7356.
+_:n3-7356 fnml:functionValue _:n3-7357.
+_:n3-7357 rr:predicateObjectMap _:n3-7358, _:n3-7360.
+_:n3-7358 rr:predicate fno:executes;
+    rr:objectMap _:n3-7359.
+_:n3-7359 rr:constant idlab-fn:isNull.
+_:n3-7360 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7361.
+_:n3-7361 rml:reference "CONTAG_7".
+_:n3-7362 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7363.
+_:n3-7363 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_7}/{HEADING}/urn:uuid:urn:uuid:9fd56e6d-897d-5c41-bf11-18af1bc4f087".
+_:n3-7364 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7365.
+_:n3-7365 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_7}/{HEADING}/urn:uuid:urn:uuid:9fd56e6d-897d-5c41-bf11-18af1bc4f087";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_8___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7366;
+    rr:subjectMap _:n3-7367;
+    rr:predicateObjectMap _:n3-7380.
+_:n3-7366 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7367 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7368;
+    rr:termType rr:IRI.
+_:n3-7368 rr:predicateObjectMap _:n3-7369, _:n3-7371, _:n3-7378.
+_:n3-7369 rr:predicate fno:executes;
+    rr:objectMap _:n3-7370.
+_:n3-7370 rr:constant grel:controls_if.
+_:n3-7371 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7372.
+_:n3-7372 fnml:functionValue _:n3-7373.
+_:n3-7373 rr:predicateObjectMap _:n3-7374, _:n3-7376.
+_:n3-7374 rr:predicate fno:executes;
+    rr:objectMap _:n3-7375.
+_:n3-7375 rr:constant idlab-fn:isNull.
+_:n3-7376 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7377.
+_:n3-7377 rml:reference "CONTAG_8".
+_:n3-7378 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7379.
+_:n3-7379 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_8}/{HEADING}/urn:uuid:urn:uuid:61b7d59f-8785-5065-9301-20ff00a75c9b".
+_:n3-7380 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7381.
+_:n3-7381 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_8}/{HEADING}/urn:uuid:urn:uuid:61b7d59f-8785-5065-9301-20ff00a75c9b";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_9___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7382;
+    rr:subjectMap _:n3-7383;
+    rr:predicateObjectMap _:n3-7396.
+_:n3-7382 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7383 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7384;
+    rr:termType rr:IRI.
+_:n3-7384 rr:predicateObjectMap _:n3-7385, _:n3-7387, _:n3-7394.
+_:n3-7385 rr:predicate fno:executes;
+    rr:objectMap _:n3-7386.
+_:n3-7386 rr:constant grel:controls_if.
+_:n3-7387 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7388.
+_:n3-7388 fnml:functionValue _:n3-7389.
+_:n3-7389 rr:predicateObjectMap _:n3-7390, _:n3-7392.
+_:n3-7390 rr:predicate fno:executes;
+    rr:objectMap _:n3-7391.
+_:n3-7391 rr:constant idlab-fn:isNull.
+_:n3-7392 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7393.
+_:n3-7393 rml:reference "CONTAG_9".
+_:n3-7394 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7395.
+_:n3-7395 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_9}/{HEADING}/urn:uuid:urn:uuid:81bb3ed5-3e61-57ce-a401-e5b87b0e209f".
+_:n3-7396 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7397.
+_:n3-7397 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_9}/{HEADING}/urn:uuid:urn:uuid:81bb3ed5-3e61-57ce-a401-e5b87b0e209f";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_10___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7398;
+    rr:subjectMap _:n3-7399;
+    rr:predicateObjectMap _:n3-7412.
+_:n3-7398 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7399 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7400;
+    rr:termType rr:IRI.
+_:n3-7400 rr:predicateObjectMap _:n3-7401, _:n3-7403, _:n3-7410.
+_:n3-7401 rr:predicate fno:executes;
+    rr:objectMap _:n3-7402.
+_:n3-7402 rr:constant grel:controls_if.
+_:n3-7403 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7404.
+_:n3-7404 fnml:functionValue _:n3-7405.
+_:n3-7405 rr:predicateObjectMap _:n3-7406, _:n3-7408.
+_:n3-7406 rr:predicate fno:executes;
+    rr:objectMap _:n3-7407.
+_:n3-7407 rr:constant idlab-fn:isNull.
+_:n3-7408 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7409.
+_:n3-7409 rml:reference "CONTAG_10".
+_:n3-7410 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7411.
+_:n3-7411 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_10}/{HEADING}/urn:uuid:urn:uuid:e0e86b62-63e4-573c-957d-748dd8659f25".
+_:n3-7412 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7413.
+_:n3-7413 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_10}/{HEADING}/urn:uuid:urn:uuid:e0e86b62-63e4-573c-957d-748dd8659f25";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_11___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7414;
+    rr:subjectMap _:n3-7415;
+    rr:predicateObjectMap _:n3-7428.
+_:n3-7414 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7415 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7416;
+    rr:termType rr:IRI.
+_:n3-7416 rr:predicateObjectMap _:n3-7417, _:n3-7419, _:n3-7426.
+_:n3-7417 rr:predicate fno:executes;
+    rr:objectMap _:n3-7418.
+_:n3-7418 rr:constant grel:controls_if.
+_:n3-7419 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7420.
+_:n3-7420 fnml:functionValue _:n3-7421.
+_:n3-7421 rr:predicateObjectMap _:n3-7422, _:n3-7424.
+_:n3-7422 rr:predicate fno:executes;
+    rr:objectMap _:n3-7423.
+_:n3-7423 rr:constant idlab-fn:isNull.
+_:n3-7424 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7425.
+_:n3-7425 rml:reference "CONTAG_11".
+_:n3-7426 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7427.
+_:n3-7427 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_11}/{HEADING}/urn:uuid:urn:uuid:81590905-b648-5a0b-b672-58033f54910e".
+_:n3-7428 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7429.
+_:n3-7429 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_11}/{HEADING}/urn:uuid:urn:uuid:81590905-b648-5a0b-b672-58033f54910e";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_12___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7430;
+    rr:subjectMap _:n3-7431;
+    rr:predicateObjectMap _:n3-7444.
+_:n3-7430 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7431 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7432;
+    rr:termType rr:IRI.
+_:n3-7432 rr:predicateObjectMap _:n3-7433, _:n3-7435, _:n3-7442.
+_:n3-7433 rr:predicate fno:executes;
+    rr:objectMap _:n3-7434.
+_:n3-7434 rr:constant grel:controls_if.
+_:n3-7435 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7436.
+_:n3-7436 fnml:functionValue _:n3-7437.
+_:n3-7437 rr:predicateObjectMap _:n3-7438, _:n3-7440.
+_:n3-7438 rr:predicate fno:executes;
+    rr:objectMap _:n3-7439.
+_:n3-7439 rr:constant idlab-fn:isNull.
+_:n3-7440 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7441.
+_:n3-7441 rml:reference "CONTAG_12".
+_:n3-7442 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7443.
+_:n3-7443 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_12}/{HEADING}/urn:uuid:urn:uuid:64563b9d-06ef-518d-913c-9e148f6614ee".
+_:n3-7444 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7445.
+_:n3-7445 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_12}/{HEADING}/urn:uuid:urn:uuid:64563b9d-06ef-518d-913c-9e148f6614ee";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_13___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7446;
+    rr:subjectMap _:n3-7447;
+    rr:predicateObjectMap _:n3-7460.
+_:n3-7446 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7447 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7448;
+    rr:termType rr:IRI.
+_:n3-7448 rr:predicateObjectMap _:n3-7449, _:n3-7451, _:n3-7458.
+_:n3-7449 rr:predicate fno:executes;
+    rr:objectMap _:n3-7450.
+_:n3-7450 rr:constant grel:controls_if.
+_:n3-7451 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7452.
+_:n3-7452 fnml:functionValue _:n3-7453.
+_:n3-7453 rr:predicateObjectMap _:n3-7454, _:n3-7456.
+_:n3-7454 rr:predicate fno:executes;
+    rr:objectMap _:n3-7455.
+_:n3-7455 rr:constant idlab-fn:isNull.
+_:n3-7456 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7457.
+_:n3-7457 rml:reference "CONTAG_13".
+_:n3-7458 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7459.
+_:n3-7459 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_13}/{HEADING}/urn:uuid:urn:uuid:7435b507-026b-5245-8e0a-eda7796d4adc".
+_:n3-7460 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7461.
+_:n3-7461 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_13}/{HEADING}/urn:uuid:urn:uuid:7435b507-026b-5245-8e0a-eda7796d4adc";
+    rr:termType rr:Literal.
+:rr_template__KB_AgentControlRelation__CONTAG_14___HEADING__urn_uuid__UUID_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7462;
+    rr:subjectMap _:n3-7463;
+    rr:predicateObjectMap _:n3-7476.
+_:n3-7462 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7463 rr:class rico:AgentControlRelation;
+    fnml:functionValue _:n3-7464;
+    rr:termType rr:IRI.
+_:n3-7464 rr:predicateObjectMap _:n3-7465, _:n3-7467, _:n3-7474.
+_:n3-7465 rr:predicate fno:executes;
+    rr:objectMap _:n3-7466.
+_:n3-7466 rr:constant grel:controls_if.
+_:n3-7467 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7468.
+_:n3-7468 fnml:functionValue _:n3-7469.
+_:n3-7469 rr:predicateObjectMap _:n3-7470, _:n3-7472.
+_:n3-7470 rr:predicate fno:executes;
+    rr:objectMap _:n3-7471.
+_:n3-7471 rr:constant idlab-fn:isNull.
+_:n3-7472 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7473.
+_:n3-7473 rml:reference "CONTAG_14".
+_:n3-7474 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7475.
+_:n3-7475 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_14}/{HEADING}/urn:uuid:urn:uuid:1c9aa791-7d94-5e30-8c4d-782a48f4fac2".
+_:n3-7476 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7477.
+_:n3-7477 rr:template "rr:template\"/KB/AgentControlRelation/{CONTAG_14}/{HEADING}/urn:uuid:urn:uuid:1c9aa791-7d94-5e30-8c4d-782a48f4fac2";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_1_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7478;
+    rr:subjectMap _:n3-7479;
+    rr:predicateObjectMap _:n3-7492.
+_:n3-7478 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7479 rr:class rico:Date;
+    fnml:functionValue _:n3-7480;
+    rr:termType rr:IRI.
+_:n3-7480 rr:predicateObjectMap _:n3-7481, _:n3-7483, _:n3-7490.
+_:n3-7481 rr:predicate fno:executes;
+    rr:objectMap _:n3-7482.
+_:n3-7482 rr:constant grel:controls_if.
+_:n3-7483 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7484.
+_:n3-7484 fnml:functionValue _:n3-7485.
+_:n3-7485 rr:predicateObjectMap _:n3-7486, _:n3-7488.
+_:n3-7486 rr:predicate fno:executes;
+    rr:objectMap _:n3-7487.
+_:n3-7487 rr:constant idlab-fn:isNull.
+_:n3-7488 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7489.
+_:n3-7489 rml:reference "DATECONT_1_BEGINNING".
+_:n3-7490 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7491.
+_:n3-7491 rr:template "rr:template \"/KB/Date/{DATECONT_1_BEGINNING}".
+_:n3-7492 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7493.
+_:n3-7493 rr:template "rr:template \"/KB/Date/{DATECONT_1_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_2_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7494;
+    rr:subjectMap _:n3-7495;
+    rr:predicateObjectMap _:n3-7508.
+_:n3-7494 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7495 rr:class rico:Date;
+    fnml:functionValue _:n3-7496;
+    rr:termType rr:IRI.
+_:n3-7496 rr:predicateObjectMap _:n3-7497, _:n3-7499, _:n3-7506.
+_:n3-7497 rr:predicate fno:executes;
+    rr:objectMap _:n3-7498.
+_:n3-7498 rr:constant grel:controls_if.
+_:n3-7499 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7500.
+_:n3-7500 fnml:functionValue _:n3-7501.
+_:n3-7501 rr:predicateObjectMap _:n3-7502, _:n3-7504.
+_:n3-7502 rr:predicate fno:executes;
+    rr:objectMap _:n3-7503.
+_:n3-7503 rr:constant idlab-fn:isNull.
+_:n3-7504 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7505.
+_:n3-7505 rml:reference "DATECONT_2_BEGINNING".
+_:n3-7506 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7507.
+_:n3-7507 rr:template "rr:template \"/KB/Date/{DATECONT_2_BEGINNING}".
+_:n3-7508 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7509.
+_:n3-7509 rr:template "rr:template \"/KB/Date/{DATECONT_2_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_3_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7510;
+    rr:subjectMap _:n3-7511;
+    rr:predicateObjectMap _:n3-7524.
+_:n3-7510 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7511 rr:class rico:Date;
+    fnml:functionValue _:n3-7512;
+    rr:termType rr:IRI.
+_:n3-7512 rr:predicateObjectMap _:n3-7513, _:n3-7515, _:n3-7522.
+_:n3-7513 rr:predicate fno:executes;
+    rr:objectMap _:n3-7514.
+_:n3-7514 rr:constant grel:controls_if.
+_:n3-7515 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7516.
+_:n3-7516 fnml:functionValue _:n3-7517.
+_:n3-7517 rr:predicateObjectMap _:n3-7518, _:n3-7520.
+_:n3-7518 rr:predicate fno:executes;
+    rr:objectMap _:n3-7519.
+_:n3-7519 rr:constant idlab-fn:isNull.
+_:n3-7520 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7521.
+_:n3-7521 rml:reference "DATECONT_3_BEGINNING".
+_:n3-7522 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7523.
+_:n3-7523 rr:template "rr:template \"/KB/Date/{DATECONT_3_BEGINNING}".
+_:n3-7524 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7525.
+_:n3-7525 rr:template "rr:template \"/KB/Date/{DATECONT_3_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_4_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7526;
+    rr:subjectMap _:n3-7527;
+    rr:predicateObjectMap _:n3-7540.
+_:n3-7526 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7527 rr:class rico:Date;
+    fnml:functionValue _:n3-7528;
+    rr:termType rr:IRI.
+_:n3-7528 rr:predicateObjectMap _:n3-7529, _:n3-7531, _:n3-7538.
+_:n3-7529 rr:predicate fno:executes;
+    rr:objectMap _:n3-7530.
+_:n3-7530 rr:constant grel:controls_if.
+_:n3-7531 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7532.
+_:n3-7532 fnml:functionValue _:n3-7533.
+_:n3-7533 rr:predicateObjectMap _:n3-7534, _:n3-7536.
+_:n3-7534 rr:predicate fno:executes;
+    rr:objectMap _:n3-7535.
+_:n3-7535 rr:constant idlab-fn:isNull.
+_:n3-7536 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7537.
+_:n3-7537 rml:reference "DATECONT_4_BEGINNING".
+_:n3-7538 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7539.
+_:n3-7539 rr:template "rr:template \"/KB/Date/{DATECONT_4_BEGINNING}".
+_:n3-7540 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7541.
+_:n3-7541 rr:template "rr:template \"/KB/Date/{DATECONT_4_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_5_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7542;
+    rr:subjectMap _:n3-7543;
+    rr:predicateObjectMap _:n3-7556.
+_:n3-7542 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7543 rr:class rico:Date;
+    fnml:functionValue _:n3-7544;
+    rr:termType rr:IRI.
+_:n3-7544 rr:predicateObjectMap _:n3-7545, _:n3-7547, _:n3-7554.
+_:n3-7545 rr:predicate fno:executes;
+    rr:objectMap _:n3-7546.
+_:n3-7546 rr:constant grel:controls_if.
+_:n3-7547 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7548.
+_:n3-7548 fnml:functionValue _:n3-7549.
+_:n3-7549 rr:predicateObjectMap _:n3-7550, _:n3-7552.
+_:n3-7550 rr:predicate fno:executes;
+    rr:objectMap _:n3-7551.
+_:n3-7551 rr:constant idlab-fn:isNull.
+_:n3-7552 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7553.
+_:n3-7553 rml:reference "DATECONT_5_BEGINNING".
+_:n3-7554 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7555.
+_:n3-7555 rr:template "rr:template \"/KB/Date/{DATECONT_5_BEGINNING}".
+_:n3-7556 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7557.
+_:n3-7557 rr:template "rr:template \"/KB/Date/{DATECONT_5_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_6_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7558;
+    rr:subjectMap _:n3-7559;
+    rr:predicateObjectMap _:n3-7572.
+_:n3-7558 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7559 rr:class rico:Date;
+    fnml:functionValue _:n3-7560;
+    rr:termType rr:IRI.
+_:n3-7560 rr:predicateObjectMap _:n3-7561, _:n3-7563, _:n3-7570.
+_:n3-7561 rr:predicate fno:executes;
+    rr:objectMap _:n3-7562.
+_:n3-7562 rr:constant grel:controls_if.
+_:n3-7563 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7564.
+_:n3-7564 fnml:functionValue _:n3-7565.
+_:n3-7565 rr:predicateObjectMap _:n3-7566, _:n3-7568.
+_:n3-7566 rr:predicate fno:executes;
+    rr:objectMap _:n3-7567.
+_:n3-7567 rr:constant idlab-fn:isNull.
+_:n3-7568 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7569.
+_:n3-7569 rml:reference "DATECONT_6_BEGINNING".
+_:n3-7570 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7571.
+_:n3-7571 rr:template "rr:template \"/KB/Date/{DATECONT_6_BEGINNING}".
+_:n3-7572 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7573.
+_:n3-7573 rr:template "rr:template \"/KB/Date/{DATECONT_6_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_7_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7574;
+    rr:subjectMap _:n3-7575;
+    rr:predicateObjectMap _:n3-7588.
+_:n3-7574 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7575 rr:class rico:Date;
+    fnml:functionValue _:n3-7576;
+    rr:termType rr:IRI.
+_:n3-7576 rr:predicateObjectMap _:n3-7577, _:n3-7579, _:n3-7586.
+_:n3-7577 rr:predicate fno:executes;
+    rr:objectMap _:n3-7578.
+_:n3-7578 rr:constant grel:controls_if.
+_:n3-7579 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7580.
+_:n3-7580 fnml:functionValue _:n3-7581.
+_:n3-7581 rr:predicateObjectMap _:n3-7582, _:n3-7584.
+_:n3-7582 rr:predicate fno:executes;
+    rr:objectMap _:n3-7583.
+_:n3-7583 rr:constant idlab-fn:isNull.
+_:n3-7584 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7585.
+_:n3-7585 rml:reference "DATECONT_7_BEGINNING".
+_:n3-7586 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7587.
+_:n3-7587 rr:template "rr:template \"/KB/Date/{DATECONT_7_BEGINNING}".
+_:n3-7588 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7589.
+_:n3-7589 rr:template "rr:template \"/KB/Date/{DATECONT_7_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_8_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7590;
+    rr:subjectMap _:n3-7591;
+    rr:predicateObjectMap _:n3-7604.
+_:n3-7590 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7591 rr:class rico:Date;
+    fnml:functionValue _:n3-7592;
+    rr:termType rr:IRI.
+_:n3-7592 rr:predicateObjectMap _:n3-7593, _:n3-7595, _:n3-7602.
+_:n3-7593 rr:predicate fno:executes;
+    rr:objectMap _:n3-7594.
+_:n3-7594 rr:constant grel:controls_if.
+_:n3-7595 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7596.
+_:n3-7596 fnml:functionValue _:n3-7597.
+_:n3-7597 rr:predicateObjectMap _:n3-7598, _:n3-7600.
+_:n3-7598 rr:predicate fno:executes;
+    rr:objectMap _:n3-7599.
+_:n3-7599 rr:constant idlab-fn:isNull.
+_:n3-7600 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7601.
+_:n3-7601 rml:reference "DATECONT_8_BEGINNING".
+_:n3-7602 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7603.
+_:n3-7603 rr:template "rr:template \"/KB/Date/{DATECONT_8_BEGINNING}".
+_:n3-7604 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7605.
+_:n3-7605 rr:template "rr:template \"/KB/Date/{DATECONT_8_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_9_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7606;
+    rr:subjectMap _:n3-7607;
+    rr:predicateObjectMap _:n3-7620.
+_:n3-7606 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7607 rr:class rico:Date;
+    fnml:functionValue _:n3-7608;
+    rr:termType rr:IRI.
+_:n3-7608 rr:predicateObjectMap _:n3-7609, _:n3-7611, _:n3-7618.
+_:n3-7609 rr:predicate fno:executes;
+    rr:objectMap _:n3-7610.
+_:n3-7610 rr:constant grel:controls_if.
+_:n3-7611 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7612.
+_:n3-7612 fnml:functionValue _:n3-7613.
+_:n3-7613 rr:predicateObjectMap _:n3-7614, _:n3-7616.
+_:n3-7614 rr:predicate fno:executes;
+    rr:objectMap _:n3-7615.
+_:n3-7615 rr:constant idlab-fn:isNull.
+_:n3-7616 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7617.
+_:n3-7617 rml:reference "DATECONT_9_BEGINNING".
+_:n3-7618 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7619.
+_:n3-7619 rr:template "rr:template \"/KB/Date/{DATECONT_9_BEGINNING}".
+_:n3-7620 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7621.
+_:n3-7621 rr:template "rr:template \"/KB/Date/{DATECONT_9_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_10_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7622;
+    rr:subjectMap _:n3-7623;
+    rr:predicateObjectMap _:n3-7636.
+_:n3-7622 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7623 rr:class rico:Date;
+    fnml:functionValue _:n3-7624;
+    rr:termType rr:IRI.
+_:n3-7624 rr:predicateObjectMap _:n3-7625, _:n3-7627, _:n3-7634.
+_:n3-7625 rr:predicate fno:executes;
+    rr:objectMap _:n3-7626.
+_:n3-7626 rr:constant grel:controls_if.
+_:n3-7627 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7628.
+_:n3-7628 fnml:functionValue _:n3-7629.
+_:n3-7629 rr:predicateObjectMap _:n3-7630, _:n3-7632.
+_:n3-7630 rr:predicate fno:executes;
+    rr:objectMap _:n3-7631.
+_:n3-7631 rr:constant idlab-fn:isNull.
+_:n3-7632 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7633.
+_:n3-7633 rml:reference "DATECONT_10_BEGINNING".
+_:n3-7634 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7635.
+_:n3-7635 rr:template "rr:template \"/KB/Date/{DATECONT_10_BEGINNING}".
+_:n3-7636 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7637.
+_:n3-7637 rr:template "rr:template \"/KB/Date/{DATECONT_10_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_11_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7638;
+    rr:subjectMap _:n3-7639;
+    rr:predicateObjectMap _:n3-7652.
+_:n3-7638 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7639 rr:class rico:Date;
+    fnml:functionValue _:n3-7640;
+    rr:termType rr:IRI.
+_:n3-7640 rr:predicateObjectMap _:n3-7641, _:n3-7643, _:n3-7650.
+_:n3-7641 rr:predicate fno:executes;
+    rr:objectMap _:n3-7642.
+_:n3-7642 rr:constant grel:controls_if.
+_:n3-7643 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7644.
+_:n3-7644 fnml:functionValue _:n3-7645.
+_:n3-7645 rr:predicateObjectMap _:n3-7646, _:n3-7648.
+_:n3-7646 rr:predicate fno:executes;
+    rr:objectMap _:n3-7647.
+_:n3-7647 rr:constant idlab-fn:isNull.
+_:n3-7648 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7649.
+_:n3-7649 rml:reference "DATECONT_11_BEGINNING".
+_:n3-7650 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7651.
+_:n3-7651 rr:template "rr:template \"/KB/Date/{DATECONT_11_BEGINNING}".
+_:n3-7652 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7653.
+_:n3-7653 rr:template "rr:template \"/KB/Date/{DATECONT_11_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_12_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7654;
+    rr:subjectMap _:n3-7655;
+    rr:predicateObjectMap _:n3-7668.
+_:n3-7654 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7655 rr:class rico:Date;
+    fnml:functionValue _:n3-7656;
+    rr:termType rr:IRI.
+_:n3-7656 rr:predicateObjectMap _:n3-7657, _:n3-7659, _:n3-7666.
+_:n3-7657 rr:predicate fno:executes;
+    rr:objectMap _:n3-7658.
+_:n3-7658 rr:constant grel:controls_if.
+_:n3-7659 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7660.
+_:n3-7660 fnml:functionValue _:n3-7661.
+_:n3-7661 rr:predicateObjectMap _:n3-7662, _:n3-7664.
+_:n3-7662 rr:predicate fno:executes;
+    rr:objectMap _:n3-7663.
+_:n3-7663 rr:constant idlab-fn:isNull.
+_:n3-7664 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7665.
+_:n3-7665 rml:reference "DATECONT_12_BEGINNING".
+_:n3-7666 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7667.
+_:n3-7667 rr:template "rr:template \"/KB/Date/{DATECONT_12_BEGINNING}".
+_:n3-7668 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7669.
+_:n3-7669 rr:template "rr:template \"/KB/Date/{DATECONT_12_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_13_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7670;
+    rr:subjectMap _:n3-7671;
+    rr:predicateObjectMap _:n3-7684.
+_:n3-7670 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7671 rr:class rico:Date;
+    fnml:functionValue _:n3-7672;
+    rr:termType rr:IRI.
+_:n3-7672 rr:predicateObjectMap _:n3-7673, _:n3-7675, _:n3-7682.
+_:n3-7673 rr:predicate fno:executes;
+    rr:objectMap _:n3-7674.
+_:n3-7674 rr:constant grel:controls_if.
+_:n3-7675 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7676.
+_:n3-7676 fnml:functionValue _:n3-7677.
+_:n3-7677 rr:predicateObjectMap _:n3-7678, _:n3-7680.
+_:n3-7678 rr:predicate fno:executes;
+    rr:objectMap _:n3-7679.
+_:n3-7679 rr:constant idlab-fn:isNull.
+_:n3-7680 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7681.
+_:n3-7681 rml:reference "DATECONT_13_BEGINNING".
+_:n3-7682 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7683.
+_:n3-7683 rr:template "rr:template \"/KB/Date/{DATECONT_13_BEGINNING}".
+_:n3-7684 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7685.
+_:n3-7685 rr:template "rr:template \"/KB/Date/{DATECONT_13_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template___KB_Date__DATECONT_14_BEGINNING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7686;
+    rr:subjectMap _:n3-7687;
+    rr:predicateObjectMap _:n3-7700.
+_:n3-7686 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7687 rr:class rico:Date;
+    fnml:functionValue _:n3-7688;
+    rr:termType rr:IRI.
+_:n3-7688 rr:predicateObjectMap _:n3-7689, _:n3-7691, _:n3-7698.
+_:n3-7689 rr:predicate fno:executes;
+    rr:objectMap _:n3-7690.
+_:n3-7690 rr:constant grel:controls_if.
+_:n3-7691 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7692.
+_:n3-7692 fnml:functionValue _:n3-7693.
+_:n3-7693 rr:predicateObjectMap _:n3-7694, _:n3-7696.
+_:n3-7694 rr:predicate fno:executes;
+    rr:objectMap _:n3-7695.
+_:n3-7695 rr:constant idlab-fn:isNull.
+_:n3-7696 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7697.
+_:n3-7697 rml:reference "DATECONT_14_BEGINNING".
+_:n3-7698 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7699.
+_:n3-7699 rr:template "rr:template \"/KB/Date/{DATECONT_14_BEGINNING}".
+_:n3-7700 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7701.
+_:n3-7701 rr:template "rr:template \"/KB/Date/{DATECONT_14_BEGINNING}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_1_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7702;
+    rr:subjectMap _:n3-7703;
+    rr:predicateObjectMap _:n3-7716.
+_:n3-7702 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7703 rr:class rico:Date;
+    fnml:functionValue _:n3-7704;
+    rr:termType rr:IRI.
+_:n3-7704 rr:predicateObjectMap _:n3-7705, _:n3-7707, _:n3-7714.
+_:n3-7705 rr:predicate fno:executes;
+    rr:objectMap _:n3-7706.
+_:n3-7706 rr:constant grel:controls_if.
+_:n3-7707 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7708.
+_:n3-7708 fnml:functionValue _:n3-7709.
+_:n3-7709 rr:predicateObjectMap _:n3-7710, _:n3-7712.
+_:n3-7710 rr:predicate fno:executes;
+    rr:objectMap _:n3-7711.
+_:n3-7711 rr:constant idlab-fn:isNull.
+_:n3-7712 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7713.
+_:n3-7713 rml:reference "DATECONT_1_END".
+_:n3-7714 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7715.
+_:n3-7715 rr:template "rr:template\"/KB/Date/{DATECONT_1_END}".
+_:n3-7716 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7717.
+_:n3-7717 rr:template "rr:template\"/KB/Date/{DATECONT_1_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_2_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7718;
+    rr:subjectMap _:n3-7719;
+    rr:predicateObjectMap _:n3-7732.
+_:n3-7718 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7719 rr:class rico:Date;
+    fnml:functionValue _:n3-7720;
+    rr:termType rr:IRI.
+_:n3-7720 rr:predicateObjectMap _:n3-7721, _:n3-7723, _:n3-7730.
+_:n3-7721 rr:predicate fno:executes;
+    rr:objectMap _:n3-7722.
+_:n3-7722 rr:constant grel:controls_if.
+_:n3-7723 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7724.
+_:n3-7724 fnml:functionValue _:n3-7725.
+_:n3-7725 rr:predicateObjectMap _:n3-7726, _:n3-7728.
+_:n3-7726 rr:predicate fno:executes;
+    rr:objectMap _:n3-7727.
+_:n3-7727 rr:constant idlab-fn:isNull.
+_:n3-7728 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7729.
+_:n3-7729 rml:reference "DATECONT_2_END".
+_:n3-7730 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7731.
+_:n3-7731 rr:template "rr:template\"/KB/Date/{DATECONT_2_END}".
+_:n3-7732 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7733.
+_:n3-7733 rr:template "rr:template\"/KB/Date/{DATECONT_2_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_3_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7734;
+    rr:subjectMap _:n3-7735;
+    rr:predicateObjectMap _:n3-7748.
+_:n3-7734 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7735 rr:class rico:Date;
+    fnml:functionValue _:n3-7736;
+    rr:termType rr:IRI.
+_:n3-7736 rr:predicateObjectMap _:n3-7737, _:n3-7739, _:n3-7746.
+_:n3-7737 rr:predicate fno:executes;
+    rr:objectMap _:n3-7738.
+_:n3-7738 rr:constant grel:controls_if.
+_:n3-7739 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7740.
+_:n3-7740 fnml:functionValue _:n3-7741.
+_:n3-7741 rr:predicateObjectMap _:n3-7742, _:n3-7744.
+_:n3-7742 rr:predicate fno:executes;
+    rr:objectMap _:n3-7743.
+_:n3-7743 rr:constant idlab-fn:isNull.
+_:n3-7744 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7745.
+_:n3-7745 rml:reference "DATECONT_3_END".
+_:n3-7746 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7747.
+_:n3-7747 rr:template "rr:template\"/KB/Date/{DATECONT_3_END}".
+_:n3-7748 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7749.
+_:n3-7749 rr:template "rr:template\"/KB/Date/{DATECONT_3_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_4_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7750;
+    rr:subjectMap _:n3-7751;
+    rr:predicateObjectMap _:n3-7764.
+_:n3-7750 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7751 rr:class rico:Date;
+    fnml:functionValue _:n3-7752;
+    rr:termType rr:IRI.
+_:n3-7752 rr:predicateObjectMap _:n3-7753, _:n3-7755, _:n3-7762.
+_:n3-7753 rr:predicate fno:executes;
+    rr:objectMap _:n3-7754.
+_:n3-7754 rr:constant grel:controls_if.
+_:n3-7755 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7756.
+_:n3-7756 fnml:functionValue _:n3-7757.
+_:n3-7757 rr:predicateObjectMap _:n3-7758, _:n3-7760.
+_:n3-7758 rr:predicate fno:executes;
+    rr:objectMap _:n3-7759.
+_:n3-7759 rr:constant idlab-fn:isNull.
+_:n3-7760 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7761.
+_:n3-7761 rml:reference "DATECONT_4_END".
+_:n3-7762 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7763.
+_:n3-7763 rr:template "rr:template\"/KB/Date/{DATECONT_4_END}".
+_:n3-7764 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7765.
+_:n3-7765 rr:template "rr:template\"/KB/Date/{DATECONT_4_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_5_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7766;
+    rr:subjectMap _:n3-7767;
+    rr:predicateObjectMap _:n3-7780.
+_:n3-7766 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7767 rr:class rico:Date;
+    fnml:functionValue _:n3-7768;
+    rr:termType rr:IRI.
+_:n3-7768 rr:predicateObjectMap _:n3-7769, _:n3-7771, _:n3-7778.
+_:n3-7769 rr:predicate fno:executes;
+    rr:objectMap _:n3-7770.
+_:n3-7770 rr:constant grel:controls_if.
+_:n3-7771 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7772.
+_:n3-7772 fnml:functionValue _:n3-7773.
+_:n3-7773 rr:predicateObjectMap _:n3-7774, _:n3-7776.
+_:n3-7774 rr:predicate fno:executes;
+    rr:objectMap _:n3-7775.
+_:n3-7775 rr:constant idlab-fn:isNull.
+_:n3-7776 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7777.
+_:n3-7777 rml:reference "DATECONT_5_END".
+_:n3-7778 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7779.
+_:n3-7779 rr:template "rr:template\"/KB/Date/{DATECONT_5_END}".
+_:n3-7780 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7781.
+_:n3-7781 rr:template "rr:template\"/KB/Date/{DATECONT_5_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_6_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7782;
+    rr:subjectMap _:n3-7783;
+    rr:predicateObjectMap _:n3-7796.
+_:n3-7782 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7783 rr:class rico:Date;
+    fnml:functionValue _:n3-7784;
+    rr:termType rr:IRI.
+_:n3-7784 rr:predicateObjectMap _:n3-7785, _:n3-7787, _:n3-7794.
+_:n3-7785 rr:predicate fno:executes;
+    rr:objectMap _:n3-7786.
+_:n3-7786 rr:constant grel:controls_if.
+_:n3-7787 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7788.
+_:n3-7788 fnml:functionValue _:n3-7789.
+_:n3-7789 rr:predicateObjectMap _:n3-7790, _:n3-7792.
+_:n3-7790 rr:predicate fno:executes;
+    rr:objectMap _:n3-7791.
+_:n3-7791 rr:constant idlab-fn:isNull.
+_:n3-7792 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7793.
+_:n3-7793 rml:reference "DATECONT_6_END".
+_:n3-7794 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7795.
+_:n3-7795 rr:template "rr:template\"/KB/Date/{DATECONT_6_END}".
+_:n3-7796 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7797.
+_:n3-7797 rr:template "rr:template\"/KB/Date/{DATECONT_6_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_7_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7798;
+    rr:subjectMap _:n3-7799;
+    rr:predicateObjectMap _:n3-7812.
+_:n3-7798 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7799 rr:class rico:Date;
+    fnml:functionValue _:n3-7800;
+    rr:termType rr:IRI.
+_:n3-7800 rr:predicateObjectMap _:n3-7801, _:n3-7803, _:n3-7810.
+_:n3-7801 rr:predicate fno:executes;
+    rr:objectMap _:n3-7802.
+_:n3-7802 rr:constant grel:controls_if.
+_:n3-7803 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7804.
+_:n3-7804 fnml:functionValue _:n3-7805.
+_:n3-7805 rr:predicateObjectMap _:n3-7806, _:n3-7808.
+_:n3-7806 rr:predicate fno:executes;
+    rr:objectMap _:n3-7807.
+_:n3-7807 rr:constant idlab-fn:isNull.
+_:n3-7808 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7809.
+_:n3-7809 rml:reference "DATECONT_7_END".
+_:n3-7810 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7811.
+_:n3-7811 rr:template "rr:template\"/KB/Date/{DATECONT_7_END}".
+_:n3-7812 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7813.
+_:n3-7813 rr:template "rr:template\"/KB/Date/{DATECONT_7_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_8_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7814;
+    rr:subjectMap _:n3-7815;
+    rr:predicateObjectMap _:n3-7828.
+_:n3-7814 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7815 rr:class rico:Date;
+    fnml:functionValue _:n3-7816;
+    rr:termType rr:IRI.
+_:n3-7816 rr:predicateObjectMap _:n3-7817, _:n3-7819, _:n3-7826.
+_:n3-7817 rr:predicate fno:executes;
+    rr:objectMap _:n3-7818.
+_:n3-7818 rr:constant grel:controls_if.
+_:n3-7819 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7820.
+_:n3-7820 fnml:functionValue _:n3-7821.
+_:n3-7821 rr:predicateObjectMap _:n3-7822, _:n3-7824.
+_:n3-7822 rr:predicate fno:executes;
+    rr:objectMap _:n3-7823.
+_:n3-7823 rr:constant idlab-fn:isNull.
+_:n3-7824 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7825.
+_:n3-7825 rml:reference "DATECONT_8_END".
+_:n3-7826 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7827.
+_:n3-7827 rr:template "rr:template\"/KB/Date/{DATECONT_8_END}".
+_:n3-7828 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7829.
+_:n3-7829 rr:template "rr:template\"/KB/Date/{DATECONT_8_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_9_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7830;
+    rr:subjectMap _:n3-7831;
+    rr:predicateObjectMap _:n3-7844.
+_:n3-7830 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7831 rr:class rico:Date;
+    fnml:functionValue _:n3-7832;
+    rr:termType rr:IRI.
+_:n3-7832 rr:predicateObjectMap _:n3-7833, _:n3-7835, _:n3-7842.
+_:n3-7833 rr:predicate fno:executes;
+    rr:objectMap _:n3-7834.
+_:n3-7834 rr:constant grel:controls_if.
+_:n3-7835 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7836.
+_:n3-7836 fnml:functionValue _:n3-7837.
+_:n3-7837 rr:predicateObjectMap _:n3-7838, _:n3-7840.
+_:n3-7838 rr:predicate fno:executes;
+    rr:objectMap _:n3-7839.
+_:n3-7839 rr:constant idlab-fn:isNull.
+_:n3-7840 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7841.
+_:n3-7841 rml:reference "DATECONT_9_END".
+_:n3-7842 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7843.
+_:n3-7843 rr:template "rr:template\"/KB/Date/{DATECONT_9_END}".
+_:n3-7844 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7845.
+_:n3-7845 rr:template "rr:template\"/KB/Date/{DATECONT_9_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_10_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7846;
+    rr:subjectMap _:n3-7847;
+    rr:predicateObjectMap _:n3-7860.
+_:n3-7846 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7847 rr:class rico:Date;
+    fnml:functionValue _:n3-7848;
+    rr:termType rr:IRI.
+_:n3-7848 rr:predicateObjectMap _:n3-7849, _:n3-7851, _:n3-7858.
+_:n3-7849 rr:predicate fno:executes;
+    rr:objectMap _:n3-7850.
+_:n3-7850 rr:constant grel:controls_if.
+_:n3-7851 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7852.
+_:n3-7852 fnml:functionValue _:n3-7853.
+_:n3-7853 rr:predicateObjectMap _:n3-7854, _:n3-7856.
+_:n3-7854 rr:predicate fno:executes;
+    rr:objectMap _:n3-7855.
+_:n3-7855 rr:constant idlab-fn:isNull.
+_:n3-7856 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7857.
+_:n3-7857 rml:reference "DATECONT_10_END".
+_:n3-7858 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7859.
+_:n3-7859 rr:template "rr:template\"/KB/Date/{DATECONT_10_END}".
+_:n3-7860 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7861.
+_:n3-7861 rr:template "rr:template\"/KB/Date/{DATECONT_10_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_11_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7862;
+    rr:subjectMap _:n3-7863;
+    rr:predicateObjectMap _:n3-7876.
+_:n3-7862 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7863 rr:class rico:Date;
+    fnml:functionValue _:n3-7864;
+    rr:termType rr:IRI.
+_:n3-7864 rr:predicateObjectMap _:n3-7865, _:n3-7867, _:n3-7874.
+_:n3-7865 rr:predicate fno:executes;
+    rr:objectMap _:n3-7866.
+_:n3-7866 rr:constant grel:controls_if.
+_:n3-7867 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7868.
+_:n3-7868 fnml:functionValue _:n3-7869.
+_:n3-7869 rr:predicateObjectMap _:n3-7870, _:n3-7872.
+_:n3-7870 rr:predicate fno:executes;
+    rr:objectMap _:n3-7871.
+_:n3-7871 rr:constant idlab-fn:isNull.
+_:n3-7872 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7873.
+_:n3-7873 rml:reference "DATECONT_11_END".
+_:n3-7874 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7875.
+_:n3-7875 rr:template "rr:template\"/KB/Date/{DATECONT_11_END}".
+_:n3-7876 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7877.
+_:n3-7877 rr:template "rr:template\"/KB/Date/{DATECONT_11_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_12_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7878;
+    rr:subjectMap _:n3-7879;
+    rr:predicateObjectMap _:n3-7892.
+_:n3-7878 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7879 rr:class rico:Date;
+    fnml:functionValue _:n3-7880;
+    rr:termType rr:IRI.
+_:n3-7880 rr:predicateObjectMap _:n3-7881, _:n3-7883, _:n3-7890.
+_:n3-7881 rr:predicate fno:executes;
+    rr:objectMap _:n3-7882.
+_:n3-7882 rr:constant grel:controls_if.
+_:n3-7883 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7884.
+_:n3-7884 fnml:functionValue _:n3-7885.
+_:n3-7885 rr:predicateObjectMap _:n3-7886, _:n3-7888.
+_:n3-7886 rr:predicate fno:executes;
+    rr:objectMap _:n3-7887.
+_:n3-7887 rr:constant idlab-fn:isNull.
+_:n3-7888 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7889.
+_:n3-7889 rml:reference "DATECONT_12_END".
+_:n3-7890 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7891.
+_:n3-7891 rr:template "rr:template\"/KB/Date/{DATECONT_12_END}".
+_:n3-7892 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7893.
+_:n3-7893 rr:template "rr:template\"/KB/Date/{DATECONT_12_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_13_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7894;
+    rr:subjectMap _:n3-7895;
+    rr:predicateObjectMap _:n3-7908.
+_:n3-7894 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7895 rr:class rico:Date;
+    fnml:functionValue _:n3-7896;
+    rr:termType rr:IRI.
+_:n3-7896 rr:predicateObjectMap _:n3-7897, _:n3-7899, _:n3-7906.
+_:n3-7897 rr:predicate fno:executes;
+    rr:objectMap _:n3-7898.
+_:n3-7898 rr:constant grel:controls_if.
+_:n3-7899 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7900.
+_:n3-7900 fnml:functionValue _:n3-7901.
+_:n3-7901 rr:predicateObjectMap _:n3-7902, _:n3-7904.
+_:n3-7902 rr:predicate fno:executes;
+    rr:objectMap _:n3-7903.
+_:n3-7903 rr:constant idlab-fn:isNull.
+_:n3-7904 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7905.
+_:n3-7905 rml:reference "DATECONT_13_END".
+_:n3-7906 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7907.
+_:n3-7907 rr:template "rr:template\"/KB/Date/{DATECONT_13_END}".
+_:n3-7908 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7909.
+_:n3-7909 rr:template "rr:template\"/KB/Date/{DATECONT_13_END}";
+    rr:termType rr:Literal.
+:rr_template__KB_Date__DATECONT_14_END_ a rr:TriplesMap;
+    rml:logicalSource _:n3-7910;
+    rr:subjectMap _:n3-7911;
+    rr:predicateObjectMap _:n3-7924.
+_:n3-7910 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7911 rr:class rico:Date;
+    fnml:functionValue _:n3-7912;
+    rr:termType rr:IRI.
+_:n3-7912 rr:predicateObjectMap _:n3-7913, _:n3-7915, _:n3-7922.
+_:n3-7913 rr:predicate fno:executes;
+    rr:objectMap _:n3-7914.
+_:n3-7914 rr:constant grel:controls_if.
+_:n3-7915 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-7916.
+_:n3-7916 fnml:functionValue _:n3-7917.
+_:n3-7917 rr:predicateObjectMap _:n3-7918, _:n3-7920.
+_:n3-7918 rr:predicate fno:executes;
+    rr:objectMap _:n3-7919.
+_:n3-7919 rr:constant idlab-fn:isNull.
+_:n3-7920 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-7921.
+_:n3-7921 rml:reference "DATECONT_14_END".
+_:n3-7922 rr:predicate grel:any_false;
+    rr:objectMap _:n3-7923.
+_:n3-7923 rr:template "rr:template\"/KB/Date/{DATECONT_14_END}".
+_:n3-7924 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7925.
+_:n3-7925 rr:template "rr:template\"/KB/Date/{DATECONT_14_END}";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_1__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7926;
+    rr:subjectMap _:n3-7927;
+    rr:predicateObjectMap _:n3-7928.
+_:n3-7926 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7927 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_1 }";
+    rr:termType rr:IRI.
+_:n3-7928 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7929.
+_:n3-7929 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_1 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_2__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7930;
+    rr:subjectMap _:n3-7931;
+    rr:predicateObjectMap _:n3-7932.
+_:n3-7930 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7931 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_2 }";
+    rr:termType rr:IRI.
+_:n3-7932 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7933.
+_:n3-7933 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_2 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_3__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7934;
+    rr:subjectMap _:n3-7935;
+    rr:predicateObjectMap _:n3-7936.
+_:n3-7934 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7935 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_3 }";
+    rr:termType rr:IRI.
+_:n3-7936 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7937.
+_:n3-7937 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_3 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_4__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7938;
+    rr:subjectMap _:n3-7939;
+    rr:predicateObjectMap _:n3-7940.
+_:n3-7938 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7939 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_4 }";
+    rr:termType rr:IRI.
+_:n3-7940 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7941.
+_:n3-7941 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_4 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_5__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7942;
+    rr:subjectMap _:n3-7943;
+    rr:predicateObjectMap _:n3-7944.
+_:n3-7942 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7943 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_5 }";
+    rr:termType rr:IRI.
+_:n3-7944 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7945.
+_:n3-7945 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_5 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_6__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7946;
+    rr:subjectMap _:n3-7947;
+    rr:predicateObjectMap _:n3-7948.
+_:n3-7946 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7947 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_6 }";
+    rr:termType rr:IRI.
+_:n3-7948 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7949.
+_:n3-7949 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_6 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_7__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7950;
+    rr:subjectMap _:n3-7951;
+    rr:predicateObjectMap _:n3-7952.
+_:n3-7950 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7951 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_7 }";
+    rr:termType rr:IRI.
+_:n3-7952 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7953.
+_:n3-7953 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_7 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_8__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7954;
+    rr:subjectMap _:n3-7955;
+    rr:predicateObjectMap _:n3-7956.
+_:n3-7954 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7955 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_8 }";
+    rr:termType rr:IRI.
+_:n3-7956 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7957.
+_:n3-7957 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_8 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_9__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7958;
+    rr:subjectMap _:n3-7959;
+    rr:predicateObjectMap _:n3-7960.
+_:n3-7958 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7959 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_9 }";
+    rr:termType rr:IRI.
+_:n3-7960 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7961.
+_:n3-7961 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_9 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_10__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7962;
+    rr:subjectMap _:n3-7963;
+    rr:predicateObjectMap _:n3-7964.
+_:n3-7962 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7963 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_10 }";
+    rr:termType rr:IRI.
+_:n3-7964 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7965.
+_:n3-7965 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_10 }";
+    rr:termType rr:Literal.
+:rr_template____KB___VariantAgentName____VAR_11__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7966;
+    rr:subjectMap _:n3-7967;
+    rr:predicateObjectMap _:n3-7968.
+_:n3-7966 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7967 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_11 }";
+    rr:termType rr:IRI.
+_:n3-7968 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7969.
+_:n3-7969 rr:template "rr:template \"/ KB / VariantAgentName/ { VAR_11 }";
+    rr:termType rr:Literal.
+:rr_template____KB__Agent____PRED_1__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7970;
+    rr:subjectMap _:n3-7971;
+    rr:predicateObjectMap _:n3-7972.
+_:n3-7970 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7971 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/ KB /Agent/ { PRED_1 }";
+    rr:termType rr:IRI.
+_:n3-7972 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7973.
+_:n3-7973 rr:template "rr:template \"/ KB /Agent/ { PRED_1 }";
+    rr:termType rr:Literal.
+:rr_template____KB__Agent____PRED_2__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7974;
+    rr:subjectMap _:n3-7975;
+    rr:predicateObjectMap _:n3-7976.
+_:n3-7974 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7975 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/ KB /Agent/ { PRED_2 }";
+    rr:termType rr:IRI.
+_:n3-7976 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7977.
+_:n3-7977 rr:template "rr:template \"/ KB /Agent/ { PRED_2 }";
+    rr:termType rr:Literal.
+:rr_template____KB__Agent____PRED_3__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7978;
+    rr:subjectMap _:n3-7979;
+    rr:predicateObjectMap _:n3-7980.
+_:n3-7978 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7979 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/ KB /Agent/ { PRED_3 }";
+    rr:termType rr:IRI.
+_:n3-7980 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7981.
+_:n3-7981 rr:template "rr:template \"/ KB /Agent/ { PRED_3 }";
+    rr:termType rr:Literal.
+:rr_template____KB__Agent____PRED_4__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7982;
+    rr:subjectMap _:n3-7983;
+    rr:predicateObjectMap _:n3-7984.
+_:n3-7982 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7983 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/ KB /Agent/ { PRED_4 }";
+    rr:termType rr:IRI.
+_:n3-7984 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7985.
+_:n3-7985 rr:template "rr:template \"/ KB /Agent/ { PRED_4 }";
+    rr:termType rr:Literal.
+:rr_template____KB__Agent____PRED_5__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7986;
+    rr:subjectMap _:n3-7987;
+    rr:predicateObjectMap _:n3-7988.
+_:n3-7986 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7987 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/ KB /Agent/ { PRED_5 }";
+    rr:termType rr:IRI.
+_:n3-7988 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7989.
+_:n3-7989 rr:template "rr:template \"/ KB /Agent/ { PRED_5 }";
+    rr:termType rr:Literal.
+:rr_template___KB_Agent____SUC_1__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7990;
+    rr:subjectMap _:n3-7991;
+    rr:predicateObjectMap _:n3-7992.
+_:n3-7990 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7991 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/KB/Agent/ { SUC_1 }";
+    rr:termType rr:IRI.
+_:n3-7992 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7993.
+_:n3-7993 rr:template "rr:template \"/KB/Agent/ { SUC_1 }";
+    rr:termType rr:Literal.
+:rr_template___KB_Agent____SUC_2__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7994;
+    rr:subjectMap _:n3-7995;
+    rr:predicateObjectMap _:n3-7996.
+_:n3-7994 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7995 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/KB/Agent/ { SUC_2 }";
+    rr:termType rr:IRI.
+_:n3-7996 rr:predicate rdfs:label;
+    rr:objectMap _:n3-7997.
+_:n3-7997 rr:template "rr:template \"/KB/Agent/ { SUC_2 }";
+    rr:termType rr:Literal.
+:rr_template___KB_Agent____SUC_3__ a rr:TriplesMap;
+    rml:logicalSource _:n3-7998;
+    rr:subjectMap _:n3-7999;
+    rr:predicateObjectMap _:n3-8000.
+_:n3-7998 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-7999 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/KB/Agent/ { SUC_3 }";
+    rr:termType rr:IRI.
+_:n3-8000 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8001.
+_:n3-8001 rr:template "rr:template \"/KB/Agent/ { SUC_3 }";
+    rr:termType rr:Literal.
+:rr_template___KB_Agent____SUC_4__ a rr:TriplesMap;
+    rml:logicalSource _:n3-8002;
+    rr:subjectMap _:n3-8003;
+    rr:predicateObjectMap _:n3-8004.
+_:n3-8002 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8003 rr:class rico:CorporateBody;
+    rr:template "rr:template \"/KB/Agent/ { SUC_4 }";
+    rr:termType rr:IRI.
+_:n3-8004 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8005.
+_:n3-8005 rr:template "rr:template \"/KB/Agent/ { SUC_4 }";
+    rr:termType rr:Literal.
+:rr_template____KB__ParallelAgent_Name____PAR_1__ a rr:TriplesMap;
+    rml:logicalSource _:n3-8006;
+    rr:subjectMap _:n3-8007;
+    rr:predicateObjectMap _:n3-8008.
+_:n3-8006 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8007 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_1 }";
+    rr:termType rr:IRI.
+_:n3-8008 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8009.
+_:n3-8009 rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_1 }";
+    rr:termType rr:Literal.
+:rr_template____KB__ParallelAgent_Name____PAR_2__ a rr:TriplesMap;
+    rml:logicalSource _:n3-8010;
+    rr:subjectMap _:n3-8011;
+    rr:predicateObjectMap _:n3-8012.
+_:n3-8010 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8011 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_2 }";
+    rr:termType rr:IRI.
+_:n3-8012 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8013.
+_:n3-8013 rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_2 }";
+    rr:termType rr:Literal.
+:rr_template____KB__ParallelAgent_Name____PAR_3__ a rr:TriplesMap;
+    rml:logicalSource _:n3-8014;
+    rr:subjectMap _:n3-8015;
+    rr:predicateObjectMap _:n3-8016.
+_:n3-8014 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8015 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_3 }";
+    rr:termType rr:IRI.
+_:n3-8016 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8017.
+_:n3-8017 rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_3 }";
+    rr:termType rr:Literal.
+:rr_template____KB__ParallelAgent_Name____PAR_4__ a rr:TriplesMap;
+    rml:logicalSource _:n3-8018;
+    rr:subjectMap _:n3-8019;
+    rr:predicateObjectMap _:n3-8020.
+_:n3-8018 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8019 rr:class rico:AgentName;
+    rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_4 }";
+    rr:termType rr:IRI.
+_:n3-8020 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8021.
+_:n3-8021 rr:template "rr:template \"/ KB /ParallelAgent Name/ { PAR_4 }";
+    rr:termType rr:Literal.
+:rr_constant___Schema_Authority_ParallelAgentName a rr:TriplesMap;
+    rml:logicalSource _:n3-8022;
+    rr:subjectMap _:n3-8023;
+    rr:predicateObjectMap _:n3-8024.
+_:n3-8022 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8023 rr:class rico:Type;
+    rr:template "rr:constant \"/Schema/Authority/ParallelAgentName";
+    rr:termType rr:IRI.
+_:n3-8024 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8025.
+_:n3-8025 rr:template "rr:constant \"/Schema/Authority/ParallelAgentName";
+    rr:termType rr:Literal.
+:rr_template____Schema_Authority__AuthorityType____AUTHTP_1_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8026;
+    rr:subjectMap _:n3-8027;
+    rr:predicateObjectMap _:n3-8040.
+_:n3-8026 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8027 rr:class rico:CorporateBodyType;
+    fnml:functionValue _:n3-8028;
+    rr:termType rr:IRI.
+_:n3-8028 rr:predicateObjectMap _:n3-8029, _:n3-8031, _:n3-8038.
+_:n3-8029 rr:predicate fno:executes;
+    rr:objectMap _:n3-8030.
+_:n3-8030 rr:constant grel:controls_if.
+_:n3-8031 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8032.
+_:n3-8032 fnml:functionValue _:n3-8033.
+_:n3-8033 rr:predicateObjectMap _:n3-8034, _:n3-8036.
+_:n3-8034 rr:predicate fno:executes;
+    rr:objectMap _:n3-8035.
+_:n3-8035 rr:constant idlab-fn:isNull.
+_:n3-8036 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8037.
+_:n3-8037 rml:reference "AUTHTP_1".
+_:n3-8038 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8039.
+_:n3-8039 rr:template "rr:template \"/ Schema/Authority/ AuthorityType # {AUTHTP_1}".
+_:n3-8040 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8041.
+_:n3-8041 rr:template "rr:template \"/ Schema/Authority/ AuthorityType # {AUTHTP_1}";
+    rr:termType rr:Literal.
+:rr_template____Schema_Authority__AuthorityType____AUTHTP_2_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8042;
+    rr:subjectMap _:n3-8043;
+    rr:predicateObjectMap _:n3-8056.
+_:n3-8042 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8043 rr:class rico:CorporateBodyType;
+    fnml:functionValue _:n3-8044;
+    rr:termType rr:IRI.
+_:n3-8044 rr:predicateObjectMap _:n3-8045, _:n3-8047, _:n3-8054.
+_:n3-8045 rr:predicate fno:executes;
+    rr:objectMap _:n3-8046.
+_:n3-8046 rr:constant grel:controls_if.
+_:n3-8047 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8048.
+_:n3-8048 fnml:functionValue _:n3-8049.
+_:n3-8049 rr:predicateObjectMap _:n3-8050, _:n3-8052.
+_:n3-8050 rr:predicate fno:executes;
+    rr:objectMap _:n3-8051.
+_:n3-8051 rr:constant idlab-fn:isNull.
+_:n3-8052 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8053.
+_:n3-8053 rml:reference "AUTHTP_2".
+_:n3-8054 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8055.
+_:n3-8055 rr:template "rr:template \"/ Schema/Authority/ AuthorityType # {AUTHTP_2}".
+_:n3-8056 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8057.
+_:n3-8057 rr:template "rr:template \"/ Schema/Authority/ AuthorityType # {AUTHTP_2}";
+    rr:termType rr:Literal.
+:rr_constant___Schema_Authority_VariantAgentName a rr:TriplesMap;
+    rml:logicalSource _:n3-8058;
+    rr:subjectMap _:n3-8059;
+    rr:predicateObjectMap _:n3-8060.
+_:n3-8058 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8059 rr:class rico:Type;
+    rr:template "rr:constant \"/Schema/Authority/VariantAgentName";
+    rr:termType rr:IRI.
+_:n3-8060 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8061.
+_:n3-8061 rr:template "rr:constant \"/Schema/Authority/VariantAgentName";
+    rr:termType rr:Literal.
+:rr_constant___Schema_Authority_NaturalAgentName a rr:TriplesMap;
+    rml:logicalSource _:n3-8062;
+    rr:subjectMap _:n3-8063;
+    rr:predicateObjectMap _:n3-8064.
+_:n3-8062 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8063 rr:class rico:Type;
+    rr:template "rr:constant \"/Schema/Authority/NaturalAgentName";
+    rr:termType rr:IRI.
+_:n3-8064 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8065.
+_:n3-8065 rr:template "rr:constant \"/Schema/Authority/NaturalAgentName";
+    rr:termType rr:Literal.
+:rr_template___KB__Agent____REFA_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8066;
+    rr:subjectMap _:n3-8067;
+    rr:predicateObjectMap _:n3-8080.
+_:n3-8066 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8067 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-8068;
+    rr:termType rr:IRI.
+_:n3-8068 rr:predicateObjectMap _:n3-8069, _:n3-8071, _:n3-8078.
+_:n3-8069 rr:predicate fno:executes;
+    rr:objectMap _:n3-8070.
+_:n3-8070 rr:constant grel:controls_if.
+_:n3-8071 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8072.
+_:n3-8072 fnml:functionValue _:n3-8073.
+_:n3-8073 rr:predicateObjectMap _:n3-8074, _:n3-8076.
+_:n3-8074 rr:predicate fno:executes;
+    rr:objectMap _:n3-8075.
+_:n3-8075 rr:constant idlab-fn:isNull.
+_:n3-8076 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8077.
+_:n3-8077 rml:reference "REFA".
+_:n3-8078 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8079.
+_:n3-8079 rr:template "rr:template \"/KB/ Agent / {REFA}".
+_:n3-8080 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8081.
+_:n3-8081 rr:template "rr:template \"/KB/ Agent / {REFA}";
+    rr:termType rr:Literal.
+:rr_constant____KB_Rule__RulesForArchivalDescription a rr:TriplesMap;
+    rml:logicalSource _:n3-8082;
+    rr:subjectMap _:n3-8083;
+    rr:predicateObjectMap _:n3-8084.
+_:n3-8082 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8083 rr:class rico:Rule;
+    rr:template "rr:constant \" /KB/Rule/ RulesForArchivalDescription";
+    rr:termType rr:IRI.
+_:n3-8084 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8085.
+_:n3-8085 rr:template "rr:constant \" /KB/Rule/ RulesForArchivalDescription";
+    rr:termType rr:Literal.
+:rr_template___KB__RICO_AUTHTP_CORPORATEBODY_1____HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8086;
+    rr:subjectMap _:n3-8087;
+    rr:predicateObjectMap _:n3-8100.
+_:n3-8086 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8087 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-8088;
+    rr:termType rr:IRI.
+_:n3-8088 rr:predicateObjectMap _:n3-8089, _:n3-8091, _:n3-8098.
+_:n3-8089 rr:predicate fno:executes;
+    rr:objectMap _:n3-8090.
+_:n3-8090 rr:constant grel:controls_if.
+_:n3-8091 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8092.
+_:n3-8092 fnml:functionValue _:n3-8093.
+_:n3-8093 rr:predicateObjectMap _:n3-8094, _:n3-8096.
+_:n3-8094 rr:predicate fno:executes;
+    rr:objectMap _:n3-8095.
+_:n3-8095 rr:constant idlab-fn:isNull.
+_:n3-8096 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8097.
+_:n3-8097 rml:reference "RICO_AUTHTP_CORPORATEBODY_1".
+_:n3-8098 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8099.
+_:n3-8099 rr:template "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1}/ {HEADING}".
+_:n3-8100 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8101.
+_:n3-8101 rr:template "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1}/ {HEADING}";
+    rr:termType rr:Literal.
+:rr_template___KB__RICO_AUTHTP_CORPORATEBODY_2____HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8102;
+    rr:subjectMap _:n3-8103;
+    rr:predicateObjectMap _:n3-8116.
+_:n3-8102 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8103 rr:class rico:CorporateBody;
+    fnml:functionValue _:n3-8104;
+    rr:termType rr:IRI.
+_:n3-8104 rr:predicateObjectMap _:n3-8105, _:n3-8107, _:n3-8114.
+_:n3-8105 rr:predicate fno:executes;
+    rr:objectMap _:n3-8106.
+_:n3-8106 rr:constant grel:controls_if.
+_:n3-8107 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8108.
+_:n3-8108 fnml:functionValue _:n3-8109.
+_:n3-8109 rr:predicateObjectMap _:n3-8110, _:n3-8112.
+_:n3-8110 rr:predicate fno:executes;
+    rr:objectMap _:n3-8111.
+_:n3-8111 rr:constant idlab-fn:isNull.
+_:n3-8112 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8113.
+_:n3-8113 rml:reference "RICO_AUTHTP_CORPORATEBODY_2".
+_:n3-8114 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8115.
+_:n3-8115 rr:template "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_2}/ {HEADING}".
+_:n3-8116 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8117.
+_:n3-8117 rr:template "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_2}/ {HEADING}";
+    rr:termType rr:Literal.
+:rr_template___KB___RICO_AUTHTP_FAMILY_1___2____HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8118;
+    rr:subjectMap _:n3-8119;
+    rr:predicateObjectMap _:n3-8132.
+_:n3-8118 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8119 rr:class rico:Family;
+    fnml:functionValue _:n3-8120;
+    rr:termType rr:IRI.
+_:n3-8120 rr:predicateObjectMap _:n3-8121, _:n3-8123, _:n3-8130.
+_:n3-8121 rr:predicate fno:executes;
+    rr:objectMap _:n3-8122.
+_:n3-8122 rr:constant grel:controls_if.
+_:n3-8123 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8124.
+_:n3-8124 fnml:functionValue _:n3-8125.
+_:n3-8125 rr:predicateObjectMap _:n3-8126, _:n3-8128.
+_:n3-8126 rr:predicate fno:executes;
+    rr:objectMap _:n3-8127.
+_:n3-8127 rr:constant idlab-fn:isNull.
+_:n3-8128 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8129.
+_:n3-8129 rml:reference "HEADING".
+_:n3-8130 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8131.
+_:n3-8131 rr:template "rr:template \"/KB/{ RICO_AUTHTP_FAMILY_1 ..2}/ {HEADING}".
+_:n3-8132 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8133.
+_:n3-8133 rr:template "rr:template \"/KB/{ RICO_AUTHTP_FAMILY_1 ..2}/ {HEADING}";
+    rr:termType rr:Literal.
+:rr_template___KB___RICO_AUTHTP_PLACE_1___2____HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8134;
+    rr:subjectMap _:n3-8135;
+    rr:predicateObjectMap _:n3-8148.
+_:n3-8134 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8135 rr:class rico:Place;
+    fnml:functionValue _:n3-8136;
+    rr:termType rr:IRI.
+_:n3-8136 rr:predicateObjectMap _:n3-8137, _:n3-8139, _:n3-8146.
+_:n3-8137 rr:predicate fno:executes;
+    rr:objectMap _:n3-8138.
+_:n3-8138 rr:constant grel:controls_if.
+_:n3-8139 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8140.
+_:n3-8140 fnml:functionValue _:n3-8141.
+_:n3-8141 rr:predicateObjectMap _:n3-8142, _:n3-8144.
+_:n3-8142 rr:predicate fno:executes;
+    rr:objectMap _:n3-8143.
+_:n3-8143 rr:constant idlab-fn:isNull.
+_:n3-8144 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8145.
+_:n3-8145 rml:reference "HEADING".
+_:n3-8146 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8147.
+_:n3-8147 rr:template "rr:template \"/KB/{ RICO_AUTHTP_PLACE_1 ..2}/ {HEADING}".
+_:n3-8148 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8149.
+_:n3-8149 rr:template "rr:template \"/KB/{ RICO_AUTHTP_PLACE_1 ..2}/ {HEADING}";
+    rr:termType rr:Literal.
+:rr_template___KB___RICO_AUTHTP_PERSON_1___2____HEADING_ a rr:TriplesMap;
+    rml:logicalSource _:n3-8150;
+    rr:subjectMap _:n3-8151;
+    rr:predicateObjectMap _:n3-8164.
+_:n3-8150 rml:source "General Authority to RiC-O Model_2025-06-25_PZ.csv";
+    rml:referenceFormulation ql:CSV.
+_:n3-8151 rr:class rico:Person;
+    fnml:functionValue _:n3-8152;
+    rr:termType rr:IRI.
+_:n3-8152 rr:predicateObjectMap _:n3-8153, _:n3-8155, _:n3-8162.
+_:n3-8153 rr:predicate fno:executes;
+    rr:objectMap _:n3-8154.
+_:n3-8154 rr:constant grel:controls_if.
+_:n3-8155 rr:predicate grel:bool_b;
+    rr:objectMap _:n3-8156.
+_:n3-8156 fnml:functionValue _:n3-8157.
+_:n3-8157 rr:predicateObjectMap _:n3-8158, _:n3-8160.
+_:n3-8158 rr:predicate fno:executes;
+    rr:objectMap _:n3-8159.
+_:n3-8159 rr:constant idlab-fn:isNull.
+_:n3-8160 rr:predicate idlab-fn:str;
+    rr:objectMap _:n3-8161.
+_:n3-8161 rml:reference "HEADING".
+_:n3-8162 rr:predicate grel:any_false;
+    rr:objectMap _:n3-8163.
+_:n3-8163 rr:template "rr:template \"/KB/{ RICO_AUTHTP_PERSON_1 ..2}/ {HEADING}".
+_:n3-8164 rr:predicate rdfs:label;
+    rr:objectMap _:n3-8165.
+_:n3-8165 rr:template "rr:template \"/KB/{ RICO_AUTHTP_PERSON_1 ..2}/ {HEADING}";
+    rr:termType rr:Literal.
