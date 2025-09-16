@@ -75,6 +75,29 @@ Draw.loadPlugin(function (editorUi: any): void {
   const EXAMPLE_NS = "http://example.com/ns#";
   const RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
+  const ATTRIBUTE_PRIORITY = new Map<string, number>([
+    ["id", 0],
+    ["value", 1],
+    ["style", 2],
+    ["parent", 3],
+    ["source", 4],
+    ["target", 5],
+    ["connectable", 6],
+    ["edge", 7],
+    ["vertex", 8],
+  ]);
+
+  const ATTRIBUTE_PRIORITY_SIZE = ATTRIBUTE_PRIORITY.size;
+
+  function getAttributePriority(name: string, fallbackIndex: number): number {
+    const priority = ATTRIBUTE_PRIORITY.get(name);
+    if (priority != null) {
+      return priority;
+    }
+
+    return ATTRIBUTE_PRIORITY_SIZE + fallbackIndex;
+  }
+
   function cloneWithExampleNamespace(node: any, doc: any): any {
     if (node == null) {
       return null;
@@ -94,26 +117,64 @@ Draw.loadPlugin(function (editorUi: any): void {
       );
 
       if (element.attributes != null) {
+        const attributes: Array<{
+          name: string;
+          nodeName: string;
+          value: string;
+          namespaceURI: string | null;
+          prefix: string | null;
+          index: number;
+        }> = [];
+
         for (let i = 0; i < element.attributes.length; i++) {
           const attr = element.attributes[i];
 
           if (attr != null) {
+            const attrName = attr.name ?? attr.nodeName;
+
             // Skip dx/dy on mxGraphModel because they change randomly on different machines/deployments
             if (
               localName === "mxGraphModel" &&
-              (attr.name === "dx" || attr.name === "dy")
+              (attrName === "dx" || attrName === "dy")
             ) {
               continue;
             }
-            if (attr.prefix != null && attr.prefix.length > 0) {
-              newElement.setAttributeNS(
-                attr.namespaceURI,
-                attr.name,
-                attr.value,
-              );
-            } else {
-              newElement.setAttribute(attr.name, attr.value);
-            }
+
+            attributes.push({
+              name: attrName,
+              nodeName: attr.nodeName ?? attrName,
+              value: attr.value ?? "",
+              namespaceURI: attr.namespaceURI ?? null,
+              prefix: attr.prefix ?? null,
+              index: i,
+            });
+          }
+        }
+
+        attributes.sort((a, b) => {
+          const priorityA = getAttributePriority(a.name, a.index);
+          const priorityB = getAttributePriority(b.name, b.index);
+
+          if (priorityA !== priorityB) {
+            return priorityA - priorityB;
+          }
+
+          if (a.index !== b.index) {
+            return a.index - b.index;
+          }
+
+          return a.name.localeCompare(b.name);
+        });
+
+        for (const attr of attributes) {
+          if (attr.prefix != null && attr.prefix.length > 0) {
+            newElement.setAttributeNS(
+              attr.namespaceURI,
+              attr.nodeName,
+              attr.value,
+            );
+          } else {
+            newElement.setAttribute(attr.name, attr.value);
           }
         }
       }
