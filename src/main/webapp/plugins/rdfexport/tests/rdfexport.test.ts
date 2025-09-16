@@ -295,7 +295,6 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const md5 = createHash("md5").update(data).digest("hex");
-    console.log(data);
     const refMd5 = createHash("md5")
       .update(
         readFileSync(new URL(`./fixtures/${sampleFile}`, import.meta.url)),
