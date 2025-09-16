@@ -1,0 +1,31 @@
+{
+  "name": "rdfexport",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/n3": "^1.26.0",
+    "@xmldom/xmldom": "^0.8.11",
+    "jsdom": "^27.0.0",
+    "n3": "^1.26.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/bun": "latest",
+    "eslint": "^9.35.0",
+    "prettier": "^3.6.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "volta": {
+    "node": "22.19.0"
+  },
+  "scripts": {
+    "build": "bun build --outfile=dist/rmlexport.js src/rmlexport.ts",
+    "test": "bun --check test",
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  }
+}
