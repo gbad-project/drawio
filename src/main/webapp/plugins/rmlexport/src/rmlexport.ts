@@ -230,6 +230,8 @@ class DrawioParser {
     return px >= dx - maxGap && px <= dx + dw + maxGap && py >= dy - maxGap && py <= dy + dh + maxGap;
   }
   private _findClosestCell(point: Point): Element | null {
+    // For individuals, the dimensions are of the parent, but the cell is the child.
+    // We need to check against the parent's dimensions but return the parent cell.
     for(const { cell: indCell, dimensions: indDims } of this.individuals) {
         const parent = this._getParent(indCell);
         if (parent && this._isCloseEnough(point, indDims)) return parent;
@@ -238,6 +240,20 @@ class DrawioParser {
         if(this._isCloseEnough(point, litDims)) return litCell;
     }
     return null;
+  }
+  private _getSourceOrTargetIdentifier(cell: Element): string {
+    const value = this._getCellValue(cell);
+    const prefixesInValue = Object.keys(prefixes).filter(p => p && value.startsWith(p + ':'));
+
+    if (prefixesInValue.length > 0) {
+        // This cell defines the class, the identifier is in the parent.
+        const parent = this._getParent(cell);
+        return parent ? this._getCellValue(parent) : "";
+    }
+
+    // This cell is likely the parent box of an individual, or a literal box.
+    // Its value is the identifier.
+    return value;
   }
   private * _yieldIndividualsAndArrows(): Generator<Individual | Arrow> {
     const yieldedIdentifiers = new Set<string>();
@@ -255,10 +271,15 @@ class DrawioParser {
         let targetCell = targetCellId ? this._getCellById(targetCellId) : null;
         if (!sourceCell && arrowData.start) sourceCell = this._findClosestCell(arrowData.start);
         if (!targetCell && arrowData.end) targetCell = this._findClosestCell(arrowData.end);
+
         if (sourceCell && targetCell) {
-            const sourceName = this._getCellValue(sourceCell);
-            const targetName = this._getCellValue(targetCell);
-            yield { identifier: arrowData.label, source: sourceName, target: targetName };
+            const sourceName = this._getSourceOrTargetIdentifier(sourceCell);
+            const targetName = this._getSourceOrTargetIdentifier(targetCell);
+            const isSourceIndividual = this.individuals.some(i => i.individual.identifier === sourceName);
+
+            if (sourceName && targetName && isSourceIndividual) {
+                yield { identifier: arrowData.label, source: sourceName, target: targetName };
+            }
         }
     }
   }
@@ -289,15 +310,29 @@ class DrawioParser {
   }
   private _extractMnemonic(template: string | undefined): string | undefined {
     if (!template) return undefined;
-    const match = template.match(/\{([A-Z_0-9]+)\}/);
+    // Python regex: r"\{([A-Z:_\d\.]+)\}"
+    const match = template.match(/\{([A-Z:_0-9\.]+)\}/);
     return match ? match[1] : undefined;
   }
   private _prettifyRdfsLabel(value: string): string {
     let pretty = value;
-    try { pretty = decodeURIComponent(pretty); } catch (e) { /* ignore */ }
+    try {
+        pretty = decodeURIComponent(pretty);
+    } catch (e) { /* ignore */ }
+
     const baseUri = "https://data.archives.gov.on.test.gbad.ca/";
-    if (pretty.startsWith(baseUri)) pretty = pretty.substring(baseUri.length);
-    if (pretty.startsWith('/')) pretty = pretty.substring(1);
+    if (pretty.startsWith(baseUri)) {
+        pretty = pretty.substring(baseUri.length);
+    }
+    if (pretty.startsWith('/')) {
+        pretty = pretty.substring(1);
+    }
+    // Simplified version of python's logic
+    const kbRegex = /KB\/([^\/]+)\/(.*)/;
+    const kbMatch = pretty.match(kbRegex);
+    if (kbMatch) {
+        return `${kbMatch[1]}: ${kbMatch[2]}`;
+    }
     return pretty;
   }
   public parse(): TriplesMap[] {
@@ -314,13 +349,21 @@ class DrawioParser {
             blocks[source].facts[identifier].add(target);
         }
     }
+
     const expandedBlocks: { [key: string]: { types: Set<string>, facts: { [predicate: string]: Set<string> } } } = {};
     for (const identifier in blocks) {
         const disaggregatedIdentifiers = this._disaggregate(identifier);
         for (const disaggregatedIdentifier of disaggregatedIdentifiers) {
-            if (!expandedBlocks[disaggregatedIdentifier]) expandedBlocks[disaggregatedIdentifier] = { types: blocks[identifier].types, facts: {} };
+            if (!expandedBlocks[disaggregatedIdentifier]) {
+                expandedBlocks[disaggregatedIdentifier] = { types: new Set(blocks[identifier].types), facts: {} };
+            } else {
+                 blocks[identifier].types.forEach(t => expandedBlocks[disaggregatedIdentifier].types.add(t));
+            }
+
             for (const predicate in blocks[identifier].facts) {
-                if (!expandedBlocks[disaggregatedIdentifier].facts[predicate]) expandedBlocks[disaggregatedIdentifier].facts[predicate] = new Set();
+                if (!expandedBlocks[disaggregatedIdentifier].facts[predicate]) {
+                    expandedBlocks[disaggregatedIdentifier].facts[predicate] = new Set();
+                }
                 for (const object of blocks[identifier].facts[predicate]) {
                     const disaggregatedObjects = this._disaggregate(object);
                     for (const disaggregatedObject of disaggregatedObjects) {
@@ -330,29 +373,51 @@ class DrawioParser {
             }
         }
     }
+
     const triplesMaps: TriplesMap[] = [];
     for (const identifier in expandedBlocks) {
         const block = expandedBlocks[identifier];
         const subjectMap: SubjectMap = { class: Array.from(block.types) };
-        if (identifier.startsWith("rr:template=")) subjectMap.template = identifier.substring("rr:template=".length);
-        else if (identifier.startsWith("rr:constant=")) subjectMap.constant = identifier.substring("rr:constant=".length);
-        else subjectMap.template = identifier;
+
+        if (identifier.startsWith("rr:template=")) {
+            subjectMap.template = identifier.substring("rr:template=".length);
+        } else if (identifier.startsWith("rr:constant=")) {
+            subjectMap.constant = identifier.substring("rr:constant=".length);
+        } else if (identifier.startsWith("rml:reference=")) {
+            // This is unlikely for a subject, but we can handle it.
+            subjectMap.template = `{${identifier.substring("rml:reference=".length)}}`;
+        } else {
+            subjectMap.template = identifier;
+        }
+        subjectMap.termType = "IRI"; // Subjects are always IRIs
         subjectMap.mnemonic = this._extractMnemonic(subjectMap.template);
+
         const predicateObjectMaps: PredicateObjectMap[] = [];
         for(const predicate in block.facts) {
             for(const object of block.facts[predicate]) {
                 let objectMap: ObjectMap = {};
                 if(expandedBlocks[object]) {
                     objectMap.parentTriplesMap = this._cleanForId(object);
+                    objectMap.termType = "IRI";
                 } else {
-                    if (object.startsWith("rml:reference=")) objectMap.reference = object.substring("rml:reference=".length);
-                    else if (object.startsWith("rr:template=")) objectMap.template = object.substring("rr:template=".length);
-                    else if (object.startsWith("rr:constant=")) objectMap.constant = object.substring("rr:constant=".length);
-                    else {
+                    if (object.startsWith("rml:reference=")) {
+                        objectMap.reference = object.substring("rml:reference=".length);
+                        objectMap.mnemonic = objectMap.reference;
+                    } else if (object.startsWith("rr:template=")) {
+                        objectMap.template = object.substring("rr:template=".length);
+                        objectMap.mnemonic = this._extractMnemonic(objectMap.template);
+                    } else if (object.startsWith("rr:constant=")) {
+                        objectMap.constant = object.substring("rr:constant=".length);
+                        const isIRI = objectMap.constant.includes(':') || objectMap.constant.startsWith("http");
+                        if (isIRI) {
+                            objectMap.termType = 'IRI';
+                        } else {
+                            objectMap.termType = 'Literal';
+                        }
+                    } else {
                         objectMap.constant = object;
                         objectMap.termType = 'Literal';
                     }
-                    objectMap.mnemonic = this._extractMnemonic(objectMap.template || objectMap.reference);
                 }
                 predicateObjectMaps.push({ predicate, objectMap });
             }
@@ -360,12 +425,28 @@ class DrawioParser {
         const hasRdfsLabel = predicateObjectMaps.some(pom => pom.predicate === 'rdfs:label');
         if (!hasRdfsLabel) {
             const prettyLabel = this._prettifyRdfsLabel(subjectMap.template || subjectMap.constant || '');
-            predicateObjectMaps.push({ predicate: 'rdfs:label', objectMap: { template: prettyLabel, termType: 'Literal' } });
+            if(prettyLabel) {
+              predicateObjectMaps.push({ predicate: 'rdfs:label', objectMap: { template: prettyLabel, termType: 'Literal' } });
+            }
         }
         const tmId = this._cleanForId(identifier);
         const fullUri = MAPPING_NS_URL + tmId;
         const tmUuid = uuidv5(fullUri, NAMESPACE_URL);
-        triplesMaps.push({ id: tmId, uuid: tmUuid, logicalSource: { source: this.sourceFilename, referenceFormulation: "CSV" }, subjectMap, predicateObjectMaps });
+
+        const iteratorMatch = identifier.match(/_(\d+)$/);
+        const iterator = iteratorMatch ? iteratorMatch[1] : undefined;
+
+        triplesMaps.push({
+            id: tmId,
+            uuid: tmUuid,
+            logicalSource: {
+                source: this.sourceFilename,
+                referenceFormulation: "CSV",
+                ...(iterator && { iterator: iterator })
+            },
+            subjectMap,
+            predicateObjectMaps
+        });
     }
     return triplesMaps;
   }
