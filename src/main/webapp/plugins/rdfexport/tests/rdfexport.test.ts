@@ -2,9 +2,13 @@ import { test, expect } from "bun:test";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
-import { readFileSync } from "fs";
+import { readFileSync, readdirSync, existsSync } from "fs";
+import { join, extname, basename } from "path";
 
-const rdfexportUrl = new URL("../src/rdfexport.ts", import.meta.url).href;
+const rdfexportUrl = fileURLToPath(
+  new URL("../src/rdfexport.ts", import.meta.url),
+);
+const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
 
@@ -203,8 +207,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
       await import(rdfexportUrl);
     }
 
-    const fixtureUrl = new URL(`./fixtures/${fixtureFile}`, import.meta.url);
-    const fixturePath = fileURLToPath(fixtureUrl);
+    const fixturePath = join(fixturesDir, fixtureFile);
     const xml = await Bun.file(fixturePath).text();
 
     const parser = new DOMParser();
@@ -295,7 +298,6 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const md5 = createHash("md5").update(data).digest("hex");
-    console.log(data);
     const refMd5 = createHash("md5")
       .update(
         readFileSync(new URL(`./fixtures/${sampleFile}`, import.meta.url)),
@@ -305,7 +307,16 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
   });
 }
 
-// Call the helper for each case
-runRdfExportTest("sample1.drawio", "sample1.rdf");
-runRdfExportTest("sample2.drawio", "sample2.rdf");
-runRdfExportTest("sample3.drawio", "sample3.rdf");
+for (const file of readdirSync(fixturesDir)) {
+  if (extname(file) === ".drawio") {
+    const base = basename(file, ".drawio");
+    const rdfFile = base + ".rdf";
+
+    if (!existsSync(join(fixturesDir, rdfFile))) {
+      test.skip(`${file}: skipped (no matching ${rdfFile})`, () => {});
+      continue;
+    }
+
+    runRdfExportTest(file, rdfFile);
+  }
+}
