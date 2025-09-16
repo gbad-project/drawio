@@ -21,12 +21,34 @@ interface MxResources {
   parse(resources: string): void;
 }
 
+interface MxEventSource {
+  addListener(name: string, listener: (sender: any, event: any) => void): void;
+  removeListener(listener: (sender: any, event: any) => void): void;
+}
+
+interface MxGraphModel extends MxEventSource {
+  getRoot(): any;
+  beginUpdate(): void;
+  endUpdate(): void;
+}
+
+interface MxGraph {
+  getModel(): MxGraphModel;
+  getAttributeForCell(
+    cell: any,
+    attributeName: string,
+    defaultValue: string | null,
+  ): string | null;
+  setAttributeForCell(cell: any, attributeName: string, value: string | null): void;
+}
+
 interface MxPage {
   getId(): string;
 }
 
 interface MxEditor {
   getGraphXml(): Element;
+  graph: MxGraph;
 }
 
 interface MxAction {
@@ -70,8 +92,178 @@ declare const Draw: Draw;
 declare const mxConstants: MxConstants;
 declare const mxUtils: MxUtils;
 declare const mxResources: MxResources;
+declare const DiagramFormatPanel: any;
+
+const CSV_PATH_ATTRIBUTE = "csvPath";
+
+let csvPropertyPatched = false;
+
+function installCsvPathProperty(): void {
+  if (csvPropertyPatched) {
+    return;
+  }
+
+  if (typeof DiagramFormatPanel === "undefined") {
+    return;
+  }
+
+  const originalAddDocumentProperties =
+    DiagramFormatPanel.prototype.addDocumentProperties;
+
+  if (typeof originalAddDocumentProperties !== "function") {
+    return;
+  }
+
+  DiagramFormatPanel.prototype.addDocumentProperties = function (
+    div: HTMLElement,
+  ): HTMLElement {
+    const result = originalAddDocumentProperties.apply(this, arguments);
+    const container: HTMLElement | undefined = (result ?? div) as HTMLElement | undefined;
+
+    if (!container || typeof document === "undefined") {
+      return result;
+    }
+
+    if ((this as any).__rdfexportCsvFieldInitialized === true) {
+      return result;
+    }
+
+    const ui = (this as { editorUi?: EditorUi }).editorUi;
+    const graph: MxGraph | undefined = ui?.editor?.graph;
+    const model: MxGraphModel | undefined = graph?.getModel?.();
+
+    if (!graph || !model || typeof model.getRoot !== "function") {
+      return result;
+    }
+
+    (this as any).__rdfexportCsvFieldInitialized = true;
+
+    const fieldContainer = document.createElement("div");
+    fieldContainer.style.display = "flex";
+    fieldContainer.style.flexDirection = "column";
+    fieldContainer.style.paddingTop = "6px";
+    fieldContainer.style.paddingRight = "16px";
+
+    const label = document.createElement("label");
+    label.textContent = "CSV path";
+    label.style.fontSize = "11px";
+    label.style.marginBottom = "4px";
+    label.style.userSelect = "none";
+    label.style.color = "var(--geLabelColor, #000000)";
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Enter CSV path";
+    input.style.boxSizing = "border-box";
+    input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    input.style.borderRadius = "2px";
+    input.style.padding = "4px 6px";
+    input.style.height = "26px";
+    input.style.fontSize = "13px";
+
+    const inputId = `rdfexport-csv-path-${Date.now().toString(36)}-${Math.floor(
+      Math.random() * 1e6,
+    )}`;
+    input.id = inputId;
+    label.setAttribute("for", inputId);
+
+    const getRootCell = (): any | null => {
+      try {
+        return model.getRoot();
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const readCsvPath = (): string => {
+      const rootCell = getRootCell();
+      if (!rootCell) {
+        return "";
+      }
+
+      const stored = graph.getAttributeForCell(rootCell, CSV_PATH_ATTRIBUTE, "");
+      return stored != null ? stored : "";
+    };
+
+    const updateInputFromModel = (): void => {
+      input.value = readCsvPath();
+    };
+
+    const applyInputValue = (): void => {
+      const rootCell = getRootCell();
+
+      if (!rootCell) {
+        return;
+      }
+
+      const normalizedRaw = input.value.trim();
+      const newValue = normalizedRaw.length > 0 ? normalizedRaw : null;
+      const currentValue = graph.getAttributeForCell(rootCell, CSV_PATH_ATTRIBUTE, "") || null;
+
+      if (currentValue !== newValue) {
+        model.beginUpdate();
+        try {
+          graph.setAttributeForCell(rootCell, CSV_PATH_ATTRIBUTE, newValue);
+        } finally {
+          model.endUpdate();
+        }
+      }
+
+      if (newValue === null && input.value !== "") {
+        input.value = "";
+      } else if (newValue !== null && input.value !== newValue) {
+        input.value = newValue;
+      }
+    };
+
+    input.addEventListener("change", () => {
+      applyInputValue();
+    });
+    input.addEventListener("blur", () => {
+      applyInputValue();
+    });
+    input.addEventListener("keydown", (evt) => {
+      const keyboardEvent = evt as KeyboardEvent;
+      if (keyboardEvent.key === "Enter") {
+        applyInputValue();
+      }
+    });
+
+    updateInputFromModel();
+
+    fieldContainer.appendChild(label);
+    fieldContainer.appendChild(input);
+    container.appendChild(fieldContainer);
+
+    if (
+      typeof model.addListener === "function" &&
+      typeof model.removeListener === "function" &&
+      Array.isArray((this as any).listeners)
+    ) {
+      const changeHandler = () => {
+        updateInputFromModel();
+      };
+
+      model.addListener("change", changeHandler);
+      (this as any).listeners.push({
+        destroy: () => {
+          model.removeListener(changeHandler);
+        },
+      });
+    }
+
+    return result;
+  };
+
+  csvPropertyPatched = true;
+}
+
+
+installCsvPathProperty();
 
 Draw.loadPlugin(function (editorUi: any): void {
+  installCsvPathProperty();
+
   const EXAMPLE_NS = "http://example.com/ns#";
   const RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
