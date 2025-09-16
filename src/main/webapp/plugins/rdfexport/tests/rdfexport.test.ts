@@ -5,7 +5,9 @@ import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join, extname, basename } from "path";
 
-const rdfexportUrl = fileURLToPath(new URL("../src/rdfexport.ts", import.meta.url));
+const rdfexportUrl = fileURLToPath(
+  new URL("../src/rdfexport.ts", import.meta.url),
+);
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
