@@ -49,7 +49,6 @@ function expandPrefix(prefixedName: string): string {
 interface LogicalSource {
   source: string;
   referenceFormulation: "CSV";
-  iterator?: string;
 }
 
 interface SubjectMap {
@@ -142,13 +141,20 @@ class DrawioParser {
   private _getCellValue(cell: Element): string {
     const value = cell.getAttribute("value") || "";
     if (!value) return "";
+    let textContent = "";
     try {
       const tempDiv = this.doc.createElement('div');
       tempDiv.innerHTML = value;
-      return (tempDiv.textContent || "").trim();
+      textContent = tempDiv.textContent || "";
     } catch (e) {
-      return value.replace(/<[^>]*>/g, ' ').replace(/\s\s+/g, ' ').trim();
+      textContent = value.replace(/<[^>]*>/g, ' ');
     }
+    // 1. Replace all whitespace sequences with a single space.
+    // 2. Trim leading/trailing whitespace.
+    // 3. Remove leading/trailing quotes.
+    // 4. Trim again in case there was whitespace around the quotes.
+    const cleaned = textContent.replace(/\s+/g, ' ').trim();
+    return cleaned.replace(/^"|"$/g, '').trim();
   }
 
   private _getCellById(id: string): Element | undefined { return this.cells[id]; }
@@ -433,16 +439,12 @@ class DrawioParser {
         const fullUri = MAPPING_NS_URL + tmId;
         const tmUuid = uuidv5(fullUri, NAMESPACE_URL);
 
-        const iteratorMatch = identifier.match(/_(\d+)$/);
-        const iterator = iteratorMatch ? iteratorMatch[1] : undefined;
-
         triplesMaps.push({
             id: tmId,
             uuid: tmUuid,
             logicalSource: {
                 source: this.sourceFilename,
-                referenceFormulation: "CSV",
-                ...(iterator && { iterator: iterator })
+                referenceFormulation: "CSV"
             },
             subjectMap,
             predicateObjectMaps
@@ -510,19 +512,18 @@ class RmlSerializer {
       this.store.addQuad(tmNode, namedNode(expandPrefix("rml:logicalSource")), lsNode);
       this.store.addQuad(lsNode, namedNode(expandPrefix("rml:source")), literal(tm.logicalSource.source));
       this.store.addQuad(lsNode, namedNode(expandPrefix("rml:referenceFormulation")), namedNode(expandPrefix("ql:CSV")));
-      if (tm.logicalSource.iterator) this.store.addQuad(lsNode, namedNode(expandPrefix("rml:iterator")), literal(tm.logicalSource.iterator));
       const smNode = blankNode();
       this.store.addQuad(tmNode, namedNode(expandPrefix("rr:subjectMap")), smNode);
       tm.subjectMap.class.forEach(c => this.store.addQuad(smNode, namedNode(expandPrefix("rr:class")), this._createNode(c)));
       if (tm.subjectMap.mnemonic) {
         const inputTuples: [Term, Term][] = [[namedNode(expandPrefix("rml:reference")), literal(tm.subjectMap.mnemonic)]];
-        let template = tm.subjectMap.template ? tm.subjectMap.template.replace(/{UUID[^}]*}/g, tm.uuid) : undefined;
+        let template = tm.subjectMap.template ? tm.subjectMap.template.replace(/{UUID[^}]*}/g, `urn:uuid:${tm.uuid}`) : undefined;
         const returnPredicate = template ? namedNode(expandPrefix("rr:template")) : namedNode(expandPrefix("rr:constant"));
         const returnObject = template ? literal(template) : this._createNode(tm.subjectMap.constant!);
         this._addFnoMapValueUnlessIsNull(smNode, [returnPredicate, returnObject], inputTuples);
       } else {
         if (tm.subjectMap.template) {
-          let template = tm.subjectMap.template.replace(/{UUID[^}]*}/g, tm.uuid);
+          let template = tm.subjectMap.template.replace(/{UUID[^}]*}/g, `urn:uuid:${tm.uuid}`);
           this.store.addQuad(smNode, namedNode(expandPrefix("rr:template")), literal(template));
         }
         if (tm.subjectMap.constant) this.store.addQuad(smNode, namedNode(expandPrefix("rr:constant")), this._createNode(tm.subjectMap.constant));
@@ -534,18 +535,13 @@ class RmlSerializer {
         this.store.addQuad(pomNode, namedNode(expandPrefix("rr:predicate")), this._createNode(pom.predicate));
         const omNode = blankNode();
         this.store.addQuad(pomNode, namedNode(expandPrefix("rr:objectMap")), omNode);
+
         if (pom.objectMap.parentTriplesMap) {
           this.store.addQuad(omNode, namedNode(expandPrefix("rr:parentTriplesMap")), this._createNode(pom.objectMap.parentTriplesMap));
-        } else if (pom.objectMap.mnemonic) {
-            const inputTuples: [Term, Term][] = [[namedNode(expandPrefix("rml:reference")), literal(pom.objectMap.mnemonic)]];
-            let template = pom.objectMap.template ? pom.objectMap.template.replace(/{UUID[^}]*}/g, tm.uuid) : undefined;
-            const returnPredicate = template ? namedNode(expandPrefix("rr:template")) : pom.objectMap.reference ? namedNode(expandPrefix("rml:reference")) : namedNode(expandPrefix("rr:constant"));
-            const returnObject = template ? literal(template) : pom.objectMap.reference ? literal(pom.objectMap.reference) : this._createNode(pom.objectMap.constant!);
-            this._addFnoMapValueUnlessIsNull(omNode, [returnPredicate, returnObject], inputTuples);
         } else if (pom.objectMap.reference) {
           this.store.addQuad(omNode, namedNode(expandPrefix("rml:reference")), literal(pom.objectMap.reference));
         } else if (pom.objectMap.template) {
-          let template = pom.objectMap.template.replace(/{UUID[^}]*}/g, tm.uuid);
+          let template = pom.objectMap.template.replace(/{UUID[^}]*}/g, `urn:uuid:${tm.uuid}`);
           this.store.addQuad(omNode, namedNode(expandPrefix("rr:template")), literal(template));
         } else if (pom.objectMap.constant) {
           const term = pom.objectMap.termType === "Literal" ? literal(pom.objectMap.constant, pom.objectMap.language) : this._createNode(pom.objectMap.constant);
