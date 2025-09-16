@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@xmldom/xmldom": "^0.8.11"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -13,6 +14,7 @@
     "node": "22.19.0"
   },
   "scripts": {
-    "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts"
+    "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts",
+    "test": "bun --check test"
   }
 }
