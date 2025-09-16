@@ -299,9 +299,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
 
     const md5 = createHash("md5").update(data).digest("hex");
     const refMd5 = createHash("md5")
-      .update(
-        readFileSync(new URL(`./fixtures/${sampleFile}`, import.meta.url)),
-      )
+      .update(readFileSync(join(fixturesDir, sampleFile)))
       .digest("hex");
     expect(md5).toBe(refMd5);
   });
