@@ -3,12 +3,7 @@ import {
   DataFactory,
   Writer,
   Store,
-  Quad,
-  NamedNode,
-  Literal,
-  BlankNode,
 } from "n3";
-import type { Term } from "n3";
 
 const { namedNode, literal, quad, blankNode } = DataFactory;
 
@@ -31,14 +26,22 @@ const prefixes: { [key: string]: string } = {
 };
 
 function expandPrefix(prefixedName: string): string {
-  const parts = prefixedName.split(":", 2);
-  if (parts.length > 1 && prefixes[parts[0]]) {
-    return prefixes[parts[0]] + parts[1];
-  }
-  return prefixedName;
+    const parts = prefixedName.split(":", 2);
+    if (parts.length > 1 && prefixes[parts[0]]) {
+        return prefixes[parts[0]] + parts[1];
+    }
+    // If it's a full URL, return it as is
+    if (prefixedName.startsWith("http")) {
+        return prefixedName;
+    }
+    // Handle default prefix
+    if (!prefixedName.includes(":") && prefixes[""]) {
+        return prefixes[""] + prefixedName;
+    }
+    return prefixedName;
 }
 
-// --- INTERFACES for RML Structure ---
+// --- RML Data Structures ---
 interface LogicalSource {
   source: string;
   referenceFormulation: "CSV";
@@ -58,10 +61,11 @@ interface ObjectMap {
   constant?: string;
   parentTriplesMap?: string;
   termType?: "IRI" | "Literal" | "BlankNode";
+  language?: string;
 }
 
 interface PredicateObjectMap {
-  predicate: string[];
+  predicate: string;
   objectMap: ObjectMap;
 }
 
@@ -71,6 +75,21 @@ interface TriplesMap {
   subjectMap: SubjectMap;
   predicateObjectMaps: PredicateObjectMap[];
 }
+
+// --- Drawio Parsing Data Structures ---
+interface Individual {
+  identifier: string;
+  ricClass: string;
+}
+
+interface Arrow {
+  identifier: string;
+  source: string;
+  target: string;
+}
+
+type Dimensions = [number, number, number, number]; // x, y, width, height
+type Point = [number, number]; // x, y
 
 // --- RML Generator Main Class ---
 export async function createRml(
@@ -86,178 +105,295 @@ export async function createRml(
 // --- Drawio XML Parser ---
 class DrawioParser {
   private dom: JSDOM;
+  private doc: Document;
   private cells: { [id: string]: Element } = {};
-  private individuals: {
-    [id: string]: { cell: Element; name: string; classSpecifierIds: string[] };
-  } = {};
-  private classSpecifiers: { [id: string]: { cell: Element; name: string } } =
-    {};
-  private literals: { [id: string]: { cell: Element; name: string } } = {};
-  private edges: Element[] = [];
+  private individuals: { cell: Element; individual: Individual, dimensions: Dimensions }[] = [];
+  private arrows: { cell: Element, start: Point | null, end: Point | null, label: string }[] = [];
+  private literals: { cell: Element, dimensions: Dimensions }[] = [];
+
 
   constructor(
     private xmlString: string,
     private sourceFilename: string,
   ) {
     this.dom = new JSDOM(xmlString, { contentType: "application/xml" });
-    const cellElements = Array.from(
-      this.dom.window.document.querySelectorAll("mxCell"),
-    );
+    this.doc = this.dom.window.document;
+    this._extractCells();
+    this._extractIndividualAndArrowAndLiteralCells();
+  }
 
+  private _extractCells(): void {
+    const cellElements = Array.from(this.doc.querySelectorAll("mxCell"));
     for (const cell of cellElements) {
       const id = cell.getAttribute("id");
-      if (!id || id === "0" || id === "1") continue;
-      this.cells[id] = cell;
-      if (cell.hasAttribute("edge")) {
-        this.edges.push(cell);
+      if (id) {
+        this.cells[id] = cell;
       }
     }
   }
 
-  private getCleanValue(cell: Element): string {
+  private _getCellValue(cell: Element): string {
     const value = cell.getAttribute("value") || "";
-    const tempDom = new JSDOM(`<body>${value}</body>`);
-    let text = tempDom.window.document.body.textContent || "";
-    text = text.replace(/<br\s*\/?>/gi, "\n");
-    return text.replace(/\s+/g, " ").trim();
+    if (!value) {
+      return "";
+    }
+    try {
+      const tempDiv = this.doc.createElement('div');
+      tempDiv.innerHTML = value;
+      return (tempDiv.textContent || "").trim();
+    } catch (e) {
+      // Fallback for malformed HTML, similar to Python's lenient parser
+      return value.replace(/<[^>]*>/g, ' ').replace(/\s\s+/g, ' ').trim();
+    }
   }
 
-  private classifyCells(): void {
-    const individualCandidates: {
-      [id: string]: {
-        cell: Element;
-        name: string;
-        classSpecifierIds: string[];
-      };
-    } = {};
-
-    // First pass: identify all cells and potential individuals/literals
-    for (const id in this.cells) {
-      const cell = this.cells[id];
-      const style = cell.getAttribute("style") || "";
-      const value = this.getCleanValue(cell);
-
-      if (
-        style.includes("swimlane") ||
-        (!cell.hasAttribute("edge") && cell.getAttribute("parent") === "1")
-      ) {
-        individualCandidates[id] = { cell, name: value, classSpecifierIds: [] };
-      } else if (style.includes("rounded=1") || style.includes("shape=note")) {
-        this.literals[id] = { cell, name: value };
-      }
-    }
-
-    // Second pass: associate class specifiers with individuals
-    for (const id in this.cells) {
-      const cell = this.cells[id];
-      const value = this.getCleanValue(cell);
-      const parentId = cell.getAttribute("parent");
-
-      if (
-        value.includes(":") &&
-        !value.startsWith("http") &&
-        parentId &&
-        individualCandidates[parentId]
-      ) {
-        const classNames = value.split(" ").filter((v) => v.includes(":"));
-        if (classNames.length > 0) {
-          this.classSpecifiers[id] = { cell, name: value };
-          individualCandidates[parentId].classSpecifierIds.push(id);
-        }
-      }
-    }
-
-    this.individuals = individualCandidates;
+  private _getCellById(id: string): Element | undefined {
+    return this.cells[id];
   }
 
-  public parse(): TriplesMap[] {
-    this.classifyCells();
-    const triplesMaps: { [id: string]: TriplesMap } = {};
+  private _getParent(cell: Element): Element | undefined {
+    const parentId = cell.getAttribute("parent");
+    return parentId ? this._getCellById(parentId) : undefined;
+  }
 
-    // Create TriplesMaps for each individual
-    for (const id in this.individuals) {
-      const individual = this.individuals[id];
-      const classes = individual.classSpecifierIds
-        .flatMap((csId) => this.classSpecifiers[csId].name.split(" "))
-        .filter((v) => v.includes(":"));
+  private _getGeometry(cell: Element): Element | undefined {
+    return Array.from(cell.children).find(child => child.tagName === 'mxGeometry');
+  }
 
-      if (classes.length === 0) continue;
+  private _getDimensions(cell: Element): Dimensions | null {
+    const geo = this._getGeometry(cell);
+    if (!geo) return null;
+    const x = parseFloat(geo.getAttribute("x") || "0");
+    const y = parseFloat(geo.getAttribute("y") || "0");
+    const width = parseFloat(geo.getAttribute("width") || "0");
+    const height = parseFloat(geo.getAttribute("height") || "0");
+    return [x, y, width, height];
+  }
 
-      const subjectMap: SubjectMap = { class: classes, termType: "IRI" };
-      const individualName = individual.name;
+  private _getArrowEndpoint(arrowCell: Element, type: 'source' | 'target'): Point | null {
+    const geo = this._getGeometry(arrowCell);
+    if (!geo) return null;
 
-      if (individualName.startsWith("rr:template=")) {
-        subjectMap.template = individualName.substring("rr:template=".length);
-      } else if (individualName.startsWith("rr:constant=")) {
-        subjectMap.constant = individualName.substring("rr:constant=".length);
-      } else if (individualName) {
-        if (!individualName.includes(":") && !individualName.includes("{")) {
-          subjectMap.template = `{${individualName}}`;
+    const point = Array.from(geo.children).find(child => child.tagName === 'mxPoint' && child.getAttribute('as') === `${type}Point`);
+    if (point) {
+        let x = parseFloat(point.getAttribute('x') || '0');
+        let y = parseFloat(point.getAttribute('y') || '0');
+
+        let parent = this._getParent(arrowCell);
+        while(parent && parent.getAttribute('id') !== '1') {
+            const parentGeo = this._getGeometry(parent);
+            if(parentGeo) {
+                x += parseFloat(parentGeo.getAttribute('x') || '0');
+                y += parseFloat(parentGeo.getAttribute('y') || '0');
+            }
+            parent = this._getParent(parent);
         }
-      }
 
-      triplesMaps[id] = {
-        id,
-        logicalSource: {
-          source: this.sourceFilename,
-          referenceFormulation: "CSV",
-        },
-        subjectMap,
-        predicateObjectMaps: [],
-      };
+        return [x, y];
     }
+    return null;
+  }
 
-    // Process edges
-    for (const edge of this.edges) {
-      const sourceId = edge.getAttribute("source");
-      const targetId = edge.getAttribute("target");
-      let label = this.getCleanValue(edge);
-      if (!label) {
-        // Try to find label in child cells for complex edges
-        const childCells = Array.from(edge.getElementsByTagName("mxCell"));
-        for (const child of childCells) {
-          if (child.getAttribute("style")?.includes("edgeLabel")) {
-            label = this.getCleanValue(child);
-            break;
-          }
+  private _extractIndividualAndArrowAndLiteralCells(): void {
+    for (const id in this.cells) {
+      if (id === "0" || id === "1") continue;
+      const cell = this.cells[id];
+      const value = this._getCellValue(cell);
+
+      // Arrow detection
+      if(cell.hasAttribute('edge')) {
+        const childLabelCell = Array.from(cell.children).find(c => this._getCellValue(c) !== '');
+        const label = this._getCellValue(childLabelCell || cell);
+        if (label) {
+            this.arrows.push({
+                cell,
+                start: this._getArrowEndpoint(cell, 'source'),
+                end: this._getArrowEndpoint(cell, 'target'),
+                label
+            });
         }
-      }
-
-      if (!sourceId || !targetId || !label) continue;
-
-      const sourceMap = triplesMaps[sourceId];
-      if (!sourceMap) continue;
-
-      let objectMap: ObjectMap = {};
-      if (triplesMaps[targetId]) {
-        objectMap.parentTriplesMap = targetId;
-      } else if (this.literals[targetId]) {
-        const literalDef = this.literals[targetId];
-        const literalName = literalDef.name;
-        if (literalName.startsWith("rml:reference=")) {
-          objectMap.reference = literalName.substring("rml:reference=".length);
-        } else if (literalName.startsWith("rr:template=")) {
-          objectMap.template = literalName.substring("rr:template=".length);
-        } else if (literalName.startsWith("rr:constant=")) {
-          objectMap.constant = literalName.substring("rr:constant=".length);
-        } else {
-          objectMap.constant = literalName;
-          objectMap.termType = "Literal";
-        }
-      } else {
         continue;
       }
 
-      const predicates = label.split(",").map((p) => p.trim());
-      sourceMap.predicateObjectMaps.push({
-        predicate: predicates,
-        objectMap,
-      });
+      const prefixesInValue = Object.keys(prefixes).filter(p => p && value.startsWith(p + ':'));
+      if (prefixesInValue.length > 0) {
+        const parent = this._getParent(cell);
+        if (parent) {
+          const individualIdentifier = this._getCellValue(parent);
+          if (individualIdentifier) {
+            const parentDimensions = this._getDimensions(parent);
+            if(parentDimensions) {
+                const ricClasses = value.split(' ').map(s => s.trim()).filter(s => s.includes(':'));
+                for(const ricClass of ricClasses) {
+                    this.individuals.push({
+                        cell: cell,
+                        individual: { identifier: individualIdentifier, ricClass: ricClass },
+                        dimensions: parentDimensions,
+                    });
+                }
+            }
+          }
+        }
+      } else { // Potential literal
+        const style = cell.getAttribute('style') || '';
+        if(style.includes('rounded=1') && cell.getAttribute('parent') === '1') {
+            const dims = this._getDimensions(cell);
+            if (dims) {
+                this.literals.push({ cell, dimensions: dims });
+            }
+        }
+      }
+    }
+  }
+
+  private _isCloseEnough(point: Point, dims: Dimensions, maxGap: number = 10): boolean {
+    const [px, py] = point;
+    const [dx, dy, dw, dh] = dims;
+    return px >= dx - maxGap && px <= dx + dw + maxGap &&
+           py >= dy - maxGap && py <= dy + dh + maxGap;
+  }
+
+  private _findClosestCell(point: Point): Element | null {
+    // Check individuals first
+    for(const { cell: indCell, dimensions: indDims } of this.individuals) {
+        const parent = this._getParent(indCell);
+        if (parent && this._isCloseEnough(point, indDims)) {
+            return parent;
+        }
+    }
+    // Check literals
+    for(const { cell: litCell, dimensions: litDims } of this.literals) {
+        if(this._isCloseEnough(point, litDims)) {
+            return litCell;
+        }
+    }
+    return null;
+  }
+
+
+  private * _yieldIndividualsAndArrows(): Generator<Individual | Arrow> {
+    const yieldedIdentifiers = new Set<string>();
+    for (const { individual } of this.individuals) {
+        const key = `${individual.identifier}-${individual.ricClass}`;
+        if (!yieldedIdentifiers.has(key)) {
+            yield individual;
+            yieldedIdentifiers.add(key);
+        }
     }
 
-    return Object.values(triplesMaps);
+    for (const arrowData of this.arrows) {
+        let sourceCellId = arrowData.cell.getAttribute('source');
+        let targetCellId = arrowData.cell.getAttribute('target');
+
+        let sourceCell = sourceCellId ? this._getCellById(sourceCellId) : null;
+        let targetCell = targetCellId ? this._getCellById(targetCellId) : null;
+
+        if (!sourceCell && arrowData.start) {
+            sourceCell = this._findClosestCell(arrowData.start);
+        }
+        if (!targetCell && arrowData.end) {
+            targetCell = this._findClosestCell(arrowData.end);
+        }
+
+        if (sourceCell && targetCell) {
+            const sourceName = this._getCellValue(sourceCell);
+            const targetName = this._getCellValue(targetCell);
+
+            yield {
+                identifier: arrowData.label,
+                source: sourceName,
+                target: targetName
+            };
+        }
+    }
+  }
+
+  private _cleanForId(id: string): string {
+    let de_prefixed = id;
+    if (de_prefixed.startsWith("rr:template=")) {
+        de_prefixed = de_prefixed.substring("rr:template=".length);
+    } else if (de_prefixed.startsWith("rr:constant=")) {
+        de_prefixed = de_prefixed.substring("rr:constant=".length);
+    } else if (de_prefixed.startsWith("rml:reference=")) {
+        de_prefixed = de_prefixed.substring("rml:reference=".length);
+    }
+
+    // Replace invalid characters with underscore
+    return de_prefixed.replace(/[^a-zA-Z0-9_-]/g, '_');
+  }
+
+  public parse(): TriplesMap[] {
+    const blocks: { [key: string]: { types: Set<string>, facts: { [predicate: string]: Set<string> } } } = {};
+
+    for (const item of this._yieldIndividualsAndArrows()) {
+        if ('ricClass' in item) { // It's an Individual
+            const { identifier, ricClass } = item;
+            if (!blocks[identifier]) {
+                blocks[identifier] = { types: new Set(), facts: {} };
+            }
+            blocks[identifier].types.add(ricClass);
+        } else { // It's an Arrow
+            const { identifier, source, target } = item;
+            if (!blocks[source]) {
+                blocks[source] = { types: new Set(), facts: {} };
+            }
+            if (!blocks[source].facts[identifier]) {
+                blocks[source].facts[identifier] = new Set();
+            }
+            blocks[source].facts[identifier].add(target);
+        }
+    }
+
+    const triplesMaps: TriplesMap[] = [];
+    for (const identifier in blocks) {
+        const block = blocks[identifier];
+        const subjectMap: SubjectMap = { class: Array.from(block.types) };
+
+        if (identifier.startsWith("rr:template=")) {
+            subjectMap.template = identifier.substring("rr:template=".length);
+        } else if (identifier.startsWith("rr:constant=")) {
+            subjectMap.constant = identifier.substring("rr:constant=".length);
+        } else {
+            subjectMap.template = identifier; // Default to template
+        }
+
+        const predicateObjectMaps: PredicateObjectMap[] = [];
+        for(const predicate in block.facts) {
+            for(const object of block.facts[predicate]) {
+                let objectMap: ObjectMap = {};
+                if(blocks[object]) { // It's another individual
+                    objectMap.parentTriplesMap = this._cleanForId(object);
+                } else { // It's a literal
+                    if (object.startsWith("rml:reference=")) {
+                        objectMap.reference = object.substring("rml:reference=".length);
+                    } else if (object.startsWith("rr:template=")) {
+                        objectMap.template = object.substring("rr:template=".length);
+                    } else if (object.startsWith("rr:constant=")) {
+                        objectMap.constant = object.substring("rr:constant=".length);
+                    } else {
+                        objectMap.constant = object;
+                        objectMap.termType = 'Literal';
+                    }
+                }
+                predicateObjectMaps.push({ predicate, objectMap });
+            }
+        }
+
+        triplesMaps.push({
+            id: this._cleanForId(identifier),
+            logicalSource: {
+                source: this.sourceFilename,
+                referenceFormulation: "CSV",
+            },
+            subjectMap,
+            predicateObjectMaps
+        });
+    }
+
+    return triplesMaps;
   }
 }
+
 
 // --- RML Serializer ---
 class RmlSerializer {
@@ -269,9 +405,16 @@ class RmlSerializer {
     this.writer = new Writer({ prefixes });
   }
 
+  private _createNode(value: string) {
+      if(value.startsWith('_:')) {
+          return blankNode(value.substring(2));
+      }
+      return namedNode(expandPrefix(value));
+  }
+
   public serialize(): Promise<string> {
     for (const tm of this.triplesMaps) {
-      const tmNode = namedNode(tm.id);
+      const tmNode = this._createNode(tm.id);
       this.store.addQuad(
         tmNode,
         namedNode(expandPrefix("rdf:type")),
@@ -312,7 +455,7 @@ class RmlSerializer {
         this.store.addQuad(
           smNode,
           namedNode(expandPrefix("rr:class")),
-          namedNode(expandPrefix(c)),
+          this._createNode(c),
         );
       });
       if (tm.subjectMap.template) {
@@ -326,7 +469,7 @@ class RmlSerializer {
         this.store.addQuad(
           smNode,
           namedNode(expandPrefix("rr:constant")),
-          namedNode(expandPrefix(tm.subjectMap.constant)),
+          this._createNode(tm.subjectMap.constant),
         );
       }
       if (tm.subjectMap.termType) {
@@ -344,13 +487,11 @@ class RmlSerializer {
           namedNode(expandPrefix("rr:predicateObjectMap")),
           pomNode,
         );
-        pom.predicate.forEach((p) => {
-          this.store.addQuad(
+        this.store.addQuad(
             pomNode,
             namedNode(expandPrefix("rr:predicate")),
-            namedNode(expandPrefix(p)),
-          );
-        });
+            this._createNode(pom.predicate),
+        );
 
         const omNode = blankNode();
         this.store.addQuad(
@@ -363,7 +504,7 @@ class RmlSerializer {
           this.store.addQuad(
             omNode,
             namedNode(expandPrefix("rr:parentTriplesMap")),
-            namedNode(pom.objectMap.parentTriplesMap),
+            this._createNode(pom.objectMap.parentTriplesMap),
           );
         } else if (pom.objectMap.reference) {
           this.store.addQuad(
@@ -380,8 +521,8 @@ class RmlSerializer {
         } else if (pom.objectMap.constant) {
           const term =
             pom.objectMap.termType === "Literal"
-              ? literal(pom.objectMap.constant)
-              : namedNode(expandPrefix(pom.objectMap.constant));
+              ? literal(pom.objectMap.constant, pom.objectMap.language)
+              : this._createNode(pom.objectMap.constant);
           this.store.addQuad(
             omNode,
             namedNode(expandPrefix("rr:constant")),
@@ -404,9 +545,8 @@ class RmlSerializer {
         if (error) {
           reject(error);
         } else {
-          resolve(
-            `@base <https://data.archives.gov.on.test.gbad.ca/> .\n${result}`,
-          );
+          // The base IRI is now handled in the test file, so we don't add it here.
+          resolve(result);
         }
       });
     });
