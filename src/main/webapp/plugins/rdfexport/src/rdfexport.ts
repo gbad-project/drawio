@@ -234,7 +234,7 @@ Draw.loadPlugin(function (editorUi: any): void {
     return mxUtils.getPrettyXml(doc);
   }
 
-  mxResources.parse("exportRdfXml=Export as RDF/XML...");
+  mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
 
   editorUi.actions.addAction("exportRdfXml", function (): void {
     try {
