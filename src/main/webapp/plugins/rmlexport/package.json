@@ -6,9 +6,12 @@
   "dependencies": {
     "@types/jsdom": "^21.1.7",
     "@types/n3": "^1.26.0",
+    "@types/uuid": "^10.0.0",
     "@xmldom/xmldom": "^0.8.11",
     "jsdom": "^27.0.0",
-    "n3": "^1.26.0"
+    "n3": "^1.26.0",
+    "rdf-isomorphic": "^2.0.1",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
