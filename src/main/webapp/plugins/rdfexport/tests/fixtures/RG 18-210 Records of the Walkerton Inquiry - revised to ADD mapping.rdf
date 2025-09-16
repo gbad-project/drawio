@@ -1,7 +1,7 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:example="http://example.com/ns#" xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <example:Diagram rdf:about="urn:diagram:F49Q9moJtOhBZ-nkpdS7" xmlns="http://example.com/ns#">
     <example:Title>
-      sample3
+      RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping
     </example:Title>
     <example:mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <example:root>
