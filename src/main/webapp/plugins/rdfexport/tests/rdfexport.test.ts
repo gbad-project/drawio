@@ -2,6 +2,9 @@ import { test, expect } from "bun:test";
 import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
+import { readFileSync } from "fs";
+
+const rdfexportUrl = new URL("../src/rdfexport.ts", import.meta.url).href;
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
 
@@ -27,7 +30,13 @@ const mxUtils = {
     }
     return doc;
   },
-  getPrettyXml(node: Node | null, tab?: string, indent?: string, newline?: string, ns?: string): string {
+  getPrettyXml(
+    node: Node | null,
+    tab?: string,
+    indent?: string,
+    newline?: string,
+    ns?: string,
+  ): string {
     const result: string[] = [];
 
     if (node != null) {
@@ -43,12 +52,28 @@ const mxUtils = {
 
       switch (node.nodeType) {
         case mxConstants.NODETYPE_DOCUMENT:
-          result.push(mxUtils.getPrettyXml((node as Document).documentElement, actualTab, actualIndent, actualNewline, ns));
+          result.push(
+            mxUtils.getPrettyXml(
+              (node as Document).documentElement,
+              actualTab,
+              actualIndent,
+              actualNewline,
+              ns,
+            ),
+          );
           break;
         case mxConstants.NODETYPE_DOCUMENT_FRAGMENT: {
           let child: ChildNode | null = (node as DocumentFragment).firstChild;
           while (child != null) {
-            result.push(mxUtils.getPrettyXml(child, actualTab, actualIndent, actualNewline, ns));
+            result.push(
+              mxUtils.getPrettyXml(
+                child,
+                actualTab,
+                actualIndent,
+                actualNewline,
+                ns,
+              ),
+            );
             child = child.nextSibling;
           }
           break;
@@ -63,7 +88,9 @@ const mxUtils = {
         case mxConstants.NODETYPE_TEXT: {
           const value = mxUtils.trim(mxUtils.getTextContent(node));
           if (value.length > 0) {
-            result.push(`${actualIndent}${mxUtils.htmlEntities(value, false, false)}${actualNewline}`);
+            result.push(
+              `${actualIndent}${mxUtils.htmlEntities(value, false, false)}${actualNewline}`,
+            );
           }
           break;
         }
@@ -92,10 +119,20 @@ const mxUtils = {
           if (child != null) {
             result.push(`>${actualNewline}`);
             while (child != null) {
-              result.push(mxUtils.getPrettyXml(child, actualTab, actualIndent + actualTab, actualNewline, ns));
+              result.push(
+                mxUtils.getPrettyXml(
+                  child,
+                  actualTab,
+                  actualIndent + actualTab,
+                  actualNewline,
+                  ns,
+                ),
+              );
               child = child.nextSibling;
             }
-            result.push(`${actualIndent}</${element.nodeName}>${actualNewline}`);
+            result.push(
+              `${actualIndent}</${element.nodeName}>${actualNewline}`,
+            );
           } else {
             result.push(` />${actualNewline}`);
           }
@@ -111,16 +148,25 @@ const mxUtils = {
   },
   ltrim(value: string, chars?: string): string {
     const pattern = chars ?? "\\s|\\0";
-    return value != null ? value.replace(new RegExp(`^[${pattern}]+`, "g"), "") : "";
+    return value != null
+      ? value.replace(new RegExp(`^[${pattern}]+`, "g"), "")
+      : "";
   },
   rtrim(value: string, chars?: string): string {
     const pattern = chars ?? "\\s|\\0";
-    return value != null ? value.replace(new RegExp(`[${pattern}]+$`, "g"), "") : "";
+    return value != null
+      ? value.replace(new RegExp(`[${pattern}]+$`, "g"), "")
+      : "";
   },
   trim(value: string, chars?: string): string {
     return mxUtils.ltrim(mxUtils.rtrim(value, chars), chars);
   },
-  htmlEntities(value: string, newline: boolean | null = true, quotes: boolean | null = true, tab: boolean | null = true): string {
+  htmlEntities(
+    value: string,
+    newline: boolean | null = true,
+    quotes: boolean | null = true,
+    tab: boolean | null = true,
+  ): string {
     let result = String(value ?? "");
     result = result.replace(/&/g, "&amp;");
     result = result.replace(/</g, "&lt;");
@@ -151,96 +197,115 @@ const mxUtils = {
   },
 };
 
-test("rdfexport plugin exports RDF with expected checksum", async () => {
-  if (pluginCallbacks.length === 0) {
-    await import("../src/rdfexport.ts");
-  }
+function runRdfExportTest(fixtureFile: string, sampleFile: string) {
+  test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
+    if (pluginCallbacks.length === 0) {
+      await import(rdfexportUrl);
+    }
 
-  const fixtureUrl = new URL(
-    "./fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
-    import.meta.url,
-  );
-  const fixturePath = fileURLToPath(fixtureUrl);
-  const xml = await Bun.file(fixturePath).text();
+    const fixtureUrl = new URL(`./fixtures/${fixtureFile}`, import.meta.url);
+    const fixturePath = fileURLToPath(fixtureUrl);
+    const xml = await Bun.file(fixturePath).text();
 
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(xml, "application/xml");
-  const graphModel = xmlDoc.getElementsByTagName("mxGraphModel").item(0);
-  const diagramElement = xmlDoc.getElementsByTagName("diagram").item(0);
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xml, "application/xml");
+    const graphModel = xmlDoc.getElementsByTagName("mxGraphModel").item(0);
+    const diagramElement = xmlDoc.getElementsByTagName("diagram").item(0);
 
-  if (!graphModel) {
-    throw new Error("Failed to locate mxGraphModel element in fixture");
-  }
+    if (!graphModel) {
+      throw new Error("Failed to locate mxGraphModel element in fixture");
+    }
 
-  if (!diagramElement) {
-    throw new Error("Failed to locate diagram element in fixture");
-  }
+    if (!diagramElement) {
+      throw new Error("Failed to locate diagram element in fixture");
+    }
 
-  const pageId = diagramElement.getAttribute("id") ?? "diagram";
-  const baseFilename = "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ";
+    const pageId = diagramElement.getAttribute("id") ?? "diagram";
+    const baseFilename = fixtureFile.replace(/\.drawio$/, "");
 
-  const actions: Record<string, () => void> = {};
-  const savedExports: Array<{ filename: string; format: string; data: string; mimeType: string }> = [];
-  const exportMenuItems: string[][] = [];
-  const menuStub: any = { funct: () => {} };
+    const actions: Record<string, () => void> = {};
+    const savedExports: Array<{
+      filename: string;
+      format: string;
+      data: string;
+      mimeType: string;
+    }> = [];
+    const exportMenuItems: string[][] = [];
+    const menuStub: any = { funct: () => {} };
 
-  const editorUi = {
-    editor: {
-      getGraphXml: () => graphModel,
-    },
-    currentPage: {
-      getId: () => pageId,
-    },
-    actions: {
-      addAction(name: string, fn: () => void) {
-        actions[name] = fn;
+    const editorUi = {
+      editor: {
+        getGraphXml: () => graphModel,
       },
-    },
-    menus: {
-      get(name: string) {
-        if (name === "exportAs") {
-          return menuStub;
-        }
-        return null;
+      currentPage: {
+        getId: () => pageId,
       },
-      addMenuItems(menu: any, items: string[], parent: any) {
-        exportMenuItems.push(items);
+      actions: {
+        addAction(name: string, fn: () => void) {
+          actions[name] = fn;
+        },
       },
-    },
-    getBaseFilename() {
-      return baseFilename;
-    },
-    saveData(filename: string, format: string, data: string, mimeType: string) {
-      savedExports.push({ filename, format, data, mimeType });
-    },
-    handleError(err: Error) {
-      throw err;
-    },
-  };
+      menus: {
+        get(name: string) {
+          if (name === "exportAs") {
+            return menuStub;
+          }
+          return null;
+        },
+        addMenuItems(menu: any, items: string[], parent: any) {
+          exportMenuItems.push(items);
+        },
+      },
+      getBaseFilename() {
+        return baseFilename;
+      },
+      saveData(
+        filename: string,
+        format: string,
+        data: string,
+        mimeType: string,
+      ) {
+        savedExports.push({ filename, format, data, mimeType });
+      },
+      handleError(err: Error) {
+        throw err;
+      },
+    };
 
-  for (const callback of pluginCallbacks) {
-    callback(editorUi);
-  }
+    for (const callback of pluginCallbacks) {
+      callback(editorUi);
+    }
 
-  menuStub.funct([], null);
+    menuStub.funct([], null);
 
-  expect(actions.exportRdfXml).toBeDefined();
+    expect(actions.exportRdfXml).toBeDefined();
 
-  if (!actions.exportRdfXml) {
-    throw new Error("exportRdfXml action was not registered by the plugin");
-  }
-  actions.exportRdfXml();
+    if (!actions.exportRdfXml) {
+      throw new Error("exportRdfXml action was not registered by the plugin");
+    }
+    actions.exportRdfXml();
 
-  expect(savedExports).toHaveLength(1);
-  const exportData = savedExports[0]!;
-  const { filename, format, data, mimeType } = exportData;
+    expect(savedExports).toHaveLength(1);
+    const exportData = savedExports[0]!;
+    const { filename, format, data, mimeType } = exportData;
 
-  expect(filename).toBe(`${baseFilename}.rdf`);
-  expect(format).toBe("rdf");
-  expect(mimeType).toBe("application/rdf+xml");
-  expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
+    expect(filename).toBe(`${baseFilename}.rdf`);
+    expect(format).toBe("rdf");
+    expect(mimeType).toBe("application/rdf+xml");
+    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
-  const md5 = createHash("md5").update(data).digest("hex");
-  //console.log(data); /*debug*/
-  expect(md5).toBe("afdbdcbf06515757890dd354117b8511");
-});
+    const md5 = createHash("md5").update(data).digest("hex");
+    console.log(data);
+    const refMd5 = createHash("md5")
+      .update(
+        readFileSync(new URL(`./fixtures/${sampleFile}`, import.meta.url)),
+      )
+      .digest("hex");
+    expect(md5).toBe(refMd5);
+  });
+}
+
+// Call the helper for each case
+runRdfExportTest("sample1.drawio", "sample1.rdf");
+runRdfExportTest("sample2.drawio", "sample2.rdf");
+runRdfExportTest("sample3.drawio", "sample3.rdf");
