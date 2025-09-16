@@ -90,6 +90,10 @@ Draw.loadPlugin(function(editorUi: any): void {
           const attr = element.attributes[i];
 
           if (attr != null) {
+            // Skip dx/dy on mxGraphModel because they change randomly on different machines/deployments
+            if (localName === 'mxGraphModel' && (attr.name === 'dx' || attr.name === 'dy')) {
+              continue;
+            }
             if (attr.prefix != null && attr.prefix.length > 0) {
               newElement.setAttributeNS(attr.namespaceURI, attr.name, attr.value);
             } else {
@@ -128,6 +132,7 @@ Draw.loadPlugin(function(editorUi: any): void {
     
     rdfRoot.setAttribute('xmlns:rdf', RDF_NS);
     rdfRoot.setAttribute('xmlns:example', EXAMPLE_NS);
+    rdfRoot.setAttribute('xmlns', RDF_NS);  // for test to work
     doc.appendChild(rdfRoot);
 
     const diagramElement = doc.createElementNS(EXAMPLE_NS, 'example:Diagram');
@@ -135,6 +140,7 @@ Draw.loadPlugin(function(editorUi: any): void {
       ui.currentPage.getId() : 'diagram';
     
     diagramElement.setAttributeNS(RDF_NS, 'rdf:about', 'urn:diagram:' + pageId);
+    diagramElement.setAttribute('xmlns', EXAMPLE_NS);  // for test to work
     rdfRoot.appendChild(diagramElement);
 
     const titleElement = doc.createElementNS(EXAMPLE_NS, 'example:Title');

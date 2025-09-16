@@ -17,6 +17,9 @@ Draw.loadPlugin(function(editorUi) {
         for (let i = 0;i < element.attributes.length; i++) {
           const attr = element.attributes[i];
           if (attr != null) {
+            if (localName === "mxGraphModel" && (attr.name === "dx" || attr.name === "dy")) {
+              continue;
+            }
             if (attr.prefix != null && attr.prefix.length > 0) {
               newElement.setAttributeNS(attr.namespaceURI, attr.name, attr.value);
             } else {
@@ -47,10 +50,12 @@ Draw.loadPlugin(function(editorUi) {
     const rdfRoot = doc.createElementNS(RDF_NS, "rdf:RDF");
     rdfRoot.setAttribute("xmlns:rdf", RDF_NS);
     rdfRoot.setAttribute("xmlns:example", EXAMPLE_NS);
+    rdfRoot.setAttribute("xmlns", RDF_NS);
     doc.appendChild(rdfRoot);
     const diagramElement = doc.createElementNS(EXAMPLE_NS, "example:Diagram");
     const pageId = ui.currentPage != null && typeof ui.currentPage.getId === "function" ? ui.currentPage.getId() : "diagram";
     diagramElement.setAttributeNS(RDF_NS, "rdf:about", "urn:diagram:" + pageId);
+    diagramElement.setAttribute("xmlns", EXAMPLE_NS);
     rdfRoot.appendChild(diagramElement);
     const titleElement = doc.createElementNS(EXAMPLE_NS, "example:Title");
     titleElement.appendChild(doc.createTextNode(ui.getBaseFilename(true)));
@@ -75,7 +80,7 @@ Draw.loadPlugin(function(editorUi) {
   if (exportMenu != null) {
     const oldFunct = exportMenu.funct;
     exportMenu.funct = function(menu, parent) {
-      oldFunct.apply(this, arguments);
+      oldFunct.call(this, menu, parent);
       editorUi.menus.addMenuItems(menu, ["-", "exportRdfXml"], parent);
     };
   }

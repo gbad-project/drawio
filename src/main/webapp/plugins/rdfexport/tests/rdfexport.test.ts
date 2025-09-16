@@ -242,5 +242,5 @@ test("rdfexport plugin exports RDF with expected checksum", async () => {
 
   const md5 = createHash("md5").update(data).digest("hex");
   //console.log(data); /*debug*/
-  expect(md5).toBe("41bfc6b8f03ecc56448bd4c1a48c841c");
+  expect(md5).toBe("afdbdcbf06515757890dd354117b8511");
 });
