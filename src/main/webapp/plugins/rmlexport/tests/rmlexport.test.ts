@@ -36,7 +36,9 @@ for (const file of drawioFiles) {
     const expectedRml = fs.readFileSync(rmlPath, "utf-8");
 
     const rml = await createRml(drawioContent, csvFile);
-    fs.writeFileSync(path.join(fixturesPath, "generated.rml"), rml);
+    const tmpdirPath = path.join(path.dirname(fixturesPath), "tmp");
+    fs.mkdirSync(tmpdirPath, { recursive: true });
+    fs.writeFileSync(path.join(tmpdirPath, `${path.parse(file).name}.rml`), rml);
 
     // Use the file path of the RML fixture as the base IRI for parsing.
     const baseIRI = `file://${rmlPath}`;
