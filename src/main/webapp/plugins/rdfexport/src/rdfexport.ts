@@ -19,6 +19,7 @@ interface MxUtils {
 
 interface MxResources {
   parse(resources: string): void;
+  get?(key: string): string | null | undefined;
 }
 
 interface MxEventSource {
@@ -95,8 +96,37 @@ declare const mxResources: MxResources;
 declare const DiagramFormatPanel: any;
 
 const CSV_PATH_ATTRIBUTE = "csvPath";
+const CSV_PATH_RESOURCE_KEY = "csvPath";
+
+const CSV_FIELD_FLAG = "__rdfexportCsvFieldAttached";
 
 let csvPropertyPatched = false;
+let csvResourceRegistered = false;
+
+function resolveCsvLabel(): string {
+  const defaultLabel = "CSV path";
+
+  if (!csvResourceRegistered) {
+    try {
+      mxResources.parse?.(`${CSV_PATH_RESOURCE_KEY}=${defaultLabel};`);
+    } catch (error) {
+      // ignore resource registration errors
+    }
+
+    csvResourceRegistered = true;
+  }
+
+  try {
+    const label = mxResources.get?.(CSV_PATH_RESOURCE_KEY);
+    if (typeof label === "string" && label.length > 0) {
+      return label;
+    }
+  } catch (error) {
+    // ignore lookup errors and fall back to the default label
+  }
+
+  return defaultLabel;
+}
 
 function installCsvPathProperty(): void {
   if (csvPropertyPatched) {
@@ -107,24 +137,27 @@ function installCsvPathProperty(): void {
     return;
   }
 
-  const originalAddDocumentProperties =
-    DiagramFormatPanel.prototype.addDocumentProperties;
+  const originalAddOptions = DiagramFormatPanel.prototype.addOptions;
 
-  if (typeof originalAddDocumentProperties !== "function") {
+  if (typeof originalAddOptions !== "function") {
     return;
   }
 
-  DiagramFormatPanel.prototype.addDocumentProperties = function (
+  DiagramFormatPanel.prototype.addOptions = function (
     div: HTMLElement,
   ): HTMLElement {
-    const result = originalAddDocumentProperties.apply(this, arguments);
+    const result = originalAddOptions.apply(this, arguments);
     const container: HTMLElement | undefined = (result ?? div) as HTMLElement | undefined;
 
     if (!container || typeof document === "undefined") {
       return result;
     }
 
-    if ((this as any).__rdfexportCsvFieldInitialized === true) {
+    const typedContainer = container as HTMLElement & {
+      [CSV_FIELD_FLAG]?: boolean;
+    };
+
+    if (typedContainer[CSV_FIELD_FLAG]) {
       return result;
     }
 
@@ -142,30 +175,33 @@ function installCsvPathProperty(): void {
       return result;
     }
 
-    (this as any).__rdfexportCsvFieldInitialized = true;
+    typedContainer[CSV_FIELD_FLAG] = true;
+
+    const labelText = resolveCsvLabel();
 
     const fieldContainer = document.createElement("div");
+    fieldContainer.setAttribute("data-rdfexport-csv-field", "true");
     fieldContainer.style.display = "flex";
     fieldContainer.style.flexDirection = "column";
-    fieldContainer.style.paddingTop = "6px";
-    fieldContainer.style.paddingRight = "16px";
+    fieldContainer.style.gap = "4px";
+    fieldContainer.style.padding = "6px 0 6px 26px";
 
     const label = document.createElement("label");
-    label.textContent = "CSV path";
+    label.textContent = labelText;
     label.style.fontSize = "11px";
-    label.style.marginBottom = "4px";
     label.style.userSelect = "none";
     label.style.color = "var(--geLabelColor, #000000)";
 
     const input = document.createElement("input");
     input.type = "text";
-    input.placeholder = "Enter CSV path";
+    input.placeholder = labelText;
     input.style.boxSizing = "border-box";
     input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
     input.style.borderRadius = "2px";
-    input.style.padding = "4px 6px";
-    input.style.height = "26px";
-    input.style.fontSize = "13px";
+    input.style.padding = "3px 6px";
+    input.style.height = "24px";
+    input.style.fontSize = "12px";
+    input.style.width = "100%";
 
     const inputId = `rdfexport-csv-path-${Date.now().toString(36)}-${Math.floor(
       Math.random() * 1e6,

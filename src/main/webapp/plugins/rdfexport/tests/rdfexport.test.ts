@@ -94,7 +94,7 @@ class DiagramFormatPanelStub {
   }
 }
 
-(DiagramFormatPanelStub as any).prototype.addDocumentProperties = function (div: any) {
+(DiagramFormatPanelStub as any).prototype.addOptions = function (div: any) {
   return div;
 };
 
@@ -440,7 +440,42 @@ const mxUtils = {
 };
 
 (globalThis as any).mxUtils = mxUtils;
-(globalThis as any).mxResources = { parse: () => {} };
+const resourceBundle: Record<string, string> = {};
+
+(globalThis as any).mxResources = {
+  parse(definition: string) {
+    if (typeof definition !== "string") {
+      return;
+    }
+
+    const entries = definition.split(";");
+    for (const entry of entries) {
+      const trimmed = entry.trim();
+      if (!trimmed) {
+        continue;
+      }
+
+      const separatorIndex = trimmed.indexOf("=");
+      if (separatorIndex === -1) {
+        continue;
+      }
+
+      const key = trimmed.substring(0, separatorIndex).trim();
+      const value = trimmed.substring(separatorIndex + 1).trim();
+
+      if (key.length > 0) {
+        resourceBundle[key] = value;
+      }
+    }
+  },
+  get(key: string) {
+    if (key in resourceBundle) {
+      return resourceBundle[key];
+    }
+
+    return key;
+  },
+};
 (globalThis as any).Draw = {
   loadPlugin(callback: (ui: any) => void) {
     pluginCallbacks.push(callback);
@@ -451,10 +486,11 @@ test("compiled rdfexport plugin bundle includes CSV property hook", async () => 
   const scriptContents = await Bun.file(compiledPluginUrl).text();
 
   expect(scriptContents).toContain(
-    "DiagramFormatPanel.prototype.addDocumentProperties",
+    "DiagramFormatPanel.prototype.addOptions",
   );
   expect(scriptContents).toContain("CSV path");
-  expect(scriptContents).toContain("installCsvPathProperty()");
+  expect(scriptContents).toContain("data-rdfexport-csv-field");
+  expect(scriptContents).toContain("__rdfexportCsvFieldAttached");
 });
 
 function runRdfExportTest(fixtureFile: string, sampleFile: string) {
@@ -613,10 +649,9 @@ test("rdfexport plugin exposes a CSV path diagram property", async () => {
   };
 
   const container = document.createElement("div");
-  const addDocumentProperties = (DiagramFormatPanel as any).prototype
-    .addDocumentProperties;
+  const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
 
-  addDocumentProperties.call(panelContext, container);
+  addOptions.call(panelContext, container);
 
   const label = findChildByTag(container, "label");
   const input = findChildByTag(container, "input");
