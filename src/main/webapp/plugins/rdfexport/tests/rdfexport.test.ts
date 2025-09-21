@@ -8,6 +8,9 @@ import { join, extname, basename } from "path";
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
+const compiledPluginUrl = fileURLToPath(
+  new URL("../../rdfexport.js", import.meta.url),
+);
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
@@ -443,6 +446,16 @@ const mxUtils = {
     pluginCallbacks.push(callback);
   },
 };
+
+test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
+  const scriptContents = await Bun.file(compiledPluginUrl).text();
+
+  expect(scriptContents).toContain(
+    "DiagramFormatPanel.prototype.addDocumentProperties",
+  );
+  expect(scriptContents).toContain("CSV path");
+  expect(scriptContents).toContain("installCsvPathProperty()");
+});
 
 function runRdfExportTest(fixtureFile: string, sampleFile: string) {
   test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {

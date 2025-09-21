@@ -132,7 +132,13 @@ function installCsvPathProperty(): void {
     const graph: MxGraph | undefined = ui?.editor?.graph;
     const model: MxGraphModel | undefined = graph?.getModel?.();
 
-    if (!graph || !model || typeof model.getRoot !== "function") {
+    if (
+      !graph ||
+      !model ||
+      typeof model.getRoot !== "function" ||
+      typeof (graph as any).getAttributeForCell !== "function" ||
+      typeof (graph as any).setAttributeForCell !== "function"
+    ) {
       return result;
     }
 
@@ -201,11 +207,11 @@ function installCsvPathProperty(): void {
       const currentValue = graph.getAttributeForCell(rootCell, CSV_PATH_ATTRIBUTE, "") || null;
 
       if (currentValue !== newValue) {
-        model.beginUpdate();
+        model.beginUpdate?.();
         try {
           graph.setAttributeForCell(rootCell, CSV_PATH_ATTRIBUTE, newValue);
         } finally {
-          model.endUpdate();
+          model.endUpdate?.();
         }
       }
 
@@ -237,15 +243,21 @@ function installCsvPathProperty(): void {
 
     if (
       typeof model.addListener === "function" &&
-      typeof model.removeListener === "function" &&
-      Array.isArray((this as any).listeners)
+      typeof model.removeListener === "function"
     ) {
+      const listenersArray: Array<{ destroy(): void }> | null = Array.isArray(
+        (this as any).listeners,
+      )
+        ? ((this as any).listeners as Array<{ destroy(): void }>)
+        : null;
+
       const changeHandler = () => {
         updateInputFromModel();
       };
 
       model.addListener("change", changeHandler);
-      (this as any).listeners.push({
+
+      listenersArray?.push({
         destroy: () => {
           model.removeListener(changeHandler);
         },
