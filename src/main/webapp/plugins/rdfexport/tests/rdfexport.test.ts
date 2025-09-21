@@ -8,9 +8,255 @@ import { join, extname, basename } from "path";
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
+const compiledPluginUrl = fileURLToPath(
+  new URL("../../rdfexport.js", import.meta.url),
+);
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
+
+type EventHandler = (event: any) => void;
+
+class ElementStub {
+  tagName: string;
+  style: Record<string, string> = {};
+  children: any[] = [];
+  attributes: Record<string, string> = {};
+  value = "";
+  textContent = "";
+  className = "";
+  id = "";
+  private listeners: Record<string, EventHandler[]> = {};
+
+  constructor(tagName: string) {
+    this.tagName = tagName.toUpperCase();
+  }
+
+  appendChild<T>(child: T): T {
+    this.children.push(child);
+    return child;
+  }
+
+  setAttribute(name: string, value: string): void {
+    this.attributes[name] = value;
+
+    if (name === "id") {
+      this.id = value;
+    }
+
+    if (name === "for") {
+      (this as any).htmlFor = value;
+    }
+
+    if (name === "type") {
+      (this as any).type = value;
+    }
+  }
+
+  getAttribute(name: string): string | undefined {
+    return this.attributes[name];
+  }
+
+  addEventListener(event: string, handler: EventHandler): void {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+
+    this.listeners[event].push(handler);
+  }
+
+  dispatchEvent(evt: { type: string; key?: string }): void {
+    const handlers = this.listeners[evt.type];
+
+    if (handlers) {
+      for (const handler of handlers) {
+        handler(evt);
+      }
+    }
+  }
+}
+
+class DocumentStub {
+  createElement(tag: string): ElementStub {
+    return new ElementStub(tag);
+  }
+}
+
+const documentStub = new DocumentStub();
+(globalThis as any).document = documentStub as unknown as Document;
+
+class DiagramFormatPanelStub {
+  listeners: Array<{ destroy(): void }> = [];
+  editorUi: any;
+
+  constructor(_format?: any, editorUi?: any, _container?: any) {
+    this.editorUi = editorUi;
+  }
+}
+
+(DiagramFormatPanelStub as any).prototype.addOptions = function (div: any) {
+  return div;
+};
+
+(globalThis as any).DiagramFormatPanel = DiagramFormatPanelStub;
+
+type AttributeMap = Record<string, string>;
+
+interface CellStub {
+  value: {
+    attributes: AttributeMap;
+  };
+}
+
+class GraphModelStub {
+  private listeners = new Set<(sender: any, evt: any) => void>();
+  private updateDepth = 0;
+  private dirty = false;
+
+  constructor(private readonly root: CellStub) {}
+
+  getRoot(): CellStub {
+    return this.root;
+  }
+
+  beginUpdate(): void {
+    this.updateDepth += 1;
+  }
+
+  endUpdate(): void {
+    if (this.updateDepth > 0) {
+      this.updateDepth -= 1;
+
+      if (this.updateDepth === 0 && this.dirty) {
+        this.fireChange();
+      }
+    }
+  }
+
+  addListener(name: string, listener: (sender: any, evt: any) => void): void {
+    if (name === "change") {
+      this.listeners.add(listener);
+    }
+  }
+
+  removeListener(listener: (sender: any, evt: any) => void): void {
+    this.listeners.delete(listener);
+  }
+
+  markDirty(): void {
+    if (this.updateDepth > 0) {
+      this.dirty = true;
+    } else {
+      this.fireChange();
+    }
+  }
+
+  listenerCount(): number {
+    return this.listeners.size;
+  }
+
+  private fireChange(): void {
+    this.dirty = false;
+
+    for (const listener of [...this.listeners]) {
+      listener(this, {});
+    }
+  }
+}
+
+class GraphStub {
+  constructor(private readonly model: GraphModelStub) {}
+
+  getModel(): GraphModelStub {
+    return this.model;
+  }
+
+  getAttributeForCell(
+    cell: CellStub,
+    attributeName: string,
+    defaultValue: string | null,
+  ): string | null {
+    const attrs = this.ensureAttributes(cell);
+    const value = attrs[attributeName];
+    return value != null ? value : defaultValue;
+  }
+
+  setAttributeForCell(
+    cell: CellStub,
+    attributeName: string,
+    attributeValue: string | null,
+  ): void {
+    const attrs = this.ensureAttributes(cell);
+    const current = attrs[attributeName];
+
+    if (attributeValue != null) {
+      if (current !== attributeValue) {
+        attrs[attributeName] = attributeValue;
+        this.model.markDirty();
+      }
+    } else if (current !== undefined) {
+      delete attrs[attributeName];
+      this.model.markDirty();
+    }
+  }
+
+  private ensureAttributes(cell: CellStub): AttributeMap {
+    if (!cell.value || typeof cell.value !== "object") {
+      cell.value = { attributes: {} };
+    }
+
+    if (cell.value.attributes == null) {
+      cell.value.attributes = {};
+    }
+
+    return cell.value.attributes;
+  }
+}
+
+function createGraphEnvironment(initialCsvPath?: string): {
+  rootCell: CellStub;
+  model: GraphModelStub;
+  graph: GraphStub;
+} {
+  const rootCell: CellStub = {
+    value: {
+      attributes: {},
+    },
+  };
+
+  if (initialCsvPath != null) {
+    rootCell.value.attributes.csvPath = initialCsvPath;
+  }
+
+  const model = new GraphModelStub(rootCell);
+  const graph = new GraphStub(model);
+
+  return { rootCell, model, graph };
+}
+
+function findChildByTag(node: any, tagName: string): ElementStub | null {
+  if (!node) {
+    return null;
+  }
+
+  if (node instanceof ElementStub && node.tagName === tagName.toUpperCase()) {
+    return node;
+  }
+
+  const children = (node as ElementStub).children;
+
+  if (Array.isArray(children)) {
+    for (const child of children) {
+      const match = findChildByTag(child, tagName);
+
+      if (match) {
+        return match;
+      }
+    }
+  }
+
+  return null;
+}
 
 (globalThis as any).mxConstants = {
   NODETYPE_ELEMENT: 1,
@@ -194,12 +440,58 @@ const mxUtils = {
 };
 
 (globalThis as any).mxUtils = mxUtils;
-(globalThis as any).mxResources = { parse: () => {} };
+const resourceBundle: Record<string, string> = {};
+
+(globalThis as any).mxResources = {
+  parse(definition: string) {
+    if (typeof definition !== "string") {
+      return;
+    }
+
+    const entries = definition.split(";");
+    for (const entry of entries) {
+      const trimmed = entry.trim();
+      if (!trimmed) {
+        continue;
+      }
+
+      const separatorIndex = trimmed.indexOf("=");
+      if (separatorIndex === -1) {
+        continue;
+      }
+
+      const key = trimmed.substring(0, separatorIndex).trim();
+      const value = trimmed.substring(separatorIndex + 1).trim();
+
+      if (key.length > 0) {
+        resourceBundle[key] = value;
+      }
+    }
+  },
+  get(key: string) {
+    if (key in resourceBundle) {
+      return resourceBundle[key];
+    }
+
+    return key;
+  },
+};
 (globalThis as any).Draw = {
   loadPlugin(callback: (ui: any) => void) {
     pluginCallbacks.push(callback);
   },
 };
+
+test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
+  const scriptContents = await Bun.file(compiledPluginUrl).text();
+
+  expect(scriptContents).toContain(
+    "DiagramFormatPanel.prototype.addOptions",
+  );
+  expect(scriptContents).toContain("CSV path");
+  expect(scriptContents).toContain("data-rdfexport-csv-field");
+  expect(scriptContents).toContain("__rdfexportCsvFieldAttached");
+});
 
 function runRdfExportTest(fixtureFile: string, sampleFile: string) {
   test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
@@ -236,9 +528,12 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     const exportMenuItems: string[][] = [];
     const menuStub: any = { funct: () => {} };
 
+    const { graph } = createGraphEnvironment();
+
     const editorUi = {
       editor: {
         getGraphXml: () => graphModel,
+        graph,
       },
       currentPage: {
         getId: () => pageId,
@@ -320,3 +615,73 @@ for (const file of readdirSync(fixturesDir)) {
     runRdfExportTest(file, rdfFile);
   }
 }
+
+test("rdfexport plugin exposes a CSV path diagram property", async () => {
+  if (pluginCallbacks.length === 0) {
+    await import(rdfexportUrl);
+  }
+
+  const { graph, model, rootCell } = createGraphEnvironment("initial.csv");
+
+  const editorUi = {
+    editor: {
+      getGraphXml: () => ({}) as Element,
+      graph,
+    },
+    currentPage: null,
+    actions: { addAction: () => {} },
+    menus: {
+      get: () => null,
+      addMenuItems: () => {},
+    },
+    getBaseFilename: () => "diagram",
+    saveData: () => {},
+    handleError: () => {},
+  };
+
+  for (const callback of pluginCallbacks) {
+    callback(editorUi);
+  }
+
+  const panelContext = {
+    editorUi,
+    listeners: [] as Array<{ destroy(): void }>,
+  };
+
+  const container = document.createElement("div");
+  const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
+
+  addOptions.call(panelContext, container);
+
+  const label = findChildByTag(container, "label");
+  const input = findChildByTag(container, "input");
+
+  expect(label).toBeDefined();
+  expect(label?.textContent).toBe("CSV path");
+  expect(input).toBeDefined();
+  expect(input?.value).toBe("initial.csv");
+
+  if (!input) {
+    throw new Error("CSV path input field was not created");
+  }
+
+  input.value = "  updated.csv  ";
+  input.dispatchEvent({ type: "change" });
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe("updated.csv");
+  expect(input.value).toBe("updated.csv");
+
+  input.value = "   ";
+  input.dispatchEvent({ type: "blur" });
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBeNull();
+  expect(input.value).toBe("");
+
+  graph.setAttributeForCell(rootCell, "csvPath", "external.csv");
+  expect(input.value).toBe("external.csv");
+
+  const listenersBeforeDestroy = model.listenerCount();
+  expect(listenersBeforeDestroy).toBeGreaterThan(0);
+  for (const listener of panelContext.listeners) {
+    listener.destroy();
+  }
+  expect(model.listenerCount()).toBe(0);
+});
