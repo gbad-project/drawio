@@ -37,6 +37,17 @@ class ElementStub {
     return child;
   }
 
+  removeChild<T>(child: T): T | null {
+    const index = this.children.indexOf(child);
+
+    if (index >= 0) {
+      this.children.splice(index, 1);
+      return child;
+    }
+
+    return null;
+  }
+
   setAttribute(name: string, value: string): void {
     this.attributes[name] = value;
 
@@ -91,6 +102,67 @@ class DiagramFormatPanelStub {
 
   constructor(_format?: any, editorUi?: any, _container?: any) {
     this.editorUi = editorUi;
+  }
+
+  createTitle(title: string): ElementStub {
+    const div = document.createElement("div");
+    div.style.padding = "0px 0px 6px 0px";
+    div.style.whiteSpace = "nowrap";
+    div.style.overflow = "hidden";
+    div.style.width = "200px";
+    div.style.fontWeight = "bold";
+    div.textContent = title;
+    return div;
+  }
+
+  createOption(
+    label: string,
+    isCheckedFn: () => boolean,
+    setCheckedFn: (checked: boolean) => void,
+  ): ElementStub {
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.padding = "3px 0px 3px 0px";
+    div.style.height = "18px";
+
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.style.margin = "1px 6px 0px 0px";
+    checkbox.style.verticalAlign = "top";
+    div.appendChild(checkbox);
+
+    const labelDiv = document.createElement("div");
+    labelDiv.setAttribute("title", label);
+    labelDiv.style.display = "inline-block";
+    labelDiv.style.whiteSpace = "nowrap";
+    labelDiv.style.textOverflow = "ellipsis";
+    labelDiv.style.overflow = "hidden";
+    labelDiv.style.maxWidth = "160px";
+    labelDiv.style.userSelect = "none";
+    labelDiv.textContent = label;
+    div.appendChild(labelDiv);
+
+    const apply = (newValue: boolean) => {
+      checkbox.checked = newValue;
+      checkbox.defaultChecked = newValue;
+
+      if (isCheckedFn() !== newValue) {
+        setCheckedFn(newValue);
+      }
+    };
+
+    apply(isCheckedFn());
+
+    div.addEventListener("click", () => {
+      if (checkbox.getAttribute("disabled") === "disabled") {
+        return;
+      }
+
+      apply(!checkbox.checked);
+    });
+
+    return div;
   }
 }
 
@@ -234,20 +306,26 @@ function createGraphEnvironment(initialCsvPath?: string): {
   return { rootCell, model, graph };
 }
 
-function findChildByTag(node: any, tagName: string): ElementStub | null {
+function findChildByTag(
+  node: any,
+  tagName: string,
+  predicate?: (element: ElementStub) => boolean,
+): ElementStub | null {
   if (!node) {
     return null;
   }
 
   if (node instanceof ElementStub && node.tagName === tagName.toUpperCase()) {
-    return node;
+    if (!predicate || predicate(node)) {
+      return node;
+    }
   }
 
   const children = (node as ElementStub).children;
 
   if (Array.isArray(children)) {
     for (const child of children) {
-      const match = findChildByTag(child, tagName);
+      const match = findChildByTag(child, tagName, predicate);
 
       if (match) {
         return match;
@@ -653,13 +731,41 @@ test("rdfexport plugin exposes a CSV path diagram property", async () => {
 
   addOptions.call(panelContext, container);
 
-  const label = findChildByTag(container, "label");
-  const input = findChildByTag(container, "input");
+  const title = findChildByTag(container, "div", (element) => {
+    return element.textContent === "Preamble";
+  });
+  expect(title).toBeDefined();
+
+  const csvOption = findChildByTag(container, "div", (element) => {
+    return element.getAttribute("data-rdfexport-csv-field") === "true";
+  });
+
+  expect(csvOption).toBeDefined();
+
+  if (!csvOption) {
+    throw new Error("CSV path option container was not created");
+  }
+
+  const checkbox = findChildByTag(csvOption, "input", (element) => {
+    return (element as any).type === "checkbox";
+  });
+  expect(checkbox).toBeDefined();
+  expect(checkbox?.getAttribute("disabled")).toBe("disabled");
+  expect(checkbox?.style.visibility).toBe("hidden");
+
+  const label = findChildByTag(csvOption, "label");
+  const input = findChildByTag(csvOption, "input", (element) => {
+    return (element as any).type === "text";
+  });
 
   expect(label).toBeDefined();
   expect(label?.textContent).toBe("CSV path");
+  expect(label?.getAttribute("for")).toBeDefined();
+  expect(label?.getAttribute("title")).toBe("CSV path");
   expect(input).toBeDefined();
   expect(input?.value).toBe("initial.csv");
+  expect(input?.getAttribute("placeholder")).toBe("CSV path");
+  expect(input?.getAttribute("autocomplete")).toBe("off");
 
   if (!input) {
     throw new Error("CSV path input field was not created");

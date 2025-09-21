@@ -97,27 +97,35 @@ declare const DiagramFormatPanel: any;
 
 const CSV_PATH_ATTRIBUTE = "csvPath";
 const CSV_PATH_RESOURCE_KEY = "csvPath";
+const CSV_SECTION_RESOURCE_KEY = "csvPreamble";
 
 const CSV_FIELD_FLAG = "__rdfexportCsvFieldAttached";
 
+const DEFAULT_CSV_PATH_LABEL = "CSV path";
+const DEFAULT_CSV_SECTION_LABEL = "Preamble";
+
 let csvPropertyPatched = false;
-let csvResourceRegistered = false;
+const registeredResourceKeys = new Set<string>();
 
-function resolveCsvLabel(): string {
-  const defaultLabel = "CSV path";
-
-  if (!csvResourceRegistered) {
-    try {
-      mxResources.parse?.(`${CSV_PATH_RESOURCE_KEY}=${defaultLabel};`);
-    } catch (error) {
-      // ignore resource registration errors
-    }
-
-    csvResourceRegistered = true;
+function registerResource(key: string, fallback: string): void {
+  if (registeredResourceKeys.has(key)) {
+    return;
   }
 
   try {
-    const label = mxResources.get?.(CSV_PATH_RESOURCE_KEY);
+    mxResources.parse?.(`${key}=${fallback}\n`);
+  } catch (error) {
+    // ignore resource registration errors
+  }
+
+  registeredResourceKeys.add(key);
+}
+
+function resolveLabel(key: string, fallback: string): string {
+  registerResource(key, fallback);
+
+  try {
+    const label = mxResources.get?.(key);
     if (typeof label === "string" && label.length > 0) {
       return label;
     }
@@ -125,7 +133,7 @@ function resolveCsvLabel(): string {
     // ignore lookup errors and fall back to the default label
   }
 
-  return defaultLabel;
+  return fallback;
 }
 
 function installCsvPathProperty(): void {
@@ -147,7 +155,9 @@ function installCsvPathProperty(): void {
     div: HTMLElement,
   ): HTMLElement {
     const result = originalAddOptions.apply(this, arguments);
-    const container: HTMLElement | undefined = (result ?? div) as HTMLElement | undefined;
+    const container: HTMLElement | undefined = (result ?? div) as
+      | HTMLElement
+      | undefined;
 
     if (!container || typeof document === "undefined") {
       return result;
@@ -177,37 +187,188 @@ function installCsvPathProperty(): void {
 
     typedContainer[CSV_FIELD_FLAG] = true;
 
-    const labelText = resolveCsvLabel();
+    const sectionLabel = resolveLabel(
+      CSV_SECTION_RESOURCE_KEY,
+      DEFAULT_CSV_SECTION_LABEL,
+    );
+    const fieldLabel = resolveLabel(CSV_PATH_RESOURCE_KEY, DEFAULT_CSV_PATH_LABEL);
 
-    const fieldContainer = document.createElement("div");
-    fieldContainer.setAttribute("data-rdfexport-csv-field", "true");
-    fieldContainer.style.display = "flex";
-    fieldContainer.style.flexDirection = "column";
-    fieldContainer.style.gap = "4px";
-    fieldContainer.style.padding = "6px 0 6px 26px";
+    const createTitle =
+      typeof (this as { createTitle?: (title: string) => HTMLElement }).createTitle ===
+      "function"
+        ? ((this as any).createTitle as (title: string) => HTMLElement).bind(this)
+        : (title: string) => {
+            const titleElement = document.createElement("div");
+            titleElement.style.padding = "0px 0px 6px 0px";
+            titleElement.style.whiteSpace = "nowrap";
+            titleElement.style.overflow = "hidden";
+            titleElement.style.width = "200px";
+            titleElement.style.fontWeight = "bold";
+            titleElement.textContent = title;
+            return titleElement;
+          };
 
-    const label = document.createElement("label");
-    label.textContent = labelText;
-    label.style.fontSize = "11px";
-    label.style.userSelect = "none";
-    label.style.color = "var(--geLabelColor, #000000)";
+    container.appendChild(createTitle(sectionLabel));
+
+    const createOption =
+      typeof (this as { createOption?: (...args: any[]) => HTMLElement }).createOption ===
+      "function"
+        ? ((this as any).createOption as (
+            label: string,
+            isCheckedFn: () => boolean,
+            setCheckedFn: (checked: boolean) => void,
+            listener?: unknown,
+            fn?: unknown,
+          ) => HTMLElement).bind(this)
+        : null;
+
+    const optionElement: HTMLElement = createOption
+      ? createOption(fieldLabel, () => true, () => undefined)
+      : (() => {
+          const option = document.createElement("div");
+          option.style.display = "flex";
+          option.style.alignItems = "center";
+          option.style.padding = "3px 0px";
+          option.style.height = "18px";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.style.margin = "1px 6px 0px 0px";
+          checkbox.style.verticalAlign = "top";
+          option.appendChild(checkbox);
+
+          const fallbackLabel = document.createElement("div");
+          fallbackLabel.textContent = fieldLabel;
+          fallbackLabel.style.display = "inline-block";
+          fallbackLabel.style.whiteSpace = "nowrap";
+          fallbackLabel.style.textOverflow = "ellipsis";
+          fallbackLabel.style.overflow = "hidden";
+          fallbackLabel.style.maxWidth = "160px";
+          fallbackLabel.style.userSelect = "none";
+          option.appendChild(fallbackLabel);
+
+          return option;
+        })();
+
+    optionElement.setAttribute("data-rdfexport-csv-field", "true");
+    optionElement.style.position = "relative";
+    optionElement.style.height = "auto";
+    optionElement.style.minHeight = "18px";
+    optionElement.style.alignItems = "center";
+    optionElement.style.width = "100%";
+    optionElement.style.flexWrap = "nowrap";
+    if (!optionElement.style.display) {
+      optionElement.style.display = "flex";
+    }
+
+    const collectChildren = (element: any): any[] => {
+      if (!element) {
+        return [];
+      }
+
+      const children = (element as { children?: any }).children;
+
+      if (Array.isArray(children)) {
+        return [...children];
+      }
+
+      if (children != null && typeof (children as { length?: number }).length === "number") {
+        return Array.from(children as ArrayLike<any>);
+      }
+
+      return [];
+    };
+
+    const isElementNode = (node: any): node is HTMLElement => {
+      return node != null && typeof node === "object" && typeof (node as any).tagName === "string";
+    };
+
+    const getTagName = (node: any): string | null => {
+      if (!isElementNode(node)) {
+        return null;
+      }
+
+      const rawTag = (node as { tagName: string }).tagName;
+      return typeof rawTag === "string" ? rawTag.toUpperCase() : null;
+    };
+
+    const optionChildren = collectChildren(optionElement).filter(isElementNode);
+
+    const checkbox = optionChildren.find((child) => {
+      if (getTagName(child) !== "INPUT") {
+        return false;
+      }
+
+      const inputNode = child as HTMLInputElement & { type?: string };
+      const explicitType =
+        typeof inputNode.type === "string"
+          ? inputNode.type
+          : typeof (inputNode as any).getAttribute === "function"
+          ? (inputNode as any).getAttribute("type")
+          : undefined;
+
+      return (explicitType ?? "").toLowerCase() === "checkbox";
+    }) as (HTMLInputElement & { style: CSSStyleDeclaration }) | undefined;
+
+    if (checkbox) {
+      checkbox.setAttribute("disabled", "disabled");
+      checkbox.disabled = true;
+      checkbox.style.visibility = "hidden";
+      checkbox.style.marginRight = "6px";
+      checkbox.style.flex = "0 0 auto";
+    }
+
+    const existingLabel = optionChildren.find((child) => getTagName(child) === "DIV");
+
+    const labelElement = document.createElement("label");
+    labelElement.textContent = fieldLabel;
+    labelElement.title = fieldLabel;
+    labelElement.setAttribute("title", fieldLabel);
+    labelElement.style.display = "inline-block";
+    labelElement.style.whiteSpace = "nowrap";
+    labelElement.style.textOverflow = "ellipsis";
+    labelElement.style.overflow = "hidden";
+    labelElement.style.maxWidth = "160px";
+    labelElement.style.userSelect = "none";
+    labelElement.style.marginRight = "6px";
+    labelElement.style.cursor = "default";
+    labelElement.style.flex = "0 0 auto";
+
+    if (existingLabel && typeof (optionElement as any).removeChild === "function") {
+      (optionElement as any).removeChild(existingLabel);
+    }
+
+    optionElement.appendChild(labelElement);
 
     const input = document.createElement("input");
     input.type = "text";
-    input.placeholder = labelText;
+    input.setAttribute("type", "text");
+    input.placeholder = fieldLabel;
+    input.setAttribute("placeholder", fieldLabel);
+    input.setAttribute("aria-label", fieldLabel);
+    input.setAttribute("autocomplete", "off");
+    input.style.flex = "1 1 auto";
+    input.style.minWidth = "0";
+    input.style.height = "22px";
     input.style.boxSizing = "border-box";
+    input.style.marginLeft = "6px";
+    input.style.padding = "3px 6px";
     input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
     input.style.borderRadius = "2px";
-    input.style.padding = "3px 6px";
-    input.style.height = "24px";
+    input.style.background = "var(--geBackgroundColor, #ffffff)";
+    input.style.color = "var(--geLabelColor, #000000)";
     input.style.fontSize = "12px";
-    input.style.width = "100%";
+    input.autocomplete = "off";
 
     const inputId = `rdfexport-csv-path-${Date.now().toString(36)}-${Math.floor(
       Math.random() * 1e6,
     )}`;
     input.id = inputId;
-    label.setAttribute("for", inputId);
+    input.setAttribute("id", inputId);
+    labelElement.setAttribute("for", inputId);
+
+    optionElement.appendChild(input);
+    container.appendChild(optionElement);
 
     const getRootCell = (): any | null => {
       try {
@@ -272,10 +433,6 @@ function installCsvPathProperty(): void {
     });
 
     updateInputFromModel();
-
-    fieldContainer.appendChild(label);
-    fieldContainer.appendChild(input);
-    container.appendChild(fieldContainer);
 
     if (
       typeof model.addListener === "function" &&
