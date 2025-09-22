@@ -17,9 +17,10 @@
     "node": "22.19.0"
   },
   "scripts": {
-    "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts",
+    "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts && cp dist/rdfexport.js ..",
     "test": "bun --check test",
     "format": "prettier --write .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "serve": "cd ../../../../.. && python -m http.server 8000"
   }
 }
