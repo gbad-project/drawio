@@ -122,7 +122,7 @@ const PREAMBLE_ADD_BUTTON_RESOURCE_KEY = "addPrefix";
 const PREAMBLE_SECTION_FLAG = "__rdfexportPreambleAttached";
 const PREAMBLE_SECTION_DATA_ATTRIBUTE = "data-rdfexport-preamble-section";
 
-const DEFAULT_CSV_PATH_LABEL = "CSV path";
+const DEFAULT_CSV_PATH_LABEL = "CSV Path";
 const DEFAULT_BASE_URI_LABEL = "Base URI";
 const DEFAULT_CSV_SECTION_LABEL = "Preamble";
 const DEFAULT_PREAMBLE_BUTTON_LABEL = "Edit Preamble...";
@@ -512,8 +512,7 @@ function installCsvPathProperty(): void {
     for (const config of textFieldConfigs) {
       const label = resolveLabel(config.labelKey, config.fallbackLabel);
       const { optionElement, input } = buildTextOption(label, config.dataAttribute, {
-        inputMarginRight:
-          config.attributeName === CSV_PATH_ATTRIBUTE ? "6px" : undefined,
+        inputMarginRight: "6px",
       });
       const fieldState: FieldState = {
         attributeName: config.attributeName,
@@ -601,18 +600,47 @@ function installCsvPathProperty(): void {
       (preambleButton as HTMLElement).className || "geButton";
     preambleSection.appendChild(preambleButton);
 
-    const parentElement = container.parentNode as
+    const findFormatSectionAncestor = (
+      node: Node | null,
+    ): (Node & {
+      className?: string;
+      parentNode: Node & {
+        insertBefore?: (node: Node, child: Node | null) => Node;
+        appendChild?: (node: Node) => Node;
+      };
+    }) | null => {
+      let current: Node | null = node;
+      while (current) {
+        const candidate: any = current;
+        const className =
+          typeof candidate?.className === "string" ? candidate.className : "";
+        if (className.split(/\s+/).includes("geFormatSection")) {
+          return candidate;
+        }
+        current = current.parentNode ?? null;
+      }
+      return null;
+    };
+
+    const optionsSection = findFormatSectionAncestor(container);
+    const insertionParent = (optionsSection?.parentNode ?? container.parentNode ??
+      null) as
       | (Node & {
           insertBefore?: (node: Node, child: Node | null) => Node;
-          firstChild?: ChildNode | null;
+          appendChild?: (node: Node) => Node;
         })
       | null;
 
-    if (parentElement && typeof parentElement.insertBefore === "function") {
-      parentElement.insertBefore(
-        preambleSection,
-        (parentElement.firstChild as ChildNode | null) ?? null,
-      );
+    const referenceNode: Node | null = optionsSection
+      ? (optionsSection as unknown as Node)
+      : insertionParent && container.parentNode === insertionParent
+      ? (container as unknown as Node)
+      : null;
+
+    if (insertionParent && typeof insertionParent.insertBefore === "function") {
+      insertionParent.insertBefore(preambleSection, referenceNode);
+    } else if (insertionParent && typeof insertionParent.appendChild === "function") {
+      insertionParent.appendChild(preambleSection);
     } else if (typeof (container as any).insertBefore === "function") {
       (container as any).insertBefore(
         preambleSection,

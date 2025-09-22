@@ -716,7 +716,7 @@ test("compiled rdfexport plugin bundle includes CSV property hook", async () => 
   expect(scriptContents).toContain(
     "DiagramFormatPanel.prototype.addOptions",
   );
-  expect(scriptContents).toContain("CSV path");
+  expect(scriptContents).toContain("CSV Path");
   expect(scriptContents).toContain("data-rdfexport-csv-field");
   expect(scriptContents).toContain("data-rdfexport-preamble-section");
   expect(scriptContents).toContain("__rdfexportPreambleAttached");
@@ -950,12 +950,12 @@ test(
   });
 
   expect(label).toBeDefined();
-  expect(label?.textContent).toBe("CSV path");
+  expect(label?.textContent).toBe("CSV Path");
   expect(label?.getAttribute("for")).toBeDefined();
-  expect(label?.getAttribute("title")).toBe("CSV path");
+  expect(label?.getAttribute("title")).toBe("CSV Path");
   expect(input).toBeDefined();
   expect(input?.value).toBe("initial.csv");
-  expect(input?.getAttribute("placeholder")).toBe("CSV path");
+  expect(input?.getAttribute("placeholder")).toBe("CSV Path");
   expect(input?.getAttribute("autocomplete")).toBe("off");
   expect((input as ElementStub).style.marginRight).toBe("6px");
 
@@ -995,7 +995,7 @@ test(
   expect(baseLabel?.textContent).toBe("Base URI");
   expect(baseInput?.value).toBe("https://initial.example/base");
   expect(baseInput?.getAttribute("placeholder")).toBe("Base URI");
-  expect((baseInput as ElementStub).style.marginRight).toBeUndefined();
+  expect((baseInput as ElementStub).style.marginRight).toBe("6px");
 
   if (!baseInput) {
     throw new Error("Base URI input field was not created");
