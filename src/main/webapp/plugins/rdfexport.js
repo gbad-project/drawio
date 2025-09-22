@@ -1,2 +1,853 @@
-var u=!1,p=new Set;function a($,Z){if(p.has($))return;try{mxResources.parse?.(`${$}=${Z}
-`)}catch(J){}p.add($)}function I($,Z){a($,Z);try{let J=mxResources.get?.($);if(typeof J==="string"&&J.length>0)return J}catch(J){}return Z}function d(){if(u)return;if(typeof DiagramFormatPanel==="undefined")return;let $=DiagramFormatPanel.prototype.addOptions;if(typeof $!=="function")return;DiagramFormatPanel.prototype.addOptions=function(Z){let J=$.apply(this,arguments),z=J??Z;if(!z||typeof document==="undefined")return J;let O=z;if(O.__rdfexportPreambleAttached)return J;let W=this.editorUi,V=W?.editor?.graph,T=V?.getModel?.();if(!V||!T||typeof T.getRoot!=="function"||typeof V.getAttributeForCell!=="function"||typeof V.setAttributeForCell!=="function")return J;O.__rdfexportPreambleAttached=!0;let w=I("csvPreamble","Preamble"),H=typeof this.createTitle==="function"?this.createTitle.bind(this):(j)=>{let q=document.createElement("div");return q.style.padding="0px 0px 6px 0px",q.style.whiteSpace="nowrap",q.style.overflow="hidden",q.style.width="200px",q.style.fontWeight="bold",q.textContent=j,q},Y=document.createElement("div");Y.className="geFormatSection",Y.setAttribute("data-rdfexport-preamble-section","true"),Y.style.padding="12px 0px 8px 14px",Y.style.whiteSpace="nowrap",Y.style.width="100%",Y.style.boxSizing="border-box",Y.appendChild(H(w));let X=typeof this.createOption==="function"?this.createOption.bind(this):null,F=[{attributeName:"csvPath",labelKey:"csvPath",fallbackLabel:"CSV Path",dataAttribute:"data-rdfexport-csv-field"},{attributeName:"baseUri",labelKey:"baseUri",fallbackLabel:"Base URI",dataAttribute:"data-rdfexport-base-uri-field"}],D=[],A=(j,q,K)=>{let Q=X!=null?X(j,()=>!0,()=>{return}):(()=>{let U=document.createElement("div");U.style.display="flex",U.style.alignItems="center",U.style.padding="3px 0px",U.style.height="18px";let L=document.createElement("input");L.type="checkbox",L.style.margin="1px 6px 0px 0px",L.style.verticalAlign="top",U.appendChild(L);let x=document.createElement("div");return x.textContent=j,x.style.display="inline-block",x.style.whiteSpace="nowrap",x.style.textOverflow="ellipsis",x.style.overflow="hidden",x.style.maxWidth="160px",x.style.userSelect="none",U.appendChild(x),U})();if(Q.setAttribute(q,"true"),Q.style.position="relative",Q.style.height="auto",Q.style.minHeight="18px",Q.style.alignItems="center",Q.style.width="100%",Q.style.flexWrap="nowrap",!Q.style.display)Q.style.display="flex";let v=(U)=>{if(!U)return[];let L=U.children;if(Array.isArray(L))return[...L];if(L!=null&&typeof L.length==="number")return Array.from(L);return[]},h=(U)=>{return U!=null&&typeof U==="object"&&typeof U.tagName==="string"},y=(U)=>{if(!h(U))return null;let L=U.tagName;return typeof L==="string"?L.toUpperCase():null},g=v(Q).filter(h),B=g.find((U)=>{if(y(U)!=="INPUT")return!1;let L=U;return((typeof L.type==="string"?L.type:typeof L.getAttribute==="function"?L.getAttribute("type"):void 0)??"").toLowerCase()==="checkbox"});if(B)B.setAttribute("disabled","disabled"),B.disabled=!0,B.style.visibility="hidden",B.style.marginRight="6px",B.style.flex="0 0 auto";let m=g.find((U)=>y(U)==="DIV");if(m&&typeof Q.removeChild==="function")Q.removeChild(m);let P=document.createElement("label");P.textContent=j,P.title=j,P.setAttribute("title",j),P.style.display="inline-block",P.style.whiteSpace="nowrap",P.style.textOverflow="ellipsis",P.style.overflow="hidden",P.style.maxWidth="160px",P.style.userSelect="none",P.style.marginRight="6px",P.style.cursor="default",P.style.flex="0 0 auto",Q.appendChild(P);let _=document.createElement("input");if(_.type="text",_.setAttribute("type","text"),_.placeholder=j,_.setAttribute("placeholder",j),_.setAttribute("aria-label",j),_.setAttribute("autocomplete","off"),_.style.flex="1 1 auto",_.style.minWidth="0",_.style.height="22px",_.style.boxSizing="border-box",_.style.marginLeft="6px",_.style.padding="3px 6px",_.style.border="1px solid var(--geInputBorderColor, #d5d5d5)",_.style.borderRadius="2px",_.style.background="var(--geBackgroundColor, #ffffff)",_.style.color="var(--geLabelColor, #000000)",_.style.fontSize="12px",K?.inputMarginRight)_.style.marginRight=K.inputMarginRight;_.autocomplete="off";let c=`rdfexport-${q.replace(/[^a-z0-9]/gi,"")}-${Date.now().toString(36)}-${Math.floor(Math.random()*1e6)}`;return _.id=c,_.setAttribute("id",c),P.setAttribute("for",c),Q.appendChild(_),{optionElement:Q,input:_}},k=()=>{try{return T.getRoot()}catch(j){return null}},G=(j)=>{let q=k();if(!q)return"";let K=V.getAttributeForCell(q,j,"");return K!=null?K:""},M=()=>{for(let j of D)j.input.value=G(j.attributeName)},C=(j)=>{let q=k();if(!q)return;let K=j.input.value.trim(),Q=K.length>0?K:null;if((V.getAttributeForCell(q,j.attributeName,"")||null)!==Q){T.beginUpdate?.();try{V.setAttributeForCell(q,j.attributeName,Q)}finally{T.endUpdate?.()}}if(Q===null&&j.input.value!=="")j.input.value="";else if(Q!==null&&j.input.value!==Q)j.input.value=Q};for(let j of F){let q=I(j.labelKey,j.fallbackLabel),{optionElement:K,input:Q}=A(q,j.dataAttribute,{inputMarginRight:"6px"}),v={attributeName:j.attributeName,input:Q};D.push(v),Q.value=G(j.attributeName),Q.addEventListener("change",()=>{C(v)}),Q.addEventListener("blur",()=>{C(v)}),Q.addEventListener("keydown",(h)=>{if(h.key==="Enter")C(v)}),Y.appendChild(K)}let R=()=>{if(!W||typeof document==="undefined")return;let j=k();if(!j)return;let q=n(W,T,j,{prefixPlaceholder:I("enterPrefix","Enter Prefix"),iriPlaceholder:I("enterIri","Enter IRI"),addButtonLabel:I("addPrefix","Add Prefix")});if(!q)return;W.showDialog?.(q.container,480,420,!0,!0,null,!1),q.init?.()},E=I("editPreamble","Edit Preamble..."),N=(()=>{if(typeof mxUtils.button==="function")return mxUtils.button(E,()=>{R()});let j=document.createElement("button");return j.textContent=E,j.addEventListener("click",()=>{R()}),j})();N.setAttribute("data-rdfexport-preamble-button","true"),N.style.marginTop="8px",N.style.width="210px",N.style.display="inline-block",N.style.textAlign="center",N.className=N.className||"geButton",Y.appendChild(N);let f=((j)=>{let q=j;while(q){let K=q;if((typeof K?.className==="string"?K.className:"").split(/\s+/).includes("geFormatSection"))return K;q=q.parentNode??null}return null})(z),S=f?.parentNode??z.parentNode??null,b=f?f:S&&z.parentNode===S?z:null;if(S&&typeof S.insertBefore==="function")S.insertBefore(Y,b);else if(S&&typeof S.appendChild==="function")S.appendChild(Y);else if(typeof z.insertBefore==="function")z.insertBefore(Y,z.firstChild??null);else z.appendChild(Y);if(M(),typeof T.addListener==="function"&&typeof T.removeListener==="function"){let j=Array.isArray(this.listeners)?this.listeners:null,q=()=>{M()};T.addListener("change",q),j?.push({destroy:()=>{T.removeListener(q)}})}return J},u=!0}function r($){return $!=null&&typeof $==="object"&&$.nodeType===mxConstants.NODETYPE_ELEMENT}function i($){let Z=$.localName??$.nodeName??"";if(typeof Z!=="string")return"";let J=Z.indexOf(":");if(J>=0)return Z.substring(J+1);return Z}function o($){let Z=[];if(!r($))return Z;let J=$.firstChild;while(J!=null){if(J.nodeType===mxConstants.NODETYPE_ELEMENT&&i(J)==="userObjectPreambleElement"){let z=J,O=z.getAttribute("rdfPrefix")??"",W=z.getAttribute("rdfIRI")??"";Z.push({prefix:O,iri:W})}J=J.nextSibling}return Z}function l($,Z){let J;if(r($))J=$.cloneNode(!0)??$;else{let W=mxUtils.createXmlDocument();if(J=W.createElement("object"),typeof $==="string"&&$.length>0)J.setAttribute("label",$);W.appendChild(J)}let z=J.ownerDocument??mxUtils.createXmlDocument();if(J.ownerDocument==null)z.appendChild(J);let O=J.firstChild;while(O!=null){let W=O.nextSibling;if(O.nodeType===mxConstants.NODETYPE_ELEMENT&&i(O)==="userObjectPreambleElement")J.removeChild(O);O=W}for(let W of Z){let V=W.prefix.trim(),T=W.iri.trim();if(!V||!T)continue;let H=(J.ownerDocument??z).createElement("userObjectPreambleElement");H.setAttribute("rdfPrefix",V),H.setAttribute("rdfIRI",T),J.appendChild(H)}return J}function n($,Z,J,z){if(typeof document==="undefined")return null;let O=document.createElement("div");O.setAttribute("data-rdfexport-preamble-dialog","true"),O.style.position="relative",O.style.width="100%",O.style.height="100%";let W=document.createElement("div");W.style.position="absolute",W.style.top="30px",W.style.left="30px",W.style.right="30px",W.style.bottom="80px",W.style.overflowY="auto",W.style.display="flex",W.style.flexDirection="column",W.style.gap="6px",O.appendChild(W);let V=document.createElement("div");V.style.display="flex",V.style.flexDirection="column",V.style.gap="6px",W.appendChild(V);let T=[],w=(j)=>{let q=T.indexOf(j);if(q>=0)T.splice(q,1);let K=j.container.parentNode;if(K&&typeof K.removeChild==="function")K.removeChild(j.container);else if(typeof j.container.remove==="function")j.container.remove()},H=(j)=>{let q=document.createElement("input");return q.type="text",q.setAttribute("type","text"),q.placeholder=j,q.setAttribute("placeholder",j),q.setAttribute("autocomplete","off"),q.style.flex="1 1 auto",q.style.minWidth="0",q.style.padding="4px",q.style.border="1px solid var(--geInputBorderColor, #d5d5d5)",q.style.borderRadius="2px",q.style.boxSizing="border-box",q.style.height="24px",q},Y=(j,q)=>{let K=document.createElement("div");K.setAttribute("data-rdfexport-preamble-entry","true"),K.style.display="flex",K.style.alignItems="center",K.style.gap="6px";let Q=H(z.prefixPlaceholder);Q.setAttribute("data-rdfexport-preamble-entry-prefix","true"),Q.style.flex="1 1 35%",Q.value=j,K.appendChild(Q);let v=H(z.iriPlaceholder);v.setAttribute("data-rdfexport-preamble-entry-iri","true"),v.style.flex="1 1 65%",v.value=q,K.appendChild(v);let h={container:K,prefixInput:Q,iriInput:v},y=I("delete","Delete"),g=(()=>{if(typeof mxUtils.button==="function")return mxUtils.button(y,()=>{w(h)});let B=document.createElement("button");return B.textContent=y,B.addEventListener("click",()=>{w(h)}),B})();g.setAttribute("data-rdfexport-preamble-entry-remove","true"),g.className=g.className||"geButton",g.style.flex="0 0 auto",g.style.height="24px",g.style.padding="0px 8px",K.appendChild(g),T.push(h),V.appendChild(K)},X=typeof Z.getValue==="function"?Z.getValue(J):null;for(let j of o(X))Y(j.prefix,j.iri);let F=document.createElement("div");F.setAttribute("data-rdfexport-preamble-add-row","true"),F.style.display="flex",F.style.alignItems="center",F.style.gap="6px",F.style.marginTop="6px",W.appendChild(F);let D=H(z.prefixPlaceholder);D.setAttribute("data-rdfexport-preamble-prefix-input","true"),D.style.flex="1 1 35%",F.appendChild(D);let A=H(z.iriPlaceholder);A.setAttribute("data-rdfexport-preamble-iri-input","true"),A.style.flex="1 1 65%",F.appendChild(A);let k=()=>{let j=D.value.trim(),q=A.value.trim();if(!j||!q)return;Y(j,q),D.value="",A.value="",M()},G=(()=>{if(typeof mxUtils.button==="function")return mxUtils.button(z.addButtonLabel,()=>{k()});let j=document.createElement("button");return j.textContent=z.addButtonLabel,j.addEventListener("click",()=>{k()}),j})();G.setAttribute("data-rdfexport-preamble-add-button","true"),G.className=G.className||"geButton",G.style.flex="0 0 auto",G.style.whiteSpace="nowrap",G.style.height="28px",F.appendChild(G);let M=()=>{let j=D.value.trim(),q=A.value.trim();if(j&&q)G.removeAttribute("disabled");else G.setAttribute("disabled","disabled")};D.addEventListener("input",M),A.addEventListener("input",M),D.addEventListener("change",M),A.addEventListener("change",M),A.addEventListener("keydown",(j)=>{if(j.key==="Enter")k()});let C=()=>{let j=T.map((Q)=>({prefix:Q.prefixInput.value.trim(),iri:Q.iriInput.value.trim()})).filter((Q)=>Q.prefix.length>0&&Q.iri.length>0),q=typeof Z.getValue==="function"?Z.getValue(J):null,K=l(q,j);Z.beginUpdate?.();try{if(typeof Z.setValue==="function")Z.setValue(J,K);else J.value=K,Z.markDirty?.()}finally{Z.endUpdate?.()}$.hideDialog?.()},R=document.createElement("div");R.style.position="absolute",R.style.left="30px",R.style.right="30px",R.style.bottom="30px",R.style.height="40px",R.style.display="flex",R.style.alignItems="center",R.style.justifyContent="flex-end",R.style.gap="10px",O.appendChild(R);let E=I("cancel","Cancel"),N=(()=>{if(typeof mxUtils.button==="function")return mxUtils.button(E,()=>{$.hideDialog?.()});let j=document.createElement("button");return j.textContent=E,j.addEventListener("click",()=>{$.hideDialog?.()}),j})();N.setAttribute("data-rdfexport-preamble-cancel","true"),N.className=N.className||"geButton",R.appendChild(N);let s=I("apply","Apply"),f=(()=>{if(typeof mxUtils.button==="function")return mxUtils.button(s,()=>{C()});let j=document.createElement("button");return j.textContent=s,j.addEventListener("click",()=>{C()}),j})();f.setAttribute("data-rdfexport-preamble-apply","true");let S=f;if(S.className){if(!/\bgePrimaryBtn\b/.test(S.className))S.className+=" gePrimaryBtn"}else S.className="geButton gePrimaryBtn";return R.appendChild(f),{container:O,init(){if(M(),T.length>0)T[0]?.prefixInput.focus?.();else D.focus?.()}}}d();Draw.loadPlugin(function($){d();let Z="http://example.com/ns#",J="http://www.w3.org/1999/02/22-rdf-syntax-ns#",z=new Map([["id",0],["value",1],["style",2],["parent",3],["source",4],["target",5],["connectable",6],["edge",7],["vertex",8]]),O=z.size;function W(H,Y){let X=z.get(H);if(X!=null)return X;return O+Y}function V(H,Y){if(H==null)return null;if(H.nodeType===mxConstants.NODETYPE_ELEMENT){let X=H,F=X.localName||X.nodeName;if(F.indexOf(":")>=0)F=F.substring(F.indexOf(":")+1);let D=Y.createElementNS(Z,"example:"+F);if(X.attributes!=null){let k=[];for(let G=0;G<X.attributes.length;G++){let M=X.attributes[G];if(M!=null){let C=M.name??M.nodeName;if(F==="mxGraphModel"&&(C==="dx"||C==="dy"))continue;k.push({name:C,nodeName:M.nodeName??C,value:M.value??"",namespaceURI:M.namespaceURI??null,prefix:M.prefix??null,index:G})}}k.sort((G,M)=>{let C=W(G.name,G.index),R=W(M.name,M.index);if(C!==R)return C-R;if(G.index!==M.index)return G.index-M.index;return G.name.localeCompare(M.name)});for(let G of k)if(G.prefix!=null&&G.prefix.length>0)D.setAttributeNS(G.namespaceURI,G.nodeName,G.value);else D.setAttribute(G.name,G.value)}let A=H.firstChild;while(A!=null){let k=V(A,Y);if(k!=null)D.appendChild(k);A=A.nextSibling}return D}else if(H.nodeType===mxConstants.NODETYPE_TEXT)return Y.createTextNode(H.nodeValue||"");else if(H.nodeType===mxConstants.NODETYPE_CDATA)return Y.createCDATASection(H.nodeValue||"");return null}function T(H){let Y=H.editor.getGraphXml(),X=mxUtils.createXmlDocument(),F=X.createElementNS(J,"rdf:RDF");F.setAttribute("xmlns:rdf",J),F.setAttribute("xmlns:example",Z),F.setAttribute("xmlns",J),X.appendChild(F);let D=X.createElementNS(Z,"example:Diagram"),A=H.currentPage!=null&&typeof H.currentPage.getId==="function"?H.currentPage.getId():"diagram";D.setAttributeNS(J,"rdf:about","urn:diagram:"+A),D.setAttribute("xmlns",Z),F.appendChild(D);let k=X.createElementNS(Z,"example:Title");k.appendChild(X.createTextNode(H.getBaseFilename(!0))),D.appendChild(k);let G=V(Y,X);if(G!=null)D.appendChild(G);return mxUtils.getPrettyXml(X)}mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML..."),$.actions.addAction("exportRdfXml",function(){try{let H=T($),Y=$.getBaseFilename()+".rdf";$.saveData(Y,"rdf",H,"application/rdf+xml")}catch(H){$.handleError(H)}});let w=$.menus.get("exportAs");if(w!=null){let H=w.funct;w.funct=function(Y,X){H.call(this,Y,X),$.menus.addMenuItems(Y,["-","exportRdfXml"],X)}}});
+// src/rdfexport.ts
+var CSV_PATH_ATTRIBUTE = "csvPath";
+var BASE_URI_ATTRIBUTE = "baseUri";
+var CSV_PATH_RESOURCE_KEY = "csvPath";
+var BASE_URI_RESOURCE_KEY = "baseUri";
+var CSV_SECTION_RESOURCE_KEY = "csvPreamble";
+var PREAMBLE_BUTTON_RESOURCE_KEY = "editPreamble";
+var PREAMBLE_PREFIX_PLACEHOLDER_KEY = "enterPrefix";
+var PREAMBLE_IRI_PLACEHOLDER_KEY = "enterIri";
+var PREAMBLE_ADD_BUTTON_RESOURCE_KEY = "addPrefix";
+var PREAMBLE_SECTION_FLAG = "__rdfexportPreambleAttached";
+var PREAMBLE_SECTION_DATA_ATTRIBUTE = "data-rdfexport-preamble-section";
+var DEFAULT_CSV_PATH_LABEL = "CSV Path";
+var DEFAULT_BASE_URI_LABEL = "Base URI";
+var DEFAULT_CSV_SECTION_LABEL = "Preamble";
+var DEFAULT_PREAMBLE_BUTTON_LABEL = "Edit Preamble...";
+var DEFAULT_PREFIX_PLACEHOLDER = "Enter Prefix";
+var DEFAULT_IRI_PLACEHOLDER = "Enter IRI";
+var DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
+var PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
+var PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
+var PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
+var csvPropertyPatched = false;
+var registeredResourceKeys = new Set;
+function registerResource(key, fallback) {
+  if (registeredResourceKeys.has(key)) {
+    return;
+  }
+  try {
+    mxResources.parse?.(`${key}=${fallback}
+`);
+  } catch (error) {}
+  registeredResourceKeys.add(key);
+}
+function resolveLabel(key, fallback) {
+  registerResource(key, fallback);
+  try {
+    const label = mxResources.get?.(key);
+    if (typeof label === "string" && label.length > 0) {
+      return label;
+    }
+  } catch (error) {}
+  return fallback;
+}
+function installCsvPathProperty() {
+  if (csvPropertyPatched) {
+    return;
+  }
+  if (typeof DiagramFormatPanel === "undefined") {
+    return;
+  }
+  const originalAddOptions = DiagramFormatPanel.prototype.addOptions;
+  if (typeof originalAddOptions !== "function") {
+    return;
+  }
+  DiagramFormatPanel.prototype.addOptions = function(div) {
+    const result = originalAddOptions.apply(this, arguments);
+    const container = result ?? div;
+    if (!container || typeof document === "undefined") {
+      return result;
+    }
+    const typedContainer = container;
+    if (typedContainer[PREAMBLE_SECTION_FLAG]) {
+      return result;
+    }
+    const ui = this.editorUi;
+    const graph = ui?.editor?.graph;
+    const model = graph?.getModel?.();
+    if (!graph || !model || typeof model.getRoot !== "function" || typeof graph.getAttributeForCell !== "function" || typeof graph.setAttributeForCell !== "function") {
+      return result;
+    }
+    typedContainer[PREAMBLE_SECTION_FLAG] = true;
+    const sectionLabel = resolveLabel(CSV_SECTION_RESOURCE_KEY, DEFAULT_CSV_SECTION_LABEL);
+    const createTitle = typeof this.createTitle === "function" ? this.createTitle.bind(this) : (title) => {
+      const titleElement = document.createElement("div");
+      titleElement.style.padding = "0px 0px 6px 0px";
+      titleElement.style.whiteSpace = "nowrap";
+      titleElement.style.overflow = "hidden";
+      titleElement.style.width = "200px";
+      titleElement.style.fontWeight = "bold";
+      titleElement.textContent = title;
+      return titleElement;
+    };
+    const preambleSection = document.createElement("div");
+    preambleSection.className = "geFormatSection";
+    preambleSection.setAttribute(PREAMBLE_SECTION_DATA_ATTRIBUTE, "true");
+    preambleSection.style.padding = "12px 0px 8px 14px";
+    preambleSection.style.whiteSpace = "nowrap";
+    preambleSection.style.width = "100%";
+    preambleSection.style.boxSizing = "border-box";
+    preambleSection.appendChild(createTitle(sectionLabel));
+    const createOption = typeof this.createOption === "function" ? this.createOption.bind(this) : null;
+    const textFieldConfigs = [
+      {
+        attributeName: CSV_PATH_ATTRIBUTE,
+        labelKey: CSV_PATH_RESOURCE_KEY,
+        fallbackLabel: DEFAULT_CSV_PATH_LABEL,
+        dataAttribute: "data-rdfexport-csv-field"
+      },
+      {
+        attributeName: BASE_URI_ATTRIBUTE,
+        labelKey: BASE_URI_RESOURCE_KEY,
+        fallbackLabel: DEFAULT_BASE_URI_LABEL,
+        dataAttribute: "data-rdfexport-base-uri-field"
+      }
+    ];
+    const fieldStates = [];
+    const buildTextOption = (label, dataAttribute, options) => {
+      const optionElement = createOption != null ? createOption(label, () => true, () => {
+        return;
+      }) : (() => {
+        const option = document.createElement("div");
+        option.style.display = "flex";
+        option.style.alignItems = "center";
+        option.style.padding = "3px 0px";
+        option.style.height = "18px";
+        const checkbox2 = document.createElement("input");
+        checkbox2.type = "checkbox";
+        checkbox2.style.margin = "1px 6px 0px 0px";
+        checkbox2.style.verticalAlign = "top";
+        option.appendChild(checkbox2);
+        const fallbackLabel = document.createElement("div");
+        fallbackLabel.textContent = label;
+        fallbackLabel.style.display = "inline-block";
+        fallbackLabel.style.whiteSpace = "nowrap";
+        fallbackLabel.style.textOverflow = "ellipsis";
+        fallbackLabel.style.overflow = "hidden";
+        fallbackLabel.style.maxWidth = "160px";
+        fallbackLabel.style.userSelect = "none";
+        option.appendChild(fallbackLabel);
+        return option;
+      })();
+      optionElement.setAttribute(dataAttribute, "true");
+      optionElement.style.position = "relative";
+      optionElement.style.height = "auto";
+      optionElement.style.minHeight = "18px";
+      optionElement.style.alignItems = "center";
+      optionElement.style.width = "100%";
+      optionElement.style.flexWrap = "nowrap";
+      if (!optionElement.style.display) {
+        optionElement.style.display = "flex";
+      }
+      const collectChildren = (element) => {
+        if (!element) {
+          return [];
+        }
+        const children = element.children;
+        if (Array.isArray(children)) {
+          return [...children];
+        }
+        if (children != null && typeof children.length === "number") {
+          return Array.from(children);
+        }
+        return [];
+      };
+      const isElementNode = (node) => {
+        return node != null && typeof node === "object" && typeof node.tagName === "string";
+      };
+      const getTagName = (node) => {
+        if (!isElementNode(node)) {
+          return null;
+        }
+        const rawTag = node.tagName;
+        return typeof rawTag === "string" ? rawTag.toUpperCase() : null;
+      };
+      const optionChildren = collectChildren(optionElement).filter(isElementNode);
+      const checkbox = optionChildren.find((child) => {
+        if (getTagName(child) !== "INPUT") {
+          return false;
+        }
+        const inputNode = child;
+        const explicitType = typeof inputNode.type === "string" ? inputNode.type : typeof inputNode.getAttribute === "function" ? inputNode.getAttribute("type") : undefined;
+        return (explicitType ?? "").toLowerCase() === "checkbox";
+      });
+      if (checkbox) {
+        checkbox.setAttribute("disabled", "disabled");
+        checkbox.disabled = true;
+        checkbox.style.visibility = "hidden";
+        checkbox.style.marginRight = "6px";
+        checkbox.style.flex = "0 0 auto";
+      }
+      const existingLabel = optionChildren.find((child) => getTagName(child) === "DIV");
+      if (existingLabel && typeof optionElement.removeChild === "function") {
+        optionElement.removeChild(existingLabel);
+      }
+      const labelElement = document.createElement("label");
+      labelElement.textContent = label;
+      labelElement.title = label;
+      labelElement.setAttribute("title", label);
+      labelElement.style.display = "inline-block";
+      labelElement.style.whiteSpace = "nowrap";
+      labelElement.style.textOverflow = "ellipsis";
+      labelElement.style.overflow = "hidden";
+      labelElement.style.maxWidth = "160px";
+      labelElement.style.userSelect = "none";
+      labelElement.style.marginRight = "6px";
+      labelElement.style.cursor = "default";
+      labelElement.style.flex = "0 0 auto";
+      optionElement.appendChild(labelElement);
+      const input = document.createElement("input");
+      input.type = "text";
+      input.setAttribute("type", "text");
+      input.placeholder = label;
+      input.setAttribute("placeholder", label);
+      input.setAttribute("aria-label", label);
+      input.setAttribute("autocomplete", "off");
+      input.style.flex = "1 1 auto";
+      input.style.minWidth = "0";
+      input.style.height = "22px";
+      input.style.boxSizing = "border-box";
+      input.style.marginLeft = "6px";
+      input.style.padding = "3px 6px";
+      input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+      input.style.borderRadius = "2px";
+      input.style.background = "var(--geBackgroundColor, #ffffff)";
+      input.style.color = "var(--geLabelColor, #000000)";
+      input.style.fontSize = "12px";
+      if (options?.inputMarginRight) {
+        input.style.marginRight = options.inputMarginRight;
+      }
+      input.autocomplete = "off";
+      const suffix = dataAttribute.replace(/[^a-z0-9]/gi, "");
+      const inputId = `rdfexport-${suffix}-${Date.now().toString(36)}-${Math.floor(Math.random() * 1e6)}`;
+      input.id = inputId;
+      input.setAttribute("id", inputId);
+      labelElement.setAttribute("for", inputId);
+      optionElement.appendChild(input);
+      return { optionElement, input };
+    };
+    const getRootCell = () => {
+      try {
+        return model.getRoot();
+      } catch (e) {
+        return null;
+      }
+    };
+    const readAttribute = (attributeName) => {
+      const rootCell = getRootCell();
+      if (!rootCell) {
+        return "";
+      }
+      const stored = graph.getAttributeForCell(rootCell, attributeName, "");
+      return stored != null ? stored : "";
+    };
+    const updateInputsFromModel = () => {
+      for (const field of fieldStates) {
+        field.input.value = readAttribute(field.attributeName);
+      }
+    };
+    const applyInputValue = (field) => {
+      const rootCell = getRootCell();
+      if (!rootCell) {
+        return;
+      }
+      const normalizedRaw = field.input.value.trim();
+      const newValue = normalizedRaw.length > 0 ? normalizedRaw : null;
+      const currentValue = graph.getAttributeForCell(rootCell, field.attributeName, "") || null;
+      if (currentValue !== newValue) {
+        model.beginUpdate?.();
+        try {
+          graph.setAttributeForCell(rootCell, field.attributeName, newValue);
+        } finally {
+          model.endUpdate?.();
+        }
+      }
+      if (newValue === null && field.input.value !== "") {
+        field.input.value = "";
+      } else if (newValue !== null && field.input.value !== newValue) {
+        field.input.value = newValue;
+      }
+    };
+    for (const config of textFieldConfigs) {
+      const label = resolveLabel(config.labelKey, config.fallbackLabel);
+      const { optionElement, input } = buildTextOption(label, config.dataAttribute, {
+        inputMarginRight: "6px"
+      });
+      const fieldState = {
+        attributeName: config.attributeName,
+        input
+      };
+      fieldStates.push(fieldState);
+      input.value = readAttribute(config.attributeName);
+      input.addEventListener("change", () => {
+        applyInputValue(fieldState);
+      });
+      input.addEventListener("blur", () => {
+        applyInputValue(fieldState);
+      });
+      input.addEventListener("keydown", (evt) => {
+        const keyboardEvent = evt;
+        if (keyboardEvent.key === "Enter") {
+          applyInputValue(fieldState);
+        }
+      });
+      preambleSection.appendChild(optionElement);
+    }
+    const openPreambleDialog = () => {
+      if (!ui || typeof document === "undefined") {
+        return;
+      }
+      const rootCell = getRootCell();
+      if (!rootCell) {
+        return;
+      }
+      const dialog = createPreambleDialog(ui, model, rootCell, {
+        prefixPlaceholder: resolveLabel(PREAMBLE_PREFIX_PLACEHOLDER_KEY, DEFAULT_PREFIX_PLACEHOLDER),
+        iriPlaceholder: resolveLabel(PREAMBLE_IRI_PLACEHOLDER_KEY, DEFAULT_IRI_PLACEHOLDER),
+        addButtonLabel: resolveLabel(PREAMBLE_ADD_BUTTON_RESOURCE_KEY, DEFAULT_ADD_PREFIX_LABEL)
+      });
+      if (!dialog) {
+        return;
+      }
+      ui.showDialog?.(dialog.container, 480, 420, true, true, null, false);
+      dialog.init?.();
+    };
+    const preambleButtonLabel = resolveLabel(PREAMBLE_BUTTON_RESOURCE_KEY, DEFAULT_PREAMBLE_BUTTON_LABEL);
+    const preambleButton = (() => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button(preambleButtonLabel, () => {
+          openPreambleDialog();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = preambleButtonLabel;
+      button.addEventListener("click", () => {
+        openPreambleDialog();
+      });
+      return button;
+    })();
+    preambleButton.setAttribute("data-rdfexport-preamble-button", "true");
+    preambleButton.style.marginTop = "8px";
+    preambleButton.style.width = "210px";
+    preambleButton.style.display = "inline-block";
+    preambleButton.style.textAlign = "center";
+    preambleButton.className = preambleButton.className || "geButton";
+    preambleSection.appendChild(preambleButton);
+    const panelContainer = this.container ?? null;
+    const findFormatSectionAncestor = (node) => {
+      let current = node;
+      while (current) {
+        const candidate = current;
+        const className = typeof candidate?.className === "string" ? candidate.className : "";
+        if (className.split(/\s+/).includes("geFormatSection")) {
+          return candidate;
+        }
+        current = current.parentNode ?? null;
+      }
+      return null;
+    };
+    const optionsSection = findFormatSectionAncestor(container);
+    const fallbackParent = optionsSection?.parentNode ?? container.parentNode ?? null;
+    let inserted = false;
+    if (panelContainer && typeof panelContainer.insertBefore === "function") {
+      const firstChild = panelContainer.firstChild;
+      const referenceChild = firstChild === preambleSection ? preambleSection : firstChild;
+      panelContainer.insertBefore(preambleSection, referenceChild ?? null);
+      inserted = preambleSection.parentNode === panelContainer;
+    }
+    if (!inserted) {
+      const referenceNode = optionsSection ? optionsSection : fallbackParent && container.parentNode === fallbackParent ? container : null;
+      if (fallbackParent && typeof fallbackParent.insertBefore === "function") {
+        fallbackParent.insertBefore(preambleSection, referenceNode);
+        inserted = preambleSection.parentNode === fallbackParent;
+      } else if (fallbackParent && typeof fallbackParent.appendChild === "function") {
+        fallbackParent.appendChild(preambleSection);
+        inserted = preambleSection.parentNode === fallbackParent;
+      }
+    }
+    const ensurePanelPlacement = () => {
+      if (!panelContainer || typeof panelContainer.insertBefore !== "function") {
+        return;
+      }
+      const firstChild = panelContainer.firstChild;
+      const referenceChild = firstChild === preambleSection ? preambleSection : firstChild;
+      if (preambleSection.parentNode !== panelContainer || referenceChild !== preambleSection) {
+        panelContainer.insertBefore(preambleSection, referenceChild ?? null);
+      }
+    };
+    if (!inserted) {
+      ensurePanelPlacement();
+      if (preambleSection.parentNode !== panelContainer && typeof window !== "undefined" && typeof window.setTimeout === "function") {
+        window.setTimeout(() => {
+          ensurePanelPlacement();
+        }, 0);
+      }
+    }
+    updateInputsFromModel();
+    if (typeof model.addListener === "function" && typeof model.removeListener === "function") {
+      const listenersArray = Array.isArray(this.listeners) ? this.listeners : null;
+      const changeHandler = () => {
+        updateInputsFromModel();
+      };
+      model.addListener("change", changeHandler);
+      listenersArray?.push({
+        destroy: () => {
+          model.removeListener(changeHandler);
+        }
+      });
+    }
+    return result;
+  };
+  csvPropertyPatched = true;
+}
+function isElementNode(node) {
+  return node != null && typeof node === "object" && node.nodeType === mxConstants.NODETYPE_ELEMENT;
+}
+function normalizeNodeName(node) {
+  const rawName = node.localName ?? node.nodeName ?? "";
+  if (typeof rawName !== "string") {
+    return "";
+  }
+  const separatorIndex = rawName.indexOf(":");
+  if (separatorIndex >= 0) {
+    return rawName.substring(separatorIndex + 1);
+  }
+  return rawName;
+}
+function extractPreambleEntries(value) {
+  const entries = [];
+  if (!isElementNode(value)) {
+    return entries;
+  }
+  let child = value.firstChild;
+  while (child != null) {
+    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && normalizeNodeName(child) === PREAMBLE_ENTRY_TAG) {
+      const element = child;
+      const prefix = element.getAttribute(PREAMBLE_PREFIX_ATTRIBUTE) ?? "";
+      const iri = element.getAttribute(PREAMBLE_IRI_ATTRIBUTE) ?? "";
+      entries.push({ prefix, iri });
+    }
+    child = child.nextSibling;
+  }
+  return entries;
+}
+function buildValueWithPreamble(baseValue, entries) {
+  let valueElement;
+  if (isElementNode(baseValue)) {
+    valueElement = baseValue.cloneNode(true) ?? baseValue;
+  } else {
+    const doc = mxUtils.createXmlDocument();
+    valueElement = doc.createElement("object");
+    if (typeof baseValue === "string" && baseValue.length > 0) {
+      valueElement.setAttribute("label", baseValue);
+    }
+    doc.appendChild(valueElement);
+  }
+  const ownerDoc = valueElement.ownerDocument ?? mxUtils.createXmlDocument();
+  if (valueElement.ownerDocument == null) {
+    ownerDoc.appendChild(valueElement);
+  }
+  let child = valueElement.firstChild;
+  while (child != null) {
+    const next = child.nextSibling;
+    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && normalizeNodeName(child) === PREAMBLE_ENTRY_TAG) {
+      valueElement.removeChild(child);
+    }
+    child = next;
+  }
+  for (const entry of entries) {
+    const prefix = entry.prefix.trim();
+    const iri = entry.iri.trim();
+    if (!prefix || !iri) {
+      continue;
+    }
+    const doc = valueElement.ownerDocument ?? ownerDoc;
+    const preambleElement = doc.createElement(PREAMBLE_ENTRY_TAG);
+    preambleElement.setAttribute(PREAMBLE_PREFIX_ATTRIBUTE, prefix);
+    preambleElement.setAttribute(PREAMBLE_IRI_ATTRIBUTE, iri);
+    valueElement.appendChild(preambleElement);
+  }
+  return valueElement;
+}
+function createPreambleDialog(editorUi, model, rootCell, labels) {
+  if (typeof document === "undefined") {
+    return null;
+  }
+  const container = document.createElement("div");
+  container.setAttribute("data-rdfexport-preamble-dialog", "true");
+  container.style.position = "relative";
+  container.style.width = "100%";
+  container.style.height = "100%";
+  const top = document.createElement("div");
+  top.style.position = "absolute";
+  top.style.top = "30px";
+  top.style.left = "30px";
+  top.style.right = "30px";
+  top.style.bottom = "80px";
+  top.style.overflowY = "auto";
+  top.style.display = "flex";
+  top.style.flexDirection = "column";
+  top.style.gap = "6px";
+  container.appendChild(top);
+  const entriesList = document.createElement("div");
+  entriesList.style.display = "flex";
+  entriesList.style.flexDirection = "column";
+  entriesList.style.gap = "6px";
+  top.appendChild(entriesList);
+  const entries = [];
+  const removeEntry = (entry) => {
+    const index = entries.indexOf(entry);
+    if (index >= 0) {
+      entries.splice(index, 1);
+    }
+    const parent = entry.container.parentNode;
+    if (parent && typeof parent.removeChild === "function") {
+      parent.removeChild(entry.container);
+    } else if (typeof entry.container.remove === "function") {
+      entry.container.remove();
+    }
+  };
+  const createTextInput = (placeholder) => {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.setAttribute("type", "text");
+    input.placeholder = placeholder;
+    input.setAttribute("placeholder", placeholder);
+    input.setAttribute("autocomplete", "off");
+    input.style.flex = "1 1 auto";
+    input.style.minWidth = "0";
+    input.style.padding = "4px";
+    input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    input.style.borderRadius = "2px";
+    input.style.boxSizing = "border-box";
+    input.style.height = "24px";
+    return input;
+  };
+  const addEntry = (prefix, iri) => {
+    const entryContainer = document.createElement("div");
+    entryContainer.setAttribute("data-rdfexport-preamble-entry", "true");
+    entryContainer.style.display = "flex";
+    entryContainer.style.alignItems = "center";
+    entryContainer.style.gap = "6px";
+    const prefixInput = createTextInput(labels.prefixPlaceholder);
+    prefixInput.setAttribute("data-rdfexport-preamble-entry-prefix", "true");
+    prefixInput.style.flex = "1 1 35%";
+    prefixInput.value = prefix;
+    entryContainer.appendChild(prefixInput);
+    const iriInput = createTextInput(labels.iriPlaceholder);
+    iriInput.setAttribute("data-rdfexport-preamble-entry-iri", "true");
+    iriInput.style.flex = "1 1 65%";
+    iriInput.value = iri;
+    entryContainer.appendChild(iriInput);
+    const entryState = {
+      container: entryContainer,
+      prefixInput,
+      iriInput
+    };
+    const removeLabel = resolveLabel("delete", "Delete");
+    const removeButton = (() => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button(removeLabel, () => {
+          removeEntry(entryState);
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = removeLabel;
+      button.addEventListener("click", () => {
+        removeEntry(entryState);
+      });
+      return button;
+    })();
+    removeButton.setAttribute("data-rdfexport-preamble-entry-remove", "true");
+    removeButton.className = removeButton.className || "geButton";
+    removeButton.style.flex = "0 0 auto";
+    removeButton.style.height = "24px";
+    removeButton.style.padding = "0px 8px";
+    entryContainer.appendChild(removeButton);
+    entries.push(entryState);
+    entriesList.appendChild(entryContainer);
+  };
+  const baseValue = typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+  for (const entry of extractPreambleEntries(baseValue)) {
+    addEntry(entry.prefix, entry.iri);
+  }
+  const addRow = document.createElement("div");
+  addRow.setAttribute("data-rdfexport-preamble-add-row", "true");
+  addRow.style.display = "flex";
+  addRow.style.alignItems = "center";
+  addRow.style.gap = "6px";
+  addRow.style.marginTop = "6px";
+  top.appendChild(addRow);
+  const newPrefixInput = createTextInput(labels.prefixPlaceholder);
+  newPrefixInput.setAttribute("data-rdfexport-preamble-prefix-input", "true");
+  newPrefixInput.style.flex = "1 1 35%";
+  addRow.appendChild(newPrefixInput);
+  const newIriInput = createTextInput(labels.iriPlaceholder);
+  newIriInput.setAttribute("data-rdfexport-preamble-iri-input", "true");
+  newIriInput.style.flex = "1 1 65%";
+  addRow.appendChild(newIriInput);
+  const handleAdd = () => {
+    const prefix = newPrefixInput.value.trim();
+    const iri = newIriInput.value.trim();
+    if (!prefix || !iri) {
+      return;
+    }
+    addEntry(prefix, iri);
+    newPrefixInput.value = "";
+    newIriInput.value = "";
+    updateAddButtonState();
+  };
+  const addButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(labels.addButtonLabel, () => {
+        handleAdd();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = labels.addButtonLabel;
+    button.addEventListener("click", () => {
+      handleAdd();
+    });
+    return button;
+  })();
+  addButton.setAttribute("data-rdfexport-preamble-add-button", "true");
+  addButton.className = addButton.className || "geButton";
+  addButton.style.flex = "0 0 auto";
+  addButton.style.whiteSpace = "nowrap";
+  addButton.style.height = "28px";
+  addRow.appendChild(addButton);
+  const updateAddButtonState = () => {
+    const prefix = newPrefixInput.value.trim();
+    const iri = newIriInput.value.trim();
+    if (prefix && iri) {
+      addButton.removeAttribute("disabled");
+    } else {
+      addButton.setAttribute("disabled", "disabled");
+    }
+  };
+  newPrefixInput.addEventListener("input", updateAddButtonState);
+  newIriInput.addEventListener("input", updateAddButtonState);
+  newPrefixInput.addEventListener("change", updateAddButtonState);
+  newIriInput.addEventListener("change", updateAddButtonState);
+  newIriInput.addEventListener("keydown", (evt) => {
+    const keyboardEvent = evt;
+    if (keyboardEvent.key === "Enter") {
+      handleAdd();
+    }
+  });
+  const handleApply = () => {
+    const normalizedEntries = entries.map((entry) => ({
+      prefix: entry.prefixInput.value.trim(),
+      iri: entry.iriInput.value.trim()
+    })).filter((entry) => entry.prefix.length > 0 && entry.iri.length > 0);
+    const baseValue2 = typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+    const newValue = buildValueWithPreamble(baseValue2, normalizedEntries);
+    model.beginUpdate?.();
+    try {
+      if (typeof model.setValue === "function") {
+        model.setValue(rootCell, newValue);
+      } else {
+        rootCell.value = newValue;
+        model.markDirty?.();
+      }
+    } finally {
+      model.endUpdate?.();
+    }
+    editorUi.hideDialog?.();
+  };
+  const buttons = document.createElement("div");
+  buttons.style.position = "absolute";
+  buttons.style.left = "30px";
+  buttons.style.right = "30px";
+  buttons.style.bottom = "30px";
+  buttons.style.height = "40px";
+  buttons.style.display = "flex";
+  buttons.style.alignItems = "center";
+  buttons.style.justifyContent = "flex-end";
+  buttons.style.gap = "10px";
+  container.appendChild(buttons);
+  const cancelLabel = resolveLabel("cancel", "Cancel");
+  const cancelButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(cancelLabel, () => {
+        editorUi.hideDialog?.();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = cancelLabel;
+    button.addEventListener("click", () => {
+      editorUi.hideDialog?.();
+    });
+    return button;
+  })();
+  cancelButton.setAttribute("data-rdfexport-preamble-cancel", "true");
+  cancelButton.className = cancelButton.className || "geButton";
+  buttons.appendChild(cancelButton);
+  const applyLabel = resolveLabel("apply", "Apply");
+  const applyButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(applyLabel, () => {
+        handleApply();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = applyLabel;
+    button.addEventListener("click", () => {
+      handleApply();
+    });
+    return button;
+  })();
+  applyButton.setAttribute("data-rdfexport-preamble-apply", "true");
+  const applyButtonElement = applyButton;
+  if (applyButtonElement.className) {
+    if (!/\bgePrimaryBtn\b/.test(applyButtonElement.className)) {
+      applyButtonElement.className += " gePrimaryBtn";
+    }
+  } else {
+    applyButtonElement.className = "geButton gePrimaryBtn";
+  }
+  buttons.appendChild(applyButton);
+  const dialog = {
+    container,
+    init() {
+      updateAddButtonState();
+      if (entries.length > 0) {
+        entries[0]?.prefixInput.focus?.();
+      } else {
+        newPrefixInput.focus?.();
+      }
+    }
+  };
+  return dialog;
+}
+installCsvPathProperty();
+Draw.loadPlugin(function(editorUi) {
+  installCsvPathProperty();
+  const EXAMPLE_NS = "http://example.com/ns#";
+  const RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
+  const ATTRIBUTE_PRIORITY = new Map([
+    ["id", 0],
+    ["value", 1],
+    ["style", 2],
+    ["parent", 3],
+    ["source", 4],
+    ["target", 5],
+    ["connectable", 6],
+    ["edge", 7],
+    ["vertex", 8]
+  ]);
+  const ATTRIBUTE_PRIORITY_SIZE = ATTRIBUTE_PRIORITY.size;
+  function getAttributePriority(name, fallbackIndex) {
+    const priority = ATTRIBUTE_PRIORITY.get(name);
+    if (priority != null) {
+      return priority;
+    }
+    return ATTRIBUTE_PRIORITY_SIZE + fallbackIndex;
+  }
+  function cloneWithExampleNamespace(node, doc) {
+    if (node == null) {
+      return null;
+    }
+    if (node.nodeType === mxConstants.NODETYPE_ELEMENT) {
+      const element = node;
+      let localName = element.localName || element.nodeName;
+      if (localName.indexOf(":") >= 0) {
+        localName = localName.substring(localName.indexOf(":") + 1);
+      }
+      const newElement = doc.createElementNS(EXAMPLE_NS, "example:" + localName);
+      if (element.attributes != null) {
+        const attributes = [];
+        for (let i = 0;i < element.attributes.length; i++) {
+          const attr = element.attributes[i];
+          if (attr != null) {
+            const attrName = attr.name ?? attr.nodeName;
+            if (localName === "mxGraphModel" && (attrName === "dx" || attrName === "dy")) {
+              continue;
+            }
+            attributes.push({
+              name: attrName,
+              nodeName: attr.nodeName ?? attrName,
+              value: attr.value ?? "",
+              namespaceURI: attr.namespaceURI ?? null,
+              prefix: attr.prefix ?? null,
+              index: i
+            });
+          }
+        }
+        attributes.sort((a, b) => {
+          const priorityA = getAttributePriority(a.name, a.index);
+          const priorityB = getAttributePriority(b.name, b.index);
+          if (priorityA !== priorityB) {
+            return priorityA - priorityB;
+          }
+          if (a.index !== b.index) {
+            return a.index - b.index;
+          }
+          return a.name.localeCompare(b.name);
+        });
+        for (const attr of attributes) {
+          if (attr.prefix != null && attr.prefix.length > 0) {
+            newElement.setAttributeNS(attr.namespaceURI, attr.nodeName, attr.value);
+          } else {
+            newElement.setAttribute(attr.name, attr.value);
+          }
+        }
+      }
+      let child = node.firstChild;
+      while (child != null) {
+        const childClone = cloneWithExampleNamespace(child, doc);
+        if (childClone != null) {
+          newElement.appendChild(childClone);
+        }
+        child = child.nextSibling;
+      }
+      return newElement;
+    } else if (node.nodeType === mxConstants.NODETYPE_TEXT) {
+      return doc.createTextNode(node.nodeValue || "");
+    } else if (node.nodeType === mxConstants.NODETYPE_CDATA) {
+      return doc.createCDATASection(node.nodeValue || "");
+    }
+    return null;
+  }
+  function createRdfXml(ui) {
+    const graphXml = ui.editor.getGraphXml();
+    const doc = mxUtils.createXmlDocument();
+    const rdfRoot = doc.createElementNS(RDF_NS, "rdf:RDF");
+    rdfRoot.setAttribute("xmlns:rdf", RDF_NS);
+    rdfRoot.setAttribute("xmlns:example", EXAMPLE_NS);
+    rdfRoot.setAttribute("xmlns", RDF_NS);
+    doc.appendChild(rdfRoot);
+    const diagramElement = doc.createElementNS(EXAMPLE_NS, "example:Diagram");
+    const pageId = ui.currentPage != null && typeof ui.currentPage.getId === "function" ? ui.currentPage.getId() : "diagram";
+    diagramElement.setAttributeNS(RDF_NS, "rdf:about", "urn:diagram:" + pageId);
+    diagramElement.setAttribute("xmlns", EXAMPLE_NS);
+    rdfRoot.appendChild(diagramElement);
+    const titleElement = doc.createElementNS(EXAMPLE_NS, "example:Title");
+    titleElement.appendChild(doc.createTextNode(ui.getBaseFilename(true)));
+    diagramElement.appendChild(titleElement);
+    const modelElement = cloneWithExampleNamespace(graphXml, doc);
+    if (modelElement != null) {
+      diagramElement.appendChild(modelElement);
+    }
+    return mxUtils.getPrettyXml(doc);
+  }
+  mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
+  editorUi.actions.addAction("exportRdfXml", function() {
+    try {
+      const rdf = createRdfXml(editorUi);
+      const filename = editorUi.getBaseFilename() + ".rdf";
+      editorUi.saveData(filename, "rdf", rdf, "application/rdf+xml");
+    } catch (e) {
+      editorUi.handleError(e);
+    }
+  });
+  const exportMenu = editorUi.menus.get("exportAs");
+  if (exportMenu != null) {
+    const oldFunct = exportMenu.funct;
+    exportMenu.funct = function(menu, parent) {
+      oldFunct.call(this, menu, parent);
+      editorUi.menus.addMenuItems(menu, ["-", "exportRdfXml"], parent);
+    };
+  }
+});
