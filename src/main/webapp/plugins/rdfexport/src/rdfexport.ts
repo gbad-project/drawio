@@ -423,6 +423,7 @@ function installCsvPathProperty(): void {
       input.style.height = "22px";
       input.style.boxSizing = "border-box";
       input.style.marginLeft = "6px";
+      input.style.marginRight = "6px";
       input.style.padding = "3px 6px";
       input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
       input.style.borderRadius = "2px";
