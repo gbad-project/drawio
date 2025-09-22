@@ -892,17 +892,22 @@ test(
     callback(editorUi);
   }
 
+  const panelRoot = document.createElement("div");
+  const existingViewSection = document.createElement("div");
+  existingViewSection.className = "geFormatSection";
+  panelRoot.appendChild(existingViewSection);
+
   const panelContext = {
     editorUi,
     listeners: [] as Array<{ destroy(): void }>,
+    container: panelRoot,
   };
 
   const container = document.createElement("div");
-  const panelRoot = document.createElement("div");
-  panelRoot.appendChild(container);
   const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
 
-  addOptions.call(panelContext, container);
+  const returned = addOptions.call(panelContext, container);
+  panelRoot.appendChild(returned ?? container);
 
   const preambleSection = findChildByAttribute(
     panelRoot,
@@ -917,7 +922,11 @@ test(
   }
 
   expect(panelRoot.children[0]).toBe(preambleSection);
-  expect(panelRoot.children[1]).toBe(container);
+  expect(panelRoot.children[1]).toBe(existingViewSection);
+  expect(panelRoot.children[2]).toBe(container);
+  expect(
+    findChildByAttribute(container, PREAMBLE_SECTION_ATTRIBUTE, "true"),
+  ).toBeNull();
   expect(preambleSection.className).toBe("geFormatSection");
   expect(preambleSection.style.padding).toBe("12px 0px 8px 14px");
   expect(preambleSection.style.whiteSpace).toBe("nowrap");

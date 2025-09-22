@@ -600,6 +600,14 @@ function installCsvPathProperty(): void {
       (preambleButton as HTMLElement).className || "geButton";
     preambleSection.appendChild(preambleButton);
 
+    const panelContainer: (HTMLElement & {
+      insertBefore?: (node: Node, child: Node | null) => Node;
+    }) | null = ((this as { container?: HTMLElement }).container ?? null) as
+      | (HTMLElement & {
+          insertBefore?: (node: Node, child: Node | null) => Node;
+        })
+      | null;
+
     const findFormatSectionAncestor = (
       node: Node | null,
     ): (Node & {
@@ -623,7 +631,7 @@ function installCsvPathProperty(): void {
     };
 
     const optionsSection = findFormatSectionAncestor(container);
-    const insertionParent = (optionsSection?.parentNode ?? container.parentNode ??
+    const fallbackParent = (optionsSection?.parentNode ?? container.parentNode ??
       null) as
       | (Node & {
           insertBefore?: (node: Node, child: Node | null) => Node;
@@ -631,23 +639,63 @@ function installCsvPathProperty(): void {
         })
       | null;
 
-    const referenceNode: Node | null = optionsSection
-      ? (optionsSection as unknown as Node)
-      : insertionParent && container.parentNode === insertionParent
-      ? (container as unknown as Node)
-      : null;
+    let inserted = false;
 
-    if (insertionParent && typeof insertionParent.insertBefore === "function") {
-      insertionParent.insertBefore(preambleSection, referenceNode);
-    } else if (insertionParent && typeof insertionParent.appendChild === "function") {
-      insertionParent.appendChild(preambleSection);
-    } else if (typeof (container as any).insertBefore === "function") {
-      (container as any).insertBefore(
-        preambleSection,
-        ((container as any).firstChild as ChildNode | null) ?? null,
-      );
-    } else {
-      container.appendChild(preambleSection);
+    if (panelContainer && typeof panelContainer.insertBefore === "function") {
+      const firstChild = panelContainer.firstChild as ChildNode | null;
+      const referenceChild =
+        firstChild === preambleSection ? (preambleSection as ChildNode) : firstChild;
+      panelContainer.insertBefore(preambleSection, referenceChild ?? null);
+      inserted = preambleSection.parentNode === panelContainer;
+    }
+
+    if (!inserted) {
+      const referenceNode: Node | null = optionsSection
+        ? (optionsSection as unknown as Node)
+        : fallbackParent && container.parentNode === fallbackParent
+        ? (container as unknown as Node)
+        : null;
+
+      if (
+        fallbackParent &&
+        typeof fallbackParent.insertBefore === "function"
+      ) {
+        fallbackParent.insertBefore(preambleSection, referenceNode);
+        inserted = preambleSection.parentNode === fallbackParent;
+      } else if (
+        fallbackParent &&
+        typeof fallbackParent.appendChild === "function"
+      ) {
+        fallbackParent.appendChild(preambleSection);
+        inserted = preambleSection.parentNode === fallbackParent;
+      }
+    }
+
+    const ensurePanelPlacement = () => {
+      if (!panelContainer || typeof panelContainer.insertBefore !== "function") {
+        return;
+      }
+
+      const firstChild = panelContainer.firstChild as ChildNode | null;
+      const referenceChild =
+        firstChild === preambleSection ? (preambleSection as ChildNode) : firstChild;
+      if (preambleSection.parentNode !== panelContainer || referenceChild !== preambleSection) {
+        panelContainer.insertBefore(preambleSection, referenceChild ?? null);
+      }
+    };
+
+    if (!inserted) {
+      ensurePanelPlacement();
+
+      if (
+        preambleSection.parentNode !== panelContainer &&
+        typeof window !== "undefined" &&
+        typeof window.setTimeout === "function"
+      ) {
+        window.setTimeout(() => {
+          ensurePanelPlacement();
+        }, 0);
+      }
     }
 
     updateInputsFromModel();
