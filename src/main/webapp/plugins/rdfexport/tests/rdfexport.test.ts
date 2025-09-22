@@ -8,9 +8,440 @@ import { join, extname, basename } from "path";
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
+const compiledPluginUrl = fileURLToPath(
+  new URL("../../rdfexport.js", import.meta.url),
+);
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
+
+type EventHandler = (event: any) => void;
+
+class ElementStub {
+  tagName: string;
+  style: Record<string, string> = {};
+  children: any[] = [];
+  attributes: Record<string, string> = {};
+  value = "";
+  textContent = "";
+  className = "";
+  id = "";
+  parentNode: ElementStub | null = null;
+  private listeners: Record<string, EventHandler[]> = {};
+
+  constructor(tagName: string) {
+    this.tagName = tagName.toUpperCase();
+  }
+
+  appendChild<T>(child: T): T {
+    this.children.push(child);
+    if (child instanceof ElementStub) {
+      child.parentNode = this;
+    }
+    return child;
+  }
+
+  removeChild<T>(child: T): T | null {
+    const index = this.children.indexOf(child);
+
+    if (index >= 0) {
+      this.children.splice(index, 1);
+      if (child instanceof ElementStub) {
+        child.parentNode = null;
+      }
+      return child;
+    }
+
+    return null;
+  }
+
+  setAttribute(name: string, value: string): void {
+    this.attributes[name] = value;
+
+    if (name === "id") {
+      this.id = value;
+    }
+
+    if (name === "for") {
+      (this as any).htmlFor = value;
+    }
+
+    if (name === "type") {
+      (this as any).type = value;
+    }
+  }
+
+  removeAttribute(name: string): void {
+    delete this.attributes[name];
+    if (name === "id") {
+      this.id = "";
+    }
+  }
+
+  getAttribute(name: string): string | undefined {
+    return this.attributes[name];
+  }
+
+  addEventListener(event: string, handler: EventHandler): void {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+
+    this.listeners[event].push(handler);
+  }
+
+  dispatchEvent(evt: { type: string; key?: string }): void {
+    const handlers = this.listeners[evt.type];
+
+    if (handlers) {
+      for (const handler of handlers) {
+        handler(evt);
+      }
+    }
+  }
+
+  click(): void {
+    this.dispatchEvent({ type: "click" });
+  }
+
+  remove(): void {
+    if (this.parentNode) {
+      this.parentNode.removeChild(this);
+    }
+  }
+}
+
+class DocumentStub {
+  createElement(tag: string): ElementStub {
+    return new ElementStub(tag);
+  }
+}
+
+const documentStub = new DocumentStub();
+(globalThis as any).document = documentStub as unknown as Document;
+
+class DiagramFormatPanelStub {
+  listeners: Array<{ destroy(): void }> = [];
+  editorUi: any;
+
+  constructor(_format?: any, editorUi?: any, _container?: any) {
+    this.editorUi = editorUi;
+  }
+
+  createTitle(title: string): ElementStub {
+    const div = document.createElement("div");
+    div.style.padding = "0px 0px 6px 0px";
+    div.style.whiteSpace = "nowrap";
+    div.style.overflow = "hidden";
+    div.style.width = "200px";
+    div.style.fontWeight = "bold";
+    div.textContent = title;
+    return div;
+  }
+
+  createOption(
+    label: string,
+    isCheckedFn: () => boolean,
+    setCheckedFn: (checked: boolean) => void,
+  ): ElementStub {
+    const div = document.createElement("div");
+    div.style.display = "flex";
+    div.style.alignItems = "center";
+    div.style.padding = "3px 0px 3px 0px";
+    div.style.height = "18px";
+
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.style.margin = "1px 6px 0px 0px";
+    checkbox.style.verticalAlign = "top";
+    div.appendChild(checkbox);
+
+    const labelDiv = document.createElement("div");
+    labelDiv.setAttribute("title", label);
+    labelDiv.style.display = "inline-block";
+    labelDiv.style.whiteSpace = "nowrap";
+    labelDiv.style.textOverflow = "ellipsis";
+    labelDiv.style.overflow = "hidden";
+    labelDiv.style.maxWidth = "160px";
+    labelDiv.style.userSelect = "none";
+    labelDiv.textContent = label;
+    div.appendChild(labelDiv);
+
+    const apply = (newValue: boolean) => {
+      checkbox.checked = newValue;
+      checkbox.defaultChecked = newValue;
+
+      if (isCheckedFn() !== newValue) {
+        setCheckedFn(newValue);
+      }
+    };
+
+    apply(isCheckedFn());
+
+    div.addEventListener("click", () => {
+      if (checkbox.getAttribute("disabled") === "disabled") {
+        return;
+      }
+
+      apply(!checkbox.checked);
+    });
+
+    return div;
+  }
+}
+
+(DiagramFormatPanelStub as any).prototype.addOptions = function (div: any) {
+  return div;
+};
+
+(globalThis as any).DiagramFormatPanel = DiagramFormatPanelStub;
+
+interface CellStub {
+  value: Element;
+}
+
+class GraphModelStub {
+  private listeners = new Set<(sender: any, evt: any) => void>();
+  private updateDepth = 0;
+  private dirty = false;
+
+  constructor(private readonly root: CellStub) {}
+
+  getRoot(): CellStub {
+    return this.root;
+  }
+
+  getValue(cell: CellStub): Element {
+    return cell.value;
+  }
+
+  setValue(cell: CellStub, value: Element): void {
+    cell.value = value;
+    this.markDirty();
+  }
+
+  beginUpdate(): void {
+    this.updateDepth += 1;
+  }
+
+  endUpdate(): void {
+    if (this.updateDepth > 0) {
+      this.updateDepth -= 1;
+
+      if (this.updateDepth === 0 && this.dirty) {
+        this.fireChange();
+      }
+    }
+  }
+
+  addListener(name: string, listener: (sender: any, evt: any) => void): void {
+    if (name === "change") {
+      this.listeners.add(listener);
+    }
+  }
+
+  removeListener(listener: (sender: any, evt: any) => void): void {
+    this.listeners.delete(listener);
+  }
+
+  markDirty(): void {
+    if (this.updateDepth > 0) {
+      this.dirty = true;
+    } else {
+      this.fireChange();
+    }
+  }
+
+  listenerCount(): number {
+    return this.listeners.size;
+  }
+
+  private fireChange(): void {
+    this.dirty = false;
+
+    for (const listener of [...this.listeners]) {
+      listener(this, {});
+    }
+  }
+}
+
+class GraphStub {
+  constructor(private readonly model: GraphModelStub) {}
+
+  getModel(): GraphModelStub {
+    return this.model;
+  }
+
+  private ensureElement(cell: CellStub): Element {
+    return this.model.getValue(cell);
+  }
+
+  getAttributeForCell(
+    cell: CellStub,
+    attributeName: string,
+    defaultValue: string | null,
+  ): string | null {
+    const element = this.ensureElement(cell);
+    const hasAttribute =
+      typeof (element as any).hasAttribute === "function"
+        ? (element as any).hasAttribute(attributeName)
+        : element.getAttribute(attributeName) != null;
+
+    if (!hasAttribute) {
+      return defaultValue;
+    }
+
+    const value = element.getAttribute(attributeName);
+    return value != null ? value : defaultValue;
+  }
+
+  setAttributeForCell(
+    cell: CellStub,
+    attributeName: string,
+    attributeValue: string | null,
+  ): void {
+    const element = this.ensureElement(cell);
+    const current = element.getAttribute(attributeName);
+
+    if (attributeValue != null) {
+      if (current !== attributeValue) {
+        element.setAttribute(attributeName, attributeValue);
+        this.model.markDirty();
+      }
+    } else if (current != null) {
+      element.removeAttribute(attributeName);
+      this.model.markDirty();
+    }
+  }
+}
+
+const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
+const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
+const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
+
+interface GraphEnvironmentOptions {
+  csvPath?: string;
+  baseUri?: string;
+  preamble?: Array<{ prefix: string; iri: string }>;
+}
+
+function createGraphEnvironment(
+  optionsOrCsvPath?: string | GraphEnvironmentOptions,
+): {
+  rootCell: CellStub;
+  model: GraphModelStub;
+  graph: GraphStub;
+} {
+  const options: GraphEnvironmentOptions =
+    typeof optionsOrCsvPath === "string"
+      ? { csvPath: optionsOrCsvPath }
+      : optionsOrCsvPath ?? {};
+
+  const doc = new DOMParser().parseFromString(
+    '<object id="root" label=""><mxCell/></object>',
+    "application/xml",
+  );
+  const rootElement = doc.documentElement;
+
+  if (!rootElement) {
+    throw new Error("Failed to initialize root element for graph environment");
+  }
+
+  if (options.csvPath != null) {
+    rootElement.setAttribute("csvPath", options.csvPath);
+  }
+
+  if (options.baseUri != null) {
+    rootElement.setAttribute("baseUri", options.baseUri);
+  }
+
+  if (Array.isArray(options.preamble)) {
+    for (const entry of options.preamble) {
+      const preambleElement = doc.createElement(PREAMBLE_ENTRY_TAG);
+      preambleElement.setAttribute(
+        PREAMBLE_PREFIX_ATTRIBUTE,
+        entry.prefix ?? "",
+      );
+      preambleElement.setAttribute(
+        PREAMBLE_IRI_ATTRIBUTE,
+        entry.iri ?? "",
+      );
+      rootElement.appendChild(preambleElement);
+    }
+  }
+
+  const rootCell: CellStub = { value: rootElement };
+  const model = new GraphModelStub(rootCell);
+  const graph = new GraphStub(model);
+
+  return { rootCell, model, graph };
+}
+
+function findChildByTag(
+  node: any,
+  tagName: string,
+  predicate?: (element: ElementStub) => boolean,
+): ElementStub | null {
+  if (!node) {
+    return null;
+  }
+
+  if (node instanceof ElementStub && node.tagName === tagName.toUpperCase()) {
+    if (!predicate || predicate(node)) {
+      return node;
+    }
+  }
+
+  const children = (node as ElementStub).children;
+
+  if (Array.isArray(children)) {
+    for (const child of children) {
+      const match = findChildByTag(child, tagName, predicate);
+
+      if (match) {
+        return match;
+      }
+    }
+  }
+
+  return null;
+}
+
+function findChildrenByAttribute(
+  node: any,
+  attributeName: string,
+  attributeValue: string,
+  results: ElementStub[] = [],
+): ElementStub[] {
+  if (!node) {
+    return results;
+  }
+
+  if (
+    node instanceof ElementStub &&
+    node.getAttribute(attributeName) === attributeValue
+  ) {
+    results.push(node);
+  }
+
+  const children = (node as { children?: any }).children;
+  if (Array.isArray(children)) {
+    for (const child of children) {
+      findChildrenByAttribute(child, attributeName, attributeValue, results);
+    }
+  }
+
+  return results;
+}
+
+function findChildByAttribute(
+  node: any,
+  attributeName: string,
+  attributeValue: string,
+): ElementStub | null {
+  const matches = findChildrenByAttribute(node, attributeName, attributeValue);
+  return matches.length > 0 ? matches[0]! : null;
+}
 
 (globalThis as any).mxConstants = {
   NODETYPE_ELEMENT: 1,
@@ -191,15 +622,70 @@ const mxUtils = {
 
     return result;
   },
+  button(label: string, handler: (evt?: any) => void) {
+    const button = document.createElement("button") as unknown as ElementStub;
+    button.textContent = label;
+    button.className = "geButton";
+    button.addEventListener("click", () => {
+      handler();
+    });
+    return button as unknown as HTMLButtonElement;
+  },
 };
 
 (globalThis as any).mxUtils = mxUtils;
-(globalThis as any).mxResources = { parse: () => {} };
+const resourceBundle: Record<string, string> = {};
+
+(globalThis as any).mxResources = {
+  parse(definition: string) {
+    if (typeof definition !== "string") {
+      return;
+    }
+
+    const entries = definition.split(";");
+    for (const entry of entries) {
+      const trimmed = entry.trim();
+      if (!trimmed) {
+        continue;
+      }
+
+      const separatorIndex = trimmed.indexOf("=");
+      if (separatorIndex === -1) {
+        continue;
+      }
+
+      const key = trimmed.substring(0, separatorIndex).trim();
+      const value = trimmed.substring(separatorIndex + 1).trim();
+
+      if (key.length > 0) {
+        resourceBundle[key] = value;
+      }
+    }
+  },
+  get(key: string) {
+    if (key in resourceBundle) {
+      return resourceBundle[key];
+    }
+
+    return key;
+  },
+};
 (globalThis as any).Draw = {
   loadPlugin(callback: (ui: any) => void) {
     pluginCallbacks.push(callback);
   },
 };
+
+test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
+  const scriptContents = await Bun.file(compiledPluginUrl).text();
+
+  expect(scriptContents).toContain(
+    "DiagramFormatPanel.prototype.addOptions",
+  );
+  expect(scriptContents).toContain("CSV path");
+  expect(scriptContents).toContain("data-rdfexport-csv-field");
+  expect(scriptContents).toContain("__rdfexportCsvFieldAttached");
+});
 
 function runRdfExportTest(fixtureFile: string, sampleFile: string) {
   test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
@@ -236,9 +722,12 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     const exportMenuItems: string[][] = [];
     const menuStub: any = { funct: () => {} };
 
+    const { graph } = createGraphEnvironment();
+
     const editorUi = {
       editor: {
         getGraphXml: () => graphModel,
+        graph,
       },
       currentPage: {
         getId: () => pageId,
@@ -320,3 +809,282 @@ for (const file of readdirSync(fixturesDir)) {
     runRdfExportTest(file, rdfFile);
   }
 }
+
+test(
+  "rdfexport plugin exposes preamble controls and diagram properties",
+  async () => {
+  if (pluginCallbacks.length === 0) {
+    await import(rdfexportUrl);
+  }
+
+  const { graph, model, rootCell } = createGraphEnvironment({
+    csvPath: "initial.csv",
+    baseUri: "https://initial.example/base",
+    preamble: [
+      {
+        prefix: "rdf",
+        iri: "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      },
+    ],
+  });
+
+  let lastDialogContainer: ElementStub | null = null;
+  let hideDialogCalls = 0;
+
+  const editorUi = {
+    editor: {
+      getGraphXml: () => ({}) as Element,
+      graph,
+    },
+    currentPage: null,
+    actions: { addAction: () => {} },
+    menus: {
+      get: () => null,
+      addMenuItems: () => {},
+    },
+    getBaseFilename: () => "diagram",
+    saveData: () => {},
+    handleError: () => {},
+    showDialog(container: ElementStub) {
+      lastDialogContainer = container;
+    },
+    hideDialog() {
+      hideDialogCalls += 1;
+    },
+  };
+
+  for (const callback of pluginCallbacks) {
+    callback(editorUi);
+  }
+
+  const panelContext = {
+    editorUi,
+    listeners: [] as Array<{ destroy(): void }>,
+  };
+
+  const container = document.createElement("div");
+  const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
+
+  addOptions.call(panelContext, container);
+
+  const title = findChildByTag(container, "div", (element) => {
+    return element.textContent === "Preamble";
+  });
+  expect(title).toBeDefined();
+
+  const csvOption = findChildByTag(container, "div", (element) => {
+    return element.getAttribute("data-rdfexport-csv-field") === "true";
+  });
+
+  expect(csvOption).toBeDefined();
+
+  if (!csvOption) {
+    throw new Error("CSV path option container was not created");
+  }
+
+  const checkbox = findChildByTag(csvOption, "input", (element) => {
+    return (element as any).type === "checkbox";
+  });
+  expect(checkbox).toBeDefined();
+  expect(checkbox?.getAttribute("disabled")).toBe("disabled");
+  expect(checkbox?.style.visibility).toBe("hidden");
+
+  const label = findChildByTag(csvOption, "label");
+  const input = findChildByTag(csvOption, "input", (element) => {
+    return (element as any).type === "text";
+  });
+
+  expect(label).toBeDefined();
+  expect(label?.textContent).toBe("CSV path");
+  expect(label?.getAttribute("for")).toBeDefined();
+  expect(label?.getAttribute("title")).toBe("CSV path");
+  expect(input).toBeDefined();
+  expect(input?.value).toBe("initial.csv");
+  expect(input?.getAttribute("placeholder")).toBe("CSV path");
+  expect(input?.getAttribute("autocomplete")).toBe("off");
+
+  if (!input) {
+    throw new Error("CSV path input field was not created");
+  }
+
+  input.value = "  updated.csv  ";
+  input.dispatchEvent({ type: "change" });
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe("updated.csv");
+  expect(input.value).toBe("updated.csv");
+
+  input.value = "   ";
+  input.dispatchEvent({ type: "blur" });
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBeNull();
+  expect(input.value).toBe("");
+
+  graph.setAttributeForCell(rootCell, "csvPath", "external.csv");
+  expect(input.value).toBe("external.csv");
+
+  const baseOption = findChildByAttribute(
+    container,
+    "data-rdfexport-base-uri-field",
+    "true",
+  );
+  expect(baseOption).toBeDefined();
+
+  if (!baseOption) {
+    throw new Error("Base URI option container was not created");
+  }
+
+  const baseLabel = findChildByTag(baseOption, "label");
+  const baseInput = findChildByTag(baseOption, "input", (element) => {
+    return (element as any).type === "text";
+  });
+
+  expect(baseLabel?.textContent).toBe("Base URI");
+  expect(baseInput?.value).toBe("https://initial.example/base");
+  expect(baseInput?.getAttribute("placeholder")).toBe("Base URI");
+
+  if (!baseInput) {
+    throw new Error("Base URI input field was not created");
+  }
+
+  baseInput.value = " https://updated.example/base ";
+  baseInput.dispatchEvent({ type: "change" });
+  expect(graph.getAttributeForCell(rootCell, "baseUri", null)).toBe(
+    "https://updated.example/base",
+  );
+  expect(baseInput.value).toBe("https://updated.example/base");
+
+  baseInput.value = "   ";
+  baseInput.dispatchEvent({ type: "blur" });
+  expect(graph.getAttributeForCell(rootCell, "baseUri", null)).toBeNull();
+  expect(baseInput.value).toBe("");
+
+  graph.setAttributeForCell(rootCell, "baseUri", "https://override.example/base");
+  expect(baseInput.value).toBe("https://override.example/base");
+
+  const preambleButton = findChildByAttribute(
+    container,
+    "data-rdfexport-preamble-button",
+    "true",
+  );
+  expect(preambleButton).toBeDefined();
+
+  lastDialogContainer = null;
+  preambleButton?.click();
+
+  expect(lastDialogContainer).toBeDefined();
+
+  const dialogContainer = lastDialogContainer;
+
+  if (!dialogContainer) {
+    throw new Error("Preamble dialog did not open");
+  }
+
+  const existingEntries = findChildrenByAttribute(
+    dialogContainer,
+    "data-rdfexport-preamble-entry",
+    "true",
+  );
+  expect(existingEntries).toHaveLength(1);
+
+  const existingEntry = existingEntries[0]!;
+  const existingPrefixInput = findChildByTag(existingEntry, "input", (element) => {
+    return (
+      element.getAttribute("data-rdfexport-preamble-entry-prefix") === "true"
+    );
+  });
+  const existingIriInput = findChildByTag(existingEntry, "input", (element) => {
+    return (
+      element.getAttribute("data-rdfexport-preamble-entry-iri") === "true"
+    );
+  });
+
+  expect(existingPrefixInput?.value).toBe("rdf");
+  expect(existingIriInput?.value).toBe(
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+  );
+
+  if (!existingPrefixInput || !existingIriInput) {
+    throw new Error("Existing preamble inputs were not rendered");
+  }
+
+  existingIriInput.value = " http://example.com/custom-rdf# ";
+  existingIriInput.dispatchEvent({ type: "change" });
+
+  const newPrefixInput = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-preamble-prefix-input",
+    "true",
+  );
+  const newIriInput = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-preamble-iri-input",
+    "true",
+  );
+  const addButton = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-preamble-add-button",
+    "true",
+  );
+
+  expect(addButton?.getAttribute("disabled")).toBe("disabled");
+
+  if (!newPrefixInput || !newIriInput || !addButton) {
+    throw new Error("New preamble controls were not rendered");
+  }
+
+  newPrefixInput.value = "ex";
+  newPrefixInput.dispatchEvent({ type: "input" });
+  newIriInput.value = "http://example.com/ns#";
+  newIriInput.dispatchEvent({ type: "input" });
+
+  expect(addButton.getAttribute("disabled")).toBeUndefined();
+  addButton.click();
+
+  const allEntries = findChildrenByAttribute(
+    dialogContainer,
+    "data-rdfexport-preamble-entry",
+    "true",
+  );
+  expect(allEntries).toHaveLength(2);
+
+  const applyButton = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-preamble-apply",
+    "true",
+  );
+  expect(applyButton).toBeDefined();
+
+  applyButton?.click();
+
+  expect(hideDialogCalls).toBe(1);
+
+  const updatedValue = model.getValue(rootCell);
+  const preambleNodes = Array.from(
+    updatedValue.getElementsByTagName(PREAMBLE_ENTRY_TAG),
+  );
+  expect(preambleNodes).toHaveLength(2);
+
+  expect(preambleNodes[0]?.getAttribute(PREAMBLE_PREFIX_ATTRIBUTE)).toBe("rdf");
+  expect(preambleNodes[0]?.getAttribute(PREAMBLE_IRI_ATTRIBUTE)).toBe(
+    "http://example.com/custom-rdf#",
+  );
+  expect(preambleNodes[1]?.getAttribute(PREAMBLE_PREFIX_ATTRIBUTE)).toBe("ex");
+  expect(preambleNodes[1]?.getAttribute(PREAMBLE_IRI_ATTRIBUTE)).toBe(
+    "http://example.com/ns#",
+  );
+
+  expect(updatedValue.getAttribute("baseUri")).toBe(
+    "https://override.example/base",
+  );
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe(
+    "external.csv",
+  );
+  expect(input.value).toBe("external.csv");
+  expect(baseInput.value).toBe("https://override.example/base");
+
+  const listenersBeforeDestroy = model.listenerCount();
+  expect(listenersBeforeDestroy).toBeGreaterThan(0);
+  for (const listener of panelContext.listeners) {
+    listener.destroy();
+  }
+  expect(model.listenerCount()).toBe(0);
+  },
+);
