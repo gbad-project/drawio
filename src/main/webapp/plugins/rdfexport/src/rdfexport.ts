@@ -121,7 +121,7 @@ const PREAMBLE_ADD_BUTTON_RESOURCE_KEY = "addPrefix";
 
 const PREAMBLE_SECTION_FLAG = "__rdfexportPreambleAttached";
 
-const DEFAULT_CSV_PATH_LABEL = "CSV path";
+const DEFAULT_CSV_PATH_LABEL = "CSV Path";
 const DEFAULT_BASE_URI_LABEL = "Base URI";
 const DEFAULT_CSV_SECTION_LABEL = "Preamble";
 const DEFAULT_PREAMBLE_BUTTON_LABEL = "Edit Preamble...";
