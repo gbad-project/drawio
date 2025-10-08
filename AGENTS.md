@@ -64,32 +64,71 @@ Testing (Python / pytest):
 
 ⸻
 
-Task 3 – Expose RML Converter Functions for Testing
+Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration
+
+Preface:
+The existing map_schema module currently:
+	•	does not support a prefix IRI dictionary,
+	•	has partial support for a CSV path, and
+	•	contains dataset-specific logic for ADD and Auth, as well as built-in CSV preprocessing routines.
+
+For this task:
+	•	Optional parameters for prefix_iri_dict and csv_path will be introduced safely and used only by the DrawIO plugin.
+	•	The DrawIO extension will not use the module’s existing CSV preprocessing, nor any ADD/Auth-specific handling.
+These code paths must remain in map_schema unchanged for legacy consumers but will be ignored in the extracted functions.
+	•	The goal is to make minimal, non-invasive changes so that existing behavior is 100 % preserved.
 
 Goal:
-From the existing map_schema module, expose two core transformation functions without altering any logic, enabling direct unit testing while keeping module behavior identical.
+Expose two reusable functions—graph_to_dataframe and dataframe_to_turtle—and add optional support for prefix IRI dict and CSV path, enabling direct testing and controlled reuse from the DrawIO extension, without altering the module’s legacy execution.
 
 Steps:
-	1.	Identify Code Segments
-	•	Locate code that transforms:
-	•	an rdflib.Graph → Pandas DataFrame
-	•	a Pandas DataFrame → Turtle
-	2.	Function Extraction
-	•	Encapsulate existing inline code into:
-	•	Function A: graph_to_dataframe(graph: rdflib.Graph) → pandas.DataFrame
-	•	Function B: dataframe_to_turtle(df: pandas.DataFrame) → str
-	•	Keep logic and dependencies unchanged.
-	3.	Reintegration
-	•	Replace in-module inline logic with calls to these functions.
-	•	Preserve identical runtime behavior.
-	4.	Preserve Dependencies
-	•	Retain all existing imports, helpers, and execution order.
-	5.	Regression Artifacts
-	•	Generate golden outputs using the unmodified module post-refactor.
-	6.	Testing (Python / pytest)
-	•	Unit: directly test both new functions.
-	•	Regression: verify module outputs unchanged vs. artifacts.
-	•	Integration: validate Graph → DataFrame → Turtle pipeline.
+	1.	Introduce Optional Parameters (Non-Invasive)
+	•	Add optional keyword arguments:
+	•	prefix_iri_dict: Optional[dict] = None
+	•	csv_path: Optional[str] = None
+	•	Guard their use with if checks so the legacy workflow and CLI behavior remain unchanged.
+	2.	Identify Core Transformation Code
+	•	Locate generic transformation blocks that:
+	•	convert an rdflib.Graph into a pandas.DataFrame, and
+	•	serialize a pandas.DataFrame into Turtle (RML output).
+	•	Explicitly exclude:
+	•	ADD/Auth dataset logic,
+	•	CSV preprocessing routines,
+	•	any external connectors or authentication flows.
+	3.	Function Extraction
+	•	Wrap the above generic sections into two top-level functions:
+	•	Function A:
+
+def graph_to_dataframe(graph: rdflib.Graph,
+                       prefix_iri_dict: Optional[dict] = None,
+                       csv_path: Optional[str] = None) -> pandas.DataFrame
+
+
+	•	Function B:
+
+def dataframe_to_turtle(df: pandas.DataFrame,
+                        prefix_iri_dict: Optional[dict] = None) -> str
+
+
+	•	Logic copied verbatim from existing inline code; no rewrites.
+
+	4.	Reintegration into map_schema
+	•	Replace the original inline sections with calls to Function A and B.
+	•	Keep ADD/Auth and CSV preprocessing logic where it is; they continue to execute in their legacy paths.
+	5.	Preserve Module Context
+	•	Maintain imports, helper calls, and execution order.
+	•	Validate that CLI entry points, dataset loaders, and internal references are unaffected.
+	6.	Regression Artifacts
+	•	Run the unmodified module before refactor to produce golden outputs.
+	•	After extraction, compare outputs to confirm zero behavioral drift.
+	7.	Testing (Python / pytest)
+	•	Unit tests:
+	•	Directly test graph_to_dataframe and dataframe_to_turtle with mock rdflib Graphs and DataFrames.
+	•	Include cases using optional prefix IRI dict and CSV path.
+	•	Regression tests:
+	•	Compare full map_schema runs before / after extraction to ensure identical results for ADD and Auth workflows.
+	•	Integration tests:
+	•	Verify the DrawIO plugin’s path (supplying optional parameters) produces the expected Turtle serialization.
 
 ⸻
 
@@ -98,8 +137,6 @@ Task 4 – Browser Execution Pipeline (Pyodide Integration)
 Goal:
 Integrate Python execution into the DrawIO extension using Pyodide, enabling in-browser transformation of DrawIO XML → rdflib Graph → Pandas DataFrame → Turtle.
 Implementation proceeds in two structured phases.
-
-⸻
 
 Phase 1 – Pyodide Integration & Debug Infrastructure
 	1.	Integrate Pyodide Runtime
@@ -116,8 +153,6 @@ Phase 1 – Pyodide Integration & Debug Infrastructure
 	4.	Validation & Smoke Tests
 	•	Test message passing, serialization, async timing, and error handling.
 	•	Extend Bun tests for mock invocation, exception propagation, and cleanup.
-
-⸻
 
 Phase 2 – Incremental Functional Integration
 	1.	Progressive Function Port-In
