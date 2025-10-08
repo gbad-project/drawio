@@ -1,3 +1,13 @@
+// src/mockBlackBox.ts
+var BLACK_BOX_PREFIX = "[BLACKBOX]";
+var BLACK_BOX_SUFFIX = "[/BLACKBOX]";
+function runMockBlackBox(serializedXml) {
+  const lengthLabel = serializedXml.length.toString(10);
+  return `${BLACK_BOX_PREFIX} len=${lengthLabel}
+${serializedXml}
+${BLACK_BOX_SUFFIX}`;
+}
+
 // src/rdfexport.ts
 var CSV_PATH_ATTRIBUTE = "csvPath";
 var BASE_URI_ATTRIBUTE = "baseUri";
@@ -835,9 +845,10 @@ Draw.loadPlugin(function(editorUi) {
   mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
   editorUi.actions.addAction("exportRdfXml", function() {
     try {
-      const rdf = createRdfXml(editorUi);
+      const serializedRdf = createRdfXml(editorUi);
+      const blackBoxPayload = runMockBlackBox(serializedRdf);
       const filename = editorUi.getBaseFilename() + ".rdf";
-      editorUi.saveData(filename, "rdf", rdf, "application/rdf+xml");
+      editorUi.saveData(filename, "rdf", blackBoxPayload, "application/rdf+xml");
     } catch (e) {
       editorUi.handleError(e);
     }

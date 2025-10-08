@@ -15,6 +15,20 @@ const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
 
+type RdfExportModule = typeof import("../src/rdfexport");
+
+let loadedPluginModule: RdfExportModule | null = null;
+
+async function loadPluginModule(): Promise<RdfExportModule> {
+  if (loadedPluginModule) {
+    return loadedPluginModule;
+  }
+
+  loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
+  return loadedPluginModule;
+}
+import { runMockBlackBox } from '../src/mockBlackBox';
+
 type EventHandler = (event: any) => void;
 
 class ElementStub {
@@ -710,6 +724,17 @@ const resourceBundle: Record<string, string> = {};
   },
 };
 
+test("runMockBlackBox annotates serialized XML", async () => {
+  const pluginModule = await loadPluginModule();
+  const sample = "<rdf/>";
+  const output = runMockBlackBox(sample);
+
+  expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
+  expect(output).toContain(sample);
+  expect(output.trim().endsWith("[/BLACKBOX]"))
+    .toBe(true);
+});
+
 test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
   const scriptContents = await Bun.file(compiledPluginUrl).text();
 
@@ -724,9 +749,7 @@ test("compiled rdfexport plugin bundle includes CSV property hook", async () => 
 
 function runRdfExportTest(fixtureFile: string, sampleFile: string) {
   test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
-    if (pluginCallbacks.length === 0) {
-      await import(rdfexportUrl);
-    }
+    const pluginModule = await loadPluginModule();
 
     const fixturePath = join(fixturesDir, fixtureFile);
     const xml = await Bun.file(fixturePath).text();
@@ -821,11 +844,16 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     expect(mimeType).toBe("application/rdf+xml");
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
+    const referenceRdf = readFileSync(join(fixturesDir, sampleFile), "utf-8");
+    const expected = runMockBlackBox(referenceRdf);
+
     const md5 = createHash("md5").update(data).digest("hex");
-    const refMd5 = createHash("md5")
-      .update(readFileSync(join(fixturesDir, sampleFile)))
-      .digest("hex");
+    const refMd5 = createHash("md5").update(expected).digest("hex");
+
     expect(md5).toBe(refMd5);
+    expect(data).toBe(expected);
+    expect(data.startsWith("[BLACKBOX]"))
+      .toBe(true);
   });
 }
 
@@ -846,9 +874,7 @@ for (const file of readdirSync(fixturesDir)) {
 test(
   "rdfexport plugin exposes preamble controls and diagram properties",
   async () => {
-  if (pluginCallbacks.length === 0) {
-    await import(rdfexportUrl);
-  }
+  const pluginModule = await loadPluginModule();
 
   const { graph, model, rootCell } = createGraphEnvironment({
     csvPath: "initial.csv",
@@ -1150,5 +1176,8 @@ test(
     listener.destroy();
   }
   expect(model.listenerCount()).toBe(0);
+
+  expect(runMockBlackBox("test").startsWith("[BLACKBOX]"))
+    .toBe(true);
   },
 );

@@ -22,11 +22,16 @@ Contributor Guidelines
 
 Task Status Summary
 
-{placeholder}
+Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex
+Task 2 – Extend DrawIO Parser (stdin → rdflib Graph): ⏳ Not started
+Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration: ⏳ Not started
+Task 4 – Browser Execution Pipeline (Pyodide Integration): ⏳ Not started
 
 ⸻
 
 Task 1 – DrawIO Black Box Integration
+
+Status: ✅ Completed on 2025-10-08 by gpt-5-codex
 
 Goal
 Enhance the DrawIO save flow so that, after XML serialization, the serialized XML is passed through a mock black box function that returns an arbitrary string, which is then saved using the existing RDF/XML save logic.
