@@ -1,3 +1,13 @@
+// src/mockBlackBox.ts
+var BLACK_BOX_PREFIX = "[BLACKBOX]";
+var BLACK_BOX_SUFFIX = "[/BLACKBOX]";
+function runMockBlackBox(serializedXml) {
+  const lengthLabel = serializedXml.length.toString(10);
+  return `${BLACK_BOX_PREFIX} len=${lengthLabel}
+${serializedXml}
+${BLACK_BOX_SUFFIX}`;
+}
+
 // src/rdfexport.ts
 var CSV_PATH_ATTRIBUTE = "csvPath";
 var BASE_URI_ATTRIBUTE = "baseUri";
@@ -20,14 +30,6 @@ var DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
 var PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 var PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 var PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
-var BLACK_BOX_PREFIX = "[BLACKBOX]";
-var BLACK_BOX_SUFFIX = "[/BLACKBOX]";
-function runMockBlackBox(serializedXml) {
-  const lengthLabel = serializedXml.length.toString(10);
-  return `${BLACK_BOX_PREFIX} len=${lengthLabel}
-${serializedXml}
-${BLACK_BOX_SUFFIX}`;
-}
 var csvPropertyPatched = false;
 var registeredResourceKeys = new Set;
 function registerResource(key, fallback) {
@@ -860,6 +862,3 @@ Draw.loadPlugin(function(editorUi) {
     };
   }
 });
-export {
-  runMockBlackBox
-};

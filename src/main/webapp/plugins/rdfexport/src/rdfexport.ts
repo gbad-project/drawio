@@ -134,13 +134,7 @@ const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
-const BLACK_BOX_PREFIX = "[BLACKBOX]";
-const BLACK_BOX_SUFFIX = "[/BLACKBOX]";
-
-export function runMockBlackBox(serializedXml: string): string {
-  const lengthLabel = serializedXml.length.toString(10);
-  return `${BLACK_BOX_PREFIX} len=${lengthLabel}\n${serializedXml}\n${BLACK_BOX_SUFFIX}`;
-}
+import { runMockBlackBox } from './mockBlackBox';
 
 let csvPropertyPatched = false;
 const registeredResourceKeys = new Set<string>();

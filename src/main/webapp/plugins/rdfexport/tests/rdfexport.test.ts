@@ -27,6 +27,7 @@ async function loadPluginModule(): Promise<RdfExportModule> {
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
 }
+import { runMockBlackBox } from '../src/mockBlackBox';
 
 type EventHandler = (event: any) => void;
 
@@ -726,7 +727,7 @@ const resourceBundle: Record<string, string> = {};
 test("runMockBlackBox annotates serialized XML", async () => {
   const pluginModule = await loadPluginModule();
   const sample = "<rdf/>";
-  const output = pluginModule.runMockBlackBox(sample);
+  const output = runMockBlackBox(sample);
 
   expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
   expect(output).toContain(sample);
@@ -844,7 +845,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const referenceRdf = readFileSync(join(fixturesDir, sampleFile), "utf-8");
-    const expected = pluginModule.runMockBlackBox(referenceRdf);
+    const expected = runMockBlackBox(referenceRdf);
 
     const md5 = createHash("md5").update(data).digest("hex");
     const refMd5 = createHash("md5").update(expected).digest("hex");
@@ -1176,7 +1177,7 @@ test(
   }
   expect(model.listenerCount()).toBe(0);
 
-  expect(pluginModule.runMockBlackBox("test").startsWith("[BLACKBOX]"))
+  expect(runMockBlackBox("test").startsWith("[BLACKBOX]"))
     .toBe(true);
   },
 );
