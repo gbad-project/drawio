@@ -80,9 +80,12 @@ def _discover_pristine_fixtures() -> Iterable[Path]:
 
 
 def _serialise_graph(graph: Graph) -> str:
-    """Serialize a graph to N-Triples format with consistent line ending."""
+    """Serialize a graph to N-Triples deterministically (sorted lexicographically)."""
     raw = graph.serialize(format="nt")
-    return raw if raw.endswith("\n") else f"{raw}\n"
+    if isinstance(raw, bytes):
+        raw = raw.decode("utf-8")
+    lines = sorted(line for line in raw.splitlines() if line.strip())
+    return "\n".join(lines) + "\n"
 
 
 def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
@@ -112,16 +115,25 @@ def _generate_graphs_from_commit(commit: str, substitute: List[str]) -> Tuple[Li
     This loads the historical parser code exactly as it was, with no modifications.
     Returns (successful_graphs, failed_fixtures).
     """
-    with PreviousParserLoader(commit) as legacy_parser:
+    with PreviousParserLoader(commit) as legacy_parser, \
+         PreviousParserLoader("HEAD") as current_parser:
         parse_drawio = getattr(legacy_parser, "parse_drawio_to_graph", None)
         if parse_drawio is None:
             raise AttributeError("Legacy parser does not expose parse_drawio_to_graph")
+        
+        current_default_base_uri = getattr(current_parser, "BASE_URI", None)
+        current_default_prefix_iri = getattr(current_parser, "PREFIX_IRI", None)
 
         graphs: List[Tuple[Path, Graph]] = []
         failures: List[Tuple[Path, Exception]] = []
         for fixture in _discover_pristine_fixtures():
             try:
-                graph = parse_drawio(str(fixture), metacharacter_substitute=substitute)
+                graph = parse_drawio(
+                    str(fixture),
+                    ontology_iri=current_default_base_uri,
+                    prefix_iri=current_default_prefix_iri,
+                    metacharacter_substitute=substitute
+                )
                 graphs.append((fixture, graph))
             except Exception as exc:
                 failures.append((fixture, exc))

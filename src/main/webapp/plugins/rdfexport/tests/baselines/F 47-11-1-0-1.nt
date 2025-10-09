@@ -1,65 +1,65 @@
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Sub-Series> <http://www.w3.org/2000/01/rdf-schema#label> "Sub-Series" .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
-<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
-<https://example.com/id/Sub-Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/F47-11-1> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11-1" .
-<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "1 watercolour on paper" .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/GraphicMaterials> .
-<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <http://www.w3.org/2000/01/rdf-schema#label> "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i1" .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
-<https://example.com/id/F47-11-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> .
-<https://example.com/id/ElizabethSimcoeLooseSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11-1-0-1> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#creationDate> "Oct. 29, 1791" .
 <http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/ElizabethSimcoeLooseSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> .
-<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/2000/01/rdf-schema#label> "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I." .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I. Archival Description" .
-<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/ElizabethSimcoeLooseSketches> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11-1> .
-<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<ontology://generated-from-draw-io/2025-10-09T02-08-20> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
-<https://example.com/id/F47-11-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/id/F47-11-1-0-1> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/CurrentReferenceCode> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
-<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/F47-11-1-0-1> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11-1-0-1" .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
-<https://example.com/id/F47-11-1-0-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <https://example.com/id/ElizabethSimcoeLooseSketches> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Notes: Old Code: 1" .
-<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Sub-Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<ontology://generated-from-draw-io/2025-10-09T02-08-20> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
-<https://example.com/id/F47-11-1-0-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
-<https://example.com/id/ElizabethSimcoeLooseSketches> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe loose sketches" .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
-<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
+<https://example.com/id/ElizabethSimcoeLooseSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeLooseSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ElizabethSimcoeLooseSketches> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe loose sketches" .
+<https://example.com/id/ElizabethSimcoeLooseSketches> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11-1> .
 <https://example.com/id/ElizabethSimcoeLooseSketches> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-Series> .
+<https://example.com/id/F47-11-1-0-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/F47-11-1-0-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/F47-11-1-0-1> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11-1-0-1" .
+<https://example.com/id/F47-11-1-0-1> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/CurrentReferenceCode> .
+<https://example.com/id/F47-11-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/F47-11-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/F47-11-1> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11-1" .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <http://www.w3.org/2000/01/rdf-schema#label> "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i1" .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "1 watercolour on paper" .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <http://www.w3.org/2000/01/rdf-schema#label> "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I." .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#creationDate> "Oct. 29, 1791" .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Notes: Old Code: 1" .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/GraphicMaterials> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11-1-0-1> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI-i1> .
 <https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <https://example.com/id/ElizabethSimcoeLooseSketches> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenI> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I. Archival Description" .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
+<https://example.com/id/October29th17914OclockPMRichmondIOrIsleMadameNearTheGutOfCansoVesselComingOutOfArishartHarbourGreenIArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
+<https://example.com/id/Sub-Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Sub-Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/Sub-Series> <http://www.w3.org/2000/01/rdf-schema#label> "Sub-Series" .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<https://example.com> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://example.com> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
