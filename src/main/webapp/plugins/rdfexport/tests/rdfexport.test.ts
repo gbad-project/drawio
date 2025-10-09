@@ -1,9 +1,9 @@
 import { test, expect } from "bun:test";
 import { createHash } from "crypto";
-import { fileURLToPath, pathToFileURL } from "url";
+import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
-import { join, extname, basename } from "path";
+import { join, extname, basename, normalize } from "path";
 import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
 
 const rdfexportUrl = fileURLToPath(
@@ -17,7 +17,7 @@ const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 const pyodideIndexPath = fileURLToPath(
   new URL("../node_modules/pyodide/", import.meta.url),
 );
-const pyodideIndexURL = pathToFileURL(pyodideIndexPath).toString();
+const pyodideIndexURL = normalize(pyodideIndexPath);
 (globalThis as any).__rdfexportPyodideIndexURL = pyodideIndexURL.endsWith("/")
   ? pyodideIndexURL
   : `${pyodideIndexURL}/`;
