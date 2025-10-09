@@ -1,6 +1,6 @@
 import { test, expect } from "bun:test";
 import { createHash } from "crypto";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join, extname, basename } from "path";
@@ -13,6 +13,14 @@ const compiledPluginUrl = fileURLToPath(
   new URL("../../rdfexport.js", import.meta.url),
 );
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
+
+const pyodideIndexPath = fileURLToPath(
+  new URL("../node_modules/pyodide/", import.meta.url),
+);
+const pyodideIndexURL = pathToFileURL(pyodideIndexPath).toString();
+(globalThis as any).__rdfexportPyodideIndexURL = pyodideIndexURL.endsWith("/")
+  ? pyodideIndexURL
+  : `${pyodideIndexURL}/`;
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
 
