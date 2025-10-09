@@ -18,3 +18,11 @@
 ## Outstanding Questions / Follow-ups
 - Consider extending prefix acquisition beyond the static `get_prefixes()` helper once metadata-driven prefix injection (Task 2b) is implemented.
 - Evaluate whether property definition triples should be generated on-demand for non-RiC namespaces or exposed through configuration knobs.
+
+## Follow-up Automation (2025-10-09)
+- Added `regenerate_baselines.py` to replay the legacy parser from historical commits, backfill missing property classifications, and materialise `.nt` graphs for pristine fixtures when baselines are absent.
+- Defaulted the helper to skip overwriting existing baselines while still executing `pytest` so the regression suite runs against the freshly generated fixtures.
+- Confirmed the helper against HEAD^, observed the static-property failure, and documented the automatic fallback behaviour plus the ability to force regeneration via `--force-overwrite` when required.
+
+## Additional Testing
+- `python src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py --max-commits 50`

@@ -1,0 +1,145 @@
+<https://example.com/id/Arkivvesenet> <http://www.w3.org/2000/01/rdf-schema#label> "Arkivvesenet" .
+<https://example.com/id/Arkivverket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithEvent> <https://example.com/id/Okkupasjonstiden> .
+<https://example.com/id/DOBNSamlingShelfSpace> <http://www.w3.org/2000/01/rdf-schema#label> "DOBN Samling Shelf Space" .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Okkupasjonstiden> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Country> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Arkivverket> <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" .
+<https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> <https://www.ica.org/standards/RiC/ontology#hasUnitOfMeasurement> <https://example.com/id/Bytes> .
+<https://example.com/id/DOBNSamlingShelfSpace> <https://www.ica.org/standards/RiC/ontology#quantity> "30"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://example.com/id/Hyllemeter> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Tyskland> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Country> .
+<https://example.com/id/StorageID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#isOrWasUnderAuthorityOf> <https://example.com/id/Arkivverket> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/KnutOlborgsForskningsnotaterStart> .
+<https://example.com/id/Country> <http://www.w3.org/2000/01/rdf-schema#label> "Country" .
+<https://example.com/id/KnutOlborgsForskningsnotaterSlutt> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2021-11-23"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborgs Forskningsnotater Tar File Size" .
+<https://example.com/id/StorageID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <http://www.w3.org/2000/01/rdf-schema#label> "Deutscher Oberbefehlshaber Norwegen Samling" .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Mappestruktur> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Mechanism> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/Okkupasjonstiden> <http://www.w3.org/2000/01/rdf-schema#label> "Okkupasjonstiden" .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/NorskBokmål> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ShelfSpace> <http://www.w3.org/2000/01/rdf-schema#label> "Shelf Space" .
+<https://example.com/id/Arkivverket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/Norge> <http://www.w3.org/2000/01/rdf-schema#label> "Norge" .
+<https://example.com/id/KnutOlborgsForskningsnotaterStart> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2018-08-05"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageInstantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/OkkupasjonstidenSlutt> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "1945"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithPlace> <https://example.com/id/Norge> .
+<https://example.com/id/Bytes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#UnitOfMeasurement> .
+<https://example.com/id/DOBNSamlingShelfSpace> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#InstantiationExtent> .
+<https://example.com/id/Tyskland> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/FileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ExtentType> .
+<https://example.com/id/Mappestruktur> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Hyllemeter> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#UnitOfMeasurement> .
+<https://example.com/id/KnutOlborgsForskningsnotaterSlutt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#hasOrHadLanguage> <https://example.com/id/Tysk> .
+<https://example.com/id/Norge> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<https://example.com/id/Arkivvesenet> <https://www.ica.org/standards/RiC/ontology#followsInTime> <https://example.com/id/Arkivverket> .
+<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/KnutOlborgsForskningsnotaterSlutt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/NorskBokmål> <http://www.w3.org/2000/01/rdf-schema#label> "Norsk Bokmål" .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://example.com/id/Tyskland> <http://www.w3.org/2000/01/rdf-schema#label> "Tyskland" .
+<https://example.com/id/NorskBokmål> <https://www.ica.org/standards/RiC/ontology#isOrWasLanguageOf> <https://example.com/id/Norge> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Okkupasjonstiden> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Event> .
+<https://example.com/id/Arkivverket> <http://www.w3.org/2000/01/rdf-schema#label> "Arkivverket" .
+<ontology://generated-from-draw-io/2025-10-09T05-23-46> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://example.com/id/KnutOlborg> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborg" .
+<https://example.com/id/DOBNSamlingStorageInstantiation> <https://www.ica.org/standards/RiC/ontology#hasExtent> <https://example.com/id/DOBNSamlingShelfSpace> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegen> <http://www.w3.org/2000/01/rdf-schema#label> "Deutscher Oberbefehlshaber Norwegen" .
+<https://example.com/id/FileSize> <http://www.w3.org/2000/01/rdf-schema#label> "File Size" .
+<https://example.com/id/Okkupasjonstiden> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/OkkupasjonstidenStart> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithPlace> <https://example.com/id/Norge> .
+<https://example.com/id/Arkivverket> <https://www.ica.org/standards/RiC/ontology#name> "National Archives of Norway" .
+<https://example.com/id/ShelfSpace> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ExtentType> .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/DOBNSamlingStorageInstantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/DOBNSamlingShelfSpace> <https://www.ica.org/standards/RiC/ontology#hasExtentType> <https://example.com/id/ShelfSpace> .
+<ontology://generated-from-draw-io/2025-10-09T05-23-46> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/OkkupasjonstidenStart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasOrHadDigitalInstantiation> <https://example.com/id/KnutOlborgsForskningsnotaterStorageInstantiation> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/OkkupasjonstidenStart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Et arkiv på om lag 30 hm som ble skapt av tyske militære som var internert i Norge etter krigens slutt. Under alliert kommando måtte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden våren 1945 til ut i 1947.     Arkivet var i mange år vært svært lite tilgjengelig for bruk inntil Arkivverket i årene 2016-19 gjennomgikk det og registrerte det i katalog." .
+<https://example.com/id/OkkupasjonstidenStart> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "1940"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://example.com/id/Arkivvesenet> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#isRecordResourceAssociatedWithRecordResource> <https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageID> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/StorageID> .
+<https://example.com/id/Tysk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Language> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/DeutscherOberbefehlshaberNorwegen> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasOrHadHolder> <https://example.com/id/Arkivverket> .
+<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStart> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborgs Forskningsnotater Start" .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageInstantiation> <https://www.ica.org/standards/RiC/ontology#hasExtent> <https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> .
+<https://example.com/id/StorageID> <http://www.w3.org/2000/01/rdf-schema#label> "Storage ID" .
+<https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/FileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasSender> <https://example.com/id/KnutOlborg> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har gått systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan være til nytte for andre forskere og studenter som skal arbeidet med dette tyskspråklige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og består av 105 word-filer (pdf'er)." .
+<https://example.com/id/OkkupasjonstidenSlutt> <http://www.w3.org/2000/01/rdf-schema#label> "Okkupasjonstiden Slutt" .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/Arkivverket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Bytes> <http://www.w3.org/2000/01/rdf-schema#label> "Bytes" .
+<https://example.com/id/Hyllemeter> <http://www.w3.org/2000/01/rdf-schema#label> "Hyllemeter" .
+<https://example.com/id/DOBNSamlingStorageInstantiation> <http://www.w3.org/2000/01/rdf-schema#label> "DOBN Samling Storage Instantiation" .
+<https://example.com/id/OkkupasjonstidenSlutt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/KnutOlborg> .
+<https://example.com/id/Norge> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> <https://www.ica.org/standards/RiC/ontology#quantity> "3676160"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://example.com/id/DOBNSamlingStorageInstantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/OkkupasjonstidenSlutt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborgs Forskingsnotater" .
+<https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> <https://www.ica.org/standards/RiC/ontology#hasExtentType> <https://example.com/id/FileSize> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/KnutOlborgsForskningsnotaterSlutt> .
+<https://example.com/id/Arkivvesenet> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/Bytes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/ShelfSpace> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageInstantiation> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborgs Forskningsnotater Storage Instantiation" .
+<https://example.com/id/KnutOlborg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<https://example.com/id/DOBNSamlingShelfSpace> <https://www.ica.org/standards/RiC/ontology#hasUnitOfMeasurement> <https://example.com/id/Hyllemeter> .
+<https://example.com/id/Tysk> <http://www.w3.org/2000/01/rdf-schema#label> "Tysk" .
+<https://example.com/id/OkkupasjonstidenStart> <http://www.w3.org/2000/01/rdf-schema#label> "Okkupasjonstiden Start" .
+<https://example.com/id/Country> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithEvent> <https://example.com/id/Okkupasjonstiden> .
+<https://example.com/id/KnutOlborgsForskingsnotater> <https://www.ica.org/standards/RiC/ontology#hasOrganicOrFunctionalProvenance> <https://example.com/id/Mappestruktur> .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/KnutOlborg> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/Okkupasjonstiden> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/OkkupasjonstidenSlutt> .
+<https://example.com/id/Norge> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Country> .
+<https://example.com/id/Tysk> <https://www.ica.org/standards/RiC/ontology#isOrWasLanguageOf> <https://example.com/id/Tyskland> .
+<https://example.com/id/NorskBokmål> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Language> .
+<https://example.com/id/KnutOlborgsForskningsnotaterSlutt> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborgs Forskningsnotater Slutt" .
+<https://example.com/id/Tysk> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Tyskland> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<https://example.com/id/DOBNSamlingShelfSpace> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithPlace> <https://example.com/id/Tyskland> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <https://www.ica.org/standards/RiC/ontology#hasOrHadAnalogueInstantiation> <https://example.com/id/DOBNSamlingStorageInstantiation> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegenSamling> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageInstantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/DeutscherOberbefehlshaberNorwegen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageID> <https://www.ica.org/standards/RiC/ontology#identifier> "d6ef5d07-8b2e-4d7b-9590-a70381765c9a" .
+<https://example.com/id/Mappestruktur> <http://www.w3.org/2000/01/rdf-schema#label> "Mappestruktur" .
+<https://example.com/id/KnutOlborgsForskningsnotaterTarFileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#InstantiationExtent> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageInstantiation> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/KnutOlborgsForskningsnotaterStorageID> .
+<https://example.com/id/KnutOlborgsForskningsnotaterStorageID> <http://www.w3.org/2000/01/rdf-schema#label> "Knut Olborgs Forskningsnotater Storage ID" .

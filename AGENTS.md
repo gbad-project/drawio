@@ -23,7 +23,7 @@ Contributor Guidelines
 Task Status Summary
 
 Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex
-Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ⏳ Not started
+Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ Completed on 2025-10-09 by gpt-5-codex
 Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawioParserGraph): ⏳ Not started
 Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration: ⏳ Not started
 Task 4 – Browser Execution Pipeline (Pyodide Integration): ⏳ Not started
