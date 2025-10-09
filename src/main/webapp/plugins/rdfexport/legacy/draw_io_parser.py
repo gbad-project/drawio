@@ -36,7 +36,7 @@ of these into one large string.
 
 from __future__ import annotations
 
-from argparse import ArgumentParser
+import argparse
 from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
@@ -1192,7 +1192,7 @@ def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawioParserGraph:
 
 
 def _arguments_parser():
-    argument_parser = ArgumentParser(
+    argument_parser = argparse.ArgumentParser(
         description=(
             "Constructs individuals in OWL with respect to the ontology "
             "Records in Contexts from a draw.io graph. The underlying XML of "
