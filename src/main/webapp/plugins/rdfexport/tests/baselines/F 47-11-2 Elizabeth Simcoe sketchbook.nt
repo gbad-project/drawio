@@ -1,0 +1,88 @@
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Activity> .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description Creation" .
+<https://example.com/id/ArchivalDescriptionCreation> <https://www.ica.org/standards/RiC/ontology#isOrWasPerformedBy> <https://example.com/id/Walz> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
+<https://example.com/id/ElizabethSimcoeSketchbook-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketchbook-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/ElizabethSimcoeSketchbook-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketchbook-i1" .
+<https://example.com/id/ElizabethSimcoeSketchbook-i1> <https://www.ica.org/standards/RiC/ontology#generalDescription> "How to Order: This material is closed for conservation reasons. Contact a Reference Archivist for more information." .
+<https://example.com/id/ElizabethSimcoeSketchbook-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "1 sketchbook (63 watercolours and drawings)" .
+<https://example.com/id/ElizabethSimcoeSketchbook> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketchbook" .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#accruals> "No further accruals are expected." .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "This material is closed for conservation reasons." .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#creationDate> "1795-1796" .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Finding Aid Note: An online list is available for this sub-series." .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/GraphicMaterials> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11-2> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/ElizabethSimcoeSketchbook-i1> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <https://example.com/id/ElizabethSimcoeSketchbook> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-Series> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#history> "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <https://example.com/id/ElizabethSimcoeSketches> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> .
+<https://example.com/id/ElizabethSimcoeSketchbook> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Sub-series consists of a sketchbook containing 63 watercolours and drawings done by Elizabeth Simcoe during the time she accompanied her husband to Upper Canada.  Many of the sketches are rough views, with few details. Some of the sketches are identified as Fort Erie, 40 Mile Creek, Queenston, Huron and Chippewa. Some of the sketches are of flowers and have accompanying notes." .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketchbook Archival Description" .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/StatusApproved> .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <https://www.ica.org/standards/RiC/ontology#lastModificationDate> "2009-07-17"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/ElizabethSimcoeSketchbookArchivalDescription> <https://www.ica.org/standards/RiC/ontology#resultsOrResultedFrom> <https://example.com/id/ArchivalDescriptionCreation> .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketches" .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Series> .
+<https://example.com/id/F47-11-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/F47-11-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/F47-11-2> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11-2" .
+<https://example.com/id/F47-11-2> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/CurrentReferenceCode> .
+<https://example.com/id/F47-11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/F47-11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/F47-11> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11" .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
+<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/StatusApproved> <http://www.w3.org/2000/01/rdf-schema#label> "Status: Approved" .
+<https://example.com/id/Sub-Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Sub-Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/Sub-Series> <http://www.w3.org/2000/01/rdf-schema#label> "Sub-Series" .
+<https://example.com/id/Walz> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Walz> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<https://example.com/id/Walz> <http://www.w3.org/2000/01/rdf-schema#label> "Walz" .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<ontology://generated-from-draw-io/2025-10-09T04-48-52> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/2025-10-09T04-48-52> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
