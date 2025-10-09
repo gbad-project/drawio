@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Utility to regenerate parser baselines from a previous commit and rerun tests."""
+
 from __future__ import annotations
 
 import argparse
@@ -17,7 +18,9 @@ LEGACY_DIR = Path(__file__).resolve().parents[1]
 FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
 TEST_PATH = LEGACY_DIR / "tests" / "test_patched_parser.py"
-PARSER_RELATIVE_PATH = Path("src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py")
+PARSER_RELATIVE_PATH = Path(
+    "src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py"
+)
 
 
 class PreviousParserLoader:
@@ -34,7 +37,9 @@ class PreviousParserLoader:
         parser_path = Path(self._temp_dir.name) / "draw_io_parser.py"
         parser_path.write_text(parser_source, encoding="utf-8")
 
-        spec = importlib.util.spec_from_file_location("_legacy_draw_io_parser", parser_path)
+        spec = importlib.util.spec_from_file_location(
+            "_legacy_draw_io_parser", parser_path
+        )
         if spec is None or spec.loader is None:
             raise RuntimeError("Unable to create import spec for legacy draw_io_parser")
         module = importlib.util.module_from_spec(spec)
@@ -105,22 +110,28 @@ def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
         ) from exc
     commits = [line.strip() for line in result.stdout.splitlines() if line.strip()]
     if not commits:
-        raise RuntimeError(f"No commits found when traversing from reference {start_ref}")
+        raise RuntimeError(
+            f"No commits found when traversing from reference {start_ref}"
+        )
     return commits
 
 
-def _generate_graphs_from_commit(commit: str, substitute: List[str]) -> Tuple[List[Tuple[Path, Graph]], List[Tuple[Path, Exception]]]:
+def _generate_graphs_from_commit(
+    commit: str, substitute: List[str]
+) -> Tuple[List[Tuple[Path, Graph]], List[Tuple[Path, Exception]]]:
     """Generate baseline graphs using the parser from a specific commit.
-    
+
     This loads the historical parser code exactly as it was, with no modifications.
     Returns (successful_graphs, failed_fixtures).
     """
-    with PreviousParserLoader(commit) as legacy_parser, \
-         PreviousParserLoader("HEAD") as current_parser:
+    with (
+        PreviousParserLoader(commit) as legacy_parser,
+        PreviousParserLoader("HEAD") as current_parser,
+    ):
         parse_drawio = getattr(legacy_parser, "parse_drawio_to_graph", None)
         if parse_drawio is None:
             raise AttributeError("Legacy parser does not expose parse_drawio_to_graph")
-        
+
         current_default_base_uri = getattr(current_parser, "BASE_URI", None)
         current_default_prefix_iri = getattr(current_parser, "PREFIX_IRI", None)
 
@@ -132,7 +143,7 @@ def _generate_graphs_from_commit(commit: str, substitute: List[str]) -> Tuple[Li
                     str(fixture),
                     ontology_iri=current_default_base_uri,
                     prefix_iri=current_default_prefix_iri,
-                    metacharacter_substitute=substitute
+                    metacharacter_substitute=substitute,
                 )
                 graphs.append((fixture, graph))
             except Exception as exc:
@@ -147,18 +158,20 @@ def regenerate_baselines(
     overwrite: bool,
 ) -> Tuple[str, List[Tuple[Path, Path]], List[Tuple[Path, Exception]], List[str]]:
     """Attempt to regenerate baselines from candidate commits.
-    
+
     Tries each commit in order until one successfully generates at least some baselines.
     Returns the successful commit, list of generated files, failed fixtures, and commit failures.
-    
+
     Raises BaselineGenerationError if no commit succeeds in generating ANY baselines.
     """
     failed_commits: List[str] = []
     last_error: Exception | None = None
-    
+
     for commit in commit_candidates:
         try:
-            graphs, fixture_failures = _generate_graphs_from_commit(commit, substitute=substitute)
+            graphs, fixture_failures = _generate_graphs_from_commit(
+                commit, substitute=substitute
+            )
         except Exception as exc:
             failed_commits.append(f"{commit}: {exc}")
             last_error = exc
@@ -228,10 +241,12 @@ def main() -> None:
     args = parser.parse_args()
 
     commit_candidates = _candidate_commits(args.commit, args.max_commits)
-    
-    print(f"Attempting to regenerate baselines from {len(commit_candidates)} commit(s)...")
+
+    print(
+        f"Attempting to regenerate baselines from {len(commit_candidates)} commit(s)..."
+    )
     print(f"Starting at: {args.commit}")
-    
+
     try:
         chosen_commit, generated, fixture_failures, failures = regenerate_baselines(
             commit_candidates,
@@ -255,7 +270,9 @@ def main() -> None:
         print(f"  {action}: {relative_fixture} -> {relative_baseline}")
 
     if fixture_failures:
-        print(f"\n⚠️  Failed to generate baselines for {len(fixture_failures)} fixture(s):")
+        print(
+            f"\n⚠️  Failed to generate baselines for {len(fixture_failures)} fixture(s):"
+        )
         for fixture, exc in fixture_failures:
             relative_fixture = fixture.relative_to(REPO_ROOT)
             print(f"  ❌ {relative_fixture}")

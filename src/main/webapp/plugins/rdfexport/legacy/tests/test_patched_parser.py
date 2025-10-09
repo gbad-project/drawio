@@ -17,11 +17,10 @@ import draw_io_parser  # noqa: E402
 FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
 PATCHER_MODULE_URI = (
-    LEGACY_DIR.parent
-    / "tests"
-    / "utils"
-    / "patchDrawioWithMetadata.ts"
-).resolve().as_uri()
+    (LEGACY_DIR.parent / "tests" / "utils" / "patchDrawioWithMetadata.ts")
+    .resolve()
+    .as_uri()
+)
 PATCHER_EVAL_SCRIPT = (
     f"""
 import {{ readFileSync, writeFileSync }} from 'node:fs';
@@ -40,16 +39,18 @@ def test_individual_blocks_accepts_declared_prefix_curie():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["ex"] = "https://example.org/custom#"
 
-    items = iter([
-        draw_io_parser.Individual("SourceNode", "ex:CustomClass"),
-        draw_io_parser.Individual("TargetNode", "ex:OtherClass"),
-        draw_io_parser.Arrow(
-            identifier="ex:connectsTo",
-            source="SourceNode",
-            target="TargetNode",
-            is_datatype=False,
-        ),
-    ])
+    items = iter(
+        [
+            draw_io_parser.Individual("SourceNode", "ex:CustomClass"),
+            draw_io_parser.Individual("TargetNode", "ex:OtherClass"),
+            draw_io_parser.Arrow(
+                identifier="ex:connectsTo",
+                source="SourceNode",
+                target="TargetNode",
+                is_datatype=False,
+            ),
+        ]
+    )
 
     blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
         items,
@@ -68,15 +69,17 @@ def test_individual_blocks_accepts_declared_prefix_curie():
 def test_individual_blocks_tracks_datatype_properties():
     prefixes = draw_io_parser.get_prefixes()
 
-    items = iter([
-        draw_io_parser.Individual("LiteralNode", "rico:Thing"),
-        draw_io_parser.Arrow(
-            identifier="rdfs:label",
-            source="LiteralNode",
-            target="Example literal",
-            is_datatype=True,
-        ),
-    ])
+    items = iter(
+        [
+            draw_io_parser.Individual("LiteralNode", "rico:Thing"),
+            draw_io_parser.Arrow(
+                identifier="rdfs:label",
+                source="LiteralNode",
+                target="Example literal",
+                is_datatype=True,
+            ),
+        ]
+    )
 
     blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
         items,
@@ -157,8 +160,7 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
     assert graph.csv_path == "/mock/path/to/file.csv"
 
     namespace_map = {
-        prefix: str(uri)
-        for prefix, uri in graph.namespace_manager.namespaces()
+        prefix: str(uri) for prefix, uri in graph.namespace_manager.namespaces()
     }
 
     assert namespace_map.get("mock1") == "http://mock-iri-ns.org"
@@ -180,15 +182,17 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
-    items = iter([
-        draw_io_parser.Individual("SourceNode", "rico:Thing"),
-        draw_io_parser.Arrow(
-            identifier="unknown:prop",
-            source="SourceNode",
-            target="Value",
-            is_datatype=True,
-        ),
-    ])
+    items = iter(
+        [
+            draw_io_parser.Individual("SourceNode", "rico:Thing"),
+            draw_io_parser.Arrow(
+                identifier="unknown:prop",
+                source="SourceNode",
+                target="Value",
+                is_datatype=True,
+            ),
+        ]
+    )
 
     with pytest.raises(draw_io_parser.NotInKnownException):
         draw_io_parser.individual_blocks(
@@ -200,7 +204,9 @@ def test_individual_blocks_rejects_unknown_prefix():
         )
 
 
-def _run_drawio_metadata_patcher(source: Path, destination: Path, options: dict) -> None:
+def _run_drawio_metadata_patcher(
+    source: Path, destination: Path, options: dict
+) -> None:
     destination.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         [

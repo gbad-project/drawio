@@ -7,25 +7,69 @@ def process(text: str) -> str:
     return "mock:" + text
 `;
 
-const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.26.4/full/";
+const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.28.3/full/";
+const LOCAL_RELATIVE_PYODIDE_PATH = "../plugins/rdfexport/pyodide/";
 
 let pyodideInstancePromise: Promise<PyodideInterface> | null = null;
 let processBootstrapPromise: Promise<void> | null = null;
+
+function ensureTrailingSlash(value: string): string {
+  return value.endsWith("/") ? value : `${value}/`;
+}
+
+function resolveFromBrowserContext(): string | null {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return null;
+  }
+
+  const currentScript = document.currentScript as HTMLScriptElement | null;
+
+  if (currentScript?.src) {
+    try {
+      const scriptUrl = new URL(currentScript.src, window.location.href);
+      const pluginDir = new URL("./rdfexport/", scriptUrl);
+      const pyodideUrl = new URL("./pyodide/", pluginDir).toString();
+      return ensureTrailingSlash(pyodideUrl);
+    } catch (error) {
+      logError(
+        LOG_PREFIX.PIPELINE,
+        "Failed to derive Pyodide index URL from current script",
+        error,
+      );
+    }
+  }
+
+  const mxBasePath = (globalThis as { mxBasePath?: unknown }).mxBasePath;
+
+  if (typeof mxBasePath === "string" && mxBasePath.trim().length > 0) {
+    const normalizedBase = ensureTrailingSlash(mxBasePath.trim());
+    return ensureTrailingSlash(
+      `${normalizedBase}${LOCAL_RELATIVE_PYODIDE_PATH}`,
+    );
+  }
+
+  if (typeof window.location?.href === "string") {
+    const derived = new URL(
+      `./${LOCAL_RELATIVE_PYODIDE_PATH}`,
+      window.location.href,
+    );
+    return ensureTrailingSlash(derived.toString());
+  }
+
+  return null;
+}
 
 function resolveIndexURL(): string {
   const override = (globalThis as { __rdfexportPyodideIndexURL?: unknown })
     .__rdfexportPyodideIndexURL;
 
   if (typeof override === "string" && override.trim().length > 0) {
-    return override;
+    return ensureTrailingSlash(override.trim());
   }
 
-  if (typeof window === "undefined") {
-    const nodeModulesUrl = new URL("../node_modules/pyodide/", import.meta.url);
-    if (nodeModulesUrl.protocol === "file:") {
-      return decodeURIComponent(nodeModulesUrl.pathname);
-    }
-    return nodeModulesUrl.toString();
+  const browserResolved = resolveFromBrowserContext();
+  if (browserResolved) {
+    return browserResolved;
   }
 
   return CDN_FALLBACK_INDEX_URL;
