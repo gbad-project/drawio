@@ -57,7 +57,7 @@ interface MxEditor {
 }
 
 interface MxAction {
-  (): void;
+  (): void | Promise<void>;
 }
 
 interface MxActions {
@@ -135,6 +135,7 @@ const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
 import { runMockBlackBox } from './mockBlackBox';
+import { LOG_PREFIX, logError, logInfo } from './logging';
 
 let csvPropertyPatched = false;
 const registeredResourceKeys = new Set<string>();
@@ -1327,18 +1328,29 @@ Draw.loadPlugin(function (editorUi: any): void {
 
   mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
 
-  editorUi.actions.addAction("exportRdfXml", function (): void {
+  editorUi.actions.addAction("exportRdfXml", async function (): Promise<void> {
+    logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
+
     try {
       const serializedRdf = createRdfXml(editorUi);
-      const blackBoxPayload = runMockBlackBox(serializedRdf);
+      logInfo(
+        LOG_PREFIX.PIPELINE,
+        `Generated RDF/XML payload (${serializedRdf.length} characters)`,
+      );
+
+      const blackBoxPayload = await runMockBlackBox(serializedRdf);
       const filename = editorUi.getBaseFilename() + ".rdf";
+
+      logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
       editorUi.saveData(
         filename,
         "rdf",
         blackBoxPayload,
         "application/rdf+xml",
       );
+      logInfo(LOG_PREFIX.PIPELINE, `Export pipeline completed for ${filename}`);
     } catch (e) {
+      logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);
       editorUi.handleError(e as Error);
     }
   });

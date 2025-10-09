@@ -28,7 +28,7 @@ async function loadPluginModule(): Promise<RdfExportModule> {
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
 }
-import { runMockBlackBox } from '../src/mockBlackBox';
+import { debugPyodide, runMockBlackBox } from '../src/mockBlackBox';
 
 type EventHandler = (event: any) => void;
 
@@ -728,12 +728,17 @@ const resourceBundle: Record<string, string> = {};
 test("runMockBlackBox annotates serialized XML", async () => {
   const pluginModule = await loadPluginModule();
   const sample = "<rdf/>";
-  const output = runMockBlackBox(sample);
+  const output = await runMockBlackBox(sample);
 
   expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
-  expect(output).toContain(sample);
+  expect(output).toContain(`mock:${sample}`);
   expect(output.trim().endsWith("[/BLACKBOX]"))
     .toBe(true);
+}, { timeout: 30000 });
+
+test("debugPyodide evaluates Python expressions", async () => {
+  const result = await debugPyodide("1 + 2 + 3");
+  expect(result).toBe(6);
 });
 
 test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
@@ -771,7 +776,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     const pageId = diagramElement.getAttribute("id") ?? "diagram";
     const baseFilename = fixtureFile.replace(/\.drawio$/, "");
 
-    const actions: Record<string, () => void> = {};
+    const actions: Record<string, () => void | Promise<void>> = {};
     const savedExports: Array<{
       filename: string;
       format: string;
@@ -829,12 +834,13 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
 
     menuStub.funct([], null);
 
-    expect(actions.exportRdfXml).toBeDefined();
+    const exportAction = actions.exportRdfXml;
+    expect(exportAction).toBeDefined();
 
-    if (!actions.exportRdfXml) {
+    if (!exportAction) {
       throw new Error("exportRdfXml action was not registered by the plugin");
     }
-    actions.exportRdfXml();
+    await exportAction();
 
     expect(savedExports).toHaveLength(1);
     const exportData = savedExports[0]!;
@@ -846,7 +852,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const referenceRdf = readFileSync(join(fixturesDir, sampleFile), "utf-8");
-    const expected = runMockBlackBox(referenceRdf);
+    const expected = await runMockBlackBox(referenceRdf);
 
     const md5 = createHash("md5").update(data).digest("hex");
     const refMd5 = createHash("md5").update(expected).digest("hex");
@@ -1178,7 +1184,8 @@ test(
   }
   expect(model.listenerCount()).toBe(0);
 
-  expect(runMockBlackBox("test").startsWith("[BLACKBOX]"))
+  const preview = await runMockBlackBox("test");
+  expect(preview.startsWith("[BLACKBOX]"))
     .toBe(true);
   },
 );
