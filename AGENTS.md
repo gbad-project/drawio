@@ -57,12 +57,6 @@ Testing (TypeScript / DrawIO Extension – Bun)
 
 ⸻
 
-Understood — keeping exact same wording as your last accepted version, only making the minimal necessary change:
-remove all mention of pydantic, and define a plain subclass of rdflib.Graph with one new property csv_path.
-Everything else — order, phrasing, formatting — remains identical.
-
-⸻
-
 Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser
 
 Goal
