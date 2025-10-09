@@ -1,0 +1,103 @@
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Finding Aid Note: No file list is available." .
+<https://example.com/id/ChestDiseaseService> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/StatusApproved> <http://www.w3.org/2000/01/rdf-schema#label> "Status: Approved" .
+<https://example.com/id/DivisionOfTuberculosisPrevention> <http://www.w3.org/2000/01/rdf-schema#label> "Division of Tuberculosis Prevention" .
+<https://example.com/id/DivisionOfTuberculosisPrevention> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/StatusApproved> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Correspondence of the Chief of the Chest Disease Service-i1" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService-i1> <https://www.ica.org/standards/RiC/ontology#generalDescription> "How to Order: Please contact a Reference Archivist for information about obtaining access to this material." .
+<https://example.com/id/OfficeOfOriginRelation> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/1982> .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Activity> .
+<https://example.com/id/OfficeOfOriginRelation> <https://www.ica.org/standards/RiC/ontology#relationHasTarget> <https://example.com/id/ChestDiseaseService> .
+<https://example.com/id/1982> <http://www.w3.org/2000/01/rdf-schema#label> "1982" .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description Creation" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/TextualRecords> .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/OfficeOfOriginRelation> <http://www.w3.org/2000/01/rdf-schema#label> "Office of Origin Relation" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#creationDate> "1948-1982" .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<https://example.com/id/RG10-142> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/CurrentReferenceCode> .
+<https://example.com/id/TextualRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#history> "Immediate Source of Acquisition: Records in this series were transferred to the Archives of Ontario by the Ministry of Health." .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/RG10-142> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <http://www.w3.org/2000/01/rdf-schema#label> "Correspondence of the Chief of the Chest Disease Service" .
+<https://example.com/id/DivisionOfTuberculosisPrevention> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService-i1> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
+<https://example.com/id/ChestDiseaseService> <http://www.w3.org/2000/01/rdf-schema#label> "Chest Disease Service" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <https://www.ica.org/standards/RiC/ontology#lastModificationDate> "2012-03-29"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/1974> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Copyright is held primarily by the Crown. There are no restrictions on reproduction. Permission of the Archives of Ontario is required for publication; submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
+<https://example.com/id/1948> <http://www.w3.org/2000/01/rdf-schema#label> "1948" .
+<https://example.com/id/ArchivalDescriptionCreation> <https://www.ica.org/standards/RiC/ontology#isOrWasPerformedBy> <https://example.com/id/Stabile> .
+<https://example.com/id/OfficeOfOriginRelation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/1974> <http://www.w3.org/2000/01/rdf-schema#label> "1974" .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/TextualRecords> <http://www.w3.org/2000/01/rdf-schema#label> "Textual records" .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Stabile> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <https://www.ica.org/standards/RiC/ontology#resultsOrResultedFrom> <https://example.com/id/ArchivalDescriptionCreation> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/1948> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#thingIsSourceOfRelation> <https://example.com/id/OfficeOfOriginRelation> .
+<https://example.com/id/Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<ontology://generated-from-draw-io/2025-10-09T02-08-20> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Correspondence of the Chief of the Chest Disease Service Archival Description" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#accruals> "No further accruals are expected." .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Series> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Stabile> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/ChestDiseaseService> .
+<https://example.com/id/OfficeOfOriginRelation> <https://www.ica.org/standards/RiC/ontology#relationHasTarget> <https://example.com/id/DivisionOfTuberculosisPrevention> .
+<https://example.com/id/1982> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/1982> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "9.8 metres of textual records (32 Boxes)" .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "Access to these records is governed by the Freedom of Information and Protection of Privacy Act. Requests for access to records 100 years old or less must be submitted in writing to the Information and Privacy Unit of the Archives of Ontario." .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/DivisionOfTuberculosisPrevention> .
+<ontology://generated-from-draw-io/2025-10-09T02-08-20> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://example.com/id/ChestDiseaseService> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/OfficeOfOriginRelation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CreationRelation> .
+<https://example.com/id/OfficeOfOriginRelation> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/1974> .
+<https://example.com/id/TextualRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> .
+<https://example.com/id/RG10-142> <http://www.w3.org/2000/01/rdf-schema#label> "RG 10-142" .
+<https://example.com/id/OfficeOfOriginRelation> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/1974> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/RG10-142> .
+<https://example.com/id/Stabile> <http://www.w3.org/2000/01/rdf-schema#label> "Stabile" .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<https://example.com/id/1974> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/OfficeOfOriginRelation> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/1948> .
+<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/1948> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Series consists of records created and maintained by the Chest Disease Service and its predecessor agencies to provide a cumulative record in reviewing, preventing, and treating tuberculosis in Ontario.  Records consist of originals of incoming and copies of outgoing correspondence, both inter and intra Ministry, with the federal government, sanatoria, chest clinics, professional associations, other agencies outside the provincial government, and private citizens relating to the prevention and treatment of tuberculosis in Ontario.     Subjects include the following: drugs, chemotheraphy, chest x-ray programs, epidemiology, home care programs, health standards, immigrants and refugees, mass survey x-ray interpretaion, smoking and health education material.     Files are arranged alphabetically by subject." .
+<https://example.com/id/RG10-142> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseService> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/CorrespondenceOfTheChiefOfTheChestDiseaseServiceArchivalDescription> .

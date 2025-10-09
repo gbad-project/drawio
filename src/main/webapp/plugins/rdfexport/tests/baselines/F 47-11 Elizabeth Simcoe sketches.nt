@@ -1,0 +1,101 @@
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Series> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/TextualRecords> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketches Archival Description" .
+<https://example.com/id/StatusApproved> <http://www.w3.org/2000/01/rdf-schema#label> "Status: Approved" .
+<https://example.com/id/F47-11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
+<https://example.com/id/ElizabethSimcoeSketches-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "353 watercolours  63 drawings  8 prints  1 sketchbook (63 watercolours and drawings)  1 photograph  1 centimetre of textual records  1 map" .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Activity> .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description Creation" .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Finding Aid Note: Please see sub-series descriptions." .
+<https://example.com/id/Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#creationDate> "ca. 1790-[184-?] (Predominant 1791-1796)" .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "See sub-series descriptions for information on access restrictions on this material." .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<https://example.com/id/TextualRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <https://www.ica.org/standards/RiC/ontology#resultsOrResultedFrom> <https://example.com/id/ArchivalDescriptionCreation> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/Walz> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketches-i1> <https://www.ica.org/standards/RiC/ontology#generalDescription> "How to Order: Please see sub-series descriptions for ordering information." .
+<https://example.com/id/SimcoeFamilyFonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47> .
+<https://example.com/id/Fonds> <http://www.w3.org/2000/01/rdf-schema#label> "Fonds" .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Series consists of artworks and other related records created or cellected by Elizabeth Simcoe. The watercolours and drawings consist primarily of landscapes, the majority of which are views of Upper and Lower Canada.  Differences in style within the series, such as more detailed trees, sharper contrasts and less perspective, suggests that Simcoe was not the artist of all the artworks in the series, and that she collected drawings done by others. In two cases, other artists are identified. More details on the attribution of works is in the description for sub-series F 47-11-1.  The Canadian sketches provide a visual compliment to her diaries (see Series F 47-8), which contain documentation regarding when scenes were sketched. Additional sketches are contained within the diaries which make up series F 47-8." .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F47-11> .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Availability of Other Formats: See sub-series descriptions for information on the availability of other formats." .
+<https://example.com/id/Walz> <http://www.w3.org/2000/01/rdf-schema#label> "Walz" .
+<https://example.com/id/SimcoeFamilyFonds> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Fonds> .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/TextualRecords> <http://www.w3.org/2000/01/rdf-schema#label> "Textual records" .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/CartographicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<https://example.com/id/CartographicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/F47> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/F47-11> <http://www.w3.org/2000/01/rdf-schema#label> "F 47-11" .
+<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CartographicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Cartographic materials" .
+<https://example.com/id/F47> <http://www.w3.org/2000/01/rdf-schema#label> "F 47" .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
+<https://example.com/id/Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<ontology://generated-from-draw-io/2025-10-09T02-08-20> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Walz> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <https://www.ica.org/standards/RiC/ontology#lastModificationDate> "2009-07-17"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#accruals> "No further accruals are expected." .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/CartographicMaterials> .
+<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
+<https://example.com/id/ElizabethSimcoeSketches-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/F47> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/SimcoeElizabethPosthuma1762-1850> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ArchivalDescriptionCreation> <https://www.ica.org/standards/RiC/ontology#isOrWasPerformedBy> <https://example.com/id/Walz> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/SimcoeElizabethPosthuma1762-1850> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#history> "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/GraphicMaterials> .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/SimcoeFamilyFonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
+<https://example.com/id/SimcoeFamilyFonds> <http://www.w3.org/2000/01/rdf-schema#label> "Simcoe family fonds" .
+<https://example.com/id/SimcoeFamilyFonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/2025-10-09T02-08-20> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<https://example.com/id/F47-11> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/CurrentReferenceCode> .
+<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/ElizabethSimcoeSketches-i1> .
+<https://example.com/id/ElizabethSimcoeSketches-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/TextualRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<https://example.com/id/ElizabethSimcoeSketches> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketches" .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <https://example.com/id/ElizabethSimcoeSketches> .
+<https://example.com/id/SimcoeElizabethPosthuma1762-1850> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<https://example.com/id/ElizabethSimcoeSketches-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Elizabeth Simcoe sketches-i1" .
+<https://example.com/id/F47-11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/ElizabethSimcoeSketches> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <https://example.com/id/SimcoeFamilyFonds> .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
+<https://example.com/id/SimcoeElizabethPosthuma1762-1850> <http://www.w3.org/2000/01/rdf-schema#label> "Simcoe, Elizabeth Posthuma, 1762-1850" .
+<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<https://example.com/id/ElizabethSimcoeSketchesArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/StatusApproved> .
