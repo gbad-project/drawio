@@ -10,9 +10,7 @@ import tempfile
 from pathlib import Path
 from typing import Iterable, List, Sequence, Tuple
 
-from rdflib import Graph, URIRef
-from rdflib.namespace import OWL, RDF
-
+from rdflib import Graph
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -20,11 +18,6 @@ FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
 TEST_PATH = LEGACY_DIR / "tests" / "test_curie_validation.py"
 PARSER_RELATIVE_PATH = Path("src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py")
-
-LEGACY_OBJECT_PROPERTY_BACKFILL: set[str] = set()
-LEGACY_DATATYPE_PROPERTY_BACKFILL = {
-    "rdfs:isDefinedBy",
-}
 
 
 class PreviousParserLoader:
@@ -79,6 +72,7 @@ class BaselineGenerationError(RuntimeError):
 
 
 def _discover_pristine_fixtures() -> Iterable[Path]:
+    """Discover all fixture files that need baseline generation."""
     for fixture in sorted(FIXTURES_DIR.glob("*.drawio")):
         if "-with-metadata" in fixture.name:
             continue
@@ -86,11 +80,13 @@ def _discover_pristine_fixtures() -> Iterable[Path]:
 
 
 def _serialise_graph(graph: Graph) -> str:
+    """Serialize a graph to N-Triples format with consistent line ending."""
     raw = graph.serialize(format="nt")
     return raw if raw.endswith("\n") else f"{raw}\n"
 
 
 def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
+    """Get a list of candidate commits to try for baseline generation."""
     try:
         result = subprocess.run(
             ["git", "rev-list", "--max-count", str(limit), start_ref],
@@ -110,85 +106,58 @@ def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
     return commits
 
 
-def _extend_property_collection(collection, additions: Iterable[str]) -> None:
-    if isinstance(collection, list):
-        for item in additions:
-            if item not in collection:
-                collection.append(item)
-    elif isinstance(collection, set):
-        collection.update(additions)
-    elif isinstance(collection, tuple):
-        buffer = list(collection)
-        _extend_property_collection(buffer, additions)
-        collection = type(collection)(buffer)  # type: ignore[assignment]
-    # Unexpected types are ignored.
-
-
-def _backfill_legacy_property_sets(module) -> None:
-    object_props = getattr(module, "_object_properties", None)
-    if object_props is not None:
-        _extend_property_collection(object_props, LEGACY_OBJECT_PROPERTY_BACKFILL)
-    datatype_props = getattr(module, "_datatype_properties", None)
-    if datatype_props is not None:
-        _extend_property_collection(datatype_props, LEGACY_DATATYPE_PROPERTY_BACKFILL)
-
-
-def _strip_backfill_property_declarations(graph: Graph) -> None:
-    nm = graph.namespace_manager
-    for curie in LEGACY_OBJECT_PROPERTY_BACKFILL:
-        try:
-            uri = nm.expand_curie(curie, strict=False)
-        except Exception:  # pragma: no cover - defensive path
-            continue
-        if isinstance(uri, URIRef):
-            graph.remove((uri, RDF.type, OWL.ObjectProperty))
-    for curie in LEGACY_DATATYPE_PROPERTY_BACKFILL:
-        try:
-            uri = nm.expand_curie(curie, strict=False)
-        except Exception:  # pragma: no cover - defensive path
-            continue
-        if isinstance(uri, URIRef):
-            graph.remove((uri, RDF.type, OWL.DatatypeProperty))
-
-
-def _generate_graphs_from_commit(commit: str, substitute: List[str]) -> List[Tuple[Path, Graph]]:
+def _generate_graphs_from_commit(commit: str, substitute: List[str]) -> Tuple[List[Tuple[Path, Graph]], List[Tuple[Path, Exception]]]:
+    """Generate baseline graphs using the parser from a specific commit.
+    
+    This loads the historical parser code exactly as it was, with no modifications.
+    Returns (successful_graphs, failed_fixtures).
+    """
     with PreviousParserLoader(commit) as legacy_parser:
         parse_drawio = getattr(legacy_parser, "parse_drawio_to_graph", None)
         if parse_drawio is None:
             raise AttributeError("Legacy parser does not expose parse_drawio_to_graph")
 
-        _backfill_legacy_property_sets(legacy_parser)
-
         graphs: List[Tuple[Path, Graph]] = []
+        failures: List[Tuple[Path, Exception]] = []
         for fixture in _discover_pristine_fixtures():
             try:
                 graph = parse_drawio(str(fixture), metacharacter_substitute=substitute)
-            except Exception as exc:  # pylint: disable=broad-except
-                raise RuntimeError(
-                    f"Commit {commit} failed while parsing {fixture.relative_to(REPO_ROOT)}: {exc}"
-                ) from exc
-            _strip_backfill_property_declarations(graph)
-            graphs.append((fixture, graph))
-    return graphs
+                graphs.append((fixture, graph))
+            except Exception as exc:
+                failures.append((fixture, exc))
+    return graphs, failures
 
 
 def regenerate_baselines(
     commit_candidates: Sequence[str],
     *,
     substitute: List[str],
-    allow_head_fallback: bool,
     overwrite: bool,
-) -> Tuple[str, List[Tuple[Path, Path]], List[str]]:
+) -> Tuple[str, List[Tuple[Path, Path]], List[Tuple[Path, Exception]], List[str]]:
+    """Attempt to regenerate baselines from candidate commits.
+    
+    Tries each commit in order until one successfully generates at least some baselines.
+    Returns the successful commit, list of generated files, failed fixtures, and commit failures.
+    
+    Raises BaselineGenerationError if no commit succeeds in generating ANY baselines.
+    """
     failed_commits: List[str] = []
     last_error: Exception | None = None
+    
     for commit in commit_candidates:
         try:
-            graphs = _generate_graphs_from_commit(commit, substitute=substitute)
-        except Exception as exc:  # pylint: disable=broad-except
+            graphs, fixture_failures = _generate_graphs_from_commit(commit, substitute=substitute)
+        except Exception as exc:
             failed_commits.append(f"{commit}: {exc}")
             last_error = exc
             continue
 
+        # If we got at least one graph, consider it a success
+        if not graphs:
+            failed_commits.append(f"{commit}: No fixtures could be parsed")
+            continue
+
+        # Success - write baselines for what we could parse
         BASELINES_DIR.mkdir(parents=True, exist_ok=True)
         generated: List[Tuple[Path, Path]] = []
         for fixture, graph in graphs:
@@ -198,30 +167,19 @@ def regenerate_baselines(
                 continue
             baseline_path.write_text(_serialise_graph(graph), encoding="utf-8")
             generated.append((fixture, baseline_path))
-        return commit, generated, failed_commits
+        return commit, generated, fixture_failures, failed_commits
 
-    if allow_head_fallback:
-        graphs = _generate_graphs_from_commit("HEAD", substitute=substitute)
-        BASELINES_DIR.mkdir(parents=True, exist_ok=True)
-        generated: List[Tuple[Path, Path]] = []
-        for fixture, graph in graphs:
-            baseline_path = BASELINES_DIR / f"{fixture.stem}.nt"
-            if baseline_path.exists() and not overwrite:
-                generated.append((fixture, baseline_path))
-                continue
-            baseline_path.write_text(_serialise_graph(graph), encoding="utf-8")
-            generated.append((fixture, baseline_path))
-        return "HEAD", generated, failed_commits
-
+    # No commit succeeded
     if last_error is not None:
         raise BaselineGenerationError(
-            "Unable to generate baselines from any candidate commit. Last error: "
-            f"{last_error}"
+            f"Unable to generate baselines from any candidate commit. "
+            f"Tried {len(commit_candidates)} commit(s). Last error: {last_error}"
         )
     raise BaselineGenerationError("No commits were attempted when generating baselines")
 
 
 def run_pytest(pytest_args: List[str]) -> None:
+    """Execute pytest with the given arguments."""
     command = [sys.executable, "-m", "pytest"] + pytest_args
     subprocess.run(command, check=True, cwd=REPO_ROOT)
 
@@ -230,14 +188,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--commit",
-        default="HEAD^",
-        help="Git reference to start searching for a legacy draw_io_parser (default: HEAD^)",
+        required=True,
+        help="Git reference to start searching for a legacy draw_io_parser (e.g., commit hash or HEAD^)",
     )
     parser.add_argument(
         "--max-commits",
         type=int,
-        default=50,
-        help="Maximum number of commits to traverse when searching for a usable parser",
+        default=1,
+        help="Maximum number of commits to traverse when searching for a usable parser (default: 1)",
     )
     parser.add_argument(
         "--skip-tests",
@@ -251,11 +209,6 @@ def main() -> None:
         help="Value forwarded to parse_drawio_to_graph(metacharacter_substitute=...)",
     )
     parser.add_argument(
-        "--no-head-fallback",
-        action="store_true",
-        help="Fail instead of falling back to the current commit when no legacy parser succeeds",
-    )
-    parser.add_argument(
         "--force-overwrite",
         action="store_true",
         help="Rewrite existing baselines instead of leaving them unchanged",
@@ -263,26 +216,42 @@ def main() -> None:
     args = parser.parse_args()
 
     commit_candidates = _candidate_commits(args.commit, args.max_commits)
-    chosen_commit, generated, failures = regenerate_baselines(
-        commit_candidates,
-        substitute=list(args.metacharacter_substitute),
-        allow_head_fallback=not args.no_head_fallback,
-        overwrite=args.force_overwrite,
-    )
+    
+    print(f"Attempting to regenerate baselines from {len(commit_candidates)} commit(s)...")
+    print(f"Starting at: {args.commit}")
+    
+    try:
+        chosen_commit, generated, fixture_failures, failures = regenerate_baselines(
+            commit_candidates,
+            substitute=list(args.metacharacter_substitute),
+            overwrite=args.force_overwrite,
+        )
+    except BaselineGenerationError as exc:
+        print(f"\n❌ FAILED: {exc}", file=sys.stderr)
+        sys.exit(1)
 
     if failures:
-        print("Failed commits during baseline regeneration:")
+        print("\n⚠️  Failed commits during baseline regeneration:")
         for failure in failures:
             print(f"  {failure}")
 
-    print(f"Baselines regenerated using commit {chosen_commit}")
+    print(f"\n✅ Baselines regenerated using commit {chosen_commit}")
     for fixture, baseline in generated:
         relative_fixture = fixture.relative_to(REPO_ROOT)
         relative_baseline = baseline.relative_to(REPO_ROOT)
-        print(f"  {relative_fixture} -> {relative_baseline}")
+        action = "overwrote" if args.force_overwrite else "created"
+        print(f"  {action}: {relative_fixture} -> {relative_baseline}")
+
+    if fixture_failures:
+        print(f"\n⚠️  Failed to generate baselines for {len(fixture_failures)} fixture(s):")
+        for fixture, exc in fixture_failures:
+            relative_fixture = fixture.relative_to(REPO_ROOT)
+            print(f"  ❌ {relative_fixture}")
+            print(f"     {exc}")
 
     if not args.skip_tests:
-        run_pytest([str(TEST_PATH.relative_to(REPO_ROOT))])
+        print(f"\n🧪 Running tests: {TEST_PATH.relative_to(REPO_ROOT)}")
+        run_pytest([str(TEST_PATH.relative_to(REPO_ROOT)), "-v"])
 
 
 if __name__ == "__main__":
