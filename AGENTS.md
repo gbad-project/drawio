@@ -57,29 +57,38 @@ Testing (TypeScript / DrawIO Extension – Bun)
 
 ⸻
 
-Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser
+## **Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser**
 
-Goal
-Refactor the DrawIO parser to eliminate hardcoded lists of allowed classes, object properties, and datatype properties.
+**Goal**
+Refactor the DrawIO parser to eliminate hardcoded lists of allowed **classes**, **object properties**, and **datatype properties**.
 The parser must instead accept any CURIE whose prefix exists in the parsed prefix–IRI mapping.
 Changes should be minimal and backward-compatible.
 
-Implementation Steps
-	1.	Locate Hardcoded Elements
-	•	Identify the code sections where class and property CURIEs are explicitly enumerated.
-	•	Note them for documentation but remove them from runtime validation.
-	2.	Replace with Dynamic Validation
-	•	Obtain known prefixes from the parser’s prefix_iri_dict (namespace manager).
-	•	Accept any CURIE whose prefix appears in that mapping and resolves to a valid IRI.
-	•	Preserve all existing error-handling behavior for undeclared or malformed prefixes.
-	3.	Regression Verification
-	•	Execute every pristine DrawIO fixture using the unmodified parser to collect baseline outputs.
-	•	Re-run all fixtures using the refactored parser.
-	•	Compare serialized Graphs to confirm no functional regression.
-	4.	Testing (pytest)
-	•	Add tests for valid arbitrary CURIEs with declared prefixes.
-	•	Add negative tests for undeclared prefixes.
-	•	Diff serialized Graphs between old and new parsers to ensure identical results.
+### **Implementation Steps**
+
+1. **Locate Hardcoded Elements**
+
+   * Identify the code sections where class and property CURIEs are explicitly enumerated.
+   * Note them for documentation but remove them from runtime validation.
+
+2. **Replace with Dynamic Validation**
+
+   * Obtain known prefixes from the parser’s `prefix_iri_dict` (namespace manager).
+   * Accept any CURIE whose prefix appears in that mapping and resolves to a valid IRI.
+   * Preserve all existing error-handling behavior for undeclared or malformed prefixes.
+
+3. **Regression Verification**
+
+   * Run every **pristine `*.drawio` fixture** (exclude any `*-with-metadata.drawio` and all `*.rdf` fixtures, which belong to different code paths) using the unmodified DrawIO parser to produce baseline Graph objects.
+   * Re-run the same fixtures using the refactored parser that no longer relies on hardcoded CURIEs.
+   * Compare the resulting Graph objects directly — not by string serialization — using **graph isomorphism checks or equivalent semantic equality methods** available in rdflib.
+   * Verify that all baseline and refactored Graphs are isomorphic, confirming no structural or semantic regressions.
+
+4. **Testing (pytest)**
+
+   * Add tests for valid arbitrary CURIEs with declared prefixes.
+   * Add negative tests for undeclared prefixes.
+   * Include automated isomorphism-based regression checks between pre-change and post-change parser outputs for all pristine fixtures.
 
 ⸻
 
