@@ -36,3 +36,6 @@ __pycache__
 
 # temporary files
 tmp
+
+# locally cached Pyodide distribution (downloaded via scripts/download_pyodide_assets.sh)
+pyodide

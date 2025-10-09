@@ -3,15 +3,18 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "dependencies": {
+    "pyodide": "^0.28.3"
+  },
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.37.0",
     "@types/bun": "latest",
     "@xmldom/xmldom": "^0.8.11",
-    "eslint": "^9.35.0",
+    "eslint": "^9.37.0",
     "prettier": "^3.6.2"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   },
   "volta": {
     "node": "22.19.0"
@@ -20,8 +23,20 @@
     "uv": "command -v uv >/dev/null 2>&1 || (curl -LsSf https://astral.sh/uv/install.sh | sh && source $HOME/.local/bin/env); uv sync",
     "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts && cp dist/rdfexport.js ..",
     "test": "bash scripts/test_legacy.sh && bun --check test",
-    "format": "prettier --write .",
-    "lint": "eslint .",
+    "format:py": "ruff format .",
+    "format:ts": "prettier --write .",
+    "format": "bun run format:py; bun run format:ts",
+    "format:check:py": "ruff format --check .",
+    "format:check:ts": "prettier --check .",
+    "format:check": "bun run format:check:py; bun run format:check:ts",
+    "lint:py": "ruff check .",
+    "lint:ts": "eslint .",
+    "lint": "bun run lint:py; bun run lint:ts",
+    "lint:fix:py": "ruff check --fix .",
+    "lint:fix:ts": "eslint --fix .",
+    "lint:fix": "bun run lint:fix:py; bun run lint:fix:ts",
+    "check": "bun run lint && bun run format:check",
+    "fix": "bun run lint:fix && bun run format",
     "serve": "cd ../../../../.. && python -m http.server 8000"
   }
 }
