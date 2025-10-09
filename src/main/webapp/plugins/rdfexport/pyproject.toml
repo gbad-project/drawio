@@ -12,8 +12,3 @@ dependencies = [
 dev = [
     "ruff>=0.14.0",
 ]
-
-[tool.ruff]
-extend-exclude = [
-    "legacy",
-]
