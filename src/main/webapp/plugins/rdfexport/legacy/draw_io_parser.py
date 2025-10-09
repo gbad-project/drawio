@@ -40,14 +40,14 @@ from argparse import ArgumentParser
 from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
+import re
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator
+from typing import Generator, Iterator, Literal, Optional
 from xml.etree.ElementTree import Element, fromstring
-from typing import Optional
 import urllib.parse
 import traceback
 import os
-from rdflib import Graph, URIRef, Literal, Namespace
+from rdflib import Graph, URIRef, Literal as RDFLiteral, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 def get_prefixes():
@@ -60,532 +60,34 @@ def get_prefixes():
         'rdfs': 'http://www.w3.org/2000/01/rdf-schema#'
     }
 
-_classes = [
-    "owl:DatatypeProperty",
-    "rico:AccumulationRelation",
-    "rico:Activity",
-    "rico:ActivityDocumentationRelation",
-    "rico:ActivityType",
-    "rico:Agent",
-    "rico:AgentControlRelation",
-    "rico:AgentHierarchicalRelation",
-    "rico:AgentName",
-    "rico:AgentTemporalRelation",
-    "rico:AgentToAgentRelation",
-    "rico:Appellation",
-    "rico:AppellationRelation",
-    "rico:AuthorityRelation",
-    "rico:AuthorshipRelation",
-    "rico:CarrierExtent",
-    "rico:CarrierType",
-    "rico:ChildRelation",
-    "rico:Concept",
-    "rico:ContentType",
-    "rico:Coordinates",
-    "rico:CorporateBody",
-    "rico:CorporateBodyType",
-    "rico:CorrespondenceRelation",
-    "rico:CreationRelation",
-    "rico:Date",
-    "rico:DateType",
-    "rico:DemographicGroup",
-    "rico:DerivationRelation",
-    "rico:DescendanceRelation",
-    "rico:DocumentaryFormType",
-    "rico:Event",
-    "rico:EventRelation",
-    "rico:EventType",
-    "rico:Extent",
-    "rico:ExtentType",
-    "rico:Family",
-    "rico:FamilyRelation",
-    "rico:FamilyType",
-    "rico:FunctionalEquivalenceRelation",
-    "rico:Group",
-    "rico:GroupSubdivisionRelation",
-    "rico:Identifier",
-    "rico:IdentifierType",
-    "rico:Instantiation",
-    "rico:InstantiationExtent",
-    "rico:InstantiationToInstantiationRelation",
-    "rico:IntellectualPropertyRightsRelation",
-    "rico:KnowingOfRelation",
-    "rico:KnowingRelation",
-    "rico:Language",
-    "rico:LeadershipRelation",
-    "rico:LegalStatus",
-    "rico:ManagementRelation",
-    "rico:Mandate",
-    "rico:MandateRelation",
-    "rico:MandateType",
-    "rico:Mechanism",
-    "rico:MembershipRelation",
-    "rico:MigrationRelation",
-    "rico:Name",
-    "rico:OccupationType",
-    "rico:OrganicOrFunctionalProvenanceRelation",
-    "rico:OrganicProvenanceRelation",
-    "rico:OwnershipRelation",
-    "rico:PerformanceRelation",
-    "rico:Person",
-    "rico:PhysicalLocation",
-    "rico:Place",
-    "rico:PlaceName",
-    "rico:PlaceRelation",
-    "rico:PlaceType",
-    "rico:Position",
-    "rico:PositionHoldingRelation",
-    "rico:PositionToGroupRelation",
-    "rico:ProductionTechniqueType",
-    "rico:Proxy",
-    "rico:Record",
-    "rico:RecordPart",
-    "rico:RecordResource",
-    "rico:RecordResourceExtent",
-    "rico:RecordResourceGeneticRelation",
-    "rico:RecordResourceHoldingRelation",
-    "rico:RecordResourceToInstantiationRelation",
-    "rico:RecordResourceToRecordResourceRelation",
-    "rico:RecordSet",
-    "rico:RecordSetType",
-    "rico:RecordState",
-    "rico:Relation",
-    "rico:RepresentationType",
-    "rico:RoleType",
-    "rico:Rule",
-    "rico:RuleRelation",
-    "rico:RuleType",
-    "rico:SequentialRelation",
-    "rico:SiblingRelation",
-    "rico:SpouseRelation",
-    "rico:TeachingRelation",
-    "rico:TemporalRelation",
-    "rico:Thing",
-    "rico:Title",
-    "rico:Type",
-    "rico:TypeRelation",
-    "rico:UnitOfMeasurement",
-    "rico:WholePartRelation",
-    "rico:WorkRelation"
-]
+PropertyType = Literal["object", "datatype"]
+PropertyTypes = dict[str, PropertyType]
 
-_object_properties = [
-    "rdfs:subPropertyOf",
-    "rico:affectsOrAffected",
-    "rico:agentHasOrHadLocation",
-    "rico:authorizedBy",
-    "rico:authorizes",
-    "rico:contained",
-    "rico:containsOrContained",
-    "rico:containsTransitive",
-    "rico:describesOrDescribed",
-    "rico:directlyContains",
-    "rico:directlyFollowsInSequence",
-    "rico:directlyIncludes",
-    "rico:directlyPrecedesInSequence",
-    "rico:documentedBy",
-    "rico:documents",
-    "rico:existsOrExistedIn",
-    "rico:expressesOrExpressed",
-    "rico:followedInSequence",
-    "rico:followsInSequenceTransitive",
-    "rico:followsInTime",
-    "rico:followsOrFollowed",
-    "rico:hadComponent",
-    "rico:hadConstituent",
-    "rico:hadPart",
-    "rico:hadSubdivision",
-    "rico:hadSubevent",
-    "rico:hadSubordinate",
-    "rico:hasAccumulator",
-    "rico:hasActivityType",
-    "rico:hasAddressee",
-    "rico:hasAncestor",
-    "rico:hasAuthor",
-    "rico:hasBeginningDate",
-    "rico:hasBirthDate",
-    "rico:hasBirthPlace",
-    "rico:hasCarrierType",
-    "rico:hasChild",
-    "rico:hasCollector",
-    "rico:hasComponentTransitive",
-    "rico:hasConstituentTransitive",
-    "rico:hasContentOfType",
-    "rico:hasCopy",
-    "rico:hasCreationDate",
-    "rico:hasCreator",
-    "rico:hasDateType",
-    "rico:hasDeathDate",
-    "rico:hasDeathPlace",
-    "rico:hasDescendant",
-    "rico:hasDestructionDate",
-    "rico:hasDirectComponent",
-    "rico:hasDirectConstituent",
-    "rico:hasDirectPart",
-    "rico:hasDirectSubdivision",
-    "rico:hasDirectSubevent",
-    "rico:hasDirectSubordinate",
-    "rico:hasDocumentaryFormType",
-    "rico:hasDraft",
-    "rico:hasEndDate",
-    "rico:hasEventType",
-    "rico:hasExtent",
-    "rico:hasExtentType",
-    "rico:hasFamilyAssociationWith",
-    "rico:hasFamilyType",
-    "rico:hasGeneticLinkToRecordResource",
-    "rico:hasIdentifierType",
-    "rico:hasModificationDate",
-    "rico:hasOrHadAgentName",
-    "rico:hasOrHadAllMembersWithCategory",
-    "rico:hasOrHadAllMembersWithContentType",
-    "rico:hasOrHadAllMembersWithCreationDate",
-    "rico:hasOrHadAllMembersWithDocumentaryFormType",
-    "rico:hasOrHadAllMembersWithLanguage",
-    "rico:hasOrHadAllMembersWithLegalStatus",
-    "rico:hasOrHadAllMembersWithRecordState",
-    "rico:hasOrHadAnalogueInstantiation",
-    "rico:hasOrHadAppellation",
-    "rico:hasOrHadAuthorityOver",
-    "rico:hasOrHadCategory",
-    "rico:hasOrHadType",
-    "rico:hasOrHadComponent",
-    "rico:hasOrHadConstituent",
-    "rico:hasOrHadController",
-    "rico:hasOrHadCoordinates",
-    "rico:hasOrHadCorporateBodyType",
-    "rico:hasOrHadCorrespondent",
-    "rico:hasOrHadDemographicGroup",
-    "rico:hasOrHadDerivedInstantiation",
-    "rico:hasOrHadDigitalInstantiation",
-    "rico:hasOrHadEmployer",
-    "rico:hasOrHadHolder",
-    "rico:hasOrHadIdentifier",
-    "rico:hasOrHadInstantiation",
-    "rico:hasOrHadIntellectualPropertyRightsHolder",
-    "rico:hasOrHadJurisdiction",
-    "rico:hasOrHadLanguage",
-    "rico:hasOrHadLeader",
-    "rico:hasOrHadLegalStatus",
-    "rico:hasOrHadLocation",
-    "rico:hasOrHadMainSubject",
-    "rico:hasOrHadManager",
-    "rico:hasOrHadMandateType",
-    "rico:hasOrHadMember",
-    "rico:hasOrHadMostMembersWithCreationDate",
-    "rico:hasOrHadName",
-    "rico:hasOrHadOccupationOfType",
-    "rico:hasOrHadOwner",
-    "rico:hasOrHadPart",
-    "rico:hasOrHadParticipant",
-    "rico:hasOrHadPhysicalLocation",
-    "rico:hasOrHadPlaceName",
-    "rico:hasOrHadPlaceType",
-    "rico:hasOrHadPosition",
-    "rico:hasOrHadRuleType",
-    "rico:hasOrHadSomeMembersWithCategory",
-    "rico:hasOrHadSomeMembersWithContentType",
-    "rico:hasOrHadSomeMembersWithCreationDate",
-    "rico:hasOrHadSomeMembersWithLanguage",
-    "rico:hasOrHadSomeMembersWithLegalStatus",
-    "rico:hasOrHadSomeMembersWithRecordState",
-    "rico:hasOrHadSomeMemberswithDocumentaryFormType",
-    "rico:hasOrHadSpouse",
-    "rico:hasOrHadStudent",
-    "rico:hasOrHadSubdivision",
-    "rico:hasOrHadSubevent",
-    "rico:hasOrHadSubject",
-    "rico:hasOrHadSubordinate",
-    "rico:hasOrHadTeacher",
-    "rico:hasOrHadTitle",
-    "rico:hasOrHadWorkRelationWith",
-    "rico:hasOrganicOrFunctionalProvenance",
-    "rico:hasOrganicProvenance",
-    "rico:hasOriginal",
-    "rico:hasPartTransitive",
-    "rico:hasProductionTechniqueType",
-    "rico:hasPublicationDate",
-    "rico:hasPublisher",
-    "rico:hasReceiver",
-    "rico:hasRecordSetType",
-    "rico:hasRecordState",
-    "rico:hasReply",
-    "rico:hasRepresentationType",
-    "rico:hasSender",
-    "rico:hasSibling",
-    "rico:hasSubdivisionTransitive",
-    "rico:hasSubeventTransitive",
-    "rico:hasSubordinateTransitive",
-    "rico:hasSuccessor",
-    "rico:hasUnitOfMeasurement",
-    "rico:hasWithin",
-    "rico:included",
-    "rico:includesOrIncluded",
-    "rico:includesTransitive",
-    "rico:intersects",
-    "rico:isAccumulatorOf",
-    "rico:isActivityTypeOf",
-    "rico:isAddresseeOf",
-    "rico:isAgentAssociatedWithAgent",
-    "rico:isAgentAssociatedWithPlace",
-    "rico:isAssociatedWithDate",
-    "rico:isAssociatedWithEvent",
-    "rico:isAssociatedWithPlace",
-    "rico:isAssociatedWithRule",
-    "rico:isAuthorOf",
-    "rico:isBeginningDateOf",
-    "rico:isBirthDateOf",
-    "rico:isBirthPlaceOf",
-    "rico:isCarrierTypeOf",
-    "rico:isChildOf",
-    "rico:isCollectorOf",
-    "rico:isComponentOfTransitive",
-    "rico:isConstituentOfTransitive",
-    "rico:isContainedByTransitive",
-    "rico:isContentTypeOf",
-    "rico:isCopyOf",
-    "rico:isCreationDateOf",
-    "rico:isCreatorOf",
-    "rico:isDateAssociatedWith",
-    "rico:isDateOfOccurrenceOf",
-    "rico:isDateTypeOf",
-    "rico:isDeathDateOf",
-    "rico:isDeathPlaceOf",
-    "rico:isDestructionDateOf",
-    "rico:isDirectComponentOf",
-    "rico:isDirectConstituentOf",
-    "rico:isDirectPartOf",
-    "rico:isDirectSubdivisionOf",
-    "rico:isDirectSubeventOf",
-    "rico:isDirectSubordinateTo",
-    "rico:isDirectlyContainedBy",
-    "rico:isDirectlyIncludedIn",
-    "rico:isDocumentaryFormTypeOf",
-    "rico:isDraftOf",
-    "rico:isEndDateOf",
-    "rico:isEquivalentTo",
-    "rico:isEventAssociatedWith",
-    "rico:isEventTypeOf",
-    "rico:isExtentOf",
-    "rico:isExtentTypeOf",
-    "rico:isFamilyTypeOf",
-    "rico:isFromUseDateOf",
-    "rico:isFunctionallyEquivalentTo",
-    "rico:isIdentifierTypeOf",
-    "rico:isIncludedInTransitive",
-    "rico:isInstantiationAssociatedWithInstantiation",
-    "rico:isLastUpdateDateOf",
-    "rico:isModificationDateOf",
-    "rico:isOrWasAdjacentTo",
-    "rico:isOrWasAffectedBy",
-    "rico:isOrWasAgentNameOf",
-    "rico:isOrWasAnalogueInstantiationOf",
-    "rico:isOrWasAppellationOf",
-    "rico:isOrWasCategoryOf",
-    "rico:isOrWasCategoryOfAllMembersOf",
-    "rico:isOrWasCategoryOfSomeMembersOf",
-    "rico:isOrWasComponentOf",
-    "rico:isOrWasConstituentOf",
-    "rico:isOrWasContainedBy",
-    "rico:isOrWasContentTypeOfAllMembersOf",
-    "rico:isOrWasContentTypeOfSomeMembersOf",
-    "rico:isOrWasControllerOf",
-    "rico:isOrWasCoordinatesOf",
-    "rico:isOrWasCorporateBodyTypeOf",
-    "rico:isOrWasCreationDateOfAllMembersOf",
-    "rico:isOrWasCreationDateOfMostMembersOf",
-    "rico:isOrWasCreationDateOfSomeMembersOf",
-    "rico:isOrWasDemographicGroupOf",
-    "rico:isOrWasDerivedFromInstantiation",
-    "rico:isOrWasDescribedBy",
-    "rico:isOrWasDigitalInstantiationOf",
-    "rico:isOrWasDocumentaryFormTypeOfAllMembersOf",
-    "rico:isOrWasDocumentaryFormTypeOfSomeMembersOf",
-    "rico:isOrWasEmployerOf",
-    "rico:isOrWasEnforcedBy",
-    "rico:isOrWasExpressedBy",
-    "rico:isOrWasHolderOf",
-    "rico:isOrWasHolderOfIntellectualPropertyRightsOf",
-    "rico:isOrWasIdentifierOf",
-    "rico:isOrWasIncludedIn",
-    "rico:isOrWasInstantiationOf",
-    "rico:isOrWasJurisdictionOf",
-    "rico:isOrWasLanguageOf",
-    "rico:isOrWasLanguageOfAllMembersOf",
-    "rico:isOrWasLanguageOfSomeMembersOf",
-    "rico:isOrWasLeaderOf",
-    "rico:isOrWasLegalStatusOf",
-    "rico:isOrWasLegalStatusOfAllMembersOf",
-    "rico:isOrWasLegalStatusOfSomeMembersOf",
-    "rico:isOrWasLocationOf",
-    "rico:isOrWasLocationOfAgent",
-    "rico:isOrWasMainSubjectOf",
-    "rico:isOrWasManagerOf",
-    "rico:isOrWasMandateTypeOf",
-    "rico:isOrWasMemberOf",
-    "rico:isOrWasNameOf",
-    "rico:isOrWasOccupationTypeOf",
-    "rico:isOrWasOccupiedBy",
-    "rico:isOrWasOwnerOf",
-    "rico:isOrWasPartOf",
-    "rico:isOrWasParticipantIn",
-    "rico:isOrWasPerformedBy",
-    "rico:isOrWasPhysicalLocationOf",
-    "rico:isOrWasPlaceNameOf",
-    "rico:isOrWasPlaceTypeOf",
-    "rico:isOrWasRecordStateOfAllMembersOf",
-    "rico:isOrWasRecordStateOfSomeMembersOf",
-    "rico:isOrWasRegulatedBy",
-    "rico:isOrWasResponsibleForEnforcing",
-    "rico:isOrWasRuleTypeOf",
-    "rico:isOrWasSubdivisionOf",
-    "rico:isOrWasSubeventOf",
-    "rico:isOrWasSubjectOf",
-    "rico:isOrWasSubordinateTo",
-    "rico:isOrWasTitleOf",
-    "rico:isOrWasUnderAuthorityOf",
-    "rico:isOrganicOrFunctionalProvenanceOf",
-    "rico:isOrganicProvenanceOf",
-    "rico:isOriginalOf",
-    "rico:isPartOfTransitive",
-    "rico:isPlaceAssociatedWith",
-    "rico:isPlaceAssociatedWithAgent",
-    "rico:isProductionTechniqueTypeOf",
-    "rico:isPublicationDateOf",
-    "rico:isPublisherOf",
-    "rico:isReceiverOf",
-    "rico:isRecordResourceAssociatedWithRecordResource",
-    "rico:isRecordSetTypeOf",
-    "rico:isRecordStateOf",
-    "rico:isRelatedTo",
-    "rico:isReplyTo",
-    "rico:isRepresentationTypeOf",
-    "rico:isResponsibleForIssuing",
-    "rico:isRuleAssociatedWith",
-    "rico:isSenderOf",
-    "rico:isSubdivisionOfTransitive",
-    "rico:isSubeventOfTransitive",
-    "rico:isSubordinateToTransitive",
-    "rico:isSuccessorOf",
-    "rico:isToUseDateOf",
-    "rico:isUnitOfMeasurementOf",
-    "rico:isWithin",
-    "rico:issuedBy",
-    "rico:knownBy",
-    "rico:knows",
-    "rico:knowsOf",
-    "rico:migratedFrom",
-    "rico:migratedInto",
-    "rico:occupiesOrOccupied",
-    "rico:occurredAtDate",
-    "rico:overlapsOrOverlapped",
-    "rico:performsOrPerformed",
-    "rico:precededInSequence",
-    "rico:precedesInSequenceTransitive",
-    "rico:precedesInTime",
-    "rico:precedesOrPreceded",
-    "rico:proxyFor",
-    "rico:proxyIn",
-    "rico:regulatesOrRegulated",
-    "rico:relationHasSource",
-    "rico:relationHasTarget",
-    "rico:resultedFromTheMergerOf",
-    "rico:resultedFromTheSplitOf",
-    "rico:resultsOrResultedFrom",
-    "rico:resultsOrResultedIn",
-    "rico:thingIsSourceOfRelation",
-    "rico:wasComponentOf",
-    "rico:wasConstituentOf",
-    "rico:wasContainedBy",
-    "rico:wasIncludedIn",
-    "rico:wasLastUpdatedAtDate",
-    "rico:wasMergedInto",
-    "rico:wasPartOf",
-    "rico:wasSplitInto",
-    "rico:wasSubdivisionOf",
-    "rico:wasSubeventOf",
-    "rico:wasSubordinateTo",
-    "rico:wasUsedFromDate",
-    "rico:wasUsedToDate"
-]
 
-_datatype_properties = [
-    "add:privateNote",
-    "add:notes",
-    "add:relatedMaterial",
-    "add:associatedMaterial",
-    "add:findingAidNote",
-    "add:immediateSourceOfAcquisition",
-    "add:custodialHistory",
-    "add:availabilityOfOtherFormats",
-    "add:accumulationDate",
-    "add:howToOrder",
-    "auth:sourceNote",
-    "auth:functionNote",
-    "auth:privateNote",
-    "rdfs:label",
-    "rico:accruals",
-    "rico:accrualsStatus",
-    "rico:altimetricSystem",
-    "rico:altitude",
-    "rico:authenticityNote",
-    "rico:authorizingMandate",
-    "rico:beginningDate",
-    "rico:birthDate",
-    "rico:carrierExtent",
-    "rico:classification",
-    "rico:conditionsOfAccess",
-    "rico:conditionsOfUse",
-    "rico:creationDate",
-    "rico:date",
-    "rico:dateQualifier",
-    "rico:deathDate",
-    "rico:destructionDate",
-    "rico:endDate",
-    "rico:expressedDate",
-    "rico:generalDescription",
-    "rico:geodesicSystem",
-    "rico:geographicalCoordinates",
-    "rico:height",
-    "rico:history",
-    "rico:identifier",
-    "rico:instantiationExtent",
-    "rico:instantiationStructure",
-    "rico:integrityNote",
-    "rico:lastModificationDate",
-    "rico:latitude",
-    "rico:length",
-    "rico:location",
-    "rico:longitude",
-    "rico:measure",
-    "rico:modificationDate",
-    "rico:name",
-    "rico:normalizedDateValue",
-    "rico:normalizedValue",
-    "rico:physicalCharacteristicsNote",
-    "rico:physicalOrLogicalExtent",
-    "rico:productionTechnique",
-    "rico:publicationDate",
-    "rico:qualityOfRepresentationNote",
-    "rico:quantity",
-    "rico:recordResourceExtent",
-    "rico:recordResourceStructure",
-    "rico:referenceSystem",
-    "rico:relationCertainty",
-    "rico:relationSource",
-    "rico:relationState",
-    "rico:ruleFollowed",
-    "rico:scopeAndContent",
-    "rico:structure",
-    "rico:technicalCharacteristics",
-    "rico:textualValue",
-    "rico:title",
-    "rico:type",
-    "rico:unitOfMeasurement",
-    "rico:usedFromDate",
-    "rico:usedToDate",
-    "rico:width"
-]
+def _ensure_declared_curie(curie: str, prefixes: dict[str, str], context: str) -> tuple[str, str]:
+    """Validate a CURIE string and ensure its prefix is declared."""
+    normalized = curie.strip()
+    if ':' not in normalized:
+        raise NotInKnownException(
+            f"{context} '{curie}' is not a CURIE; declare a prefix before use")
+    prefix, reference = normalized.split(':', 1)
+    prefix = prefix.strip()
+    reference = reference.strip()
+    if not prefix or not reference:
+        raise NotInKnownException(
+            f"{context} '{curie}' is not a valid CURIE")
+    if prefix not in prefixes:
+        raise NotInKnownException(
+            f"Prefix '{prefix}' is not declared for {context} '{curie}'")
+    return prefix, reference
+
+
+CURIE_VALUE_PATTERN = re.compile(r'([A-Za-z_][\w.-]*)\s*:(?!//)\s*([^\s,:<>()\[\]{}"\']+)')
+
+
+def _extract_prefix_candidates(text: str) -> set[str]:
+    """Return potential CURIE prefixes that appear in the provided text."""
+    return {match.group(1).strip() for match in CURIE_VALUE_PATTERN.finditer(text)}
 
 Blocks = dict[tuple[str, str], dict[str, set[str]]]
 Cell = Element
@@ -719,6 +221,7 @@ class Arrow:
     identifier: str
     source: str
     target: str
+    is_datatype_property: bool
 
 
 class NodeHTMLParser(HTMLParser):
@@ -1040,6 +543,9 @@ class DrawIOXMLTree:
         except KeyError:
             return False
 
+    def _cell_is_literal(self, cell: Element) -> bool:
+        return any(literal_cell is cell for literal_cell, _ in self.literal_cells)
+
     def _arrow_label(self, arrow_cell: Element) -> str:
         for cell in self._child_of(arrow_cell.attrib["id"]):
             try:
@@ -1081,10 +587,45 @@ class DrawIOXMLTree:
             if not cell_value:
                 self._add_arrow_if_find_label(cell)
                 continue
-            if not cell_value.split(":")[0] in self.prefixes.keys():
+
+            matches = []
+            for match in CURIE_VALUE_PATTERN.finditer(cell_value):
+                line_start = cell_value.rfind("\n", 0, match.start())
+                if line_start == -1:
+                    leading_segment = cell_value[:match.start()]
+                else:
+                    leading_segment = cell_value[line_start + 1:match.start()]
+                if leading_segment.strip():
+                    continue
+                colon_index = cell_value.find(':', match.start())
+                if colon_index != -1 and colon_index + 1 < len(cell_value):
+                    next_char = cell_value[colon_index + 1]
+                    if next_char == ' ' or next_char == '\t':
+                        continue
+                matches.append(match)
+            prefix_candidates = {match.group(1).strip() for match in matches}
+            unknown_prefixes = prefix_candidates - set(self.prefixes.keys())
+
+            if not matches:
                 if self._is_possible_literal(cell):
                     self.literal_cells.append((cell, self._dimensions(cell)))
                 continue
+
+            if unknown_prefixes and not self._is_possible_literal(cell):
+                unknown = sorted(unknown_prefixes)[0]
+                raise NotInKnownException(
+                    f"Prefix '{unknown}' is not declared for class "
+                    f"'{cell_value.strip()}'")
+
+            valid_matches = [
+                match for match in matches
+                if match.group(1).strip() in self.prefixes
+            ]
+            if not valid_matches:
+                if self._is_possible_literal(cell):
+                    self.literal_cells.append((cell, self._dimensions(cell)))
+                continue
+
             try:
                 parent = self._parent_of(cell)
                 individual_identifier = self._value_of(parent)
@@ -1102,19 +643,20 @@ class DrawIOXMLTree:
                 continue
             if not individual_identifier:
                 continue
-            for prefix in self.prefixes.keys():
-                for ric_class in cell_value.split(f"{prefix}:")[1:]:
-                    ric_class = f"{prefix}:" + ric_class.strip()
-                    _verify_is_ric_class(ric_class)
-                    individual = Individual(individual_identifier, ric_class)
-                    self.individual_cells.append(
-                        (cell, individual, self._dimensions(parent)))
-            #for ric_class in cell_value.split("rico:")[1:]:
-            #    ric_class = ric_class.strip()
-            #    _verify_is_ric_class(ric_class)
-            #    individual = Individual(individual_identifier, ric_class)
-            #    self.individual_cells.append(
-            #        (cell, individual, self._dimensions(parent)))
+
+            seen_classes = set()
+            for match in valid_matches:
+                prefix = match.group(1).strip()
+                local_part = match.group(2).strip()
+                curie_prefix, curie_reference = _ensure_declared_curie(
+                    f"{prefix}:{local_part}", self.prefixes, "class")
+                normalized_curie = f"{curie_prefix}:{curie_reference}"
+                if normalized_curie in seen_classes:
+                    continue
+                seen_classes.add(normalized_curie)
+                individual = Individual(individual_identifier, normalized_curie)
+                self.individual_cells.append(
+                    (cell, individual, self._dimensions(parent)))
 
     @staticmethod
     def _close_enough(
@@ -1209,8 +751,13 @@ class DrawIOXMLTree:
                     f"{arrow_cell.attrib['id']} seems to be an arrow, but its "
                     "target was not able to be determined"
                 ) from not_close_enough_exception
+        property_label = str(arrow_label.strip())
+        prop_prefix, prop_local = _ensure_declared_curie(
+            property_label, self.prefixes, "property")
+        property_identifier = f"{prop_prefix}:{prop_local}"
+        target_is_literal = self._cell_is_literal(target_cell)
         target = self._source_or_target(target_cell, False)
-        return Arrow(str(arrow_label.strip()), source, target)
+        return Arrow(property_identifier, source, target, target_is_literal)
 
     def individuals_and_arrows(
             self, strict_mode: bool, max_gap: float) -> Generator[
@@ -1224,11 +771,6 @@ class DrawIOXMLTree:
             yield individual
         for arrow_data in self.arrow_cells:
             yield self._arrow(arrow_data, strict_mode, max_gap)
-
-
-def _verify_is_ric_class(ric_class: str):
-    if not ric_class in _classes:
-        raise NotInKnownException(f"Not a known class: {ric_class}")
 
 
 def _handle_spaces(
@@ -1316,7 +858,8 @@ def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
         space_substitute: Replacement | None,
-        capitalisation_scheme: str) -> Blocks:
+        capitalisation_scheme: str,
+        prefixes: dict[str, str]) -> tuple[Blocks, PropertyTypes]:
     """
     Takes an iterator of Individual and Arrow instances, such as that outputted
     by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
@@ -1327,8 +870,10 @@ def individual_blocks(
     Individual instances with differing values for the 'class' variable).
     """
     blocks: Blocks = {}
+    property_types: PropertyTypes = {}
     for individual_or_arrow in individuals_and_arrows:
         if isinstance(individual_or_arrow, Individual):
+            _ensure_declared_curie(individual_or_arrow.ric_class, prefixes, "class")
             _add_individual_type(
                 blocks,
                 individual_or_arrow,
@@ -1336,18 +881,24 @@ def individual_blocks(
                 space_substitute,
                 capitalisation_scheme)
             continue
-        if individual_or_arrow.identifier in _object_properties:
+        _ensure_declared_curie(individual_or_arrow.identifier, prefixes, "property")
+        property_kind: PropertyType = (
+            "datatype" if individual_or_arrow.is_datatype_property else "object")
+        existing = property_types.get(individual_or_arrow.identifier)
+        if existing and existing != property_kind:
+            raise NotInKnownException(
+                f"Property '{individual_or_arrow.identifier}' is used as both "
+                "an object and datatype property")
+        property_types[individual_or_arrow.identifier] = property_kind
+
+        if property_kind == "object":
             target_identifier = _replace_metacharacters(
                 individual_or_arrow.target,
                 metacharacter_substitutes,
                 space_substitute,
                 capitalisation_scheme)
-        elif individual_or_arrow.identifier in _datatype_properties:
-            target_identifier = individual_or_arrow.target
         else:
-            raise NotInKnownException(
-                f"An arrow has label '{individual_or_arrow.identifier}', "
-                "which is not a known object property or datatype property")
+            target_identifier = individual_or_arrow.target
         source_identifier = _replace_metacharacters(
             individual_or_arrow.source,
             metacharacter_substitutes,
@@ -1363,10 +914,10 @@ def individual_blocks(
             block[individual_or_arrow.identifier].add(target_identifier)
         except KeyError:
             block[individual_or_arrow.identifier] = {target_identifier}
-    return blocks
+    return blocks, property_types
 
 
-def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig, prefixes: dict) -> Graph:
+def serialise_to_graph(blocks: Blocks, property_types: PropertyTypes, serialisation_config: SerialisationConfig, prefixes: dict[str, str]) -> Graph:
     g = Graph()
 
     # Bind prefixes
@@ -1385,18 +936,14 @@ def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig
         g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
         g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes['rico'])))
 
-    # Add property definitions
-    non_rico_object_properties = [prop for prop in _object_properties if not prop.startswith('rico:')]
-    for prop in non_rico_object_properties:
-        prop_prefix, prop_name = prop.split(":")
+    # Add property definitions for non-RiC prefixes discovered in the diagram
+    for prop, prop_type in property_types.items():
+        prop_prefix, prop_name = _ensure_declared_curie(prop, prefixes, "property")
+        if prop_prefix == 'rico':
+            continue
         prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-        g.add((prop_uri, RDF.type, OWL.ObjectProperty))
-
-    non_rico_datatype_properties = [prop for prop in _datatype_properties if not prop.startswith('rico:')]
-    for prop in non_rico_datatype_properties:
-        prop_prefix, prop_name = prop.split(":")
-        prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-        g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+        rdf_type = OWL.ObjectProperty if prop_type == "object" else OWL.DatatypeProperty
+        g.add((prop_uri, RDF.type, rdf_type))
 
     # Add individuals and their properties
     for (individual_id, individual_label), types_and_facts in blocks.items():
@@ -1420,36 +967,41 @@ def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig
 
         # Add label
         if serialisation_config.include_label:
-            g.add((individual_uri, RDFS.label, Literal(individual_label)))
+            g.add((individual_uri, RDFS.label, RDFLiteral(individual_label)))
 
         # Add facts
         for prop, values in types_and_facts.items():
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":")
+            prop_prefix, prop_name = _ensure_declared_curie(prop, prefixes, "property")
             prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_type = property_types.get(prop)
+
+            if prop_type is None:
+                raise NotInKnownException(
+                    f"Encountered property '{prop}' without a recorded type")
 
             for value in values:
-                if prop in _object_properties:
+                if prop_type == "object":
                     if prefix and prefix_iri:
                         target_uri = Namespace(prefix_iri)[value]
                     else:
                         base_uri = prefix_iri or "https://example.com/id/"
                         target_uri = URIRef(f"{base_uri}{value}")
                     g.add((individual_uri, prop_uri, target_uri))
-                elif prop in _datatype_properties:
+                else:
                     # Simplified type inference
-                    if isinstance(value, int) or value.isnumeric():
-                        literal_value = Literal(value, datatype=XSD.integer)
+                    if isinstance(value, int) or (isinstance(value, str) and value.isnumeric()):
+                        literal_value = RDFLiteral(value, datatype=XSD.integer)
                     elif isinstance(value, float):
-                        literal_value = Literal(value, datatype=XSD.float)
+                        literal_value = RDFLiteral(value, datatype=XSD.float)
                     else:
                         try:
                             datetime.strptime(value, "%Y-%m-%d")
-                            literal_value = Literal(value, datatype=XSD.date)
+                            literal_value = RDFLiteral(value, datatype=XSD.date)
                         except (ValueError, TypeError):
-                            literal_value = Literal(value)
+                            literal_value = RDFLiteral(value)
                     g.add((individual_uri, prop_uri, literal_value))
 
     return g
@@ -1575,13 +1127,14 @@ def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> Graph:
     metacharacter_substitutes = list(_parse_metacharacter_substitutes(config_args['metacharacter_substitute']))
 
     draw_io_xml_tree = DrawIOXMLTree(raw_xml, prefixes)
-    blocks = individual_blocks(
+    blocks, property_types = individual_blocks(
         draw_io_xml_tree.individuals_and_arrows(config_args['strict_mode'], config_args['max_gap']),
         metacharacter_substitutes,
         space_substitute,
-        config_args['capitalisation_scheme'])
+        config_args['capitalisation_scheme'],
+        prefixes)
 
-    return serialise_to_graph(blocks, serialisation_config, prefixes)
+    return serialise_to_graph(blocks, property_types, serialisation_config, prefixes)
 
 
 def _arguments_parser():
@@ -1775,11 +1328,12 @@ def _run(args=None) -> None:
         sys_exit(f"{exception}")
 
     try:
-        blocks = individual_blocks(
+        blocks, property_types = individual_blocks(
             draw_io_xml_tree.individuals_and_arrows(strict_mode, max_gap),
             metacharacter_substitutes,
             space_substitute,
-            capitalisation_scheme)
+            capitalisation_scheme,
+            prefixes)
     except NoSourceException as exception:
         if arguments.strict_mode:
             message = (
@@ -1802,7 +1356,7 @@ def _run(args=None) -> None:
             MetacharacterException) as exception:
         sys_exit(f"{exception}")
 
-    graph = serialise_to_graph(blocks, serialisation_config, prefixes)
+    graph = serialise_to_graph(blocks, property_types, serialisation_config, prefixes)
     print(graph.serialize(format="turtle"))
 
 
