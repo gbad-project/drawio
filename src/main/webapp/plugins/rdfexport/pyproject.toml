@@ -12,3 +12,8 @@ dependencies = [
 dev = [
     "ruff>=0.14.0",
 ]
+
+[tool.ruff]
+exclude = [
+    "legacy/map_schema.py",
+]
