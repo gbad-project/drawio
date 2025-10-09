@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
 import { join, extname, basename } from "path";
+import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
 
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
@@ -1181,3 +1182,125 @@ test(
     .toBe(true);
   },
 );
+
+
+test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
+  const baseFixturePath = join(
+    fixturesDir,
+    "AA37 Department of Health.drawio",
+  );
+  const expectedFixturePath = join(
+    fixturesDir,
+    "AA37 Department of Health-with-metadata.drawio",
+  );
+
+  const baseContent = readFileSync(baseFixturePath, "utf8");
+  const expectedContent = readFileSync(expectedFixturePath, "utf8");
+
+  const patchedContent = patchDrawioWithMetadata(baseContent, {
+    label: "",
+    csvPath: "/mock/path/to/file.csv",
+    baseUri: "http://mock-base-uri.com",
+    preamble: [
+      {
+        rdfPrefix: "mock1",
+        rdfIRI: "http://mock-iri-ns.org",
+      },
+    ],
+  });
+
+  const parser = new DOMParser({
+    errorHandler: {
+      error(message: string) {
+        throw new Error(message);
+      },
+    },
+  });
+
+  const parseXml = (xml: string): Document => {
+    const doc = parser.parseFromString(xml, "application/xml");
+    if (doc.getElementsByTagName("parsererror").length > 0) {
+      throw new Error("Failed to parse DrawIO XML");
+    }
+    return doc;
+  };
+
+  const selectAttributes = (
+    element: Element,
+    names: string[],
+  ): Record<string, string> => {
+    const snapshot: Record<string, string> = {};
+    for (const name of names) {
+      const value = element.getAttribute(name);
+      if (value != null) {
+        snapshot[name] = value;
+      }
+    }
+    return snapshot;
+  };
+
+  const snapshotDocument = (xml: string) => {
+    const doc = parseXml(xml);
+
+    const mxfile = doc.getElementsByTagName("mxfile").item(0);
+    if (!mxfile) {
+      throw new Error("DrawIO document missing <mxfile>");
+    }
+
+    const graphModel = doc.getElementsByTagName("mxGraphModel").item(0);
+    if (!graphModel) {
+      throw new Error("DrawIO document missing <mxGraphModel>");
+    }
+
+    const root = doc.getElementsByTagName("root").item(0);
+    if (!root) {
+      throw new Error("DrawIO document missing <root>");
+    }
+
+    const metadata = Array.from(root.childNodes).find((node) => {
+      return node.nodeType === node.ELEMENT_NODE && node.nodeName === "UserObject";
+    });
+
+    const metadataSnapshot = metadata
+      ? (() => {
+          const element = metadata as Element;
+          const entries = Array.from(element.childNodes).filter((node) => {
+            return (
+              node.nodeType === node.ELEMENT_NODE &&
+              node.nodeName === "userObjectPreambleElement"
+            );
+          });
+
+          return {
+            attributes: selectAttributes(element, ["label", "csvPath", "baseUri"]),
+            preamble: entries.map((entry) => {
+              const child = entry as Element;
+              return selectAttributes(child, ["rdfPrefix", "rdfIRI"]);
+            }),
+          };
+        })()
+      : null;
+
+    return {
+      mxfile: selectAttributes(mxfile as Element, [
+        "host",
+        "agent",
+        "version",
+        "etag",
+        "modified",
+        "type",
+      ]),
+      graphModel: selectAttributes(graphModel as Element, ["dx", "dy"]),
+      metadata: metadataSnapshot,
+    };
+  };
+
+  const baseSnapshot = snapshotDocument(baseContent);
+  const expectedSnapshot = snapshotDocument(expectedContent);
+  const patchedSnapshot = snapshotDocument(patchedContent);
+
+  expect(baseSnapshot.metadata).toBeNull();
+  expect(patchedSnapshot.metadata).toEqual(expectedSnapshot.metadata);
+  expect(patchedSnapshot.mxfile).toEqual(baseSnapshot.mxfile);
+  expect(patchedSnapshot.graphModel).toEqual(baseSnapshot.graphModel);
+});
