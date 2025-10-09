@@ -10,7 +10,7 @@ The system preserves all legacy functionality while adding optional support for 
 
 A Node-compatible Pyodide build (run under Bun + Volta) provides a fully local, testable environment for executing and debugging Python code within TypeScript. Robust logging, incremental integration, and fine-grained test coverage (via Bun and pytest) ensure a stable, transparent, and extensible foundation for RDF data transformation directly within the DrawIO extension.
 
-Historical context (feat/rml branch milestones): the branch introduced the custom RDF/XML export plugin, followed by CSV path controls and deterministic regression fixtures (`1e4582a` → `5d2b0fb`). Subsequent merges added metadata-aware parser flows, reproducible baseline generators, and the mock black box annotated save path (through commits such as `f2034d1`, `a28a81a`, `gpt-5-codex` task reports). Task 3 remains unimplemented across the branch history.
+Historical context (feat/rml branch milestones): the branch introduced the custom RDF/XML export plugin, followed by CSV path controls and deterministic regression fixtures (`1e4582a` → `5d2b0fb`). Subsequent merges added metadata-aware parser flows, reproducible baseline generators, and the mock black box annotated save path (through commits such as `f2034d1`, `a28a81a`, `gpt-5-codex` task reports). To be updated.
 
 ⸻
 
@@ -19,7 +19,7 @@ Contributor Guidelines
 - Take the first unimplemented task from the list below (if no status is indicated, assume it has not been implemented yet).
 - Stick to your selected task. Going sideways to contribute to another task in passing is discouraged. If you desperately feel the urge to, you may leave a comment marking it as one of: AICODE-TODO (an unidentified task emerged), AICODE-ASK (stakeholder input is requested), AICODE-NOTE (important but no action requested).
 - Once the task is completed and all planned tests pass, document all your efforts extensively under "docs/aicode/{your-name}-report-{timestamp}.md". Also, update the task status here in AGENTS.md. Finally, update the task status summary below.
-- Keep tooling aligned with the historical workflow captured in the codex reports: install JavaScript dependencies with `bun install`, provision Python packages via `bun run uv`, exercise Bun coverage with `bun test`, and rely on `src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py` (or its `run_regeneration.sh` wrapper) when fixture baselines must be refreshed.
+- Keep tooling aligned with the historical workflow captured in the codex reports: install JavaScript dependencies with `bun install`, provision Python packages via `bun run uv`, exercise Bun coverage with `bun run test`.
 
 ⸻
 
