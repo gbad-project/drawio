@@ -41,17 +41,26 @@ from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator
-from xml.etree.ElementTree import Element, fromstring
-from typing import Optional
+from typing import Generator, Iterator, Optional, Dict, Any, Type
+from copy import deepcopy
+from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
 import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
+BASE_URI = os.getenv('BASE_URI', 'https://example.com')
+PREFIX_IRI = os.getenv('PREFIX_IRI', 'https://example.com/id/')
+
+class DrawioParserGraph(Graph):
+    """Graph subclass that records Draw.io specific metadata."""
+
+    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.csv_path = csv_path
+
 def get_prefixes():
-    BASE_URI = os.getenv('BASE_URI', 'https://example.com')
     return {
         'rico': 'https://www.ica.org/standards/RiC/ontology#',
         'add': f'{BASE_URI}/Schema/Description-Listings/',
@@ -59,6 +68,61 @@ def get_prefixes():
         'owl': 'http://www.w3.org/2002/07/owl#',
         'rdfs': 'http://www.w3.org/2000/01/rdf-schema#'
     }
+
+
+def _extract_drawio_metadata(
+        raw_xml: str) -> tuple[
+            dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+    """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+    try:
+        root = fromstring(raw_xml)
+    except Exception:  # pragma: no cover - defensive guard around XML parsing
+        return {}, None, None, None
+
+    metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+    if metadata_node is None:
+        return {}, None, None, root
+
+    csv_path_raw = metadata_node.attrib.get('csvPath', '')
+    base_uri_raw = metadata_node.attrib.get('baseUri', '')
+
+    csv_path = csv_path_raw.strip() or None
+    base_uri = base_uri_raw.strip() or None
+
+    prefixes: dict[str, str] = {}
+    for preamble in metadata_node.findall('userObjectPreambleElement'):
+        prefix = (preamble.attrib.get('rdfPrefix') or '').strip()
+        iri = (preamble.attrib.get('rdfIRI') or '').strip()
+        if prefix and iri:
+            prefixes[prefix] = iri
+
+    return prefixes, base_uri, csv_path, root
+
+
+def _strip_metadata_user_object(
+        raw_xml: str,
+        root: Optional[Element]) -> str:
+    if root is None:
+        return raw_xml
+
+    working_root = deepcopy(root)
+    graph_root = working_root.find(".//mxGraphModel/root")
+    if graph_root is None:
+        return raw_xml
+
+    metadata_node = graph_root.find("UserObject[@id='0']")
+    if metadata_node is None:
+        return raw_xml
+
+    replacement = Element('mxCell', {'id': '0'})
+    children = list(graph_root)
+    for index, child in enumerate(children):
+        if child is metadata_node:
+            graph_root.remove(metadata_node)
+            graph_root.insert(index, replacement)
+            break
+
+    return tostring(working_root, encoding='unicode')
 
 def _split_curie(curie: str) -> tuple[str, str]:
     if ':' not in curie:
@@ -875,12 +939,15 @@ def serialise_to_graph(
         object_properties: set[str],
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
-        prefixes: dict) -> Graph:
-    g = Graph()
+        prefixes: dict,
+        graph_cls: Type[Graph] = Graph,
+        graph_kwargs: Optional[Dict[str, Any]] = None) -> Graph:
+    graph_kwargs = graph_kwargs or {}
+    g = graph_cls(**graph_kwargs)
 
     # Bind prefixes
     for prefix, uri in prefixes.items():
-        g.bind(prefix, Namespace(uri))
+        g.bind(prefix, Namespace(uri), replace=True)
     if serialisation_config.prefix:
         g.bind(serialisation_config.prefix, Namespace(serialisation_config.prefix_iri or f"{serialisation_config.ontology_iri}#"))
 
@@ -915,7 +982,7 @@ def serialise_to_graph(
             individual_uri = Namespace(prefix_iri)[individual_id]
         else:
             # Fallback to a default base URI if no prefix is defined
-            base_uri = prefix_iri or "https://example.com/id/"
+            base_uri = prefix_iri or PREFIX_IRI
             individual_uri = URIRef(f"{base_uri}{individual_id}")
 
         g.add((individual_uri, RDF.type, OWL.NamedIndividual))
@@ -942,7 +1009,7 @@ def serialise_to_graph(
                     if prefix and prefix_iri:
                         target_uri = Namespace(prefix_iri)[value]
                     else:
-                        base_uri = prefix_iri or "https://example.com/id/"
+                        base_uri = prefix_iri or PREFIX_IRI
                         target_uri = URIRef(f"{base_uri}{value}")
                     g.add((individual_uri, prop_uri, target_uri))
                 elif prop in datatype_properties:
@@ -1047,9 +1114,61 @@ def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
             "-c/--capitalisation-scheme option for the permitted values")
 
 
-def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> Graph:
+def _build_graph_from_raw_xml(
+        raw_xml: str,
+        config_args: dict[str, Any]) -> DrawioParserGraph:
+    metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
+        raw_xml)
+    prefixes = get_prefixes()
+    prefixes.update(metadata_prefixes)
+
+    working_xml = _strip_metadata_user_object(raw_xml, parsed_root)
+
+    serialisation_config = SerialisationConfig(
+        infer_type_of_literals=config_args['infer_type_of_literals'],
+        include_preamble=config_args['include_preamble'],
+        ontology_iri=config_args['ontology_iri'],
+        prefix=config_args['prefix'],
+        prefix_iri=config_args['prefix_iri'],
+        indentation=config_args['indentation'],
+        include_label=config_args['include_label'])
+
+    space_substitute = _parse_space_substitute(
+        config_args['metacharacter_substitute'])
+    metacharacter_substitutes = list(_parse_metacharacter_substitutes(
+        config_args['metacharacter_substitute']))
+
+    _parse_capitalisation_scheme(config_args['capitalisation_scheme'])
+
+    draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+    blocks, object_properties, datatype_properties = individual_blocks(
+        draw_io_xml_tree.individuals_and_arrows(
+            config_args['strict_mode'],
+            config_args['max_gap']),
+        metacharacter_substitutes,
+        space_substitute,
+        config_args['capitalisation_scheme'],
+        prefixes)
+
+    graph = serialise_to_graph(
+        blocks,
+        object_properties,
+        datatype_properties,
+        serialisation_config,
+        prefixes,
+        graph_cls=DrawioParserGraph,
+        graph_kwargs={'csv_path': csv_path})
+
+    if base_uri:
+        graph.base = base_uri
+        graph.namespace_manager.bind('', Namespace(base_uri), replace=True)
+
+    return graph
+
+
+def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawioParserGraph:
     """
-    Parses a draw.io file and returns an rdflib.Graph.
+    Parses a draw.io file and returns a DrawioParserGraph with metadata.
     """
     with open(drawio_file_path, "r", encoding="utf-8") as f:
         raw_xml = f.read()
@@ -1069,35 +1188,7 @@ def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> Graph:
         'capitalisation_scheme': DEFAULT_CAPITALISATION_SCHEME,
     }
     config_args.update(kwargs)
-
-    prefixes = get_prefixes()
-
-    serialisation_config = SerialisationConfig(
-        infer_type_of_literals=config_args['infer_type_of_literals'],
-        include_preamble=config_args['include_preamble'],
-        ontology_iri=config_args['ontology_iri'],
-        prefix=config_args['prefix'],
-        prefix_iri=config_args['prefix_iri'],
-        indentation=config_args['indentation'],
-        include_label=config_args['include_label'])
-
-    space_substitute = _parse_space_substitute(config_args['metacharacter_substitute'])
-    metacharacter_substitutes = list(_parse_metacharacter_substitutes(config_args['metacharacter_substitute']))
-
-    draw_io_xml_tree = DrawIOXMLTree(raw_xml, prefixes)
-    blocks, object_properties, datatype_properties = individual_blocks(
-        draw_io_xml_tree.individuals_and_arrows(config_args['strict_mode'], config_args['max_gap']),
-        metacharacter_substitutes,
-        space_substitute,
-        config_args['capitalisation_scheme'],
-        prefixes)
-
-    return serialise_to_graph(
-        blocks,
-        object_properties,
-        datatype_properties,
-        serialisation_config,
-        prefixes)
+    return _build_graph_from_raw_xml(raw_xml, config_args)
 
 
 def _arguments_parser():
@@ -1252,51 +1343,35 @@ def _run(args=None) -> None:
     parser = _arguments_parser()
     arguments = parser.parse_args(args)
 
-    serialisation_config = SerialisationConfig(
-        infer_type_of_literals=not arguments.infer_types_disable,
-        include_preamble=not arguments.preamble_disable,
-        ontology_iri=arguments.ontology_iri,
-        prefix=arguments.prefix,
-        prefix_iri=arguments.prefix_iri,
-        indentation=arguments.indentation,
-        include_label=not arguments.label_disable)
-
-    max_gap = arguments.max_gap
-    strict_mode = arguments.strict_mode
     capitalisation_scheme = arguments.capitalisation_scheme
 
-    try:
-        space_substitute = _parse_space_substitute(
-            arguments.metacharacter_substitute)
-        metacharacter_substitutes = list(_parse_metacharacter_substitutes(
-            arguments.metacharacter_substitute))
-        _parse_capitalisation_scheme(capitalisation_scheme)
-    except (
-            _MetacharacterSubstituteParseException,
-            _InvalidCapitalisationSchemeException) as exception:
-        sys_exit(f"{exception}")
+    config_args = {
+        'infer_type_of_literals': not arguments.infer_types_disable,
+        'include_preamble': not arguments.preamble_disable,
+        'ontology_iri': arguments.ontology_iri,
+        'prefix': arguments.prefix,
+        'prefix_iri': arguments.prefix_iri,
+        'indentation': arguments.indentation,
+        'include_label': not arguments.label_disable,
+        'max_gap': arguments.max_gap,
+        'strict_mode': arguments.strict_mode,
+        'metacharacter_substitute': arguments.metacharacter_substitute,
+        'capitalisation_scheme': capitalisation_scheme,
+    }
 
     if arguments.file:
         raw_xml = arguments.file.read()
     else:
         raw_xml = stdin.read()
 
-    prefixes = get_prefixes()
-
     try:
-        draw_io_xml_tree = DrawIOXMLTree(raw_xml, prefixes)
+        graph = _build_graph_from_raw_xml(raw_xml, config_args)
     except NothingToParseException:
         sys_exit("The draw IO XML graph passed in appears to be empty")
-    except NotInKnownException as exception:
+    except (
+            _MetacharacterSubstituteParseException,
+            _InvalidCapitalisationSchemeException) as exception:
         sys_exit(f"{exception}")
-
-    try:
-        blocks, object_properties, datatype_properties = individual_blocks(
-            draw_io_xml_tree.individuals_and_arrows(strict_mode, max_gap),
-            metacharacter_substitutes,
-            space_substitute,
-            capitalisation_scheme,
-            prefixes)
     except NoSourceException as exception:
         if arguments.strict_mode:
             message = (
@@ -1319,12 +1394,6 @@ def _run(args=None) -> None:
             MetacharacterException) as exception:
         sys_exit(f"{exception}")
 
-    graph = serialise_to_graph(
-        blocks,
-        object_properties,
-        datatype_properties,
-        serialisation_config,
-        prefixes)
     print(graph.serialize(format="turtle"))
 
 
