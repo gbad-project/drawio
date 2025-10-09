@@ -13,7 +13,7 @@
 - Generated `.nt` baselines for every pristine `.drawio` fixture (skipping legacy failures) using the unmodified parser prior to refactor for regression purposes.
 
 ## Testing
-- `pytest src/main/webapp/plugins/rdfexport/legacy/tests/test_curie_validation.py`
+- `pytest src/main/webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py`
 
 ## Outstanding Questions / Follow-ups
 - Consider extending prefix acquisition beyond the static `get_prefixes()` helper once metadata-driven prefix injection (Task 2b) is implemented.

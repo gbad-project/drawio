@@ -16,7 +16,7 @@ REPO_ROOT = Path(__file__).resolve().parents[5]
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
-TEST_PATH = LEGACY_DIR / "tests" / "test_curie_validation.py"
+TEST_PATH = LEGACY_DIR / "tests" / "test_patched_parser.py"
 PARSER_RELATIVE_PATH = Path("src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py")
 
 

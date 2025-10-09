@@ -10,7 +10,7 @@
 
 ## Testing
 - `pip install rdflib`
-- `pytest src/main/webapp/plugins/rdfexport/legacy/tests/test_curie_validation.py`
+- `pytest src/main/webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py`
 - `bun run test`
 
 ## Notes
