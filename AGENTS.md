@@ -59,6 +59,8 @@ Testing (TypeScript / DrawIO Extension – Bun)
 
 ## **Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser**
 
+Status: ✅ Completed on 2025-10-09 by gpt-5-codex
+
 **Goal**
 Refactor the DrawIO parser to eliminate hardcoded lists of allowed **classes**, **object properties**, and **datatype properties**.
 The parser must instead accept any CURIE whose prefix exists in the parsed prefix–IRI mapping.
