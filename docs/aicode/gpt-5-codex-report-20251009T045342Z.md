@@ -26,3 +26,11 @@
 
 ## Additional Testing
 - `python src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py --max-commits 50`
+
+## Baseline Regeneration Script Invocation (2025-10-09)
+- Added a convenience shell wrapper `run_regeneration.sh` under `src/main/webapp/plugins/rdfexport/legacy/tests/` that invokes the reproducible baseline helper with the requested commit, window, and overwrite flags.
+- Attempted to execute the wrapper to confirm behaviour; execution failed because the sandbox image does not include the `rdflib` dependency required by `regenerate_baselines.py`.
+- Left the failure details in the execution log so downstream runs can install dependencies or supply a virtual environment before rerunning the helper.
+
+## Additional Testing
+- `src/main/webapp/plugins/rdfexport/legacy/tests/run_regeneration.sh`
