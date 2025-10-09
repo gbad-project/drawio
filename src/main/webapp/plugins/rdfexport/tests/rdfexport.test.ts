@@ -36,7 +36,11 @@ async function loadPluginModule(): Promise<RdfExportModule> {
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
 }
-import { debugPyodide, runMockBlackBox } from "../src/mockBlackBox";
+import {
+  debugPyodide,
+  runMockBlackBox,
+  type DrawioParserResult,
+} from "../src/mockBlackBox";
 
 type EventHandler = (event: any) => void;
 
@@ -739,17 +743,28 @@ const resourceBundle: Record<string, string> = {};
 };
 
 test(
-  "runMockBlackBox annotates serialized XML",
+  "runMockBlackBox returns DrawIO parser summary",
   async () => {
-    const pluginModule = await loadPluginModule();
-    const sample = "<rdf/>";
-    const output = await runMockBlackBox(sample);
+    await loadPluginModule();
+    const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
+    const sampleXml = await Bun.file(fixturePath).text();
+    const output = await runMockBlackBox(sampleXml);
 
     expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
-    expect(output).toContain(`mock:${sample}`);
     expect(output.trim().endsWith("[/BLACKBOX]")).toBe(true);
+
+    const summaryJson = output
+      .replace(/^[^\n]*\n/, "")
+      .replace(/\n\[\/BLACKBOX\]\s*$/, "");
+    const summary = JSON.parse(summaryJson) as DrawioParserResult;
+
+    expect(summary.graphId).toMatch(/^graph-\d+$/);
+    expect(summary.tripleCount).toBeGreaterThan(0);
+    expect(summary.namespaces.some((entry) => entry.prefix === "rico")).toBe(
+      true,
+    );
   },
-  { timeout: 30000 },
+  { timeout: 60000 },
 );
 
 test("debugPyodide evaluates Python expressions", async () => {
@@ -767,7 +782,7 @@ test("compiled rdfexport plugin bundle includes CSV property hook", async () => 
   expect(scriptContents).toContain("__rdfexportPreambleAttached");
 });
 
-function runRdfExportTest(fixtureFile: string, sampleFile: string) {
+function runRdfExportTest(fixtureFile: string, _baselineFile: string) {
   test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
     const pluginModule = await loadPluginModule();
 
@@ -865,8 +880,8 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     expect(mimeType).toBe("application/rdf+xml");
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
-    const referenceRdf = readFileSync(join(fixturesDir, sampleFile), "utf-8");
-    const expected = await runMockBlackBox(referenceRdf);
+    const referenceXml = mxUtils.getPrettyXml(graphModel);
+    const expected = await runMockBlackBox(referenceXml);
 
     const md5 = createHash("md5").update(data).digest("hex");
     const refMd5 = createHash("md5").update(expected).digest("hex");
@@ -1203,7 +1218,12 @@ test("rdfexport plugin exposes preamble controls and diagram properties", async 
   }
   expect(model.listenerCount()).toBe(0);
 
-  const preview = await runMockBlackBox("test");
+  const previewFixturePath = join(
+    fixturesDir,
+    "AA37 Department of Health.drawio",
+  );
+  const previewXml = await Bun.file(previewFixturePath).text();
+  const preview = await runMockBlackBox(previewXml);
   expect(preview.startsWith("[BLACKBOX]")).toBe(true);
 });
 
