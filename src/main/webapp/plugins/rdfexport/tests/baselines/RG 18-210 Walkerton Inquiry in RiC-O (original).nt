@@ -1,0 +1,187 @@
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/ActsStudiesRG18-210-9-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ActsStudiesRG18-210-9-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ActsStudiesRG18-210-9-1> <http://www.w3.org/2000/01/rdf-schema#label> "Acts / Studies  (RG 18-210-9-1)" .
+<https://example.com/id/ActsStudiesRG18-210-9-1> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/File> .
+<https://example.com/id/AdministrativeFilesOfTheWalkertonInquiryRG18-210-10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/AdministrativeFilesOfTheWalkertonInquiryRG18-210-10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/AdministrativeFilesOfTheWalkertonInquiryRG18-210-10> <http://www.w3.org/2000/01/rdf-schema#label> "Administrative files of the Walkerton Inquiry   (RG 18-210-10)" .
+<https://example.com/id/AdministrativeFilesOfTheWalkertonInquiryRG18-210-10> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/AdverseWaterIncidenceReportsRG18-210-9-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/AdverseWaterIncidenceReportsRG18-210-9-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/AdverseWaterIncidenceReportsRG18-210-9-2> <http://www.w3.org/2000/01/rdf-schema#label> "Adverse Water incidence reports   (RG 18-210-9-2)" .
+<https://example.com/id/AdverseWaterIncidenceReportsRG18-210-9-2> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/File> .
+<https://example.com/id/AgendasSubmissionsAndTranscriptsForThePublicAndTownHallMeetingsOfPartTwoOfTheWalkertonInquiryRG18-210-6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/AgendasSubmissionsAndTranscriptsForThePublicAndTownHallMeetingsOfPartTwoOfTheWalkertonInquiryRG18-210-6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/AgendasSubmissionsAndTranscriptsForThePublicAndTownHallMeetingsOfPartTwoOfTheWalkertonInquiryRG18-210-6> <http://www.w3.org/2000/01/rdf-schema#label> "Agendas, submissions and transcripts for the public and town hall meetings   of Part Two of the Walkerton Inquiry (RG 18-210-6)" .
+<https://example.com/id/AgendasSubmissionsAndTranscriptsForThePublicAndTownHallMeetingsOfPartTwoOfTheWalkertonInquiryRG18-210-6> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/ArchivesOfOntarioON00009> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ArchivesOfOntarioON00009> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/ArchivesOfOntarioON00009> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/ArchivesOfOntarioON00009> <http://www.w3.org/2000/01/rdf-schema#label> "Archives of Ontario (ON00009)" .
+<https://example.com/id/Bytes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Bytes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#UnitOfMeasurement> .
+<https://example.com/id/Bytes> <http://www.w3.org/2000/01/rdf-schema#label> "Bytes" .
+<https://example.com/id/ClosingOfWalkertonInquiry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ClosingOfWalkertonInquiry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Event> .
+<https://example.com/id/ClosingOfWalkertonInquiry> <http://www.w3.org/2000/01/rdf-schema#label> "Closing of Walkerton Inquiry" .
+<https://example.com/id/ClosingOfWalkertonInquiry> <https://www.ica.org/standards/RiC/ontology#occurredAtDate> <https://example.com/id/May232002> .
+<https://example.com/id/CommissionedIssuePapersPreparedForPartTwoOfTheWalkertonInquiryRG18-210-7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/CommissionedIssuePapersPreparedForPartTwoOfTheWalkertonInquiryRG18-210-7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/CommissionedIssuePapersPreparedForPartTwoOfTheWalkertonInquiryRG18-210-7> <http://www.w3.org/2000/01/rdf-schema#label> "Commissioned issue papers prepared for Part Two of the Walkerton Inquiry   (RG 18-210-7)" .
+<https://example.com/id/CommissionedIssuePapersPreparedForPartTwoOfTheWalkertonInquiryRG18-210-7> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/Commissioner> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Commissioner> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Position> .
+<https://example.com/id/Commissioner> <http://www.w3.org/2000/01/rdf-schema#label> "Commissioner" .
+<https://example.com/id/DennisROConnor> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/DennisROConnor> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/DennisROConnor> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<https://example.com/id/DennisROConnor> <http://www.w3.org/2000/01/rdf-schema#label> "Dennis R. O'Connor" .
+<https://example.com/id/DennisROConnor> <https://www.ica.org/standards/RiC/ontology#authorizedBy> <https://example.com/id/OrderInCouncil11702000> .
+<https://example.com/id/DennisROConnor> <https://www.ica.org/standards/RiC/ontology#occupiesOrOccupied> <https://example.com/id/Commissioner> .
+<https://example.com/id/EstablishmentOfWalkertonInquiry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/EstablishmentOfWalkertonInquiry> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Event> .
+<https://example.com/id/EstablishmentOfWalkertonInquiry> <http://www.w3.org/2000/01/rdf-schema#label> "Establishment of Walkerton Inquiry" .
+<https://example.com/id/EstablishmentOfWalkertonInquiry> <https://www.ica.org/standards/RiC/ontology#occurredAtDate> <https://example.com/id/June132000> .
+<https://example.com/id/ExhibitsForPartOneHearingsOfTheWalkertonInquiryRG18-210-3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ExhibitsForPartOneHearingsOfTheWalkertonInquiryRG18-210-3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ExhibitsForPartOneHearingsOfTheWalkertonInquiryRG18-210-3> <http://www.w3.org/2000/01/rdf-schema#label> "Exhibits for Part One hearings of the Walkerton Inquiry   (RG 18-210-3)" .
+<https://example.com/id/ExhibitsForPartOneHearingsOfTheWalkertonInquiryRG18-210-3> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/File> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/File> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/File> <http://www.w3.org/2000/01/rdf-schema#label> "File" .
+<https://example.com/id/FileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/FileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ExtentType> .
+<https://example.com/id/FileSize> <http://www.w3.org/2000/01/rdf-schema#label> "File Size" .
+<https://example.com/id/FilesRelatingToParticipantsInPartTwoOfTheWalkertonInquiryRG18-210-8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/FilesRelatingToParticipantsInPartTwoOfTheWalkertonInquiryRG18-210-8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/FilesRelatingToParticipantsInPartTwoOfTheWalkertonInquiryRG18-210-8> <http://www.w3.org/2000/01/rdf-schema#label> "Files relating to participants in Part Two of the Walkerton Inquiry   (RG 18-210-8)" .
+<https://example.com/id/FilesRelatingToParticipantsInPartTwoOfTheWalkertonInquiryRG18-210-8> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/GeneralSubmissionsToTheWalkertonInquiryRG18-210-5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/GeneralSubmissionsToTheWalkertonInquiryRG18-210-5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/GeneralSubmissionsToTheWalkertonInquiryRG18-210-5> <http://www.w3.org/2000/01/rdf-schema#label> "General submissions to the Walkerton Inquiry   (RG 18-210-5)" .
+<https://example.com/id/GeneralSubmissionsToTheWalkertonInquiryRG18-210-5> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/IncomingCorrespondenceFilesOfTheWalkertonInquiryRG18-210-11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/IncomingCorrespondenceFilesOfTheWalkertonInquiryRG18-210-11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/IncomingCorrespondenceFilesOfTheWalkertonInquiryRG18-210-11> <http://www.w3.org/2000/01/rdf-schema#label> "Incoming correspondence files of the Walkerton Inquiry   (RG 18-210-11)" .
+<https://example.com/id/IncomingCorrespondenceFilesOfTheWalkertonInquiryRG18-210-11> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/June132000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/June132000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/June132000> <http://www.w3.org/2000/01/rdf-schema#label> "June 13, 2000" .
+<https://example.com/id/June132000> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2000-06-13"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/May122000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/May122000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/May122000> <http://www.w3.org/2000/01/rdf-schema#label> "May 12, 2000" .
+<https://example.com/id/May122000> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2000-05-12"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/May232002> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/May232002> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/May232002> <http://www.w3.org/2000/01/rdf-schema#label> "May 23, 2002" .
+<https://example.com/id/May232002> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2002-05-23"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/May242000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/May242000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/May242000> <http://www.w3.org/2000/01/rdf-schema#label> "May 24, 2000" .
+<https://example.com/id/May242000> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2000-05-24"^^<http://www.w3.org/2001/XMLSchema#date> .
+<https://example.com/id/OrderInCouncil11702000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/OrderInCouncil11702000> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Mandate> .
+<https://example.com/id/OrderInCouncil11702000> <http://www.w3.org/2000/01/rdf-schema#label> "Order in Council 1170/2000" .
+<https://example.com/id/OrderInCouncil11702000> <https://www.ica.org/standards/RiC/ontology#hasOrHadMandateType> <https://example.com/id/OrderInCouncil> .
+<https://example.com/id/OrderInCouncil11702000> <https://www.ica.org/standards/RiC/ontology#regulatesOrRegulated> <https://example.com/id/Commissioner> .
+<https://example.com/id/OrderInCouncil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/OrderInCouncil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#MandateType> .
+<https://example.com/id/OrderInCouncil> <http://www.w3.org/2000/01/rdf-schema#label> "Order in Council" .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <http://www.w3.org/2000/01/rdf-schema#label> "Records of the Walkerton Inquiry (RG 18-210)" .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/WalkertonInquiryBA619> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#hasOrHadHolder> <https://example.com/id/ArchivesOfOntarioON00009> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Series> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/AdministrativeFilesOfTheWalkertonInquiryRG18-210-10> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/AgendasSubmissionsAndTranscriptsForThePublicAndTownHallMeetingsOfPartTwoOfTheWalkertonInquiryRG18-210-6> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/CommissionedIssuePapersPreparedForPartTwoOfTheWalkertonInquiryRG18-210-7> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/ExhibitsForPartOneHearingsOfTheWalkertonInquiryRG18-210-3> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/FilesRelatingToParticipantsInPartTwoOfTheWalkertonInquiryRG18-210-8> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/GeneralSubmissionsToTheWalkertonInquiryRG18-210-5> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/IncomingCorrespondenceFilesOfTheWalkertonInquiryRG18-210-11> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/ReferenceDatabaseOfTheWalkertonInquiryRG18-210-2> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/SearchWarrantsForTheWalkertonInquiryRG18-210-12> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/TranscriptsOfPartOneHearingsOfTheWalkertonInquiryRG18-210-4> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/WebsiteOfTheWalkertonInquiryRG18-210-1> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithEvent> <https://example.com/id/WalkertonEColiOutbreak> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithPlace> <https://example.com/id/WalkertonOntario> .
+<https://example.com/id/RecordsOfTheWalkertonInquiryRG18-210> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Series consists of records generated during the course of the Walkerton Inquiry into the tainted water tragedy that occurred in Walkerton, Ontario in May 2000. At that time Walkerton’s   drinking water system became contaminated with deadly bacteria, primarily Escherichia coli O157:H7.1 Seven people died, and more than 2,300 became ill.     The Ontario government called the Inquiry to investigate what actually happened in Walkerton. The mandate of the Inquiry was to determine the causes of the E-coli outbreak, find out who was responsible, and to investigate if it could have been prevented.     Commissioner O'Connor divided the Inquiry into two Parts. The purpose of Part One was to fulfil the mandate of discovering what had happened in Walkerton, and why, and to make recommendations based on those findings. Part One involved a great deal of fact finding and included evidentiary hearings. Part Two of the Inquiry was broader in scope and dealt with policy issues related to safe drinking water. The primary purpose of Part Two was to make recommendations regarding Ontario's drinking water system.     The records in this series have been arranged into sub-series that broadly reflect Parts One and Two of the Inquiry, and also include general administrative records created by the Inquiry's   staff. Included in the sub-series are records connected with the hearings and meetings held by the Inquiry, commissioned research reports, correspondence, the reference database of   documents used by the Inquiry and the Inquiry's website." .
+<https://example.com/id/ReferenceDatabaseOfTheWalkertonInquiryRG18-210-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/ReferenceDatabaseOfTheWalkertonInquiryRG18-210-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/ReferenceDatabaseOfTheWalkertonInquiryRG18-210-2> <http://www.w3.org/2000/01/rdf-schema#label> "Reference database of the Walkerton Inquiry   (RG 18-210-2)" .
+<https://example.com/id/ReferenceDatabaseOfTheWalkertonInquiryRG18-210-2> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/SearchWarrantsForTheWalkertonInquiryRG18-210-12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/SearchWarrantsForTheWalkertonInquiryRG18-210-12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/SearchWarrantsForTheWalkertonInquiryRG18-210-12> <http://www.w3.org/2000/01/rdf-schema#label> "Search warrants for the Walkerton Inquiry   (RG 18-210-12)" .
+<https://example.com/id/SearchWarrantsForTheWalkertonInquiryRG18-210-12> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
+<https://example.com/id/Sub-series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Sub-series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<https://example.com/id/Sub-series> <http://www.w3.org/2000/01/rdf-schema#label> "Sub-series" .
+<https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> <http://www.w3.org/2000/01/rdf-schema#label> "Subject files of the Walkerton Inquiry   (RG 18-210-9)" .
+<https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/ActsStudiesRG18-210-9-1> .
+<https://example.com/id/SubjectFilesOfTheWalkertonInquiryRG18-210-9> <https://www.ica.org/standards/RiC/ontology#includesOrIncluded> <https://example.com/id/AdverseWaterIncidenceReportsRG18-210-9-2> .
+<https://example.com/id/Town> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/Town> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<https://example.com/id/Town> <http://www.w3.org/2000/01/rdf-schema#label> "Town" .
+<https://example.com/id/TranscriptsOfPartOneHearingsOfTheWalkertonInquiryRG18-210-4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/TranscriptsOfPartOneHearingsOfTheWalkertonInquiryRG18-210-4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/TranscriptsOfPartOneHearingsOfTheWalkertonInquiryRG18-210-4> <http://www.w3.org/2000/01/rdf-schema#label> "Transcripts of Part One hearings of the Walkerton Inquiry   (RG 18-210-4)" .
+<https://example.com/id/TranscriptsOfPartOneHearingsOfTheWalkertonInquiryRG18-210-4> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com/id/WalkertonEColiOutbreak> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WalkertonEColiOutbreak> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Event> .
+<https://example.com/id/WalkertonEColiOutbreak> <http://www.w3.org/2000/01/rdf-schema#label> "Walkerton E. coli Outbreak" .
+<https://example.com/id/WalkertonEColiOutbreak> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/May122000> .
+<https://example.com/id/WalkertonEColiOutbreak> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/May242000> .
+<https://example.com/id/WalkertonInquiryBA619> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WalkertonInquiryBA619> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/WalkertonInquiryBA619> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/WalkertonInquiryBA619> <http://www.w3.org/2000/01/rdf-schema#label> "Walkerton Inquiry (BA619)" .
+<https://example.com/id/WalkertonInquiryBA619> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/June132000> .
+<https://example.com/id/WalkertonInquiryBA619> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/May232002> .
+<https://example.com/id/WalkertonInquiryBA619> <https://www.ica.org/standards/RiC/ontology#hasOrHadLeader> <https://example.com/id/DennisROConnor> .
+<https://example.com/id/WalkertonInquiryBA619> <https://www.ica.org/standards/RiC/ontology#isOrWasRegulatedBy> <https://example.com/id/OrderInCouncil11702000> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiation> <http://www.w3.org/2000/01/rdf-schema#label> "Walkerton Inquiry Website Stored Instantiation" .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiation> <https://www.ica.org/standards/RiC/ontology#hasExtent> <https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#InstantiationExtent> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> <http://www.w3.org/2000/01/rdf-schema#label> "Walkerton Inquiry Website Stored Instantiation File Size" .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> <https://www.ica.org/standards/RiC/ontology#hasExtentType> <https://example.com/id/FileSize> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> <https://www.ica.org/standards/RiC/ontology#hasUnitOfMeasurement> <https://example.com/id/Bytes> .
+<https://example.com/id/WalkertonInquiryWebsiteStoredInstantiationFileSize> <https://www.ica.org/standards/RiC/ontology#quantity> "57200000"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<https://example.com/id/WalkertonOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WalkertonOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceName> .
+<https://example.com/id/WalkertonOntario> <http://www.w3.org/2000/01/rdf-schema#label> "Walkerton, Ontario" .
+<https://example.com/id/WalkertonOntario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Town> .
+<https://example.com/id/WebsiteOfTheWalkertonInquiryRG18-210-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/WebsiteOfTheWalkertonInquiryRG18-210-1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<https://example.com/id/WebsiteOfTheWalkertonInquiryRG18-210-1> <http://www.w3.org/2000/01/rdf-schema#label> "Website of the Walkerton Inquiry   (RG 18-210-1)" .
+<https://example.com/id/WebsiteOfTheWalkertonInquiryRG18-210-1> <https://www.ica.org/standards/RiC/ontology#hasOrHadDigitalInstantiation> <https://example.com/id/WalkertonInquiryWebsiteStoredInstantiation> .
+<https://example.com/id/WebsiteOfTheWalkertonInquiryRG18-210-1> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
+<https://example.com> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://example.com> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
