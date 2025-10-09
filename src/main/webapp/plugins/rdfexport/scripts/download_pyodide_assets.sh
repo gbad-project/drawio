@@ -21,9 +21,10 @@ curl -L "${ARCHIVE_URL}" -o "${TMP_DIR}/${ARCHIVE}"
 echo "[rdfexport] Extracting archive..."
 tar -xjf "${TMP_DIR}/${ARCHIVE}" -C "${TMP_DIR}"
 
-SOURCE_DIR="${TMP_DIR}/pyodide/${VERSION}/full"
-if [[ ! -d "${SOURCE_DIR}" ]]; then
-  echo "[rdfexport] Expected directory ${SOURCE_DIR} not found" >&2
+# Updated: pyodide archive now extracts into "pyodide" or "pyodide-${VERSION}"
+SOURCE_DIR="$(find "${TMP_DIR}" -maxdepth 2 -type d -name 'pyodide' | head -n1)"
+if [[ -z "${SOURCE_DIR}" ]]; then
+  echo "[rdfexport] Pyodide directory not found" >&2
   exit 1
 fi
 
