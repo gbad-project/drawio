@@ -8,7 +8,7 @@ def process(text: str) -> str:
 `;
 
 const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.28.3/full/";
-const LOCAL_RELATIVE_PYODIDE_PATH = "plugins/rdfexport/pyodide/";
+const LOCAL_RELATIVE_PYODIDE_PATH = "../plugins/rdfexport/pyodide/";
 
 let pyodideInstancePromise: Promise<PyodideInterface> | null = null;
 let processBootstrapPromise: Promise<void> | null = null;
