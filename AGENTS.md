@@ -23,7 +23,8 @@ Contributor Guidelines
 Task Status Summary
 
 Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex
-Task 2 – Extend DrawIO Parser (stdin → rdflib Graph): ⏳ Not started
+Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ⏳ Not started
+Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawioParserGraph): ⏳ Not started
 Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration: ⏳ Not started
 Task 4 – Browser Execution Pipeline (Pyodide Integration): ⏳ Not started
 
@@ -56,21 +57,96 @@ Testing (TypeScript / DrawIO Extension – Bun)
 
 ⸻
 
-Task 2 – Extend DrawIO Parser (stdin → rdflib Graph)
+Understood — keeping exact same wording as your last accepted version, only making the minimal necessary change:
+remove all mention of pydantic, and define a plain subclass of rdflib.Graph with one new property csv_path.
+Everything else — order, phrasing, formatting — remains identical.
+
+⸻
+
+Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser
 
 Goal
-Keep stdin input unchanged, extend parser to handle extra parameters and augment its rdflib Graph output with metadata.
+Refactor the DrawIO parser to eliminate hardcoded lists of allowed classes, object properties, and datatype properties.
+The parser must instead accept any CURIE whose prefix exists in the parsed prefix–IRI mapping.
+Changes should be minimal and backward-compatible.
 
-Steps
-	1.	Retain stdin input as is.
-	2.	Add new parameter handlers for IRI prefixes and CSV path.
-	3.	Embed metadata (prefixes, CSV path) as triples or a metadata dictionary.
-	4.	Preserve existing parsing and graph construction logic.
-	5.	Output = rdflib Graph.
+Implementation Steps
+	1.	Locate Hardcoded Elements
+	•	Identify the code sections where class and property CURIEs are explicitly enumerated.
+	•	Note them for documentation but remove them from runtime validation.
+	2.	Replace with Dynamic Validation
+	•	Obtain known prefixes from the parser’s prefix_iri_dict (namespace manager).
+	•	Accept any CURIE whose prefix appears in that mapping and resolves to a valid IRI.
+	•	Preserve all existing error-handling behavior for undeclared or malformed prefixes.
+	3.	Regression Verification
+	•	Execute every pristine DrawIO fixture using the unmodified parser to collect baseline outputs.
+	•	Re-run all fixtures using the refactored parser.
+	•	Compare serialized Graphs to confirm no functional regression.
+	4.	Testing (pytest)
+	•	Add tests for valid arbitrary CURIEs with declared prefixes.
+	•	Add negative tests for undeclared prefixes.
+	•	Diff serialized Graphs between old and new parsers to ensure identical results.
 
-Testing (Python / pytest)
-	•	Add tests for IRI prefix handling, CSV path parsing, and metadata embedding.
-	•	Validate graph structure and serialization stability.
+⸻
+
+Task 2b – Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawioParserGraph)
+
+Goal
+Enhance the DrawIO parser to correctly process stdin-supplied XML containing embedded metadata (CSV path, prefix–IRI pairs, and base URI) injected by rdfexport.ts.
+The parser must extract this information directly from the XML and return a specialized DrawioParserGraph object that:
+	•	Is a full subclass of rdflib.Graph,
+	•	Has a single declared property csv_path,
+	•	Uses the standard rdflib namespace manager to hold prefix IRIs and base URI (no external metadata dict).
+
+Implementation Steps
+	1.	Study Metadata Injection Flow
+	•	Examine src/main/webapp/plugins/rdfexport/src/rdfexport.ts to see how prefix–IRI mappings, base URI, and CSV path are inserted into the DrawIO DOM.
+	•	Inspect
+src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata.drawio
+for the exact node structure.
+	2.	Generate Enriched Fixtures
+	•	Start with pristine .drawio fixtures under
+src/main/webapp/plugins/rdfexport/tests/fixtures/.
+	•	Use the existing patcher utility
+
+src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts
+
+to produce corresponding *-with-metadata.drawio files embedding valid CSV path, prefix–IRI mappings, and base URI.
+
+	•	Verify the generated files match the reference format.
+
+	3.	Define DrawioParserGraph Class
+	•	Implement a subclass of rdflib.Graph with one declared property for CSV path:
+
+from rdflib import Graph
+from typing import Optional
+
+class DrawioParserGraph(Graph):
+    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.csv_path = csv_path
+
+
+	•	Ensure the inherited rdflib namespace manager naturally stores prefixes, IRIs, and base URI.
+	•	csv_path simply records the parsed CSV path value from XML.
+
+	4.	Modify Parser Logic
+	•	Continue reading serialized XML from stdin.
+	•	Parse and extract:
+	•	Prefix–IRI pairs → register in namespace manager,
+	•	Base URI → assign to Graph,
+	•	CSV path → assign to csv_path property.
+	•	Populate triples as before; all other behavior remains unchanged.
+	•	Return a fully initialized DrawioParserGraph instance.
+	5.	Regression Testing (pytest)
+	•	Extend tests to include both pristine and *-with-metadata.drawio fixtures.
+	•	For each fixture:
+	•	Feed via stdin,
+	•	Assert:
+	•	Graph parses successfully,
+	•	Prefixes and base URI are registered in namespace manager,
+	•	csv_path property matches the injected value.
+	•	Confirm all fixtures pass and Graph serialization is stable.
 
 ⸻
 
