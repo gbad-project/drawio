@@ -1,3 +1,6 @@
+import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -13,6 +16,24 @@ import draw_io_parser  # noqa: E402
 
 FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
+PATCHER_MODULE_URI = (
+    LEGACY_DIR.parent
+    / "tests"
+    / "utils"
+    / "patchDrawioWithMetadata.ts"
+).resolve().as_uri()
+PATCHER_EVAL_SCRIPT = (
+    f"""
+import {{ readFileSync, writeFileSync }} from 'node:fs';
+import {{ patchDrawioWithMetadata }} from '{PATCHER_MODULE_URI}';
+
+const [, inputPath, outputPath, optionsJson] = process.argv;
+const options = JSON.parse(optionsJson);
+
+const patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);
+writeFileSync(outputPath, patched);
+"""
+).strip()
 
 
 def test_individual_blocks_accepts_declared_prefix_curie():
@@ -176,4 +197,86 @@ def test_individual_blocks_rejects_unknown_prefix():
             None,
             draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
             prefixes,
+        )
+
+
+def _run_drawio_metadata_patcher(source: Path, destination: Path, options: dict) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(
+        [
+            "bun",
+            "--eval",
+            PATCHER_EVAL_SCRIPT,
+            str(source),
+            str(destination),
+            json.dumps(options),
+        ],
+        check=True,
+    )
+
+
+def _build_metadata_options(index: int, fixture_path: Path) -> dict:
+    slug = re.sub(r"[^a-z0-9]+", "-", fixture_path.stem.lower()).strip("-")
+    if not slug:
+        slug = f"fixture-{index}"
+
+    csv_path = f"/tmp/{slug}.csv"
+    base_uri = f"http://example.org/{slug}/"
+    return {
+        "csvPath": csv_path,
+        "baseUri": base_uri,
+        "label": f"{fixture_path.stem} metadata",
+        "preamble": [
+            {
+                "rdfPrefix": f"fx{index}",
+                "rdfIRI": f"http://example.org/{slug}/vocab#",
+            },
+            {
+                "rdfPrefix": f"data{index}",
+                "rdfIRI": f"http://example.org/{slug}/data/",
+            },
+        ],
+    }
+
+
+def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
+    fixture_paths = sorted(
+        path
+        for path in FIXTURES_DIR.glob("*.drawio")
+        if "-with-metadata" not in path.stem
+    )
+
+    assert fixture_paths, "Expected drawio fixtures to patch"
+
+    for index, fixture_path in enumerate(fixture_paths):
+        metadata_options = _build_metadata_options(index, fixture_path)
+        patched_path = tmp_path / f"{fixture_path.stem}-with-metadata.drawio"
+
+        _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)
+
+        original_graph = draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+        patched_graph = draw_io_parser.parse_drawio_to_graph(
+            str(patched_path),
+            metacharacter_substitute=["remove"],
+        )
+
+        assert isinstance(patched_graph, draw_io_parser.DrawioParserGraph)
+        assert patched_graph.csv_path == metadata_options["csvPath"]
+        assert str(patched_graph.base) == metadata_options["baseUri"]
+
+        namespace_map = {
+            prefix: str(uri)
+            for prefix, uri in patched_graph.namespace_manager.namespaces()
+        }
+        for preamble_entry in metadata_options["preamble"]:
+            assert (
+                namespace_map.get(preamble_entry["rdfPrefix"])
+                == preamble_entry["rdfIRI"]
+            )
+
+        assert _normalise_graph(patched_graph).isomorphic(
+            _normalise_graph(original_graph)
         )
