@@ -28,7 +28,7 @@ async function loadPluginModule(): Promise<RdfExportModule> {
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
 }
-import { debugPyodide, runMockBlackBox } from '../src/mockBlackBox';
+import { debugPyodide, runMockBlackBox } from "../src/mockBlackBox";
 
 type EventHandler = (event: any) => void;
 
@@ -49,7 +49,11 @@ class ElementStub {
   }
 
   appendChild<T>(child: T): T {
-    if (child instanceof ElementStub && child.parentNode && child.parentNode !== this) {
+    if (
+      child instanceof ElementStub &&
+      child.parentNode &&
+      child.parentNode !== this
+    ) {
       child.parentNode.removeChild(child);
     }
 
@@ -62,7 +66,11 @@ class ElementStub {
   }
 
   insertBefore<T>(child: T, reference: any): T {
-    if (child instanceof ElementStub && child.parentNode && child.parentNode !== this) {
+    if (
+      child instanceof ElementStub &&
+      child.parentNode &&
+      child.parentNode !== this
+    ) {
       child.parentNode.removeChild(child);
     }
 
@@ -384,7 +392,7 @@ function createGraphEnvironment(
   const options: GraphEnvironmentOptions =
     typeof optionsOrCsvPath === "string"
       ? { csvPath: optionsOrCsvPath }
-      : optionsOrCsvPath ?? {};
+      : (optionsOrCsvPath ?? {});
 
   const doc = new DOMParser().parseFromString(
     '<object id="root" label=""><mxCell/></object>',
@@ -411,10 +419,7 @@ function createGraphEnvironment(
         PREAMBLE_PREFIX_ATTRIBUTE,
         entry.prefix ?? "",
       );
-      preambleElement.setAttribute(
-        PREAMBLE_IRI_ATTRIBUTE,
-        entry.iri ?? "",
-      );
+      preambleElement.setAttribute(PREAMBLE_IRI_ATTRIBUTE, entry.iri ?? "");
       rootElement.appendChild(preambleElement);
     }
   }
@@ -725,16 +730,19 @@ const resourceBundle: Record<string, string> = {};
   },
 };
 
-test("runMockBlackBox annotates serialized XML", async () => {
-  const pluginModule = await loadPluginModule();
-  const sample = "<rdf/>";
-  const output = await runMockBlackBox(sample);
+test(
+  "runMockBlackBox annotates serialized XML",
+  async () => {
+    const pluginModule = await loadPluginModule();
+    const sample = "<rdf/>";
+    const output = await runMockBlackBox(sample);
 
-  expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
-  expect(output).toContain(`mock:${sample}`);
-  expect(output.trim().endsWith("[/BLACKBOX]"))
-    .toBe(true);
-}, { timeout: 30000 });
+    expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
+    expect(output).toContain(`mock:${sample}`);
+    expect(output.trim().endsWith("[/BLACKBOX]")).toBe(true);
+  },
+  { timeout: 30000 },
+);
 
 test("debugPyodide evaluates Python expressions", async () => {
   const result = await debugPyodide("1 + 2 + 3");
@@ -744,9 +752,7 @@ test("debugPyodide evaluates Python expressions", async () => {
 test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
   const scriptContents = await Bun.file(compiledPluginUrl).text();
 
-  expect(scriptContents).toContain(
-    "DiagramFormatPanel.prototype.addOptions",
-  );
+  expect(scriptContents).toContain("DiagramFormatPanel.prototype.addOptions");
   expect(scriptContents).toContain("CSV Path");
   expect(scriptContents).toContain("data-rdfexport-csv-field");
   expect(scriptContents).toContain("data-rdfexport-preamble-section");
@@ -859,8 +865,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
 
     expect(md5).toBe(refMd5);
     expect(data).toBe(expected);
-    expect(data.startsWith("[BLACKBOX]"))
-      .toBe(true);
+    expect(data.startsWith("[BLACKBOX]")).toBe(true);
   });
 }
 
@@ -878,9 +883,7 @@ for (const file of readdirSync(fixturesDir)) {
   }
 }
 
-test(
-  "rdfexport plugin exposes preamble controls and diagram properties",
-  async () => {
+test("rdfexport plugin exposes preamble controls and diagram properties", async () => {
   const pluginModule = await loadPluginModule();
 
   const { graph, model, rootCell } = createGraphEnvironment({
@@ -1005,7 +1008,9 @@ test(
 
   input.value = "  updated.csv  ";
   input.dispatchEvent({ type: "change" });
-  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe("updated.csv");
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe(
+    "updated.csv",
+  );
   expect(input.value).toBe("updated.csv");
 
   input.value = "   ";
@@ -1053,7 +1058,11 @@ test(
   expect(graph.getAttributeForCell(rootCell, "baseUri", null)).toBeNull();
   expect(baseInput.value).toBe("");
 
-  graph.setAttributeForCell(rootCell, "baseUri", "https://override.example/base");
+  graph.setAttributeForCell(
+    rootCell,
+    "baseUri",
+    "https://override.example/base",
+  );
   expect(baseInput.value).toBe("https://override.example/base");
 
   const preambleButton = findChildByAttribute(
@@ -1082,15 +1091,17 @@ test(
   expect(existingEntries).toHaveLength(1);
 
   const existingEntry = existingEntries[0]!;
-  const existingPrefixInput = findChildByTag(existingEntry, "input", (element) => {
-    return (
-      element.getAttribute("data-rdfexport-preamble-entry-prefix") === "true"
-    );
-  });
+  const existingPrefixInput = findChildByTag(
+    existingEntry,
+    "input",
+    (element) => {
+      return (
+        element.getAttribute("data-rdfexport-preamble-entry-prefix") === "true"
+      );
+    },
+  );
   const existingIriInput = findChildByTag(existingEntry, "input", (element) => {
-    return (
-      element.getAttribute("data-rdfexport-preamble-entry-iri") === "true"
-    );
+    return element.getAttribute("data-rdfexport-preamble-entry-iri") === "true";
   });
 
   expect(existingPrefixInput?.value).toBe("rdf");
@@ -1185,17 +1196,11 @@ test(
   expect(model.listenerCount()).toBe(0);
 
   const preview = await runMockBlackBox("test");
-  expect(preview.startsWith("[BLACKBOX]"))
-    .toBe(true);
-  },
-);
-
+  expect(preview.startsWith("[BLACKBOX]")).toBe(true);
+});
 
 test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
-  const baseFixturePath = join(
-    fixturesDir,
-    "AA37 Department of Health.drawio",
-  );
+  const baseFixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
   const expectedFixturePath = join(
     fixturesDir,
     "AA37 Department of Health-with-metadata.drawio",
@@ -1265,7 +1270,9 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
     }
 
     const metadata = Array.from(root.childNodes).find((node) => {
-      return node.nodeType === node.ELEMENT_NODE && node.nodeName === "UserObject";
+      return (
+        node.nodeType === node.ELEMENT_NODE && node.nodeName === "UserObject"
+      );
     });
 
     const metadataSnapshot = metadata
@@ -1279,7 +1286,11 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
           });
 
           return {
-            attributes: selectAttributes(element, ["label", "csvPath", "baseUri"]),
+            attributes: selectAttributes(element, [
+              "label",
+              "csvPath",
+              "baseUri",
+            ]),
             preamble: entries.map((entry) => {
               const child = entry as Element;
               return selectAttributes(child, ["rdfPrefix", "rdfIRI"]);

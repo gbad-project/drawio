@@ -13,7 +13,8 @@ let pyodideInstancePromise: Promise<PyodideInterface> | null = null;
 let processBootstrapPromise: Promise<void> | null = null;
 
 function resolveIndexURL(): string {
-  const override = (globalThis as { __rdfexportPyodideIndexURL?: unknown }).__rdfexportPyodideIndexURL;
+  const override = (globalThis as { __rdfexportPyodideIndexURL?: unknown })
+    .__rdfexportPyodideIndexURL;
 
   if (typeof override === "string" && override.trim().length > 0) {
     return override;
@@ -77,7 +78,11 @@ async function ensureProcessBootstrap(): Promise<void> {
       await pyodide.runPythonAsync(PROCESS_BOOTSTRAP_SOURCE);
       logInfo(LOG_PREFIX.PIPELINE, "Pyodide mock process module loaded");
     } catch (error) {
-      logError(LOG_PREFIX.PIPELINE, "Failed to bootstrap Pyodide mock process", error);
+      logError(
+        LOG_PREFIX.PIPELINE,
+        "Failed to bootstrap Pyodide mock process",
+        error,
+      );
       throw error;
     }
   })().catch((error) => {
@@ -88,7 +93,9 @@ async function ensureProcessBootstrap(): Promise<void> {
   return processBootstrapPromise;
 }
 
-export async function invokePyodideMock(serializedXml: string): Promise<string> {
+export async function invokePyodideMock(
+  serializedXml: string,
+): Promise<string> {
   await ensureProcessBootstrap();
   const pyodide = await ensurePyodideInstance();
 
@@ -106,7 +113,11 @@ export async function invokePyodideMock(serializedXml: string): Promise<string> 
     );
     return result as string;
   } catch (error) {
-    logError(LOG_PREFIX.PIPELINE, "Pyodide mock process invocation failed", error);
+    logError(
+      LOG_PREFIX.PIPELINE,
+      "Pyodide mock process invocation failed",
+      error,
+    );
     throw error;
   }
 }

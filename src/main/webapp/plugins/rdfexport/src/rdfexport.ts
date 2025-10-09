@@ -44,7 +44,11 @@ interface MxGraph {
     attributeName: string,
     defaultValue: string | null,
   ): string | null;
-  setAttributeForCell(cell: any, attributeName: string, value: string | null): void;
+  setAttributeForCell(
+    cell: any,
+    attributeName: string,
+    value: string | null,
+  ): void;
 }
 
 interface MxPage {
@@ -134,8 +138,8 @@ const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
-import { runMockBlackBox } from './mockBlackBox';
-import { LOG_PREFIX, logError, logInfo } from './logging';
+import { runMockBlackBox } from "./mockBlackBox";
+import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 let csvPropertyPatched = false;
 const registeredResourceKeys = new Set<string>();
@@ -226,9 +230,11 @@ function installCsvPathProperty(): void {
     );
 
     const createTitle =
-      typeof (this as { createTitle?: (title: string) => HTMLElement }).createTitle ===
-      "function"
-        ? ((this as any).createTitle as (title: string) => HTMLElement).bind(this)
+      typeof (this as { createTitle?: (title: string) => HTMLElement })
+        .createTitle === "function"
+        ? ((this as any).createTitle as (title: string) => HTMLElement).bind(
+            this,
+          )
         : (title: string) => {
             const titleElement = document.createElement("div");
             titleElement.style.padding = "0px 0px 6px 0px";
@@ -251,15 +257,17 @@ function installCsvPathProperty(): void {
     preambleSection.appendChild(createTitle(sectionLabel));
 
     const createOption =
-      typeof (this as { createOption?: (...args: any[]) => HTMLElement }).createOption ===
-      "function"
-        ? ((this as any).createOption as (
-            label: string,
-            isCheckedFn: () => boolean,
-            setCheckedFn: (checked: boolean) => void,
-            listener?: unknown,
-            fn?: unknown,
-          ) => HTMLElement).bind(this)
+      typeof (this as { createOption?: (...args: any[]) => HTMLElement })
+        .createOption === "function"
+        ? (
+            (this as any).createOption as (
+              label: string,
+              isCheckedFn: () => boolean,
+              setCheckedFn: (checked: boolean) => void,
+              listener?: unknown,
+              fn?: unknown,
+            ) => HTMLElement
+          ).bind(this)
         : null;
 
     type TextFieldConfig = {
@@ -298,7 +306,11 @@ function installCsvPathProperty(): void {
     ): { optionElement: HTMLElement; input: HTMLInputElement } => {
       const optionElement: HTMLElement =
         createOption != null
-          ? createOption(label, () => true, () => undefined)
+          ? createOption(
+              label,
+              () => true,
+              () => undefined,
+            )
           : (() => {
               const option = document.createElement("div");
               option.style.display = "flex";
@@ -375,7 +387,8 @@ function installCsvPathProperty(): void {
         return typeof rawTag === "string" ? rawTag.toUpperCase() : null;
       };
 
-      const optionChildren = collectChildren(optionElement).filter(isElementNode);
+      const optionChildren =
+        collectChildren(optionElement).filter(isElementNode);
 
       const checkbox = optionChildren.find((child) => {
         if (getTagName(child) !== "INPUT") {
@@ -387,8 +400,8 @@ function installCsvPathProperty(): void {
           typeof inputNode.type === "string"
             ? inputNode.type
             : typeof (inputNode as any).getAttribute === "function"
-            ? (inputNode as any).getAttribute("type")
-            : undefined;
+              ? (inputNode as any).getAttribute("type")
+              : undefined;
 
         return (explicitType ?? "").toLowerCase() === "checkbox";
       }) as (HTMLInputElement & { style: CSSStyleDeclaration }) | undefined;
@@ -405,7 +418,10 @@ function installCsvPathProperty(): void {
         (child) => getTagName(child) === "DIV",
       );
 
-      if (existingLabel && typeof (optionElement as any).removeChild === "function") {
+      if (
+        existingLabel &&
+        typeof (optionElement as any).removeChild === "function"
+      ) {
         (optionElement as any).removeChild(existingLabel);
       }
 
@@ -514,9 +530,13 @@ function installCsvPathProperty(): void {
 
     for (const config of textFieldConfigs) {
       const label = resolveLabel(config.labelKey, config.fallbackLabel);
-      const { optionElement, input } = buildTextOption(label, config.dataAttribute, {
-        inputMarginRight: "6px",
-      });
+      const { optionElement, input } = buildTextOption(
+        label,
+        config.dataAttribute,
+        {
+          inputMarginRight: "6px",
+        },
+      );
       const fieldState: FieldState = {
         attributeName: config.attributeName,
         input,
@@ -603,9 +623,11 @@ function installCsvPathProperty(): void {
       (preambleButton as HTMLElement).className || "geButton";
     preambleSection.appendChild(preambleButton);
 
-    const panelContainer: (HTMLElement & {
-      insertBefore?: (node: Node, child: Node | null) => Node;
-    }) | null = ((this as { container?: HTMLElement }).container ?? null) as
+    const panelContainer:
+      | (HTMLElement & {
+          insertBefore?: (node: Node, child: Node | null) => Node;
+        })
+      | null = ((this as { container?: HTMLElement }).container ?? null) as
       | (HTMLElement & {
           insertBefore?: (node: Node, child: Node | null) => Node;
         })
@@ -613,13 +635,15 @@ function installCsvPathProperty(): void {
 
     const findFormatSectionAncestor = (
       node: Node | null,
-    ): (Node & {
-      className?: string;
-      parentNode: Node & {
-        insertBefore?: (node: Node, child: Node | null) => Node;
-        appendChild?: (node: Node) => Node;
-      };
-    }) | null => {
+    ):
+      | (Node & {
+          className?: string;
+          parentNode: Node & {
+            insertBefore?: (node: Node, child: Node | null) => Node;
+            appendChild?: (node: Node) => Node;
+          };
+        })
+      | null => {
       let current: Node | null = node;
       while (current) {
         const candidate: any = current;
@@ -634,7 +658,8 @@ function installCsvPathProperty(): void {
     };
 
     const optionsSection = findFormatSectionAncestor(container);
-    const fallbackParent = (optionsSection?.parentNode ?? container.parentNode ??
+    const fallbackParent = (optionsSection?.parentNode ??
+      container.parentNode ??
       null) as
       | (Node & {
           insertBefore?: (node: Node, child: Node | null) => Node;
@@ -647,7 +672,9 @@ function installCsvPathProperty(): void {
     if (panelContainer && typeof panelContainer.insertBefore === "function") {
       const firstChild = panelContainer.firstChild as ChildNode | null;
       const referenceChild =
-        firstChild === preambleSection ? (preambleSection as ChildNode) : firstChild;
+        firstChild === preambleSection
+          ? (preambleSection as ChildNode)
+          : firstChild;
       panelContainer.insertBefore(preambleSection, referenceChild ?? null);
       inserted = preambleSection.parentNode === panelContainer;
     }
@@ -656,13 +683,10 @@ function installCsvPathProperty(): void {
       const referenceNode: Node | null = optionsSection
         ? (optionsSection as unknown as Node)
         : fallbackParent && container.parentNode === fallbackParent
-        ? (container as unknown as Node)
-        : null;
+          ? (container as unknown as Node)
+          : null;
 
-      if (
-        fallbackParent &&
-        typeof fallbackParent.insertBefore === "function"
-      ) {
+      if (fallbackParent && typeof fallbackParent.insertBefore === "function") {
         fallbackParent.insertBefore(preambleSection, referenceNode);
         inserted = preambleSection.parentNode === fallbackParent;
       } else if (
@@ -675,14 +699,22 @@ function installCsvPathProperty(): void {
     }
 
     const ensurePanelPlacement = () => {
-      if (!panelContainer || typeof panelContainer.insertBefore !== "function") {
+      if (
+        !panelContainer ||
+        typeof panelContainer.insertBefore !== "function"
+      ) {
         return;
       }
 
       const firstChild = panelContainer.firstChild as ChildNode | null;
       const referenceChild =
-        firstChild === preambleSection ? (preambleSection as ChildNode) : firstChild;
-      if (preambleSection.parentNode !== panelContainer || referenceChild !== preambleSection) {
+        firstChild === preambleSection
+          ? (preambleSection as ChildNode)
+          : firstChild;
+      if (
+        preambleSection.parentNode !== panelContainer ||
+        referenceChild !== preambleSection
+      ) {
         panelContainer.insertBefore(preambleSection, referenceChild ?? null);
       }
     };
@@ -731,7 +763,6 @@ function installCsvPathProperty(): void {
 
   csvPropertyPatched = true;
 }
-
 
 interface PreambleDialogLabels {
   prefixPlaceholder: string;
@@ -971,7 +1002,8 @@ function createPreambleDialog(
     entriesList.appendChild(entryContainer);
   };
 
-  const baseValue = typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+  const baseValue =
+    typeof model.getValue === "function" ? model.getValue(rootCell) : null;
   for (const entry of extractPreambleEntries(baseValue)) {
     addEntry(entry.prefix, entry.iri);
   }
@@ -1061,9 +1093,8 @@ function createPreambleDialog(
       }))
       .filter((entry) => entry.prefix.length > 0 && entry.iri.length > 0);
 
-    const baseValue = typeof model.getValue === "function"
-      ? model.getValue(rootCell)
-      : null;
+    const baseValue =
+      typeof model.getValue === "function" ? model.getValue(rootCell) : null;
 
     const newValue = buildValueWithPreamble(baseValue, normalizedEntries);
 
@@ -1157,7 +1188,6 @@ function createPreambleDialog(
 
   return dialog;
 }
-
 
 installCsvPathProperty();
 

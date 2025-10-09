@@ -59,23 +59,36 @@ export function patchDrawioWithMetadata(
   }
 
   const graphModel = document.getElementsByTagName("mxGraphModel").item(0);
-  assertElement(graphModel, "Unable to locate <mxGraphModel> element in drawio document");
+  assertElement(
+    graphModel,
+    "Unable to locate <mxGraphModel> element in drawio document",
+  );
 
   const graphChildren = collectChildElements(graphModel);
   const rootElement = graphChildren.find((child) => child.tagName === "root");
-  assertElement(rootElement ?? null, "Unable to locate <root> element inside <mxGraphModel>");
+  assertElement(
+    rootElement ?? null,
+    "Unable to locate <root> element inside <mxGraphModel>",
+  );
 
   const rootChildren = collectChildElements(rootElement);
-  const existingUserObject = rootChildren.find((child) => child.tagName === "UserObject");
+  const existingUserObject = rootChildren.find(
+    (child) => child.tagName === "UserObject",
+  );
 
   if (existingUserObject) {
-    throw new Error("Drawio document already contains a <UserObject> root metadata node");
+    throw new Error(
+      "Drawio document already contains a <UserObject> root metadata node",
+    );
   }
 
   const rootCell = rootChildren.find(
     (child) => child.tagName === "mxCell" && child.getAttribute("id") === "0",
   );
-  assertElement(rootCell ?? null, "Unable to locate root <mxCell id=\"0\"> element to patch");
+  assertElement(
+    rootCell ?? null,
+    'Unable to locate root <mxCell id="0"> element to patch',
+  );
 
   const outerWhitespace = rootCell.previousSibling?.nodeValue ?? "\n        ";
   const innerWhitespace = `${outerWhitespace}  `;
