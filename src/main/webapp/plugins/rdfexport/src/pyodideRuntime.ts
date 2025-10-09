@@ -344,6 +344,19 @@ reset_graph_store()
   return pythonEnvironmentPromise;
 }
 
+function decodeRawTurtle(raw: string | null): string | null {
+  if (raw == null) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(raw) as string;
+  } catch (error) {
+    logError(LOG_PREFIX.PIPELINE, "Failed to decode raw Turtle payload", error);
+    return raw;
+  }
+}
+
 function mapRawSummary(raw: RawGraphSummary): DrawioParserResult {
   return {
     graphId: raw.graph_id,
@@ -354,7 +367,7 @@ function mapRawSummary(raw: RawGraphSummary): DrawioParserResult {
       prefix: entry.prefix,
       iri: entry.iri,
     })),
-    rawTurtle: raw.raw_turtle,
+    rawTurtle: decodeRawTurtle(raw.raw_turtle),
   };
 }
 

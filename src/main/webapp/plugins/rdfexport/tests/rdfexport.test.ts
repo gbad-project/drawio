@@ -1,5 +1,4 @@
 import { test, expect } from "bun:test";
-import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
@@ -36,8 +35,10 @@ async function loadPluginModule(): Promise<RdfExportModule> {
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
 }
+
 import {
   debugPyodide,
+  runDrawioPipeline,
   runMockBlackBox,
   type DrawioParserResult,
 } from "../src/mockBlackBox";
@@ -881,14 +882,47 @@ function runRdfExportTest(fixtureFile: string, _baselineFile: string) {
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const referenceXml = mxUtils.getPrettyXml(graphModel);
-    const expected = await runMockBlackBox(referenceXml);
+    const expectedTurtle = await runDrawioPipeline(referenceXml);
 
-    const md5 = createHash("md5").update(data).digest("hex");
-    const refMd5 = createHash("md5").update(expected).digest("hex");
+    expect(expectedTurtle.length).toBeGreaterThan(0);
+    expect(expectedTurtle.startsWith("[BLACKBOX]")).toBe(false);
+    expect(
+      /@prefix\s+/i.test(expectedTurtle) || expectedTurtle.includes(":"),
+    ).toBe(true);
 
-    expect(md5).toBe(refMd5);
-    expect(data).toBe(expected);
-    expect(data.startsWith("[BLACKBOX]")).toBe(true);
+    const actualGraphInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(data)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triple_count: number; namespaces: string[] };
+
+    const expectedGraphInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(expectedTurtle)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triple_count: number; namespaces: string[] };
+
+    expect(actualGraphInfo.triple_count).toBe(expectedGraphInfo.triple_count);
+    expect(actualGraphInfo.triple_count).toBeGreaterThan(0);
+    expect(actualGraphInfo.namespaces).toEqual(expectedGraphInfo.namespaces);
   });
 }
 

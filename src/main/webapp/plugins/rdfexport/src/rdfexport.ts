@@ -138,7 +138,7 @@ const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
-import { runMockBlackBox } from "./mockBlackBox";
+import { runDrawioPipeline } from "./mockBlackBox";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 let csvPropertyPatched = false;
@@ -1211,7 +1211,7 @@ Draw.loadPlugin(function (editorUi: any): void {
         `Generated DrawIO XML payload (${serializedXml.length} characters)`,
       );
 
-      const blackBoxPayload = await runMockBlackBox(serializedXml);
+      const blackBoxPayload = await runDrawioPipeline(serializedXml);
       const filename = editorUi.getBaseFilename() + ".rdf";
 
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);

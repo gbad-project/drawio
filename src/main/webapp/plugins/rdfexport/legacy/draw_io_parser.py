@@ -61,6 +61,7 @@ class DrawioParserGraph(Graph):
         super().__init__(*args, **kwargs)
         self.csv_path = csv_path
 
+
 def get_prefixes():
     return {
         "rico": "https://www.ica.org/standards/RiC/ontology#",
@@ -1157,6 +1158,7 @@ def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
             f"{capitalisation_scheme}. See the documentation of the "
             "-c/--capitalisation-scheme option for the permitted values"
         )
+
 
 def _build_graph_from_raw_xml(
     raw_xml: str, config_args: dict[str, Any]

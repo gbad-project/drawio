@@ -7,7 +7,7 @@ const rawPlugin: BunPlugin = {
     build.onResolve({ filter: /\?raw$/ }, (args) => {
       const pathWithoutQuery = args.path.replace(/\?raw$/, "");
       const resolvedPath = resolve(dirname(args.importer), pathWithoutQuery);
-      
+
       return {
         path: resolvedPath,
         namespace: "raw-loader",
@@ -17,7 +17,7 @@ const rawPlugin: BunPlugin = {
     build.onLoad({ filter: /.*/, namespace: "raw-loader" }, async (args) => {
       const file = Bun.file(args.path);
       const contents = await file.text();
-      
+
       return {
         contents: `export default ${JSON.stringify(contents)}`,
         loader: "js",
