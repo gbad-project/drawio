@@ -34,3 +34,9 @@
 
 ## Additional Testing
 - `src/main/webapp/plugins/rdfexport/legacy/tests/run_regeneration.sh`
+## Baseline Regeneration Wrapper Verification (2025-10-10)
+- Installed the missing `rdflib` dependency in the sandbox environment and re-ran `run_regeneration.sh` without modifying repository files.
+- Confirmed that the helper replays commit `cf8f84bb84ff83843b6726ac96aff3a2055f4275`, regenerates all pristine fixture baselines with forced overwrites, and executes `pytest` to verify the regenerated outputs.
+
+## Additional Testing
+- `src/main/webapp/plugins/rdfexport/legacy/tests/run_regeneration.sh`
