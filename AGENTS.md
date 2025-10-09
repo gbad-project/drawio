@@ -20,6 +20,7 @@ Contributor Guidelines
 - Stick to your selected task. Going sideways to contribute to another task in passing is discouraged. If you desperately feel the urge to, you may leave a comment marking it as one of: AICODE-TODO (an unidentified task emerged), AICODE-ASK (stakeholder input is requested), AICODE-NOTE (important but no action requested).
 - Once the task is completed and all planned tests pass, document all your efforts extensively under "docs/aicode/{your-name}-report-{timestamp}.md". Also, update the task status here in AGENTS.md. Finally, update the task status summary below.
 - Keep tooling aligned with the historical workflow captured in the codex reports: install JavaScript dependencies with `bun install`, provision Python packages via `bun run uv`, exercise Bun coverage with `bun run test`.
+- **Always** be sure to run `bun run check` before committing and fix any issues before committing.
 
 ⸻
 

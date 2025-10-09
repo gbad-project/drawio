@@ -23,8 +23,12 @@
     "uv": "command -v uv >/dev/null 2>&1 || (curl -LsSf https://astral.sh/uv/install.sh | sh && source $HOME/.local/bin/env); uv sync",
     "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts && cp dist/rdfexport.js ..",
     "test": "bash scripts/test_legacy.sh && bun --check test",
-    "format": "prettier --write .",
-    "lint": "eslint .",
+    "format": "ruff format . && prettier --write .",
+    "format:check": "ruff format --check . && prettier --check .",
+    "lint": "ruff check . && eslint .",
+    "lint:fix": "ruff check --fix . && eslint --fix .",
+    "check": "bun run lint && bun run format:check",
+    "fix": "bun run lint:fix && bun run format",
     "serve": "cd ../../../../.. && python -m http.server 8000"
   }
 }
