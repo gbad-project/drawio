@@ -7,7 +7,7 @@ def process(text: str) -> str:
     return "mock:" + text
 `;
 
-const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.26.4/full/";
+const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.28.3/full/";
 const LOCAL_RELATIVE_PYODIDE_PATH = "plugins/rdfexport/pyodide/";
 
 let pyodideInstancePromise: Promise<PyodideInterface> | null = null;

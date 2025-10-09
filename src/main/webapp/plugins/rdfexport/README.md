@@ -23,6 +23,6 @@ plugin:
 ```
 
 If the assets are missing at runtime the plugin will fall back to the public
-Pyodide CDN (`https://cdn.pyodide.org/v0.26.4/full/`).
+Pyodide CDN (`https://cdn.pyodide.org/v0.28.3/full/`).
 
 This project was created using `bun init` in bun v1.2.21. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
