@@ -12,6 +12,7 @@ export interface DrawioParserResult {
   csvPath: string | null;
   baseUri: string | null;
   namespaces: Array<{ prefix: string; iri: string }>;
+  rawTurtle: string | null;
 }
 
 type RawGraphSummary = {
@@ -20,6 +21,7 @@ type RawGraphSummary = {
   csv_path: string | null;
   base_uri: string | null;
   namespaces: Array<{ prefix: string; iri: string }>;
+  raw_turtle: string | null;
 };
 
 const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.28.3/full/";
@@ -352,6 +354,7 @@ function mapRawSummary(raw: RawGraphSummary): DrawioParserResult {
       prefix: entry.prefix,
       iri: entry.iri,
     })),
+    rawTurtle: raw.raw_turtle,
   };
 }
 

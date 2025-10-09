@@ -25,7 +25,14 @@ export async function runMockBlackBox(serializedXml: string): Promise<string> {
       `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`,
     );
     const summary = formatParserResult(processed);
-    const output = `${BLACK_BOX_PREFIX} len=${serializedXml.length}\n${summary}\n${BLACK_BOX_SUFFIX}`;
+    let output = `${BLACK_BOX_PREFIX} len=${serializedXml.length}\n${summary}\n${BLACK_BOX_SUFFIX}`;
+    // Override black box summary to show actual graph
+    output = processed.rawTurtle
+      ? processed.rawTurtle
+          .replace(/^"(.*)"$/, "$1")        // strip leading/trailing quote pair
+          .replace(/\\n/g, "\n")            // unescape newlines
+          .replace(/\\"/g, '"')             // unescape quotes
+      : "";
     logInfo(LOG_PREFIX.BLACKBOX, "Black box processing completed");
     return output;
   } catch (error) {

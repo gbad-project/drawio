@@ -23,7 +23,7 @@
     "setup:uv": "command -v uv >/dev/null 2>&1 || (curl -LsSf https://astral.sh/uv/install.sh | sh && source $HOME/.local/bin/env); uv sync",
     "setup:pyodide": "bash scripts/download_pyodide_assets.sh",
     "setup": "bun install; bun run setup:uv; bun run setup:pyodide",
-    "build": "bun build --outfile=dist/rdfexport.js src/rdfexport.ts && cp dist/rdfexport.js ..",
+    "build": "bun run build.ts && cp dist/rdfexport.js ..",
     "test": "bash scripts/test_legacy.sh; bun --check test",
     "format:py": "ruff format .",
     "format:ts": "prettier --write .",

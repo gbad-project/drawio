@@ -135,6 +135,7 @@ def _build_summary(graph_id: str, graph: DrawioParserGraph) -> GraphSummary:
         "csv_path": csv_path,
         "base_uri": str(base) if base else None,
         "namespaces": namespaces,
+        "raw_turtle": json.dumps(graph.serialize(format="turtle"), sort_keys=True),
     }
 
 
