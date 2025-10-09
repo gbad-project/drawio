@@ -125,6 +125,37 @@ def test_parse_drawio_accepts_previous_unknown_properties(fixture_name: str):
     assert len(graph) > 0
 
 
+def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawioParserGraph)
+    assert graph.csv_path == "/mock/path/to/file.csv"
+
+    namespace_map = {
+        prefix: str(uri)
+        for prefix, uri in graph.namespace_manager.namespaces()
+    }
+
+    assert namespace_map.get("mock1") == "http://mock-iri-ns.org"
+    assert str(graph.base) == "http://mock-base-uri.com"
+
+
+def test_parse_drawio_without_metadata_sets_empty_metadata():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawioParserGraph)
+    assert graph.csv_path is None
+    assert graph.base is None
+
+
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
