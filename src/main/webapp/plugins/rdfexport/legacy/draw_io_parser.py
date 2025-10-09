@@ -50,6 +50,8 @@ import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
+BASE_URI = os.getenv('BASE_URI', 'https://example.com')
+PREFIX_IRI = os.getenv('PREFIX_IRI', 'https://example.com/id/')
 
 class DrawioParserGraph(Graph):
     """Graph subclass that records Draw.io specific metadata."""
@@ -59,7 +61,6 @@ class DrawioParserGraph(Graph):
         self.csv_path = csv_path
 
 def get_prefixes():
-    BASE_URI = os.getenv('BASE_URI', 'https://example.com')
     return {
         'rico': 'https://www.ica.org/standards/RiC/ontology#',
         'add': f'{BASE_URI}/Schema/Description-Listings/',
@@ -981,7 +982,7 @@ def serialise_to_graph(
             individual_uri = Namespace(prefix_iri)[individual_id]
         else:
             # Fallback to a default base URI if no prefix is defined
-            base_uri = prefix_iri or "https://example.com/id/"
+            base_uri = prefix_iri or PREFIX_IRI
             individual_uri = URIRef(f"{base_uri}{individual_id}")
 
         g.add((individual_uri, RDF.type, OWL.NamedIndividual))
@@ -1008,7 +1009,7 @@ def serialise_to_graph(
                     if prefix and prefix_iri:
                         target_uri = Namespace(prefix_iri)[value]
                     else:
-                        base_uri = prefix_iri or "https://example.com/id/"
+                        base_uri = prefix_iri or PREFIX_IRI
                         target_uri = URIRef(f"{base_uri}{value}")
                     g.add((individual_uri, prop_uri, target_uri))
                 elif prop in datatype_properties:
