@@ -11,7 +11,7 @@ Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and 
 
 Please refer to the [main plugin readme](../../README.md) for launch/installation instructions.
 
-**[pvzhelnov](https://github.com/pvzhelnov)** commented on Oct 10
+**[pvzhelnov](https://github.com/pvzhelnov)** commented on Oct 10, 2025
 
 > I produced this fixture in the web browser interface by executing these steps:
 >
