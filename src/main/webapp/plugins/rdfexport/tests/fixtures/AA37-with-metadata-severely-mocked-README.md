@@ -13,9 +13,11 @@ Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and 
 
 draw\.io version [24.7.5 release](https://github.com/jgraph/drawio/releases/tag/v24.7.5) (Jul 25, 2024)
 
-rdfexport extension unreleased version [26d193c](https://github.com/gbad-project/drawio/commit/26d193ca4937dfe650079dab0e33a3c2801093dc) (Oct 10, 2025)
+rdfexport extension unreleased version [26d193c](https://github.com/gbad-project/drawio/tree/26d193ca4937dfe650079dab0e33a3c2801093dc/src/main/webapp/plugins/rdfexport) (Oct 10, 2025)
 
-Available online! <https://gbad-project.github.io/drawio/src/main/webapp/?p=rdf>
+> [!TIP]
+> 🎉 Available online! Public and free, no registration or credit card required. Hosted complimentary by GitHub Pages.
+> Permalink: <https://gbad-project.github.io/drawio/src/main/webapp/?p=rdf>
 
 The online version runs fully in the client web browser and does not require any installation except that JavaScript should be turned on (on by default in modern browsers like Chrome).
 
