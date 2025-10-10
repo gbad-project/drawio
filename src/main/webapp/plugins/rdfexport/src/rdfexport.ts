@@ -1199,7 +1199,7 @@ Draw.loadPlugin(function (editorUi: any): void {
     return mxUtils.getPrettyXml(graphXml);
   }
 
-  mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
+  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
 
   editorUi.actions.addAction("exportRdfXml", async function (): Promise<void> {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
@@ -1212,15 +1212,10 @@ Draw.loadPlugin(function (editorUi: any): void {
       );
 
       const blackBoxPayload = await runDrawioPipeline(serializedXml);
-      const filename = editorUi.getBaseFilename() + ".rdf";
+      const filename = editorUi.getBaseFilename() + ".ttl";
 
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
-      editorUi.saveData(
-        filename,
-        "rdf",
-        blackBoxPayload,
-        "application/rdf+xml",
-      );
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
       logInfo(LOG_PREFIX.PIPELINE, `Export pipeline completed for ${filename}`);
     } catch (e) {
       logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);

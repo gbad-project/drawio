@@ -15104,3 +15104,6 @@ async function runDrawioPipeline(serializedXml) {
     const createTitle = typeof this.createTitle === "function" ? this.createTitle.bind(this) : (title2) => {
       titleElement.textContent = title2;
       const blackBoxPayload = await runDrawioPipeline(serializedXml);
+  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
+      const filename = editorUi.getBaseFilename() + ".ttl";
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
