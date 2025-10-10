@@ -1,18 +1,17 @@
 import { test, expect } from "bun:test";
-import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
-import { join, extname, basename, normalize } from "path";
+import type { BunPlugin } from "bun";
+import { join, extname, basename, normalize, dirname, resolve } from "path";
 import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
+import { LOG_PREFIX, logInfo } from "../src/logging";
 
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
-const compiledPluginUrl = fileURLToPath(
-  new URL("../../rdfexport.js", import.meta.url),
-);
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
+const baselinesDir = fileURLToPath(new URL("./baselines", import.meta.url));
 
 const pyodideIndexPath = fileURLToPath(
   new URL("../node_modules/pyodide/", import.meta.url),
@@ -36,8 +35,57 @@ async function loadPluginModule(): Promise<RdfExportModule> {
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
 }
+
+const rawLoaderPlugin: BunPlugin = {
+  name: "test-raw-loader",
+  setup(build) {
+    build.onResolve({ filter: /\?raw$/ }, (args) => {
+      const pathWithoutQuery = args.path.replace(/\?raw$/, "");
+      const absolutePath = resolve(dirname(args.importer), pathWithoutQuery);
+
+      return {
+        path: absolutePath,
+        namespace: "test-raw-loader",
+      };
+    });
+
+    build.onLoad(
+      { filter: /.*/, namespace: "test-raw-loader" },
+      async (args) => {
+        const file = Bun.file(args.path);
+        const contents = await file.text();
+
+        return {
+          contents: `export default ${JSON.stringify(contents)}`,
+          loader: "js",
+        };
+      },
+    );
+  },
+};
+
+async function bundleRdfExportPlugin(): Promise<string> {
+  const buildResult = await Bun.build({
+    entrypoints: [rdfexportUrl],
+    target: "browser",
+    format: "esm",
+    splitting: false,
+    write: false,
+    plugins: [rawLoaderPlugin],
+  });
+
+  const [output] = buildResult.outputs ?? [];
+
+  if (!output) {
+    throw new Error("Failed to compile rdfexport plugin for inspection");
+  }
+
+  return await output.text();
+}
+
 import {
   debugPyodide,
+  runDrawioPipeline,
   runMockBlackBox,
   type DrawioParserResult,
 } from "../src/mockBlackBox";
@@ -773,7 +821,7 @@ test("debugPyodide evaluates Python expressions", async () => {
 });
 
 test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
-  const scriptContents = await Bun.file(compiledPluginUrl).text();
+  const scriptContents = await bundleRdfExportPlugin();
 
   expect(scriptContents).toContain("DiagramFormatPanel.prototype.addOptions");
   expect(scriptContents).toContain("CSV Path");
@@ -782,8 +830,8 @@ test("compiled rdfexport plugin bundle includes CSV property hook", async () => 
   expect(scriptContents).toContain("__rdfexportPreambleAttached");
 });
 
-function runRdfExportTest(fixtureFile: string, _baselineFile: string) {
-  test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
+function runRdfExportTest(fixtureFile: string, baselineFile: string) {
+  test(`${fixtureFile}: no regression`, async () => {
     const pluginModule = await loadPluginModule();
 
     const fixturePath = join(fixturesDir, fixtureFile);
@@ -875,34 +923,132 @@ function runRdfExportTest(fixtureFile: string, _baselineFile: string) {
     const exportData = savedExports[0]!;
     const { filename, format, data, mimeType } = exportData;
 
-    expect(filename).toBe(`${baseFilename}.rdf`);
-    expect(format).toBe("rdf");
-    expect(mimeType).toBe("application/rdf+xml");
+    expect(filename).toBe(`${baseFilename}.ttl`);
+    expect(format).toBe("turtle");
+    expect(mimeType).toBe("text/turtle");
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const referenceXml = mxUtils.getPrettyXml(graphModel);
-    const expected = await runMockBlackBox(referenceXml);
+    const expectedTurtle = await runDrawioPipeline(referenceXml);
 
-    const md5 = createHash("md5").update(data).digest("hex");
-    const refMd5 = createHash("md5").update(expected).digest("hex");
+    expect(expectedTurtle.length).toBeGreaterThan(0);
+    expect(expectedTurtle.startsWith("[BLACKBOX]")).toBe(false);
+    expect(
+      /@prefix\s+/i.test(expectedTurtle) || expectedTurtle.includes(":"),
+    ).toBe(true);
 
-    expect(md5).toBe(refMd5);
-    expect(data).toBe(expected);
-    expect(data.startsWith("[BLACKBOX]")).toBe(true);
+    const actualGraphInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(data)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triple_count: number; namespaces: string[] };
+
+    const expectedGraphInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(expectedTurtle)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triple_count: number; namespaces: string[] };
+
+    expect(actualGraphInfo.triple_count).toBe(expectedGraphInfo.triple_count);
+    expect(actualGraphInfo.triple_count).toBeGreaterThan(0);
+    expect(actualGraphInfo.namespaces).toEqual(expectedGraphInfo.namespaces);
+
+    const baselinePath = join(baselinesDir, baselineFile);
+    const baselineContents = await Bun.file(baselinePath).text();
+
+    const isomorphismResult = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.compare import to_isomorphic
+from rdflib.namespace import RDF, OWL
+
+baseline_data = ${JSON.stringify(baselineContents)}
+actual_turtle = ${JSON.stringify(data)}
+
+baseline_graph = Graph()
+baseline_graph.parse(data=baseline_data, format="nt")
+
+actual_graph = Graph()
+actual_graph.parse(data=actual_turtle, format="turtle")
+
+def normalise(source: Graph) -> Graph:
+    filtered = Graph()
+    for s, p, o in source:
+        if p == RDF.type and o in {OWL.ObjectProperty, OWL.DatatypeProperty, OWL.Ontology}:
+            continue
+        if p == OWL.imports:
+            continue
+        filtered.add((s, p, o))
+    return filtered
+
+baseline_filtered = normalise(baseline_graph)
+actual_filtered = normalise(actual_graph)
+
+baseline_iso = to_isomorphic(baseline_filtered)
+actual_iso = to_isomorphic(actual_filtered)
+
+json.dumps({
+    "isomorphic": baseline_iso == actual_iso,
+    "baseline_triples": len(baseline_graph),
+    "actual_triples": len(actual_graph),
+    "baseline_filtered_triples": len(baseline_filtered),
+    "actual_filtered_triples": len(actual_filtered),
+})
+      `)) as string,
+    ) as {
+      isomorphic: boolean;
+      baseline_triples: number;
+      actual_triples: number;
+      baseline_filtered_triples: number;
+      actual_filtered_triples: number;
+    };
+
+    expect(isomorphismResult.isomorphic).toBe(true);
+    if (isomorphismResult.isomorphic) {
+      logInfo(LOG_PREFIX.TEST, `Turtle is isomorphic to baseline N-Triples`);
+    }
+    expect(isomorphismResult.actual_filtered_triples).toBe(
+      isomorphismResult.baseline_filtered_triples,
+    );
+    expect(isomorphismResult.actual_filtered_triples).toBeGreaterThan(0);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Number of filtered triples: ${isomorphismResult.actual_filtered_triples} vs ${isomorphismResult.baseline_filtered_triples}`,
+    );
   });
 }
 
 for (const file of readdirSync(fixturesDir)) {
   if (extname(file) === ".drawio") {
     const base = basename(file, ".drawio");
-    const rdfFile = base + ".rdf";
+    const baselineFile = base + ".nt";
+    const baselinePath = join(baselinesDir, baselineFile);
 
-    if (!existsSync(join(fixturesDir, rdfFile))) {
-      test.skip(`${file}: skipped (no matching ${rdfFile})`, () => {});
+    if (!existsSync(baselinePath)) {
+      test.skip(`${file}: skipped (no matching baseline ${baselineFile})`, () => {});
       continue;
     }
 
-    runRdfExportTest(file, rdfFile);
+    runRdfExportTest(file, baselineFile);
   }
 }
 

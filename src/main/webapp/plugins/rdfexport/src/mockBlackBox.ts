@@ -12,6 +12,17 @@ function formatParserResult(result: DrawioParserResult): string {
   return JSON.stringify(result, null, 2);
 }
 
+async function parseSerializedXml(
+  serializedXml: string,
+): Promise<DrawioParserResult> {
+  const processed = await invokeDrawioParser(serializedXml);
+  logInfo(
+    LOG_PREFIX.BLACKBOX,
+    `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`,
+  );
+  return processed;
+}
+
 export async function runMockBlackBox(serializedXml: string): Promise<string> {
   logInfo(
     LOG_PREFIX.BLACKBOX,
@@ -19,26 +30,36 @@ export async function runMockBlackBox(serializedXml: string): Promise<string> {
   );
 
   try {
-    const processed = await invokeDrawioParser(serializedXml);
-    logInfo(
-      LOG_PREFIX.BLACKBOX,
-      `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`,
-    );
+    const processed = await parseSerializedXml(serializedXml);
     const summary = formatParserResult(processed);
-    let output = `${BLACK_BOX_PREFIX} len=${serializedXml.length}\n${summary}\n${BLACK_BOX_SUFFIX}`;
-    // Override black box summary to show actual graph
-    output = processed.rawTurtle
-      ? processed.rawTurtle
-          .replace(/^"(.*)"$/, "$1")        // strip leading/trailing quote pair
-          .replace(/\\n/g, "\n")            // unescape newlines
-          .replace(/\\"/g, '"')             // unescape quotes
-      : "";
+    const output = `${BLACK_BOX_PREFIX} len=${serializedXml.length}\n${summary}\n${BLACK_BOX_SUFFIX}`;
     logInfo(LOG_PREFIX.BLACKBOX, "Black box processing completed");
     return output;
   } catch (error) {
     logError(LOG_PREFIX.BLACKBOX, "Black box processing failed", error);
     throw error;
   }
+}
+
+export async function runDrawioPipeline(
+  serializedXml: string,
+): Promise<string> {
+  logInfo(
+    LOG_PREFIX.BLACKBOX,
+    `Generating Turtle payload for serialized input (${serializedXml.length} characters)`,
+  );
+
+  const processed = await parseSerializedXml(serializedXml);
+
+  if (processed.rawTurtle == null || processed.rawTurtle.length === 0) {
+    throw new Error("DrawIO parser did not return Turtle serialization");
+  }
+
+  logInfo(
+    LOG_PREFIX.BLACKBOX,
+    `Returning Turtle payload for graph ${processed.graphId} (${processed.rawTurtle.length} characters)`,
+  );
+  return processed.rawTurtle;
 }
 
 export { debugPyodide };

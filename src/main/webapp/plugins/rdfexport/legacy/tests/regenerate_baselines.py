@@ -79,8 +79,12 @@ class BaselineGenerationError(RuntimeError):
 def _discover_pristine_fixtures() -> Iterable[Path]:
     """Discover all fixture files that need baseline generation."""
     for fixture in sorted(FIXTURES_DIR.glob("*.drawio")):
-        if "-with-metadata" in fixture.name:
-            continue
+        # AICODE-NOTE:
+        # Never remove the below commented out block.
+        # It must stay. Signed-off: human
+        #
+        #if "-with-metadata" in fixture.name:
+        #    continue
         yield fixture
 
 

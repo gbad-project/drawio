@@ -18173,7 +18173,8 @@ https://github.com/browserify/crypto-browserify`);
 var LOG_PREFIX = {
   PYODIDE: "[PYODIDE]",
   BLACKBOX: "[BLACKBOX]",
-  PIPELINE: "[PIPELINE]"
+  PIPELINE: "[PIPELINE]",
+  TEST: "[TEST]"
 };
 function logInfo(prefix, message, ...args) {
   console.info(`${prefix} ${message}`, ...args);
@@ -18772,6 +18773,7 @@ class DrawioParserGraph(Graph):
     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.csv_path = csv_path
+
 
 def get_prefixes():
     return {
@@ -19870,6 +19872,7 @@ def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
             "-c/--capitalisation-scheme option for the permitted values"
         )
 
+
 def _build_graph_from_raw_xml(
     raw_xml: str, config_args: dict[str, Any]
 ) -> DrawioParserGraph:
@@ -20598,6 +20601,17 @@ reset_graph_store()
   });
   return pythonEnvironmentPromise;
 }
+function decodeRawTurtle(raw) {
+  if (raw == null) {
+    return null;
+  }
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    logError(LOG_PREFIX.PIPELINE, "Failed to decode raw Turtle payload", error);
+    return raw;
+  }
+}
 function mapRawSummary(raw) {
   return {
     graphId: raw.graph_id,
@@ -20608,7 +20622,7 @@ function mapRawSummary(raw) {
       prefix: entry.prefix,
       iri: entry.iri
     })),
-    rawTurtle: raw.raw_turtle
+    rawTurtle: decodeRawTurtle(raw.raw_turtle)
   };
 }
 async function invokeDrawioParser(serializedXml) {
@@ -20630,28 +20644,19 @@ parse_drawio_xml_to_json(${quoted})`);
 }
 
 // src/mockBlackBox.ts
-var BLACK_BOX_PREFIX = "[BLACKBOX]";
-var BLACK_BOX_SUFFIX = "[/BLACKBOX]";
-function formatParserResult(result) {
-  return JSON.stringify(result, null, 2);
+async function parseSerializedXml(serializedXml) {
+  const processed = await invokeDrawioParser(serializedXml);
+  logInfo(LOG_PREFIX.BLACKBOX, `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`);
+  return processed;
 }
-async function runMockBlackBox(serializedXml) {
-  logInfo(LOG_PREFIX.BLACKBOX, `Received serialized payload (${serializedXml.length} characters)`);
-  try {
-    const processed = await invokeDrawioParser(serializedXml);
-    logInfo(LOG_PREFIX.BLACKBOX, `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`);
-    const summary = formatParserResult(processed);
-    let output = `${BLACK_BOX_PREFIX} len=${serializedXml.length}
-${summary}
-${BLACK_BOX_SUFFIX}`;
-    output = processed.rawTurtle ? processed.rawTurtle.replace(/^"(.*)"$/, "$1").replace(/\\n/g, `
-`).replace(/\\"/g, '"') : "";
-    logInfo(LOG_PREFIX.BLACKBOX, "Black box processing completed");
-    return output;
-  } catch (error) {
-    logError(LOG_PREFIX.BLACKBOX, "Black box processing failed", error);
-    throw error;
+async function runDrawioPipeline(serializedXml) {
+  logInfo(LOG_PREFIX.BLACKBOX, `Generating Turtle payload for serialized input (${serializedXml.length} characters)`);
+  const processed = await parseSerializedXml(serializedXml);
+  if (processed.rawTurtle == null || processed.rawTurtle.length === 0) {
+    throw new Error("DrawIO parser did not return Turtle serialization");
   }
+  logInfo(LOG_PREFIX.BLACKBOX, `Returning Turtle payload for graph ${processed.graphId} (${processed.rawTurtle.length} characters)`);
+  return processed.rawTurtle;
 }
 
 // src/rdfexport.ts
@@ -21384,16 +21389,16 @@ Draw.loadPlugin(function(editorUi) {
     const graphXml = ui.editor.getGraphXml();
     return mxUtils.getPrettyXml(graphXml);
   }
-  mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
+  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
   editorUi.actions.addAction("exportRdfXml", async function() {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
     try {
       const serializedXml = serializeDiagramXml(editorUi);
       logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters)`);
-      const blackBoxPayload = await runMockBlackBox(serializedXml);
-      const filename = editorUi.getBaseFilename() + ".rdf";
+      const blackBoxPayload = await runDrawioPipeline(serializedXml);
+      const filename = editorUi.getBaseFilename() + ".ttl";
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
-      editorUi.saveData(filename, "rdf", blackBoxPayload, "application/rdf+xml");
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
       logInfo(LOG_PREFIX.PIPELINE, `Export pipeline completed for ${filename}`);
     } catch (e) {
       logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);
