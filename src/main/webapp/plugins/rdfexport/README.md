@@ -2,6 +2,8 @@
 
 A draw\.io plugin that adds an option to export diagrams to RDF graphs.
 
+Example usage scenario: [AA37-with-metadata-severely-mocked fixture](tests/fixtures/AA37-with-metadata-severely-mocked-README.md)
+
 Upcoming functionality: [RDF Mapping Language](https://rml.io/docs/rml/introduction/) graphs.
 
 ## Environment
