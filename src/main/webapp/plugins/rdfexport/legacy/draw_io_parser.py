@@ -970,6 +970,8 @@ def serialise_to_graph(
     datatype_properties: set[str],
     serialisation_config: SerialisationConfig,
     prefixes: dict,
+    *,
+    base_uri: str | None = None,
     graph_cls: Type[Graph] = Graph,
     graph_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Graph:
@@ -1021,12 +1023,13 @@ def serialise_to_graph(
             else None
         )
 
+        fallback_base_uri = base_uri or prefix_iri or PREFIX_IRI
+
         if prefix and prefix_iri:
             individual_uri = Namespace(prefix_iri)[individual_id]
         else:
             # Fallback to a default base URI if no prefix is defined
-            base_uri = prefix_iri or PREFIX_IRI
-            individual_uri = URIRef(f"{base_uri}{individual_id}")
+            individual_uri = URIRef(f"{fallback_base_uri}{individual_id}")
 
         g.add((individual_uri, RDF.type, OWL.NamedIndividual))
 
@@ -1052,8 +1055,7 @@ def serialise_to_graph(
                     if prefix and prefix_iri:
                         target_uri = Namespace(prefix_iri)[value]
                     else:
-                        base_uri = prefix_iri or PREFIX_IRI
-                        target_uri = URIRef(f"{base_uri}{value}")
+                        target_uri = URIRef(f"{fallback_base_uri}{value}")
                     g.add((individual_uri, prop_uri, target_uri))
                 elif prop in datatype_properties:
                     # Simplified type inference
@@ -1205,6 +1207,7 @@ def _build_graph_from_raw_xml(
         datatype_properties,
         serialisation_config,
         prefixes,
+        base_uri=base_uri,
         graph_cls=DrawioParserGraph,
         graph_kwargs={"csv_path": csv_path},
     )

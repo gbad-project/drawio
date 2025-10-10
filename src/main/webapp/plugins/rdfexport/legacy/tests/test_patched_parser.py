@@ -5,8 +5,8 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph
-from rdflib.namespace import OWL, RDF
+from rdflib import Graph, URIRef
+from rdflib.namespace import Namespace, OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 if str(LEGACY_DIR) not in sys.path:
@@ -286,3 +286,67 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
         assert _normalise_graph(patched_graph).isomorphic(
             _normalise_graph(original_graph)
         )
+
+
+def test_serialise_to_graph_uses_base_uri_for_generated_individuals():
+    base_uri = "http://example.org/custom-base/"
+    prefixes = draw_io_parser.get_prefixes()
+
+    blocks = {
+        ("Record", "Record Label"): {
+            "Types": {"rico:Record"},
+            "rico:hasCreator": {"Creator"},
+        },
+        ("Creator", "Creator Label"): {
+            "Types": {"rico:Agent"},
+        },
+    }
+
+    object_properties = {"rico:hasCreator"}
+    datatype_properties: set[str] = set()
+
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=False,
+        include_preamble=False,
+        ontology_iri=None,
+        prefix=None,
+        prefix_iri=None,
+        indentation=2,
+        include_label=True,
+    )
+
+    graph = draw_io_parser.serialise_to_graph(
+        blocks,
+        object_properties,
+        datatype_properties,
+        config,
+        prefixes,
+        base_uri=base_uri,
+    )
+
+    individuals = {
+        str(subject) for subject in graph.subjects(RDF.type, OWL.NamedIndividual)
+    }
+
+    assert individuals == {
+        f"{base_uri}Creator",
+        f"{base_uri}Record",
+    }
+
+    has_creator_predicate = Namespace(prefixes["rico"])["hasCreator"]
+
+    assert list(
+        graph.triples(
+            (
+                URIRef(f"{base_uri}Record"),
+                has_creator_predicate,
+                URIRef(f"{base_uri}Creator"),
+            )
+        )
+    ) == [
+        (
+            URIRef(f"{base_uri}Record"),
+            has_creator_predicate,
+            URIRef(f"{base_uri}Creator"),
+        )
+    ]

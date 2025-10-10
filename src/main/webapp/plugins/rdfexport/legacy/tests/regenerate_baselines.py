@@ -83,7 +83,7 @@ def _discover_pristine_fixtures() -> Iterable[Path]:
         # Never remove the below commented out block.
         # It must stay. Signed-off: human
         #
-        #if "-with-metadata" in fixture.name:
+        # if "-with-metadata" in fixture.name:
         #    continue
         yield fixture
 
