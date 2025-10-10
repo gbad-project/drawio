@@ -9,7 +9,7 @@ Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and 
 
 ## 2. Preparation process
 
-## 2.1. Environment
+### 2.1. Environment
 
 draw\.io version [24.7.5 release](https://github.com/jgraph/drawio/releases/tag/v24.7.5) (Jul 25, 2024)
 
