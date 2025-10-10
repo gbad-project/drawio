@@ -1,3 +1,6 @@
+> [!NOTE]
+> For details about an extension that saves draw\.io diagrams as RDF graphs (Graph-Based Archival Description project), please review [this page](https://github.com/gbad-project/drawio/blob/feat/rml/src/main/webapp/plugins/rdfexport/README.md).
+
 About
 -----
 draw.io, this project, is a configurable diagramming/whiteboarding visualization application. draw.io is jointly owned and developed by JGraph Ltd and draw.io AG.
