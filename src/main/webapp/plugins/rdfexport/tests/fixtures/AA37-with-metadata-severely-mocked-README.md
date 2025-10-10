@@ -21,6 +21,11 @@ The online version runs fully in the client web browser and does not require any
 
 **For developers:**
 
+rdfexport extension itself is open source: [Apache-2.0 license](https://github.com/gbad-project/drawio/blob/gbad/LICENSE).
+drawio parser fork embedded inside also is (see [discussion here](https://github.com/williamsonrichard/records_in_contexts_draw_io_parser/issues/4#issuecomment-2781104389)).
+Pyodide is under [Mozilla Public License 2.0](https://github.com/pyodide/pyodide/blob/main/LICENSE).
+RDFLib is under [BSD 3-Clause "New" or "Revised" License](https://github.com/RDFLib/rdflib/blob/main/LICENSE).
+
 Installation instructions (Linux or macOS):
 
 - Install Node via Volta on your system:
