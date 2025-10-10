@@ -36,556 +36,110 @@ of these into one large string.
 
 from __future__ import annotations
 
-from argparse import ArgumentParser
+import argparse
 from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator
-from xml.etree.ElementTree import Element, fromstring
-from typing import Optional
+from typing import Generator, Iterator, Optional, Dict, Any, Type
+from copy import deepcopy
+from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
 import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
+BASE_URI = os.getenv("BASE_URI", "https://example.com")
+PREFIX_IRI = os.getenv("PREFIX_IRI", "https://example.com/id/")
+
+
+class DrawioParserGraph(Graph):
+    """Graph subclass that records Draw.io specific metadata."""
+
+    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.csv_path = csv_path
+
+
 def get_prefixes():
-    BASE_URI = os.getenv('BASE_URI', 'https://example.com')
     return {
-        'rico': 'https://www.ica.org/standards/RiC/ontology#',
-        'add': f'{BASE_URI}/Schema/Description-Listings/',
-        'auth': f'{BASE_URI}/Schema/Authority/',
-        'owl': 'http://www.w3.org/2002/07/owl#',
-        'rdfs': 'http://www.w3.org/2000/01/rdf-schema#'
+        "rico": "https://www.ica.org/standards/RiC/ontology#",
+        "add": f"{BASE_URI}/Schema/Description-Listings/",
+        "auth": f"{BASE_URI}/Schema/Authority/",
+        "owl": "http://www.w3.org/2002/07/owl#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     }
 
-_classes = [
-    "owl:DatatypeProperty",
-    "rico:AccumulationRelation",
-    "rico:Activity",
-    "rico:ActivityDocumentationRelation",
-    "rico:ActivityType",
-    "rico:Agent",
-    "rico:AgentControlRelation",
-    "rico:AgentHierarchicalRelation",
-    "rico:AgentName",
-    "rico:AgentTemporalRelation",
-    "rico:AgentToAgentRelation",
-    "rico:Appellation",
-    "rico:AppellationRelation",
-    "rico:AuthorityRelation",
-    "rico:AuthorshipRelation",
-    "rico:CarrierExtent",
-    "rico:CarrierType",
-    "rico:ChildRelation",
-    "rico:Concept",
-    "rico:ContentType",
-    "rico:Coordinates",
-    "rico:CorporateBody",
-    "rico:CorporateBodyType",
-    "rico:CorrespondenceRelation",
-    "rico:CreationRelation",
-    "rico:Date",
-    "rico:DateType",
-    "rico:DemographicGroup",
-    "rico:DerivationRelation",
-    "rico:DescendanceRelation",
-    "rico:DocumentaryFormType",
-    "rico:Event",
-    "rico:EventRelation",
-    "rico:EventType",
-    "rico:Extent",
-    "rico:ExtentType",
-    "rico:Family",
-    "rico:FamilyRelation",
-    "rico:FamilyType",
-    "rico:FunctionalEquivalenceRelation",
-    "rico:Group",
-    "rico:GroupSubdivisionRelation",
-    "rico:Identifier",
-    "rico:IdentifierType",
-    "rico:Instantiation",
-    "rico:InstantiationExtent",
-    "rico:InstantiationToInstantiationRelation",
-    "rico:IntellectualPropertyRightsRelation",
-    "rico:KnowingOfRelation",
-    "rico:KnowingRelation",
-    "rico:Language",
-    "rico:LeadershipRelation",
-    "rico:LegalStatus",
-    "rico:ManagementRelation",
-    "rico:Mandate",
-    "rico:MandateRelation",
-    "rico:MandateType",
-    "rico:Mechanism",
-    "rico:MembershipRelation",
-    "rico:MigrationRelation",
-    "rico:Name",
-    "rico:OccupationType",
-    "rico:OrganicOrFunctionalProvenanceRelation",
-    "rico:OrganicProvenanceRelation",
-    "rico:OwnershipRelation",
-    "rico:PerformanceRelation",
-    "rico:Person",
-    "rico:PhysicalLocation",
-    "rico:Place",
-    "rico:PlaceName",
-    "rico:PlaceRelation",
-    "rico:PlaceType",
-    "rico:Position",
-    "rico:PositionHoldingRelation",
-    "rico:PositionToGroupRelation",
-    "rico:ProductionTechniqueType",
-    "rico:Proxy",
-    "rico:Record",
-    "rico:RecordPart",
-    "rico:RecordResource",
-    "rico:RecordResourceExtent",
-    "rico:RecordResourceGeneticRelation",
-    "rico:RecordResourceHoldingRelation",
-    "rico:RecordResourceToInstantiationRelation",
-    "rico:RecordResourceToRecordResourceRelation",
-    "rico:RecordSet",
-    "rico:RecordSetType",
-    "rico:RecordState",
-    "rico:Relation",
-    "rico:RepresentationType",
-    "rico:RoleType",
-    "rico:Rule",
-    "rico:RuleRelation",
-    "rico:RuleType",
-    "rico:SequentialRelation",
-    "rico:SiblingRelation",
-    "rico:SpouseRelation",
-    "rico:TeachingRelation",
-    "rico:TemporalRelation",
-    "rico:Thing",
-    "rico:Title",
-    "rico:Type",
-    "rico:TypeRelation",
-    "rico:UnitOfMeasurement",
-    "rico:WholePartRelation",
-    "rico:WorkRelation"
-]
 
-_object_properties = [
-    "rdfs:subPropertyOf",
-    "rico:affectsOrAffected",
-    "rico:agentHasOrHadLocation",
-    "rico:authorizedBy",
-    "rico:authorizes",
-    "rico:contained",
-    "rico:containsOrContained",
-    "rico:containsTransitive",
-    "rico:describesOrDescribed",
-    "rico:directlyContains",
-    "rico:directlyFollowsInSequence",
-    "rico:directlyIncludes",
-    "rico:directlyPrecedesInSequence",
-    "rico:documentedBy",
-    "rico:documents",
-    "rico:existsOrExistedIn",
-    "rico:expressesOrExpressed",
-    "rico:followedInSequence",
-    "rico:followsInSequenceTransitive",
-    "rico:followsInTime",
-    "rico:followsOrFollowed",
-    "rico:hadComponent",
-    "rico:hadConstituent",
-    "rico:hadPart",
-    "rico:hadSubdivision",
-    "rico:hadSubevent",
-    "rico:hadSubordinate",
-    "rico:hasAccumulator",
-    "rico:hasActivityType",
-    "rico:hasAddressee",
-    "rico:hasAncestor",
-    "rico:hasAuthor",
-    "rico:hasBeginningDate",
-    "rico:hasBirthDate",
-    "rico:hasBirthPlace",
-    "rico:hasCarrierType",
-    "rico:hasChild",
-    "rico:hasCollector",
-    "rico:hasComponentTransitive",
-    "rico:hasConstituentTransitive",
-    "rico:hasContentOfType",
-    "rico:hasCopy",
-    "rico:hasCreationDate",
-    "rico:hasCreator",
-    "rico:hasDateType",
-    "rico:hasDeathDate",
-    "rico:hasDeathPlace",
-    "rico:hasDescendant",
-    "rico:hasDestructionDate",
-    "rico:hasDirectComponent",
-    "rico:hasDirectConstituent",
-    "rico:hasDirectPart",
-    "rico:hasDirectSubdivision",
-    "rico:hasDirectSubevent",
-    "rico:hasDirectSubordinate",
-    "rico:hasDocumentaryFormType",
-    "rico:hasDraft",
-    "rico:hasEndDate",
-    "rico:hasEventType",
-    "rico:hasExtent",
-    "rico:hasExtentType",
-    "rico:hasFamilyAssociationWith",
-    "rico:hasFamilyType",
-    "rico:hasGeneticLinkToRecordResource",
-    "rico:hasIdentifierType",
-    "rico:hasModificationDate",
-    "rico:hasOrHadAgentName",
-    "rico:hasOrHadAllMembersWithCategory",
-    "rico:hasOrHadAllMembersWithContentType",
-    "rico:hasOrHadAllMembersWithCreationDate",
-    "rico:hasOrHadAllMembersWithDocumentaryFormType",
-    "rico:hasOrHadAllMembersWithLanguage",
-    "rico:hasOrHadAllMembersWithLegalStatus",
-    "rico:hasOrHadAllMembersWithRecordState",
-    "rico:hasOrHadAnalogueInstantiation",
-    "rico:hasOrHadAppellation",
-    "rico:hasOrHadAuthorityOver",
-    "rico:hasOrHadCategory",
-    "rico:hasOrHadType",
-    "rico:hasOrHadComponent",
-    "rico:hasOrHadConstituent",
-    "rico:hasOrHadController",
-    "rico:hasOrHadCoordinates",
-    "rico:hasOrHadCorporateBodyType",
-    "rico:hasOrHadCorrespondent",
-    "rico:hasOrHadDemographicGroup",
-    "rico:hasOrHadDerivedInstantiation",
-    "rico:hasOrHadDigitalInstantiation",
-    "rico:hasOrHadEmployer",
-    "rico:hasOrHadHolder",
-    "rico:hasOrHadIdentifier",
-    "rico:hasOrHadInstantiation",
-    "rico:hasOrHadIntellectualPropertyRightsHolder",
-    "rico:hasOrHadJurisdiction",
-    "rico:hasOrHadLanguage",
-    "rico:hasOrHadLeader",
-    "rico:hasOrHadLegalStatus",
-    "rico:hasOrHadLocation",
-    "rico:hasOrHadMainSubject",
-    "rico:hasOrHadManager",
-    "rico:hasOrHadMandateType",
-    "rico:hasOrHadMember",
-    "rico:hasOrHadMostMembersWithCreationDate",
-    "rico:hasOrHadName",
-    "rico:hasOrHadOccupationOfType",
-    "rico:hasOrHadOwner",
-    "rico:hasOrHadPart",
-    "rico:hasOrHadParticipant",
-    "rico:hasOrHadPhysicalLocation",
-    "rico:hasOrHadPlaceName",
-    "rico:hasOrHadPlaceType",
-    "rico:hasOrHadPosition",
-    "rico:hasOrHadRuleType",
-    "rico:hasOrHadSomeMembersWithCategory",
-    "rico:hasOrHadSomeMembersWithContentType",
-    "rico:hasOrHadSomeMembersWithCreationDate",
-    "rico:hasOrHadSomeMembersWithLanguage",
-    "rico:hasOrHadSomeMembersWithLegalStatus",
-    "rico:hasOrHadSomeMembersWithRecordState",
-    "rico:hasOrHadSomeMemberswithDocumentaryFormType",
-    "rico:hasOrHadSpouse",
-    "rico:hasOrHadStudent",
-    "rico:hasOrHadSubdivision",
-    "rico:hasOrHadSubevent",
-    "rico:hasOrHadSubject",
-    "rico:hasOrHadSubordinate",
-    "rico:hasOrHadTeacher",
-    "rico:hasOrHadTitle",
-    "rico:hasOrHadWorkRelationWith",
-    "rico:hasOrganicOrFunctionalProvenance",
-    "rico:hasOrganicProvenance",
-    "rico:hasOriginal",
-    "rico:hasPartTransitive",
-    "rico:hasProductionTechniqueType",
-    "rico:hasPublicationDate",
-    "rico:hasPublisher",
-    "rico:hasReceiver",
-    "rico:hasRecordSetType",
-    "rico:hasRecordState",
-    "rico:hasReply",
-    "rico:hasRepresentationType",
-    "rico:hasSender",
-    "rico:hasSibling",
-    "rico:hasSubdivisionTransitive",
-    "rico:hasSubeventTransitive",
-    "rico:hasSubordinateTransitive",
-    "rico:hasSuccessor",
-    "rico:hasUnitOfMeasurement",
-    "rico:hasWithin",
-    "rico:included",
-    "rico:includesOrIncluded",
-    "rico:includesTransitive",
-    "rico:intersects",
-    "rico:isAccumulatorOf",
-    "rico:isActivityTypeOf",
-    "rico:isAddresseeOf",
-    "rico:isAgentAssociatedWithAgent",
-    "rico:isAgentAssociatedWithPlace",
-    "rico:isAssociatedWithDate",
-    "rico:isAssociatedWithEvent",
-    "rico:isAssociatedWithPlace",
-    "rico:isAssociatedWithRule",
-    "rico:isAuthorOf",
-    "rico:isBeginningDateOf",
-    "rico:isBirthDateOf",
-    "rico:isBirthPlaceOf",
-    "rico:isCarrierTypeOf",
-    "rico:isChildOf",
-    "rico:isCollectorOf",
-    "rico:isComponentOfTransitive",
-    "rico:isConstituentOfTransitive",
-    "rico:isContainedByTransitive",
-    "rico:isContentTypeOf",
-    "rico:isCopyOf",
-    "rico:isCreationDateOf",
-    "rico:isCreatorOf",
-    "rico:isDateAssociatedWith",
-    "rico:isDateOfOccurrenceOf",
-    "rico:isDateTypeOf",
-    "rico:isDeathDateOf",
-    "rico:isDeathPlaceOf",
-    "rico:isDestructionDateOf",
-    "rico:isDirectComponentOf",
-    "rico:isDirectConstituentOf",
-    "rico:isDirectPartOf",
-    "rico:isDirectSubdivisionOf",
-    "rico:isDirectSubeventOf",
-    "rico:isDirectSubordinateTo",
-    "rico:isDirectlyContainedBy",
-    "rico:isDirectlyIncludedIn",
-    "rico:isDocumentaryFormTypeOf",
-    "rico:isDraftOf",
-    "rico:isEndDateOf",
-    "rico:isEquivalentTo",
-    "rico:isEventAssociatedWith",
-    "rico:isEventTypeOf",
-    "rico:isExtentOf",
-    "rico:isExtentTypeOf",
-    "rico:isFamilyTypeOf",
-    "rico:isFromUseDateOf",
-    "rico:isFunctionallyEquivalentTo",
-    "rico:isIdentifierTypeOf",
-    "rico:isIncludedInTransitive",
-    "rico:isInstantiationAssociatedWithInstantiation",
-    "rico:isLastUpdateDateOf",
-    "rico:isModificationDateOf",
-    "rico:isOrWasAdjacentTo",
-    "rico:isOrWasAffectedBy",
-    "rico:isOrWasAgentNameOf",
-    "rico:isOrWasAnalogueInstantiationOf",
-    "rico:isOrWasAppellationOf",
-    "rico:isOrWasCategoryOf",
-    "rico:isOrWasCategoryOfAllMembersOf",
-    "rico:isOrWasCategoryOfSomeMembersOf",
-    "rico:isOrWasComponentOf",
-    "rico:isOrWasConstituentOf",
-    "rico:isOrWasContainedBy",
-    "rico:isOrWasContentTypeOfAllMembersOf",
-    "rico:isOrWasContentTypeOfSomeMembersOf",
-    "rico:isOrWasControllerOf",
-    "rico:isOrWasCoordinatesOf",
-    "rico:isOrWasCorporateBodyTypeOf",
-    "rico:isOrWasCreationDateOfAllMembersOf",
-    "rico:isOrWasCreationDateOfMostMembersOf",
-    "rico:isOrWasCreationDateOfSomeMembersOf",
-    "rico:isOrWasDemographicGroupOf",
-    "rico:isOrWasDerivedFromInstantiation",
-    "rico:isOrWasDescribedBy",
-    "rico:isOrWasDigitalInstantiationOf",
-    "rico:isOrWasDocumentaryFormTypeOfAllMembersOf",
-    "rico:isOrWasDocumentaryFormTypeOfSomeMembersOf",
-    "rico:isOrWasEmployerOf",
-    "rico:isOrWasEnforcedBy",
-    "rico:isOrWasExpressedBy",
-    "rico:isOrWasHolderOf",
-    "rico:isOrWasHolderOfIntellectualPropertyRightsOf",
-    "rico:isOrWasIdentifierOf",
-    "rico:isOrWasIncludedIn",
-    "rico:isOrWasInstantiationOf",
-    "rico:isOrWasJurisdictionOf",
-    "rico:isOrWasLanguageOf",
-    "rico:isOrWasLanguageOfAllMembersOf",
-    "rico:isOrWasLanguageOfSomeMembersOf",
-    "rico:isOrWasLeaderOf",
-    "rico:isOrWasLegalStatusOf",
-    "rico:isOrWasLegalStatusOfAllMembersOf",
-    "rico:isOrWasLegalStatusOfSomeMembersOf",
-    "rico:isOrWasLocationOf",
-    "rico:isOrWasLocationOfAgent",
-    "rico:isOrWasMainSubjectOf",
-    "rico:isOrWasManagerOf",
-    "rico:isOrWasMandateTypeOf",
-    "rico:isOrWasMemberOf",
-    "rico:isOrWasNameOf",
-    "rico:isOrWasOccupationTypeOf",
-    "rico:isOrWasOccupiedBy",
-    "rico:isOrWasOwnerOf",
-    "rico:isOrWasPartOf",
-    "rico:isOrWasParticipantIn",
-    "rico:isOrWasPerformedBy",
-    "rico:isOrWasPhysicalLocationOf",
-    "rico:isOrWasPlaceNameOf",
-    "rico:isOrWasPlaceTypeOf",
-    "rico:isOrWasRecordStateOfAllMembersOf",
-    "rico:isOrWasRecordStateOfSomeMembersOf",
-    "rico:isOrWasRegulatedBy",
-    "rico:isOrWasResponsibleForEnforcing",
-    "rico:isOrWasRuleTypeOf",
-    "rico:isOrWasSubdivisionOf",
-    "rico:isOrWasSubeventOf",
-    "rico:isOrWasSubjectOf",
-    "rico:isOrWasSubordinateTo",
-    "rico:isOrWasTitleOf",
-    "rico:isOrWasUnderAuthorityOf",
-    "rico:isOrganicOrFunctionalProvenanceOf",
-    "rico:isOrganicProvenanceOf",
-    "rico:isOriginalOf",
-    "rico:isPartOfTransitive",
-    "rico:isPlaceAssociatedWith",
-    "rico:isPlaceAssociatedWithAgent",
-    "rico:isProductionTechniqueTypeOf",
-    "rico:isPublicationDateOf",
-    "rico:isPublisherOf",
-    "rico:isReceiverOf",
-    "rico:isRecordResourceAssociatedWithRecordResource",
-    "rico:isRecordSetTypeOf",
-    "rico:isRecordStateOf",
-    "rico:isRelatedTo",
-    "rico:isReplyTo",
-    "rico:isRepresentationTypeOf",
-    "rico:isResponsibleForIssuing",
-    "rico:isRuleAssociatedWith",
-    "rico:isSenderOf",
-    "rico:isSubdivisionOfTransitive",
-    "rico:isSubeventOfTransitive",
-    "rico:isSubordinateToTransitive",
-    "rico:isSuccessorOf",
-    "rico:isToUseDateOf",
-    "rico:isUnitOfMeasurementOf",
-    "rico:isWithin",
-    "rico:issuedBy",
-    "rico:knownBy",
-    "rico:knows",
-    "rico:knowsOf",
-    "rico:migratedFrom",
-    "rico:migratedInto",
-    "rico:occupiesOrOccupied",
-    "rico:occurredAtDate",
-    "rico:overlapsOrOverlapped",
-    "rico:performsOrPerformed",
-    "rico:precededInSequence",
-    "rico:precedesInSequenceTransitive",
-    "rico:precedesInTime",
-    "rico:precedesOrPreceded",
-    "rico:proxyFor",
-    "rico:proxyIn",
-    "rico:regulatesOrRegulated",
-    "rico:relationHasSource",
-    "rico:relationHasTarget",
-    "rico:resultedFromTheMergerOf",
-    "rico:resultedFromTheSplitOf",
-    "rico:resultsOrResultedFrom",
-    "rico:resultsOrResultedIn",
-    "rico:thingIsSourceOfRelation",
-    "rico:wasComponentOf",
-    "rico:wasConstituentOf",
-    "rico:wasContainedBy",
-    "rico:wasIncludedIn",
-    "rico:wasLastUpdatedAtDate",
-    "rico:wasMergedInto",
-    "rico:wasPartOf",
-    "rico:wasSplitInto",
-    "rico:wasSubdivisionOf",
-    "rico:wasSubeventOf",
-    "rico:wasSubordinateTo",
-    "rico:wasUsedFromDate",
-    "rico:wasUsedToDate"
-]
+def _extract_drawio_metadata(
+    raw_xml: str,
+) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+    """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+    try:
+        root = fromstring(raw_xml)
+    except Exception:  # pragma: no cover - defensive guard around XML parsing
+        return {}, None, None, None
 
-_datatype_properties = [
-    "add:privateNote",
-    "add:notes",
-    "add:relatedMaterial",
-    "add:associatedMaterial",
-    "add:findingAidNote",
-    "add:immediateSourceOfAcquisition",
-    "add:custodialHistory",
-    "add:availabilityOfOtherFormats",
-    "add:accumulationDate",
-    "add:howToOrder",
-    "auth:sourceNote",
-    "auth:functionNote",
-    "auth:privateNote",
-    "rdfs:label",
-    "rico:accruals",
-    "rico:accrualsStatus",
-    "rico:altimetricSystem",
-    "rico:altitude",
-    "rico:authenticityNote",
-    "rico:authorizingMandate",
-    "rico:beginningDate",
-    "rico:birthDate",
-    "rico:carrierExtent",
-    "rico:classification",
-    "rico:conditionsOfAccess",
-    "rico:conditionsOfUse",
-    "rico:creationDate",
-    "rico:date",
-    "rico:dateQualifier",
-    "rico:deathDate",
-    "rico:destructionDate",
-    "rico:endDate",
-    "rico:expressedDate",
-    "rico:generalDescription",
-    "rico:geodesicSystem",
-    "rico:geographicalCoordinates",
-    "rico:height",
-    "rico:history",
-    "rico:identifier",
-    "rico:instantiationExtent",
-    "rico:instantiationStructure",
-    "rico:integrityNote",
-    "rico:lastModificationDate",
-    "rico:latitude",
-    "rico:length",
-    "rico:location",
-    "rico:longitude",
-    "rico:measure",
-    "rico:modificationDate",
-    "rico:name",
-    "rico:normalizedDateValue",
-    "rico:normalizedValue",
-    "rico:physicalCharacteristicsNote",
-    "rico:physicalOrLogicalExtent",
-    "rico:productionTechnique",
-    "rico:publicationDate",
-    "rico:qualityOfRepresentationNote",
-    "rico:quantity",
-    "rico:recordResourceExtent",
-    "rico:recordResourceStructure",
-    "rico:referenceSystem",
-    "rico:relationCertainty",
-    "rico:relationSource",
-    "rico:relationState",
-    "rico:ruleFollowed",
-    "rico:scopeAndContent",
-    "rico:structure",
-    "rico:technicalCharacteristics",
-    "rico:textualValue",
-    "rico:title",
-    "rico:type",
-    "rico:unitOfMeasurement",
-    "rico:usedFromDate",
-    "rico:usedToDate",
-    "rico:width"
-]
+    metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+    if metadata_node is None:
+        return {}, None, None, root
+
+    csv_path_raw = metadata_node.attrib.get("csvPath", "")
+    base_uri_raw = metadata_node.attrib.get("baseUri", "")
+
+    csv_path = csv_path_raw.strip() or None
+    base_uri = base_uri_raw.strip() or None
+
+    prefixes: dict[str, str] = {}
+    for preamble in metadata_node.findall("userObjectPreambleElement"):
+        prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
+        iri = (preamble.attrib.get("rdfIRI") or "").strip()
+        if prefix and iri:
+            prefixes[prefix] = iri
+
+    return prefixes, base_uri, csv_path, root
+
+
+def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
+    if root is None:
+        return raw_xml
+
+    working_root = deepcopy(root)
+    graph_root = working_root.find(".//mxGraphModel/root")
+    if graph_root is None:
+        return raw_xml
+
+    metadata_node = graph_root.find("UserObject[@id='0']")
+    if metadata_node is None:
+        return raw_xml
+
+    replacement = Element("mxCell", {"id": "0"})
+    children = list(graph_root)
+    for index, child in enumerate(children):
+        if child is metadata_node:
+            graph_root.remove(metadata_node)
+            graph_root.insert(index, replacement)
+            break
+
+    return tostring(working_root, encoding="unicode")
+
+
+def _split_curie(curie: str) -> tuple[str, str]:
+    if ":" not in curie:
+        return "", ""
+    prefix, remainder = curie.split(":", 1)
+    return prefix, remainder.strip()
+
+
+def _ensure_known_curie(
+    curie: str, prefixes: dict[str, str], error_message: str
+) -> tuple[str, str]:
+    prefix, reference = _split_curie(curie)
+    if prefix not in prefixes or not reference:
+        raise NotInKnownException(error_message)
+    return prefix, reference
+
 
 Blocks = dict[tuple[str, str], dict[str, set[str]]]
 Cell = Element
@@ -606,7 +160,22 @@ Replacement = str
 DEFAULT_CAPITALISATION_SCHEME = "upper-camel"
 DEFAULT_INDENTATION = 2
 DEFAULT_MAX_GAP = 10
-OWL_METACHARACTERS = ["(", ")", "[", "]", "{", "}", "/", ",", ":", ".", "'", '"', ' ', '#']
+OWL_METACHARACTERS = [
+    "(",
+    ")",
+    "[",
+    "]",
+    "{",
+    "}",
+    "/",
+    ",",
+    ":",
+    ".",
+    "'",
+    '"',
+    " ",
+    "#",
+]
 
 
 class NothingToParseException(Exception):
@@ -706,6 +275,7 @@ class Individual:
     Represents an OWL individual with type a RiC-O class, coming from a node in
     the parsed graph
     """
+
     identifier: str
     ric_class: str
 
@@ -716,9 +286,11 @@ class Arrow:
     Represents an OWL object or datatype property with type a RiC-O class,
     coming from an arrow in the parsed graph
     """
+
     identifier: str
     source: str
     target: str
+    is_datatype: bool
 
 
 class NodeHTMLParser(HTMLParser):
@@ -749,12 +321,12 @@ class NodeHTMLParser(HTMLParser):
     def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
         if tag in ["div", "blockquote", "p", "br"]:
             # Otherwise words stick together in place of a single line break
-            self._chunks.append(' ')
+            self._chunks.append(" ")
 
     def handle_endtag(self, tag: str) -> None:
         if tag in ["div", "blockquote", "p"]:
             # Otherwise words stick together in place of a single line break
-            self._chunks.append(' ')
+            self._chunks.append(" ")
 
     def handle_data(self, data: str) -> None:
         """
@@ -809,6 +381,7 @@ class SerialisationConfig:
     Holds various user-configurable parameters for configuring the serialisation
     to OWL outputted by the 'serialise' function
     """
+
     infer_type_of_literals: bool
     include_preamble: bool
     ontology_iri: str | None
@@ -830,10 +403,10 @@ class DrawIOXMLTree:
     'individuals_and_arrows' can then be called to complete the parsing and
     return the obtained Individual and Arrow instances as a generator
     """
+
     draw_io_xml_tree: Element = field(init=False)
     literal_node_html_parser: NodeHTMLParser = field(init=False)
-    individual_cells: list[
-        tuple[Cell, Individual, Dimensions]] = field(init=False)
+    individual_cells: list[tuple[Cell, Individual, Dimensions]] = field(init=False)
     arrow_cells: list[ArrowData] = field(init=False)
     literal_cells: list[tuple[Cell, Dimensions]] = field(init=False)
 
@@ -892,11 +465,13 @@ class DrawIOXMLTree:
             ) from index_error
         raise ParseException(
             "Expecting the cell with the following id to have an mxGeometry "
-            f"sub-element: {cell.attrib['id']}")
+            f"sub-element: {cell.attrib['id']}"
+        )
 
     @staticmethod
-    def _x_and_y_in_geometry(geometry: Element, cell_id: str) -> tuple[
-            XCoordinate, YCoordinate]:
+    def _x_and_y_in_geometry(
+        geometry: Element, cell_id: str
+    ) -> tuple[XCoordinate, YCoordinate]:
         try:
             x = float(geometry.attrib["x"])
         except KeyError as key_error:
@@ -915,7 +490,8 @@ class DrawIOXMLTree:
 
     @staticmethod
     def _has_correct_as_attribute(
-            element: Element, as_attribute: str, cell_id: str) -> bool:
+        element: Element, as_attribute: str, cell_id: str
+    ) -> bool:
         try:
             return element.attrib["as"] == as_attribute
         except KeyError as key_error:
@@ -932,8 +508,9 @@ class DrawIOXMLTree:
             return True
         return False
 
-    def _start_or_end(self, cell: Element, as_attribute: str | None) -> tuple[
-            XCoordinate, YCoordinate] | None:
+    def _start_or_end(
+        self, cell: Element, as_attribute: str | None
+    ) -> tuple[XCoordinate, YCoordinate] | None:
         """
         The cell can be part of a group (have another 'parent' than that of the
         top-level graph), in which case the immediate x and y coordinates will
@@ -947,10 +524,12 @@ class DrawIOXMLTree:
             raise ParseException(
                 "Expecting the mxGeometry element of the cell with the "
                 "following id to have sub-elements, but has no sub-elements "
-                f"at all: {cell.attrib['id']}")
+                f"at all: {cell.attrib['id']}"
+            )
         for element in geometry:
             if element.tag != "mxPoint" or not self._has_correct_as_attribute(
-                    element, as_attribute, cell.attrib["id"]):
+                element, as_attribute, cell.attrib["id"]
+            ):
                 continue
             try:
                 x = float(element.attrib["x"])
@@ -975,8 +554,7 @@ class DrawIOXMLTree:
             parent_id = cell.attrib["parent"]
             if parent_id == "1":
                 return x, y
-            parent_coordinates = self._start_or_end(
-                self._parent_of(cell), None)
+            parent_coordinates = self._start_or_end(self._parent_of(cell), None)
             if parent_coordinates is None:
                 raise ValueError
             parent_x, parent_y = parent_coordinates
@@ -984,7 +562,8 @@ class DrawIOXMLTree:
         raise ParseException(
             "Expecting the mxGeometry element of the cell with the following "
             "id to have an mxPoint sub-element with 'as' attribute having "
-            f"value 'sourcePoint', but it does not: {cell.attrib['id']}")
+            f"value 'sourcePoint', but it does not: {cell.attrib['id']}"
+        )
 
     def _arrow_start(self, arrow_cell: Element) -> ArrowStart | None:
         return self._start_or_end(arrow_cell, "sourcePoint")
@@ -997,22 +576,22 @@ class DrawIOXMLTree:
         geometry = DrawIOXMLTree._geometry(individual_cell)
         try:
             x = float(geometry.attrib["x"])
-        except KeyError as key_error:
+        except KeyError:
             x = 0.0
-            #raise ParseException(
+            # raise ParseException(
             #    "Expecting the mxGeometry element of the cell with the "
             #    "following id to have an 'x' attribute, but it does not: "
             #    f"{individual_cell.attrib['id']}"
-            #) from key_error
+            # ) from key_error
         try:
             y = float(geometry.attrib["y"])
-        except KeyError as key_error:
+        except KeyError:
             y = 0.0
-            #raise ParseException(
+            # raise ParseException(
             #    "Expecting the mxGeometry element of the cell with the "
             #    "following id to have a 'y' attribute, but it does not: "
             #    f"{individual_cell.attrib['id']}"
-            #) from key_error
+            # ) from key_error
         try:
             width = float(geometry.attrib["width"])
         except KeyError as key_error:
@@ -1053,12 +632,7 @@ class DrawIOXMLTree:
     def _add_arrow_if_find_label(self, cell: Element) -> None:
         try:
             label = self._arrow_label(cell)
-            arrow_data = (
-                cell,
-                self._arrow_start(cell),
-                self._arrow_end(cell),
-                label
-            )
+            arrow_data = (cell, self._arrow_start(cell), self._arrow_end(cell), label)
             self.arrow_cells.append(arrow_data)
         except _NoValueException:
             pass
@@ -1073,7 +647,8 @@ class DrawIOXMLTree:
             if cell.tag != "mxCell":
                 raise ParseException(
                     "Could not parse XML tree: expecting an element with tag "
-                    f"'mxCell', but had tag '{cell.tag}'")
+                    f"'mxCell', but had tag '{cell.tag}'"
+                )
             try:
                 cell_value = self._value_of(cell)
             except _NoValueException:
@@ -1081,7 +656,7 @@ class DrawIOXMLTree:
             if not cell_value:
                 self._add_arrow_if_find_label(cell)
                 continue
-            if not cell_value.split(":")[0] in self.prefixes.keys():
+            if cell_value.split(":")[0] not in self.prefixes.keys():
                 if self._is_possible_literal(cell):
                     self.literal_cells.append((cell, self._dimensions(cell)))
                 continue
@@ -1094,7 +669,7 @@ class DrawIOXMLTree:
                         cell,
                         self._arrow_start(cell),
                         self._arrow_end(cell),
-                        cell.attrib["value"]
+                        cell.attrib["value"],
                     )
                     self.arrow_cells.append(arrow_data)
                 except _NoValueException:
@@ -1105,11 +680,12 @@ class DrawIOXMLTree:
             for prefix in self.prefixes.keys():
                 for ric_class in cell_value.split(f"{prefix}:")[1:]:
                     ric_class = f"{prefix}:" + ric_class.strip()
-                    _verify_is_ric_class(ric_class)
+                    _verify_is_ric_class(ric_class, self.prefixes)
                     individual = Individual(individual_identifier, ric_class)
                     self.individual_cells.append(
-                        (cell, individual, self._dimensions(parent)))
-            #for ric_class in cell_value.split("rico:")[1:]:
+                        (cell, individual, self._dimensions(parent))
+                    )
+            # for ric_class in cell_value.split("rico:")[1:]:
             #    ric_class = ric_class.strip()
             #    _verify_is_ric_class(ric_class)
             #    individual = Individual(individual_identifier, ric_class)
@@ -1118,21 +694,19 @@ class DrawIOXMLTree:
 
     @staticmethod
     def _close_enough(
-            arrow_endpoint: ArrowStart | ArrowEnd,
-            cell_dimensions: Dimensions,
-            max_gap: float) -> bool:
+        arrow_endpoint: ArrowStart | ArrowEnd,
+        cell_dimensions: Dimensions,
+        max_gap: float,
+    ) -> bool:
         endpoint_x, endpoint_y = arrow_endpoint
         cell_x, cell_y, cell_width, cell_height = cell_dimensions
-        return (
-            cell_x - max_gap <= endpoint_x <= cell_x + cell_width + max_gap
-        ) and (
+        return (cell_x - max_gap <= endpoint_x <= cell_x + cell_width + max_gap) and (
             cell_y - max_gap <= endpoint_y <= cell_y + cell_height + max_gap
         )
 
     def _cell_close_to(
-            self,
-            arrow_endpoint: ArrowStart | ArrowEnd,
-            max_gap: float) -> Element:
+        self, arrow_endpoint: ArrowStart | ArrowEnd, max_gap: float
+    ) -> Element:
         for cell, _, dimensions in self.individual_cells:
             if self._close_enough(arrow_endpoint, dimensions, max_gap):
                 return cell
@@ -1147,10 +721,12 @@ class DrawIOXMLTree:
                 return True
         return False
 
+    def _cell_is_literal(self, candidate: Element) -> bool:
+        return any(literal_cell is candidate for literal_cell, _ in self.literal_cells)
+
     def _source_or_target(
-            self,
-            source_or_target_cell: Element,
-            must_be_individual: bool) -> str:
+        self, source_or_target_cell: Element, must_be_individual: bool
+    ) -> str:
         try:
             value = self._value_of(source_or_target_cell)
         except KeyError as key_error:
@@ -1161,11 +737,7 @@ class DrawIOXMLTree:
             raise _SourceNotIndividualException
         return value
 
-    def _arrow(
-            self,
-            arrow_data: ArrowData,
-            strict_mode: bool,
-            max_gap: float) -> Arrow:
+    def _arrow(self, arrow_data: ArrowData, strict_mode: bool, max_gap: float) -> Arrow:
         arrow_cell, arrow_start, arrow_end, arrow_label = arrow_data
         try:
             source_cell = self._cell_with_id(arrow_cell.attrib["source"])
@@ -1210,11 +782,14 @@ class DrawIOXMLTree:
                     "target was not able to be determined"
                 ) from not_close_enough_exception
         target = self._source_or_target(target_cell, False)
-        return Arrow(str(arrow_label.strip()), source, target)
+        is_datatype = self._cell_is_literal(target_cell)
+        if not is_datatype and not self._defines_individual(target):
+            is_datatype = True
+        return Arrow(str(arrow_label.strip()), source, target, is_datatype)
 
     def individuals_and_arrows(
-            self, strict_mode: bool, max_gap: float) -> Generator[
-            Individual | Arrow, None, None]:
+        self, strict_mode: bool, max_gap: float
+    ) -> Generator[Individual | Arrow, None, None]:
         """
         Returns as a generator all Individual and Arrow instances obtained
         when parsing the nodes and arrows of the draw.io XML graph fed into the
@@ -1226,34 +801,37 @@ class DrawIOXMLTree:
             yield self._arrow(arrow_data, strict_mode, max_gap)
 
 
-def _verify_is_ric_class(ric_class: str):
-    if not ric_class in _classes:
-        raise NotInKnownException(f"Not a known class: {ric_class}")
+def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
+    _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
 
 
 def _handle_spaces(
-        identifier: str,
-        space_substitute: Replacement,
-        capitalisation_scheme: str) -> str:
+    identifier: str, space_substitute: Replacement, capitalisation_scheme: str
+) -> str:
     if capitalisation_scheme == "upper-camel":
         return f"{space_substitute}".join(
-            word[0].upper() + word[1:] for word in identifier.split())
+            word[0].upper() + word[1:] for word in identifier.split()
+        )
     if capitalisation_scheme == "lower-camel":
         words = identifier.split()
         return f"{space_substitute}".join(
-            [words[0][0].lower() + words[0][1:]] + [
-                word[0].upper() + word[1:] for word in words[1:]])
+            [words[0][0].lower() + words[0][1:]]
+            + [word[0].upper() + word[1:] for word in words[1:]]
+        )
     if capitalisation_scheme == "flat":
         return f"{space_substitute}".join(
-            word[0].lower() + word[1:] for word in identifier.split())
+            word[0].lower() + word[1:] for word in identifier.split()
+        )
     if capitalisation_scheme == "none":
         return f"{space_substitute}".join(identifier.split())
     raise ValueError
 
 
 def _replace_metacharacter(
-        metacharacter: str, identifier: str, metacharacter_substitutes: list[
-        tuple[Metacharacter, Replacement]]) -> str:
+    metacharacter: str,
+    identifier: str,
+    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+) -> str:
     if metacharacter not in identifier:
         return identifier
     for to_replace, replacement in metacharacter_substitutes:
@@ -1263,48 +841,54 @@ def _replace_metacharacter(
         f"The following contains the OWL metacharacter '{metacharacter}': "
         f"'{identifier}'. Use the -m/--metacharacter-substitute option, more "
         "than once if necessary, to define a character or string to substitute "
-        "it with, or to specify that it should be removed")
+        "it with, or to specify that it should be removed"
+    )
 
 
 def _replace_metacharacters(
-        identifier: str,
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-        space_substitute: Replacement | None,
-        capitalisation_scheme: str) -> str:
-    if ' ' in identifier:
+    identifier: str,
+    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+    space_substitute: Replacement | None,
+    capitalisation_scheme: str,
+) -> str:
+    if " " in identifier:
         if space_substitute is None:
             raise MetacharacterException(
                 "The following contains a space, but how to handle spaces in "
                 "individual nodes has not been specified (spaces cannot be "
                 f"used in OWL IRIs): '{identifier}'. Use the "
                 "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
-                "options to define how to handle spaces")
-        identifier = _handle_spaces(
-            identifier, space_substitute, capitalisation_scheme)
+                "options to define how to handle spaces"
+            )
+        identifier = _handle_spaces(identifier, space_substitute, capitalisation_scheme)
     elif capitalisation_scheme in ["lower-camel", "flat"]:
         identifier = identifier[0].lower() + identifier[1:]
     for metacharacter in OWL_METACHARACTERS:
         identifier = _replace_metacharacter(
-            metacharacter, identifier, metacharacter_substitutes)
+            metacharacter, identifier, metacharacter_substitutes
+        )
     return identifier
 
 
 def _add_individual_type(
-        blocks: Blocks,
-        individual: Individual,
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-        space_substitute: Replacement | None,
-        capitalisation_scheme: str) -> None:
+    blocks: Blocks,
+    individual: Individual,
+    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+    space_substitute: Replacement | None,
+    capitalisation_scheme: str,
+) -> None:
     individual_id = _replace_metacharacters(
         individual.identifier,
         metacharacter_substitutes,
         space_substitute,
-        capitalisation_scheme)
+        capitalisation_scheme,
+    )
     try:
         block = blocks[(individual_id, individual.identifier)]
     except KeyError:
         blocks[(individual_id, individual.identifier)] = {
-            "Types": {individual.ric_class}}
+            "Types": {individual.ric_class}
+        }
         return
     try:
         block["Types"].add(individual.ric_class)
@@ -1313,10 +897,12 @@ def _add_individual_type(
 
 
 def individual_blocks(
-        individuals_and_arrows: Iterator[Individual | Arrow],
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-        space_substitute: Replacement | None,
-        capitalisation_scheme: str) -> Blocks:
+    individuals_and_arrows: Iterator[Individual | Arrow],
+    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+    space_substitute: Replacement | None,
+    capitalisation_scheme: str,
+    prefixes: dict[str, str],
+) -> tuple[Blocks, set[str], set[str]]:
     """
     Takes an iterator of Individual and Arrow instances, such as that outputted
     by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
@@ -1327,6 +913,8 @@ def individual_blocks(
     Individual instances with differing values for the 'class' variable).
     """
     blocks: Blocks = {}
+    object_properties: set[str] = set()
+    datatype_properties: set[str] = set()
     for individual_or_arrow in individuals_and_arrows:
         if isinstance(individual_or_arrow, Individual):
             _add_individual_type(
@@ -1334,47 +922,71 @@ def individual_blocks(
                 individual_or_arrow,
                 metacharacter_substitutes,
                 space_substitute,
-                capitalisation_scheme)
+                capitalisation_scheme,
+            )
             continue
-        if individual_or_arrow.identifier in _object_properties:
+        _ensure_known_curie(
+            individual_or_arrow.identifier,
+            prefixes,
+            (
+                f"An arrow has label '{individual_or_arrow.identifier}', "
+                "which is not a known object property or datatype property"
+            ),
+        )
+        if individual_or_arrow.is_datatype:
+            datatype_properties.add(individual_or_arrow.identifier)
+            target_identifier = individual_or_arrow.target
+        else:
+            object_properties.add(individual_or_arrow.identifier)
             target_identifier = _replace_metacharacters(
                 individual_or_arrow.target,
                 metacharacter_substitutes,
                 space_substitute,
-                capitalisation_scheme)
-        elif individual_or_arrow.identifier in _datatype_properties:
-            target_identifier = individual_or_arrow.target
-        else:
-            raise NotInKnownException(
-                f"An arrow has label '{individual_or_arrow.identifier}', "
-                "which is not a known object property or datatype property")
+                capitalisation_scheme,
+            )
         source_identifier = _replace_metacharacters(
             individual_or_arrow.source,
             metacharacter_substitutes,
             space_substitute,
-            capitalisation_scheme)
+            capitalisation_scheme,
+        )
         try:
             block = blocks[(source_identifier, individual_or_arrow.source)]
         except KeyError:
             blocks[(source_identifier, individual_or_arrow.source)] = {
-                individual_or_arrow.identifier: {target_identifier}}
+                individual_or_arrow.identifier: {target_identifier}
+            }
             continue
         try:
             block[individual_or_arrow.identifier].add(target_identifier)
         except KeyError:
             block[individual_or_arrow.identifier] = {target_identifier}
-    return blocks
+    return blocks, object_properties, datatype_properties
 
 
-def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig, prefixes: dict) -> Graph:
-    g = Graph()
+def serialise_to_graph(
+    blocks: Blocks,
+    object_properties: set[str],
+    datatype_properties: set[str],
+    serialisation_config: SerialisationConfig,
+    prefixes: dict,
+    graph_cls: Type[Graph] = Graph,
+    graph_kwargs: Optional[Dict[str, Any]] = None,
+) -> Graph:
+    graph_kwargs = graph_kwargs or {}
+    g = graph_cls(**graph_kwargs)
 
     # Bind prefixes
     for prefix, uri in prefixes.items():
-        g.bind(prefix, Namespace(uri))
+        g.bind(prefix, Namespace(uri), replace=True)
     if serialisation_config.prefix:
-        g.bind(serialisation_config.prefix, Namespace(serialisation_config.prefix_iri or f"{serialisation_config.ontology_iri}#"))
-
+        g.bind(
+            serialisation_config.prefix,
+            Namespace(
+                serialisation_config.prefix_iri
+                or f"{serialisation_config.ontology_iri}#"
+            ),
+        )
 
     if serialisation_config.include_preamble:
         # Add ontology definition
@@ -1383,32 +995,37 @@ def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig
             current_time = datetime.strftime(datetime.now(), "%Y-%m-%dT%H-%M-%S")
             ontology_iri = f"ontology://generated-from-draw-io/{current_time}"
         g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
-        g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes['rico'])))
+        g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
 
     # Add property definitions
-    non_rico_object_properties = [prop for prop in _object_properties if not prop.startswith('rico:')]
-    for prop in non_rico_object_properties:
+    for prop in sorted(
+        prop for prop in object_properties if not prop.startswith("rico:")
+    ):
         prop_prefix, prop_name = prop.split(":")
         prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
         g.add((prop_uri, RDF.type, OWL.ObjectProperty))
 
-    non_rico_datatype_properties = [prop for prop in _datatype_properties if not prop.startswith('rico:')]
-    for prop in non_rico_datatype_properties:
+    for prop in sorted(
+        prop for prop in datatype_properties if not prop.startswith("rico:")
+    ):
         prop_prefix, prop_name = prop.split(":")
         prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
         g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
     # Add individuals and their properties
     for (individual_id, individual_label), types_and_facts in blocks.items():
-
         prefix = serialisation_config.prefix
-        prefix_iri = serialisation_config.prefix_iri or (f"{serialisation_config.ontology_iri}#" if serialisation_config.ontology_iri else None)
+        prefix_iri = serialisation_config.prefix_iri or (
+            f"{serialisation_config.ontology_iri}#"
+            if serialisation_config.ontology_iri
+            else None
+        )
 
         if prefix and prefix_iri:
             individual_uri = Namespace(prefix_iri)[individual_id]
         else:
             # Fallback to a default base URI if no prefix is defined
-            base_uri = prefix_iri or "https://example.com/id/"
+            base_uri = prefix_iri or PREFIX_IRI
             individual_uri = URIRef(f"{base_uri}{individual_id}")
 
         g.add((individual_uri, RDF.type, OWL.NamedIndividual))
@@ -1431,14 +1048,14 @@ def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig
             prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
 
             for value in values:
-                if prop in _object_properties:
+                if prop in object_properties:
                     if prefix and prefix_iri:
                         target_uri = Namespace(prefix_iri)[value]
                     else:
-                        base_uri = prefix_iri or "https://example.com/id/"
+                        base_uri = prefix_iri or PREFIX_IRI
                         target_uri = URIRef(f"{base_uri}{value}")
                     g.add((individual_uri, prop_uri, target_uri))
-                elif prop in _datatype_properties:
+                elif prop in datatype_properties:
                     # Simplified type inference
                     if isinstance(value, int) or value.isnumeric():
                         literal_value = Literal(value, datatype=XSD.integer)
@@ -1451,12 +1068,14 @@ def serialise_to_graph(blocks: Blocks, serialisation_config: SerialisationConfig
                         except (ValueError, TypeError):
                             literal_value = Literal(value)
                     g.add((individual_uri, prop_uri, literal_value))
+                else:
+                    # Default to treating as a literal for safety
+                    g.add((individual_uri, prop_uri, Literal(value)))
 
     return g
 
 
-def _parse_space_substitute(
-        metacharacter_substitutes: list[str]) -> str | None:
+def _parse_space_substitute(metacharacter_substitutes: list[str]) -> str | None:
     has_remove = False
     has_url = False
     for substitution_definition in metacharacter_substitutes:
@@ -1468,14 +1087,15 @@ def _parse_space_substitute(
             has_url = True
             if not has_remove:
                 continue
-        if substitution_definition[0] != ' ':
+        if substitution_definition[0] != " ":
             if not has_url:
                 continue
         if substitution_definition[1] != "=":
             raise _MetacharacterSubstituteParseException(
                 "The second character of a string other than 'remove' or 'url' "
                 "passed into the -m/--metadata-substitute option must be '='. This is "
-                f"not the case for: {substitution_definition}")
+                f"not the case for: {substitution_definition}"
+            )
         return substitution_definition.split("=")[1]
     if has_remove:
         return ""
@@ -1485,13 +1105,13 @@ def _parse_space_substitute(
 
 
 def _parse_metacharacter_substitutes(
-        metacharacter_substitutes: list[str]) -> Generator[
-        tuple[Metacharacter, Replacement], None, None]:
+    metacharacter_substitutes: list[str],
+) -> Generator[tuple[Metacharacter, Replacement], None, None]:
     has_remove = False
     has_url = False
     handled = []
     for substitution_definition in metacharacter_substitutes:
-        if substitution_definition[0] == ' ':
+        if substitution_definition[0] == " ":
             continue
         if substitution_definition == "remove":
             has_remove = True
@@ -1502,25 +1122,28 @@ def _parse_metacharacter_substitutes(
             if not has_remove:
                 continue
         if substitution_definition[0] not in OWL_METACHARACTERS:
-            metacharacters = ', '.join(
-                f"'{character}'" for character in OWL_METACHARACTERS)
+            metacharacters = ", ".join(
+                f"'{character}'" for character in OWL_METACHARACTERS
+            )
             raise _MetacharacterSubstituteParseException(
                 "The first character of a string other than 'remove' or 'url' "
                 "passed into the -m/--metadata-substitute option must be an OWL "
                 f"metacharacter, namely one of the following: {metacharacters}"
-                f". This is not the case for: {substitution_definition}")
+                f". This is not the case for: {substitution_definition}"
+            )
         if substitution_definition[1] != "=":
             raise _MetacharacterSubstituteParseException(
                 "The second character of a string other than 'remove' passed "
                 "into the -m/--metadata-substitute option must be '='. This is "
-                f"not the case for: {substitution_definition}")
+                f"not the case for: {substitution_definition}"
+            )
         metacharacter, replacement = substitution_definition.split("=", 1)
         handled.append(metacharacter)
         yield metacharacter, replacement
     for metacharacter in OWL_METACHARACTERS:
         if metacharacter not in handled:
             if has_url:
-                yield metacharacter, urllib.parse.quote(metacharacter, safe='')
+                yield metacharacter, urllib.parse.quote(metacharacter, safe="")
             else:
                 yield metacharacter, ""
     if not has_remove:
@@ -1528,68 +1151,103 @@ def _parse_metacharacter_substitutes(
 
 
 def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
-    if capitalisation_scheme not in [
-            "upper-camel", "lower-camel", "flat", "none"]:
+    if capitalisation_scheme not in ["upper-camel", "lower-camel", "flat", "none"]:
         raise _InvalidCapitalisationSchemeException(
             "The following was passed into the -c/--capitalisation-scheme "
             f"option, which is not a permitted value: "
             f"{capitalisation_scheme}. See the documentation of the "
-            "-c/--capitalisation-scheme option for the permitted values")
+            "-c/--capitalisation-scheme option for the permitted values"
+        )
 
 
-def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> Graph:
+def _build_graph_from_raw_xml(
+    raw_xml: str, config_args: dict[str, Any]
+) -> DrawioParserGraph:
+    metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
+        raw_xml
+    )
+    prefixes = get_prefixes()
+    prefixes.update(metadata_prefixes)
+
+    working_xml = _strip_metadata_user_object(raw_xml, parsed_root)
+
+    serialisation_config = SerialisationConfig(
+        infer_type_of_literals=config_args["infer_type_of_literals"],
+        include_preamble=config_args["include_preamble"],
+        ontology_iri=config_args["ontology_iri"],
+        prefix=config_args["prefix"],
+        prefix_iri=config_args["prefix_iri"],
+        indentation=config_args["indentation"],
+        include_label=config_args["include_label"],
+    )
+
+    space_substitute = _parse_space_substitute(config_args["metacharacter_substitute"])
+    metacharacter_substitutes = list(
+        _parse_metacharacter_substitutes(config_args["metacharacter_substitute"])
+    )
+
+    _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
+
+    draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+    blocks, object_properties, datatype_properties = individual_blocks(
+        draw_io_xml_tree.individuals_and_arrows(
+            config_args["strict_mode"], config_args["max_gap"]
+        ),
+        metacharacter_substitutes,
+        space_substitute,
+        config_args["capitalisation_scheme"],
+        prefixes,
+    )
+
+    graph = serialise_to_graph(
+        blocks,
+        object_properties,
+        datatype_properties,
+        serialisation_config,
+        prefixes,
+        graph_cls=DrawioParserGraph,
+        graph_kwargs={"csv_path": csv_path},
+    )
+
+    if base_uri:
+        graph.base = base_uri
+        graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
+
+    return graph
+
+
+def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawioParserGraph:
     """
-    Parses a draw.io file and returns an rdflib.Graph.
+    Parses a draw.io file and returns a DrawioParserGraph with metadata.
     """
     with open(drawio_file_path, "r", encoding="utf-8") as f:
         raw_xml = f.read()
 
     # Default settings, can be overridden by kwargs
     config_args = {
-        'infer_type_of_literals': True,
-        'include_preamble': True,
-        'ontology_iri': None,
-        'prefix': None,
-        'prefix_iri': None,
-        'indentation': DEFAULT_INDENTATION,
-        'include_label': True,
-        'max_gap': DEFAULT_MAX_GAP,
-        'strict_mode': False,
-        'metacharacter_substitute': [],
-        'capitalisation_scheme': DEFAULT_CAPITALISATION_SCHEME,
+        "infer_type_of_literals": True,
+        "include_preamble": True,
+        "ontology_iri": None,
+        "prefix": None,
+        "prefix_iri": None,
+        "indentation": DEFAULT_INDENTATION,
+        "include_label": True,
+        "max_gap": DEFAULT_MAX_GAP,
+        "strict_mode": False,
+        "metacharacter_substitute": [],
+        "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
     }
     config_args.update(kwargs)
-
-    prefixes = get_prefixes()
-
-    serialisation_config = SerialisationConfig(
-        infer_type_of_literals=config_args['infer_type_of_literals'],
-        include_preamble=config_args['include_preamble'],
-        ontology_iri=config_args['ontology_iri'],
-        prefix=config_args['prefix'],
-        prefix_iri=config_args['prefix_iri'],
-        indentation=config_args['indentation'],
-        include_label=config_args['include_label'])
-
-    space_substitute = _parse_space_substitute(config_args['metacharacter_substitute'])
-    metacharacter_substitutes = list(_parse_metacharacter_substitutes(config_args['metacharacter_substitute']))
-
-    draw_io_xml_tree = DrawIOXMLTree(raw_xml, prefixes)
-    blocks = individual_blocks(
-        draw_io_xml_tree.individuals_and_arrows(config_args['strict_mode'], config_args['max_gap']),
-        metacharacter_substitutes,
-        space_substitute,
-        config_args['capitalisation_scheme'])
-
-    return serialise_to_graph(blocks, serialisation_config, prefixes)
+    return _build_graph_from_raw_xml(raw_xml, config_args)
 
 
 def _arguments_parser():
-    argument_parser = ArgumentParser(
+    argument_parser = argparse.ArgumentParser(
         description=(
             "Constructs individuals in OWL with respect to the ontology "
             "Records in Contexts from a draw.io graph. The underlying XML of "
-            "the graph should be sent into the script via stdin.")
+            "the graph should be sent into the script via stdin."
+        )
     )
     argument_parser.add_argument(
         "-d",
@@ -1597,7 +1255,9 @@ def _arguments_parser():
         action="store_true",
         help=(
             "Disable inclusion of a preamble (defining prefix and ontology "
-            "IRIs and imports)"))
+            "IRIs and imports)"
+        ),
+    )
     argument_parser.add_argument(
         "-g",
         "--max-gap",
@@ -1611,12 +1271,15 @@ def _arguments_parser():
             "respectively if the gap (in pixels) between the node and the "
             "start or target of the arrow is less than the max gap defined "
             "here. Can be an integer or a decimal. If not specified, a default "
-            f"value of {DEFAULT_MAX_GAP} will be used"))
+            f"value of {DEFAULT_MAX_GAP} will be used"
+        ),
+    )
     argument_parser.add_argument(
         "-i",
         "--infer-types-disable",
         action="store_true",
-        help="disable attempted inference of the type of literals")
+        help="disable attempted inference of the type of literals",
+    )
     argument_parser.add_argument(
         "-n",
         "--indentation",
@@ -1625,7 +1288,9 @@ def _arguments_parser():
         help=(
             "the number of spaces to indent by in the outputted OWL syntax. "
             f"If not specified, a default value of {DEFAULT_INDENTATION} will "
-            "be used"))
+            "be used"
+        ),
+    )
     argument_parser.add_argument(
         "-o",
         "--ontology-iri",
@@ -1633,7 +1298,9 @@ def _arguments_parser():
         help=(
             "an IRI to use to define the ontology. By default an IRI, a priori "
             "non-dereferenceable, will be generated, and will include a "
-            "current timestamp"))
+            "current timestamp"
+        ),
+    )
     argument_parser.add_argument(
         "-p",
         "--prefix-iri",
@@ -1642,7 +1309,9 @@ def _arguments_parser():
             "an IRI to use with the prefix used for generated individuals, or "
             "the default one if none is specified using the '-x/--prefix' "
             "flag. By default, the ontology IRI will be used with the symbol "
-            "'#' appended"))
+            "'#' appended"
+        ),
+    )
     argument_parser.add_argument(
         "-s",
         "--strict-mode",
@@ -1650,21 +1319,24 @@ def _arguments_parser():
         help=(
             "parse arrows in 'strict mode': both the source and the target "
             "must be locked to a node, and no attempt will made to guess them "
-            "from the graph geometry if they are not present"))
+            "from the graph geometry if they are not present"
+        ),
+    )
     argument_parser.add_argument(
         "-x",
         "--prefix",
         type=str,
         help=(
             "a prefix to use with all generated individuals when defining "
-            "their IRIs. By default no prefix is used"))
-    metacharacters = ', '.join(
-        f"'{character}'" for character in OWL_METACHARACTERS)
+            "their IRIs. By default no prefix is used"
+        ),
+    )
+    metacharacters = ", ".join(f"'{character}'" for character in OWL_METACHARACTERS)
     argument_parser.add_argument(
         "-m",
         "--metacharacter-substitute",
         type=str,
-        nargs='*',
+        nargs="*",
         default=[],
         action="extend",
         help=(
@@ -1689,7 +1361,9 @@ def _arguments_parser():
             "If the special string 'url' is used, all metacharacters will simply "
             "be replaced with corresponding URL entities except for those "
             "for which a replacement has been defined by means of a separate use "
-            "of the -m/--metacharacter-substitute option."))
+            "of the -m/--metacharacter-substitute option."
+        ),
+    )
     argument_parser.add_argument(
         "-l",
         "--label-disable",
@@ -1701,7 +1375,9 @@ def _arguments_parser():
             "constructed (if spaces and other metacharacters are present in "
             "the original text, these will need to be handled by means of the "
             "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
-            "options"))
+            "options"
+        ),
+    )
     argument_parser.add_argument(
         "-c",
         "--capitalisation-scheme",
@@ -1721,13 +1397,15 @@ def _arguments_parser():
             "of every word; 'lower-camel' capitalises the first letter of "
             "every word except the first, which is made lower-case; 'flat' "
             "makes every word lower-case; and 'none' leaves the words "
-            "untouched"))
+            "untouched"
+        ),
+    )
     argument_parser.add_argument(
         "file",
-        nargs='?',
-        type=argparse.FileType('r'),
+        nargs="?",
+        type=argparse.FileType("r"),
         default=None,
-        help="A draw.io file to parse. If not provided, reads from stdin."
+        help="A draw.io file to parse. If not provided, reads from stdin.",
     )
     return argument_parser
 
@@ -1736,50 +1414,36 @@ def _run(args=None) -> None:
     parser = _arguments_parser()
     arguments = parser.parse_args(args)
 
-    serialisation_config = SerialisationConfig(
-        infer_type_of_literals=not arguments.infer_types_disable,
-        include_preamble=not arguments.preamble_disable,
-        ontology_iri=arguments.ontology_iri,
-        prefix=arguments.prefix,
-        prefix_iri=arguments.prefix_iri,
-        indentation=arguments.indentation,
-        include_label=not arguments.label_disable)
-
-    max_gap = arguments.max_gap
-    strict_mode = arguments.strict_mode
     capitalisation_scheme = arguments.capitalisation_scheme
 
-    try:
-        space_substitute = _parse_space_substitute(
-            arguments.metacharacter_substitute)
-        metacharacter_substitutes = list(_parse_metacharacter_substitutes(
-            arguments.metacharacter_substitute))
-        _parse_capitalisation_scheme(capitalisation_scheme)
-    except (
-            _MetacharacterSubstituteParseException,
-            _InvalidCapitalisationSchemeException) as exception:
-        sys_exit(f"{exception}")
+    config_args = {
+        "infer_type_of_literals": not arguments.infer_types_disable,
+        "include_preamble": not arguments.preamble_disable,
+        "ontology_iri": arguments.ontology_iri,
+        "prefix": arguments.prefix,
+        "prefix_iri": arguments.prefix_iri,
+        "indentation": arguments.indentation,
+        "include_label": not arguments.label_disable,
+        "max_gap": arguments.max_gap,
+        "strict_mode": arguments.strict_mode,
+        "metacharacter_substitute": arguments.metacharacter_substitute,
+        "capitalisation_scheme": capitalisation_scheme,
+    }
 
     if arguments.file:
         raw_xml = arguments.file.read()
     else:
         raw_xml = stdin.read()
 
-    prefixes = get_prefixes()
-
     try:
-        draw_io_xml_tree = DrawIOXMLTree(raw_xml, prefixes)
+        graph = _build_graph_from_raw_xml(raw_xml, config_args)
     except NothingToParseException:
         sys_exit("The draw IO XML graph passed in appears to be empty")
-    except NotInKnownException as exception:
+    except (
+        _MetacharacterSubstituteParseException,
+        _InvalidCapitalisationSchemeException,
+    ) as exception:
         sys_exit(f"{exception}")
-
-    try:
-        blocks = individual_blocks(
-            draw_io_xml_tree.individuals_and_arrows(strict_mode, max_gap),
-            metacharacter_substitutes,
-            space_substitute,
-            capitalisation_scheme)
     except NoSourceException as exception:
         if arguments.strict_mode:
             message = (
@@ -1787,22 +1451,24 @@ def _run(args=None) -> None:
                 "node in the original graph; or the underlying XML could be "
                 "edited to indicate the source. Alternatively, try running the "
                 "parser in non-strict mode (without the '-s/--strict-mode' "
-                "flag), optionally making use of the '-g/--max-gap' option")
+                "flag), optionally making use of the '-g/--max-gap' option"
+            )
         else:
             message = (
                 f"{exception}. If so, consider using the '-g/--max gap' option "
                 "when running the script to increase the max recognised gap "
                 "between a node and an arrow end; or try to lock the arrow to "
                 "an individual node in the original graph; or the underlying "
-                "XML could be edited")
+                "XML could be edited"
+            )
         sys_exit(message)
     except (
-            NotInKnownException,
-            ArrowWithoutIndividualAsSourceException,
-            MetacharacterException) as exception:
+        NotInKnownException,
+        ArrowWithoutIndividualAsSourceException,
+        MetacharacterException,
+    ) as exception:
         sys_exit(f"{exception}")
 
-    graph = serialise_to_graph(blocks, serialisation_config, prefixes)
     print(graph.serialize(format="turtle"))
 
 
@@ -1814,7 +1480,10 @@ def main(args=None) -> None:
     except Exception as exception:  # pylint: disable=broad-exception-caught
         error_type = type(exception).__name__
         error_traceback = traceback.format_exc()
-        sys_exit(f"An unexpected error occurred: {error_type}: {exception}\n\nTraceback:\n{error_traceback}")
+        sys_exit(
+            f"An unexpected error occurred: {error_type}: {exception}\n\nTraceback:\n{error_traceback}"
+        )
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,147 @@
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://example.com/id/RrconstantKBRuleRulesForArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrconstantKBRuleRulesForArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Rule> .
+<https://example.com/id/RrconstantKBRuleRulesForArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Rules for Archival Description" .
+<https://example.com/id/RrconstantKBRuleRulesForArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "rr:constant \"/KB/Rule/RulesForArchivalDescription\"" .
+<https://example.com/id/RrconstantKBRuleRulesForArchivalDescription> <https://www.ica.org/standards/RiC/ontology#title> "rml:reference \"RULES\"" .
+<https://example.com/id/RrconstantSchemaAuthorityAgencyReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrconstantSchemaAuthorityAgencyReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<https://example.com/id/RrconstantSchemaAuthorityAgencyReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "rr:constant \"/Schema/Authority/AgencyReferenceCode\"" .
+<https://example.com/id/RrconstantSchemaAuthorityAuthorityRecord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrconstantSchemaAuthorityAuthorityRecord> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<https://example.com/id/RrconstantSchemaAuthorityAuthorityRecord> <http://www.w3.org/2000/01/rdf-schema#label> "rr:constant \"/Schema/Authority/AuthorityRecord\"" .
+<https://example.com/id/RrconstantSchemaAuthorityNaturalAgentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrconstantSchemaAuthorityNaturalAgentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Type> .
+<https://example.com/id/RrconstantSchemaAuthorityNaturalAgentName> <http://www.w3.org/2000/01/rdf-schema#label> "rr:constant \"/Schema/Authority/NaturalAgentName\"" .
+<https://example.com/id/RrconstantSchemaAuthorityParallelAgentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrconstantSchemaAuthorityParallelAgentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Type> .
+<https://example.com/id/RrconstantSchemaAuthorityParallelAgentName> <http://www.w3.org/2000/01/rdf-schema#label> "rr:constant \"/Schema/Authority/ParallelAgentName\"" .
+<https://example.com/id/RrconstantSchemaAuthorityVariantAgentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrconstantSchemaAuthorityVariantAgentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Type> .
+<https://example.com/id/RrconstantSchemaAuthorityVariantAgentName> <http://www.w3.org/2000/01/rdf-schema#label> "rr:constant \"/Schema/Authority/VariantAgentName\"" .
+<https://example.com/id/RrtemplateKBAgencyReferenceCodeREFA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAgencyReferenceCodeREFA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<https://example.com/id/RrtemplateKBAgencyReferenceCodeREFA> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/AgencyReferenceCode/{REFA}\"" .
+<https://example.com/id/RrtemplateKBAgencyReferenceCodeREFA> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/RrconstantSchemaAuthorityAgencyReferenceCode> .
+<https://example.com/id/RrtemplateKBAgencyReferenceCodeREFA> <https://www.ica.org/standards/RiC/ontology#normalizedValue> "rml:reference \"REFA\"" .
+<https://example.com/id/RrtemplateKBAgentCONTAG_114> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAgentCONTAG_114> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/RrtemplateKBAgentCONTAG_114> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/Agent/{CONTAG_1..14}\"" .
+<https://example.com/id/RrtemplateKBAgentCONTAG_114> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{CONTAG_1..14} (Corporate Body)\"" .
+<https://example.com/id/RrtemplateKBAgentCONTAG_114> <https://www.ica.org/standards/RiC/ontology#thingIsSourceOfRelation> <https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentControlRelation> .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}\"" .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"" .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/RrtemplateKBDateDATECONT_114_BEGINNING> .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/RrtemplateKBDateDATECONT_114_END> .
+<https://example.com/id/RrtemplateKBAgentControlRelationCONTAG_114HEADINGurnuuidUUID> <https://www.ica.org/standards/RiC/ontology#relationHasTarget> <https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> .
+<https://example.com/id/RrtemplateKBAgentPRED_15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAgentPRED_15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/RrtemplateKBAgentPRED_15> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/Agent/{PRED_1..5}\"" .
+<https://example.com/id/RrtemplateKBAgentPRED_15> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{PRED_1..5} (Corporate Body)\"" .
+<https://example.com/id/RrtemplateKBAgentREFA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAgentREFA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/RrtemplateKBAgentREFA> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/Agent/{REFA}\"" .
+<https://example.com/id/RrtemplateKBAgentSUC_14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAgentSUC_14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/RrtemplateKBAgentSUC_14> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template  \"/KB/Agent/{SUC_1..4}\"" .
+<https://example.com/id/RrtemplateKBAgentSUC_14> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{SUC_1..4} (Corporate Body)\"" .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/AuthorityRecord/{HEADING}\"" .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <https://example.com/Schema/Authority/sourceNote> "rml:reference \"SOURCE\"" .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/RrconstantSchemaAuthorityAuthorityRecord> .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/RrtemplateSchemaAuthorityStatusSTATUSA> .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/RrtemplateSchemaAuthorityWebReadyWEBA> .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <https://www.ica.org/standards/RiC/ontology#isOrWasRegulatedBy> <https://example.com/id/RrconstantKBRuleRulesForArchivalDescription> .
+<https://example.com/id/RrtemplateKBAuthorityRecordHEADING> <https://www.ica.org/standards/RiC/ontology#lastModificationDate> "rml:reference \"MOD_DATE\"" .
+<https://example.com/id/RrtemplateKBDateDATECONT_114_BEGINNING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBDateDATECONT_114_BEGINNING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/RrtemplateKBDateDATECONT_114_BEGINNING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template  \"/KB/Date/{DATECONT_1..14_BEGINNING}\"" .
+<https://example.com/id/RrtemplateKBDateDATECONT_114_END> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBDateDATECONT_114_END> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/RrtemplateKBDateDATECONT_114_END> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/Date/{DATECONT_1..14_END}\"" .
+<https://example.com/id/RrtemplateKBDateDATEEX_BEGINNING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBDateDATEEX_BEGINNING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/RrtemplateKBDateDATEEX_BEGINNING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template  \"/KB/Date/{DATEEX_BEGINNING}\"" .
+<https://example.com/id/RrtemplateKBDateDATEEX_END> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBDateDATEEX_END> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<https://example.com/id/RrtemplateKBDateDATEEX_END> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template  \"/KB/Date/{DATEEX_END}\"" .
+<https://example.com/id/RrtemplateKBMandateAA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBMandateAA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Mandate> .
+<https://example.com/id/RrtemplateKBMandateAA> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/Mandate/{AA}\"" .
+<https://example.com/id/RrtemplateKBNaturalAgentNameNAME> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBNaturalAgentNameNAME> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/RrtemplateKBNaturalAgentNameNAME> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/NaturalAgentName/{NAME}\"" .
+<https://example.com/id/RrtemplateKBNaturalAgentNameNAME> <https://www.ica.org/standards/RiC/ontology#hasOrHadType> <https://example.com/id/RrconstantSchemaAuthorityNaturalAgentName> .
+<https://example.com/id/RrtemplateKBNaturalAgentNameNAME> <https://www.ica.org/standards/RiC/ontology#normalizedValue> "rml:reference \"NAME\"" .
+<https://example.com/id/RrtemplateKBParallelAgentNamePAR_14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBParallelAgentNamePAR_14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/RrtemplateKBParallelAgentNamePAR_14> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/ParallelAgentName/{PAR_1..4}\"" .
+<https://example.com/id/RrtemplateKBParallelAgentNamePAR_14> <https://www.ica.org/standards/RiC/ontology#hasOrHadType> <https://example.com/id/RrconstantSchemaAuthorityParallelAgentName> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Thing> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <http://www.w3.org/2000/01/rdf-schema#label> "" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://example.com/Schema/Authority/functionNote> "rml:reference \"FUN\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://example.com/Schema/Authority/privateNote> "rml:reference \"CMTAU\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#authorizedBy> <https://example.com/id/RrtemplateKBMandateAA> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <https://example.com/id/RrtemplateKBDateDATEEX_BEGINNING> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <https://example.com/id/RrtemplateKBDateDATEEX_END> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasOrHadAgentName> <https://example.com/id/RrtemplateKBNaturalAgentNameNAME> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasOrHadAgentName> <https://example.com/id/RrtemplateKBParallelAgentNamePAR_14> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasOrHadAgentName> <https://example.com/id/RrtemplateKBVariantAgentNameVAR_111> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasOrHadController> <https://example.com/id/RrtemplateKBAgentCONTAG_114> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/RrtemplateKBAgencyReferenceCodeREFA> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#hasSuccessor> <https://example.com/id/RrtemplateKBAgentSUC_14> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#history> "rml:reference \"ADM\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#isEquivalentTo> <https://example.com/id/RrtemplateKBAgentREFA> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/RrtemplateKBAuthorityRecordHEADING> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTPHEADING> <https://www.ica.org/standards/RiC/ontology#isSuccessorOf> <https://example.com/id/RrtemplateKBAgentPRED_15> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_CORPORATEBODY_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_CORPORATEBODY_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_CORPORATEBODY_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_CORPORATEBODY_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{HEADING} (Corporate Body)\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_CORPORATEBODY_12HEADING> <https://www.ica.org/standards/RiC/ontology#hasOrHadCorporateBodyType> <https://example.com/id/RrtemplateSchemaAuthorityAuthorityTypeAUTHTP_12> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_FAMILY_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_FAMILY_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Family> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_FAMILY_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_FAMILY_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{HEADING} (Family)\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PERSON_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PERSON_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PERSON_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PERSON_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{HEADING} (Person)\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PLACE_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PLACE_12HEADING> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PLACE_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}\"" .
+<https://example.com/id/RrtemplateKBRICO_AUTHTP_PLACE_12HEADING> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"{HEADING} (Place)\"" .
+<https://example.com/id/RrtemplateKBVariantAgentNameVAR_111> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateKBVariantAgentNameVAR_111> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<https://example.com/id/RrtemplateKBVariantAgentNameVAR_111> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/KB/VariantAgentName/{VAR_1..11}\"" .
+<https://example.com/id/RrtemplateKBVariantAgentNameVAR_111> <https://www.ica.org/standards/RiC/ontology#hasOrHadType> <https://example.com/id/RrconstantSchemaAuthorityVariantAgentName> .
+<https://example.com/id/RrtemplateSchemaAuthorityAuthorityTypeAUTHTP_12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateSchemaAuthorityAuthorityTypeAUTHTP_12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBodyType> .
+<https://example.com/id/RrtemplateSchemaAuthorityAuthorityTypeAUTHTP_12> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template \"/Schema/Authority/AuthorityType#{AUTHTP_1..2}\"" .
+<https://example.com/id/RrtemplateSchemaAuthorityStatusSTATUSA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateSchemaAuthorityStatusSTATUSA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/RrtemplateSchemaAuthorityStatusSTATUSA> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template  \"/Schema/Authority/Status#{STATUSA}\"" .
+<https://example.com/id/RrtemplateSchemaAuthorityWebReadyWEBA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<https://example.com/id/RrtemplateSchemaAuthorityWebReadyWEBA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<https://example.com/id/RrtemplateSchemaAuthorityWebReadyWEBA> <http://www.w3.org/2000/01/rdf-schema#label> "rr:template  \"/Schema/Authority/WebReady#{WEBA}\"" .
+<https://example.com> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://example.com> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .

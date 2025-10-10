@@ -44,7 +44,11 @@ interface MxGraph {
     attributeName: string,
     defaultValue: string | null,
   ): string | null;
-  setAttributeForCell(cell: any, attributeName: string, value: string | null): void;
+  setAttributeForCell(
+    cell: any,
+    attributeName: string,
+    value: string | null,
+  ): void;
 }
 
 interface MxPage {
@@ -57,7 +61,7 @@ interface MxEditor {
 }
 
 interface MxAction {
-  (): void;
+  (): void | Promise<void>;
 }
 
 interface MxActions {
@@ -133,6 +137,9 @@ const DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
 const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
+
+import { runDrawioPipeline } from "./mockBlackBox";
+import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 let csvPropertyPatched = false;
 const registeredResourceKeys = new Set<string>();
@@ -223,9 +230,11 @@ function installCsvPathProperty(): void {
     );
 
     const createTitle =
-      typeof (this as { createTitle?: (title: string) => HTMLElement }).createTitle ===
-      "function"
-        ? ((this as any).createTitle as (title: string) => HTMLElement).bind(this)
+      typeof (this as { createTitle?: (title: string) => HTMLElement })
+        .createTitle === "function"
+        ? ((this as any).createTitle as (title: string) => HTMLElement).bind(
+            this,
+          )
         : (title: string) => {
             const titleElement = document.createElement("div");
             titleElement.style.padding = "0px 0px 6px 0px";
@@ -248,15 +257,17 @@ function installCsvPathProperty(): void {
     preambleSection.appendChild(createTitle(sectionLabel));
 
     const createOption =
-      typeof (this as { createOption?: (...args: any[]) => HTMLElement }).createOption ===
-      "function"
-        ? ((this as any).createOption as (
-            label: string,
-            isCheckedFn: () => boolean,
-            setCheckedFn: (checked: boolean) => void,
-            listener?: unknown,
-            fn?: unknown,
-          ) => HTMLElement).bind(this)
+      typeof (this as { createOption?: (...args: any[]) => HTMLElement })
+        .createOption === "function"
+        ? (
+            (this as any).createOption as (
+              label: string,
+              isCheckedFn: () => boolean,
+              setCheckedFn: (checked: boolean) => void,
+              listener?: unknown,
+              fn?: unknown,
+            ) => HTMLElement
+          ).bind(this)
         : null;
 
     type TextFieldConfig = {
@@ -295,7 +306,11 @@ function installCsvPathProperty(): void {
     ): { optionElement: HTMLElement; input: HTMLInputElement } => {
       const optionElement: HTMLElement =
         createOption != null
-          ? createOption(label, () => true, () => undefined)
+          ? createOption(
+              label,
+              () => true,
+              () => undefined,
+            )
           : (() => {
               const option = document.createElement("div");
               option.style.display = "flex";
@@ -372,7 +387,8 @@ function installCsvPathProperty(): void {
         return typeof rawTag === "string" ? rawTag.toUpperCase() : null;
       };
 
-      const optionChildren = collectChildren(optionElement).filter(isElementNode);
+      const optionChildren =
+        collectChildren(optionElement).filter(isElementNode);
 
       const checkbox = optionChildren.find((child) => {
         if (getTagName(child) !== "INPUT") {
@@ -384,8 +400,8 @@ function installCsvPathProperty(): void {
           typeof inputNode.type === "string"
             ? inputNode.type
             : typeof (inputNode as any).getAttribute === "function"
-            ? (inputNode as any).getAttribute("type")
-            : undefined;
+              ? (inputNode as any).getAttribute("type")
+              : undefined;
 
         return (explicitType ?? "").toLowerCase() === "checkbox";
       }) as (HTMLInputElement & { style: CSSStyleDeclaration }) | undefined;
@@ -402,7 +418,10 @@ function installCsvPathProperty(): void {
         (child) => getTagName(child) === "DIV",
       );
 
-      if (existingLabel && typeof (optionElement as any).removeChild === "function") {
+      if (
+        existingLabel &&
+        typeof (optionElement as any).removeChild === "function"
+      ) {
         (optionElement as any).removeChild(existingLabel);
       }
 
@@ -511,9 +530,13 @@ function installCsvPathProperty(): void {
 
     for (const config of textFieldConfigs) {
       const label = resolveLabel(config.labelKey, config.fallbackLabel);
-      const { optionElement, input } = buildTextOption(label, config.dataAttribute, {
-        inputMarginRight: "6px",
-      });
+      const { optionElement, input } = buildTextOption(
+        label,
+        config.dataAttribute,
+        {
+          inputMarginRight: "6px",
+        },
+      );
       const fieldState: FieldState = {
         attributeName: config.attributeName,
         input,
@@ -600,9 +623,11 @@ function installCsvPathProperty(): void {
       (preambleButton as HTMLElement).className || "geButton";
     preambleSection.appendChild(preambleButton);
 
-    const panelContainer: (HTMLElement & {
-      insertBefore?: (node: Node, child: Node | null) => Node;
-    }) | null = ((this as { container?: HTMLElement }).container ?? null) as
+    const panelContainer:
+      | (HTMLElement & {
+          insertBefore?: (node: Node, child: Node | null) => Node;
+        })
+      | null = ((this as { container?: HTMLElement }).container ?? null) as
       | (HTMLElement & {
           insertBefore?: (node: Node, child: Node | null) => Node;
         })
@@ -610,13 +635,15 @@ function installCsvPathProperty(): void {
 
     const findFormatSectionAncestor = (
       node: Node | null,
-    ): (Node & {
-      className?: string;
-      parentNode: Node & {
-        insertBefore?: (node: Node, child: Node | null) => Node;
-        appendChild?: (node: Node) => Node;
-      };
-    }) | null => {
+    ):
+      | (Node & {
+          className?: string;
+          parentNode: Node & {
+            insertBefore?: (node: Node, child: Node | null) => Node;
+            appendChild?: (node: Node) => Node;
+          };
+        })
+      | null => {
       let current: Node | null = node;
       while (current) {
         const candidate: any = current;
@@ -631,7 +658,8 @@ function installCsvPathProperty(): void {
     };
 
     const optionsSection = findFormatSectionAncestor(container);
-    const fallbackParent = (optionsSection?.parentNode ?? container.parentNode ??
+    const fallbackParent = (optionsSection?.parentNode ??
+      container.parentNode ??
       null) as
       | (Node & {
           insertBefore?: (node: Node, child: Node | null) => Node;
@@ -644,7 +672,9 @@ function installCsvPathProperty(): void {
     if (panelContainer && typeof panelContainer.insertBefore === "function") {
       const firstChild = panelContainer.firstChild as ChildNode | null;
       const referenceChild =
-        firstChild === preambleSection ? (preambleSection as ChildNode) : firstChild;
+        firstChild === preambleSection
+          ? (preambleSection as ChildNode)
+          : firstChild;
       panelContainer.insertBefore(preambleSection, referenceChild ?? null);
       inserted = preambleSection.parentNode === panelContainer;
     }
@@ -653,13 +683,10 @@ function installCsvPathProperty(): void {
       const referenceNode: Node | null = optionsSection
         ? (optionsSection as unknown as Node)
         : fallbackParent && container.parentNode === fallbackParent
-        ? (container as unknown as Node)
-        : null;
+          ? (container as unknown as Node)
+          : null;
 
-      if (
-        fallbackParent &&
-        typeof fallbackParent.insertBefore === "function"
-      ) {
+      if (fallbackParent && typeof fallbackParent.insertBefore === "function") {
         fallbackParent.insertBefore(preambleSection, referenceNode);
         inserted = preambleSection.parentNode === fallbackParent;
       } else if (
@@ -672,14 +699,22 @@ function installCsvPathProperty(): void {
     }
 
     const ensurePanelPlacement = () => {
-      if (!panelContainer || typeof panelContainer.insertBefore !== "function") {
+      if (
+        !panelContainer ||
+        typeof panelContainer.insertBefore !== "function"
+      ) {
         return;
       }
 
       const firstChild = panelContainer.firstChild as ChildNode | null;
       const referenceChild =
-        firstChild === preambleSection ? (preambleSection as ChildNode) : firstChild;
-      if (preambleSection.parentNode !== panelContainer || referenceChild !== preambleSection) {
+        firstChild === preambleSection
+          ? (preambleSection as ChildNode)
+          : firstChild;
+      if (
+        preambleSection.parentNode !== panelContainer ||
+        referenceChild !== preambleSection
+      ) {
         panelContainer.insertBefore(preambleSection, referenceChild ?? null);
       }
     };
@@ -728,7 +763,6 @@ function installCsvPathProperty(): void {
 
   csvPropertyPatched = true;
 }
-
 
 interface PreambleDialogLabels {
   prefixPlaceholder: string;
@@ -968,7 +1002,8 @@ function createPreambleDialog(
     entriesList.appendChild(entryContainer);
   };
 
-  const baseValue = typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+  const baseValue =
+    typeof model.getValue === "function" ? model.getValue(rootCell) : null;
   for (const entry of extractPreambleEntries(baseValue)) {
     addEntry(entry.prefix, entry.iri);
   }
@@ -1058,9 +1093,8 @@ function createPreambleDialog(
       }))
       .filter((entry) => entry.prefix.length > 0 && entry.iri.length > 0);
 
-    const baseValue = typeof model.getValue === "function"
-      ? model.getValue(rootCell)
-      : null;
+    const baseValue =
+      typeof model.getValue === "function" ? model.getValue(rootCell) : null;
 
     const newValue = buildValueWithPreamble(baseValue, normalizedEntries);
 
@@ -1155,182 +1189,36 @@ function createPreambleDialog(
   return dialog;
 }
 
-
 installCsvPathProperty();
 
 Draw.loadPlugin(function (editorUi: any): void {
   installCsvPathProperty();
 
-  const EXAMPLE_NS = "http://example.com/ns#";
-  const RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-
-  const ATTRIBUTE_PRIORITY = new Map<string, number>([
-    ["id", 0],
-    ["value", 1],
-    ["style", 2],
-    ["parent", 3],
-    ["source", 4],
-    ["target", 5],
-    ["connectable", 6],
-    ["edge", 7],
-    ["vertex", 8],
-  ]);
-
-  const ATTRIBUTE_PRIORITY_SIZE = ATTRIBUTE_PRIORITY.size;
-
-  function getAttributePriority(name: string, fallbackIndex: number): number {
-    const priority = ATTRIBUTE_PRIORITY.get(name);
-    if (priority != null) {
-      return priority;
-    }
-
-    return ATTRIBUTE_PRIORITY_SIZE + fallbackIndex;
+  function serializeDiagramXml(ui: any): string {
+    const graphXml = ui.editor.getGraphXml();
+    return mxUtils.getPrettyXml(graphXml);
   }
 
-  function cloneWithExampleNamespace(node: any, doc: any): any {
-    if (node == null) {
-      return null;
-    }
+  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
 
-    if (node.nodeType === mxConstants.NODETYPE_ELEMENT) {
-      const element = node;
-      let localName = element.localName || element.nodeName;
+  editorUi.actions.addAction("exportRdfXml", async function (): Promise<void> {
+    logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
 
-      if (localName.indexOf(":") >= 0) {
-        localName = localName.substring(localName.indexOf(":") + 1);
-      }
-
-      const newElement = doc.createElementNS(
-        EXAMPLE_NS,
-        "example:" + localName,
+    try {
+      const serializedXml = serializeDiagramXml(editorUi);
+      logInfo(
+        LOG_PREFIX.PIPELINE,
+        `Generated DrawIO XML payload (${serializedXml.length} characters)`,
       );
 
-      if (element.attributes != null) {
-        const attributes: Array<{
-          name: string;
-          nodeName: string;
-          value: string;
-          namespaceURI: string | null;
-          prefix: string | null;
-          index: number;
-        }> = [];
+      const blackBoxPayload = await runDrawioPipeline(serializedXml);
+      const filename = editorUi.getBaseFilename() + ".ttl";
 
-        for (let i = 0; i < element.attributes.length; i++) {
-          const attr = element.attributes[i];
-
-          if (attr != null) {
-            const attrName = attr.name ?? attr.nodeName;
-
-            // Skip dx/dy on mxGraphModel because they change randomly on different machines/deployments
-            if (
-              localName === "mxGraphModel" &&
-              (attrName === "dx" || attrName === "dy")
-            ) {
-              continue;
-            }
-
-            attributes.push({
-              name: attrName,
-              nodeName: attr.nodeName ?? attrName,
-              value: attr.value ?? "",
-              namespaceURI: attr.namespaceURI ?? null,
-              prefix: attr.prefix ?? null,
-              index: i,
-            });
-          }
-        }
-
-        attributes.sort((a, b) => {
-          const priorityA = getAttributePriority(a.name, a.index);
-          const priorityB = getAttributePriority(b.name, b.index);
-
-          if (priorityA !== priorityB) {
-            return priorityA - priorityB;
-          }
-
-          if (a.index !== b.index) {
-            return a.index - b.index;
-          }
-
-          return a.name.localeCompare(b.name);
-        });
-
-        for (const attr of attributes) {
-          if (attr.prefix != null && attr.prefix.length > 0) {
-            newElement.setAttributeNS(
-              attr.namespaceURI,
-              attr.nodeName,
-              attr.value,
-            );
-          } else {
-            newElement.setAttribute(attr.name, attr.value);
-          }
-        }
-      }
-
-      let child = node.firstChild;
-
-      while (child != null) {
-        const childClone = cloneWithExampleNamespace(child, doc);
-
-        if (childClone != null) {
-          newElement.appendChild(childClone);
-        }
-
-        child = child.nextSibling;
-      }
-
-      return newElement;
-    } else if (node.nodeType === mxConstants.NODETYPE_TEXT) {
-      return doc.createTextNode(node.nodeValue || "");
-    } else if (node.nodeType === mxConstants.NODETYPE_CDATA) {
-      return doc.createCDATASection(node.nodeValue || "");
-    }
-
-    return null;
-  }
-
-  function createRdfXml(ui: any): string {
-    const graphXml = ui.editor.getGraphXml();
-    const doc = mxUtils.createXmlDocument();
-    const rdfRoot = doc.createElementNS(RDF_NS, "rdf:RDF");
-
-    rdfRoot.setAttribute("xmlns:rdf", RDF_NS);
-    rdfRoot.setAttribute("xmlns:example", EXAMPLE_NS);
-    rdfRoot.setAttribute("xmlns", RDF_NS); // for test to work
-    doc.appendChild(rdfRoot);
-
-    const diagramElement = doc.createElementNS(EXAMPLE_NS, "example:Diagram");
-    const pageId =
-      ui.currentPage != null && typeof ui.currentPage.getId === "function"
-        ? ui.currentPage.getId()
-        : "diagram";
-
-    diagramElement.setAttributeNS(RDF_NS, "rdf:about", "urn:diagram:" + pageId);
-    diagramElement.setAttribute("xmlns", EXAMPLE_NS); // for test to work
-    rdfRoot.appendChild(diagramElement);
-
-    const titleElement = doc.createElementNS(EXAMPLE_NS, "example:Title");
-    titleElement.appendChild(doc.createTextNode(ui.getBaseFilename(true)));
-    diagramElement.appendChild(titleElement);
-
-    const modelElement = cloneWithExampleNamespace(graphXml, doc);
-
-    if (modelElement != null) {
-      diagramElement.appendChild(modelElement);
-    }
-
-    return mxUtils.getPrettyXml(doc);
-  }
-
-  mxResources.parse("exportRdfXml=GBAD: Export as RDF/XML...");
-
-  editorUi.actions.addAction("exportRdfXml", function (): void {
-    try {
-      const rdf = createRdfXml(editorUi);
-      const filename = editorUi.getBaseFilename() + ".rdf";
-      editorUi.saveData(filename, "rdf", rdf, "application/rdf+xml");
+      logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
+      logInfo(LOG_PREFIX.PIPELINE, `Export pipeline completed for ${filename}`);
     } catch (e) {
+      logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);
       editorUi.handleError(e as Error);
     }
   });

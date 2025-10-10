@@ -26,6 +26,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .eslintcache
 .cache
 *.tsbuildinfo
+__pycache__
 
 # IntelliJ based IDEs
 .idea
@@ -35,3 +36,6 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # temporary files
 tmp
+
+# locally cached Pyodide distribution (downloaded via scripts/download_pyodide_assets.sh)
+pyodide

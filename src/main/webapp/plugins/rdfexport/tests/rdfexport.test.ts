@@ -1,19 +1,94 @@
 import { test, expect } from "bun:test";
-import { createHash } from "crypto";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
-import { join, extname, basename } from "path";
+import type { BunPlugin } from "bun";
+import { join, extname, basename, normalize, dirname, resolve } from "path";
+import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
+import { LOG_PREFIX, logInfo } from "../src/logging";
 
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
-const compiledPluginUrl = fileURLToPath(
-  new URL("../../rdfexport.js", import.meta.url),
-);
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
+const baselinesDir = fileURLToPath(new URL("./baselines", import.meta.url));
+
+const pyodideIndexPath = fileURLToPath(
+  new URL("../node_modules/pyodide/", import.meta.url),
+);
+const pyodideIndexURL = normalize(pyodideIndexPath);
+(globalThis as any).__rdfexportPyodideIndexURL = pyodideIndexURL.endsWith("/")
+  ? pyodideIndexURL
+  : `${pyodideIndexURL}/`;
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
+
+type RdfExportModule = typeof import("../src/rdfexport");
+
+let loadedPluginModule: RdfExportModule | null = null;
+
+async function loadPluginModule(): Promise<RdfExportModule> {
+  if (loadedPluginModule) {
+    return loadedPluginModule;
+  }
+
+  loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
+  return loadedPluginModule;
+}
+
+const rawLoaderPlugin: BunPlugin = {
+  name: "test-raw-loader",
+  setup(build) {
+    build.onResolve({ filter: /\?raw$/ }, (args) => {
+      const pathWithoutQuery = args.path.replace(/\?raw$/, "");
+      const absolutePath = resolve(dirname(args.importer), pathWithoutQuery);
+
+      return {
+        path: absolutePath,
+        namespace: "test-raw-loader",
+      };
+    });
+
+    build.onLoad(
+      { filter: /.*/, namespace: "test-raw-loader" },
+      async (args) => {
+        const file = Bun.file(args.path);
+        const contents = await file.text();
+
+        return {
+          contents: `export default ${JSON.stringify(contents)}`,
+          loader: "js",
+        };
+      },
+    );
+  },
+};
+
+async function bundleRdfExportPlugin(): Promise<string> {
+  const buildResult = await Bun.build({
+    entrypoints: [rdfexportUrl],
+    target: "browser",
+    format: "esm",
+    splitting: false,
+    write: false,
+    plugins: [rawLoaderPlugin],
+  });
+
+  const [output] = buildResult.outputs ?? [];
+
+  if (!output) {
+    throw new Error("Failed to compile rdfexport plugin for inspection");
+  }
+
+  return await output.text();
+}
+
+import {
+  debugPyodide,
+  runDrawioPipeline,
+  runMockBlackBox,
+  type DrawioParserResult,
+} from "../src/mockBlackBox";
 
 type EventHandler = (event: any) => void;
 
@@ -34,7 +109,11 @@ class ElementStub {
   }
 
   appendChild<T>(child: T): T {
-    if (child instanceof ElementStub && child.parentNode && child.parentNode !== this) {
+    if (
+      child instanceof ElementStub &&
+      child.parentNode &&
+      child.parentNode !== this
+    ) {
       child.parentNode.removeChild(child);
     }
 
@@ -47,7 +126,11 @@ class ElementStub {
   }
 
   insertBefore<T>(child: T, reference: any): T {
-    if (child instanceof ElementStub && child.parentNode && child.parentNode !== this) {
+    if (
+      child instanceof ElementStub &&
+      child.parentNode &&
+      child.parentNode !== this
+    ) {
       child.parentNode.removeChild(child);
     }
 
@@ -369,7 +452,7 @@ function createGraphEnvironment(
   const options: GraphEnvironmentOptions =
     typeof optionsOrCsvPath === "string"
       ? { csvPath: optionsOrCsvPath }
-      : optionsOrCsvPath ?? {};
+      : (optionsOrCsvPath ?? {});
 
   const doc = new DOMParser().parseFromString(
     '<object id="root" label=""><mxCell/></object>',
@@ -396,10 +479,7 @@ function createGraphEnvironment(
         PREAMBLE_PREFIX_ATTRIBUTE,
         entry.prefix ?? "",
       );
-      preambleElement.setAttribute(
-        PREAMBLE_IRI_ATTRIBUTE,
-        entry.iri ?? "",
-      );
+      preambleElement.setAttribute(PREAMBLE_IRI_ATTRIBUTE, entry.iri ?? "");
       rootElement.appendChild(preambleElement);
     }
   }
@@ -710,23 +790,49 @@ const resourceBundle: Record<string, string> = {};
   },
 };
 
-test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
-  const scriptContents = await Bun.file(compiledPluginUrl).text();
+test(
+  "runMockBlackBox returns DrawIO parser summary",
+  async () => {
+    await loadPluginModule();
+    const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
+    const sampleXml = await Bun.file(fixturePath).text();
+    const output = await runMockBlackBox(sampleXml);
 
-  expect(scriptContents).toContain(
-    "DiagramFormatPanel.prototype.addOptions",
-  );
+    expect(output.startsWith("[BLACKBOX] len=")).toBe(true);
+    expect(output.trim().endsWith("[/BLACKBOX]")).toBe(true);
+
+    const summaryJson = output
+      .replace(/^[^\n]*\n/, "")
+      .replace(/\n\[\/BLACKBOX\]\s*$/, "");
+    const summary = JSON.parse(summaryJson) as DrawioParserResult;
+
+    expect(summary.graphId).toMatch(/^graph-\d+$/);
+    expect(summary.tripleCount).toBeGreaterThan(0);
+    expect(summary.namespaces.some((entry) => entry.prefix === "rico")).toBe(
+      true,
+    );
+  },
+  { timeout: 60000 },
+);
+
+test("debugPyodide evaluates Python expressions", async () => {
+  const result = await debugPyodide("1 + 2 + 3");
+  expect(result).toBe(6);
+});
+
+test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
+  const scriptContents = await bundleRdfExportPlugin();
+
+  expect(scriptContents).toContain("DiagramFormatPanel.prototype.addOptions");
   expect(scriptContents).toContain("CSV Path");
   expect(scriptContents).toContain("data-rdfexport-csv-field");
   expect(scriptContents).toContain("data-rdfexport-preamble-section");
   expect(scriptContents).toContain("__rdfexportPreambleAttached");
 });
 
-function runRdfExportTest(fixtureFile: string, sampleFile: string) {
-  test(`${fixtureFile}: rdfexport plugin exports RDF with expected checksum`, async () => {
-    if (pluginCallbacks.length === 0) {
-      await import(rdfexportUrl);
-    }
+function runRdfExportTest(fixtureFile: string, baselineFile: string) {
+  test(`${fixtureFile}: no regression`, async () => {
+    const pluginModule = await loadPluginModule();
 
     const fixturePath = join(fixturesDir, fixtureFile);
     const xml = await Bun.file(fixturePath).text();
@@ -747,7 +853,7 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
     const pageId = diagramElement.getAttribute("id") ?? "diagram";
     const baseFilename = fixtureFile.replace(/\.drawio$/, "");
 
-    const actions: Record<string, () => void> = {};
+    const actions: Record<string, () => void | Promise<void>> = {};
     const savedExports: Array<{
       filename: string;
       format: string;
@@ -805,50 +911,149 @@ function runRdfExportTest(fixtureFile: string, sampleFile: string) {
 
     menuStub.funct([], null);
 
-    expect(actions.exportRdfXml).toBeDefined();
+    const exportAction = actions.exportRdfXml;
+    expect(exportAction).toBeDefined();
 
-    if (!actions.exportRdfXml) {
+    if (!exportAction) {
       throw new Error("exportRdfXml action was not registered by the plugin");
     }
-    actions.exportRdfXml();
+    await exportAction();
 
     expect(savedExports).toHaveLength(1);
     const exportData = savedExports[0]!;
     const { filename, format, data, mimeType } = exportData;
 
-    expect(filename).toBe(`${baseFilename}.rdf`);
-    expect(format).toBe("rdf");
-    expect(mimeType).toBe("application/rdf+xml");
+    expect(filename).toBe(`${baseFilename}.ttl`);
+    expect(format).toBe("turtle");
+    expect(mimeType).toBe("text/turtle");
     expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
-    const md5 = createHash("md5").update(data).digest("hex");
-    const refMd5 = createHash("md5")
-      .update(readFileSync(join(fixturesDir, sampleFile)))
-      .digest("hex");
-    expect(md5).toBe(refMd5);
+    const referenceXml = mxUtils.getPrettyXml(graphModel);
+    const expectedTurtle = await runDrawioPipeline(referenceXml);
+
+    expect(expectedTurtle.length).toBeGreaterThan(0);
+    expect(expectedTurtle.startsWith("[BLACKBOX]")).toBe(false);
+    expect(
+      /@prefix\s+/i.test(expectedTurtle) || expectedTurtle.includes(":"),
+    ).toBe(true);
+
+    const actualGraphInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(data)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triple_count: number; namespaces: string[] };
+
+    const expectedGraphInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(expectedTurtle)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triple_count: number; namespaces: string[] };
+
+    expect(actualGraphInfo.triple_count).toBe(expectedGraphInfo.triple_count);
+    expect(actualGraphInfo.triple_count).toBeGreaterThan(0);
+    expect(actualGraphInfo.namespaces).toEqual(expectedGraphInfo.namespaces);
+
+    const baselinePath = join(baselinesDir, baselineFile);
+    const baselineContents = await Bun.file(baselinePath).text();
+
+    const isomorphismResult = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.compare import to_isomorphic
+from rdflib.namespace import RDF, OWL
+
+baseline_data = ${JSON.stringify(baselineContents)}
+actual_turtle = ${JSON.stringify(data)}
+
+baseline_graph = Graph()
+baseline_graph.parse(data=baseline_data, format="nt")
+
+actual_graph = Graph()
+actual_graph.parse(data=actual_turtle, format="turtle")
+
+def normalise(source: Graph) -> Graph:
+    filtered = Graph()
+    for s, p, o in source:
+        if p == RDF.type and o in {OWL.ObjectProperty, OWL.DatatypeProperty, OWL.Ontology}:
+            continue
+        if p == OWL.imports:
+            continue
+        filtered.add((s, p, o))
+    return filtered
+
+baseline_filtered = normalise(baseline_graph)
+actual_filtered = normalise(actual_graph)
+
+baseline_iso = to_isomorphic(baseline_filtered)
+actual_iso = to_isomorphic(actual_filtered)
+
+json.dumps({
+    "isomorphic": baseline_iso == actual_iso,
+    "baseline_triples": len(baseline_graph),
+    "actual_triples": len(actual_graph),
+    "baseline_filtered_triples": len(baseline_filtered),
+    "actual_filtered_triples": len(actual_filtered),
+})
+      `)) as string,
+    ) as {
+      isomorphic: boolean;
+      baseline_triples: number;
+      actual_triples: number;
+      baseline_filtered_triples: number;
+      actual_filtered_triples: number;
+    };
+
+    expect(isomorphismResult.isomorphic).toBe(true);
+    if (isomorphismResult.isomorphic) {
+      logInfo(LOG_PREFIX.TEST, `Turtle is isomorphic to baseline N-Triples`);
+    }
+    expect(isomorphismResult.actual_filtered_triples).toBe(
+      isomorphismResult.baseline_filtered_triples,
+    );
+    expect(isomorphismResult.actual_filtered_triples).toBeGreaterThan(0);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Number of filtered triples: ${isomorphismResult.actual_filtered_triples} vs ${isomorphismResult.baseline_filtered_triples}`,
+    );
   });
 }
 
 for (const file of readdirSync(fixturesDir)) {
   if (extname(file) === ".drawio") {
     const base = basename(file, ".drawio");
-    const rdfFile = base + ".rdf";
+    const baselineFile = base + ".nt";
+    const baselinePath = join(baselinesDir, baselineFile);
 
-    if (!existsSync(join(fixturesDir, rdfFile))) {
-      test.skip(`${file}: skipped (no matching ${rdfFile})`, () => {});
+    if (!existsSync(baselinePath)) {
+      test.skip(`${file}: skipped (no matching baseline ${baselineFile})`, () => {});
       continue;
     }
 
-    runRdfExportTest(file, rdfFile);
+    runRdfExportTest(file, baselineFile);
   }
 }
 
-test(
-  "rdfexport plugin exposes preamble controls and diagram properties",
-  async () => {
-  if (pluginCallbacks.length === 0) {
-    await import(rdfexportUrl);
-  }
+test("rdfexport plugin exposes preamble controls and diagram properties", async () => {
+  const pluginModule = await loadPluginModule();
 
   const { graph, model, rootCell } = createGraphEnvironment({
     csvPath: "initial.csv",
@@ -972,7 +1177,9 @@ test(
 
   input.value = "  updated.csv  ";
   input.dispatchEvent({ type: "change" });
-  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe("updated.csv");
+  expect(graph.getAttributeForCell(rootCell, "csvPath", null)).toBe(
+    "updated.csv",
+  );
   expect(input.value).toBe("updated.csv");
 
   input.value = "   ";
@@ -1020,7 +1227,11 @@ test(
   expect(graph.getAttributeForCell(rootCell, "baseUri", null)).toBeNull();
   expect(baseInput.value).toBe("");
 
-  graph.setAttributeForCell(rootCell, "baseUri", "https://override.example/base");
+  graph.setAttributeForCell(
+    rootCell,
+    "baseUri",
+    "https://override.example/base",
+  );
   expect(baseInput.value).toBe("https://override.example/base");
 
   const preambleButton = findChildByAttribute(
@@ -1049,15 +1260,17 @@ test(
   expect(existingEntries).toHaveLength(1);
 
   const existingEntry = existingEntries[0]!;
-  const existingPrefixInput = findChildByTag(existingEntry, "input", (element) => {
-    return (
-      element.getAttribute("data-rdfexport-preamble-entry-prefix") === "true"
-    );
-  });
+  const existingPrefixInput = findChildByTag(
+    existingEntry,
+    "input",
+    (element) => {
+      return (
+        element.getAttribute("data-rdfexport-preamble-entry-prefix") === "true"
+      );
+    },
+  );
   const existingIriInput = findChildByTag(existingEntry, "input", (element) => {
-    return (
-      element.getAttribute("data-rdfexport-preamble-entry-iri") === "true"
-    );
+    return element.getAttribute("data-rdfexport-preamble-entry-iri") === "true";
   });
 
   expect(existingPrefixInput?.value).toBe("rdf");
@@ -1150,5 +1363,136 @@ test(
     listener.destroy();
   }
   expect(model.listenerCount()).toBe(0);
-  },
-);
+
+  const previewFixturePath = join(
+    fixturesDir,
+    "AA37 Department of Health.drawio",
+  );
+  const previewXml = await Bun.file(previewFixturePath).text();
+  const preview = await runMockBlackBox(previewXml);
+  expect(preview.startsWith("[BLACKBOX]")).toBe(true);
+});
+
+test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
+  const baseFixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
+  const expectedFixturePath = join(
+    fixturesDir,
+    "AA37 Department of Health-with-metadata.drawio",
+  );
+
+  const baseContent = readFileSync(baseFixturePath, "utf8");
+  const expectedContent = readFileSync(expectedFixturePath, "utf8");
+
+  const patchedContent = patchDrawioWithMetadata(baseContent, {
+    label: "",
+    csvPath: "/mock/path/to/file.csv",
+    baseUri: "http://mock-base-uri.com",
+    preamble: [
+      {
+        rdfPrefix: "mock1",
+        rdfIRI: "http://mock-iri-ns.org",
+      },
+    ],
+  });
+
+  const parser = new DOMParser({
+    errorHandler: {
+      error(message: string) {
+        throw new Error(message);
+      },
+    },
+  });
+
+  const parseXml = (xml: string): Document => {
+    const doc = parser.parseFromString(xml, "application/xml");
+    if (doc.getElementsByTagName("parsererror").length > 0) {
+      throw new Error("Failed to parse DrawIO XML");
+    }
+    return doc;
+  };
+
+  const selectAttributes = (
+    element: Element,
+    names: string[],
+  ): Record<string, string> => {
+    const snapshot: Record<string, string> = {};
+    for (const name of names) {
+      const value = element.getAttribute(name);
+      if (value != null) {
+        snapshot[name] = value;
+      }
+    }
+    return snapshot;
+  };
+
+  const snapshotDocument = (xml: string) => {
+    const doc = parseXml(xml);
+
+    const mxfile = doc.getElementsByTagName("mxfile").item(0);
+    if (!mxfile) {
+      throw new Error("DrawIO document missing <mxfile>");
+    }
+
+    const graphModel = doc.getElementsByTagName("mxGraphModel").item(0);
+    if (!graphModel) {
+      throw new Error("DrawIO document missing <mxGraphModel>");
+    }
+
+    const root = doc.getElementsByTagName("root").item(0);
+    if (!root) {
+      throw new Error("DrawIO document missing <root>");
+    }
+
+    const metadata = Array.from(root.childNodes).find((node) => {
+      return (
+        node.nodeType === node.ELEMENT_NODE && node.nodeName === "UserObject"
+      );
+    });
+
+    const metadataSnapshot = metadata
+      ? (() => {
+          const element = metadata as Element;
+          const entries = Array.from(element.childNodes).filter((node) => {
+            return (
+              node.nodeType === node.ELEMENT_NODE &&
+              node.nodeName === "userObjectPreambleElement"
+            );
+          });
+
+          return {
+            attributes: selectAttributes(element, [
+              "label",
+              "csvPath",
+              "baseUri",
+            ]),
+            preamble: entries.map((entry) => {
+              const child = entry as Element;
+              return selectAttributes(child, ["rdfPrefix", "rdfIRI"]);
+            }),
+          };
+        })()
+      : null;
+
+    return {
+      mxfile: selectAttributes(mxfile as Element, [
+        "host",
+        "agent",
+        "version",
+        "etag",
+        "modified",
+        "type",
+      ]),
+      graphModel: selectAttributes(graphModel as Element, ["dx", "dy"]),
+      metadata: metadataSnapshot,
+    };
+  };
+
+  const baseSnapshot = snapshotDocument(baseContent);
+  const expectedSnapshot = snapshotDocument(expectedContent);
+  const patchedSnapshot = snapshotDocument(patchedContent);
+
+  expect(baseSnapshot.metadata).toBeNull();
+  expect(patchedSnapshot.metadata).toEqual(expectedSnapshot.metadata);
+  expect(patchedSnapshot.mxfile).toEqual(baseSnapshot.mxfile);
+  expect(patchedSnapshot.graphModel).toEqual(baseSnapshot.graphModel);
+});

@@ -1,0 +1,101 @@
+@base <http://mock23-base-uri.com> .
+@prefix hellow: <some://helloworld> .
+@prefix lol: <http://something.com> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <rico://mock-rico> .
+@prefix somprefix: <://hello> .
+@prefix unknown: <unknown://link> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+somprefix:lol a owl:ObjectProperty .
+
+<ontology://generated-from-draw-io/2025-10-10T10-47-47> a owl:Ontology ;
+    owl:imports rico: .
+
+hellow:there a owl:ObjectProperty .
+
+unknown:hey a owl:DatatypeProperty .
+
+<https://example.com/id/1924> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1924" .
+
+<https://example.com/id/1972> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1972" .
+
+<https://example.com/id/AA37> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "AA37" ;
+    rico:hasIdentifierType <https://example.com/id/AgentIdentifier> .
+
+<https://example.com/id/AOntarioGovernmentName> a owl:NamedIndividual,
+        rico:CorporateBodyType ;
+    rdfs:label "A Ontario Government Name" .
+
+<https://example.com/id/AgentIdentifier> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Agent Identifier" .
+
+<https://example.com/id/AuthorityRecord> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+<https://example.com/id/AuthorityRecordCreation> a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Authority Record Creation" ;
+    rico:isOrWasPerformedBy <https://example.com/id/RAnger> .
+
+<https://example.com/id/OntarioDeptOfHealth> a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Dept. of Health" ;
+    rico:authorizedBy <https://example.com/id/TheHealthDepartmentActStatutesOfOntario1924Chap69> ;
+    rico:generalDescription "Function Note: The Department of Health was responsible for the  management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.  The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services." ;
+    rico:hasBeginningDate <https://example.com/id/1924> ;
+    rico:hasEndDate <https://example.com/id/1972> ;
+    rico:hasOrHadAgentName <https://example.com/id/OntarioDeptOfHealth> ;
+    rico:hasOrHadCorporateBodyType <https://example.com/id/AOntarioGovernmentName> ;
+    rico:hasOrHadIdentifier <https://example.com/id/AA37> ;
+    rico:hasSuccessor <https://example.com/id/OntarioMinistryOfHealth> ;
+    rico:history "Established in 1924, the Department of Health replaced the Provincial Board of Health.  Since its establishment, the Department's functions have both expanded and shrunk.  In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.  In 1956,  the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).  The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.  In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972." ;
+    rico:isOrWasDescribedBy <https://example.com/id/OntarioDeptOfHealthAuthorityRecord> ;
+    rico:isSuccessorOf <https://example.com/id/ProvincialBoardOfHealthOfOntario> ;
+    rico:normalizedValue "Department of Health" .
+
+<https://example.com/id/OntarioDeptOfHealthAuthorityRecord> a lol:individual,
+        owl:NamedIndividual ;
+    rdfs:label "Ontario. Dept. of Health Authority Record" ;
+    somprefix:lol <https://example.com/id/WebReadyY> ;
+    rico:generalDescription "Source Note: MacTaggart, Hazel I.  Publications of the Government of Ontario, 1901-1955 (1964). Publications of the Government of Ontario, 1956-1971 (1975). Canadiana Name Authorities, 1996-12-24" ;
+    rico:isOrWasRegulatedBy <https://example.com/id/RulesForArchivalDescription> ;
+    rico:lastModificationDate "2007-06-16"^^xsd:date ;
+    rico:resultsOrResultedFrom <https://example.com/id/AuthorityRecordCreation> ;
+    hellow:there <https://example.com/id/AuthorityRecord> ;
+    unknown:hey "picoL:" .
+
+<https://example.com/id/OntarioMinistryOfHealth> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Ministry of Health" .
+
+<https://example.com/id/ProvincialBoardOfHealthOfOntario> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Provincial Board of Health of Ontario" .
+
+<https://example.com/id/RAnger> a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "R. Anger" .
+
+<https://example.com/id/RulesForArchivalDescription> a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+<https://example.com/id/TheHealthDepartmentActStatutesOfOntario1924Chap69> a owl:NamedIndividual,
+        rico:Mandate ;
+    rdfs:label "The Health Department Act, Statutes of Ontario 1924, Chap. 69" .
+
+<https://example.com/id/WebReadyY> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Ready: Y" .
+

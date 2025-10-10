@@ -1,0 +1,78 @@
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+from xml.etree import ElementTree
+
+LEGACY_TESTS_DIR = Path(__file__).resolve().parent
+RDFEXPORT_DIR = LEGACY_TESTS_DIR.parents[1]
+
+if str(RDFEXPORT_DIR) not in sys.path:
+    sys.path.insert(0, str(RDFEXPORT_DIR))
+
+from pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
+    get_graph_summary,
+    list_graph_ids,
+    parse_drawio_xml_to_json,
+    reset_graph_store,
+)
+
+FIXTURES_DIR = RDFEXPORT_DIR / "tests" / "fixtures"
+
+
+def _load_fixture(name: str) -> str:
+    return (FIXTURES_DIR / name).read_text(encoding="utf-8")
+
+
+def test_parse_drawio_xml_to_json_produces_summary() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37 Department of Health.drawio")
+    summary_json = parse_drawio_xml_to_json(xml_payload)
+    summary = json.loads(summary_json)
+
+    assert summary["graph_id"].startswith("graph-")
+    assert summary["triple_count"] > 0
+    assert any(ns["prefix"] == "rico" for ns in summary["namespaces"])
+
+
+def test_graph_store_tracks_parsed_graphs() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37 Department of Health.drawio")
+    summary_json = parse_drawio_xml_to_json(xml_payload)
+    summary = json.loads(summary_json)
+
+    graph_ids = list_graph_ids()
+    assert graph_ids == [summary["graph_id"]]
+
+    cached = get_graph_summary(summary["graph_id"])
+    assert cached["triple_count"] == summary["triple_count"]
+    assert cached["csv_path"] == summary["csv_path"]
+    assert cached["base_uri"] == summary["base_uri"]
+
+
+def test_parse_drawio_accepts_graph_model_payload() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37 Department of Health.drawio")
+    xml_root = ElementTree.fromstring(xml_payload)
+    graph_model = xml_root.find(".//mxGraphModel")
+
+    assert graph_model is not None
+
+    graph_model_xml = ElementTree.tostring(graph_model, encoding="unicode")
+    summary_json = parse_drawio_xml_to_json(graph_model_xml)
+    summary = json.loads(summary_json)
+
+    assert summary["triple_count"] > 0
+    assert any(ns["prefix"] == "rico" for ns in summary["namespaces"])
+
+
+def test_duplicate_payloads_reuse_graph_identifier() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37 Department of Health.drawio")
+
+    first_summary = json.loads(parse_drawio_xml_to_json(xml_payload))
+    second_summary = json.loads(parse_drawio_xml_to_json(xml_payload))
+
+    assert first_summary["graph_id"] == second_summary["graph_id"]
+    assert list_graph_ids() == [first_summary["graph_id"]]
