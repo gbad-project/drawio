@@ -1207,7 +1207,14 @@ def _build_graph_from_raw_xml(
         datatype_properties,
         serialisation_config,
         prefixes,
-        base_uri=base_uri,
+        # The draw.io fixtures were originally generated without metadata.
+        # Adding metadata should surface the CSV path/base URI without
+        # mutating the identifiers that were minted from the legacy parser.
+        # Passing the extracted base URI into the serialiser would rewrite
+        # every generated individual, causing previously stable fixtures to
+        # diverge. We therefore reserve the base URI for metadata on the
+        # resulting graph while keeping the emitted triples identical.
+        base_uri=None,
         graph_cls=DrawioParserGraph,
         graph_kwargs={"csv_path": csv_path},
     )
