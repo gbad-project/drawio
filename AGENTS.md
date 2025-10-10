@@ -2,15 +2,15 @@ Work Plan
 
 Feature Description — In-Browser RDF Transformation Pipeline for DrawIO Extension
 
-This feature introduces a full in-browser data transformation pipeline to the DrawIO extension, enabling it to convert diagram models directly into RDF/Turtle representations without external processing. The extension already serializes diagrams as XML; this implementation routes that XML through a new TypeScript “black box” layer, which invokes embedded Python code via Pyodide.
+This feature introduces an in-browser data transformation pipeline to the DrawIO extension so serialized diagram XML can be round-tripped to Turtle without leaving the editor. The extension still serializes diagrams as XML, but that payload now flows through a TypeScript “black box” bridge (`src/main/webapp/plugins/rdfexport/src/mockBlackBox.ts`) that boots a Pyodide-backed Python runtime (`pyodidePipeline.ts`) before delegating to the patched DrawIO parser living in `legacy/draw_io_parser.py`.
 
-The Python layer uses the existing ecosystem of parsers and converters — notably the DrawIO parser and the map_schema module (found under "src/main/webapp/plugins/rdfexport/legacy/") — to transform serialized XML into an rdflib Graph, then into a Pandas DataFrame, and finally build a new rdflib Graph serialize it as Turtle (RML mapping). The output Turtle text is returned to the extension and saved using the existing RDF/XML save functionality.
+Inside Pyodide, `pyodide_pipeline/drawio_pipeline.py` normalizes the XML, calls `_build_graph_from_raw_xml`, and caches the resulting `DrawioParserGraph` plus its derived Turtle serialization. The bridge returns a JSON summary (graph id, namespaces, CSV path metadata, and Turtle payload) so the plugin can save a `.ttl` export using the existing RDF/XML save logic, with the hard switch to Turtle defaults now exercised by `runDrawioPipeline` in the Bun tests.
 
-The system preserves all legacy functionality while adding optional support for prefix IRI dictionaries and CSV paths, introduced as non-invasive parameters for the DrawIO pipeline. The extraction of two reusable functions from map_schema (graph_to_dataframe and dataframe_to_turtle) allows isolated unit testing and integration with the browser runtime, without disturbing existing ADD/Auth dataset logic or CSV preprocessing routines.
+Task 3 will still expose pure `graph_to_dataframe` / `dataframe_to_turtle` helpers out of `legacy/map_schema.py` so the pipeline can expand beyond the direct DrawIO parser output. Until that work lands, map_schema remains untouched in production flows and the Pyodide bridge focuses on faithfully reproducing the DrawIO parser’s Turtle output (guarded by the Bun + rdflib isomorphism harness).
 
 A Node-compatible Pyodide build (run under Bun + Volta) provides a fully local, testable environment for executing and debugging Python code within TypeScript. Robust logging, incremental integration, and fine-grained test coverage (via Bun and pytest) ensure a stable, transparent, and extensible foundation for RDF data transformation directly within the DrawIO extension.
 
-Historical context (feat/rml branch milestones): the branch introduced the custom RDF/XML export plugin, followed by CSV path controls and deterministic regression fixtures (`1e4582a` → `5d2b0fb`). Subsequent merges added metadata-aware parser flows, reproducible baseline generators, and the mock black box annotated save path (through commits such as `f2034d1`, `a28a81a`, `gpt-5-codex` task reports). To be updated.
+Historical context (feat/rml branch milestones): the branch introduced the custom RDF/XML export plugin, followed by CSV path controls and deterministic regression fixtures (`1e4582a` → `5d2b0fb`). Subsequent merges added metadata-aware parser flows, reproducible baseline generators, and the mock black box annotated save path (through commits such as `f2034d1`, `a28a81a`, `gpt-5-codex` task reports). Latest `work` commit `9e073ca` (2025-10-09) aligned Turtle export metadata and ported rdflib isomorphism checks into the Bun regression harness to guard Pyodide outputs. The same-day stabilization commit `6fc153c` reconciled the Pyodide pipeline with the restored mock black box tests after the experimental Turtle download spike in `4952510`, ensuring Bun coverage stayed authoritative while the UI flipped to Turtle defaults.
 
 ⸻
 
@@ -19,7 +19,7 @@ Contributor Guidelines
 - Take the first unimplemented task from the list below (if no status is indicated, assume it has not been implemented yet).
 - Stick to your selected task. Going sideways to contribute to another task in passing is discouraged. If you desperately feel the urge to, you may leave a comment marking it as one of: AICODE-TODO (an unidentified task emerged), AICODE-ASK (stakeholder input is requested), AICODE-NOTE (important but no action requested).
 - Once the task is completed and all planned tests pass, document all your efforts extensively under "docs/aicode/{your-name}-report-{timestamp}.md". Also, update the task status here in AGENTS.md. Finally, update the task status summary below.
-- Keep tooling aligned with the historical workflow captured in the codex reports: install JavaScript dependencies with `bun install`, provision Python packages via `bun run uv`, exercise Bun coverage with `bun run test`.
+- Keep tooling aligned with the historical workflow captured in the codex reports: install JavaScript dependencies with `bun install`, hydrate Python deps with `bun run setup:uv`, sync Pyodide assets via `bun run setup:pyodide`, then exercise Bun coverage with `bun run test` from `src/main/webapp/plugins/rdfexport`.
 - **Always** be sure to run `bun run check` before committing and fix any issues before committing.
 
 ⸻
