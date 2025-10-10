@@ -27,6 +27,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .cache
 *.tsbuildinfo
 __pycache__
+legacy/tests/_vendor/
 
 # IntelliJ based IDEs
 .idea
@@ -38,4 +39,6 @@ __pycache__
 tmp
 
 # locally cached Pyodide distribution (downloaded via scripts/download_pyodide_assets.sh)
-pyodide
+pyodide/*
+!pyodide/wheels/
+!pyodide/wheels/*.base64

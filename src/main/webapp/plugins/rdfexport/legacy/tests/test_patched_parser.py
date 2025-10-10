@@ -111,6 +111,26 @@ def _normalise_graph(graph: Graph) -> Graph:
     return filtered
 
 
+def _remap_graph_base(graph: Graph, old_base: str, new_base: str) -> Graph:
+    """Return a copy of ``graph`` with any URIRef from ``old_base`` rewritten."""
+
+    remapped = Graph()
+    for prefix, uri in graph.namespace_manager.namespaces():
+        remapped.bind(prefix, uri)
+
+    def _remap_term(term):
+        if isinstance(term, URIRef):
+            value = str(term)
+            if value.startswith(old_base):
+                return URIRef(value.replace(old_base, new_base, 1))
+        return term
+
+    for subject, predicate, obj in graph:
+        remapped.add((_remap_term(subject), predicate, _remap_term(obj)))
+
+    return remapped
+
+
 @pytest.mark.parametrize(
     "baseline_path",
     sorted(BASELINES_DIR.glob("*.nt")),
@@ -300,6 +320,13 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
                 == preamble_entry["rdfIRI"]
             )
 
-        assert _normalise_graph(patched_graph).isomorphic(
-            _normalise_graph(original_graph)
+        patched_normalised = _normalise_graph(patched_graph)
+        original_normalised = _normalise_graph(original_graph)
+
+        remapped_original = _remap_graph_base(
+            original_normalised,
+            draw_io_parser.PREFIX_IRI,
+            metadata_options["baseUri"],
         )
+
+        assert patched_normalised.isomorphic(remapped_original)
