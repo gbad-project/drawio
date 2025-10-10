@@ -31,6 +31,7 @@ Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ C
 Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawioParserGraph): ✅ Completed on 2025-02-14 by gpt-5-codex
 Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration: ⏳ Not started
 Task 4 – Browser Execution Pipeline (Pyodide Integration): 🚧 Phase 1 completed 2025-02-15 by gpt-5-codex (Phase 2 pending)
+Task 5 – Base URI Individual URI Construction Bugfix: ✅ Completed on 2025-10-10 by gpt-5-codex
 
 ⸻
 
@@ -259,6 +260,24 @@ Phase 2 – Incremental Functional Integration
 	•	Bun tests: async integration + E2E pipeline.
 	•	pytest: unit + integration for Python functions.
 	•	Cross-layer regression: compare browser vs. local Python outputs.
+
+⸻
+
+Task 5 – Base URI Individual URI Construction Bugfix
+
+Status: ✅ Completed on 2025-10-10 by gpt-5-codex
+
+Goal
+Ensure the DrawIO parser respects the metadata-specified base URI when minting new individual IRIs so exported Turtle no longer defaults to the legacy example domain.
+
+Summary
+        1.      Update serialisation fallback logic to prioritise diagram metadata for individual and object target IRIs.
+        2.      Pass the extracted base URI through the serialisation path and store it on the produced graph.
+        3.      Add regression coverage that verifies minted individuals reuse the UI-provided base URI instead of the hardcoded placeholder.
+
+Testing
+        •       bun run test
+        •       bun run check
 
 ⸻
 

@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph
+from rdflib import Graph, URIRef
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -165,6 +165,23 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
 
     assert namespace_map.get("mock1") == "http://mock-iri-ns.org"
     assert str(graph.base) == "http://mock-base-uri.com"
+
+
+def test_parse_drawio_with_metadata_uses_base_uri_for_individuals():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    subjects = {
+        str(subject)
+        for subject in graph.subjects(RDF.type, OWL.NamedIndividual)
+        if isinstance(subject, URIRef)
+    }
+
+    assert any(uri.startswith("http://mock-base-uri.com") for uri in subjects)
+    assert not any(uri.startswith("https://example.com/id/") for uri in subjects)
 
 
 def test_parse_drawio_without_metadata_sets_empty_metadata():
