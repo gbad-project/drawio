@@ -5,6 +5,8 @@
 - Input: [AA37-with-metadata-severely-mocked.drawio](AA37-with-metadata-severely-mocked.drawio)
 - Output: [AA37-with-metadata-severely-mocked.ttl](AA37-with-metadata-severely-mocked.ttl)
 
+Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and Serialize` button from GBAD VS Code Extension [version 0.0.2-prerelease.2](https://github.com/gbad-project/records_in_contexts_draw_io_parser/blob/cd4f0f692cec8a2096b1b596161b2f53c50e9091/vs_code_extension/gbad-vsce-0.0.2-prerelease.2.vsix)) once the prefix IRI on Line 7 is fixed.
+
 ## 2. Preparation process
 
 ## 2.1. Environment
