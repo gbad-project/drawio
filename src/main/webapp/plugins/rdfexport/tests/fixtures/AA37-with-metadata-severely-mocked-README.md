@@ -1,56 +1,15 @@
 # Fixture: AA37-with-metadata-severely-mocked
 
-## 1. Contents
+## Contents
 
 - Input: [AA37-with-metadata-severely-mocked.drawio](AA37-with-metadata-severely-mocked.drawio)
 - Output: [AA37-with-metadata-severely-mocked.ttl](AA37-with-metadata-severely-mocked.ttl)
 
 Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and Serialize` button from GBAD VS Code Extension [version 0.0.2-prerelease.2](https://github.com/gbad-project/records_in_contexts_draw_io_parser/blob/cd4f0f692cec8a2096b1b596161b2f53c50e9091/vs_code_extension/gbad-vsce-0.0.2-prerelease.2.vsix)) once the prefix IRI on Line 7 is fixed.
 
-## 2. Preparation process
+## Preparation process
 
-### 2.1. Environment
-
-draw\.io version [24.7.5 release](https://github.com/jgraph/drawio/releases/tag/v24.7.5) (Jul 25, 2024)
-
-rdfexport extension unreleased version [26d193c](https://github.com/gbad-project/drawio/tree/26d193ca4937dfe650079dab0e33a3c2801093dc/src/main/webapp/plugins/rdfexport) (Oct 10, 2025)
-
-> [!TIP]
-> 🎉 Available online! Public and free, no registration or credit card required. Hosted complimentary by GitHub Pages.
-> Permalink: <https://gbad-project.github.io/drawio/src/main/webapp/?p=rdf>
-
-The online version runs fully in the client web browser and does not require any installation except that JavaScript should be turned on (on by default in modern browsers like Chrome).
-
-
-The entire rdfexport extension is condensed to a single file: [rdfexport.js](../../../rdfexport.js). If you would like to learn more about how it was built and/or modify it using modern tooling, refer to the section below. 
-
-**For developers:**
-
-rdfexport extension itself is open source: [Apache-2.0 license](https://github.com/gbad-project/drawio/blob/gbad/LICENSE).
-drawio parser fork embedded inside also is (see [discussion here](https://github.com/williamsonrichard/records_in_contexts_draw_io_parser/issues/4#issuecomment-2781104389)).
-Pyodide is under [Mozilla Public License 2.0](https://github.com/pyodide/pyodide/blob/main/LICENSE).
-RDFLib is under [BSD 3-Clause "New" or "Revised" License](https://github.com/RDFLib/rdflib/blob/main/LICENSE).
-
-Installation instructions (Linux or macOS):
-
-- Install Node via Volta on your system:
-  - Bash (Linux default): `curl https://get.volta.sh | bash && source ~/.bashrc && volta install`
-  - Zsh (macOS default): `curl https://get.volta.sh | bash && source ~/.zshrc && volta install`
-- Install Bun on your system:
-  - Bash (Linux default): `curl -fsSL https://bun.sh/install | bash && source ~/.bashrc`
-  - Zsh (macOS default): `curl -fsSL https://bun.sh/install | bash && source ~/.zshrc`
-- Navigate to rdfexport plugin dir: `cd src/main/webapp/plugins/rdfexport`
-- Review demo test log (optional, shows how a successful test run looks like): `bun run test:log:show`
-- Run setup scripts (explore what these commands do in [package.json](../../package.json))
-  - `bun install`
-  - `bun run setup` (installs Python dependencies via uv and procures Pyodide runtime with an rdflib wheel)
-    - If this command gives you an error because Python is not installed or not found, try installing Python via uv: `uv python install`
-  - `bun run test` (optional, test coverage for both the Python and TypeScript codebase using diverse ground truth fixtures and artifacts obtained from a [fork](https://github.com/gbad-project/drawio/blob/cf8f84bb84ff83843b6726ac96aff3a2055f4275/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py) of the [original](https://github.com/williamsonrichard/records_in_contexts_draw_io_parser) Records in Contexts parser for draw\.io)
-  - `bun run build` (optional, rebuilds the extension bundle [rdfexport.js](../../../rdfexport.js))
-  - `bun run serve`
-- Open in your web browser (e.g., Chrome): <http://[::]:8000/src/main/webapp/?p=rdf>
-
-### 2.2. Input & Output
+Please refer to the [main plugin readme](../../README.md) for launch/installation instuctions.
 
 Pavel: I produced this fixture in the web browser interface by executing these steps:
 
@@ -58,7 +17,3 @@ Pavel: I produced this fixture in the web browser interface by executing these s
 - I *manually* changed node and arrow values to different kinds of weird values.
 - After the changes, I tried to dump using `Menu > File > Export as > GBAD: Export as RDF/Turtle (.ttl)`
 - The user interface helpfully showed me the error if there was one, with a trace back to the original error coming from within the Python drawio parser code, so I fixed values in nodes and arrows according to what the error said and retried dumping to Turtle until this was successful.
-
-## 3. Miscellaneous
-
-Fun fact: most of the code for rdfexport extension was systematically developed using an asynchronous AI coding agent ([OpenAI Codex](https://openai.com/index/introducing-codex/), with a little bit of [Google Jules](https://blog.google/technology/google-labs/jules/)). You may review the development process using the repo [commit history](https://github.com/gbad-project/drawio/commits/gbad/) and [AICODE reports](https://github.com/gbad-project/drawio/tree/gbad/docs/aicode). Kudoz to [@abdullin](https://github.com/abdullin) for the AICODE mnemonics.
