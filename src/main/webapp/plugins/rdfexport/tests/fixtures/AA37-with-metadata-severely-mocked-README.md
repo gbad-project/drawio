@@ -43,7 +43,8 @@ Installation instructions (Linux or macOS):
 - Review demo test log (optional, shows how a successful test run looks like): `bun run test:log:show`
 - Run setup scripts (explore what these commands do in [package.json](../../package.json))
   - `bun install`
-  - `bun run setup` (installs Python via uv and procures Pyodide runtime with an rdflib wheel)
+  - `bun run setup` (installs Python dependencies via uv and procures Pyodide runtime with an rdflib wheel)
+    - If this command gives you an error because Python is not installed or not found, try installing Python via uv: `uv python install`
   - `bun run test` (optional, test coverage for both the Python and TypeScript codebase using diverse ground truth fixtures and artifacts obtained from a [fork](https://github.com/gbad-project/drawio/blob/cf8f84bb84ff83843b6726ac96aff3a2055f4275/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py) of the [original](https://github.com/williamsonrichard/records_in_contexts_draw_io_parser) Records in Contexts parser for draw\.io)
   - `bun run build` (optional, rebuilds the extension bundle [rdfexport.js](../../../rdfexport.js))
   - `bun run serve`
