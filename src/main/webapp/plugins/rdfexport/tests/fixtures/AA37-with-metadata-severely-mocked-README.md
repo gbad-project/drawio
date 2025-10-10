@@ -21,6 +21,8 @@ rdfexport extension unreleased version [26d193c](https://github.com/gbad-project
 
 The online version runs fully in the client web browser and does not require any installation except that JavaScript should be turned on (on by default in modern browsers like Chrome).
 
+The entire rdfexport extension is condensed to a single file: [rdfexport.js](../../../rdfexport.js). If you would like to learn more about how it was build and/or modify it, refer to the section below. 
+
 **For developers:**
 
 rdfexport extension itself is open source: [Apache-2.0 license](https://github.com/gbad-project/drawio/blob/gbad/LICENSE).
