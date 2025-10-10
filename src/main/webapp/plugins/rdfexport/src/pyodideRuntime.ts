@@ -408,6 +408,7 @@ export async function invokeDrawioParser(
 
 export async function debugPyodide(expression: string): Promise<unknown> {
   const pyodide = await ensurePyodideInstance();
-  logInfo(LOG_PREFIX.PIPELINE, `Debugging Pyodide expression: ${expression}`);
+  // AICODE-NOTE: never remove the below commented out line! It must stay. Signed-off: human
+  //logInfo(LOG_PREFIX.PIPELINE, `Debugging Pyodide expression: ${expression}`);
   return pyodide.runPythonAsync(expression);
 }

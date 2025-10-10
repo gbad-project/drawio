@@ -2,14 +2,13 @@ import { test, expect } from "bun:test";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
-import { join, extname, basename, normalize } from "path";
+import type { BunPlugin } from "bun";
+import { join, extname, basename, normalize, dirname, resolve } from "path";
 import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
+import { LOG_PREFIX, logInfo } from "../src/logging";
 
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
-);
-const compiledPluginUrl = fileURLToPath(
-  new URL("../../rdfexport.js", import.meta.url),
 );
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 const baselinesDir = fileURLToPath(new URL("./baselines", import.meta.url));
@@ -35,6 +34,53 @@ async function loadPluginModule(): Promise<RdfExportModule> {
 
   loadedPluginModule = (await import(rdfexportUrl)) as RdfExportModule;
   return loadedPluginModule;
+}
+
+const rawLoaderPlugin: BunPlugin = {
+  name: "test-raw-loader",
+  setup(build) {
+    build.onResolve({ filter: /\?raw$/ }, (args) => {
+      const pathWithoutQuery = args.path.replace(/\?raw$/, "");
+      const absolutePath = resolve(dirname(args.importer), pathWithoutQuery);
+
+      return {
+        path: absolutePath,
+        namespace: "test-raw-loader",
+      };
+    });
+
+    build.onLoad(
+      { filter: /.*/, namespace: "test-raw-loader" },
+      async (args) => {
+        const file = Bun.file(args.path);
+        const contents = await file.text();
+
+        return {
+          contents: `export default ${JSON.stringify(contents)}`,
+          loader: "js",
+        };
+      },
+    );
+  },
+};
+
+async function bundleRdfExportPlugin(): Promise<string> {
+  const buildResult = await Bun.build({
+    entrypoints: [rdfexportUrl],
+    target: "browser",
+    format: "esm",
+    splitting: false,
+    write: false,
+    plugins: [rawLoaderPlugin],
+  });
+
+  const [output] = buildResult.outputs ?? [];
+
+  if (!output) {
+    throw new Error("Failed to compile rdfexport plugin for inspection");
+  }
+
+  return await output.text();
 }
 
 import {
@@ -775,7 +821,7 @@ test("debugPyodide evaluates Python expressions", async () => {
 });
 
 test("compiled rdfexport plugin bundle includes CSV property hook", async () => {
-  const scriptContents = await Bun.file(compiledPluginUrl).text();
+  const scriptContents = await bundleRdfExportPlugin();
 
   expect(scriptContents).toContain("DiagramFormatPanel.prototype.addOptions");
   expect(scriptContents).toContain("CSV Path");
@@ -785,7 +831,7 @@ test("compiled rdfexport plugin bundle includes CSV property hook", async () => 
 });
 
 function runRdfExportTest(fixtureFile: string, baselineFile: string) {
-  test(`${fixtureFile}: rdfexport plugin exports Turtle with expected checksum`, async () => {
+  test(`${fixtureFile}: no regression`, async () => {
     const pluginModule = await loadPluginModule();
 
     const fixturePath = join(fixturesDir, fixtureFile);
@@ -977,10 +1023,17 @@ json.dumps({
     };
 
     expect(isomorphismResult.isomorphic).toBe(true);
+    if (isomorphismResult.isomorphic) {
+      logInfo(LOG_PREFIX.TEST, `Turtle is isomorphic to baseline N-Triples`);
+    }
     expect(isomorphismResult.actual_filtered_triples).toBe(
       isomorphismResult.baseline_filtered_triples,
     );
     expect(isomorphismResult.actual_filtered_triples).toBeGreaterThan(0);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Number of filtered triples: ${isomorphismResult.actual_filtered_triples} vs ${isomorphismResult.baseline_filtered_triples}`,
+    );
   });
 }
 
