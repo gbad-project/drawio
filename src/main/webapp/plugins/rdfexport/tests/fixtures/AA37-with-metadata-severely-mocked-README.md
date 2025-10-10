@@ -57,3 +57,7 @@ Pavel: I produced this fixture in the web browser interface by executing these s
 - I *manually* changed node and arrow values to different kinds of weird values.
 - After the changes, I tried to dump using `Menu > File > Export as > GBAD: Export as RDF/Turtle (.ttl)`
 - The user interface helpfully showed me the error if there was one, with a trace back to the original error coming from within the Python drawio parser code, so I fixed values in nodes and arrows according to what the error said and retried dumping to Turtle until this was successful.
+
+## 3. Miscellaneous
+
+Fun fact: most of the code for rdfexport extension was systematically developed using an asynchronous AI coding agent ([OpenAI Codex](https://openai.com/index/introducing-codex/), with a little bit of [Google Jules](https://blog.google/technology/google-labs/jules/)). You may review the development process using the repo [commit history](https://github.com/gbad-project/drawio/commits/gbad/) and [AICODE reports](https://github.com/gbad-project/drawio/tree/gbad/docs/aicode). Kudoz to [@abdullin](https://github.com/abdullin) for the AICODE mnemonics.
