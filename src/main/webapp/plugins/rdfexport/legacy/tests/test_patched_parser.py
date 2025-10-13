@@ -122,7 +122,8 @@ def test_parse_drawio_matches_baseline_graphs(baseline_path: Path):
 
     actual = draw_io_parser.parse_drawio_to_graph(
         str(fixture_path),
-        metacharacter_substitute=["remove"],
+        ontology_iri="ontology://generated-from-draw-io/mock",
+        metacharacter_substitute=["url"],
     )
 
     expected_normalised = _normalise_graph(expected)
