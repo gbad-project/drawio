@@ -132,6 +132,10 @@ def _generate_graphs_from_commit(
         PreviousParserLoader(commit) as legacy_parser,
         PreviousParserLoader("HEAD") as current_parser,
     ):
+        # Patch needed so that add: and auth: URIs matches
+        current_get_prefixes = getattr(current_parser, "get_prefixes", None)
+        setattr(legacy_parser, "get_prefixes", current_get_prefixes)
+
         parse_drawio = getattr(legacy_parser, "parse_drawio_to_graph", None)
         if parse_drawio is None:
             raise AttributeError("Legacy parser does not expose parse_drawio_to_graph")
