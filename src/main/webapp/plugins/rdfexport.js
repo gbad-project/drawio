@@ -18763,9 +18763,6 @@ import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
-BASE_URI = os.getenv("BASE_URI", "https://example.com")
-PREFIX_IRI = os.getenv("PREFIX_IRI", "https://example.com/id/")
-
 
 class DrawioParserGraph(Graph):
     """Graph subclass that records Draw.io specific metadata."""
@@ -18778,11 +18775,25 @@ class DrawioParserGraph(Graph):
 def get_prefixes():
     return {
         "rico": "https://www.ica.org/standards/RiC/ontology#",
-        "add": f"{BASE_URI}/Schema/Description-Listings/",
-        "auth": f"{BASE_URI}/Schema/Authority/",
+        "add": "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/",
+        "auth": "https://data.archives.gov.on.test.gbad.ca/Schema/Authority/",
         "owl": "http://www.w3.org/2002/07/owl#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
     }
+
+
+def get_ontology_iri(qname: str | None = None) -> str:
+    return f"ontology://generated-from-draw-io/{
+        qname or datetime.strftime(datetime.now(), '%Y-%m-%dT%H-%M-%S')
+    }"
+
+
+def get_prefix() -> str | None:
+    return os.getenv("PREFIX")
+
+
+def get_prefix_iri(ontology_iri: str | None = None) -> str:
+    return os.getenv("PREFIX_IRI", f"{ontology_iri or get_ontology_iri()}#")
 
 
 def _extract_drawio_metadata(
@@ -18869,6 +18880,7 @@ Dimensions = tuple[XCoordinate, YCoordinate, Width, Height]
 Paragraph = str
 Metacharacter = str
 Replacement = str
+
 
 DEFAULT_CAPITALISATION_SCHEME = "upper-camel"
 DEFAULT_INDENTATION = 2
@@ -19697,7 +19709,7 @@ def serialise_to_graph(
             serialisation_config.prefix,
             Namespace(
                 serialisation_config.prefix_iri
-                or f"{serialisation_config.ontology_iri}#"
+                or get_prefix_iri(serialisation_config.ontology_iri)
             ),
         )
 
@@ -19705,8 +19717,7 @@ def serialise_to_graph(
         # Add ontology definition
         ontology_iri = serialisation_config.ontology_iri
         if not ontology_iri:
-            current_time = datetime.strftime(datetime.now(), "%Y-%m-%dT%H-%M-%S")
-            ontology_iri = f"ontology://generated-from-draw-io/{current_time}"
+            ontology_iri = get_ontology_iri()
         g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
         g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
 
@@ -19728,17 +19739,14 @@ def serialise_to_graph(
     # Add individuals and their properties
     for (individual_id, individual_label), types_and_facts in blocks.items():
         prefix = serialisation_config.prefix
-        prefix_iri = serialisation_config.prefix_iri or (
-            f"{serialisation_config.ontology_iri}#"
-            if serialisation_config.ontology_iri
-            else None
+        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+            serialisation_config.ontology_iri
         )
-
         if prefix and prefix_iri:
             individual_uri = Namespace(prefix_iri)[individual_id]
         else:
             # Fallback to a default base URI if no prefix is defined
-            base_uri = prefix_iri or PREFIX_IRI
+            base_uri = prefix_iri or get_prefix_iri(ontology_iri)
             individual_uri = URIRef(f"{base_uri}{individual_id}")
 
         g.add((individual_uri, RDF.type, OWL.NamedIndividual))
@@ -19765,7 +19773,7 @@ def serialise_to_graph(
                     if prefix and prefix_iri:
                         target_uri = Namespace(prefix_iri)[value]
                     else:
-                        base_uri = prefix_iri or PREFIX_IRI
+                        base_uri = prefix_iri or get_prefix_iri(ontology_iri)
                         target_uri = URIRef(f"{base_uri}{value}")
                     g.add((individual_uri, prop_uri, target_uri))
                 elif prop in datatype_properties:
@@ -19884,12 +19892,20 @@ def _build_graph_from_raw_xml(
 
     working_xml = _strip_metadata_user_object(raw_xml, parsed_root)
 
+    ontology_iri = (
+        config_args["ontology_iri"] or get_ontology_iri()
+    )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
+    prefix = (
+        config_args["prefix"] or get_prefix()
+    )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
+    prefix_iri = config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+
     serialisation_config = SerialisationConfig(
         infer_type_of_literals=config_args["infer_type_of_literals"],
         include_preamble=config_args["include_preamble"],
-        ontology_iri=config_args["ontology_iri"],
-        prefix=config_args["prefix"],
-        prefix_iri=config_args["prefix_iri"],
+        ontology_iri=ontology_iri,
+        prefix=prefix,
+        prefix_iri=prefix_iri,
         indentation=config_args["indentation"],
         include_label=config_args["include_label"],
     )
@@ -20008,6 +20024,7 @@ def _arguments_parser():
         "-o",
         "--ontology-iri",
         type=str,
+        default=get_ontology_iri(),
         help=(
             "an IRI to use to define the ontology. By default an IRI, a priori "
             "non-dereferenceable, will be generated, and will include a "
@@ -20018,6 +20035,7 @@ def _arguments_parser():
         "-p",
         "--prefix-iri",
         type=str,
+        default=get_prefix_iri(),
         help=(
             "an IRI to use with the prefix used for generated individuals, or "
             "the default one if none is specified using the '-x/--prefix' "
@@ -20039,6 +20057,7 @@ def _arguments_parser():
         "-x",
         "--prefix",
         type=str,
+        default=get_prefix(),
         help=(
             "a prefix to use with all generated individuals when defining "
             "their IRIs. By default no prefix is used"
@@ -20246,6 +20265,8 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     _build_graph_from_raw_xml,
 )
 
+DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
+
 GraphSummary = Dict[str, Any]
 
 _GRAPH_STORE: dict[str, DrawioParserGraph] = {}
@@ -20282,7 +20303,7 @@ def _default_parser_config() -> dict[str, Any]:
         "include_label": True,
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
-        "metacharacter_substitute": ["remove"],
+        "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
     }
 

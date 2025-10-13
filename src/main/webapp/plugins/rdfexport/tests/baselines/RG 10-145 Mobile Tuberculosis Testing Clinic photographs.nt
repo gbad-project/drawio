@@ -13,66 +13,66 @@
 <https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
-<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Activity> .
-<https://example.com/id/ArchivalDescriptionCreation> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description Creation" .
-<https://example.com/id/ArchivalDescriptionCreation> <https://www.ica.org/standards/RiC/ontology#isOrWasPerformedBy> <https://example.com/id/ORourke> .
-<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
-<https://example.com/id/CurrentReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Mobile Tuberculosis Testing Clinic photographs-i1" .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs-i1> <https://www.ica.org/standards/RiC/ontology#generalDescription> "How to Order: To view these records, order Series RG 10-145, container B 972." .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "ca. 200 photographs" .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <http://www.w3.org/2000/01/rdf-schema#label> "Mobile Tuberculosis Testing Clinic photographs" .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "No restrictions on access." .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Crown copyright exists in these photographs. Permission to publish is required from the Archives of Ontario. Submit a Request for Permission to Publish, Exhibit or Broadcast form." .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#creationDate> "[ca. 1950]-1964" .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Availability of Other Formats: Some of the photographs from this series are available in digital format in the Archives of Ontario Visual Database. Search using reference code RG 10-145." .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/GraphicMaterials> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/OntarioDeptOfHealth> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/RG10-145> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/MobileTuberculosisTestingClinicPhotographs-i1> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <https://example.com/id/MobileTuberculosisTestingClinicPhotographs> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Series> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographs> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "This series contains photographs of the mobile tuberculosis testing clinics administered by the Department of Health. This includes photographs of chest X-ray machinery, Community X-ray Survey trucks, the Chest X-ray train, information displays for fairs, TB testing equipment, department staff, and interior views of the clinics." .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Mobile Tuberculosis Testing Clinic photographs archival description" .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/StatusApproved> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <https://www.ica.org/standards/RiC/ontology#lastModificationDate> "2002-08-20"^^<http://www.w3.org/2001/XMLSchema#date> .
-<https://example.com/id/MobileTuberculosisTestingClinicPhotographsArchivalDescription> <https://www.ica.org/standards/RiC/ontology#resultsOrResultedFrom> <https://example.com/id/ArchivalDescriptionCreation> .
-<https://example.com/id/ORourke> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/ORourke> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
-<https://example.com/id/ORourke> <http://www.w3.org/2000/01/rdf-schema#label> "O'Rourke" .
-<https://example.com/id/OntarioDeptOfHealth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/OntarioDeptOfHealth> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
-<https://example.com/id/OntarioDeptOfHealth> <http://www.w3.org/2000/01/rdf-schema#label> "Ontario. Dept. of Health" .
-<https://example.com/id/RG10-145> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/RG10-145> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/id/RG10-145> <http://www.w3.org/2000/01/rdf-schema#label> "RG 10-145" .
-<https://example.com/id/RG10-145> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/CurrentReferenceCode> .
-<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
-<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/StatusApproved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
-<https://example.com/id/StatusApproved> <http://www.w3.org/2000/01/rdf-schema#label> "Status: Approved" .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
-<https://example.com> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<https://example.com> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Activity> .
+<ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description Creation" .
+<ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> <https://www.ica.org/standards/RiC/ontology#isOrWasPerformedBy> <ontology://generated-from-draw-io/mock#O%27Rourke> .
+<ontology://generated-from-draw-io/mock#Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<ontology://generated-from-draw-io/mock#Archival%20Description> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
+<ontology://generated-from-draw-io/mock#Current%20Reference%20Code> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Current%20Reference%20Code> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<ontology://generated-from-draw-io/mock#Current%20Reference%20Code> <http://www.w3.org/2000/01/rdf-schema#label> "Current Reference Code" .
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <http://www.w3.org/2000/01/rdf-schema#label> "Mobile Tuberculosis Testing Clinic photographs archival description" .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <ontology://generated-from-draw-io/mock#Archival%20Description> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <ontology://generated-from-draw-io/mock#Status%3A%20Approved> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#lastModificationDate> "2002-08-20"^^<http://www.w3.org/2001/XMLSchema#date> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#resultsOrResultedFrom> <ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Mobile Tuberculosis Testing Clinic photographs-i1" .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> <https://www.ica.org/standards/RiC/ontology#generalDescription> "How to Order: To view these records, order Series RG 10-145, container B 972." .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "ca. 200 photographs" .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <http://www.w3.org/2000/01/rdf-schema#label> "Mobile Tuberculosis Testing Clinic photographs" .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "No restrictions on access." .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Crown copyright exists in these photographs. Permission to publish is required from the Archives of Ontario. Submit a Request for Permission to Publish, Exhibit or Broadcast form." .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#creationDate> "[ca. 1950]-1964" .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#generalDescription> "Availability of Other Formats: Some of the photographs from this series are available in digital format in the Archives of Ontario Visual Database. Search using reference code RG 10-145." .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <ontology://generated-from-draw-io/mock#Graphic%20Materials> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasCreator> <ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <ontology://generated-from-draw-io/mock#RG%2010-145> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#Series> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> .
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "This series contains photographs of the mobile tuberculosis testing clinics administered by the Department of Health. This includes photographs of chest X-ray machinery, Community X-ray Survey trucks, the Chest X-ray train, information displays for fairs, TB testing equipment, department staff, and interior views of the clinics." .
+<ontology://generated-from-draw-io/mock#O%27Rourke> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#O%27Rourke> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<ontology://generated-from-draw-io/mock#O%27Rourke> <http://www.w3.org/2000/01/rdf-schema#label> "O'Rourke" .
+<ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> <http://www.w3.org/2000/01/rdf-schema#label> "Ontario. Dept. of Health" .
+<ontology://generated-from-draw-io/mock#RG%2010-145> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#RG%2010-145> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<ontology://generated-from-draw-io/mock#RG%2010-145> <http://www.w3.org/2000/01/rdf-schema#label> "RG 10-145" .
+<ontology://generated-from-draw-io/mock#RG%2010-145> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <ontology://generated-from-draw-io/mock#Current%20Reference%20Code> .
+<ontology://generated-from-draw-io/mock#Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<ontology://generated-from-draw-io/mock#Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> <http://www.w3.org/2000/01/rdf-schema#label> "Status: Approved" .
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<ontology://generated-from-draw-io/mock> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/mock> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .

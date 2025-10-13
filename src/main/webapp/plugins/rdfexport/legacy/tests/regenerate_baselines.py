@@ -83,7 +83,7 @@ def _discover_pristine_fixtures() -> Iterable[Path]:
         # Never remove the below commented out block.
         # It must stay. Signed-off: human
         #
-        #if "-with-metadata" in fixture.name:
+        # if "-with-metadata" in fixture.name:
         #    continue
         yield fixture
 
@@ -136,8 +136,8 @@ def _generate_graphs_from_commit(
         if parse_drawio is None:
             raise AttributeError("Legacy parser does not expose parse_drawio_to_graph")
 
-        current_default_base_uri = getattr(current_parser, "BASE_URI", None)
-        current_default_prefix_iri = getattr(current_parser, "PREFIX_IRI", None)
+        get_ontology_iri = getattr(current_parser, "get_ontology_iri", None)
+        mock_ontology_iri = get_ontology_iri("mock")
 
         graphs: List[Tuple[Path, Graph]] = []
         failures: List[Tuple[Path, Exception]] = []
@@ -145,8 +145,7 @@ def _generate_graphs_from_commit(
             try:
                 graph = parse_drawio(
                     str(fixture),
-                    ontology_iri=current_default_base_uri,
-                    prefix_iri=current_default_prefix_iri,
+                    ontology_iri=mock_ontology_iri,
                     metacharacter_substitute=substitute,
                 )
                 graphs.append((fixture, graph))
@@ -234,7 +233,7 @@ def main() -> None:
     parser.add_argument(
         "--metacharacter-substitute",
         nargs="*",
-        default=["remove"],
+        default=["url"],
         help="Value forwarded to parse_drawio_to_graph(metacharacter_substitute=...)",
     )
     parser.add_argument(

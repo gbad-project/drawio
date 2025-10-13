@@ -13,56 +13,56 @@
 <https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
-<https://example.com/id/ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
-<https://example.com/id/File> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/File> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/File> <http://www.w3.org/2000/01/rdf-schema#label> "File" .
-<https://example.com/id/FilingClass> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/FilingClass> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/FilingClass> <http://www.w3.org/2000/01/rdf-schema#label> "Filing Class" .
-<https://example.com/id/FisheriesBranchPhotographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/FisheriesBranchPhotographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/FisheriesBranchPhotographs> <http://www.w3.org/2000/01/rdf-schema#label> "Fisheries Branch photographs" .
-<https://example.com/id/FisheriesBranchPhotographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/RG1-659> .
-<https://example.com/id/FisheriesBranchPhotographs> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Series> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
-<https://example.com/id/GraphicMaterials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
-<https://example.com/id/LakeErieManagementUnit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/LakeErieManagementUnit> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/LakeErieManagementUnit> <http://www.w3.org/2000/01/rdf-schema#label> "[Lake Erie Management Unit]" .
-<https://example.com/id/LakeErieManagementUnit> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/FilingClass> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1" .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "10 photographs : 4 black and white prints, 6 negatives" .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <http://www.w3.org/2000/01/rdf-schema#label> "Northern pike lamprey mark, Rondeau Park, April 20, 1955" .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#creationDate> "1955"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <https://example.com/id/GraphicMaterials> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955-i1> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/File> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <https://example.com/id/FisheriesBranchPhotographs> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <https://example.com/id/LakeErieManagementUnit> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955ArchivalDescription> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955ArchivalDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955ArchivalDescription> <http://www.w3.org/2000/01/rdf-schema#label> "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description" .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955ArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <https://example.com/id/ArchivalDescription> .
-<https://example.com/id/NorthernPikeLampreyMarkRondeauParkApril201955ArchivalDescription> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <https://example.com/id/WebEnabledY> .
-<https://example.com/id/RG1-659> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/RG1-659> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/id/RG1-659> <http://www.w3.org/2000/01/rdf-schema#label> "RG 1-659" .
-<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
-<https://example.com/id/WebEnabledY> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
-<https://example.com> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<https://example.com> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> <http://www.w3.org/2000/01/rdf-schema#label> "[Lake Erie Management Unit]" .
+<ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#Filing%20Class> .
+<ontology://generated-from-draw-io/mock#Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> .
+<ontology://generated-from-draw-io/mock#Archival%20Description> <http://www.w3.org/2000/01/rdf-schema#label> "Archival Description" .
+<ontology://generated-from-draw-io/mock#File> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#File> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<ontology://generated-from-draw-io/mock#File> <http://www.w3.org/2000/01/rdf-schema#label> "File" .
+<ontology://generated-from-draw-io/mock#Filing%20Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Filing%20Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<ontology://generated-from-draw-io/mock#Filing%20Class> <http://www.w3.org/2000/01/rdf-schema#label> "Filing Class" .
+<ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> <http://www.w3.org/2000/01/rdf-schema#label> "Fisheries Branch photographs" .
+<ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <ontology://generated-from-draw-io/mock#RG%201-659> .
+<ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#Series> .
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic materials" .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Record> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> <http://www.w3.org/2000/01/rdf-schema#label> "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description" .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#hasDocumentaryFormType> <ontology://generated-from-draw-io/mock#Archival%20Description> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> <https://www.ica.org/standards/RiC/ontology#hasRecordState> <ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> <http://www.w3.org/2000/01/rdf-schema#label> "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1" .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> <https://www.ica.org/standards/RiC/ontology#instantiationExtent> "10 photographs : 4 black and white prints, 6 negatives" .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Title> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <http://www.w3.org/2000/01/rdf-schema#label> "Northern pike lamprey mark, Rondeau Park, April 20, 1955" .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#creationDate> "1955"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#hasContentOfType> <ontology://generated-from-draw-io/mock#Graphic%20Materials> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#hasOrHadInstantiation> <ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#hasOrHadTitle> <ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#File> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#isDirectlyIncludedIn> <ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> .
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> <https://www.ica.org/standards/RiC/ontology#isOrWasDescribedBy> <ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> .
+<ontology://generated-from-draw-io/mock#RG%201-659> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#RG%201-659> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<ontology://generated-from-draw-io/mock#RG%201-659> <http://www.w3.org/2000/01/rdf-schema#label> "RG 1-659" .
+<ontology://generated-from-draw-io/mock#Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<ontology://generated-from-draw-io/mock#Series> <http://www.w3.org/2000/01/rdf-schema#label> "Series" .
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordState> .
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> <http://www.w3.org/2000/01/rdf-schema#label> "Web Enabled: Y" .
+<ontology://generated-from-draw-io/mock> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/mock> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .

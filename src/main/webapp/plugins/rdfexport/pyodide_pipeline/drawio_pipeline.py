@@ -23,6 +23,8 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     _build_graph_from_raw_xml,
 )
 
+DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
+
 GraphSummary = Dict[str, Any]
 
 _GRAPH_STORE: dict[str, DrawioParserGraph] = {}
@@ -59,7 +61,7 @@ def _default_parser_config() -> dict[str, Any]:
         "include_label": True,
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
-        "metacharacter_substitute": ["remove"],
+        "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
     }
 
