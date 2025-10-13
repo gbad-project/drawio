@@ -18777,8 +18777,12 @@ def get_prefixes():
         "rico": "https://www.ica.org/standards/RiC/ontology#",
         "add": "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/",
         "auth": "https://data.archives.gov.on.test.gbad.ca/Schema/Authority/",
+        "gbad": "https://data.archives.gov.on.test.gbad.ca/Schema/",
         "owl": "http://www.w3.org/2002/07/owl#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
     }
 
 
