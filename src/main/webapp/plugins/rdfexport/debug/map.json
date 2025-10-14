@@ -126,5 +126,41 @@
       "size_bytes": 41576
     }
   },
-  "scenarios": {}
+  "scenarios": {
+    "aa37-department-of-health": {
+      "base_uri": "ontology://generated-from-draw-io/mock#",
+      "csv_path": "/mock/path/to/file.csv",
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
+      "format": "nt",
+      "isomorphism": {
+        "current_vs_plugin": true,
+        "legacy_vs_current": false,
+        "legacy_vs_plugin": false
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "prefixes": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "current": {
+          "nt_sha256": "80c4edfd85e2d0f162628490767770780a1799e5e9d7231051acd522ff49897f",
+          "path": "results/aa37-department-of-health/current.nt",
+          "triples": 72
+        },
+        "legacy": {
+          "nt_sha256": "940ad1dc15c1b4b2d9cb6d7975159f3cd794b3fb8c35e57885f7dc7917610e31",
+          "path": "results/aa37-department-of-health/legacy.nt",
+          "triples": 87
+        },
+        "plugin": {
+          "nt_sha256": "80c4edfd85e2d0f162628490767770780a1799e5e9d7231051acd522ff49897f",
+          "path": "results/aa37-department-of-health/plugin.nt",
+          "triples": 72
+        }
+      }
+    }
+  }
 }
