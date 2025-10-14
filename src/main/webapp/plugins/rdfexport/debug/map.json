@@ -1,0 +1,130 @@
+{
+  "fixtures": {
+    "AA37 Department of Health-with-metadata.drawio": {
+      "path": "AA37 Department of Health-with-metadata.drawio",
+      "sha256": "d8d396e01c9b39e8615b42d2cc0ece7e19901441057017fd5c61922620682587",
+      "size_bytes": 36599
+    },
+    "AA37 Department of Health.drawio": {
+      "path": "AA37 Department of Health.drawio",
+      "sha256": "b22d75238e22213ceee3a6a86daeb75224c38bcf859fdf95178130ff685ead32",
+      "size_bytes": 36445
+    },
+    "AA37-with-metadata-severely-mocked.drawio": {
+      "path": "AA37-with-metadata-severely-mocked.drawio",
+      "sha256": "5cc1cf178fefcba5a712fa25144aa7547d4940584f1dff58596be300daf6cdc4",
+      "size_bytes": 37037
+    },
+    "AA42 Ministry of Health.drawio": {
+      "path": "AA42 Ministry of Health.drawio",
+      "sha256": "47a7643e16d05e5b1c79b9946a605edbe18269f67323913beaf3fbdda5b2b790",
+      "size_bytes": 46237
+    },
+    "BA619 Walkerton Inquiry.drawio": {
+      "path": "BA619 Walkerton Inquiry.drawio",
+      "sha256": "4d524755c5f8d4e04b50195b5b0075179ec3a44ae06e407446bdaa8f4a1df2c3",
+      "size_bytes": 32253
+    },
+    "CA1853 Chest Disease Service.drawio": {
+      "path": "CA1853 Chest Disease Service.drawio",
+      "sha256": "21733f8bf10d4c995db1a564cbcc2ee3a4919e75037713164ee5e89154d1f802",
+      "size_bytes": 39037
+    },
+    "CA1934 Division of Tuberculosis Prevention.drawio": {
+      "path": "CA1934 Division of Tuberculosis Prevention.drawio",
+      "sha256": "4e2fc50bc94af333952ac4b8e6f7d4015ea263755355ec78a60644293b7601c4",
+      "size_bytes": 56394
+    },
+    "F 47 Simcoe Family fonds.drawio": {
+      "path": "F 47 Simcoe Family fonds.drawio",
+      "sha256": "2b83ac400783c15411e8e3df54cb0cf479bf8611c5314f1c486967943528838f",
+      "size_bytes": 61030
+    },
+    "F 47-11 Elizabeth Simcoe sketches.drawio": {
+      "path": "F 47-11 Elizabeth Simcoe sketches.drawio",
+      "sha256": "b4c1184aab50287db82e0698bda18b27798965c6e651b1bad5b9a7d2de863e38",
+      "size_bytes": 46973
+    },
+    "F 47-11-1 Elizabeth Simcoe loose sketches.drawio": {
+      "path": "F 47-11-1 Elizabeth Simcoe loose sketches.drawio",
+      "sha256": "5550e1cb9fe003036049bb3ef07c2e24326515ea80ce8072b02262f58898dfc3",
+      "size_bytes": 44004
+    },
+    "F 47-11-1-0-1 (VDB test).drawio": {
+      "path": "F 47-11-1-0-1 (VDB test).drawio",
+      "sha256": "4074af1a299b7af6895594b50ec9e6ec3a99e64d4db00d4d5ae7d168748682b8",
+      "size_bytes": 42800
+    },
+    "F 47-11-1-0-1.drawio": {
+      "path": "F 47-11-1-0-1.drawio",
+      "sha256": "889d2f9f020aa6a3347c7a400db0c2d4a6c2bf4f8e2957cdc38baed0d5a5ea14",
+      "size_bytes": 24764
+    },
+    "F 47-11-2 Elizabeth Simcoe sketchbook.drawio": {
+      "path": "F 47-11-2 Elizabeth Simcoe sketchbook.drawio",
+      "sha256": "e50652816b6077252d6fb3ff0788bec7db8078a5b29c89c0f92f1870651d75c7",
+      "size_bytes": 39476
+    },
+    "F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio": {
+      "path": "F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio",
+      "sha256": "cb56c5b2df59815a7c1acd655f1d87e82f219148c3a2f47976a7175e6f14bba1",
+      "size_bytes": 41255
+    },
+    "F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio": {
+      "path": "F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio",
+      "sha256": "54c117e8e9aaa71ad106b8c0a314c48519fade9141558610f6aa15b6c606b6b1",
+      "size_bytes": 41333
+    },
+    "F 4711 Orville Wood fonds.drawio": {
+      "path": "F 4711 Orville Wood fonds.drawio",
+      "sha256": "6855c23da03aead0cb670f04792f4eeb4a0328643acd3fe96c41c8a03e1cf8be",
+      "size_bytes": 64699
+    },
+    "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio": {
+      "path": "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+      "sha256": "c32dca60d819f29c9a43edf47501b693ae50091f6b20ff59348ff426fed1a7ac",
+      "size_bytes": 98995
+    },
+    "General Authority to RiC-O Model_2025-06-25_PZ.drawio": {
+      "path": "General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+      "sha256": "2b7f56957c0cb0c03593a0f83e84addbb8891ceb630490731a209ad39c741e97",
+      "size_bytes": 76719
+    },
+    "RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio": {
+      "path": "RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio",
+      "sha256": "bb66568b19a29706c035a9c8607e7d90144ec07c7de7db484a9ba78bf90fbffb",
+      "size_bytes": 24600
+    },
+    "RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio": {
+      "path": "RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio",
+      "sha256": "5e3439d7d189d25eb955a224158ffb43cbad34c73a0d5a32e6e58f0d48a72f6e",
+      "size_bytes": 50460
+    },
+    "RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio": {
+      "path": "RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio",
+      "sha256": "284fe7638431fbb32dffb087cd2fb18b8bc43232916f8deb339cbaa7533eb644",
+      "size_bytes": 33811
+    },
+    "RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio": {
+      "path": "RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio",
+      "sha256": "6a03daeb2a15e2a000de0e820884c7fa8149cfbd84ec8aa0a01d73006eddbca1",
+      "size_bytes": 52212
+    },
+    "RG 18-210 Walkerton Inquiry in RiC-O (original).drawio": {
+      "path": "RG 18-210 Walkerton Inquiry in RiC-O (original).drawio",
+      "sha256": "4d9c2fefab557f53b6604611b5eb4ec7809208266b5e8a7b64107939a0973d02",
+      "size_bytes": 84286
+    },
+    "knut_olborgs_forskningsnotater.drawio": {
+      "path": "knut_olborgs_forskningsnotater.drawio",
+      "sha256": "704e60d3d4fcb868d2806710b31ff40c73572b167cc3bcfc62a8509bcad89401",
+      "size_bytes": 58857
+    },
+    "koronakommisjonen.drawio": {
+      "path": "koronakommisjonen.drawio",
+      "sha256": "057c661138d4d1f0887aed40801d5a108e85579bf09f66f6ec28bf8486f88bb2",
+      "size_bytes": 41576
+    }
+  },
+  "scenarios": {}
+}

@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import tempfile
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
@@ -21,7 +22,6 @@ from src.main.webapp.plugins.rdfexport.legacy.tests.regenerate_baselines import 
     PreviousParserLoader,
     _serialise_graph,
 )
-from src.main.webapp.plugins.rdfexport.pyodide_pipeline import drawio_pipeline
 
 DEFAULT_CSV_PATH = "/mock/path/to/file.csv"
 DEFAULT_BASE_URI = "ontology://generated-from-draw-io/mock#"
@@ -58,6 +58,7 @@ class Debugger:
 
         self._map_data: dict[str, dict] = self._load_map()
         self._refresh_fixture_inventory()
+        self._pyodide_ready = False
 
     # ------------------------------------------------------------------
     # Public API
@@ -193,9 +194,9 @@ class Debugger:
         slug = Prompt.ask("Scenario slug", default=default_slug)
         csv_path = Prompt.ask("CSV path", default=DEFAULT_CSV_PATH)
         base_uri = Prompt.ask("Base URI", default=DEFAULT_BASE_URI)
-        prefix_default = ",".join(f"{p}={i}" for p, i in DEFAULT_PREFIXES)
+        prefix_default = ",".join(f"{p}:{i}" for p, i in DEFAULT_PREFIXES)
         prefix_input = Prompt.ask(
-            "Prefix mappings (comma-separated prefix=iri entries)",
+            "Prefix mappings (comma-separated prefix:iri entries)",
             default=prefix_default,
         )
         prefixes = self._parse_prefix_string(prefix_input)
@@ -229,13 +230,13 @@ class Debugger:
             f"[bold]Format:[/bold] {config.serialization_format}"
         )
 
-        xml_text = config.drawio_path.read_text(encoding="utf-8")
-        patched_xml = self._apply_metadata_overrides(xml_text, config)
+        original_xml = config.drawio_path.read_text(encoding="utf-8")
+        patched_xml = self._apply_metadata_overrides(original_xml, config)
 
         with tempfile.NamedTemporaryFile(
             "w", suffix=".drawio", delete=False, encoding="utf-8"
         ) as temp_file:
-            temp_file.write(patched_xml)
+            temp_file.write(original_xml)
             temp_file_path = Path(temp_file.name)
 
         try:
@@ -245,8 +246,7 @@ class Debugger:
         finally:
             temp_file_path.unlink(missing_ok=True)
 
-        current_graph = self._generate_pipeline_graph(patched_xml)
-        plugin_graph = self._generate_plugin_graph(patched_xml)
+        current_graph, plugin_graph = self._generate_bun_graphs(patched_xml, config)
 
         graphs = {
             "legacy": legacy_graph,
@@ -347,19 +347,102 @@ class Debugger:
 
             return graph
 
-    def _generate_pipeline_graph(self, serialized_xml: str) -> Graph:
-        graph_id, graph = drawio_pipeline.parse_drawio_xml(serialized_xml)
-        if not isinstance(graph, Graph):
-            raise TypeError(
-                f"Pipeline returned unexpected graph type for {graph_id}: {type(graph)!r}"
-            )
-        return graph
+    def _generate_bun_graphs(
+        self, serialized_xml: str, config: ScenarioConfig
+    ) -> tuple[Graph, Graph]:
+        outputs = self._run_bun_pipeline(serialized_xml, config)
 
-    def _generate_plugin_graph(self, serialized_xml: str) -> Graph:
-        graph = self._generate_pipeline_graph(serialized_xml)
+        pipeline_graph = Graph()
+        pipeline_graph.parse(data=outputs["pipeline"], format="turtle")
+
         plugin_graph = Graph()
-        plugin_graph.parse(data=graph.serialize(format="turtle"), format="turtle")
-        return plugin_graph
+        plugin_graph.parse(data=outputs["plugin"], format="turtle")
+
+        return pipeline_graph, plugin_graph
+
+    def _run_bun_pipeline(
+        self, serialized_xml: str, config: ScenarioConfig
+    ) -> dict[str, str]:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_dir_path = Path(temp_dir)
+            xml_path = temp_dir_path / "scenario.drawio"
+            xml_path.write_text(serialized_xml, encoding="utf-8")
+
+            config_payload = {
+                "xmlPath": str(xml_path),
+                "baseFilename": config.drawio_path.stem,
+                "csvPath": config.csv_path,
+                "baseUri": config.base_uri,
+                "prefixes": [
+                    {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+                ]
+                or None,
+            }
+
+            config_path = temp_dir_path / "config.json"
+            config_path.write_text(json.dumps(config_payload), encoding="utf-8")
+
+            command = [
+                "bun",
+                "run",
+                "debug/run_scenario.ts",
+                str(config_path),
+            ]
+
+            try:
+                result = subprocess.run(
+                    command,
+                    cwd=self.debug_dir.parent,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+            except subprocess.CalledProcessError as exc:
+                error_output = exc.stderr.strip() or exc.stdout.strip()
+                if "pyodide/wheels" in error_output and not self._pyodide_ready:
+                    self._ensure_pyodide_assets()
+                    result = subprocess.run(
+                        command,
+                        cwd=self.debug_dir.parent,
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
+                else:
+                    raise RuntimeError(
+                        "Bun scenario execution failed"
+                        + (f": {error_output}" if error_output else "")
+                    ) from exc
+
+        stdout = result.stdout.strip()
+        json_start = stdout.find("{")
+        if json_start == -1:
+            raise RuntimeError("Unable to locate JSON payload in Bun output")
+
+        try:
+            data = json.loads(stdout[json_start:])
+        except json.JSONDecodeError as exc:
+            raise RuntimeError("Unable to parse Bun scenario output as JSON") from exc
+
+        for key in ("pipeline", "plugin"):
+            if key not in data or not isinstance(data[key], str):
+                raise RuntimeError(f"Bun scenario output missing '{key}' payload")
+
+        return data
+
+    def _ensure_pyodide_assets(self) -> None:
+        if self._pyodide_ready:
+            return
+
+        for command in (["bun", "install"], ["bun", "run", "setup:pyodide"]):
+            subprocess.run(
+                command,
+                cwd=self.debug_dir.parent,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+        self._pyodide_ready = True
 
     # ------------------------------------------------------------------
     # Serialisation helpers
@@ -526,9 +609,10 @@ class Debugger:
     def _parse_prefix_string(self, value: str) -> list[tuple[str, str]]:
         entries: list[tuple[str, str]] = []
         for item in filter(None, (segment.strip() for segment in value.split(","))):
-            if "=" not in item:
+            separator = "=" if "=" in item else ":"
+            if separator not in item:
                 continue
-            prefix, iri = item.split("=", 1)
+            prefix, iri = item.split(separator, 1)
             prefix = prefix.strip()
             iri = iri.strip()
             if prefix and iri:
@@ -568,7 +652,7 @@ def build_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--prefix",
         action="append",
-        help="Prefix mapping in the form prefix=IRI (can be repeated)",
+        help="Prefix mapping in the form prefix:IRI (can be repeated)",
     )
     parser.add_argument(
         "--legacy-commit",
