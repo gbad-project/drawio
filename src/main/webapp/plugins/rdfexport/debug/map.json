@@ -133,8 +133,8 @@
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
       "format": "nt",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
-        "py_legacy_vs_ts_plugin": false,
+        "py_legacy_vs_ts_pipeline": true,
+        "py_legacy_vs_ts_plugin": true,
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
@@ -151,14 +151,84 @@
           "triples": 87
         },
         "ts_pipeline": {
-          "nt_sha256": "c63253ffac10d594ffa84fee7c4fbb44d28fd209b4351363c7b2de84d48dfa8f",
+          "nt_sha256": "57f9a6dcbf69a3ce7baad570f3bf7f4a1f81a7bae7c345e03b9a87ec88132b2e",
           "path": "results/aa37-department-of-health/ts_pipeline.nt",
           "triples": 72
         },
         "ts_plugin": {
-          "nt_sha256": "c63253ffac10d594ffa84fee7c4fbb44d28fd209b4351363c7b2de84d48dfa8f",
+          "nt_sha256": "57f9a6dcbf69a3ce7baad570f3bf7f4a1f81a7bae7c345e03b9a87ec88132b2e",
           "path": "results/aa37-department-of-health/ts_plugin.nt",
           "triples": 72
+        }
+      }
+    },
+    "f-47-11-2-elizabeth-simcoe-sketchbook": {
+      "base_uri": "ontology://generated-from-draw-io/mock#",
+      "csv_path": "/mock/path/to/file.csv",
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-2 Elizabeth Simcoe sketchbook.drawio",
+      "format": "turtle",
+      "isomorphism": {
+        "py_legacy_vs_ts_pipeline": true,
+        "py_legacy_vs_ts_plugin": true,
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "prefixes": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "py_legacy": {
+          "nt_sha256": "ccc0f388cf8ecb18fecf37bc70676604e0d6d7f08a12c21d272701f492e21ed8",
+          "path": "results/f-47-11-2-elizabeth-simcoe-sketchbook/py_legacy.ttl",
+          "triples": 88
+        },
+        "ts_pipeline": {
+          "nt_sha256": "4c1e7ab64078e5e29987e80936e11c92514cb888db79cc98128e97fc4cbc73f8",
+          "path": "results/f-47-11-2-elizabeth-simcoe-sketchbook/ts_pipeline.ttl",
+          "triples": 73
+        },
+        "ts_plugin": {
+          "nt_sha256": "4c1e7ab64078e5e29987e80936e11c92514cb888db79cc98128e97fc4cbc73f8",
+          "path": "results/f-47-11-2-elizabeth-simcoe-sketchbook/ts_plugin.ttl",
+          "triples": 73
+        }
+      }
+    },
+    "general-authority-to-ric-o-model-2025-06-25-pz": {
+      "base_uri": "ontology://generated-from-draw-io/mock#",
+      "csv_path": "/mock/path/to/file.csv",
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+      "format": "turtle",
+      "isomorphism": {
+        "py_legacy_vs_ts_pipeline": true,
+        "py_legacy_vs_ts_plugin": true,
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "prefixes": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "py_legacy": {
+          "nt_sha256": "b9c76e52f29cf04f712638884e45d01e9ce6e322a72aa187707f7dc91e0f0db1",
+          "path": "results/general-authority-to-ric-o-model-2025-06-25-pz/py_legacy.ttl",
+          "triples": 147
+        },
+        "ts_pipeline": {
+          "nt_sha256": "befbe8e1cc774b98f72f4e65b62efebb1f2b798b926a30ca635d77fddf0f18cd",
+          "path": "results/general-authority-to-ric-o-model-2025-06-25-pz/ts_pipeline.ttl",
+          "triples": 136
+        },
+        "ts_plugin": {
+          "nt_sha256": "befbe8e1cc774b98f72f4e65b62efebb1f2b798b926a30ca635d77fddf0f18cd",
+          "path": "results/general-authority-to-ric-o-model-2025-06-25-pz/ts_plugin.ttl",
+          "triples": 136
         }
       }
     },

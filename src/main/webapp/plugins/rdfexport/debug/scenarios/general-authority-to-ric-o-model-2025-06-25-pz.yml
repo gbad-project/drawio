@@ -1,0 +1,10 @@
+slug: general-authority-to-ric-o-model-2025-06-25-pz
+drawio:
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General
+  Authority to RiC-O Model_2025-06-25_PZ.drawio
+csv_path: /mock/path/to/file.csv
+base_uri: ontology://generated-from-draw-io/mock#
+prefixes:
+  mock1: http://mock-uri.com
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
