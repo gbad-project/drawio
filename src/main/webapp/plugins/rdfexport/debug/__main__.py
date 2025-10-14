@@ -277,19 +277,39 @@ class Debugger:
             temp_file_path = Path(temp_file.name)
 
         try:
-            legacy_graph = self._generate_legacy_graph(
+            py_legacy_graph = self._generate_py_legacy_graph(
                 temp_file_path, config.legacy_commit
             )
+        except Exception as exc:
+            self.console.print(
+                f"[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file\n"
+                f"[dim]{type(exc).__name__}: {exc}[/dim]"
+            )
+            py_legacy_graph = None
         finally:
             temp_file_path.unlink(missing_ok=True)
 
-        current_graph, plugin_graph = self._generate_bun_graphs(patched_xml, config)
+        try:
+            ts_pipeline_graph, ts_plugin_graph = self._generate_bun_graphs(patched_xml, config)
+        except Exception as exc:
+            self.console.print(
+                f"[yellow]Warning:[/yellow] Bun pipeline failed to generate graphs\n"
+                f"[dim]{type(exc).__name__}: {exc}[/dim]"
+            )
+            ts_pipeline_graph = None
+            ts_plugin_graph = None
 
-        graphs = {
-            "legacy": legacy_graph,
-            "current": current_graph,
-            "plugin": plugin_graph,
-        }
+        graphs = {}
+        if py_legacy_graph is not None:
+            graphs["py_legacy"] = py_legacy_graph
+        if ts_pipeline_graph is not None:
+            graphs["ts_pipeline"] = ts_pipeline_graph
+        if ts_plugin_graph is not None:
+            graphs["ts_plugin"] = ts_plugin_graph
+        
+        if not graphs:
+            self.console.print("[red]Error:[/red] All graph generation methods failed")
+            return
 
         results_directory = self.results_dir / config.slug
         results_directory.mkdir(parents=True, exist_ok=True)
@@ -312,17 +332,19 @@ class Debugger:
             nt_hashes[name] = hashlib.sha256(nt_serialised.encode("utf-8")).hexdigest()
             triple_counts[name] = len(graph)
 
-        isomorphism = {
-            "legacy_vs_current": self._are_isomorphic(
-                graphs["legacy"], graphs["current"]
-            ),
-            "legacy_vs_plugin": self._are_isomorphic(
-                graphs["legacy"], graphs["plugin"]
-            ),
-            "current_vs_plugin": self._are_isomorphic(
-                graphs["current"], graphs["plugin"]
-            ),
-        }
+        isomorphism = {}
+        if "py_legacy" in graphs and "ts_pipeline" in graphs:
+            isomorphism["py_legacy_vs_ts_pipeline"] = self._are_isomorphic(
+                graphs["py_legacy"], graphs["ts_pipeline"]
+            )
+        if "py_legacy" in graphs and "ts_plugin" in graphs:
+            isomorphism["py_legacy_vs_ts_plugin"] = self._are_isomorphic(
+                graphs["py_legacy"], graphs["ts_plugin"]
+            )
+        if "ts_pipeline" in graphs and "ts_plugin" in graphs:
+            isomorphism["ts_pipeline_vs_ts_plugin"] = self._are_isomorphic(
+                graphs["ts_pipeline"], graphs["ts_plugin"]
+            )
 
         self._update_map_entry(
             config,
@@ -337,7 +359,7 @@ class Debugger:
         summary_table.add_column("Triples", justify="right")
         summary_table.add_column("Output")
         summary_table.add_column("N-Triples SHA256")
-        for name in ("legacy", "current", "plugin"):
+        for name in graphs.keys():
             summary_table.add_row(
                 name,
                 str(triple_counts[name]),
@@ -353,22 +375,22 @@ class Debugger:
     # ------------------------------------------------------------------
     # Graph generation helpers
     # ------------------------------------------------------------------
-    def _generate_legacy_graph(self, drawio_path: Path, commit: str) -> Graph:
+    def _generate_py_legacy_graph(self, drawio_path: Path, commit: str) -> Graph:
         with (
-            PreviousParserLoader(commit) as legacy_parser,
-            PreviousParserLoader("HEAD") as current_parser,
+            PreviousParserLoader(commit) as py_legacy_parser,
+            PreviousParserLoader("HEAD") as py_current_parser,
         ):
-            parse_drawio = getattr(legacy_parser, "parse_drawio_to_graph", None)
+            parse_drawio = getattr(py_legacy_parser, "parse_drawio_to_graph", None)
             if parse_drawio is None:
                 raise AttributeError(
                     "Legacy parser does not expose parse_drawio_to_graph"
                 )
 
-            current_get_prefixes = getattr(current_parser, "get_prefixes", None)
+            current_get_prefixes = getattr(py_current_parser, "get_prefixes", None)
             if current_get_prefixes is not None:
-                setattr(legacy_parser, "get_prefixes", current_get_prefixes)
+                setattr(py_legacy_parser, "get_prefixes", current_get_prefixes)
 
-            get_ontology_iri = getattr(current_parser, "get_ontology_iri", None)
+            get_ontology_iri = getattr(py_current_parser, "get_ontology_iri", None)
             ontology_iri = None
             if get_ontology_iri is not None:
                 ontology_iri = get_ontology_iri("mock")
@@ -380,14 +402,14 @@ class Debugger:
             )
 
             if not isinstance(graph, Graph):
-                raise TypeError("Legacy parser did not return an rdflib Graph")
+                raise TypeError("Legacy Python parser did not return an rdflib Graph")
 
             return graph
 
     def _generate_bun_graphs(
         self, serialized_xml: str, config: ScenarioConfig
     ) -> tuple[Graph, Graph]:
-        outputs = self._run_bun_pipeline(serialized_xml, config)
+        outputs = self._run_ts_pipeline(serialized_xml, config)
 
         pipeline_graph = Graph()
         pipeline_graph.parse(data=outputs["pipeline"], format="turtle")
@@ -397,7 +419,7 @@ class Debugger:
 
         return pipeline_graph, plugin_graph
 
-    def _run_bun_pipeline(
+    def _run_ts_pipeline(
         self, serialized_xml: str, config: ScenarioConfig
     ) -> dict[str, str]:
         with tempfile.TemporaryDirectory() as temp_dir:

@@ -71,7 +71,7 @@ def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
 
         assert results_dir.exists()
         outputs = {
-            name: results_dir / f"{name}.nt" for name in ("legacy", "current", "plugin")
+            name: results_dir / f"{name}.nt" for name in ("py_legacy", "ts_pipeline", "ts_plugin")
         }
         for path in outputs.values():
             assert path.exists()
@@ -81,13 +81,14 @@ def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
         map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
         scenario_entry = map_data["scenarios"][slug]
 
-        for key in ("legacy", "current", "plugin"):
+        for key in ("py_legacy", "ts_pipeline", "ts_plugin"):
             result_info = scenario_entry["results"][key]
             assert Path(result_info["path"]).name == f"{key}.nt"
             assert result_info["triples"] > 0
             assert len(result_info["nt_sha256"]) == 64
 
-        assert scenario_entry["isomorphism"]["current_vs_plugin"] is True
+        assert "ts_pipeline_vs_ts_plugin" in scenario_entry["isomorphism"]
+        assert "py_legacy_vs_ts_plugin" in scenario_entry["isomorphism"]
 
     finally:
         shutil.rmtree(results_dir, ignore_errors=True)
@@ -113,34 +114,34 @@ def test_outputs_are_isomorphic_across_sources():
     results_dir = debugger.results_dir / slug
     try:
         debugger._run_scenario(config)
-        legacy_graph = Graph().parse(
-            data=(results_dir / "legacy.nt").read_text(encoding="utf-8"),
+        py_legacy_graph = Graph().parse(
+            data=(results_dir / "py_legacy.nt").read_text(encoding="utf-8"),
             format="nt",
         )
-        current_graph = Graph().parse(
-            data=(results_dir / "current.nt").read_text(encoding="utf-8"),
+        ts_pipeline_graph = Graph().parse(
+            data=(results_dir / "ts_pipeline.nt").read_text(encoding="utf-8"),
             format="nt",
         )
-        plugin_graph = Graph().parse(
-            data=(results_dir / "plugin.nt").read_text(encoding="utf-8"),
+        ts_plugin_graph = Graph().parse(
+            data=(results_dir / "ts_plugin.nt").read_text(encoding="utf-8"),
             format="nt",
         )
 
-        assert len(legacy_graph) > 0
-        assert len(current_graph) == len(plugin_graph) > 0
+        assert len(py_legacy_graph) > 0
+        assert len(ts_pipeline_graph) == len(ts_plugin_graph) > 0
 
-        plugin_matches_pipeline = current_graph.isomorphic(plugin_graph)
-        plugin_matches_legacy = legacy_graph.isomorphic(plugin_graph)
+        ts_plugin_matches_ts_pipeline = ts_pipeline_graph.isomorphic(ts_plugin_graph)
+        ts_plugin_matches_py_legacy = py_legacy_graph.isomorphic(ts_plugin_graph)
 
         map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
         scenario_entry = map_data["scenarios"][slug]
         assert (
-            scenario_entry["isomorphism"]["current_vs_plugin"]
-            is plugin_matches_pipeline
+            scenario_entry["isomorphism"]["ts_pipeline_vs_ts_plugin"]
+            is ts_plugin_matches_ts_pipeline
         )
         assert (
-            scenario_entry["isomorphism"]["legacy_vs_plugin"]
-            is plugin_matches_legacy
+            scenario_entry["isomorphism"]["py_legacy_vs_ts_plugin"]
+            is ts_plugin_matches_py_legacy
         )
 
     finally:
