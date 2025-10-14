@@ -28,6 +28,7 @@
     "test:log:macos": "LOGFILE=\"tests/demo_logs/test.log\" && script \"$LOGFILE\" bun run test",
     "test:log:linux": "LOGFILE=\"tests/demo_logs/test.log\" && script -c \"bun run test\" \"$LOGFILE\"",
     "test:log:show": "LOGFILE=\"tests/demo_logs/test.log\" && cat \"$LOGFILE\"",
+    "debug:help": "python -m debug -h",
     "format:py": "ruff format .",
     "format:ts": "prettier --write .",
     "format": "bun run format:py; bun run format:ts",
