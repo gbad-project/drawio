@@ -235,3 +235,52 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
     assert scenario_path.read_text(encoding="utf-8") == original_content
 
     scenario_path.unlink(missing_ok=True)
+
+def test_ts_stderr_captured_as_warning(monkeypatch):
+    """Test that TypeScript stderr is captured as a warning even when graphs generate successfully."""
+    debugger = Debugger(FIXTURES_DIR)
+    slug = f"pytest-{uuid4().hex[:8]}"
+    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+
+    config = ScenarioConfig(
+        slug=slug,
+        drawio_path=drawio_path,
+        csv_path=DEFAULT_CSV_PATH,
+        base_uri=DEFAULT_BASE_URI,
+        prefixes=list(DEFAULT_PREFIXES),
+        legacy_commit=DEFAULT_LEGACY_COMMIT,
+        serialization_format="nt",
+    )
+
+    results_dir = debugger.results_dir / slug
+    
+    # Mock _run_ts_pipeline to return stderr along with valid data
+    original_run_ts_pipeline = debugger._run_ts_pipeline
+    
+    def mock_run_ts_pipeline(xml, cfg):
+        result = original_run_ts_pipeline(xml, cfg)
+        result["stderr"] = "Mock TypeScript warning message"
+        return result
+    
+    monkeypatch.setattr(debugger, "_run_ts_pipeline", mock_run_ts_pipeline)
+    
+    try:
+        debugger._run_scenario(config)
+
+        map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
+        scenario_entry = map_data["scenarios"][slug]
+
+        # Should have warnings but no errors since graphs generated successfully
+        if "warnings" in scenario_entry:
+            assert "ts_stderr" in scenario_entry["warnings"]
+            assert "Mock TypeScript warning message" in scenario_entry["warnings"]["ts_stderr"]
+        
+        # Should not have errors for ts_pipeline or ts_plugin
+        if "errors" in scenario_entry:
+            assert "ts_pipeline" not in scenario_entry["errors"]
+            assert "ts_plugin" not in scenario_entry["errors"]
+
+    finally:
+        shutil.rmtree(results_dir, ignore_errors=True)
+        debugger._map_data.get("scenarios", {}).pop(slug, None)
+        debugger._write_map()
