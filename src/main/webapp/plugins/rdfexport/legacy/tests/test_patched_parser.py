@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph
+from rdflib import Graph, URIRef
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -97,8 +97,46 @@ def test_individual_blocks_tracks_datatype_properties():
 
 def _normalise_graph(graph: Graph) -> Graph:
     filtered = Graph()
-    for triple in graph:
-        subject, predicate, obj = triple
+
+    known_namespaces = {str(uri) for uri in draw_io_parser.get_prefixes().values()}
+
+    for prefix, uri in graph.namespace_manager.namespaces():
+        if prefix in (
+            None,
+            "",
+        ) or prefix.startswith("ns"):
+            continue
+        known_namespaces.add(str(uri))
+
+    def _canonicalise_node(node):
+        if isinstance(node, URIRef):
+            namespace_str: str | None = None
+            local_name: str | None = None
+
+            try:
+                _, namespace, local = graph.namespace_manager.compute_qname(node)
+                namespace_str = str(namespace)
+                local_name = str(local)
+            except Exception:
+                pass
+
+            if namespace_str in known_namespaces:
+                return node
+
+            text = str(node)
+            if not local_name:
+                for separator in ("#", "/"):
+                    if separator in text:
+                        local_name = text.rsplit(separator, 1)[1]
+                        break
+                else:
+                    local_name = text
+
+            return URIRef(f"http://example.org/drawio/{local_name}")
+
+        return node
+
+    for subject, predicate, obj in graph:
         if predicate == RDF.type and obj in {
             OWL.ObjectProperty,
             OWL.DatatypeProperty,
@@ -107,7 +145,9 @@ def _normalise_graph(graph: Graph) -> Graph:
             continue
         if predicate == OWL.imports:
             continue
-        filtered.add(triple)
+
+        filtered.add((_canonicalise_node(subject), predicate, _canonicalise_node(obj)))
+
     return filtered
 
 

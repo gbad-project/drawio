@@ -23,6 +23,39 @@ async function parseSerializedXml(
   return processed;
 }
 
+const RELATIVE_IRI_PATTERN = /<([^>\s]+)>/g;
+
+function isAbsoluteIri(candidate: string): boolean {
+  if (candidate.length === 0) {
+    return true;
+  }
+
+  if (candidate.startsWith("//") || candidate.startsWith("#")) {
+    return true;
+  }
+
+  return /^[a-zA-Z][\w+.-]*:/.test(candidate);
+}
+
+function applyBaseUriToRelativeIris(
+  turtle: string,
+  baseUri: string | null,
+): string {
+  if (baseUri == null || baseUri.trim().length === 0) {
+    return turtle;
+  }
+
+  const trimmedBase = baseUri.trim();
+
+  return turtle.replace(RELATIVE_IRI_PATTERN, (match, iri) => {
+    if (isAbsoluteIri(iri) || iri.startsWith(trimmedBase)) {
+      return match;
+    }
+
+    return `<${trimmedBase}${iri}>`;
+  });
+}
+
 export async function runMockBlackBox(serializedXml: string): Promise<string> {
   logInfo(
     LOG_PREFIX.BLACKBOX,
@@ -59,7 +92,7 @@ export async function runDrawioPipeline(
     LOG_PREFIX.BLACKBOX,
     `Returning Turtle payload for graph ${processed.graphId} (${processed.rawTurtle.length} characters)`,
   );
-  return processed.rawTurtle;
+  return applyBaseUriToRelativeIris(processed.rawTurtle, processed.baseUri);
 }
 
 export { debugPyodide };

@@ -54,7 +54,7 @@ def _default_parser_config() -> dict[str, Any]:
     return {
         "infer_type_of_literals": True,
         "include_preamble": True,
-        "ontology_iri": None,
+        "ontology_iri": "ontology://generated-from-draw-io/mock",
         "prefix": None,
         "prefix_iri": None,
         "indentation": DEFAULT_INDENTATION,
