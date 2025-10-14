@@ -1,0 +1,93 @@
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<ontology://generated-from-draw-io/2025-10-14T00-34-33> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/2025-10-14T00-34-33> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<ontology://generated-from-draw-io/Arkivverket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Arkivverket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<ontology://generated-from-draw-io/Arkivverket> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<ontology://generated-from-draw-io/Arkivverket> <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" .
+<ontology://generated-from-draw-io/Arkivverket> <http://www.w3.org/2000/01/rdf-schema#label> "Arkivverket" .
+<ontology://generated-from-draw-io/Arkivverket> <https://www.ica.org/standards/RiC/ontology#name> "National Archives of Norway" .
+<ontology://generated-from-draw-io/Arkivvesenet> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Arkivvesenet> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<ontology://generated-from-draw-io/Arkivvesenet> <http://www.w3.org/2000/01/rdf-schema#label> "Arkivvesenet" .
+<ontology://generated-from-draw-io/Arkivvesenet> <https://www.ica.org/standards/RiC/ontology#followsInTime> <ontology://generated-from-draw-io/Arkivverket> .
+<ontology://generated-from-draw-io/Bytes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Bytes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#UnitOfMeasurement> .
+<ontology://generated-from-draw-io/Bytes> <http://www.w3.org/2000/01/rdf-schema#label> "Bytes" .
+<ontology://generated-from-draw-io/Closing%20Of%20Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Closing%20Of%20Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<ontology://generated-from-draw-io/Closing%20Of%20Koronakommisjonen> <http://www.w3.org/2000/01/rdf-schema#label> "Closing of Koronakommisjonen" .
+<ontology://generated-from-draw-io/Closing%20Of%20Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2022-05-06"^^<http://www.w3.org/2001/XMLSchema#date> .
+<ontology://generated-from-draw-io/Country> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Country> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<ontology://generated-from-draw-io/Country> <http://www.w3.org/2000/01/rdf-schema#label> "Country" .
+<ontology://generated-from-draw-io/Covid-19> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Covid-19> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Event> .
+<ontology://generated-from-draw-io/Covid-19> <http://www.w3.org/2000/01/rdf-schema#label> "Covid-19" .
+<ontology://generated-from-draw-io/FileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/FileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ExtentType> .
+<ontology://generated-from-draw-io/FileSize> <http://www.w3.org/2000/01/rdf-schema#label> "FileSize" .
+<ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> <http://www.w3.org/2000/01/rdf-schema#label> "Initiation of Koronakommisjonen" .
+<ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "2020-04-24"^^<http://www.w3.org/2001/XMLSchema#date> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon%20Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon%20Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Rule> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon%20Koronakommisjonen> <http://www.w3.org/2000/01/rdf-schema#label> "Kongelig Resolusjon Koronakommisjonen" .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon%20Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#hasOrHadRuleType> <ontology://generated-from-draw-io/Kongelig%20Resolusjon> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon%20Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#occurredAtDate> <ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RuleType> .
+<ontology://generated-from-draw-io/Kongelig%20Resolusjon> <http://www.w3.org/2000/01/rdf-schema#label> "Kongelig Resolusjon" .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Storage%20ID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Storage%20ID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Storage%20ID> <http://www.w3.org/2000/01/rdf-schema#label> "Koronakommisjonen Dokumentasjon Storage ID" .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Storage%20ID> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <ontology://generated-from-draw-io/Storage%20ID> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Storage%20ID> <https://www.ica.org/standards/RiC/ontology#identifier> "96e28e3a-94fd-49e9-af7c-be6c8f60c141" .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Instantiation> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation> <http://www.w3.org/2000/01/rdf-schema#label> "Koronakommisjonen Dokumentasjon Stored Instantiation" .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation> <https://www.ica.org/standards/RiC/ontology#hasExtent> <ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Storage%20ID> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#InstantiationExtent> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> <http://www.w3.org/2000/01/rdf-schema#label> "Koronakommisjonen Dokumentasjon Tar File Size" .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> <https://www.ica.org/standards/RiC/ontology#hasExtentType> <ontology://generated-from-draw-io/FileSize> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> <https://www.ica.org/standards/RiC/ontology#hasUnitOfMeasurement> <ontology://generated-from-draw-io/Bytes> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size> <https://www.ica.org/standards/RiC/ontology#quantity> "131070863360"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <http://www.w3.org/2000/01/rdf-schema#label> "Koronakommisjonen Dokumentasjon" .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasCreator> <ontology://generated-from-draw-io/Koronakommisjonen> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <ontology://generated-from-draw-io/Closing%20Of%20Koronakommisjonen> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasOrHadDigitalInstantiation> <ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasOrHadHolder> <ontology://generated-from-draw-io/Arkivverket> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasOrHadLanguage> <ontology://generated-from-draw-io/Norsk%20Bokmål> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasOrganicOrFunctionalProvenance> <ontology://generated-from-draw-io/Sharepoint> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#hasSender> <ontology://generated-from-draw-io/Koronakommisjonen> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithEvent> <ontology://generated-from-draw-io/Covid-19> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#isAssociatedWithPlace> <ontology://generated-from-draw-io/Norge> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#isOrWasUnderAuthorityOf> <ontology://generated-from-draw-io/Arkivverket> .
+<ontology://generated-from-draw-io/Koronakommisjonen%20Dokumentasjon> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Dokumentasjon knyttet til kommisjonens møter (innkallinger, referater, oppsummeringsnotater), informasjon som kommisjonen har innhentet fra forvaltningen, gjennom innspill og intervjuer (stort volum), eksterne utredninger, rapporten med forarbeider, dokumentasjon knyttet til innsynsforespørsler. Administrasjon og økonomi ble håndtert av Statsministerens kontor." .
+<ontology://generated-from-draw-io/Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<ontology://generated-from-draw-io/Koronakommisjonen> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<ontology://generated-from-draw-io/Koronakommisjonen> <http://www.w3.org/2000/01/rdf-schema#label> "Koronakommisjonen" .
+<ontology://generated-from-draw-io/Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#hasBeginningDate> <ontology://generated-from-draw-io/Initiation%20Of%20Koronakommisjonen> .
+<ontology://generated-from-draw-io/Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#hasEndDate> <ontology://generated-from-draw-io/Closing%20Of%20Koronakommisjonen> .
+<ontology://generated-from-draw-io/Koronakommisjonen> <https://www.ica.org/standards/RiC/ontology#isOrWasRegulatedBy> <ontology://generated-from-draw-io/Kongelig%20Resolusjon%20Koronakommisjonen> .
+<ontology://generated-from-draw-io/Norge> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Norge> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<ontology://generated-from-draw-io/Norge> <http://www.w3.org/2000/01/rdf-schema#label> "Norge" .
+<ontology://generated-from-draw-io/Norge> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <ontology://generated-from-draw-io/Country> .
+<ontology://generated-from-draw-io/Norsk%20Bokmål> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Norsk%20Bokmål> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Language> .
+<ontology://generated-from-draw-io/Norsk%20Bokmål> <http://www.w3.org/2000/01/rdf-schema#label> "Norsk Bokmål" .
+<ontology://generated-from-draw-io/Norsk%20Bokmål> <https://www.ica.org/standards/RiC/ontology#isOrWasLanguageOf> <ontology://generated-from-draw-io/Norge> .
+<ontology://generated-from-draw-io/Sharepoint> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Sharepoint> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Mechanism> .
+<ontology://generated-from-draw-io/Sharepoint> <http://www.w3.org/2000/01/rdf-schema#label> "Sharepoint" .
+<ontology://generated-from-draw-io/Storage%20ID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/Storage%20ID> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<ontology://generated-from-draw-io/Storage%20ID> <http://www.w3.org/2000/01/rdf-schema#label> "Storage ID" .

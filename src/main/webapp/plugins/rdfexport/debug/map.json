@@ -131,11 +131,14 @@
       "base_uri": "ontology://generated-from-draw-io/mock#",
       "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
+      "errors": {
+        "ts_stderr": "mock stderr message sent from typescript"
+      },
       "format": "nt",
       "isomorphism": {
-        "current_vs_plugin": true,
-        "legacy_vs_current": false,
-        "legacy_vs_plugin": false
+        "py_legacy_vs_ts_pipeline": false,
+        "py_legacy_vs_ts_plugin": false,
+        "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "prefixes": [
@@ -145,20 +148,54 @@
         }
       ],
       "results": {
-        "current": {
-          "nt_sha256": "80c4edfd85e2d0f162628490767770780a1799e5e9d7231051acd522ff49897f",
-          "path": "results/aa37-department-of-health/current.nt",
-          "triples": 72
-        },
-        "legacy": {
+        "py_legacy": {
           "nt_sha256": "940ad1dc15c1b4b2d9cb6d7975159f3cd794b3fb8c35e57885f7dc7917610e31",
-          "path": "results/aa37-department-of-health/legacy.nt",
+          "path": "results/aa37-department-of-health/py_legacy.nt",
           "triples": 87
         },
-        "plugin": {
-          "nt_sha256": "80c4edfd85e2d0f162628490767770780a1799e5e9d7231051acd522ff49897f",
-          "path": "results/aa37-department-of-health/plugin.nt",
+        "ts_pipeline": {
+          "nt_sha256": "aae5afaea7dc3bddc9d12b26fc99acccf093d390592ad98559495e797a41eddb",
+          "path": "results/aa37-department-of-health/ts_pipeline.nt",
           "triples": 72
+        },
+        "ts_plugin": {
+          "nt_sha256": "aae5afaea7dc3bddc9d12b26fc99acccf093d390592ad98559495e797a41eddb",
+          "path": "results/aa37-department-of-health/ts_plugin.nt",
+          "triples": 72
+        }
+      }
+    },
+    "koronakommisjonen": {
+      "base_uri": "ontology://generated-from-draw-io/mock#",
+      "csv_path": "/mock/path/to/file.csv",
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/koronakommisjonen.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "NotInKnownException: An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property"
+        ]
+      },
+      "format": "nt",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "prefixes": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "795c49dbb50e242a9c819670f97ffb316b1045fea1038b5196aa7a99ef97d283",
+          "path": "results/koronakommisjonen/ts_pipeline.nt",
+          "triples": 93
+        },
+        "ts_plugin": {
+          "nt_sha256": "795c49dbb50e242a9c819670f97ffb316b1045fea1038b5196aa7a99ef97d283",
+          "path": "results/koronakommisjonen/ts_plugin.nt",
+          "triples": 93
         }
       }
     }
