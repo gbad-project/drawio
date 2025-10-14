@@ -757,8 +757,26 @@ class Debugger:
         slug = slug.lower()
         return slug or "scenario"
 
+    @staticmethod
+    def normalise(source: Graph) -> Graph:
+        """Skip non-essential but differing triples."""
+        filtered = Graph()
+        for s, p, o in source:
+            if p == RDF.type and o in {
+                OWL.ObjectProperty,
+                OWL.DatatypeProperty,
+                OWL.Ontology,
+            }:
+                continue
+            if p == OWL.imports:
+                continue
+            filtered.add((s, p, o))
+        return filtered
+
     def _are_isomorphic(self, first: Graph, second: Graph) -> bool:
-        return to_isomorphic(first) == to_isomorphic(second)
+        return to_isomorphic(Debugger.normalise(first)) == to_isomorphic(
+            Debugger.normalise(second)
+        )
 
 
 def build_argument_parser() -> argparse.ArgumentParser:
