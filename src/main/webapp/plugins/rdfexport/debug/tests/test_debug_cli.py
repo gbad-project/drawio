@@ -130,12 +130,17 @@ def test_outputs_are_isomorphic_across_sources():
         assert len(current_graph) == len(plugin_graph) > 0
 
         plugin_matches_pipeline = current_graph.isomorphic(plugin_graph)
+        plugin_matches_legacy = legacy_graph.isomorphic(plugin_graph)
 
         map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
         scenario_entry = map_data["scenarios"][slug]
         assert (
             scenario_entry["isomorphism"]["current_vs_plugin"]
             is plugin_matches_pipeline
+        )
+        assert (
+            scenario_entry["isomorphism"]["legacy_vs_plugin"]
+            is plugin_matches_legacy
         )
 
     finally:
