@@ -831,6 +831,7 @@ async function runScenario(config: ScenarioConfig) {
     config.baseFilename ?? basename(config.xmlPath).replace(/\.[^.]+$/, "");
 
   const mockBlackBoxModule = await import("../src/mockBlackBox");
+  console.error("mock stderr message sent from typescript");
   const pipeline = await mockBlackBoxModule.runDrawioPipeline(xml);
   Reflect.set(mockBlackBoxModule, "runDrawioPipeline", async () => pipeline);
   const plugin = await runPluginExport(xml, {

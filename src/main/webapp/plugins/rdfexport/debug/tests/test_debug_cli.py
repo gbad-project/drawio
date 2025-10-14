@@ -71,7 +71,8 @@ def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
 
         assert results_dir.exists()
         outputs = {
-            name: results_dir / f"{name}.nt" for name in ("py_legacy", "ts_pipeline", "ts_plugin")
+            name: results_dir / f"{name}.nt"
+            for name in ("py_legacy", "ts_pipeline", "ts_plugin")
         }
         for path in outputs.values():
             assert path.exists()

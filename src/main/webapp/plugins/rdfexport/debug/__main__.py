@@ -12,7 +12,7 @@ from typing import Iterable, Sequence
 from xml.etree import ElementTree as ET
 
 import yaml
-from rdflib import Graph
+from rdflib import Graph, RDF, OWL
 from rdflib.compare import to_isomorphic
 from rich.console import Console
 from rich.prompt import Prompt
@@ -222,18 +222,20 @@ class Debugger:
             legacy_commit=legacy_commit,
             serialization_format=self._normalise_format(serialization_format),
         )
-        
+
         # Save scenario config if it doesn't exist
         scenario_file = self.scenarios_dir / f"{config.slug}.yml"
         if not scenario_file.exists():
             saved_path = self._save_scenario_config(config)
-            self.console.print(f"[green]✓[/green] Saved scenario config to {saved_path.relative_to(self.debug_dir)}")
-        
+            self.console.print(
+                f"[green]✓[/green] Saved scenario config to {saved_path.relative_to(self.debug_dir)}"
+            )
+
         return config
 
     def _save_scenario_config(self, config: ScenarioConfig) -> Path:
         scenario_path = self.scenarios_dir / f"{config.slug}.yml"
-        
+
         scenario_data = {
             "slug": config.slug,
             "drawio": str(self._relative_to_debug(config.drawio_path)),
@@ -243,7 +245,7 @@ class Debugger:
             "legacy_commit": config.legacy_commit,
             "format": config.serialization_format,
         }
-        
+
         scenario_path.write_text(
             yaml.dump(scenario_data, default_flow_style=False, sort_keys=False),
             encoding="utf-8",
@@ -280,24 +282,53 @@ class Debugger:
             py_legacy_graph = self._generate_py_legacy_graph(
                 temp_file_path, config.legacy_commit
             )
+            py_legacy_error = None
         except Exception as exc:
+            error_msg = f"{type(exc).__name__}: {exc}"
             self.console.print(
                 f"[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file\n"
-                f"[dim]{type(exc).__name__}: {exc}[/dim]"
+                f"[dim]{error_msg}[/dim]"
             )
+            py_legacy_error = error_msg
             py_legacy_graph = None
         finally:
             temp_file_path.unlink(missing_ok=True)
 
         try:
-            ts_pipeline_graph, ts_plugin_graph = self._generate_bun_graphs(patched_xml, config)
+            ts_pipeline_graph, ts_plugin_graph, ts_stderr = self._generate_bun_graphs(
+                patched_xml, config
+            )
+            ts_error = ts_stderr  # Capture stderr even on success
         except Exception as exc:
+            error_msg = f"{type(exc).__name__}: {exc}"
             self.console.print(
-                f"[yellow]Warning:[/yellow] Bun pipeline failed to generate graphs\n"
-                f"[dim]{type(exc).__name__}: {exc}[/dim]"
+                f"[yellow]Warning:[/yellow] TypeScript pipeline failed to generate graphs\n"
+                f"[dim]{error_msg}[/dim]"
             )
             ts_pipeline_graph = None
             ts_plugin_graph = None
+            ts_error = error_msg
+
+        errors = {}
+        if py_legacy_graph is None:
+            error_details = ["Legacy Python graph is None"]
+            if py_legacy_error:
+                error_details.append(py_legacy_error)
+            errors["py_legacy"] = error_details
+        if ts_pipeline_graph is None:
+            error_details = ["TypeScript pipeline graph is None"]
+            if ts_error:
+                error_details.append(ts_error)
+            errors["ts_pipeline"] = error_details
+        if ts_plugin_graph is None:
+            error_details = ["TypeScript plugin graph is None"]
+            if ts_error:
+                error_details.append(ts_error)
+            errors["ts_plugin"] = error_details
+
+        # Capture stderr even if graphs generated successfully
+        if ts_error and ts_pipeline_graph is not None:
+            errors["ts_stderr"] = ts_error
 
         graphs = {}
         if py_legacy_graph is not None:
@@ -306,7 +337,7 @@ class Debugger:
             graphs["ts_pipeline"] = ts_pipeline_graph
         if ts_plugin_graph is not None:
             graphs["ts_plugin"] = ts_plugin_graph
-        
+
         if not graphs:
             self.console.print("[red]Error:[/red] All graph generation methods failed")
             return
@@ -352,9 +383,10 @@ class Debugger:
             triple_counts,
             nt_hashes,
             isomorphism,
+            errors,
         )
 
-        summary_table = Table(title="Scenario results")
+        summary_table = Table(title="Debug scenario results")
         summary_table.add_column("Graph")
         summary_table.add_column("Triples", justify="right")
         summary_table.add_column("Output")
@@ -417,7 +449,8 @@ class Debugger:
         plugin_graph = Graph()
         plugin_graph.parse(data=outputs["plugin"], format="turtle")
 
-        return pipeline_graph, plugin_graph
+        stderr = outputs.get("stderr")
+        return pipeline_graph, plugin_graph, stderr
 
     def _run_ts_pipeline(
         self, serialized_xml: str, config: ScenarioConfig
@@ -456,6 +489,12 @@ class Debugger:
                     capture_output=True,
                     text=True,
                 )
+                # Capture stderr even on success
+                if result.stderr.strip():
+                    self.console.print(
+                        f"[yellow]TypeScript stderr:[/yellow]\n"
+                        f"[dim]{result.stderr.strip()}[/dim]"
+                    )
             except subprocess.CalledProcessError as exc:
                 error_output = exc.stderr.strip() or exc.stdout.strip()
                 if "pyodide/wheels" in error_output and not self._pyodide_ready:
@@ -487,6 +526,8 @@ class Debugger:
             if key not in data or not isinstance(data[key], str):
                 raise RuntimeError(f"Bun scenario output missing '{key}' payload")
 
+        if result.stderr.strip():
+            data["stderr"] = result.stderr.strip()
         return data
 
     def _ensure_pyodide_assets(self) -> None:
@@ -536,6 +577,7 @@ class Debugger:
         triple_counts: dict[str, int],
         nt_hashes: dict[str, str],
         isomorphism: dict[str, bool],
+        errors: dict[str, str],
     ) -> None:
         scenario_entry = {
             "drawio": str(self._relative_to_debug(config.drawio_path)),
@@ -556,6 +598,8 @@ class Debugger:
             },
             "isomorphism": isomorphism,
         }
+        if errors:
+            scenario_entry["errors"] = errors
 
         self._map_data.setdefault("scenarios", {})[config.slug] = scenario_entry
         self._write_map()
