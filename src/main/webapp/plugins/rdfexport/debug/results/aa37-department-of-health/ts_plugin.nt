@@ -4,8 +4,8 @@
 <ontology://generated-from-draw-io/1972> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <ontology://generated-from-draw-io/1972> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
 <ontology://generated-from-draw-io/1972> <http://www.w3.org/2000/01/rdf-schema#label> "1972" .
-<ontology://generated-from-draw-io/2025-10-14T00-53-06> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<ontology://generated-from-draw-io/2025-10-14T00-53-06> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<ontology://generated-from-draw-io/2025-10-14T01-06-30> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/2025-10-14T01-06-30> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
 <ontology://generated-from-draw-io/A%20Ontario%20Government%20Name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <ontology://generated-from-draw-io/A%20Ontario%20Government%20Name> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBodyType> .
 <ontology://generated-from-draw-io/A%20Ontario%20Government%20Name> <http://www.w3.org/2000/01/rdf-schema#label> "A Ontario Government Name" .

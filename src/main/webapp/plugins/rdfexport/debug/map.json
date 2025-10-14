@@ -131,9 +131,6 @@
       "base_uri": "ontology://generated-from-draw-io/mock#",
       "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
-      "errors": {
-        "ts_stderr": "mock stderr message sent from typescript"
-      },
       "format": "nt",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": false,
@@ -154,12 +151,12 @@
           "triples": 87
         },
         "ts_pipeline": {
-          "nt_sha256": "aae5afaea7dc3bddc9d12b26fc99acccf093d390592ad98559495e797a41eddb",
+          "nt_sha256": "c63253ffac10d594ffa84fee7c4fbb44d28fd209b4351363c7b2de84d48dfa8f",
           "path": "results/aa37-department-of-health/ts_pipeline.nt",
           "triples": 72
         },
         "ts_plugin": {
-          "nt_sha256": "aae5afaea7dc3bddc9d12b26fc99acccf093d390592ad98559495e797a41eddb",
+          "nt_sha256": "c63253ffac10d594ffa84fee7c4fbb44d28fd209b4351363c7b2de84d48dfa8f",
           "path": "results/aa37-department-of-health/ts_plugin.nt",
           "triples": 72
         }
@@ -188,12 +185,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "795c49dbb50e242a9c819670f97ffb316b1045fea1038b5196aa7a99ef97d283",
+          "nt_sha256": "eef5fec92ac783bc784d71cd475a12af2a51f323f74067aca4919b67fb5e6712",
           "path": "results/koronakommisjonen/ts_pipeline.nt",
           "triples": 93
         },
         "ts_plugin": {
-          "nt_sha256": "795c49dbb50e242a9c819670f97ffb316b1045fea1038b5196aa7a99ef97d283",
+          "nt_sha256": "eef5fec92ac783bc784d71cd475a12af2a51f323f74067aca4919b67fb5e6712",
           "path": "results/koronakommisjonen/ts_plugin.nt",
           "triples": 93
         }
