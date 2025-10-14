@@ -207,7 +207,7 @@ class Debugger:
             "Serialization format", default=DEFAULT_SERIALIZATION_FORMAT
         )
 
-        return ScenarioConfig(
+        config = ScenarioConfig(
             slug=self._slugify(slug),
             drawio_path=drawio_path,
             csv_path=csv_path,
@@ -216,6 +216,10 @@ class Debugger:
             legacy_commit=legacy_commit,
             serialization_format=self._normalise_format(serialization_format),
         )
+
+        self._persist_repl_scenario(config)
+
+        return config
 
     # ------------------------------------------------------------------
     # Execution
@@ -506,6 +510,36 @@ class Debugger:
             return path.relative_to(self.debug_dir)
         except ValueError:
             return path.resolve()
+
+    def _persist_repl_scenario(self, config: ScenarioConfig) -> None:
+        """Persist REPL-created scenarios to YAML for future reuse."""
+
+        scenario_path = self.scenarios_dir / f"{config.slug}.yml"
+        if scenario_path.exists():
+            return
+
+        try:
+            drawio_reference = str(config.drawio_path.relative_to(self.fixtures_dir))
+        except ValueError:
+            drawio_reference = str(config.drawio_path)
+
+        scenario_payload = {
+            "slug": config.slug,
+            "drawio": drawio_reference,
+            "csv_path": config.csv_path,
+            "base_uri": config.base_uri,
+            "prefixes": [
+                {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+            ],
+            "legacy_commit": config.legacy_commit,
+            "format": config.serialization_format,
+        }
+
+        scenario_text = yaml.safe_dump(
+            scenario_payload,
+            sort_keys=False,
+        )
+        scenario_path.write_text(scenario_text, encoding="utf-8")
 
     # ------------------------------------------------------------------
     # Utility helpers

@@ -6,6 +6,7 @@
 - Persisted fixture inventory metadata to `debug/map.json` and ensured scenario results capture triple counts, SHA-256 hashes, and isomorphism checks across graph variants.
 - Introduced a pytest suite exercising prefix parsing, scenario execution, map bookkeeping, and graph isomorphism reporting.
 - Automated Bun dependency setup (install + Pyodide assets) from the CLI to stabilize subprocess execution.
+- Automatically persist REPL-authored scenarios as YAML files for reuse while leaving pre-existing scenario files untouched.
 
 ## Testing
 - `uv run pytest debug/tests -q`
