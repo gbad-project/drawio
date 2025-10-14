@@ -236,6 +236,7 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
 
     scenario_path.unlink(missing_ok=True)
 
+
 def test_ts_stderr_captured_as_warning(monkeypatch):
     """Test that TypeScript stderr is captured as a warning even when graphs generate successfully."""
     debugger = Debugger(FIXTURES_DIR)
@@ -253,17 +254,17 @@ def test_ts_stderr_captured_as_warning(monkeypatch):
     )
 
     results_dir = debugger.results_dir / slug
-    
+
     # Mock _run_ts_pipeline to return stderr along with valid data
     original_run_ts_pipeline = debugger._run_ts_pipeline
-    
+
     def mock_run_ts_pipeline(xml, cfg):
         result = original_run_ts_pipeline(xml, cfg)
         result["stderr"] = "Mock TypeScript warning message"
         return result
-    
+
     monkeypatch.setattr(debugger, "_run_ts_pipeline", mock_run_ts_pipeline)
-    
+
     try:
         debugger._run_scenario(config)
 
@@ -273,8 +274,11 @@ def test_ts_stderr_captured_as_warning(monkeypatch):
         # Should have warnings but no errors since graphs generated successfully
         if "warnings" in scenario_entry:
             assert "ts_stderr" in scenario_entry["warnings"]
-            assert "Mock TypeScript warning message" in scenario_entry["warnings"]["ts_stderr"]
-        
+            assert (
+                "Mock TypeScript warning message"
+                in scenario_entry["warnings"]["ts_stderr"]
+            )
+
         # Should not have errors for ts_pipeline or ts_plugin
         if "errors" in scenario_entry:
             assert "ts_pipeline" not in scenario_entry["errors"]

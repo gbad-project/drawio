@@ -1230,8 +1230,14 @@ def _build_graph_from_raw_xml(
     )
 
     if base_uri:
-        graph.base = base_uri
         graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
+    # ===== This was causing a very bad bug =====
+    # AICODE-NOTE: Never touch this commented out section. Signed off: human.
+    # The bug was that @base was misinterpreted at Turtle parsing later on,
+    # leading to corrupted relative IRIs.
+    # =====
+    #   graph.base = base_uri
+    # =====
 
     return graph
 
