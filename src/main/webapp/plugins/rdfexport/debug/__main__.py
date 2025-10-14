@@ -18,7 +18,7 @@ from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
 
-from src.main.webapp.plugins.rdfexport.legacy.tests.regenerate_baselines import (
+from legacy.tests.regenerate_baselines import (
     PreviousParserLoader,
     _serialise_graph,
 )
@@ -113,6 +113,12 @@ class Debugger:
     def _load_scenario_file(
         self, scenario_path: Path, slug_override: str | None
     ) -> ScenarioConfig:
+        # If scenario_path doesn't exist and has no extension, try finding by slug
+        if not scenario_path.exists() and not scenario_path.suffix:
+            slug_candidate = self.scenarios_dir / f"{scenario_path.name}.yml"
+            if slug_candidate.exists():
+                scenario_path = slug_candidate
+
         if not scenario_path.exists():
             raise FileNotFoundError(f"Scenario file not found: {scenario_path}")
 
@@ -216,6 +222,33 @@ class Debugger:
             legacy_commit=legacy_commit,
             serialization_format=self._normalise_format(serialization_format),
         )
+        
+        # Save scenario config if it doesn't exist
+        scenario_file = self.scenarios_dir / f"{config.slug}.yml"
+        if not scenario_file.exists():
+            saved_path = self._save_scenario_config(config)
+            self.console.print(f"[green]✓[/green] Saved scenario config to {saved_path.relative_to(self.debug_dir)}")
+        
+        return config
+
+    def _save_scenario_config(self, config: ScenarioConfig) -> Path:
+        scenario_path = self.scenarios_dir / f"{config.slug}.yml"
+        
+        scenario_data = {
+            "slug": config.slug,
+            "drawio": str(self._relative_to_debug(config.drawio_path)),
+            "csv_path": config.csv_path,
+            "base_uri": config.base_uri,
+            "prefixes": {prefix: iri for prefix, iri in config.prefixes},
+            "legacy_commit": config.legacy_commit,
+            "format": config.serialization_format,
+        }
+        
+        scenario_path.write_text(
+            yaml.dump(scenario_data, default_flow_style=False, sort_keys=False),
+            encoding="utf-8",
+        )
+        return scenario_path
 
         self._persist_repl_scenario(config)
 
