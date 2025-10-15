@@ -340,6 +340,21 @@ class Debugger:
 
         if not graphs:
             self.console.print("[red]Error:[/red] All graph generation methods failed")
+            scenario_entry = {
+                "drawio": str(self._relative_to_debug(config.drawio_path)),
+                "csv_path": config.csv_path,
+                "base_uri": config.base_uri,
+                "prefixes": [
+                    {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+                ],
+                "legacy_commit": config.legacy_commit,
+                "format": config.serialization_format,
+                "results": {},
+                "isomorphism": {},
+                "errors": errors,
+            }
+            self._map_data.setdefault("scenarios", {})[config.slug] = scenario_entry
+            self._write_map()
             return
 
         results_directory = self.results_dir / config.slug
