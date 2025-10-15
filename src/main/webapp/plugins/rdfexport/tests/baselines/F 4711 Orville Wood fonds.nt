@@ -1,141 +1,141 @@
 <http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
 <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
-<https://example.com/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
-<https://example.com/id/1912> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/1912> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
-<https://example.com/id/1912> <http://www.w3.org/2000/01/rdf-schema#label> "1912" .
-<https://example.com/id/194--1953> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/194--1953> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
-<https://example.com/id/194--1953> <http://www.w3.org/2000/01/rdf-schema#label> "[194-]-1953" .
-<https://example.com/id/194--1953> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "194X/1953" .
-<https://example.com/id/2006> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/2006> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
-<https://example.com/id/2006> <http://www.w3.org/2000/01/rdf-schema#label> "2006" .
-<https://example.com/id/ArchivesOfOntarioReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/ArchivesOfOntarioReferenceCode> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
-<https://example.com/id/ArchivesOfOntarioReferenceCode> <http://www.w3.org/2000/01/rdf-schema#label> "Archives of Ontario reference code" .
-<https://example.com/id/AtikokanOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/AtikokanOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
-<https://example.com/id/AtikokanOntario> <http://www.w3.org/2000/01/rdf-schema#label> "Atikokan, Ontario" .
-<https://example.com/id/AtikokanOntario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Town> .
-<https://example.com/id/City> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/City> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
-<https://example.com/id/City> <http://www.w3.org/2000/01/rdf-schema#label> "City" .
-<https://example.com/id/F4711> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/F4711> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/id/F4711> <http://www.w3.org/2000/01/rdf-schema#label> "F 4711" .
-<https://example.com/id/F4711> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/ArchivesOfOntarioReferenceCode> .
-<https://example.com/id/Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/Fonds> <http://www.w3.org/2000/01/rdf-schema#label> "Fonds" .
-<https://example.com/id/FortYorkConstructionCompanyLtd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/FortYorkConstructionCompanyLtd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
-<https://example.com/id/FortYorkConstructionCompanyLtd> <http://www.w3.org/2000/01/rdf-schema#label> "Fort York Construction Company Ltd." .
-<https://example.com/id/FortYorkConstructionCompanyLtd> <https://www.ica.org/standards/RiC/ontology#isAgentAssociatedWithPlace> <https://example.com/id/Ontario> .
-<https://example.com/id/FortYorkConstructionCompanyLtd> <https://www.ica.org/standards/RiC/ontology#isRelatedTo> <https://example.com/id/HighwayHistoricalCollection-Photographs> .
-<https://example.com/id/FortYorkConstructionCompanyLtd> <https://www.ica.org/standards/RiC/ontology#isRelatedTo> <https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> .
-<https://example.com/id/GraphicMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/GraphicMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
-<https://example.com/id/GraphicMaterial> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic material" .
-<https://example.com/id/HalifaxNovaScotia> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/HalifaxNovaScotia> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
-<https://example.com/id/HalifaxNovaScotia> <http://www.w3.org/2000/01/rdf-schema#label> "Halifax,  Nova Scotia" .
-<https://example.com/id/HalifaxNovaScotia> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/City> .
-<https://example.com/id/HighwayHistoricalCollection-Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/HighwayHistoricalCollection-Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/HighwayHistoricalCollection-Photographs> <http://www.w3.org/2000/01/rdf-schema#label> "Highway historical collection - photographs" .
-<https://example.com/id/HighwayHistoricalCollection-Photographs> <https://www.ica.org/standards/RiC/ontology#hasCreator> <https://example.com/id/FortYorkConstructionCompanyLtd> .
-<https://example.com/id/HighwayHistoricalCollection-Photographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/RG14-162-2> .
-<https://example.com/id/HighwayHistoricalCollection-Photographs> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
-<https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> <http://www.w3.org/2000/01/rdf-schema#label> "Highways historical collection - historical research binders" .
-<https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/RG14-162-5> .
-<https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> <https://example.com/id/AtikokanOntario> .
-<https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Sub-series> .
-<https://example.com/id/Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
-<https://example.com/id/Ontario> <http://www.w3.org/2000/01/rdf-schema#label> "Ontario" .
-<https://example.com/id/Ontario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Province> .
-<https://example.com/id/OrvilleAlanWood> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/OrvilleAlanWood> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
-<https://example.com/id/OrvilleAlanWood> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
-<https://example.com/id/OrvilleAlanWood> <http://www.w3.org/2000/01/rdf-schema#label> "Orville Alan Wood" .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#hasBirthDate> <https://example.com/id/1912> .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#hasBirthPlace> <https://example.com/id/SouthRiverOntario> .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#hasDeathDate> <https://example.com/id/2006> .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#history> "Orville Wood was born in South River, Ontario, in 1912. He served in the Navy, stationed in Halifax, during World War II, after which he became president of the Fort York Construction Company Ltd. (Source note: correspondence with donor and Ancestry.ca)." .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#isAgentAssociatedWithPlace> <https://example.com/id/HalifaxNovaScotia> .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#isCreatorOf> <https://example.com/id/OrvilleWoodFonds> .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#isOrWasLeaderOf> <https://example.com/id/FortYorkConstructionCompanyLtd> .
-<https://example.com/id/OrvilleAlanWood> <https://www.ica.org/standards/RiC/ontology#occupiesOrOccupied> <https://example.com/id/President> .
-<https://example.com/id/OrvilleWoodFonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/OrvilleWoodFonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
-<https://example.com/id/OrvilleWoodFonds> <http://www.w3.org/2000/01/rdf-schema#label> "Orville Wood fonds" .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#accruals> "No further accruals are expected." .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "No restrictions on access." .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Copyright has been transferred to the Archives of Ontario   by the donor. There are no restrictions on reproduction for research and private study. If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasCreationDate> <https://example.com/id/194--1953> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasGeneticLinkToRecordResource> <https://example.com/id/HighwayHistoricalCollection-Photographs> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasGeneticLinkToRecordResource> <https://example.com/id/HighwaysHistoricalCollection-HistoricalResearchBinders> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <https://example.com/id/F4711> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSomeMembersWithContentType> <https://example.com/id/GraphicMaterial> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSomeMembersWithContentType> <https://example.com/id/TextualRecords> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> <https://example.com/id/AtikokanOntario> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> <https://example.com/id/TerraceBayOntario> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <https://example.com/id/Fonds> .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#history> "The Orville Wood fonds was donated to the Archives of Ontario by his son, Bruce Arthur Wood, in 2018." .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#recordResourceExtent> "0.1 centimetres of textual records;   98 photographs : black and white prints;   2 photographs : colour prints;   143 photographs : black and white negatives" .
-<https://example.com/id/OrvilleWoodFonds> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Fonds consists primarily of photographs of the construction of the Atikokan   Highway between Shabaqua Corners and Atikokan, Ontario. The highway was later named Highway 120, and is currently designated as Highway 11. Wood's company,   Fort York Construction Company Ltd., was contracted to undertake the construction of the highway starting in 1951 and completed the work in 1953.     Fonds also includes photographs of a project undertaken by Fort York Construction Company Ltd. at Terrace Bay, Ontario.     Also included are a news clipping about Fort York Construction Company Ltd., Orville Wood's business card, photographs of an unidentified historic fort, and photographs   of Wood's family and business partners." .
-<https://example.com/id/President> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/President> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Position> .
-<https://example.com/id/President> <http://www.w3.org/2000/01/rdf-schema#label> "President" .
-<https://example.com/id/President> <https://www.ica.org/standards/RiC/ontology#isOrWasOwnerOf> <https://example.com/id/FortYorkConstructionCompanyLtd> .
-<https://example.com/id/Province> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Province> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
-<https://example.com/id/Province> <http://www.w3.org/2000/01/rdf-schema#label> "Province" .
-<https://example.com/id/RG14-162-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/RG14-162-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/id/RG14-162-2> <http://www.w3.org/2000/01/rdf-schema#label> "RG 14-162-2" .
-<https://example.com/id/RG14-162-2> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/ArchivesOfOntarioReferenceCode> .
-<https://example.com/id/RG14-162-5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/RG14-162-5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
-<https://example.com/id/RG14-162-5> <http://www.w3.org/2000/01/rdf-schema#label> "RG 14-162-5" .
-<https://example.com/id/RG14-162-5> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <https://example.com/id/ArchivesOfOntarioReferenceCode> .
-<https://example.com/id/SouthRiverOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/SouthRiverOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
-<https://example.com/id/SouthRiverOntario> <http://www.w3.org/2000/01/rdf-schema#label> "South River, Ontario" .
-<https://example.com/id/SouthRiverOntario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Village> .
-<https://example.com/id/Sub-series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Sub-series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
-<https://example.com/id/Sub-series> <http://www.w3.org/2000/01/rdf-schema#label> "Sub-series" .
-<https://example.com/id/TerraceBayOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/TerraceBayOntario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
-<https://example.com/id/TerraceBayOntario> <http://www.w3.org/2000/01/rdf-schema#label> "Terrace Bay, Ontario" .
-<https://example.com/id/TerraceBayOntario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <https://example.com/id/Township> .
-<https://example.com/id/TextualRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/TextualRecords> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
-<https://example.com/id/TextualRecords> <http://www.w3.org/2000/01/rdf-schema#label> "Textual records" .
-<https://example.com/id/Town> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Town> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
-<https://example.com/id/Town> <http://www.w3.org/2000/01/rdf-schema#label> "Town" .
-<https://example.com/id/Township> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Township> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
-<https://example.com/id/Township> <http://www.w3.org/2000/01/rdf-schema#label> "Township" .
-<https://example.com/id/Village> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
-<https://example.com/id/Village> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
-<https://example.com/id/Village> <http://www.w3.org/2000/01/rdf-schema#label> "Village" .
-<https://example.com> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<https://example.com> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Authority/functionNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Authority/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Authority/sourceNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/accumulationDate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/associatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/availabilityOfOtherFormats> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/custodialHistory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/findingAidNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/howToOrder> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/immediateSourceOfAcquisition> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/notes> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/privateNote> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/relatedMaterial> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<ontology://generated-from-draw-io/mock#%5B194-%5D-1953> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#%5B194-%5D-1953> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<ontology://generated-from-draw-io/mock#%5B194-%5D-1953> <http://www.w3.org/2000/01/rdf-schema#label> "[194-]-1953" .
+<ontology://generated-from-draw-io/mock#%5B194-%5D-1953> <https://www.ica.org/standards/RiC/ontology#normalizedDateValue> "194X/1953" .
+<ontology://generated-from-draw-io/mock#1912> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#1912> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<ontology://generated-from-draw-io/mock#1912> <http://www.w3.org/2000/01/rdf-schema#label> "1912" .
+<ontology://generated-from-draw-io/mock#2006> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#2006> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
+<ontology://generated-from-draw-io/mock#2006> <http://www.w3.org/2000/01/rdf-schema#label> "2006" .
+<ontology://generated-from-draw-io/mock#Archives%20Of%20Ontario%20Reference%20Code> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Archives%20Of%20Ontario%20Reference%20Code> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#IdentifierType> .
+<ontology://generated-from-draw-io/mock#Archives%20Of%20Ontario%20Reference%20Code> <http://www.w3.org/2000/01/rdf-schema#label> "Archives of Ontario reference code" .
+<ontology://generated-from-draw-io/mock#Atikokan%2C%20Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Atikokan%2C%20Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<ontology://generated-from-draw-io/mock#Atikokan%2C%20Ontario> <http://www.w3.org/2000/01/rdf-schema#label> "Atikokan, Ontario" .
+<ontology://generated-from-draw-io/mock#Atikokan%2C%20Ontario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <ontology://generated-from-draw-io/mock#Town> .
+<ontology://generated-from-draw-io/mock#City> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#City> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<ontology://generated-from-draw-io/mock#City> <http://www.w3.org/2000/01/rdf-schema#label> "City" .
+<ontology://generated-from-draw-io/mock#F%204711> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#F%204711> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<ontology://generated-from-draw-io/mock#F%204711> <http://www.w3.org/2000/01/rdf-schema#label> "F 4711" .
+<ontology://generated-from-draw-io/mock#F%204711> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <ontology://generated-from-draw-io/mock#Archives%20Of%20Ontario%20Reference%20Code> .
+<ontology://generated-from-draw-io/mock#Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<ontology://generated-from-draw-io/mock#Fonds> <http://www.w3.org/2000/01/rdf-schema#label> "Fonds" .
+<ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#CorporateBody> .
+<ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> <http://www.w3.org/2000/01/rdf-schema#label> "Fort York Construction Company Ltd." .
+<ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> <https://www.ica.org/standards/RiC/ontology#isAgentAssociatedWithPlace> <ontology://generated-from-draw-io/mock#Ontario> .
+<ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> <https://www.ica.org/standards/RiC/ontology#isRelatedTo> <ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> .
+<ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> <https://www.ica.org/standards/RiC/ontology#isRelatedTo> <ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> .
+<ontology://generated-from-draw-io/mock#Graphic%20Material> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Graphic%20Material> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<ontology://generated-from-draw-io/mock#Graphic%20Material> <http://www.w3.org/2000/01/rdf-schema#label> "Graphic material" .
+<ontology://generated-from-draw-io/mock#Halifax%2C%20Nova%20Scotia> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Halifax%2C%20Nova%20Scotia> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<ontology://generated-from-draw-io/mock#Halifax%2C%20Nova%20Scotia> <http://www.w3.org/2000/01/rdf-schema#label> "Halifax,  Nova Scotia" .
+<ontology://generated-from-draw-io/mock#Halifax%2C%20Nova%20Scotia> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <ontology://generated-from-draw-io/mock#City> .
+<ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> <http://www.w3.org/2000/01/rdf-schema#label> "Highway historical collection - photographs" .
+<ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasCreator> <ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> .
+<ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <ontology://generated-from-draw-io/mock#RG%2014-162-2> .
+<ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#Sub-series> .
+<ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> <http://www.w3.org/2000/01/rdf-schema#label> "Highways historical collection - historical research binders" .
+<ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <ontology://generated-from-draw-io/mock#RG%2014-162-5> .
+<ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> <ontology://generated-from-draw-io/mock#Atikokan%2C%20Ontario> .
+<ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#Sub-series> .
+<ontology://generated-from-draw-io/mock#Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<ontology://generated-from-draw-io/mock#Ontario> <http://www.w3.org/2000/01/rdf-schema#label> "Ontario" .
+<ontology://generated-from-draw-io/mock#Ontario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <ontology://generated-from-draw-io/mock#Province> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#AgentName> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Person> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <http://www.w3.org/2000/01/rdf-schema#label> "Orville Alan Wood" .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#hasBirthDate> <ontology://generated-from-draw-io/mock#1912> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#hasBirthPlace> <ontology://generated-from-draw-io/mock#South%20River%2C%20Ontario> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#hasDeathDate> <ontology://generated-from-draw-io/mock#2006> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#history> "Orville Wood was born in South River, Ontario, in 1912. He served in the Navy, stationed in Halifax, during World War II, after which he became president of the Fort York Construction Company Ltd. (Source note: correspondence with donor and Ancestry.ca)." .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#isAgentAssociatedWithPlace> <ontology://generated-from-draw-io/mock#Halifax%2C%20Nova%20Scotia> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#isCreatorOf> <ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#isOrWasLeaderOf> <ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> .
+<ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> <https://www.ica.org/standards/RiC/ontology#occupiesOrOccupied> <ontology://generated-from-draw-io/mock#President> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSet> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <http://www.w3.org/2000/01/rdf-schema#label> "Orville Wood fonds" .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#accruals> "No further accruals are expected." .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#conditionsOfAccess> "No restrictions on access." .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#conditionsOfUse> "Copyright has been transferred to the Archives of Ontario   by the donor. There are no restrictions on reproduction for research and private study. If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasCreationDate> <ontology://generated-from-draw-io/mock#%5B194-%5D-1953> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasGeneticLinkToRecordResource> <ontology://generated-from-draw-io/mock#Highway%20Historical%20Collection%20-%20Photographs> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasGeneticLinkToRecordResource> <ontology://generated-from-draw-io/mock#Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadIdentifier> <ontology://generated-from-draw-io/mock#F%204711> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSomeMembersWithContentType> <ontology://generated-from-draw-io/mock#Graphic%20Material> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSomeMembersWithContentType> <ontology://generated-from-draw-io/mock#Textual%20Records> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> <ontology://generated-from-draw-io/mock#Atikokan%2C%20Ontario> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasOrHadSubject> <ontology://generated-from-draw-io/mock#Terrace%20Bay%2C%20Ontario> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#hasRecordSetType> <ontology://generated-from-draw-io/mock#Fonds> .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#history> "The Orville Wood fonds was donated to the Archives of Ontario by his son, Bruce Arthur Wood, in 2018." .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#recordResourceExtent> "0.1 centimetres of textual records;   98 photographs : black and white prints;   2 photographs : colour prints;   143 photographs : black and white negatives" .
+<ontology://generated-from-draw-io/mock#Orville%20Wood%20Fonds> <https://www.ica.org/standards/RiC/ontology#scopeAndContent> "Fonds consists primarily of photographs of the construction of the Atikokan   Highway between Shabaqua Corners and Atikokan, Ontario. The highway was later named Highway 120, and is currently designated as Highway 11. Wood's company,   Fort York Construction Company Ltd., was contracted to undertake the construction of the highway starting in 1951 and completed the work in 1953.     Fonds also includes photographs of a project undertaken by Fort York Construction Company Ltd. at Terrace Bay, Ontario.     Also included are a news clipping about Fort York Construction Company Ltd., Orville Wood's business card, photographs of an unidentified historic fort, and photographs   of Wood's family and business partners." .
+<ontology://generated-from-draw-io/mock#President> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#President> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Position> .
+<ontology://generated-from-draw-io/mock#President> <http://www.w3.org/2000/01/rdf-schema#label> "President" .
+<ontology://generated-from-draw-io/mock#President> <https://www.ica.org/standards/RiC/ontology#isOrWasOwnerOf> <ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> .
+<ontology://generated-from-draw-io/mock#Province> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Province> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<ontology://generated-from-draw-io/mock#Province> <http://www.w3.org/2000/01/rdf-schema#label> "Province" .
+<ontology://generated-from-draw-io/mock#RG%2014-162-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#RG%2014-162-2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<ontology://generated-from-draw-io/mock#RG%2014-162-2> <http://www.w3.org/2000/01/rdf-schema#label> "RG 14-162-2" .
+<ontology://generated-from-draw-io/mock#RG%2014-162-2> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <ontology://generated-from-draw-io/mock#Archives%20Of%20Ontario%20Reference%20Code> .
+<ontology://generated-from-draw-io/mock#RG%2014-162-5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#RG%2014-162-5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Identifier> .
+<ontology://generated-from-draw-io/mock#RG%2014-162-5> <http://www.w3.org/2000/01/rdf-schema#label> "RG 14-162-5" .
+<ontology://generated-from-draw-io/mock#RG%2014-162-5> <https://www.ica.org/standards/RiC/ontology#hasIdentifierType> <ontology://generated-from-draw-io/mock#Archives%20Of%20Ontario%20Reference%20Code> .
+<ontology://generated-from-draw-io/mock#South%20River%2C%20Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#South%20River%2C%20Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<ontology://generated-from-draw-io/mock#South%20River%2C%20Ontario> <http://www.w3.org/2000/01/rdf-schema#label> "South River, Ontario" .
+<ontology://generated-from-draw-io/mock#South%20River%2C%20Ontario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <ontology://generated-from-draw-io/mock#Village> .
+<ontology://generated-from-draw-io/mock#Sub-series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Sub-series> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#RecordSetType> .
+<ontology://generated-from-draw-io/mock#Sub-series> <http://www.w3.org/2000/01/rdf-schema#label> "Sub-series" .
+<ontology://generated-from-draw-io/mock#Terrace%20Bay%2C%20Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Terrace%20Bay%2C%20Ontario> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Place> .
+<ontology://generated-from-draw-io/mock#Terrace%20Bay%2C%20Ontario> <http://www.w3.org/2000/01/rdf-schema#label> "Terrace Bay, Ontario" .
+<ontology://generated-from-draw-io/mock#Terrace%20Bay%2C%20Ontario> <https://www.ica.org/standards/RiC/ontology#hasOrHadPlaceType> <ontology://generated-from-draw-io/mock#Township> .
+<ontology://generated-from-draw-io/mock#Textual%20Records> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Textual%20Records> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#ContentType> .
+<ontology://generated-from-draw-io/mock#Textual%20Records> <http://www.w3.org/2000/01/rdf-schema#label> "Textual records" .
+<ontology://generated-from-draw-io/mock#Town> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Town> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<ontology://generated-from-draw-io/mock#Town> <http://www.w3.org/2000/01/rdf-schema#label> "Town" .
+<ontology://generated-from-draw-io/mock#Township> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Township> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<ontology://generated-from-draw-io/mock#Township> <http://www.w3.org/2000/01/rdf-schema#label> "Township" .
+<ontology://generated-from-draw-io/mock#Village> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#Village> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#PlaceType> .
+<ontology://generated-from-draw-io/mock#Village> <http://www.w3.org/2000/01/rdf-schema#label> "Village" .
+<ontology://generated-from-draw-io/mock> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/mock> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .

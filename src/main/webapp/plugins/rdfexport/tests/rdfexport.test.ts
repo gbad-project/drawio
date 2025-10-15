@@ -850,6 +850,32 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
       throw new Error("Failed to locate diagram element in fixture");
     }
 
+    // ===== Patch base URI in metadata to ensure isomorphism =====
+    const rootEl = graphModel.getElementsByTagName("root").item(0);
+    if (!rootEl) throw new Error("Failed to locate root element in fixture");
+    let metadataNode: Element | null = null;
+    // Find existing <UserObject id="0">
+    for (const node of Array.from(rootEl.getElementsByTagName("UserObject"))) {
+      if (node.getAttribute("id") === "0") {
+        metadataNode = node;
+        break;
+      }
+    }
+    // Create if missing
+    if (!metadataNode) {
+      metadataNode = xmlDoc.createElement("UserObject");
+      metadataNode.setAttribute("id", "0");
+      rootEl.insertBefore(metadataNode, rootEl.firstChild);
+    }
+    // Read or patch attributes
+    const baseUriRaw = metadataNode.getAttribute("baseUri") || "";
+    const mockBaseUri = "ontology://generated-from-draw-io/mock#";
+    metadataNode.setAttribute("baseUri", baseUriRaw || mockBaseUri);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Patched ontology IRI in fixture, set to: ${mockBaseUri}`,
+    );
+
     const pageId = diagramElement.getAttribute("id") ?? "diagram";
     const baseFilename = fixtureFile.replace(/\.drawio$/, "");
 
@@ -971,6 +997,59 @@ json.dumps({
     expect(actualGraphInfo.triple_count).toBeGreaterThan(0);
     expect(actualGraphInfo.namespaces).toEqual(expectedGraphInfo.namespaces);
 
+    const dataVsExpectedResult = JSON.parse(
+      (await debugPyodide(`
+    import json
+    from rdflib import Graph
+    from rdflib.compare import to_isomorphic
+    from rdflib.namespace import RDF, OWL
+
+    actual_data = ${JSON.stringify(data)}
+    expected_data = ${JSON.stringify(expectedTurtle)}
+
+    g_actual = Graph()
+    g_expected = Graph()
+
+    g_actual.parse(data=actual_data, format="turtle")
+    g_expected.parse(data=expected_data, format="turtle")
+
+    def normalise(source: Graph) -> Graph:
+        filtered = Graph()
+        for s, p, o in source:
+            if p == RDF.type and o in {OWL.ObjectProperty, OWL.DatatypeProperty, OWL.Ontology}:
+                continue
+            if p == OWL.imports:
+                continue
+            filtered.add((s, p, o))
+        return filtered
+
+    iso_actual = to_isomorphic(normalise(g_actual))
+    iso_expected = to_isomorphic(normalise(g_expected))
+
+    json.dumps({
+        "isomorphic": iso_actual == iso_expected,
+        "actual_triples": len(g_actual),
+        "expected_triples": len(g_expected),
+    })
+      `)) as string,
+    ) as {
+      isomorphic: boolean;
+      actual_triples: number;
+      expected_triples: number;
+    };
+
+    expect(dataVsExpectedResult.actual_triples).toBeGreaterThan(0);
+    expect(dataVsExpectedResult.expected_triples).toBeGreaterThan(0);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): ${dataVsExpectedResult.actual_triples} vs ${dataVsExpectedResult.expected_triples}`,
+    );
+    expect(dataVsExpectedResult.isomorphic).toBe(true);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): ${dataVsExpectedResult.isomorphic}`,
+    );
+
     const baselinePath = join(baselinesDir, baselineFile);
     const baselineContents = await Bun.file(baselinePath).text();
 
@@ -1022,18 +1101,21 @@ json.dumps({
       actual_filtered_triples: number;
     };
 
-    expect(isomorphismResult.isomorphic).toBe(true);
-    if (isomorphismResult.isomorphic) {
-      logInfo(LOG_PREFIX.TEST, `Turtle is isomorphic to baseline N-Triples`);
-    }
     expect(isomorphismResult.actual_filtered_triples).toBe(
       isomorphismResult.baseline_filtered_triples,
     );
     expect(isomorphismResult.actual_filtered_triples).toBeGreaterThan(0);
     logInfo(
       LOG_PREFIX.TEST,
-      `Number of filtered triples: ${isomorphismResult.actual_filtered_triples} vs ${isomorphismResult.baseline_filtered_triples}`,
+      `Number of filtered triples in Turtle vs baseline N-Triples: ${isomorphismResult.actual_filtered_triples} vs ${isomorphismResult.baseline_filtered_triples}`,
     );
+    expect(isomorphismResult.isomorphic).toBe(true);
+    if (isomorphismResult.isomorphic) {
+      logInfo(
+        LOG_PREFIX.TEST,
+        `Also, Turtle is isomorphic to baseline N-Triples`,
+      );
+    }
   });
 }
 
