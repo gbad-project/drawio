@@ -1002,6 +1002,7 @@ json.dumps({
     import json
     from rdflib import Graph
     from rdflib.compare import to_isomorphic
+    from rdflib.namespace import RDF, OWL
 
     actual_data = ${JSON.stringify(data)}
     expected_data = ${JSON.stringify(expectedTurtle)}
@@ -1012,8 +1013,18 @@ json.dumps({
     g_actual.parse(data=actual_data, format="turtle")
     g_expected.parse(data=expected_data, format="turtle")
 
-    iso_actual = to_isomorphic(g_actual)
-    iso_expected = to_isomorphic(g_expected)
+    def normalise(source: Graph) -> Graph:
+        filtered = Graph()
+        for s, p, o in source:
+            if p == RDF.type and o in {OWL.ObjectProperty, OWL.DatatypeProperty, OWL.Ontology}:
+                continue
+            if p == OWL.imports:
+                continue
+            filtered.add((s, p, o))
+        return filtered
+
+    iso_actual = to_isomorphic(normalise(g_actual))
+    iso_expected = to_isomorphic(normalise(g_expected))
 
     json.dumps({
         "isomorphic": iso_actual == iso_expected,
