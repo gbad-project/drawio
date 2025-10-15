@@ -110,7 +110,8 @@ def _extract_drawio_metadata(
     for preamble in metadata_node.findall("userObjectPreambleElement"):
         prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
         iri = (preamble.attrib.get("rdfIRI") or "").strip()
-        if prefix and iri:
+        if prefix:
+            _validate_prefix_iri(prefix, iri)
             prefixes[prefix] = iri
 
     return prefixes, base_uri, csv_path, root
@@ -154,6 +155,15 @@ def _ensure_known_curie(
     if prefix not in prefixes or not reference:
         raise NotInKnownException(error_message)
     return prefix, reference
+
+
+def _validate_prefix_iri(prefix: str, iri: str) -> None:
+    if not iri:
+        raise MissingPrefixIRIException(prefix)
+
+    parsed_iri = urllib.parse.urlparse(iri)
+    if not parsed_iri.scheme:
+        raise InvalidPrefixIRIException(prefix, iri)
 
 
 Blocks = dict[tuple[str, str], dict[str, set[str]]]
@@ -282,6 +292,24 @@ class ParseException(Exception):
     """
 
     def __init__(self, message: str) -> None:
+        super().__init__(message)
+
+
+class MissingPrefixIRIException(ParseException):
+    def __init__(self, prefix: str) -> None:
+        message = (
+            "Found prefix '{prefix}' without an associated prefix IRI in draw.io "
+            "metadata. Please declare an rdfIRI value for this prefix."
+        ).format(prefix=prefix or "(empty prefix)")
+        super().__init__(message)
+
+
+class InvalidPrefixIRIException(ParseException):
+    def __init__(self, prefix: str, iri: str) -> None:
+        message = (
+            "Prefix '{prefix}' is associated with an invalid prefix IRI '{iri}'. "
+            "Prefix IRIs must be absolute (include a scheme such as 'http')."
+        ).format(prefix=prefix or "(empty prefix)", iri=iri or "")
         super().__init__(message)
 
 
@@ -1190,6 +1218,9 @@ def _build_graph_from_raw_xml(
         config_args["prefix"] or get_prefix()
     )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
     prefix_iri = config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+
+    if prefix:
+        _validate_prefix_iri(prefix, prefix_iri)
 
     serialisation_config = SerialisationConfig(
         infer_type_of_literals=config_args["infer_type_of_literals"],

@@ -181,6 +181,33 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert graph.base is None
 
 
+def test_parse_drawio_raises_when_metadata_prefix_missing_iri(tmp_path: Path):
+    fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
+    raw_xml = fixture_path.read_text(encoding="utf-8")
+    mutated_xml = raw_xml.replace(
+        'rdfPrefix="mock1" rdfIRI="http://mock-iri-ns.org"',
+        'rdfPrefix="mock1"',
+    )
+    mutated_path = tmp_path / "missing-prefix-iri.drawio"
+    mutated_path.write_text(mutated_xml, encoding="utf-8")
+
+    with pytest.raises(draw_io_parser.MissingPrefixIRIException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(mutated_path),
+            metacharacter_substitute=["remove"],
+        )
+
+
+def test_parse_drawio_raises_when_metadata_prefix_iri_invalid():
+    fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
+
+    with pytest.raises(draw_io_parser.InvalidPrefixIRIException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
