@@ -1217,10 +1217,21 @@ def _build_graph_from_raw_xml(
     prefix = (
         config_args["prefix"] or get_prefix()
     )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
-    prefix_iri = config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+
+    configured_prefix_iri = config_args["prefix_iri"]
+    resolved_prefix_iri: str | None
 
     if prefix:
-        _validate_prefix_iri(prefix, prefix_iri)
+        resolved_prefix_iri = configured_prefix_iri or base_uri
+        if not resolved_prefix_iri:
+            raise MissingPrefixIRIException(prefix)
+        _validate_prefix_iri(prefix, resolved_prefix_iri)
+    else:
+        resolved_prefix_iri = configured_prefix_iri or base_uri
+        if resolved_prefix_iri:
+            _validate_prefix_iri(prefix or "", resolved_prefix_iri)
+
+    prefix_iri = resolved_prefix_iri or get_prefix_iri(ontology_iri)
 
     serialisation_config = SerialisationConfig(
         infer_type_of_literals=config_args["infer_type_of_literals"],

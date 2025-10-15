@@ -208,6 +208,28 @@ def test_parse_drawio_raises_when_metadata_prefix_iri_invalid():
         )
 
 
+def test_parse_drawio_requires_user_prefix_iri(tmp_path: Path):
+    fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
+    raw_xml = fixture_path.read_text(encoding="utf-8")
+    sanitized_xml = raw_xml.replace(
+        'rdfPrefix="somprefix" rdfIRI="://hello"',
+        'rdfPrefix="somprefix" rdfIRI="http://example.org/somprefix#"',
+    )
+    sanitized_xml = sanitized_xml.replace(
+        'baseUri="http://mock23-base-uri.com"', 'baseUri=""'
+    )
+    mutated_path = tmp_path / "user-prefix-missing-iri.drawio"
+    mutated_path.write_text(sanitized_xml, encoding="utf-8")
+
+    with pytest.raises(draw_io_parser.MissingPrefixIRIException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(mutated_path),
+            prefix="userprefix",
+            prefix_iri=None,
+            metacharacter_substitute=["remove"],
+        )
+
+
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
