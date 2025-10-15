@@ -25,6 +25,8 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
 
 DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
 
+_LAST_PARSER_CONFIG: dict[str, Any] | None = None
+
 GraphSummary = Dict[str, Any]
 
 _GRAPH_STORE: dict[str, DrawioParserGraph] = {}
@@ -64,6 +66,133 @@ def _default_parser_config() -> dict[str, Any]:
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
     }
+
+
+def _coerce_bool(value: Any, fallback: bool) -> bool:
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "1", "yes", "on"}:
+            return True
+        if lowered in {"false", "0", "no", "off"}:
+            return False
+
+    if value is None:
+        return fallback
+
+    return bool(value)
+
+
+def _coerce_optional_str(value: Any) -> str | None:
+    if value is None:
+        return None
+
+    if isinstance(value, str):
+        stripped = value.strip()
+        return stripped if stripped else None
+
+    return str(value)
+
+
+def _coerce_int(value: Any, fallback: int) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return fallback
+
+
+def _coerce_float(value: Any, fallback: float) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return fallback
+
+
+def _normalise_metacharacters(value: Any) -> list[str]:
+    if value is None:
+        return []
+
+    if isinstance(value, str):
+        return [value] if len(value) > 0 else []
+
+    try:
+        result = []
+        for item in value:
+            if isinstance(item, str) and len(item) > 0:
+                result.append(item)
+        return result
+    except TypeError:
+        return []
+
+
+def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
+    config = _default_parser_config()
+
+    if overrides:
+        if "infer_type_of_literals" in overrides:
+            config["infer_type_of_literals"] = _coerce_bool(
+                overrides["infer_type_of_literals"],
+                config["infer_type_of_literals"],
+            )
+        if "include_preamble" in overrides:
+            config["include_preamble"] = _coerce_bool(
+                overrides["include_preamble"],
+                config["include_preamble"],
+            )
+        if "include_label" in overrides:
+            config["include_label"] = _coerce_bool(
+                overrides["include_label"],
+                config["include_label"],
+            )
+        if "strict_mode" in overrides:
+            config["strict_mode"] = _coerce_bool(
+                overrides["strict_mode"],
+                config["strict_mode"],
+            )
+        if "ontology_iri" in overrides:
+            config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
+        if "prefix" in overrides:
+            config["prefix"] = _coerce_optional_str(overrides["prefix"])
+        if "prefix_iri" in overrides:
+            config["prefix_iri"] = _coerce_optional_str(overrides["prefix_iri"])
+        if "indentation" in overrides:
+            config["indentation"] = _coerce_int(
+                overrides["indentation"],
+                config["indentation"],
+            )
+        if "max_gap" in overrides:
+            config["max_gap"] = _coerce_float(
+                overrides["max_gap"],
+                config["max_gap"],
+            )
+        if "metacharacter_substitute" in overrides:
+            config["metacharacter_substitute"] = _normalise_metacharacters(
+                overrides["metacharacter_substitute"],
+            )
+        if "capitalisation_scheme" in overrides and isinstance(
+            overrides["capitalisation_scheme"],
+            str,
+        ):
+            config["capitalisation_scheme"] = overrides["capitalisation_scheme"]
+
+    config["metacharacter_substitute"] = _normalise_metacharacters(
+        config["metacharacter_substitute"]
+    )
+
+    global _LAST_PARSER_CONFIG
+    _LAST_PARSER_CONFIG = deepcopy(config)
+    return config
+
+
+def get_last_parser_config() -> dict[str, Any] | None:
+    """Return the most recent parser configuration (for testing/debugging)."""
+
+    if _LAST_PARSER_CONFIG is None:
+        return None
+
+    return deepcopy(_LAST_PARSER_CONFIG)
 
 
 def _store_graph(graph: DrawioParserGraph, payload_hash: str | None = None) -> str:
@@ -147,18 +276,27 @@ def get_graph_summary(graph_id: str) -> GraphSummary:
     return _build_summary(graph_id, graph)
 
 
-def parse_drawio_xml(serialized_xml: str) -> tuple[str, DrawioParserGraph]:
+def parse_drawio_xml(
+    serialized_xml: str, parser_config: dict[str, Any] | None = None
+) -> tuple[str, DrawioParserGraph]:
     """Parse DrawIO XML into a DrawioParserGraph and cache it."""
     normalized_xml = _normalize_drawio_xml(serialized_xml)
-    config = _default_parser_config()
+    config = _apply_parser_overrides(parser_config)
+    payload_descriptor = json.dumps(
+        {"xml": normalized_xml, "config": config},
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    payload_hash = hashlib.sha256(payload_descriptor.encode("utf-8")).hexdigest()
     graph = _build_graph_from_raw_xml(normalized_xml, config)
-    payload_hash = hashlib.sha256(normalized_xml.encode("utf-8")).hexdigest()
     graph_id = _store_graph(graph, payload_hash)
     return graph_id, graph
 
 
-def parse_drawio_xml_to_json(serialized_xml: str) -> str:
+def parse_drawio_xml_to_json(
+    serialized_xml: str, parser_config: dict[str, Any] | None = None
+) -> str:
     """Parse DrawIO XML and return a JSON payload describing the graph."""
-    graph_id, graph = parse_drawio_xml(serialized_xml)
+    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)
     summary = _build_summary(graph_id, graph)
     return json.dumps(summary, sort_keys=True)
