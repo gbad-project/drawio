@@ -1093,7 +1093,7 @@ function installCsvPathProperty(): void {
     preambleButton.setAttribute("data-rdfexport-preamble-button", "true");
     preambleButton.style.marginTop = "8px";
     preambleButton.style.width = "210px";
-    preambleButton.style.display = "inline-block";
+    preambleButton.style.display = "block";
     preambleButton.style.textAlign = "center";
     (preambleButton as HTMLElement).className =
       (preambleButton as HTMLElement).className || "geButton";
@@ -1141,7 +1141,7 @@ function installCsvPathProperty(): void {
     parserSettingsButton.setAttribute(PARSER_SETTINGS_BUTTON_ATTRIBUTE, "true");
     parserSettingsButton.style.marginTop = "6px";
     parserSettingsButton.style.width = "210px";
-    parserSettingsButton.style.display = "inline-block";
+    parserSettingsButton.style.display = "block";
     parserSettingsButton.style.textAlign = "center";
     (parserSettingsButton as HTMLElement).className =
       (parserSettingsButton as HTMLElement).className || "geButton";
