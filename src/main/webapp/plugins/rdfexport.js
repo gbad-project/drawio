@@ -20277,6 +20277,8 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
 
 DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
 
+_LAST_PARSER_CONFIG: dict[str, Any] | None = None
+
 GraphSummary = Dict[str, Any]
 
 _GRAPH_STORE: dict[str, DrawioParserGraph] = {}
@@ -20316,6 +20318,133 @@ def _default_parser_config() -> dict[str, Any]:
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
     }
+
+
+def _coerce_bool(value: Any, fallback: bool) -> bool:
+    if isinstance(value, bool):
+        return value
+
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "1", "yes", "on"}:
+            return True
+        if lowered in {"false", "0", "no", "off"}:
+            return False
+
+    if value is None:
+        return fallback
+
+    return bool(value)
+
+
+def _coerce_optional_str(value: Any) -> str | None:
+    if value is None:
+        return None
+
+    if isinstance(value, str):
+        stripped = value.strip()
+        return stripped if stripped else None
+
+    return str(value)
+
+
+def _coerce_int(value: Any, fallback: int) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return fallback
+
+
+def _coerce_float(value: Any, fallback: float) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return fallback
+
+
+def _normalise_metacharacters(value: Any) -> list[str]:
+    if value is None:
+        return []
+
+    if isinstance(value, str):
+        return [value] if len(value) > 0 else []
+
+    try:
+        result = []
+        for item in value:
+            if isinstance(item, str) and len(item) > 0:
+                result.append(item)
+        return result
+    except TypeError:
+        return []
+
+
+def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
+    config = _default_parser_config()
+
+    if overrides:
+        if "infer_type_of_literals" in overrides:
+            config["infer_type_of_literals"] = _coerce_bool(
+                overrides["infer_type_of_literals"],
+                config["infer_type_of_literals"],
+            )
+        if "include_preamble" in overrides:
+            config["include_preamble"] = _coerce_bool(
+                overrides["include_preamble"],
+                config["include_preamble"],
+            )
+        if "include_label" in overrides:
+            config["include_label"] = _coerce_bool(
+                overrides["include_label"],
+                config["include_label"],
+            )
+        if "strict_mode" in overrides:
+            config["strict_mode"] = _coerce_bool(
+                overrides["strict_mode"],
+                config["strict_mode"],
+            )
+        if "ontology_iri" in overrides:
+            config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
+        if "prefix" in overrides:
+            config["prefix"] = _coerce_optional_str(overrides["prefix"])
+        if "prefix_iri" in overrides:
+            config["prefix_iri"] = _coerce_optional_str(overrides["prefix_iri"])
+        if "indentation" in overrides:
+            config["indentation"] = _coerce_int(
+                overrides["indentation"],
+                config["indentation"],
+            )
+        if "max_gap" in overrides:
+            config["max_gap"] = _coerce_float(
+                overrides["max_gap"],
+                config["max_gap"],
+            )
+        if "metacharacter_substitute" in overrides:
+            config["metacharacter_substitute"] = _normalise_metacharacters(
+                overrides["metacharacter_substitute"],
+            )
+        if "capitalisation_scheme" in overrides and isinstance(
+            overrides["capitalisation_scheme"],
+            str,
+        ):
+            config["capitalisation_scheme"] = overrides["capitalisation_scheme"]
+
+    config["metacharacter_substitute"] = _normalise_metacharacters(
+        config["metacharacter_substitute"]
+    )
+
+    global _LAST_PARSER_CONFIG
+    _LAST_PARSER_CONFIG = deepcopy(config)
+    return config
+
+
+def get_last_parser_config() -> dict[str, Any] | None:
+    """Return the most recent parser configuration (for testing/debugging)."""
+
+    if _LAST_PARSER_CONFIG is None:
+        return None
+
+    return deepcopy(_LAST_PARSER_CONFIG)
 
 
 def _store_graph(graph: DrawioParserGraph, payload_hash: str | None = None) -> str:
@@ -20399,19 +20528,28 @@ def get_graph_summary(graph_id: str) -> GraphSummary:
     return _build_summary(graph_id, graph)
 
 
-def parse_drawio_xml(serialized_xml: str) -> tuple[str, DrawioParserGraph]:
+def parse_drawio_xml(
+    serialized_xml: str, parser_config: dict[str, Any] | None = None
+) -> tuple[str, DrawioParserGraph]:
     """Parse DrawIO XML into a DrawioParserGraph and cache it."""
     normalized_xml = _normalize_drawio_xml(serialized_xml)
-    config = _default_parser_config()
+    config = _apply_parser_overrides(parser_config)
+    payload_descriptor = json.dumps(
+        {"xml": normalized_xml, "config": config},
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    payload_hash = hashlib.sha256(payload_descriptor.encode("utf-8")).hexdigest()
     graph = _build_graph_from_raw_xml(normalized_xml, config)
-    payload_hash = hashlib.sha256(normalized_xml.encode("utf-8")).hexdigest()
     graph_id = _store_graph(graph, payload_hash)
     return graph_id, graph
 
 
-def parse_drawio_xml_to_json(serialized_xml: str) -> str:
+def parse_drawio_xml_to_json(
+    serialized_xml: str, parser_config: dict[str, Any] | None = None
+) -> str:
     """Parse DrawIO XML and return a JSON payload describing the graph."""
-    graph_id, graph = parse_drawio_xml(serialized_xml)
+    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)
     summary = _build_summary(graph_id, graph)
     return json.dumps(summary, sort_keys=True)
 `;
@@ -20656,14 +20794,16 @@ function mapRawSummary(raw) {
     rawTurtle: decodeRawTurtle(raw.raw_turtle)
   };
 }
-async function invokeDrawioParser(serializedXml) {
+async function invokeDrawioParser(serializedXml, config) {
   await ensurePythonEnvironment();
   const pyodide = await ensurePyodideInstance();
   logInfo(LOG_PREFIX.PIPELINE, `Invoking DrawIO parser via Pyodide (input length ${serializedXml.length})`);
   try {
     const quoted = JSON.stringify(serializedXml);
+    const configJson = JSON.stringify(config ?? null);
     const jsonResult = await pyodide.runPythonAsync(`from pyodide_pipeline.drawio_pipeline import parse_drawio_xml_to_json
-parse_drawio_xml_to_json(${quoted})`);
+import json
+parse_drawio_xml_to_json(${quoted}, json.loads(${JSON.stringify(configJson)}))`);
     const rawSummary = JSON.parse(jsonResult);
     const mapped = mapRawSummary(rawSummary);
     logInfo(LOG_PREFIX.PIPELINE, `DrawIO parser produced graph ${mapped.graphId} with ${mapped.tripleCount} triples`);
@@ -20675,14 +20815,14 @@ parse_drawio_xml_to_json(${quoted})`);
 }
 
 // src/mockBlackBox.ts
-async function parseSerializedXml(serializedXml) {
-  const processed = await invokeDrawioParser(serializedXml);
+async function parseSerializedXml(serializedXml, config) {
+  const processed = await invokeDrawioParser(serializedXml, config);
   logInfo(LOG_PREFIX.BLACKBOX, `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`);
   return processed;
 }
-async function runDrawioPipeline(serializedXml) {
+async function runDrawioPipeline(serializedXml, config) {
   logInfo(LOG_PREFIX.BLACKBOX, `Generating Turtle payload for serialized input (${serializedXml.length} characters)`);
-  const processed = await parseSerializedXml(serializedXml);
+  const processed = await parseSerializedXml(serializedXml, config);
   if (processed.rawTurtle == null || processed.rawTurtle.length === 0) {
     throw new Error("DrawIO parser did not return Turtle serialization");
   }
@@ -20712,6 +20852,297 @@ var DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
 var PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 var PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 var PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
+var PARSER_SETTINGS_ATTRIBUTE_NAME = "rdfParserSettings";
+var PARSER_SETTINGS_STORAGE_VERSION = 1;
+var PARSER_SETTINGS_BUTTON_RESOURCE_KEY = "parserSettings";
+var DEFAULT_PARSER_SETTINGS_BUTTON_LABEL = "Parser Settings...";
+var PARSER_SETTINGS_DIALOG_ATTRIBUTE = "data-rdfexport-parser-settings-dialog";
+var PARSER_SETTINGS_BUTTON_ATTRIBUTE = "data-rdfexport-parser-settings-button";
+var PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE = "data-rdfexport-parser-include-preamble";
+var PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE = "data-rdfexport-parser-include-label";
+var PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE = "data-rdfexport-parser-infer-types";
+var PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE = "data-rdfexport-parser-strict-mode";
+var PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
+var PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
+var PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE = "data-rdfexport-parser-ontology-iri";
+var PARSER_SETTINGS_INDENTATION_ATTRIBUTE = "data-rdfexport-parser-indentation";
+var PARSER_SETTINGS_MAX_GAP_ATTRIBUTE = "data-rdfexport-parser-max-gap";
+var PARSER_SETTINGS_CAPITALISATION_ATTRIBUTE = "data-rdfexport-parser-capitalisation";
+var PARSER_SETTINGS_STRATEGY_ATTRIBUTE = "data-rdfexport-parser-metachar-strategy";
+var PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE = "data-rdfexport-parser-metachar-list";
+var PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE = "data-rdfexport-parser-metachar-entry";
+var PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE = "data-rdfexport-parser-metachar-char";
+var PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE = "data-rdfexport-parser-metachar-replacement";
+var PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE = "data-rdfexport-parser-metachar-remove";
+var PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE = "data-rdfexport-parser-metachar-add";
+var PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
+var PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
+var DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
+var DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
+var DRAWIO_PARSER_DEFAULT_CAPITALISATION = "upper-camel";
+var DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY = "url";
+var METACHARACTER_OPTIONS = [
+  { value: " ", label: "Space ( )" },
+  { value: "(", label: "(" },
+  { value: ")", label: ")" },
+  { value: "[", label: "[" },
+  { value: "]", label: "]" },
+  { value: "{", label: "{" },
+  { value: "}", label: "}" },
+  { value: "/", label: "/" },
+  { value: ",", label: "," },
+  { value: ":", label: ":" },
+  { value: ".", label: "." },
+  { value: "'", label: "'" },
+  { value: '"', label: '"' },
+  { value: " ", label: "Non-breaking space" },
+  { value: "#", label: "#" }
+];
+var CAPITALISATION_SCHEME_OPTIONS = [
+  { value: "upper-camel", label: "Upper camel case" },
+  { value: "lower-camel", label: "Lower camel case" },
+  { value: "flat", label: "Flat (lowercase)" },
+  { value: "none", label: "Leave unchanged" }
+];
+var METACHARACTER_STRATEGY_OPTIONS = [
+  {
+    value: "url",
+    label: "Replace unspecified metacharacters with URL entities"
+  },
+  {
+    value: "remove",
+    label: "Remove unspecified metacharacters"
+  },
+  {
+    value: "custom",
+    label: "Use only custom substitutions"
+  }
+];
+function createDefaultParserSettings() {
+  return {
+    includePreamble: true,
+    inferTypeOfLiterals: true,
+    includeLabel: true,
+    strictMode: false,
+    indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
+    maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
+    ontologyIri: null,
+    prefix: null,
+    prefixIri: null,
+    capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
+    metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
+    metacharacterEntries: []
+  };
+}
+function normalizeBoolean(value, fallback) {
+  if (typeof value === "boolean") {
+    return value;
+  }
+  if (typeof value === "string") {
+    const lowered = value.trim().toLowerCase();
+    if (["true", "1", "yes", "on"].includes(lowered)) {
+      return true;
+    }
+    if (["false", "0", "no", "off"].includes(lowered)) {
+      return false;
+    }
+  }
+  if (value == null) {
+    return fallback;
+  }
+  return Boolean(value);
+}
+function normalizeNullableString(value) {
+  if (typeof value !== "string") {
+    return null;
+  }
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+function normalizeIndentation(value, fallback) {
+  if (typeof value === "string" && value.trim().length === 0) {
+    return Math.max(0, Math.round(fallback));
+  }
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) {
+    return Math.max(0, Math.round(numeric));
+  }
+  return Math.max(0, Math.round(fallback));
+}
+function normalizeMaxGap(value, fallback) {
+  if (typeof value === "string" && value.trim().length === 0) {
+    return Math.max(0, fallback);
+  }
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) {
+    return Math.max(0, numeric);
+  }
+  return Math.max(0, fallback);
+}
+function normalizeCapitalisationScheme(value, fallback) {
+  if (value === "lower-camel" || value === "flat" || value === "none") {
+    return value;
+  }
+  if (value === "upper-camel") {
+    return "upper-camel";
+  }
+  return fallback;
+}
+function normalizeMetacharacterStrategy(value, fallback) {
+  if (value === "remove" || value === "custom" || value === "url") {
+    return value;
+  }
+  return fallback;
+}
+function normalizeMetacharacterEntries(entries) {
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+  const normalized = [];
+  for (const entry of entries) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+    const character = typeof entry.character === "string" ? entry.character : "";
+    if (character.length === 0) {
+      continue;
+    }
+    const replacement = typeof entry.replacement === "string" ? entry.replacement : "";
+    normalized.push({ character, replacement });
+  }
+  return normalized;
+}
+function normaliseParserSettings(partial) {
+  const defaults = createDefaultParserSettings();
+  return {
+    includePreamble: normalizeBoolean(partial?.includePreamble, defaults.includePreamble),
+    inferTypeOfLiterals: normalizeBoolean(partial?.inferTypeOfLiterals, defaults.inferTypeOfLiterals),
+    includeLabel: normalizeBoolean(partial?.includeLabel, defaults.includeLabel),
+    strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
+    indentation: normalizeIndentation(partial?.indentation, defaults.indentation),
+    maxGap: normalizeMaxGap(partial?.maxGap, defaults.maxGap),
+    ontologyIri: partial?.ontologyIri != null ? normalizeNullableString(partial.ontologyIri) : null,
+    prefix: partial?.prefix != null ? normalizeNullableString(partial.prefix) : null,
+    prefixIri: partial?.prefixIri != null ? normalizeNullableString(partial.prefixIri) : null,
+    capitalisationScheme: normalizeCapitalisationScheme(partial?.capitalisationScheme, defaults.capitalisationScheme),
+    metacharacterStrategy: normalizeMetacharacterStrategy(partial?.metacharacterStrategy, defaults.metacharacterStrategy),
+    metacharacterEntries: normalizeMetacharacterEntries(partial?.metacharacterEntries)
+  };
+}
+function parseStoredParserSettings(raw) {
+  if (!raw) {
+    return createDefaultParserSettings();
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object") {
+      if (typeof parsed.settings === "object" && parsed.settings !== null) {
+        return normaliseParserSettings(parsed.settings);
+      }
+      return normaliseParserSettings(parsed);
+    }
+  } catch (error) {}
+  return createDefaultParserSettings();
+}
+function serializeParserSettings(settings) {
+  const normalized = normaliseParserSettings(settings);
+  const storage = {
+    version: PARSER_SETTINGS_STORAGE_VERSION,
+    settings: normalized
+  };
+  return JSON.stringify(storage);
+}
+var DEFAULT_SERIALIZED_PARSER_SETTINGS = serializeParserSettings(createDefaultParserSettings());
+function buildParserConfigPayloadFromSettings(settings) {
+  const normalized = normaliseParserSettings(settings);
+  const substitutes = [];
+  if (normalized.metacharacterStrategy === "url") {
+    substitutes.push("url");
+  } else if (normalized.metacharacterStrategy === "remove") {
+    substitutes.push("remove");
+  }
+  for (const entry of normalized.metacharacterEntries) {
+    substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
+  }
+  return {
+    infer_type_of_literals: normalized.inferTypeOfLiterals,
+    include_preamble: normalized.includePreamble,
+    ontology_iri: normalizeNullableString(normalized.ontologyIri),
+    prefix: normalizeNullableString(normalized.prefix),
+    prefix_iri: normalizeNullableString(normalized.prefixIri),
+    indentation: normalized.indentation,
+    include_label: normalized.includeLabel,
+    max_gap: normalized.maxGap,
+    strict_mode: normalized.strictMode,
+    metacharacter_substitute: substitutes,
+    capitalisation_scheme: normalized.capitalisationScheme
+  };
+}
+function extractValueElement(model, rootCell) {
+  if (typeof model.getValue === "function") {
+    const value = model.getValue(rootCell);
+    if (value && typeof value.getAttribute === "function") {
+      return value;
+    }
+  }
+  const fallback = rootCell.value;
+  if (fallback && typeof fallback.getAttribute === "function") {
+    return fallback;
+  }
+  return null;
+}
+function readParserSettingsFromGraphInstance(graph, model, rootCell) {
+  let rawValue = null;
+  if (typeof graph.getAttributeForCell === "function") {
+    const attributeValue = graph.getAttributeForCell(rootCell, PARSER_SETTINGS_ATTRIBUTE_NAME, null);
+    rawValue = typeof attributeValue === "string" ? attributeValue : null;
+  }
+  if (!rawValue || rawValue.length === 0) {
+    const valueElement = extractValueElement(model, rootCell);
+    if (valueElement) {
+      const attribute = valueElement.getAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME);
+      rawValue = attribute != null && attribute.length > 0 ? attribute : null;
+    }
+  }
+  return parseStoredParserSettings(rawValue);
+}
+function writeParserSettingsToGraphInstance(graph, model, rootCell, settings) {
+  const serialized = serializeParserSettings(settings);
+  const valueToStore = serialized === DEFAULT_SERIALIZED_PARSER_SETTINGS ? null : serialized;
+  model.beginUpdate?.();
+  try {
+    if (typeof graph.setAttributeForCell === "function") {
+      graph.setAttributeForCell(rootCell, PARSER_SETTINGS_ATTRIBUTE_NAME, valueToStore);
+    } else {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        if (valueToStore != null) {
+          valueElement.setAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME, valueToStore);
+        } else if (typeof valueElement.removeAttribute === "function") {
+          valueElement.removeAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME);
+        }
+        model.markDirty?.();
+      }
+    }
+  } finally {
+    model.endUpdate?.();
+  }
+}
+function buildParserConfigPayloadFromGraph(graph) {
+  if (!graph || typeof graph.getModel !== "function") {
+    return buildParserConfigPayloadFromSettings(createDefaultParserSettings());
+  }
+  const model = graph.getModel();
+  if (!model || typeof model.getRoot !== "function") {
+    return buildParserConfigPayloadFromSettings(createDefaultParserSettings());
+  }
+  const rootCell = model.getRoot();
+  if (!rootCell) {
+    return buildParserConfigPayloadFromSettings(createDefaultParserSettings());
+  }
+  const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
+  return buildParserConfigPayloadFromSettings(settings);
+}
 var csvPropertyPatched = false;
 var registeredResourceKeys = new Set;
 function registerResource(key, fallback) {
@@ -21022,10 +21453,46 @@ function installCsvPathProperty() {
     preambleButton.setAttribute("data-rdfexport-preamble-button", "true");
     preambleButton.style.marginTop = "8px";
     preambleButton.style.width = "210px";
-    preambleButton.style.display = "inline-block";
+    preambleButton.style.display = "block";
     preambleButton.style.textAlign = "center";
     preambleButton.className = preambleButton.className || "geButton";
     preambleSection.appendChild(preambleButton);
+    const openParserSettingsDialog = () => {
+      if (!ui) {
+        return;
+      }
+      const rootCell = getRootCell();
+      if (!rootCell) {
+        return;
+      }
+      const dialog = createParserSettingsDialog(ui, graph, model, rootCell);
+      if (!dialog) {
+        return;
+      }
+      ui.showDialog?.(dialog.container, 520, 520, true, true, null, false);
+      dialog.init?.();
+    };
+    const parserSettingsLabel = resolveLabel(PARSER_SETTINGS_BUTTON_RESOURCE_KEY, DEFAULT_PARSER_SETTINGS_BUTTON_LABEL);
+    const parserSettingsButton = (() => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button(parserSettingsLabel, () => {
+          openParserSettingsDialog();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = parserSettingsLabel;
+      button.addEventListener("click", () => {
+        openParserSettingsDialog();
+      });
+      return button;
+    })();
+    parserSettingsButton.setAttribute(PARSER_SETTINGS_BUTTON_ATTRIBUTE, "true");
+    parserSettingsButton.style.marginTop = "6px";
+    parserSettingsButton.style.width = "210px";
+    parserSettingsButton.style.display = "block";
+    parserSettingsButton.style.textAlign = "center";
+    parserSettingsButton.className = parserSettingsButton.className || "geButton";
+    preambleSection.appendChild(parserSettingsButton);
     const panelContainer = this.container ?? null;
     const findFormatSectionAncestor = (node) => {
       let current = node;
@@ -21161,6 +21628,346 @@ function buildValueWithPreamble(baseValue, entries) {
     valueElement.appendChild(preambleElement);
   }
   return valueElement;
+}
+function createParserSettingsDialog(editorUi, graph, model, rootCell) {
+  if (typeof document === "undefined") {
+    return null;
+  }
+  const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
+  const container = document.createElement("div");
+  container.setAttribute(PARSER_SETTINGS_DIALOG_ATTRIBUTE, "true");
+  container.style.position = "relative";
+  container.style.width = "100%";
+  container.style.height = "100%";
+  const scrollArea = document.createElement("div");
+  scrollArea.style.position = "absolute";
+  scrollArea.style.top = "30px";
+  scrollArea.style.left = "30px";
+  scrollArea.style.right = "30px";
+  scrollArea.style.bottom = "80px";
+  scrollArea.style.overflowY = "auto";
+  scrollArea.style.display = "flex";
+  scrollArea.style.flexDirection = "column";
+  scrollArea.style.gap = "14px";
+  container.appendChild(scrollArea);
+  const createSection = (title) => {
+    const section = document.createElement("div");
+    section.style.display = "flex";
+    section.style.flexDirection = "column";
+    section.style.gap = "8px";
+    const heading = document.createElement("div");
+    heading.textContent = title;
+    heading.style.fontWeight = "bold";
+    heading.style.fontSize = "13px";
+    section.appendChild(heading);
+    return section;
+  };
+  const createCheckboxRow = (label, initial, dataAttribute) => {
+    const row = document.createElement("label");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.style.cursor = "pointer";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = initial;
+    checkbox.defaultChecked = initial;
+    checkbox.setAttribute(dataAttribute, "true");
+    row.appendChild(checkbox);
+    const text = document.createElement("span");
+    text.textContent = label;
+    text.style.flex = "1 1 auto";
+    row.appendChild(text);
+    return { container: row, input: checkbox };
+  };
+  const createLabeledInput = (section, label, initial, dataAttribute, options) => {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.gap = "4px";
+    const labelElement = document.createElement("label");
+    labelElement.textContent = label;
+    labelElement.style.fontSize = "12px";
+    labelElement.style.fontWeight = "500";
+    wrapper.appendChild(labelElement);
+    const input = document.createElement("input");
+    input.type = options?.type ?? "text";
+    if (options?.step) {
+      input.step = options.step;
+    }
+    input.value = initial ?? "";
+    input.setAttribute(dataAttribute, "true");
+    input.style.height = "26px";
+    input.style.padding = "4px 6px";
+    input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    input.style.borderRadius = "2px";
+    input.style.boxSizing = "border-box";
+    input.style.fontSize = "12px";
+    input.autocomplete = "off";
+    const inputId = `rdfexport-parser-${dataAttribute}-${Math.random().toString(36).slice(2)}`;
+    input.id = inputId;
+    labelElement.htmlFor = inputId;
+    wrapper.appendChild(input);
+    section.appendChild(wrapper);
+    return input;
+  };
+  const createSelect = (section, label, options, initial, dataAttribute) => {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.gap = "4px";
+    const labelElement = document.createElement("label");
+    labelElement.textContent = label;
+    labelElement.style.fontSize = "12px";
+    labelElement.style.fontWeight = "500";
+    wrapper.appendChild(labelElement);
+    const select = document.createElement("select");
+    select.setAttribute(dataAttribute, "true");
+    select.style.height = "28px";
+    select.style.padding = "4px 6px";
+    select.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    select.style.borderRadius = "2px";
+    select.style.fontSize = "12px";
+    for (const option of options) {
+      const element = document.createElement("option");
+      element.value = option.value;
+      element.textContent = option.label;
+      select.appendChild(element);
+    }
+    if (!options.some((option) => option.value === initial)) {
+      select.value = options[0]?.value ?? "";
+    } else {
+      select.value = initial;
+    }
+    const selectId = `rdfexport-parser-select-${Math.random().toString(36).slice(2)}`;
+    select.id = selectId;
+    labelElement.htmlFor = selectId;
+    wrapper.appendChild(select);
+    section.appendChild(wrapper);
+    return select;
+  };
+  const generalSection = createSection("General behaviour");
+  scrollArea.appendChild(generalSection);
+  const includePreambleRow = createCheckboxRow("Include preamble block in output", settings.includePreamble, PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE);
+  generalSection.appendChild(includePreambleRow.container);
+  const includePreambleCheckbox = includePreambleRow.input;
+  const includeLabelRow = createCheckboxRow("Include rdfs:label annotations", settings.includeLabel, PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE);
+  generalSection.appendChild(includeLabelRow.container);
+  const includeLabelCheckbox = includeLabelRow.input;
+  const inferTypesRow = createCheckboxRow("Infer literal datatypes", settings.inferTypeOfLiterals, PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE);
+  generalSection.appendChild(inferTypesRow.container);
+  const inferTypesCheckbox = inferTypesRow.input;
+  const strictModeRow = createCheckboxRow("Enable strict arrow parsing", settings.strictMode, PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE);
+  generalSection.appendChild(strictModeRow.container);
+  const strictModeCheckbox = strictModeRow.input;
+  const identifiersSection = createSection("Identifiers");
+  scrollArea.appendChild(identifiersSection);
+  const prefixInput = createLabeledInput(identifiersSection, "Generated individual prefix", settings.prefix, PARSER_SETTINGS_PREFIX_ATTRIBUTE);
+  const prefixIriInput = createLabeledInput(identifiersSection, "Prefix IRI", settings.prefixIri, PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE);
+  const ontologyIriInput = createLabeledInput(identifiersSection, "Ontology IRI", settings.ontologyIri, PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE);
+  const formattingSection = createSection("Formatting");
+  scrollArea.appendChild(formattingSection);
+  const indentationInput = createLabeledInput(formattingSection, "Indentation (spaces)", String(settings.indentation), PARSER_SETTINGS_INDENTATION_ATTRIBUTE, { type: "number" });
+  indentationInput.min = "0";
+  const maxGapInput = createLabeledInput(formattingSection, "Maximum gap for loose arrows", String(settings.maxGap), PARSER_SETTINGS_MAX_GAP_ATTRIBUTE, { type: "number", step: "0.1" });
+  maxGapInput.min = "0";
+  const capitalisationSelect = createSelect(formattingSection, "Capitalisation scheme", CAPITALISATION_SCHEME_OPTIONS, settings.capitalisationScheme, PARSER_SETTINGS_CAPITALISATION_ATTRIBUTE);
+  const metacharSection = createSection("Metacharacter substitution");
+  scrollArea.appendChild(metacharSection);
+  const strategySelect = createSelect(metacharSection, "Default handling", METACHARACTER_STRATEGY_OPTIONS, settings.metacharacterStrategy, PARSER_SETTINGS_STRATEGY_ATTRIBUTE);
+  const entriesList = document.createElement("div");
+  entriesList.style.display = "flex";
+  entriesList.style.flexDirection = "column";
+  entriesList.style.gap = "6px";
+  entriesList.setAttribute(PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE, "true");
+  metacharSection.appendChild(entriesList);
+  const entries = [];
+  const addEntry = (character, replacement) => {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.setAttribute(PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE, "true");
+    const charSelect = document.createElement("select");
+    charSelect.style.flex = "0 0 140px";
+    charSelect.style.height = "28px";
+    charSelect.style.padding = "4px 6px";
+    charSelect.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    charSelect.style.borderRadius = "2px";
+    charSelect.style.fontSize = "12px";
+    charSelect.setAttribute(PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE, "true");
+    const ensureOption = (value, label) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      charSelect.appendChild(option);
+    };
+    for (const option of METACHARACTER_OPTIONS) {
+      ensureOption(option.value, option.label);
+    }
+    if (!METACHARACTER_OPTIONS.some((option) => option.value === character)) {
+      const fallbackLabel = character === " " ? "Space ( )" : character === " " ? "Non-breaking space" : character;
+      ensureOption(character, fallbackLabel);
+    }
+    charSelect.value = character;
+    const replacementInput = document.createElement("input");
+    replacementInput.type = "text";
+    replacementInput.value = replacement;
+    replacementInput.style.flex = "1 1 auto";
+    replacementInput.style.height = "26px";
+    replacementInput.style.padding = "4px 6px";
+    replacementInput.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    replacementInput.style.borderRadius = "2px";
+    replacementInput.style.fontSize = "12px";
+    replacementInput.setAttribute(PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE, "true");
+    let state;
+    const removeEntry = () => {
+      const index = entries.indexOf(state);
+      if (index >= 0) {
+        entries.splice(index, 1);
+      }
+      if (row.parentNode) {
+        row.parentNode.removeChild(row);
+      }
+    };
+    const removeButton = (() => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button("Remove", () => {
+          removeEntry();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = "Remove";
+      button.addEventListener("click", () => {
+        removeEntry();
+      });
+      return button;
+    })();
+    removeButton.setAttribute(PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE, "true");
+    removeButton.className = removeButton.className || "geButton";
+    state = {
+      container: row,
+      select: charSelect,
+      replacement: replacementInput
+    };
+    row.appendChild(charSelect);
+    row.appendChild(replacementInput);
+    row.appendChild(removeButton);
+    entriesList.appendChild(row);
+    entries.push(state);
+  };
+  if (settings.metacharacterEntries.length > 0) {
+    for (const entry of settings.metacharacterEntries) {
+      addEntry(entry.character, entry.replacement);
+    }
+  }
+  const addButtonContainer = document.createElement("div");
+  addButtonContainer.style.display = "flex";
+  addButtonContainer.style.justifyContent = "flex-end";
+  const addButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button("Add substitution", () => {
+        addEntry(" ", "");
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = "Add substitution";
+    button.addEventListener("click", () => {
+      addEntry(" ", "");
+    });
+    return button;
+  })();
+  addButton.setAttribute(PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE, "true");
+  addButton.className = addButton.className || "geButton";
+  addButtonContainer.appendChild(addButton);
+  metacharSection.appendChild(addButtonContainer);
+  const buttons = document.createElement("div");
+  buttons.style.position = "absolute";
+  buttons.style.left = "30px";
+  buttons.style.right = "30px";
+  buttons.style.bottom = "30px";
+  buttons.style.height = "40px";
+  buttons.style.display = "flex";
+  buttons.style.alignItems = "center";
+  buttons.style.justifyContent = "flex-end";
+  buttons.style.gap = "10px";
+  container.appendChild(buttons);
+  const cancelLabel = resolveLabel("cancel", "Cancel");
+  const cancelButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(cancelLabel, () => {
+        editorUi.hideDialog?.();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = cancelLabel;
+    button.addEventListener("click", () => {
+      editorUi.hideDialog?.();
+    });
+    return button;
+  })();
+  cancelButton.setAttribute(PARSER_SETTINGS_CANCEL_ATTRIBUTE, "true");
+  cancelButton.className = cancelButton.className || "geButton";
+  buttons.appendChild(cancelButton);
+  const applyLabel = resolveLabel("apply", "Apply");
+  const handleApply = () => {
+    const indentationRaw = indentationInput.value.trim();
+    const maxGapRaw = maxGapInput.value.trim();
+    const partialSettings = {
+      includePreamble: includePreambleCheckbox.checked,
+      includeLabel: includeLabelCheckbox.checked,
+      inferTypeOfLiterals: inferTypesCheckbox.checked,
+      strictMode: strictModeCheckbox.checked,
+      prefix: prefixInput.value,
+      prefixIri: prefixIriInput.value,
+      ontologyIri: ontologyIriInput.value,
+      capitalisationScheme: capitalisationSelect.value,
+      metacharacterStrategy: strategySelect.value,
+      metacharacterEntries: entries.map((entry) => ({
+        character: entry.select.value,
+        replacement: entry.replacement.value
+      }))
+    };
+    if (indentationRaw.length > 0) {
+      partialSettings.indentation = Number(indentationRaw);
+    }
+    if (maxGapRaw.length > 0) {
+      partialSettings.maxGap = Number(maxGapRaw);
+    }
+    const updatedSettings = normaliseParserSettings(partialSettings);
+    writeParserSettingsToGraphInstance(graph, model, rootCell, updatedSettings);
+    editorUi.hideDialog?.();
+  };
+  const applyButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(applyLabel, () => {
+        handleApply();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = applyLabel;
+    button.addEventListener("click", () => {
+      handleApply();
+    });
+    return button;
+  })();
+  applyButton.setAttribute(PARSER_SETTINGS_APPLY_ATTRIBUTE, "true");
+  const applyElement = applyButton;
+  if (applyElement.className) {
+    if (!/\bgePrimaryBtn\b/.test(applyElement.className)) {
+      applyElement.className += " gePrimaryBtn";
+    }
+  } else {
+    applyElement.className = "geButton gePrimaryBtn";
+  }
+  buttons.appendChild(applyButton);
+  const dialog = {
+    container,
+    init() {
+      prefixInput.focus?.();
+    }
+  };
+  return dialog;
 }
 function createPreambleDialog(editorUi, model, rootCell, labels) {
   if (typeof document === "undefined") {
@@ -21426,7 +22233,8 @@ Draw.loadPlugin(function(editorUi) {
     try {
       const serializedXml = serializeDiagramXml(editorUi);
       logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters)`);
-      const blackBoxPayload = await runDrawioPipeline(serializedXml);
+      const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
+      const blackBoxPayload = await runDrawioPipeline(serializedXml, parserConfig);
       const filename = editorUi.getBaseFilename() + ".ttl";
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
       editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");

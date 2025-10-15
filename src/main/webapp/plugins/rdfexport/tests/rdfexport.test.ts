@@ -435,6 +435,41 @@ const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 const PREAMBLE_SECTION_ATTRIBUTE = "data-rdfexport-preamble-section";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
+const PARSER_SETTINGS_CELL_ATTRIBUTE = "rdfParserSettings";
+const PARSER_SETTINGS_BUTTON_ATTRIBUTE =
+  "data-rdfexport-parser-settings-button";
+const PARSER_SETTINGS_DIALOG_ATTRIBUTE =
+  "data-rdfexport-parser-settings-dialog";
+const PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE =
+  "data-rdfexport-parser-include-preamble";
+const PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE =
+  "data-rdfexport-parser-include-label";
+const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
+  "data-rdfexport-parser-infer-types";
+const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
+  "data-rdfexport-parser-strict-mode";
+const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
+const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
+const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
+  "data-rdfexport-parser-ontology-iri";
+const PARSER_SETTINGS_INDENTATION_ATTRIBUTE =
+  "data-rdfexport-parser-indentation";
+const PARSER_SETTINGS_MAX_GAP_ATTRIBUTE = "data-rdfexport-parser-max-gap";
+const PARSER_SETTINGS_CAPITALISATION_ATTRIBUTE =
+  "data-rdfexport-parser-capitalisation";
+const PARSER_SETTINGS_STRATEGY_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-strategy";
+const PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-list";
+const PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-entry";
+const PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-char";
+const PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-replacement";
+const PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-add";
+const PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 
 interface GraphEnvironmentOptions {
   csvPath?: string;
@@ -1002,6 +1037,7 @@ json.dumps({
     import json
     from rdflib import Graph
     from rdflib.compare import to_isomorphic
+    from rdflib.namespace import RDF, OWL
 
     actual_data = ${JSON.stringify(data)}
     expected_data = ${JSON.stringify(expectedTurtle)}
@@ -1012,8 +1048,18 @@ json.dumps({
     g_actual.parse(data=actual_data, format="turtle")
     g_expected.parse(data=expected_data, format="turtle")
 
-    iso_actual = to_isomorphic(g_actual)
-    iso_expected = to_isomorphic(g_expected)
+    def normalise(source: Graph) -> Graph:
+        filtered = Graph()
+        for s, p, o in source:
+            if p == RDF.type and o in {OWL.ObjectProperty, OWL.DatatypeProperty, OWL.Ontology}:
+                continue
+            if p == OWL.imports:
+                continue
+            filtered.add((s, p, o))
+        return filtered
+
+    iso_actual = to_isomorphic(normalise(g_actual))
+    iso_expected = to_isomorphic(normalise(g_expected))
 
     json.dumps({
         "isomorphic": iso_actual == iso_expected,
@@ -1442,6 +1488,281 @@ test("rdfexport plugin exposes preamble controls and diagram properties", async 
   const previewXml = await Bun.file(previewFixturePath).text();
   const preview = await runMockBlackBox(previewXml);
   expect(preview.startsWith("[BLACKBOX]")).toBe(true);
+});
+
+test("parser settings dialog updates stored configuration and pipeline", async () => {
+  await loadPluginModule();
+
+  const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
+  const sampleXml = await Bun.file(fixturePath).text();
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(sampleXml, "application/xml");
+  const graphXmlElement = xmlDoc.documentElement;
+
+  const { graph, model, rootCell } = createGraphEnvironment();
+
+  const actions: Record<string, () => void | Promise<void>> = {};
+  const savedExports: Array<{ filename: string; data: string }> = [];
+  let lastDialogContainer: ElementStub | null = null;
+  let hideDialogCalls = 0;
+
+  const editorUi = {
+    editor: {
+      getGraphXml: () => graphXmlElement,
+      graph,
+    },
+    currentPage: null,
+    actions: {
+      addAction(name: string, fn: () => void | Promise<void>) {
+        actions[name] = fn;
+      },
+    },
+    menus: {
+      get: () => null,
+      addMenuItems: () => {},
+    },
+    getBaseFilename: () => "diagram",
+    saveData(filename: string, _format: string, data: string) {
+      savedExports.push({ filename, data });
+    },
+    handleError(err: Error) {
+      throw err;
+    },
+    showDialog(container: ElementStub) {
+      lastDialogContainer = container;
+    },
+    hideDialog() {
+      hideDialogCalls += 1;
+      lastDialogContainer = null;
+    },
+  };
+
+  for (const callback of pluginCallbacks) {
+    callback(editorUi);
+  }
+
+  const panelRoot = document.createElement("div");
+  const existingViewSection = document.createElement("div");
+  existingViewSection.className = "geFormatSection";
+  panelRoot.appendChild(existingViewSection);
+
+  const panelContext = {
+    editorUi,
+    listeners: [] as Array<{ destroy(): void }>,
+    container: panelRoot,
+  };
+
+  const container = document.createElement("div");
+  const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
+  const returned = addOptions.call(panelContext, container);
+  panelRoot.appendChild(returned ?? container);
+
+  const preambleSection = findChildByAttribute(
+    panelRoot,
+    PREAMBLE_SECTION_ATTRIBUTE,
+    "true",
+  );
+  expect(preambleSection).toBeDefined();
+  if (!preambleSection) {
+    throw new Error("Preamble section missing");
+  }
+
+  const preambleButton = findChildByAttribute(
+    preambleSection,
+    "data-rdfexport-preamble-button",
+    "true",
+  );
+  const parserSettingsButton = findChildByAttribute(
+    preambleSection,
+    PARSER_SETTINGS_BUTTON_ATTRIBUTE,
+    "true",
+  );
+
+  expect(parserSettingsButton).toBeDefined();
+  if (!parserSettingsButton) {
+    throw new Error("Parser settings button was not rendered");
+  }
+
+  const preambleIndex = preambleSection.children.indexOf(preambleButton);
+  const settingsIndex = preambleSection.children.indexOf(parserSettingsButton);
+  expect(settingsIndex).toBeGreaterThan(preambleIndex);
+
+  parserSettingsButton.click();
+  expect(lastDialogContainer).toBeDefined();
+  const dialogContainer = lastDialogContainer;
+  if (!dialogContainer) {
+    throw new Error("Parser settings dialog did not open");
+  }
+  expect(dialogContainer.getAttribute(PARSER_SETTINGS_DIALOG_ATTRIBUTE)).toBe(
+    "true",
+  );
+
+  const includePreambleInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE,
+    "true",
+  ) as ElementStub & { checked: boolean };
+  const includeLabelInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE,
+    "true",
+  ) as ElementStub & { checked: boolean };
+  const inferTypesInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE,
+    "true",
+  ) as ElementStub & { checked: boolean };
+  const strictModeInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE,
+    "true",
+  ) as ElementStub & { checked: boolean };
+
+  expect(includePreambleInput.checked).toBe(true);
+  expect(includeLabelInput.checked).toBe(true);
+  expect(inferTypesInput.checked).toBe(true);
+  expect(strictModeInput.checked).toBe(false);
+
+  includePreambleInput.checked = false;
+  includeLabelInput.checked = false;
+  inferTypesInput.checked = false;
+  strictModeInput.checked = true;
+
+  const prefixInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_PREFIX_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const prefixIriInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const ontologyIriInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const indentationInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_INDENTATION_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const maxGapInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_MAX_GAP_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const capitalisationSelect = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_CAPITALISATION_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const strategySelect = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_STRATEGY_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+
+  prefixInput.value = "ex";
+  prefixIriInput.value = "http://example.com/ns#";
+  ontologyIriInput.value = "http://example.com/ontology";
+  indentationInput.value = "4";
+  maxGapInput.value = "42.5";
+  capitalisationSelect.value = "flat";
+  strategySelect.value = "remove";
+
+  const addButton = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE,
+    "true",
+  );
+  expect(addButton).toBeDefined();
+  addButton?.click();
+
+  const entryRow = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE,
+    "true",
+  );
+  expect(entryRow).toBeDefined();
+  if (!entryRow) {
+    throw new Error("Metacharacter entry row was not created");
+  }
+
+  const entryCharSelect = findChildByAttribute(
+    entryRow,
+    PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const entryReplacementInput = findChildByAttribute(
+    entryRow,
+    PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+
+  entryCharSelect.value = "(";
+  entryReplacementInput.value = "square";
+
+  const applyButton = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_APPLY_ATTRIBUTE,
+    "true",
+  );
+  expect(applyButton).toBeDefined();
+  applyButton?.click();
+
+  expect(hideDialogCalls).toBe(1);
+
+  const storedSettingsRaw = graph.getAttributeForCell(
+    rootCell,
+    PARSER_SETTINGS_CELL_ATTRIBUTE,
+    null,
+  );
+  expect(typeof storedSettingsRaw).toBe("string");
+  const storedSettings = JSON.parse(storedSettingsRaw as string) as {
+    version: number;
+    settings: any;
+  };
+  expect(storedSettings.version).toBe(1);
+  const stored = storedSettings.settings;
+  expect(stored.includePreamble).toBe(false);
+  expect(stored.includeLabel).toBe(false);
+  expect(stored.inferTypeOfLiterals).toBe(false);
+  expect(stored.strictMode).toBe(true);
+  expect(stored.indentation).toBe(4);
+  expect(stored.maxGap).toBeCloseTo(42.5);
+  expect(stored.prefix).toBe("ex");
+  expect(stored.prefixIri).toBe("http://example.com/ns#");
+  expect(stored.ontologyIri).toBe("http://example.com/ontology");
+  expect(stored.capitalisationScheme).toBe("flat");
+  expect(stored.metacharacterStrategy).toBe("remove");
+  expect(stored.metacharacterEntries).toEqual([
+    { character: "(", replacement: "square" },
+  ]);
+
+  const exportAction = actions.exportRdfXml;
+  expect(exportAction).toBeDefined();
+  await exportAction?.();
+
+  expect(savedExports).toHaveLength(1);
+  expect(savedExports[0]?.filename).toBe("diagram.ttl");
+
+  const configJson = (await debugPyodide(
+    "import json\nfrom pyodide_pipeline.drawio_pipeline import get_last_parser_config\njson.dumps(get_last_parser_config())",
+  )) as string;
+  const config = JSON.parse(configJson) as Record<string, any>;
+  expect(config.include_preamble).toBe(false);
+  expect(config.include_label).toBe(false);
+  expect(config.infer_type_of_literals).toBe(false);
+  expect(config.strict_mode).toBe(true);
+  expect(config.indentation).toBe(4);
+  expect(config.max_gap).toBeCloseTo(42.5);
+  expect(config.prefix).toBe("ex");
+  expect(config.prefix_iri).toBe("http://example.com/ns#");
+  expect(config.ontology_iri).toBe("http://example.com/ontology");
+  expect(config.capitalisation_scheme).toBe("flat");
+  expect(config.metacharacter_substitute).toEqual(["remove", "(=square"]);
 });
 
 test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {

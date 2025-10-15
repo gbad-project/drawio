@@ -138,7 +138,483 @@ const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
-import { runDrawioPipeline } from "./mockBlackBox";
+const PARSER_SETTINGS_ATTRIBUTE_NAME = "rdfParserSettings";
+const PARSER_SETTINGS_STORAGE_VERSION = 1;
+const PARSER_SETTINGS_BUTTON_RESOURCE_KEY = "parserSettings";
+const DEFAULT_PARSER_SETTINGS_BUTTON_LABEL = "Parser Settings...";
+const PARSER_SETTINGS_DIALOG_ATTRIBUTE =
+  "data-rdfexport-parser-settings-dialog";
+const PARSER_SETTINGS_BUTTON_ATTRIBUTE =
+  "data-rdfexport-parser-settings-button";
+const PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE =
+  "data-rdfexport-parser-include-preamble";
+const PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE =
+  "data-rdfexport-parser-include-label";
+const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
+  "data-rdfexport-parser-infer-types";
+const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
+  "data-rdfexport-parser-strict-mode";
+const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
+const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
+const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
+  "data-rdfexport-parser-ontology-iri";
+const PARSER_SETTINGS_INDENTATION_ATTRIBUTE =
+  "data-rdfexport-parser-indentation";
+const PARSER_SETTINGS_MAX_GAP_ATTRIBUTE = "data-rdfexport-parser-max-gap";
+const PARSER_SETTINGS_CAPITALISATION_ATTRIBUTE =
+  "data-rdfexport-parser-capitalisation";
+const PARSER_SETTINGS_STRATEGY_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-strategy";
+const PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-list";
+const PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-entry";
+const PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-char";
+const PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-replacement";
+const PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-remove";
+const PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE =
+  "data-rdfexport-parser-metachar-add";
+const PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
+const PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
+
+const DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
+const DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
+type CapitalisationScheme = "upper-camel" | "lower-camel" | "flat" | "none";
+const DRAWIO_PARSER_DEFAULT_CAPITALISATION: CapitalisationScheme =
+  "upper-camel";
+type MetacharacterStrategy = "url" | "remove" | "custom";
+const DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY: MetacharacterStrategy =
+  "url";
+
+const METACHARACTER_OPTIONS: Array<{ value: string; label: string }> = [
+  { value: " ", label: "Space ( )" },
+  { value: "(", label: "(" },
+  { value: ")", label: ")" },
+  { value: "[", label: "[" },
+  { value: "]", label: "]" },
+  { value: "{", label: "{" },
+  { value: "}", label: "}" },
+  { value: "/", label: "/" },
+  { value: ",", label: "," },
+  { value: ":", label: ":" },
+  { value: ".", label: "." },
+  { value: "'", label: "'" },
+  { value: '"', label: '"' },
+  { value: "\u00a0", label: "Non-breaking space" },
+  { value: "#", label: "#" },
+];
+
+const CAPITALISATION_SCHEME_OPTIONS: Array<{
+  value: CapitalisationScheme;
+  label: string;
+}> = [
+  { value: "upper-camel", label: "Upper camel case" },
+  { value: "lower-camel", label: "Lower camel case" },
+  { value: "flat", label: "Flat (lowercase)" },
+  { value: "none", label: "Leave unchanged" },
+];
+
+const METACHARACTER_STRATEGY_OPTIONS: Array<{
+  value: MetacharacterStrategy;
+  label: string;
+}> = [
+  {
+    value: "url",
+    label: "Replace unspecified metacharacters with URL entities",
+  },
+  {
+    value: "remove",
+    label: "Remove unspecified metacharacters",
+  },
+  {
+    value: "custom",
+    label: "Use only custom substitutions",
+  },
+];
+
+interface ParserSettingsEntry {
+  character: string;
+  replacement: string;
+}
+
+interface ParserSettings {
+  includePreamble: boolean;
+  inferTypeOfLiterals: boolean;
+  includeLabel: boolean;
+  strictMode: boolean;
+  indentation: number;
+  maxGap: number;
+  ontologyIri: string | null;
+  prefix: string | null;
+  prefixIri: string | null;
+  capitalisationScheme: CapitalisationScheme;
+  metacharacterStrategy: MetacharacterStrategy;
+  metacharacterEntries: ParserSettingsEntry[];
+}
+
+interface StoredParserSettings {
+  version: number;
+  settings: ParserSettings;
+}
+
+function createDefaultParserSettings(): ParserSettings {
+  return {
+    includePreamble: true,
+    inferTypeOfLiterals: true,
+    includeLabel: true,
+    strictMode: false,
+    indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
+    maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
+    ontologyIri: null,
+    prefix: null,
+    prefixIri: null,
+    capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
+    metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
+    metacharacterEntries: [],
+  };
+}
+
+function normalizeBoolean(value: unknown, fallback: boolean): boolean {
+  if (typeof value === "boolean") {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    const lowered = value.trim().toLowerCase();
+    if (["true", "1", "yes", "on"].includes(lowered)) {
+      return true;
+    }
+    if (["false", "0", "no", "off"].includes(lowered)) {
+      return false;
+    }
+  }
+
+  if (value == null) {
+    return fallback;
+  }
+
+  return Boolean(value);
+}
+
+function normalizeNullableString(value: unknown): string | null {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function normalizeIndentation(value: unknown, fallback: number): number {
+  if (typeof value === "string" && value.trim().length === 0) {
+    return Math.max(0, Math.round(fallback));
+  }
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) {
+    return Math.max(0, Math.round(numeric));
+  }
+  return Math.max(0, Math.round(fallback));
+}
+
+function normalizeMaxGap(value: unknown, fallback: number): number {
+  if (typeof value === "string" && value.trim().length === 0) {
+    return Math.max(0, fallback);
+  }
+  const numeric = Number(value);
+  if (Number.isFinite(numeric)) {
+    return Math.max(0, numeric);
+  }
+  return Math.max(0, fallback);
+}
+
+function normalizeCapitalisationScheme(
+  value: unknown,
+  fallback: CapitalisationScheme,
+): CapitalisationScheme {
+  if (value === "lower-camel" || value === "flat" || value === "none") {
+    return value;
+  }
+  if (value === "upper-camel") {
+    return "upper-camel";
+  }
+  return fallback;
+}
+
+function normalizeMetacharacterStrategy(
+  value: unknown,
+  fallback: MetacharacterStrategy,
+): MetacharacterStrategy {
+  if (value === "remove" || value === "custom" || value === "url") {
+    return value;
+  }
+  return fallback;
+}
+
+function normalizeMetacharacterEntries(
+  entries: unknown,
+): ParserSettingsEntry[] {
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+
+  const normalized: ParserSettingsEntry[] = [];
+
+  for (const entry of entries) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+
+    const character =
+      typeof (entry as ParserSettingsEntry).character === "string"
+        ? (entry as ParserSettingsEntry).character
+        : "";
+
+    if (character.length === 0) {
+      continue;
+    }
+
+    const replacement =
+      typeof (entry as ParserSettingsEntry).replacement === "string"
+        ? (entry as ParserSettingsEntry).replacement
+        : "";
+
+    normalized.push({ character, replacement });
+  }
+
+  return normalized;
+}
+
+function normaliseParserSettings(
+  partial: Partial<ParserSettings> | null | undefined,
+): ParserSettings {
+  const defaults = createDefaultParserSettings();
+
+  return {
+    includePreamble: normalizeBoolean(
+      partial?.includePreamble,
+      defaults.includePreamble,
+    ),
+    inferTypeOfLiterals: normalizeBoolean(
+      partial?.inferTypeOfLiterals,
+      defaults.inferTypeOfLiterals,
+    ),
+    includeLabel: normalizeBoolean(
+      partial?.includeLabel,
+      defaults.includeLabel,
+    ),
+    strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
+    indentation: normalizeIndentation(
+      partial?.indentation,
+      defaults.indentation,
+    ),
+    maxGap: normalizeMaxGap(partial?.maxGap, defaults.maxGap),
+    ontologyIri:
+      partial?.ontologyIri != null
+        ? normalizeNullableString(partial.ontologyIri)
+        : null,
+    prefix:
+      partial?.prefix != null ? normalizeNullableString(partial.prefix) : null,
+    prefixIri:
+      partial?.prefixIri != null
+        ? normalizeNullableString(partial.prefixIri)
+        : null,
+    capitalisationScheme: normalizeCapitalisationScheme(
+      partial?.capitalisationScheme,
+      defaults.capitalisationScheme,
+    ),
+    metacharacterStrategy: normalizeMetacharacterStrategy(
+      partial?.metacharacterStrategy,
+      defaults.metacharacterStrategy,
+    ),
+    metacharacterEntries: normalizeMetacharacterEntries(
+      partial?.metacharacterEntries,
+    ),
+  };
+}
+
+function parseStoredParserSettings(raw: string | null): ParserSettings {
+  if (!raw) {
+    return createDefaultParserSettings();
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as StoredParserSettings | ParserSettings;
+    if (parsed && typeof parsed === "object") {
+      if (
+        typeof (parsed as StoredParserSettings).settings === "object" &&
+        (parsed as StoredParserSettings).settings !== null
+      ) {
+        return normaliseParserSettings(
+          (parsed as StoredParserSettings).settings,
+        );
+      }
+
+      return normaliseParserSettings(parsed as ParserSettings);
+    }
+  } catch (error) {
+    // ignore malformed stored state and fall back to defaults
+  }
+
+  return createDefaultParserSettings();
+}
+
+function serializeParserSettings(settings: ParserSettings): string {
+  const normalized = normaliseParserSettings(settings);
+  const storage: StoredParserSettings = {
+    version: PARSER_SETTINGS_STORAGE_VERSION,
+    settings: normalized,
+  };
+  return JSON.stringify(storage);
+}
+
+const DEFAULT_SERIALIZED_PARSER_SETTINGS = serializeParserSettings(
+  createDefaultParserSettings(),
+);
+
+function buildParserConfigPayloadFromSettings(
+  settings: ParserSettings,
+): DrawioParserConfigPayload {
+  const normalized = normaliseParserSettings(settings);
+  const substitutes: string[] = [];
+
+  if (normalized.metacharacterStrategy === "url") {
+    substitutes.push("url");
+  } else if (normalized.metacharacterStrategy === "remove") {
+    substitutes.push("remove");
+  }
+
+  for (const entry of normalized.metacharacterEntries) {
+    substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
+  }
+
+  return {
+    infer_type_of_literals: normalized.inferTypeOfLiterals,
+    include_preamble: normalized.includePreamble,
+    ontology_iri: normalizeNullableString(normalized.ontologyIri),
+    prefix: normalizeNullableString(normalized.prefix),
+    prefix_iri: normalizeNullableString(normalized.prefixIri),
+    indentation: normalized.indentation,
+    include_label: normalized.includeLabel,
+    max_gap: normalized.maxGap,
+    strict_mode: normalized.strictMode,
+    metacharacter_substitute: substitutes,
+    capitalisation_scheme: normalized.capitalisationScheme,
+  };
+}
+
+function extractValueElement(
+  model: MxGraphModel,
+  rootCell: any,
+): Element | null {
+  if (typeof model.getValue === "function") {
+    const value = model.getValue(rootCell);
+    if (value && typeof (value as Element).getAttribute === "function") {
+      return value as Element;
+    }
+  }
+
+  const fallback = (rootCell as { value?: any }).value;
+  if (fallback && typeof (fallback as Element).getAttribute === "function") {
+    return fallback as Element;
+  }
+
+  return null;
+}
+
+function readParserSettingsFromGraphInstance(
+  graph: MxGraph,
+  model: MxGraphModel,
+  rootCell: any,
+): ParserSettings {
+  let rawValue: string | null = null;
+
+  if (typeof graph.getAttributeForCell === "function") {
+    const attributeValue = graph.getAttributeForCell(
+      rootCell,
+      PARSER_SETTINGS_ATTRIBUTE_NAME,
+      null,
+    );
+    rawValue = typeof attributeValue === "string" ? attributeValue : null;
+  }
+
+  if (!rawValue || rawValue.length === 0) {
+    const valueElement = extractValueElement(model, rootCell);
+    if (valueElement) {
+      const attribute = valueElement.getAttribute(
+        PARSER_SETTINGS_ATTRIBUTE_NAME,
+      );
+      rawValue = attribute != null && attribute.length > 0 ? attribute : null;
+    }
+  }
+
+  return parseStoredParserSettings(rawValue);
+}
+
+function writeParserSettingsToGraphInstance(
+  graph: MxGraph,
+  model: MxGraphModel,
+  rootCell: any,
+  settings: ParserSettings,
+): void {
+  const serialized = serializeParserSettings(settings);
+  const valueToStore =
+    serialized === DEFAULT_SERIALIZED_PARSER_SETTINGS ? null : serialized;
+
+  model.beginUpdate?.();
+  try {
+    if (typeof graph.setAttributeForCell === "function") {
+      graph.setAttributeForCell(
+        rootCell,
+        PARSER_SETTINGS_ATTRIBUTE_NAME,
+        valueToStore,
+      );
+    } else {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        if (valueToStore != null) {
+          valueElement.setAttribute(
+            PARSER_SETTINGS_ATTRIBUTE_NAME,
+            valueToStore,
+          );
+        } else if (typeof valueElement.removeAttribute === "function") {
+          valueElement.removeAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME);
+        }
+        (model as { markDirty?: () => void }).markDirty?.();
+      }
+    }
+  } finally {
+    model.endUpdate?.();
+  }
+}
+
+function buildParserConfigPayloadFromGraph(
+  graph: MxGraph | undefined | null,
+): DrawioParserConfigPayload {
+  if (!graph || typeof graph.getModel !== "function") {
+    return buildParserConfigPayloadFromSettings(createDefaultParserSettings());
+  }
+
+  const model = graph.getModel();
+  if (!model || typeof model.getRoot !== "function") {
+    return buildParserConfigPayloadFromSettings(createDefaultParserSettings());
+  }
+
+  const rootCell = model.getRoot();
+  if (!rootCell) {
+    return buildParserConfigPayloadFromSettings(createDefaultParserSettings());
+  }
+
+  const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
+  return buildParserConfigPayloadFromSettings(settings);
+}
+
+import {
+  runDrawioPipeline,
+  type DrawioParserConfigPayload,
+} from "./mockBlackBox";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 let csvPropertyPatched = false;
@@ -617,11 +1093,59 @@ function installCsvPathProperty(): void {
     preambleButton.setAttribute("data-rdfexport-preamble-button", "true");
     preambleButton.style.marginTop = "8px";
     preambleButton.style.width = "210px";
-    preambleButton.style.display = "inline-block";
+    preambleButton.style.display = "block";
     preambleButton.style.textAlign = "center";
     (preambleButton as HTMLElement).className =
       (preambleButton as HTMLElement).className || "geButton";
     preambleSection.appendChild(preambleButton);
+
+    const openParserSettingsDialog = (): void => {
+      if (!ui) {
+        return;
+      }
+
+      const rootCell = getRootCell();
+      if (!rootCell) {
+        return;
+      }
+
+      const dialog = createParserSettingsDialog(ui, graph, model, rootCell);
+      if (!dialog) {
+        return;
+      }
+
+      ui.showDialog?.(dialog.container, 520, 520, true, true, null, false);
+      dialog.init?.();
+    };
+
+    const parserSettingsLabel = resolveLabel(
+      PARSER_SETTINGS_BUTTON_RESOURCE_KEY,
+      DEFAULT_PARSER_SETTINGS_BUTTON_LABEL,
+    );
+
+    const parserSettingsButton = ((): HTMLElement => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button(parserSettingsLabel, () => {
+          openParserSettingsDialog();
+        });
+      }
+
+      const button = document.createElement("button");
+      button.textContent = parserSettingsLabel;
+      button.addEventListener("click", () => {
+        openParserSettingsDialog();
+      });
+      return button;
+    })();
+
+    parserSettingsButton.setAttribute(PARSER_SETTINGS_BUTTON_ATTRIBUTE, "true");
+    parserSettingsButton.style.marginTop = "6px";
+    parserSettingsButton.style.width = "210px";
+    parserSettingsButton.style.display = "block";
+    parserSettingsButton.style.textAlign = "center";
+    (parserSettingsButton as HTMLElement).className =
+      (parserSettingsButton as HTMLElement).className || "geButton";
+    preambleSection.appendChild(parserSettingsButton);
 
     const panelContainer:
       | (HTMLElement & {
@@ -874,6 +1398,515 @@ function buildValueWithPreamble(
   }
 
   return valueElement;
+}
+
+function createParserSettingsDialog(
+  editorUi: EditorUi,
+  graph: MxGraph,
+  model: MxGraphModel,
+  rootCell: any,
+): { container: HTMLElement; init(): void } | null {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
+
+  const container = document.createElement("div");
+  container.setAttribute(PARSER_SETTINGS_DIALOG_ATTRIBUTE, "true");
+  container.style.position = "relative";
+  container.style.width = "100%";
+  container.style.height = "100%";
+
+  const scrollArea = document.createElement("div");
+  scrollArea.style.position = "absolute";
+  scrollArea.style.top = "30px";
+  scrollArea.style.left = "30px";
+  scrollArea.style.right = "30px";
+  scrollArea.style.bottom = "80px";
+  scrollArea.style.overflowY = "auto";
+  scrollArea.style.display = "flex";
+  scrollArea.style.flexDirection = "column";
+  scrollArea.style.gap = "14px";
+  container.appendChild(scrollArea);
+
+  const createSection = (title: string): HTMLElement => {
+    const section = document.createElement("div");
+    section.style.display = "flex";
+    section.style.flexDirection = "column";
+    section.style.gap = "8px";
+
+    const heading = document.createElement("div");
+    heading.textContent = title;
+    heading.style.fontWeight = "bold";
+    heading.style.fontSize = "13px";
+    section.appendChild(heading);
+
+    return section;
+  };
+
+  const createCheckboxRow = (
+    label: string,
+    initial: boolean,
+    dataAttribute: string,
+  ): { container: HTMLElement; input: HTMLInputElement } => {
+    const row = document.createElement("label");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.style.cursor = "pointer";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = initial;
+    checkbox.defaultChecked = initial;
+    checkbox.setAttribute(dataAttribute, "true");
+    row.appendChild(checkbox);
+
+    const text = document.createElement("span");
+    text.textContent = label;
+    text.style.flex = "1 1 auto";
+    row.appendChild(text);
+
+    return { container: row, input: checkbox };
+  };
+
+  const createLabeledInput = (
+    section: HTMLElement,
+    label: string,
+    initial: string | null,
+    dataAttribute: string,
+    options?: { type?: string; step?: string },
+  ): HTMLInputElement => {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.gap = "4px";
+
+    const labelElement = document.createElement("label");
+    labelElement.textContent = label;
+    labelElement.style.fontSize = "12px";
+    labelElement.style.fontWeight = "500";
+    wrapper.appendChild(labelElement);
+
+    const input = document.createElement("input");
+    input.type = options?.type ?? "text";
+    if (options?.step) {
+      input.step = options.step;
+    }
+    input.value = initial ?? "";
+    input.setAttribute(dataAttribute, "true");
+    input.style.height = "26px";
+    input.style.padding = "4px 6px";
+    input.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    input.style.borderRadius = "2px";
+    input.style.boxSizing = "border-box";
+    input.style.fontSize = "12px";
+    input.autocomplete = "off";
+
+    const inputId = `rdfexport-parser-${dataAttribute}-${Math.random()
+      .toString(36)
+      .slice(2)}`;
+    input.id = inputId;
+    labelElement.htmlFor = inputId;
+
+    wrapper.appendChild(input);
+    section.appendChild(wrapper);
+    return input;
+  };
+
+  const createSelect = <T extends string>(
+    section: HTMLElement,
+    label: string,
+    options: Array<{ value: T; label: string }>,
+    initial: T,
+    dataAttribute: string,
+  ): HTMLSelectElement => {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "column";
+    wrapper.style.gap = "4px";
+
+    const labelElement = document.createElement("label");
+    labelElement.textContent = label;
+    labelElement.style.fontSize = "12px";
+    labelElement.style.fontWeight = "500";
+    wrapper.appendChild(labelElement);
+
+    const select = document.createElement("select");
+    select.setAttribute(dataAttribute, "true");
+    select.style.height = "28px";
+    select.style.padding = "4px 6px";
+    select.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    select.style.borderRadius = "2px";
+    select.style.fontSize = "12px";
+
+    for (const option of options) {
+      const element = document.createElement("option");
+      element.value = option.value;
+      element.textContent = option.label;
+      select.appendChild(element);
+    }
+
+    if (!options.some((option) => option.value === initial)) {
+      select.value = options[0]?.value ?? "";
+    } else {
+      select.value = initial;
+    }
+
+    const selectId = `rdfexport-parser-select-${Math.random()
+      .toString(36)
+      .slice(2)}`;
+    select.id = selectId;
+    labelElement.htmlFor = selectId;
+
+    wrapper.appendChild(select);
+    section.appendChild(wrapper);
+    return select;
+  };
+
+  const generalSection = createSection("General behaviour");
+  scrollArea.appendChild(generalSection);
+
+  const includePreambleRow = createCheckboxRow(
+    "Include preamble block in output",
+    settings.includePreamble,
+    PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE,
+  );
+  generalSection.appendChild(includePreambleRow.container);
+  const includePreambleCheckbox = includePreambleRow.input;
+
+  const includeLabelRow = createCheckboxRow(
+    "Include rdfs:label annotations",
+    settings.includeLabel,
+    PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE,
+  );
+  generalSection.appendChild(includeLabelRow.container);
+  const includeLabelCheckbox = includeLabelRow.input;
+
+  const inferTypesRow = createCheckboxRow(
+    "Infer literal datatypes",
+    settings.inferTypeOfLiterals,
+    PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE,
+  );
+  generalSection.appendChild(inferTypesRow.container);
+  const inferTypesCheckbox = inferTypesRow.input;
+
+  const strictModeRow = createCheckboxRow(
+    "Enable strict arrow parsing",
+    settings.strictMode,
+    PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE,
+  );
+  generalSection.appendChild(strictModeRow.container);
+  const strictModeCheckbox = strictModeRow.input;
+
+  const identifiersSection = createSection("Identifiers");
+  scrollArea.appendChild(identifiersSection);
+
+  const prefixInput = createLabeledInput(
+    identifiersSection,
+    "Generated individual prefix",
+    settings.prefix,
+    PARSER_SETTINGS_PREFIX_ATTRIBUTE,
+  );
+
+  const prefixIriInput = createLabeledInput(
+    identifiersSection,
+    "Prefix IRI",
+    settings.prefixIri,
+    PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE,
+  );
+
+  const ontologyIriInput = createLabeledInput(
+    identifiersSection,
+    "Ontology IRI",
+    settings.ontologyIri,
+    PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE,
+  );
+
+  const formattingSection = createSection("Formatting");
+  scrollArea.appendChild(formattingSection);
+
+  const indentationInput = createLabeledInput(
+    formattingSection,
+    "Indentation (spaces)",
+    String(settings.indentation),
+    PARSER_SETTINGS_INDENTATION_ATTRIBUTE,
+    { type: "number" },
+  );
+  indentationInput.min = "0";
+
+  const maxGapInput = createLabeledInput(
+    formattingSection,
+    "Maximum gap for loose arrows",
+    String(settings.maxGap),
+    PARSER_SETTINGS_MAX_GAP_ATTRIBUTE,
+    { type: "number", step: "0.1" },
+  );
+  maxGapInput.min = "0";
+
+  const capitalisationSelect = createSelect(
+    formattingSection,
+    "Capitalisation scheme",
+    CAPITALISATION_SCHEME_OPTIONS,
+    settings.capitalisationScheme,
+    PARSER_SETTINGS_CAPITALISATION_ATTRIBUTE,
+  );
+
+  const metacharSection = createSection("Metacharacter substitution");
+  scrollArea.appendChild(metacharSection);
+
+  const strategySelect = createSelect(
+    metacharSection,
+    "Default handling",
+    METACHARACTER_STRATEGY_OPTIONS,
+    settings.metacharacterStrategy,
+    PARSER_SETTINGS_STRATEGY_ATTRIBUTE,
+  );
+
+  type MetacharEntryState = {
+    container: HTMLElement;
+    select: HTMLSelectElement;
+    replacement: HTMLInputElement;
+  };
+
+  const entriesList = document.createElement("div");
+  entriesList.style.display = "flex";
+  entriesList.style.flexDirection = "column";
+  entriesList.style.gap = "6px";
+  entriesList.setAttribute(PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE, "true");
+  metacharSection.appendChild(entriesList);
+
+  const entries: MetacharEntryState[] = [];
+
+  const addEntry = (character: string, replacement: string) => {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.setAttribute(PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE, "true");
+
+    const charSelect = document.createElement("select");
+    charSelect.style.flex = "0 0 140px";
+    charSelect.style.height = "28px";
+    charSelect.style.padding = "4px 6px";
+    charSelect.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    charSelect.style.borderRadius = "2px";
+    charSelect.style.fontSize = "12px";
+    charSelect.setAttribute(PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE, "true");
+
+    const ensureOption = (value: string, label: string) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      charSelect.appendChild(option);
+    };
+
+    for (const option of METACHARACTER_OPTIONS) {
+      ensureOption(option.value, option.label);
+    }
+
+    if (!METACHARACTER_OPTIONS.some((option) => option.value === character)) {
+      const fallbackLabel =
+        character === " "
+          ? "Space ( )"
+          : character === "\u00a0"
+            ? "Non-breaking space"
+            : character;
+      ensureOption(character, fallbackLabel);
+    }
+
+    charSelect.value = character;
+
+    const replacementInput = document.createElement("input");
+    replacementInput.type = "text";
+    replacementInput.value = replacement;
+    replacementInput.style.flex = "1 1 auto";
+    replacementInput.style.height = "26px";
+    replacementInput.style.padding = "4px 6px";
+    replacementInput.style.border =
+      "1px solid var(--geInputBorderColor, #d5d5d5)";
+    replacementInput.style.borderRadius = "2px";
+    replacementInput.style.fontSize = "12px";
+    replacementInput.setAttribute(
+      PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE,
+      "true",
+    );
+
+    let state: MetacharEntryState;
+
+    const removeEntry = () => {
+      const index = entries.indexOf(state);
+      if (index >= 0) {
+        entries.splice(index, 1);
+      }
+      if (row.parentNode) {
+        row.parentNode.removeChild(row);
+      }
+    };
+
+    const removeButton = ((): HTMLElement => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button("Remove", () => {
+          removeEntry();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = "Remove";
+      button.addEventListener("click", () => {
+        removeEntry();
+      });
+      return button;
+    })();
+    removeButton.setAttribute(
+      PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE,
+      "true",
+    );
+    removeButton.className =
+      (removeButton as HTMLElement).className || "geButton";
+
+    state = {
+      container: row,
+      select: charSelect,
+      replacement: replacementInput,
+    };
+
+    row.appendChild(charSelect);
+    row.appendChild(replacementInput);
+    row.appendChild(removeButton);
+    entriesList.appendChild(row);
+    entries.push(state);
+  };
+
+  if (settings.metacharacterEntries.length > 0) {
+    for (const entry of settings.metacharacterEntries) {
+      addEntry(entry.character, entry.replacement);
+    }
+  }
+
+  const addButtonContainer = document.createElement("div");
+  addButtonContainer.style.display = "flex";
+  addButtonContainer.style.justifyContent = "flex-end";
+
+  const addButton = ((): HTMLElement => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button("Add substitution", () => {
+        addEntry(" ", "");
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = "Add substitution";
+    button.addEventListener("click", () => {
+      addEntry(" ", "");
+    });
+    return button;
+  })();
+
+  addButton.setAttribute(PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE, "true");
+  addButton.className = (addButton as HTMLElement).className || "geButton";
+  addButtonContainer.appendChild(addButton);
+  metacharSection.appendChild(addButtonContainer);
+
+  const buttons = document.createElement("div");
+  buttons.style.position = "absolute";
+  buttons.style.left = "30px";
+  buttons.style.right = "30px";
+  buttons.style.bottom = "30px";
+  buttons.style.height = "40px";
+  buttons.style.display = "flex";
+  buttons.style.alignItems = "center";
+  buttons.style.justifyContent = "flex-end";
+  buttons.style.gap = "10px";
+  container.appendChild(buttons);
+
+  const cancelLabel = resolveLabel("cancel", "Cancel");
+  const cancelButton = ((): HTMLElement => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(cancelLabel, () => {
+        editorUi.hideDialog?.();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = cancelLabel;
+    button.addEventListener("click", () => {
+      editorUi.hideDialog?.();
+    });
+    return button;
+  })();
+  cancelButton.setAttribute(PARSER_SETTINGS_CANCEL_ATTRIBUTE, "true");
+  cancelButton.className =
+    (cancelButton as HTMLElement).className || "geButton";
+  buttons.appendChild(cancelButton);
+
+  const applyLabel = resolveLabel("apply", "Apply");
+
+  const handleApply = () => {
+    const indentationRaw = indentationInput.value.trim();
+    const maxGapRaw = maxGapInput.value.trim();
+
+    const partialSettings: Partial<ParserSettings> = {
+      includePreamble: includePreambleCheckbox.checked,
+      includeLabel: includeLabelCheckbox.checked,
+      inferTypeOfLiterals: inferTypesCheckbox.checked,
+      strictMode: strictModeCheckbox.checked,
+      prefix: prefixInput.value,
+      prefixIri: prefixIriInput.value,
+      ontologyIri: ontologyIriInput.value,
+      capitalisationScheme: capitalisationSelect.value as CapitalisationScheme,
+      metacharacterStrategy: strategySelect.value as MetacharacterStrategy,
+      metacharacterEntries: entries.map((entry) => ({
+        character: entry.select.value,
+        replacement: entry.replacement.value,
+      })),
+    };
+
+    if (indentationRaw.length > 0) {
+      partialSettings.indentation = Number(indentationRaw);
+    }
+
+    if (maxGapRaw.length > 0) {
+      partialSettings.maxGap = Number(maxGapRaw);
+    }
+
+    const updatedSettings = normaliseParserSettings(partialSettings);
+
+    writeParserSettingsToGraphInstance(graph, model, rootCell, updatedSettings);
+    editorUi.hideDialog?.();
+  };
+
+  const applyButton = ((): HTMLElement => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button(applyLabel, () => {
+        handleApply();
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = applyLabel;
+    button.addEventListener("click", () => {
+      handleApply();
+    });
+    return button;
+  })();
+
+  applyButton.setAttribute(PARSER_SETTINGS_APPLY_ATTRIBUTE, "true");
+  const applyElement = applyButton as HTMLElement;
+  if (applyElement.className) {
+    if (!/\bgePrimaryBtn\b/.test(applyElement.className)) {
+      applyElement.className += " gePrimaryBtn";
+    }
+  } else {
+    applyElement.className = "geButton gePrimaryBtn";
+  }
+  buttons.appendChild(applyButton);
+
+  const dialog = {
+    container,
+    init() {
+      prefixInput.focus?.();
+    },
+  };
+
+  return dialog;
 }
 
 function createPreambleDialog(
@@ -1211,7 +2244,13 @@ Draw.loadPlugin(function (editorUi: any): void {
         `Generated DrawIO XML payload (${serializedXml.length} characters)`,
       );
 
-      const blackBoxPayload = await runDrawioPipeline(serializedXml);
+      const parserConfig = buildParserConfigPayloadFromGraph(
+        editorUi?.editor?.graph ?? null,
+      );
+      const blackBoxPayload = await runDrawioPipeline(
+        serializedXml,
+        parserConfig,
+      );
       const filename = editorUi.getBaseFilename() + ".ttl";
 
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);

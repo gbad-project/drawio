@@ -2,6 +2,7 @@ import { LOG_PREFIX, logError, logInfo } from "./logging";
 import {
   invokeDrawioParser,
   type DrawioParserResult,
+  type DrawioParserConfigPayload,
   debugPyodide,
 } from "./pyodideRuntime";
 
@@ -14,8 +15,9 @@ function formatParserResult(result: DrawioParserResult): string {
 
 async function parseSerializedXml(
   serializedXml: string,
+  config?: DrawioParserConfigPayload | null,
 ): Promise<DrawioParserResult> {
-  const processed = await invokeDrawioParser(serializedXml);
+  const processed = await invokeDrawioParser(serializedXml, config);
   logInfo(
     LOG_PREFIX.BLACKBOX,
     `Parsed DrawIO graph ${processed.graphId} with ${processed.tripleCount} triples`,
@@ -23,14 +25,17 @@ async function parseSerializedXml(
   return processed;
 }
 
-export async function runMockBlackBox(serializedXml: string): Promise<string> {
+export async function runMockBlackBox(
+  serializedXml: string,
+  config?: DrawioParserConfigPayload | null,
+): Promise<string> {
   logInfo(
     LOG_PREFIX.BLACKBOX,
     `Received serialized payload (${serializedXml.length} characters)`,
   );
 
   try {
-    const processed = await parseSerializedXml(serializedXml);
+    const processed = await parseSerializedXml(serializedXml, config);
     const summary = formatParserResult(processed);
     const output = `${BLACK_BOX_PREFIX} len=${serializedXml.length}\n${summary}\n${BLACK_BOX_SUFFIX}`;
     logInfo(LOG_PREFIX.BLACKBOX, "Black box processing completed");
@@ -43,13 +48,14 @@ export async function runMockBlackBox(serializedXml: string): Promise<string> {
 
 export async function runDrawioPipeline(
   serializedXml: string,
+  config?: DrawioParserConfigPayload | null,
 ): Promise<string> {
   logInfo(
     LOG_PREFIX.BLACKBOX,
     `Generating Turtle payload for serialized input (${serializedXml.length} characters)`,
   );
 
-  const processed = await parseSerializedXml(serializedXml);
+  const processed = await parseSerializedXml(serializedXml, config);
 
   if (processed.rawTurtle == null || processed.rawTurtle.length === 0) {
     throw new Error("DrawIO parser did not return Turtle serialization");
@@ -63,4 +69,7 @@ export async function runDrawioPipeline(
 }
 
 export { debugPyodide };
-export type { DrawioParserResult } from "./pyodideRuntime";
+export type {
+  DrawioParserResult,
+  DrawioParserConfigPayload,
+} from "./pyodideRuntime";

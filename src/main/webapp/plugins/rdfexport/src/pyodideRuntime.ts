@@ -15,6 +15,20 @@ export interface DrawioParserResult {
   rawTurtle: string | null;
 }
 
+export interface DrawioParserConfigPayload {
+  infer_type_of_literals: boolean;
+  include_preamble: boolean;
+  ontology_iri: string | null;
+  prefix: string | null;
+  prefix_iri: string | null;
+  indentation: number;
+  include_label: boolean;
+  max_gap: number;
+  strict_mode: boolean;
+  metacharacter_substitute: string[];
+  capitalisation_scheme: string;
+}
+
 type RawGraphSummary = {
   graph_id: string;
   triple_count: number;
@@ -373,6 +387,7 @@ function mapRawSummary(raw: RawGraphSummary): DrawioParserResult {
 
 export async function invokeDrawioParser(
   serializedXml: string,
+  config?: DrawioParserConfigPayload | null,
 ): Promise<DrawioParserResult> {
   await ensurePythonEnvironment();
   const pyodide = await ensurePyodideInstance();
@@ -384,8 +399,9 @@ export async function invokeDrawioParser(
 
   try {
     const quoted = JSON.stringify(serializedXml);
+    const configJson = JSON.stringify(config ?? null);
     const jsonResult = (await pyodide.runPythonAsync(
-      `from pyodide_pipeline.drawio_pipeline import parse_drawio_xml_to_json\nparse_drawio_xml_to_json(${quoted})`,
+      `from pyodide_pipeline.drawio_pipeline import parse_drawio_xml_to_json\nimport json\nparse_drawio_xml_to_json(${quoted}, json.loads(${JSON.stringify(configJson)}))`,
     )) as string;
 
     const rawSummary = JSON.parse(jsonResult) as RawGraphSummary;
