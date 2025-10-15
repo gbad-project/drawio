@@ -151,9 +151,63 @@ def _ensure_known_curie(
     curie: str, prefixes: dict[str, str], error_message: str
 ) -> tuple[str, str]:
     prefix, reference = _split_curie(curie)
-    if prefix not in prefixes or not reference:
+    if prefix not in prefixes:
+        raise UndefinedPrefixException(
+            f"{error_message} (undefined prefix '{prefix}' in '{curie}')"
+        )
+    if not reference:
         raise NotInKnownException(error_message)
     return prefix, reference
+
+
+def _find_undefined_prefix(
+    value: str, prefixes: dict[str, str]
+) -> tuple[str, str] | None:
+    """Return the first CURIE-like value that uses an undefined prefix."""
+
+    if not value:
+        return None
+
+    for raw_line in value.replace("\r", "\n").split("\n"):
+        stripped_line = raw_line.strip()
+        if not stripped_line:
+            continue
+
+        colon_index = stripped_line.find(":")
+        if colon_index == -1:
+            continue
+        if (
+            colon_index + 1 < len(stripped_line)
+            and stripped_line[colon_index + 1].isspace()
+        ):
+            continue
+        if colon_index > 0 and stripped_line[colon_index - 1].isspace():
+            continue
+
+        candidate = stripped_line.strip(".,;\"'()[]{}")
+        if candidate != stripped_line:
+            # Ignore values that have additional content besides the candidate.
+            continue
+
+        if "://" in candidate:
+            continue
+
+        prefix, reference = _split_curie(candidate)
+        if not prefix:
+            continue
+
+        if any(char.isspace() for char in prefix) or (
+            reference and any(char.isspace() for char in reference)
+        ):
+            continue
+
+        if prefix not in prefixes:
+            return prefix, candidate
+
+        if not reference:
+            continue
+
+    return None
 
 
 Blocks = dict[tuple[str, str], dict[str, set[str]]]
@@ -207,6 +261,13 @@ class NotInKnownException(Exception):
     object or datatype property in RiC-O, and if it has been specified that this
     is not to be permitted
     """
+
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+
+
+class UndefinedPrefixException(NotInKnownException):
+    """Raised when a CURIE references a prefix without a declared namespace."""
 
     def __init__(self, message: str) -> None:
         super().__init__(message)
@@ -672,6 +733,16 @@ class DrawIOXMLTree:
             if not cell_value:
                 self._add_arrow_if_find_label(cell)
                 continue
+            missing_prefix = _find_undefined_prefix(cell_value, self.prefixes)
+            if missing_prefix:
+                prefix, candidate = missing_prefix
+                raise UndefinedPrefixException(
+                    (
+                        f"The cell with id {cell.attrib.get('id', '<unknown>')} "
+                        f"contains '{candidate}', but the prefix '{prefix}' has "
+                        "no associated namespace."
+                    )
+                )
             if cell_value.split(":")[0] not in self.prefixes.keys():
                 if self._is_possible_literal(cell):
                     self.literal_cells.append((cell, self._dimensions(cell)))
@@ -755,6 +826,16 @@ class DrawIOXMLTree:
 
     def _arrow(self, arrow_data: ArrowData, strict_mode: bool, max_gap: float) -> Arrow:
         arrow_cell, arrow_start, arrow_end, arrow_label = arrow_data
+        arrow_label = str(arrow_label).strip()
+        _ensure_known_curie(
+            arrow_label,
+            self.prefixes,
+            (
+                f"The arrow with id {arrow_cell.attrib.get('id', '<unknown>')} has "
+                f"label '{arrow_label}', which is not associated with a declared "
+                "prefix or has an empty local name"
+            ),
+        )
         try:
             source_cell = self._cell_with_id(arrow_cell.attrib["source"])
         except KeyError as key_error:
@@ -801,7 +882,7 @@ class DrawIOXMLTree:
         is_datatype = self._cell_is_literal(target_cell)
         if not is_datatype and not self._defines_individual(target):
             is_datatype = True
-        return Arrow(str(arrow_label.strip()), source, target, is_datatype)
+        return Arrow(arrow_label, source, target, is_datatype)
 
     def individuals_and_arrows(
         self, strict_mode: bool, max_gap: float

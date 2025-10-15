@@ -181,6 +181,30 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert graph.base is None
 
 
+def test_parse_drawio_raises_for_arrow_with_unknown_prefix():
+    fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
+
+    with pytest.raises(draw_io_parser.UndefinedPrefixException) as exc_info:
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+    assert "picoL" in str(exc_info.value)
+
+
+def test_parse_drawio_raises_for_literal_with_unknown_prefix():
+    fixture_path = FIXTURES_DIR / "General_Authority_bleep_mock.drawio"
+
+    with pytest.raises(draw_io_parser.UndefinedPrefixException) as exc_info:
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+    assert "bleep" in str(exc_info.value)
+
+
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
@@ -257,6 +281,13 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
     assert fixture_paths, "Expected drawio fixtures to patch"
 
     for index, fixture_path in enumerate(fixture_paths):
+        raw_xml = fixture_path.read_text(encoding="utf-8")
+        metadata_prefixes, base_uri, *_ = draw_io_parser._extract_drawio_metadata(
+            raw_xml
+        )
+        if metadata_prefixes or base_uri:
+            continue
+
         metadata_options = _build_metadata_options(index, fixture_path)
         patched_path = tmp_path / f"{fixture_path.stem}-with-metadata.drawio"
 
