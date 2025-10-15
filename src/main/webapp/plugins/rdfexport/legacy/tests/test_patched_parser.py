@@ -193,6 +193,41 @@ def test_parse_drawio_raises_for_arrow_with_unknown_prefix():
     assert "picoL" in str(exc_info.value)
 
 
+@pytest.mark.parametrize(
+    ("fixture_name", "expected_substring"),
+    [
+        (
+            "AA37-with-metadata-severely-mocked-picoL-without-colon.drawio",
+            "picoL",
+        ),
+        (
+            "AA37-with-metadata-severely-mocked-colon-prefix-missing.drawio",
+            ":hs",
+        ),
+        (
+            "AA37-with-metadata-severely-mocked-colon-only.drawio",
+            "':'",
+        ),
+        (
+            "AA37-with-metadata-severely-mocked-missing-type.drawio",
+            "rdf:type",
+        ),
+    ],
+)
+def test_parse_drawio_invalid_type_variations_raise(
+    fixture_name: str, expected_substring: str
+):
+    fixture_path = FIXTURES_DIR / fixture_name
+
+    with pytest.raises(draw_io_parser.UndefinedPrefixException) as exc_info:
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+    assert expected_substring in str(exc_info.value)
+
+
 def test_parse_drawio_raises_for_literal_with_unknown_prefix():
     fixture_path = FIXTURES_DIR / "General_Authority_bleep_mock.drawio"
 

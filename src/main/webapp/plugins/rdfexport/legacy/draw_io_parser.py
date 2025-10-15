@@ -818,8 +818,66 @@ class DrawIOXMLTree:
             value = self._value_of(source_or_target_cell)
         except KeyError as key_error:
             raise _NoValueException from key_error
-        if value.split(":")[0] in self.prefixes.keys():
-            return self._value_of(self._parent_of(source_or_target_cell))
+        prefix, reference = _split_curie(value)
+        parent_id = source_or_target_cell.attrib.get("parent")
+        parent_cell: Element | None = None
+        if parent_id and parent_id != "1":
+            try:
+                parent_cell = self._parent_of(source_or_target_cell)
+            except _NoValueException:
+                parent_cell = None
+
+        is_literal_cell = self._cell_is_literal(source_or_target_cell)
+
+        if prefix:
+            if parent_cell is None or is_literal_cell:
+                if must_be_individual and not self._defines_individual(value):
+                    raise _SourceNotIndividualException
+                return value
+            if prefix not in self.prefixes:
+                raise UndefinedPrefixException(
+                    (
+                        f"The cell with id {source_or_target_cell.attrib.get('id', '<unknown>')} "
+                        f"contains '{value}', but the prefix '{prefix}' has no associated namespace."
+                    )
+                )
+            if not reference:
+                raise NotInKnownException(
+                    (
+                        f"The cell with id {source_or_target_cell.attrib.get('id', '<unknown>')} "
+                        f"contains '{value}', but it is missing a local name after the prefix."
+                    )
+                )
+            return self._value_of(parent_cell)
+
+        colon_present = ":" in value
+        if parent_cell is not None and not is_literal_cell:
+            try:
+                parent_value = self._value_of(parent_cell)
+            except _NoValueException:
+                parent_value = "<unknown>"
+
+            if colon_present:
+                raise UndefinedPrefixException(
+                    (
+                        f"The cell with id {source_or_target_cell.attrib.get('id', '<unknown>')} "
+                        f"contains '{value}', but no valid prefix could be determined while "
+                        f"resolving the node '{parent_value}'."
+                    )
+                )
+            if value:
+                raise UndefinedPrefixException(
+                    (
+                        f"The cell with id {source_or_target_cell.attrib.get('id', '<unknown>')} "
+                        f"contains '{value}', which is not a valid CURIE for the node '{parent_value}'."
+                    )
+                )
+            raise UndefinedPrefixException(
+                (
+                    f"The cell with id {source_or_target_cell.attrib.get('id', '<unknown>')} "
+                    f"attached to the node '{parent_value}' is missing a required rdf:type value."
+                )
+            )
         if must_be_individual and not self._defines_individual(value):
             raise _SourceNotIndividualException
         return value
