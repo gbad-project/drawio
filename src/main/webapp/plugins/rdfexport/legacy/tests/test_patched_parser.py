@@ -165,7 +165,8 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
     }
 
     assert namespace_map.get("mock1") == "http://mock-iri-ns.org"
-    assert str(graph.base) == "http://mock-base-uri.com"
+    assert namespace_map.get("") == "http://mock-base-uri.com"
+    assert graph.base is None
 
 
 def test_parse_drawio_without_metadata_sets_empty_metadata():
@@ -264,6 +265,7 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
         original_graph = draw_io_parser.parse_drawio_to_graph(
             str(fixture_path),
             metacharacter_substitute=["remove"],
+            prefix_iri=metadata_options["baseUri"],
         )
         patched_graph = draw_io_parser.parse_drawio_to_graph(
             str(patched_path),
@@ -272,7 +274,7 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
 
         assert isinstance(patched_graph, draw_io_parser.DrawioParserGraph)
         assert patched_graph.csv_path == metadata_options["csvPath"]
-        assert str(patched_graph.base) == metadata_options["baseUri"]
+        assert patched_graph.base is None
 
         namespace_map = {
             prefix: str(uri)
@@ -283,6 +285,7 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
                 namespace_map.get(preamble_entry["rdfPrefix"])
                 == preamble_entry["rdfIRI"]
             )
+        assert namespace_map.get("") == metadata_options["baseUri"]
 
         assert _normalise_graph(patched_graph).isomorphic(
             _normalise_graph(original_graph)
