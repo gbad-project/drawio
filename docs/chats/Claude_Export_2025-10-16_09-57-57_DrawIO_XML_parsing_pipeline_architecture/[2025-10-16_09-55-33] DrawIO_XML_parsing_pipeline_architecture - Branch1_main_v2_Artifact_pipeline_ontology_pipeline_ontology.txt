@@ -1,10 +1,10 @@
 # Artifact ID: pipeline_ontology
-# Branch: 1 (main) (3867cfdc...)
-# Version: 1
-# Command: create
-# UUID: 6665b486-9b58-489d-948b-f4cd9a6e491e
-# Created: 10/16/2025, 9:34:15 AM
-# Change: Created
+# Branch: 1 (main) (6ae7dc60...)
+# Version: 2
+# Command: rewrite
+# UUID: 70e18cc1-e5df-4fd0-878f-e906967c0c52
+# Created: 10/16/2025, 9:55:33 AM
+# Change: Rewritten
 
 # ---
 
@@ -56,13 +56,13 @@
 
 :core a :Phase ;
     rdfs:label "Core Processing" ;
-    rdfs:comment "Individual/Arrow generation and coupling" .
+    rdfs:comment "Individual/Arrow generation to DrawIOParserGraph" .
 
 :post a :Phase ;
     rdfs:label "Post-processing" ;
-    rdfs:comment "After blocks/props ready, final graph" .
+    rdfs:comment "Wrappers and secondary operations on graph" .
 
-# ===== Namespace Cells (3x3x3 = 27 possible combinations) =====
+# ===== Namespace Cells =====
 
 :Cell a owl:Class ;
     rdfs:label "Pipeline Cell" ;
@@ -100,7 +100,8 @@
     :hasPhase :core ;
     :containsComponent "DrawIOXMLTree" ;
     :containsComponent "NodeHTMLParser" ;
-    rdfs:comment "ALL XML parsing to Individual/Arrow instances" .
+    :containsComponent "individuals_and_arrows" ;
+    rdfs:comment "ALL XML parsing including Individual/Arrow generation" .
 
 :internal_metadata_pre a :Cell ;
     :hasDataType :internal ;
@@ -110,7 +111,8 @@
     :containsComponent "get_ontology_iri" ;
     :containsComponent "get_prefix" ;
     :containsComponent "SerialisationConfig" ;
-    rdfs:comment "Constants, defaults, metadata getters" .
+    :containsComponent "Type aliases (Blocks, CellID, etc.)" ;
+    rdfs:comment "Constants, defaults, type aliases, metadata getters" .
 
 :internal_data_core a :Cell ;
     :hasDataType :internal ;
@@ -121,14 +123,7 @@
     :containsComponent "_split_curie" ;
     :containsComponent "_verify_is_ric_class" ;
     :containsComponent "_add_individual_type" ;
-    rdfs:comment "Internal model processing with metadata" .
-
-:internal_data_post a :Cell ;
-    :hasDataType :internal ;
-    :hasDataRole :data ;
-    :hasPhase :post ;
-    :containsComponent "individuals_and_arrows" ;
-    rdfs:comment "Generator bridging XML to internal model" .
+    rdfs:comment "Internal model classes and data operations" .
 
 :internal_control_pre a :Cell ;
     :hasDataType :internal ;
@@ -144,17 +139,17 @@
     :containsComponent "_build_graph_from_raw_xml" ;
     :containsComponent "_parse_space_substitute" ;
     :containsComponent "_parse_metacharacter_substitutes" ;
-    rdfs:comment "Orchestration scaffolding (tech debt)" .
+    :containsComponent "individual_blocks" ;
+    rdfs:comment "Orchestration: couples individuals/arrows with metadata, produces blocks/props" .
 
 :internal_control_post a :Cell ;
     :hasDataType :internal ;
     :hasDataRole :control ;
     :hasPhase :post ;
-    :containsComponent "individual_blocks" ;
     :containsComponent "parse_drawio_to_graph" ;
     :containsComponent "_run" ;
     :containsComponent "main" ;
-    rdfs:comment "SDK and CLI wrappers" .
+    rdfs:comment "SDK and CLI wrappers over core pipeline" .
 
 :rdf_data_pre a :Cell ;
     :hasDataType :rdf ;
@@ -164,6 +159,16 @@
     :containsComponent "_replace_metacharacter" ;
     :containsComponent "_replace_metacharacters" ;
     rdfs:comment "String manipulation for RDF compliance" .
+
+:rdf_data_core a :Cell ;
+    :hasDataType :rdf ;
+    :hasDataRole :data ;
+    :hasPhase :core ;
+    :containsComponent "NotInKnownException" ;
+    :containsComponent "_MetacharacterSubstituteParseException" ;
+    :containsComponent "MetacharacterException" ;
+    :containsComponent "_InvalidCapitalisationSchemeException" ;
+    rdfs:comment "RDF-related exceptions" .
 
 :rdf_control_pre a :Cell ;
     :hasDataType :rdf ;
@@ -177,14 +182,14 @@
     :hasDataRole :control ;
     :hasPhase :core ;
     :containsComponent "DrawIOParserGraph" ;
-    rdfs:comment "Graph class definition and prep" .
+    :containsComponent "serialise_to_graph" ;
+    rdfs:comment "Graph class and serialization (called from _build_graph_from_raw_xml)" .
 
 :rdf_control_post a :Cell ;
     :hasDataType :rdf ;
     :hasDataRole :control ;
     :hasPhase :post ;
-    :containsComponent "serialise_to_graph" ;
-    rdfs:comment "Final graph serialization and manipulation" .
+    rdfs:comment "Future: secondary serializations and graph manipulations" .
 
 # ===== Data Flow =====
 
@@ -193,24 +198,42 @@
     rdfs:range :Cell ;
     rdfs:comment "Pipeline data flow between cells" .
 
-:xml_metadata_pre :flowsInto :xml_data_core .
 :xml_metadata_pre :flowsInto :internal_control_core .
 :internal_metadata_pre :flowsInto :internal_control_core .
 :internal_control_pre :flowsInto :internal_control_core .
 :rdf_data_pre :flowsInto :internal_control_core .
 :rdf_control_pre :flowsInto :internal_control_core .
-:xml_data_core :flowsInto :internal_data_core .
+:xml_data_core :flowsInto :internal_control_core .
 :internal_data_core :flowsInto :internal_control_core .
 :internal_control_core :flowsInto :rdf_control_core .
-:rdf_control_core :flowsInto :internal_data_post .
-:internal_data_post :flowsInto :internal_control_post .
+:rdf_control_core :flowsInto :internal_control_post .
 :internal_control_post :flowsInto :rdf_control_post .
 
-# ===== Exceptions Map to Cells =====
+# ===== Exception Classification =====
 
-:NothingToParseException :belongsTo :xml_data_core .
-:NotInKnownException :belongsTo :rdf_data_pre .
-:NoSourceException :belongsTo :xml_data_core .
-:ParseException :belongsTo :xml_data_core .
-:MetacharacterException :belongsTo :rdf_data_pre .
-:ArrowWithoutIndividualAsSourceException :belongsTo :internal_data_core .
+:NothingToParseException :belongsTo :xml_data_core ;
+    rdfs:comment "XML appears empty" .
+:NoSourceException :belongsTo :xml_data_core ;
+    rdfs:comment "Arrow source cannot be determined from XML" .
+:NoTargetException :belongsTo :xml_data_core ;
+    rdfs:comment "Arrow target cannot be determined from XML" .
+:ParseException :belongsTo :xml_data_core ;
+    rdfs:comment "XML structure unexpected" .
+:_NoValueException :belongsTo :xml_data_core ;
+    rdfs:comment "Cell has no value attribute" .
+:_NoCellCloseEnoughException :belongsTo :xml_data_core ;
+    rdfs:comment "No cell within max_gap of arrow endpoint" .
+
+:_SourceNotIndividualException :belongsTo :internal_data_core ;
+    rdfs:comment "Arrow source is not an individual" .
+:ArrowWithoutIndividualAsSourceException :belongsTo :internal_data_core ;
+    rdfs:comment "Arrow lacks individual source" .
+
+:NotInKnownException :belongsTo :rdf_data_core ;
+    rdfs:comment "CURIE not in known prefixes" .
+:MetacharacterException :belongsTo :rdf_data_core ;
+    rdfs:comment "Unhandled OWL metacharacter" .
+:_MetacharacterSubstituteParseException :belongsTo :rdf_data_core ;
+    rdfs:comment "Invalid metacharacter substitution syntax" .
+:_InvalidCapitalisationSchemeException :belongsTo :rdf_data_core ;
+    rdfs:comment "Invalid capitalization scheme specified" .

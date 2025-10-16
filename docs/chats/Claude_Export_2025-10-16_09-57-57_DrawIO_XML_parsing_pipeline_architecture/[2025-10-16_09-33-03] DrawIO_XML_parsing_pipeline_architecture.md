@@ -1,8 +1,8 @@
 # DrawIO XML parsing pipeline architecture
 *URL:* https://claude.ai/chat/b7309fbd-3f67-4347-ac64-f848125063cf
 *Created:* 10/16/2025, 9:33:03 AM
-*Updated:* 10/16/2025, 9:38:20 AM
-*Exported:* 10/16/2025, 9:40:58 AM
+*Updated:* 10/16/2025, 9:56:03 AM
+*Exported:* 10/16/2025, 9:57:57 AM
 
 __________
 
@@ -2029,7 +2029,7 @@ You have a sophisticated three-axis classification system for organizing the Dra
 *ID:* `drawio_pipeline_flow`
 *Command:* `create`
 *Version:* 1
-*Branch:* branch1 (main) (3867cfdc...)
+*Branch:* branch1 (main) (6ae7dc60...)
 *Created:* 10/16/2025, 9:33:45 AM
 *Change:* Created
 
@@ -2039,7 +2039,7 @@ Now let me create an RDF representation of this 3D structure:
 *ID:* `pipeline_ontology`
 *Command:* `create`
 *Version:* 1
-*Branch:* branch1 (main) (3867cfdc...)
+*Branch:* branch1 (main) (6ae7dc60...)
 *Created:* 10/16/2025, 9:34:15 AM
 *Change:* Created
 
@@ -2049,7 +2049,7 @@ Now, the **updated MAPPING list**. Based on my analysis, here are the correction
 *ID:* `updated_mapping`
 *Command:* `create`
 *Version:* 1
-*Branch:* branch1 (main) (3867cfdc...)
+*Branch:* branch1 (main) (6ae7dc60...)
 *Created:* 10/16/2025, 9:34:41 AM
 *Change:* Created
 
@@ -2183,4 +2183,67 @@ for dotted, dt, dr, ph in MAPPING:
 ```
 
 That's it! These 3 changes will nest everything under `pipeline`.
+
+__________
+
+## 4 - Human
+*Branch:* Main
+*UUID:* `61f794fb-e085-4037-a7e8-e9e60b9edd25`
+*Created:* 10/16/2025, 9:54:31 AM
+
+why do you call serialise_to_graph from a core class? this is why i said serialise still belongs in core. whereas individuals_and_arrows obviously below in xml data core because they have to do with individual_cells for example which is  drawioxmltree property. individual_blocks also belongs in core because it produces stuff to feed into serialise which is a core class; these concerns are already separated by belonging to rdf and internal so it's fine to keep them both in core.
+
+Please diligently revise all artifacts.
+
+__________
+
+## 5 - Claude
+*Branch:* Main
+*UUID:* `6ae7dc60-0517-4ef2-ad50-bc94499c7fcd`
+*Created:* 10/16/2025, 9:56:03 AM
+
+ You're absolutely right! I misunderstood the architecture. Let me correct this:
+
+- `serialise_to_graph` is called FROM `_build_graph_from_raw_xml` which is in core, so it belongs in **core**
+- `individuals_and_arrows` is a method of `DrawIOXMLTree`, so it belongs in **xml.data.core**
+- `individual_blocks` produces the blocks/props tuple that feeds into `serialise_to_graph`, so it belongs in **core**
+- The separation between `rdf.control.core` and `internal.control.core` is sufficient - they don't need to be in different phases
+
+*ID:* `drawio_pipeline_flow`
+*Command:* `rewrite`
+*Version:* 2
+*Branch:* branch1 (main) (6ae7dc60...)
+*Created:* 10/16/2025, 9:54:57 AM
+*Change:* Rewritten
+
+*ID:* `pipeline_ontology`
+*Command:* `rewrite`
+*Version:* 2
+*Branch:* branch1 (main) (6ae7dc60...)
+*Created:* 10/16/2025, 9:55:33 AM
+*Change:* Rewritten
+
+*ID:* `updated_mapping`
+*Command:* `rewrite`
+*Version:* 2
+*Branch:* branch1 (main) (6ae7dc60...)
+*Created:* 10/16/2025, 9:55:56 AM
+*Change:* Rewritten
+
+Perfect! Now the classification is correct:
+
+**Key corrections made:**
+
+1. **`individuals_and_arrows`** → `xml.data.core` (it's a method of DrawIOXMLTree that uses individual_cells property)
+
+2. **`individual_blocks`** → `internal.control.core` (produces blocks/props tuple that feeds into `serialise_to_graph`)
+
+3. **`serialise_to_graph`** → `rdf.control.core` (called FROM `_build_graph_from_raw_xml` which is in core)
+
+4. **Removed** `rdf.control.post` entirely from MAPPING since there are currently no post-phase RDF operations
+
+The pipeline now correctly shows:
+- **Pre**: Metadata extraction and preparation
+- **Core**: XML → Individual/Arrow → blocks/props → DrawIOParserGraph
+- **Post**: SDK and CLI wrappers only
 
