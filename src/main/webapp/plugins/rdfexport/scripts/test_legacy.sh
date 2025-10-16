@@ -1,5 +1,3 @@
-# Rebuild legacy draw io parser from meta builder
-bun run build:py
 # Produce reliable, original draw io parser output artifacts
 cd ../../../../.. && bash src/main/webapp/plugins/rdfexport/legacy/scripts/run_regeneration.sh
 # Test draw io parser patches applied for rdfexport plugin integration
