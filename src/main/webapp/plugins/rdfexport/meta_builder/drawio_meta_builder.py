@@ -84,13 +84,13 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     # html/xml text parser
     ("NodeHTMLParser", "xml", "data", "pre"),
     # rdf config
-    ("SerialisationConfig", "rdf", "metadata", "pre"),
+    ("SerialisationConfig", "internal", "metadata", "pre"),
     # xml tree + all key methods
     ("DrawIOXMLTree", "xml", "data", "core"),
     ("DrawIOXMLTree._geometry", "xml", "data", "core"),
     ("DrawIOXMLTree._x_and_y_in_geometry", "xml", "data", "core"),
-    ("DrawIOXMLTree._has_correct_as_attribute", "xml", "metadata", "core"),
-    ("DrawIOXMLTree._is_locked", "xml", "metadata", "core"),
+    ("DrawIOXMLTree._has_correct_as_attribute", "xml", "data", "core"),
+    ("DrawIOXMLTree._is_locked", "xml", "data", "core"),
     ("DrawIOXMLTree._dimensions", "xml", "data", "core"),
     ("DrawIOXMLTree._close_enough", "xml", "data", "core"),
     ("DrawIOXMLTree._cell_with_id", "xml", "data", "core"),
@@ -122,17 +122,17 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     ("_add_individual_type", "internal", "data", "core"),
     ("individual_blocks", "internal", "data", "post"),
     # rdf graph
-    ("DrawIOParserGraph", "rdf", "data", "core"),
-    ("serialise_to_graph", "rdf", "data", "post"),
+    ("DrawIOParserGraph", "rdf", "control", "core"),
+    ("serialise_to_graph", "rdf", "control", "post"),
     # cli / sdk
-    ("_parse_space_substitute", "internal", "metadata", "pre"),
-    ("_parse_metacharacter_substitutes", "internal", "metadata", "pre"),
-    ("_parse_capitalisation_scheme", "internal", "metadata", "pre"),
-    ("_build_graph_from_raw_xml", "internal", "data", "core"),
-    ("parse_drawio_to_graph", "internal", "data", "post"),
-    ("_arguments_parser", "internal", "metadata", "pre"),
-    ("_run", "internal", "metadata", "post"),
-    ("main", "internal", "metadata", "post"),
+    ("_parse_space_substitute", "internal", "data", "core"),
+    ("_parse_metacharacter_substitutes", "internal", "data", "core"),
+    ("_parse_capitalisation_scheme", "internal", "data", "core"),
+    ("_build_graph_from_raw_xml", "internal", "control", "core"),
+    ("parse_drawio_to_graph", "internal", "control", "post"),
+    ("_arguments_parser", "internal", "control", "pre"),
+    ("_run", "internal", "control", "post"),
+    ("main", "internal", "control", "post"),
 ]
 
 
@@ -191,6 +191,33 @@ def get_source_or_repr(name: str, obj) -> str:
         return f"{name} = {getattr(obj, '__name__', repr(obj))}\n"
     return f"{name} = {repr(obj)}\n"
 
+def strip_static_methods(src: str, class_name: str, methods: set[str]) -> str:
+    tree = ast.parse(src)
+
+    class _Strip(ast.NodeTransformer):
+        def visit_ClassDef(self, node):
+            if node.name != class_name:
+                return node
+            node.body = [
+                n
+                for n in node.body
+                if not (
+                    isinstance(n, ast.FunctionDef)
+                    and n.name in methods
+                    and any(
+                        (isinstance(d, ast.Name) and d.id == "staticmethod")
+                        or (isinstance(d, ast.Attribute) and d.attr == "staticmethod")
+                        for d in getattr(n, "decorator_list", [])
+                    )
+                )
+            ]
+            return node
+
+    new_tree = _Strip().visit(tree)
+    try:
+        return ast.unparse(new_tree)
+    except Exception:
+        return src
 
 # ---- Code generator ----
 def build_output() -> str:
@@ -233,21 +260,21 @@ def build_output() -> str:
     # Predeclare namespaces
     out.append(
         "class pre:\n"
-        "    class xml:\n        class metadata: pass\n        class data: pass\n"
-        "    class internal:\n        class metadata: pass\n        class data: pass\n"
-        "    class rdf:\n        class metadata: pass\n        class data: pass\n"
+        "    class xml:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "    class internal:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "    class rdf:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
     )
     out.append(
         "class core:\n"
-        "    class xml:\n        class metadata: pass\n        class data: pass\n"
-        "    class internal:\n        class metadata: pass\n        class data: pass\n"
-        "    class rdf:\n        class metadata: pass\n        class data: pass\n"
+        "    class xml:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "    class internal:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "    class rdf:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
     )
     out.append(
         "class post:\n"
-        "    class xml:\n        class metadata: pass\n        class data: pass\n"
-        "    class internal:\n        class metadata: pass\n        class data: pass\n"
-        "    class rdf:\n        class metadata: pass\n        class data: pass\n"
+        "    class xml:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "    class internal:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "    class rdf:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
     )
 
     grouped = {}
@@ -256,17 +283,33 @@ def build_output() -> str:
 
     for ph in ["pre", "core", "post"]:
         for dt in ["xml", "internal", "rdf"]:
-            for dr in ["metadata", "data"]:
+            for dr in ["metadata", "data", "control"]:
                 names = grouped.get((dt, dr, ph), [])
-                if not names:
-                    continue
                 out.append(f"\n# ===== {ph}.{dt}.{dr} =====\n")
                 out.append(f"class {dt}_{dr}_{ph}:")
-                for name in names:
-                    obj = resolve(name)
-                    src = get_source_or_repr(name, obj)
-                    block = indent(f"# BEGIN {name}\n{src}\n# END {name}\n", 4)
-                    out.append(block)
+                if names:
+                    for name in names:
+                        obj = resolve(name)
+                        src = get_source_or_repr(name, obj)
+                        if inspect.isclass(obj):
+                            clsname = name.split(".")[-1]
+                            to_strip = {
+                                m.split(".")[-1]
+                                for (m, _, _, _) in MAPPING
+                                if m.startswith(f"{clsname}.")
+                                and isinstance(
+                                    getattr(obj, "__dict__", {}).get(
+                                        m.split(".")[-1], None
+                                    ),
+                                    staticmethod,
+                                )
+                            }
+                            if to_strip:
+                                src = strip_static_methods(src, clsname, to_strip)
+                        block = indent(f"# BEGIN {name}\n{src}\n# END {name}\n", 4)
+                        out.append(block)
+                else:
+                    out.append(indent("pass", 4))
                 out.append("")
 
     orchestrator = """
@@ -280,9 +323,9 @@ class DrawIOParser:
         self.core = core
         self.post = post
     def to_graph_from_file(self, path, **kw):
-        return post.internal.data.parse_drawio_to_graph(path, **kw)
+        return post.internal.control.parse_drawio_to_graph(path, **kw)
     def run_cli(self, argv=None):
-        return post.internal.metadata.main(argv)
+        return post.internal.control.main(argv)
 """
     out.append(orchestrator)
     src = "\n".join(out)
@@ -302,6 +345,28 @@ class DrawIOParser:
     for dotted, dt, dr, ph in MAPPING:
         base = dotted.split(".")[-1]
         alias_lines.append(f"setattr({ph}.{dt}.{dr}, '{base}', {dt}_{dr}_{ph}.{base})")
+
+    # dynamically attach any extracted static methods back onto their parent classes
+    for dotted, dt, dr, ph in MAPPING:
+        if "." not in dotted:
+            continue
+        cls_name, method_name = dotted.rsplit(".", 1)
+        try:
+            legacy_cls = getattr(draw, cls_name, None)
+            if legacy_cls is None:
+                # fallback: if class is nested, walk dotted path
+                parts = cls_name.split(".")
+                legacy_cls = draw
+                for part in parts:
+                    legacy_cls = getattr(legacy_cls, part)
+            if isinstance(
+                getattr(legacy_cls, "__dict__", {}).get(method_name, None), staticmethod
+            ):
+                alias_lines.append(
+                    f"setattr({cls_name}, '{method_name}', staticmethod({method_name}))"
+                )
+        except Exception:
+            continue
 
     src += "\n" + "\n".join(alias_lines) + "\n"
 
