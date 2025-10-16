@@ -20204,7 +20204,7 @@ class internal_data_core:
     # BEGIN _build_graph_from_raw_xml
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
-    ) -> DrawioParserGraph:
+    ) -> DrawIOParserGraph:
         metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
             raw_xml
         )
@@ -20255,7 +20255,7 @@ class internal_data_core:
             datatype_properties,
             serialisation_config,
             prefixes,
-            graph_cls=DrawioParserGraph,
+            graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
 
@@ -20546,9 +20546,9 @@ class internal_data_post:
 
     # END individual_blocks
     # BEGIN parse_drawio_to_graph
-    def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawioParserGraph:
+    def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawIOParserGraph:
         """
-        Parses a draw.io file and returns a DrawioParserGraph with metadata.
+        Parses a draw.io file and returns a DrawIOParserGraph with metadata.
         """
         with open(drawio_file_path, "r", encoding="utf-8") as f:
             raw_xml = f.read()
@@ -20576,15 +20576,15 @@ class internal_data_post:
 # ===== rdf.data.core =====
 
 class rdf_data_core:
-    # BEGIN DrawioParserGraph
-    class DrawioParserGraph(Graph):
+    # BEGIN DrawIOParserGraph
+    class DrawIOParserGraph(Graph):
         """Graph subclass that records Draw.io specific metadata."""
 
         def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
             super().__init__(*args, **kwargs)
             self.csv_path = csv_path
 
-    # END DrawioParserGraph
+    # END DrawIOParserGraph
 
 
 # ===== rdf.data.post =====
@@ -20870,7 +20870,7 @@ _replace_metacharacter = internal_metadata_core._replace_metacharacter
 _replace_metacharacters = internal_metadata_core._replace_metacharacters
 _add_individual_type = internal_data_core._add_individual_type
 individual_blocks = internal_data_post.individual_blocks
-DrawioParserGraph = rdf_data_core.DrawioParserGraph
+DrawIOParserGraph = rdf_data_core.DrawIOParserGraph
 serialise_to_graph = rdf_data_post.serialise_to_graph
 _parse_space_substitute = internal_metadata_pre._parse_space_substitute
 _parse_metacharacter_substitutes = internal_metadata_pre._parse_metacharacter_substitutes
@@ -20919,7 +20919,7 @@ if str(LEGACY_DIR) not in sys.path:
     sys.path.insert(0, str(LEGACY_DIR))
 
 from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
-    DrawioParserGraph,
+    DrawIOParserGraph,
     DEFAULT_CAPITALISATION_SCHEME,
     DEFAULT_INDENTATION,
     DEFAULT_MAX_GAP,
@@ -20932,7 +20932,7 @@ _LAST_PARSER_CONFIG: dict[str, Any] | None = None
 
 GraphSummary = Dict[str, Any]
 
-_GRAPH_STORE: dict[str, DrawioParserGraph] = {}
+_GRAPH_STORE: dict[str, DrawIOParserGraph] = {}
 _GRAPH_CACHE: dict[str, str] = {}
 _GRAPH_ID_COUNTER = itertools.count()
 
@@ -21098,7 +21098,7 @@ def get_last_parser_config() -> dict[str, Any] | None:
     return deepcopy(_LAST_PARSER_CONFIG)
 
 
-def _store_graph(graph: DrawioParserGraph, payload_hash: str | None = None) -> str:
+def _store_graph(graph: DrawIOParserGraph, payload_hash: str | None = None) -> str:
     if payload_hash and payload_hash in _GRAPH_CACHE:
         graph_id = _GRAPH_CACHE[payload_hash]
         _GRAPH_STORE[graph_id] = graph
@@ -21148,13 +21148,13 @@ def _normalize_drawio_xml(serialized_xml: str) -> str:
     return stripped
 
 
-def _sorted_namespaces(graph: DrawioParserGraph) -> Iterable[tuple[str | None, Any]]:
+def _sorted_namespaces(graph: DrawIOParserGraph) -> Iterable[tuple[str | None, Any]]:
     namespaces = list(graph.namespace_manager.namespaces())
     namespaces.sort(key=lambda item: ("" if item[0] is None else item[0]))
     return namespaces
 
 
-def _build_summary(graph_id: str, graph: DrawioParserGraph) -> GraphSummary:
+def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
     base = getattr(graph, "base", None)
     csv_path = getattr(graph, "csv_path", None)
 
@@ -21181,8 +21181,8 @@ def get_graph_summary(graph_id: str) -> GraphSummary:
 
 def parse_drawio_xml(
     serialized_xml: str, parser_config: dict[str, Any] | None = None
-) -> tuple[str, DrawioParserGraph]:
-    """Parse DrawIO XML into a DrawioParserGraph and cache it."""
+) -> tuple[str, DrawIOParserGraph]:
+    """Parse DrawIO XML into a DrawIOParserGraph and cache it."""
     normalized_xml = _normalize_drawio_xml(serialized_xml)
     config = _apply_parser_overrides(parser_config)
     payload_descriptor = json.dumps(

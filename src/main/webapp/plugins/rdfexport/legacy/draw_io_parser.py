@@ -16,42 +16,232 @@ import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
-class xml:
-    class data:
-        class pre: pass
-        class core: pass
-        class post: pass
-    class metadata:
-        class pre: pass
-        class core: pass
-        class post: pass
 
-class internal:
-    class data:
-        class pre: pass
-        class core: pass
-        class post: pass
-    class metadata:
-        class pre: pass
-        class core: pass
-        class post: pass
+class pre:
+    class xml:
+        class metadata:
+            pass
 
-class rdf:
-    class data:
-        class pre: pass
-        class core: pass
-        class post: pass
-    class metadata:
-        class pre: pass
-        class core: pass
-        class post: pass
+        class data:
+            pass
+
+    class internal:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+    class rdf:
+        class metadata:
+            pass
+
+        class data:
+            pass
 
 
-# ===== internal.metadata.pre =====
+class core:
+    class xml:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+    class internal:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+    class rdf:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+
+class post:
+    class xml:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+    class internal:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+    class rdf:
+        class metadata:
+            pass
+
+        class data:
+            pass
+
+
+# ===== pre.xml.metadata =====
+
+
+class xml_metadata_pre:
+    # BEGIN _extract_drawio_metadata
+    def _extract_drawio_metadata(
+        raw_xml: str,
+    ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+        try:
+            root = fromstring(raw_xml)
+        except Exception:  # pragma: no cover - defensive guard around XML parsing
+            return {}, None, None, None
+
+        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+        if metadata_node is None:
+            return {}, None, None, root
+
+        csv_path_raw = metadata_node.attrib.get("csvPath", "")
+        base_uri_raw = metadata_node.attrib.get("baseUri", "")
+
+        csv_path = csv_path_raw.strip() or None
+        base_uri = base_uri_raw.strip() or None
+
+        prefixes: dict[str, str] = {}
+        for preamble in metadata_node.findall("userObjectPreambleElement"):
+            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
+            iri = (preamble.attrib.get("rdfIRI") or "").strip()
+            if prefix and iri:
+                prefixes[prefix] = iri
+
+        return prefixes, base_uri, csv_path, root
+
+    # END _extract_drawio_metadata
+    # BEGIN _strip_metadata_user_object
+    def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
+        if root is None:
+            return raw_xml
+
+        working_root = deepcopy(root)
+        graph_root = working_root.find(".//mxGraphModel/root")
+        if graph_root is None:
+            return raw_xml
+
+        metadata_node = graph_root.find("UserObject[@id='0']")
+        if metadata_node is None:
+            return raw_xml
+
+        replacement = Element("mxCell", {"id": "0"})
+        children = list(graph_root)
+        for index, child in enumerate(children):
+            if child is metadata_node:
+                graph_root.remove(metadata_node)
+                graph_root.insert(index, replacement)
+                break
+
+        return tostring(working_root, encoding="unicode")
+
+    # END _strip_metadata_user_object
+
+
+# ===== pre.xml.data =====
+
+
+class xml_data_pre:
+    # BEGIN NodeHTMLParser
+    class NodeHTMLParser(HTMLParser):
+        """
+        Subclasses HTMLParser to define its behaviour with respect to 'handle_data',
+        'handle_starttag', and 'handle_endtag' (this is the usage pattern expected
+        by HTMLParser). It seems that text, including multi-line text, in draw.io
+        may come in three forms: as a simple string; as a string within a blockquote
+        element; or as a sequence of strings inside divs inside a blockquote. In
+        the simple string case, our subclassing of the three afore-mentioned methods
+        is such as to discard all information except these strings, and to collect
+        them, in the sequence they are encountered in, into a list.
+
+        The 'content' function takes such a list and collects the strings together
+        into paragraphs. Single line-breaks in the original graph (corresponding
+        usually to three consecutive divs, the middle one of which contains no
+        string) are ignored; two or more line-breaks in the original graph will lead
+        to a paragraph break.
+
+        The 'clear' function resets the internal state of the class, and should be
+        called before parsing a new chunk of HTML.
+        """
+
+        def __init__(self):
+            super().__init__()
+            self._chunks = []
+
+        def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
+            if tag in ["div", "blockquote", "p", "br"]:
+                # Otherwise words stick together in place of a single line break
+                self._chunks.append(" ")
+
+        def handle_endtag(self, tag: str) -> None:
+            if tag in ["div", "blockquote", "p"]:
+                # Otherwise words stick together in place of a single line break
+                self._chunks.append(" ")
+
+        def handle_data(self, data: str) -> None:
+            """
+            Overrides a function in HTMLParser, storing the raw data (text) inside
+            a HTML element in the instance variable 'raw_data'.
+            """
+            # Implementing chunks universally seems to fix lost data with single <br> tags
+            self._chunks.append(data)
+
+        def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
+            # This method is unsafe because can also generate line breaks in Individuals
+            previous_was_empty = False
+            paragraph_already_handled = False
+            current = ""
+            for chunk in self._chunks:
+                if not chunk:
+                    if current:
+                        yield current
+                    current = ""
+                    if previous_was_empty and not paragraph_already_handled:
+                        yield "\n\n"
+                        paragraph_already_handled = True
+                    else:
+                        previous_was_empty = True
+                    continue
+                current += chunk
+                previous_was_empty = False
+                paragraph_already_handled = False
+            if current:
+                yield current
+
+        def content(self) -> str:
+            """
+            Takes all of the string chunks (within divs and blockquotes) obtained
+            during the current run of the parser, and collects them together
+            into paragraphs, handling line breaks as described in the docstring
+            for this class
+            """
+            return "".join(self._prettify_linebreaks()).strip()
+
+        def clear(self) -> None:
+            """
+            Clears the internal state of the parser so that it is as though newly
+            constructed
+            """
+            self._chunks = []
+
+    # END NodeHTMLParser
+
+
+# ===== pre.internal.metadata =====
+
 
 class internal_metadata_pre:
     # BEGIN DEFAULT_CAPITALISATION_SCHEME
-    DEFAULT_CAPITALISATION_SCHEME = 'upper-camel'
+    DEFAULT_CAPITALISATION_SCHEME = "upper-camel"
 
     # END DEFAULT_CAPITALISATION_SCHEME
     # BEGIN DEFAULT_INDENTATION
@@ -63,7 +253,22 @@ class internal_metadata_pre:
 
     # END DEFAULT_MAX_GAP
     # BEGIN OWL_METACHARACTERS
-    OWL_METACHARACTERS = ['(', ')', '[', ']', '{', '}', '/', ',', ':', '.', "'", '"', '\xa0', '#']
+    OWL_METACHARACTERS = [
+        "(",
+        ")",
+        "[",
+        "]",
+        "{",
+        "}",
+        "/",
+        ",",
+        ":",
+        ".",
+        "'",
+        '"',
+        "\xa0",
+        "#",
+    ]
 
     # END OWL_METACHARACTERS
     # BEGIN Blocks
@@ -417,7 +622,61 @@ class internal_metadata_pre:
     # END _arguments_parser
 
 
-# ===== xml.data.core =====
+# ===== pre.rdf.metadata =====
+
+
+class rdf_metadata_pre:
+    # BEGIN SerialisationConfig
+    @dataclass(frozen=True)
+    class SerialisationConfig:
+        """
+        Holds various user-configurable parameters for configuring the serialisation
+        to OWL outputted by the 'serialise' function
+        """
+
+        infer_type_of_literals: bool
+        include_preamble: bool
+        ontology_iri: str | None
+        prefix: str | None
+        prefix_iri: str | None
+        indentation: int
+        include_label: bool
+
+    # END SerialisationConfig
+
+
+# ===== core.xml.metadata =====
+
+
+class xml_metadata_core:
+    # BEGIN DrawIOXMLTree._has_correct_as_attribute
+    @staticmethod
+    def _has_correct_as_attribute(
+        element: Element, as_attribute: str, cell_id: str
+    ) -> bool:
+        try:
+            return element.attrib["as"] == as_attribute
+        except KeyError as key_error:
+            raise ParseException(
+                "Encountered an mxPoint element of the cell with the "
+                f"following id without an 'as' attribute: {cell_id}"
+            ) from key_error
+
+    # END DrawIOXMLTree._has_correct_as_attribute
+    # BEGIN DrawIOXMLTree._is_locked
+    @staticmethod
+    def _is_locked(cell: Element, as_attribute: str) -> bool:
+        if as_attribute == "sourcePoint" and ("source" in cell.attrib):
+            return True
+        if as_attribute == "targetPoint" and ("target" in cell.attrib):
+            return True
+        return False
+
+    # END DrawIOXMLTree._is_locked
+
+
+# ===== core.xml.data =====
+
 
 class xml_data_core:
     # BEGIN NothingToParseException
@@ -487,7 +746,9 @@ class xml_data_core:
 
         draw_io_xml_tree: Element = field(init=False)
         literal_node_html_parser: NodeHTMLParser = field(init=False)
-        individual_cells: list[tuple[Element, Individual, Dimensions]] = field(init=False)
+        individual_cells: list[tuple[Element, Individual, Dimensions]] = field(
+            init=False
+        )
         arrow_cells: list[ArrowData] = field(init=False)
         literal_cells: list[tuple[Element, Dimensions]] = field(init=False)
 
@@ -713,7 +974,12 @@ class xml_data_core:
         def _add_arrow_if_find_label(self, cell: Element) -> None:
             try:
                 label = self._arrow_label(cell)
-                arrow_data = (cell, self._arrow_start(cell), self._arrow_end(cell), label)
+                arrow_data = (
+                    cell,
+                    self._arrow_start(cell),
+                    self._arrow_end(cell),
+                    label,
+                )
                 self.arrow_cells.append(arrow_data)
             except _NoValueException:
                 pass
@@ -781,9 +1047,9 @@ class xml_data_core:
         ) -> bool:
             endpoint_x, endpoint_y = arrow_endpoint
             cell_x, cell_y, cell_width, cell_height = cell_dimensions
-            return (cell_x - max_gap <= endpoint_x <= cell_x + cell_width + max_gap) and (
-                cell_y - max_gap <= endpoint_y <= cell_y + cell_height + max_gap
-            )
+            return (
+                cell_x - max_gap <= endpoint_x <= cell_x + cell_width + max_gap
+            ) and (cell_y - max_gap <= endpoint_y <= cell_y + cell_height + max_gap)
 
         def _cell_close_to(
             self, arrow_endpoint: ArrowStart | ArrowEnd, max_gap: float
@@ -803,7 +1069,9 @@ class xml_data_core:
             return False
 
         def _cell_is_literal(self, candidate: Element) -> bool:
-            return any(literal_cell is candidate for literal_cell, _ in self.literal_cells)
+            return any(
+                literal_cell is candidate for literal_cell, _ in self.literal_cells
+            )
 
         def _source_or_target(
             self, source_or_target_cell: Element, must_be_individual: bool
@@ -818,7 +1086,9 @@ class xml_data_core:
                 raise _SourceNotIndividualException
             return value
 
-        def _arrow(self, arrow_data: ArrowData, strict_mode: bool, max_gap: float) -> Arrow:
+        def _arrow(
+            self, arrow_data: ArrowData, strict_mode: bool, max_gap: float
+        ) -> Arrow:
             arrow_cell, arrow_start, arrow_end, arrow_label = arrow_data
             try:
                 source_cell = self._cell_with_id(arrow_cell.attrib["source"])
@@ -1284,7 +1554,8 @@ class xml_data_core:
     # END DrawIOXMLTree.individuals_and_arrows
 
 
-# ===== internal.metadata.core =====
+# ===== core.internal.metadata =====
+
 
 class internal_metadata_core:
     # BEGIN NotInKnownException
@@ -1404,7 +1675,9 @@ class internal_metadata_core:
                     "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
                     "options to define how to handle spaces"
                 )
-            identifier = _handle_spaces(identifier, space_substitute, capitalisation_scheme)
+            identifier = _handle_spaces(
+                identifier, space_substitute, capitalisation_scheme
+            )
         elif capitalisation_scheme in ["lower-camel", "flat"]:
             identifier = identifier[0].lower() + identifier[1:]
         for metacharacter in OWL_METACHARACTERS:
@@ -1416,7 +1689,8 @@ class internal_metadata_core:
     # END _replace_metacharacters
 
 
-# ===== internal.data.core =====
+# ===== core.internal.data =====
+
 
 class internal_data_core:
     # BEGIN _SourceNotIndividualException
@@ -1491,7 +1765,7 @@ class internal_data_core:
     # BEGIN _build_graph_from_raw_xml
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
-    ) -> DrawioParserGraph:
+    ) -> DrawIOParserGraph:
         metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
             raw_xml
         )
@@ -1506,7 +1780,9 @@ class internal_data_core:
         prefix = (
             config_args["prefix"] or get_prefix()
         )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
-        prefix_iri = config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+        prefix_iri = (
+            config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+        )
 
         serialisation_config = SerialisationConfig(
             infer_type_of_literals=config_args["infer_type_of_literals"],
@@ -1518,7 +1794,9 @@ class internal_data_core:
             include_label=config_args["include_label"],
         )
 
-        space_substitute = _parse_space_substitute(config_args["metacharacter_substitute"])
+        space_substitute = _parse_space_substitute(
+            config_args["metacharacter_substitute"]
+        )
         metacharacter_substitutes = list(
             _parse_metacharacter_substitutes(config_args["metacharacter_substitute"])
         )
@@ -1542,7 +1820,7 @@ class internal_data_core:
             datatype_properties,
             serialisation_config,
             prefixes,
-            graph_cls=DrawioParserGraph,
+            graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
 
@@ -1561,206 +1839,106 @@ class internal_data_core:
     # END _build_graph_from_raw_xml
 
 
-# ===== xml.metadata.pre =====
+# ===== core.rdf.data =====
 
-class xml_metadata_pre:
-    # BEGIN _extract_drawio_metadata
-    def _extract_drawio_metadata(
-        raw_xml: str,
-    ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+
+class rdf_data_core:
+    # BEGIN DrawIOParserGraph
+    class DrawIOParserGraph(Graph):
+        """Graph subclass that records Draw.io specific metadata."""
+
+        def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.csv_path = csv_path
+
+    # END DrawIOParserGraph
+
+
+# ===== post.internal.metadata =====
+
+
+class internal_metadata_post:
+    # BEGIN _run
+    def _run(args=None) -> None:
+        parser = _arguments_parser()
+        arguments = parser.parse_args(args)
+
+        capitalisation_scheme = arguments.capitalisation_scheme
+
+        config_args = {
+            "infer_type_of_literals": not arguments.infer_types_disable,
+            "include_preamble": not arguments.preamble_disable,
+            "ontology_iri": arguments.ontology_iri,
+            "prefix": arguments.prefix,
+            "prefix_iri": arguments.prefix_iri,
+            "indentation": arguments.indentation,
+            "include_label": not arguments.label_disable,
+            "max_gap": arguments.max_gap,
+            "strict_mode": arguments.strict_mode,
+            "metacharacter_substitute": arguments.metacharacter_substitute,
+            "capitalisation_scheme": capitalisation_scheme,
+        }
+
+        if arguments.file:
+            raw_xml = arguments.file.read()
+        else:
+            raw_xml = stdin.read()
+
         try:
-            root = fromstring(raw_xml)
-        except Exception:  # pragma: no cover - defensive guard around XML parsing
-            return {}, None, None, None
+            graph = _build_graph_from_raw_xml(raw_xml, config_args)
+        except NothingToParseException:
+            sys_exit("The draw IO XML graph passed in appears to be empty")
+        except (
+            _MetacharacterSubstituteParseException,
+            _InvalidCapitalisationSchemeException,
+        ) as exception:
+            sys_exit(f"{exception}")
+        except NoSourceException as exception:
+            if arguments.strict_mode:
+                message = (
+                    f"{exception}. If so, try to lock the arrow to an individual "
+                    "node in the original graph; or the underlying XML could be "
+                    "edited to indicate the source. Alternatively, try running the "
+                    "parser in non-strict mode (without the '-s/--strict-mode' "
+                    "flag), optionally making use of the '-g/--max-gap' option"
+                )
+            else:
+                message = (
+                    f"{exception}. If so, consider using the '-g/--max gap' option "
+                    "when running the script to increase the max recognised gap "
+                    "between a node and an arrow end; or try to lock the arrow to "
+                    "an individual node in the original graph; or the underlying "
+                    "XML could be edited"
+                )
+            sys_exit(message)
+        except (
+            NotInKnownException,
+            ArrowWithoutIndividualAsSourceException,
+            MetacharacterException,
+        ) as exception:
+            sys_exit(f"{exception}")
 
-        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
-        if metadata_node is None:
-            return {}, None, None, root
+        print(graph.serialize(format="turtle"))
 
-        csv_path_raw = metadata_node.attrib.get("csvPath", "")
-        base_uri_raw = metadata_node.attrib.get("baseUri", "")
-
-        csv_path = csv_path_raw.strip() or None
-        base_uri = base_uri_raw.strip() or None
-
-        prefixes: dict[str, str] = {}
-        for preamble in metadata_node.findall("userObjectPreambleElement"):
-            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-            iri = (preamble.attrib.get("rdfIRI") or "").strip()
-            if prefix and iri:
-                prefixes[prefix] = iri
-
-        return prefixes, base_uri, csv_path, root
-
-    # END _extract_drawio_metadata
-    # BEGIN _strip_metadata_user_object
-    def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
-        if root is None:
-            return raw_xml
-
-        working_root = deepcopy(root)
-        graph_root = working_root.find(".//mxGraphModel/root")
-        if graph_root is None:
-            return raw_xml
-
-        metadata_node = graph_root.find("UserObject[@id='0']")
-        if metadata_node is None:
-            return raw_xml
-
-        replacement = Element("mxCell", {"id": "0"})
-        children = list(graph_root)
-        for index, child in enumerate(children):
-            if child is metadata_node:
-                graph_root.remove(metadata_node)
-                graph_root.insert(index, replacement)
-                break
-
-        return tostring(working_root, encoding="unicode")
-
-    # END _strip_metadata_user_object
-
-
-# ===== xml.data.pre =====
-
-class xml_data_pre:
-    # BEGIN NodeHTMLParser
-    class NodeHTMLParser(HTMLParser):
-        """
-        Subclasses HTMLParser to define its behaviour with respect to 'handle_data',
-        'handle_starttag', and 'handle_endtag' (this is the usage pattern expected
-        by HTMLParser). It seems that text, including multi-line text, in draw.io
-        may come in three forms: as a simple string; as a string within a blockquote
-        element; or as a sequence of strings inside divs inside a blockquote. In
-        the simple string case, our subclassing of the three afore-mentioned methods
-        is such as to discard all information except these strings, and to collect
-        them, in the sequence they are encountered in, into a list.
-
-        The 'content' function takes such a list and collects the strings together
-        into paragraphs. Single line-breaks in the original graph (corresponding
-        usually to three consecutive divs, the middle one of which contains no
-        string) are ignored; two or more line-breaks in the original graph will lead
-        to a paragraph break.
-
-        The 'clear' function resets the internal state of the class, and should be
-        called before parsing a new chunk of HTML.
-        """
-
-        def __init__(self):
-            super().__init__()
-            self._chunks = []
-
-        def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
-            if tag in ["div", "blockquote", "p", "br"]:
-                # Otherwise words stick together in place of a single line break
-                self._chunks.append(" ")
-
-        def handle_endtag(self, tag: str) -> None:
-            if tag in ["div", "blockquote", "p"]:
-                # Otherwise words stick together in place of a single line break
-                self._chunks.append(" ")
-
-        def handle_data(self, data: str) -> None:
-            """
-            Overrides a function in HTMLParser, storing the raw data (text) inside
-            a HTML element in the instance variable 'raw_data'.
-            """
-            # Implementing chunks universally seems to fix lost data with single <br> tags
-            self._chunks.append(data)
-
-        def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
-            # This method is unsafe because can also generate line breaks in Individuals
-            previous_was_empty = False
-            paragraph_already_handled = False
-            current = ""
-            for chunk in self._chunks:
-                if not chunk:
-                    if current:
-                        yield current
-                    current = ""
-                    if previous_was_empty and not paragraph_already_handled:
-                        yield "\n\n"
-                        paragraph_already_handled = True
-                    else:
-                        previous_was_empty = True
-                    continue
-                current += chunk
-                previous_was_empty = False
-                paragraph_already_handled = False
-            if current:
-                yield current
-
-        def content(self) -> str:
-            """
-            Takes all of the string chunks (within divs and blockquotes) obtained
-            during the current run of the parser, and collects them together
-            into paragraphs, handling line breaks as described in the docstring
-            for this class
-            """
-            return "".join(self._prettify_linebreaks()).strip()
-
-        def clear(self) -> None:
-            """
-            Clears the internal state of the parser so that it is as though newly
-            constructed
-            """
-            self._chunks = []
-
-    # END NodeHTMLParser
-
-
-# ===== rdf.metadata.pre =====
-
-class rdf_metadata_pre:
-    # BEGIN SerialisationConfig
-    @dataclass(frozen=True)
-    class SerialisationConfig:
-        """
-        Holds various user-configurable parameters for configuring the serialisation
-        to OWL outputted by the 'serialise' function
-        """
-
-        infer_type_of_literals: bool
-        include_preamble: bool
-        ontology_iri: str | None
-        prefix: str | None
-        prefix_iri: str | None
-        indentation: int
-        include_label: bool
-
-    # END SerialisationConfig
-
-
-# ===== xml.metadata.core =====
-
-class xml_metadata_core:
-    # BEGIN DrawIOXMLTree._has_correct_as_attribute
-    @staticmethod
-    def _has_correct_as_attribute(
-        element: Element, as_attribute: str, cell_id: str
-    ) -> bool:
+    # END _run
+    # BEGIN main
+    def main(args=None) -> None:
         try:
-            return element.attrib["as"] == as_attribute
-        except KeyError as key_error:
-            raise ParseException(
-                "Encountered an mxPoint element of the cell with the "
-                f"following id without an 'as' attribute: {cell_id}"
-            ) from key_error
+            _run(args)
+        except ParseException as exception:
+            sys_exit(str(exception))
+        except Exception as exception:  # pylint: disable=broad-exception-caught
+            error_type = type(exception).__name__
+            error_traceback = traceback.format_exc()
+            sys_exit(
+                f"An unexpected error occurred: {error_type}: {exception}\n\nTraceback:\n{error_traceback}"
+            )
 
-    # END DrawIOXMLTree._has_correct_as_attribute
-    # BEGIN DrawIOXMLTree._is_locked
-    @staticmethod
-    def _is_locked(cell: Element, as_attribute: str) -> bool:
-        if as_attribute == "sourcePoint" and ("source" in cell.attrib):
-            return True
-        if as_attribute == "targetPoint" and ("target" in cell.attrib):
-            return True
-        return False
-
-    # END DrawIOXMLTree._is_locked
+    # END main
 
 
-# ===== internal.data.post =====
+# ===== post.internal.data =====
+
 
 class internal_data_post:
     # BEGIN individual_blocks
@@ -1833,9 +2011,9 @@ class internal_data_post:
 
     # END individual_blocks
     # BEGIN parse_drawio_to_graph
-    def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawioParserGraph:
+    def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawIOParserGraph:
         """
-        Parses a draw.io file and returns a DrawioParserGraph with metadata.
+        Parses a draw.io file and returns a DrawIOParserGraph with metadata.
         """
         with open(drawio_file_path, "r", encoding="utf-8") as f:
             raw_xml = f.read()
@@ -1860,21 +2038,8 @@ class internal_data_post:
     # END parse_drawio_to_graph
 
 
-# ===== rdf.data.core =====
+# ===== post.rdf.data =====
 
-class rdf_data_core:
-    # BEGIN DrawioParserGraph
-    class DrawioParserGraph(Graph):
-        """Graph subclass that records Draw.io specific metadata."""
-
-        def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.csv_path = csv_path
-
-    # END DrawioParserGraph
-
-
-# ===== rdf.data.post =====
 
 class rdf_data_post:
     # BEGIN serialise_to_graph
@@ -1987,101 +2152,22 @@ class rdf_data_post:
     # END serialise_to_graph
 
 
-# ===== internal.metadata.post =====
-
-class internal_metadata_post:
-    # BEGIN _run
-    def _run(args=None) -> None:
-        parser = _arguments_parser()
-        arguments = parser.parse_args(args)
-
-        capitalisation_scheme = arguments.capitalisation_scheme
-
-        config_args = {
-            "infer_type_of_literals": not arguments.infer_types_disable,
-            "include_preamble": not arguments.preamble_disable,
-            "ontology_iri": arguments.ontology_iri,
-            "prefix": arguments.prefix,
-            "prefix_iri": arguments.prefix_iri,
-            "indentation": arguments.indentation,
-            "include_label": not arguments.label_disable,
-            "max_gap": arguments.max_gap,
-            "strict_mode": arguments.strict_mode,
-            "metacharacter_substitute": arguments.metacharacter_substitute,
-            "capitalisation_scheme": capitalisation_scheme,
-        }
-
-        if arguments.file:
-            raw_xml = arguments.file.read()
-        else:
-            raw_xml = stdin.read()
-
-        try:
-            graph = _build_graph_from_raw_xml(raw_xml, config_args)
-        except NothingToParseException:
-            sys_exit("The draw IO XML graph passed in appears to be empty")
-        except (
-            _MetacharacterSubstituteParseException,
-            _InvalidCapitalisationSchemeException,
-        ) as exception:
-            sys_exit(f"{exception}")
-        except NoSourceException as exception:
-            if arguments.strict_mode:
-                message = (
-                    f"{exception}. If so, try to lock the arrow to an individual "
-                    "node in the original graph; or the underlying XML could be "
-                    "edited to indicate the source. Alternatively, try running the "
-                    "parser in non-strict mode (without the '-s/--strict-mode' "
-                    "flag), optionally making use of the '-g/--max-gap' option"
-                )
-            else:
-                message = (
-                    f"{exception}. If so, consider using the '-g/--max gap' option "
-                    "when running the script to increase the max recognised gap "
-                    "between a node and an arrow end; or try to lock the arrow to "
-                    "an individual node in the original graph; or the underlying "
-                    "XML could be edited"
-                )
-            sys_exit(message)
-        except (
-            NotInKnownException,
-            ArrowWithoutIndividualAsSourceException,
-            MetacharacterException,
-        ) as exception:
-            sys_exit(f"{exception}")
-
-        print(graph.serialize(format="turtle"))
-
-    # END _run
-    # BEGIN main
-    def main(args=None) -> None:
-        try:
-            _run(args)
-        except ParseException as exception:
-            sys_exit(str(exception))
-        except Exception as exception:  # pylint: disable=broad-exception-caught
-            error_type = type(exception).__name__
-            error_traceback = traceback.format_exc()
-            sys_exit(
-                f"An unexpected error occurred: {error_type}: {exception}\n\nTraceback:\n{error_traceback}"
-            )
-
-    # END main
-
-
 # ===== orchestrator =====
-class DrawioParser:
+class DrawIOParser:
     __data_type__ = "internal"
     __data_role__ = "metadata"
     __phase__ = "core"
+
     def __init__(self):
-        self.xml = xml
-        self.internal = internal
-        self.rdf = rdf
+        self.pre = pre
+        self.core = core
+        self.post = post
+
     def to_graph_from_file(self, path, **kw):
-        return internal_data_post.parse_drawio_to_graph(path, **kw)
+        return post.internal.data.parse_drawio_to_graph(path, **kw)
+
     def run_cli(self, argv=None):
-        return internal_metadata_post.main(argv)
+        return post.internal.metadata.main(argv)
 
 
 # ===== module-level aliases =====
@@ -2110,10 +2196,16 @@ NoSourceException = xml_data_core.NoSourceException
 NoTargetException = xml_data_core.NoTargetException
 _NoValueException = xml_data_core._NoValueException
 _SourceNotIndividualException = internal_data_core._SourceNotIndividualException
-ArrowWithoutIndividualAsSourceException = internal_data_core.ArrowWithoutIndividualAsSourceException
-_MetacharacterSubstituteParseException = internal_metadata_core._MetacharacterSubstituteParseException
+ArrowWithoutIndividualAsSourceException = (
+    internal_data_core.ArrowWithoutIndividualAsSourceException
+)
+_MetacharacterSubstituteParseException = (
+    internal_metadata_core._MetacharacterSubstituteParseException
+)
 MetacharacterException = internal_metadata_core.MetacharacterException
-_InvalidCapitalisationSchemeException = internal_metadata_core._InvalidCapitalisationSchemeException
+_InvalidCapitalisationSchemeException = (
+    internal_metadata_core._InvalidCapitalisationSchemeException
+)
 ParseException = xml_data_core.ParseException
 get_prefixes = internal_metadata_pre.get_prefixes
 get_ontology_iri = internal_metadata_pre.get_ontology_iri
@@ -2145,7 +2237,9 @@ _arrow_end = xml_data_core._arrow_end
 _is_possible_literal = xml_data_core._is_possible_literal
 _arrow_label = xml_data_core._arrow_label
 _add_arrow_if_find_label = xml_data_core._add_arrow_if_find_label
-_extract_individual_and_arrow_and_literal_cells = xml_data_core._extract_individual_and_arrow_and_literal_cells
+_extract_individual_and_arrow_and_literal_cells = (
+    xml_data_core._extract_individual_and_arrow_and_literal_cells
+)
 _cell_close_to = xml_data_core._cell_close_to
 _defines_individual = xml_data_core._defines_individual
 _cell_is_literal = xml_data_core._cell_is_literal
@@ -2157,13 +2251,199 @@ _replace_metacharacter = internal_metadata_core._replace_metacharacter
 _replace_metacharacters = internal_metadata_core._replace_metacharacters
 _add_individual_type = internal_data_core._add_individual_type
 individual_blocks = internal_data_post.individual_blocks
-DrawioParserGraph = rdf_data_core.DrawioParserGraph
+DrawIOParserGraph = rdf_data_core.DrawIOParserGraph
 serialise_to_graph = rdf_data_post.serialise_to_graph
 _parse_space_substitute = internal_metadata_pre._parse_space_substitute
-_parse_metacharacter_substitutes = internal_metadata_pre._parse_metacharacter_substitutes
+_parse_metacharacter_substitutes = (
+    internal_metadata_pre._parse_metacharacter_substitutes
+)
 _parse_capitalisation_scheme = internal_metadata_pre._parse_capitalisation_scheme
 _build_graph_from_raw_xml = internal_data_core._build_graph_from_raw_xml
 parse_drawio_to_graph = internal_data_post.parse_drawio_to_graph
 _arguments_parser = internal_metadata_pre._arguments_parser
 _run = internal_metadata_post._run
 main = internal_metadata_post.main
+
+# ===== attach to nested namespaces =====
+setattr(
+    pre.internal.metadata,
+    "DEFAULT_CAPITALISATION_SCHEME",
+    internal_metadata_pre.DEFAULT_CAPITALISATION_SCHEME,
+)
+setattr(
+    pre.internal.metadata,
+    "DEFAULT_INDENTATION",
+    internal_metadata_pre.DEFAULT_INDENTATION,
+)
+setattr(pre.internal.metadata, "DEFAULT_MAX_GAP", internal_metadata_pre.DEFAULT_MAX_GAP)
+setattr(
+    pre.internal.metadata,
+    "OWL_METACHARACTERS",
+    internal_metadata_pre.OWL_METACHARACTERS,
+)
+setattr(pre.internal.metadata, "Blocks", internal_metadata_pre.Blocks)
+setattr(pre.internal.metadata, "CellID", internal_metadata_pre.CellID)
+setattr(pre.internal.metadata, "XCoordinate", internal_metadata_pre.XCoordinate)
+setattr(pre.internal.metadata, "YCoordinate", internal_metadata_pre.YCoordinate)
+setattr(pre.internal.metadata, "Width", internal_metadata_pre.Width)
+setattr(pre.internal.metadata, "Height", internal_metadata_pre.Height)
+setattr(pre.internal.metadata, "ArrowStart", internal_metadata_pre.ArrowStart)
+setattr(pre.internal.metadata, "ArrowEnd", internal_metadata_pre.ArrowEnd)
+setattr(pre.internal.metadata, "Label", internal_metadata_pre.Label)
+setattr(pre.internal.metadata, "ArrowData", internal_metadata_pre.ArrowData)
+setattr(pre.internal.metadata, "Dimensions", internal_metadata_pre.Dimensions)
+setattr(pre.internal.metadata, "Paragraph", internal_metadata_pre.Paragraph)
+setattr(pre.internal.metadata, "Metacharacter", internal_metadata_pre.Metacharacter)
+setattr(pre.internal.metadata, "Replacement", internal_metadata_pre.Replacement)
+setattr(core.xml.data, "NothingToParseException", xml_data_core.NothingToParseException)
+setattr(
+    core.internal.metadata,
+    "NotInKnownException",
+    internal_metadata_core.NotInKnownException,
+)
+setattr(
+    core.xml.data,
+    "_NoCellCloseEnoughException",
+    xml_data_core._NoCellCloseEnoughException,
+)
+setattr(core.xml.data, "NoSourceException", xml_data_core.NoSourceException)
+setattr(core.xml.data, "NoTargetException", xml_data_core.NoTargetException)
+setattr(core.xml.data, "_NoValueException", xml_data_core._NoValueException)
+setattr(
+    core.internal.data,
+    "_SourceNotIndividualException",
+    internal_data_core._SourceNotIndividualException,
+)
+setattr(
+    core.internal.data,
+    "ArrowWithoutIndividualAsSourceException",
+    internal_data_core.ArrowWithoutIndividualAsSourceException,
+)
+setattr(
+    core.internal.metadata,
+    "_MetacharacterSubstituteParseException",
+    internal_metadata_core._MetacharacterSubstituteParseException,
+)
+setattr(
+    core.internal.metadata,
+    "MetacharacterException",
+    internal_metadata_core.MetacharacterException,
+)
+setattr(
+    core.internal.metadata,
+    "_InvalidCapitalisationSchemeException",
+    internal_metadata_core._InvalidCapitalisationSchemeException,
+)
+setattr(core.xml.data, "ParseException", xml_data_core.ParseException)
+setattr(pre.internal.metadata, "get_prefixes", internal_metadata_pre.get_prefixes)
+setattr(
+    pre.internal.metadata, "get_ontology_iri", internal_metadata_pre.get_ontology_iri
+)
+setattr(pre.internal.metadata, "get_prefix", internal_metadata_pre.get_prefix)
+setattr(pre.internal.metadata, "get_prefix_iri", internal_metadata_pre.get_prefix_iri)
+setattr(
+    pre.xml.metadata,
+    "_extract_drawio_metadata",
+    xml_metadata_pre._extract_drawio_metadata,
+)
+setattr(
+    pre.xml.metadata,
+    "_strip_metadata_user_object",
+    xml_metadata_pre._strip_metadata_user_object,
+)
+setattr(core.internal.metadata, "_split_curie", internal_metadata_core._split_curie)
+setattr(
+    core.internal.metadata,
+    "_ensure_known_curie",
+    internal_metadata_core._ensure_known_curie,
+)
+setattr(
+    core.internal.metadata,
+    "_verify_is_ric_class",
+    internal_metadata_core._verify_is_ric_class,
+)
+setattr(core.internal.data, "Individual", internal_data_core.Individual)
+setattr(core.internal.data, "Arrow", internal_data_core.Arrow)
+setattr(pre.xml.data, "NodeHTMLParser", xml_data_pre.NodeHTMLParser)
+setattr(pre.rdf.metadata, "SerialisationConfig", rdf_metadata_pre.SerialisationConfig)
+setattr(core.xml.data, "DrawIOXMLTree", xml_data_core.DrawIOXMLTree)
+setattr(core.xml.data, "_geometry", xml_data_core._geometry)
+setattr(core.xml.data, "_x_and_y_in_geometry", xml_data_core._x_and_y_in_geometry)
+setattr(
+    core.xml.metadata,
+    "_has_correct_as_attribute",
+    xml_metadata_core._has_correct_as_attribute,
+)
+setattr(core.xml.metadata, "_is_locked", xml_metadata_core._is_locked)
+setattr(core.xml.data, "_dimensions", xml_data_core._dimensions)
+setattr(core.xml.data, "_close_enough", xml_data_core._close_enough)
+setattr(core.xml.data, "_cell_with_id", xml_data_core._cell_with_id)
+setattr(core.xml.data, "_value_of", xml_data_core._value_of)
+setattr(core.xml.data, "_parent_of", xml_data_core._parent_of)
+setattr(core.xml.data, "_child_of", xml_data_core._child_of)
+setattr(core.xml.data, "_start_or_end", xml_data_core._start_or_end)
+setattr(core.xml.data, "_arrow_start", xml_data_core._arrow_start)
+setattr(core.xml.data, "_arrow_end", xml_data_core._arrow_end)
+setattr(core.xml.data, "_is_possible_literal", xml_data_core._is_possible_literal)
+setattr(core.xml.data, "_arrow_label", xml_data_core._arrow_label)
+setattr(
+    core.xml.data, "_add_arrow_if_find_label", xml_data_core._add_arrow_if_find_label
+)
+setattr(
+    core.xml.data,
+    "_extract_individual_and_arrow_and_literal_cells",
+    xml_data_core._extract_individual_and_arrow_and_literal_cells,
+)
+setattr(core.xml.data, "_cell_close_to", xml_data_core._cell_close_to)
+setattr(core.xml.data, "_defines_individual", xml_data_core._defines_individual)
+setattr(core.xml.data, "_cell_is_literal", xml_data_core._cell_is_literal)
+setattr(core.xml.data, "_source_or_target", xml_data_core._source_or_target)
+setattr(core.xml.data, "_arrow", xml_data_core._arrow)
+setattr(core.xml.data, "individuals_and_arrows", xml_data_core.individuals_and_arrows)
+setattr(core.internal.metadata, "_handle_spaces", internal_metadata_core._handle_spaces)
+setattr(
+    core.internal.metadata,
+    "_replace_metacharacter",
+    internal_metadata_core._replace_metacharacter,
+)
+setattr(
+    core.internal.metadata,
+    "_replace_metacharacters",
+    internal_metadata_core._replace_metacharacters,
+)
+setattr(
+    core.internal.data, "_add_individual_type", internal_data_core._add_individual_type
+)
+setattr(post.internal.data, "individual_blocks", internal_data_post.individual_blocks)
+setattr(core.rdf.data, "DrawIOParserGraph", rdf_data_core.DrawIOParserGraph)
+setattr(post.rdf.data, "serialise_to_graph", rdf_data_post.serialise_to_graph)
+setattr(
+    pre.internal.metadata,
+    "_parse_space_substitute",
+    internal_metadata_pre._parse_space_substitute,
+)
+setattr(
+    pre.internal.metadata,
+    "_parse_metacharacter_substitutes",
+    internal_metadata_pre._parse_metacharacter_substitutes,
+)
+setattr(
+    pre.internal.metadata,
+    "_parse_capitalisation_scheme",
+    internal_metadata_pre._parse_capitalisation_scheme,
+)
+setattr(
+    core.internal.data,
+    "_build_graph_from_raw_xml",
+    internal_data_core._build_graph_from_raw_xml,
+)
+setattr(
+    post.internal.data,
+    "parse_drawio_to_graph",
+    internal_data_post.parse_drawio_to_graph,
+)
+setattr(
+    pre.internal.metadata, "_arguments_parser", internal_metadata_pre._arguments_parser
+)
+setattr(post.internal.metadata, "_run", internal_metadata_post._run)
+setattr(post.internal.metadata, "main", internal_metadata_post.main)

@@ -122,7 +122,7 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     ("_add_individual_type", "internal", "data", "core"),
     ("individual_blocks", "internal", "data", "post"),
     # rdf graph
-    ("DrawioParserGraph", "rdf", "data", "core"),
+    ("DrawIOParserGraph", "rdf", "data", "core"),
     ("serialise_to_graph", "rdf", "data", "post"),
     # cli / sdk
     ("_parse_space_substitute", "internal", "metadata", "pre"),
@@ -232,43 +232,57 @@ def build_output() -> str:
 
     # Predeclare namespaces
     out.append(
-        "class xml:\n    class data:\n        class pre: pass\n        class core: pass\n        class post: pass\n    class metadata:\n        class pre: pass\n        class core: pass\n        class post: pass\n"
+        "class pre:\n"
+        "    class xml:\n        class metadata: pass\n        class data: pass\n"
+        "    class internal:\n        class metadata: pass\n        class data: pass\n"
+        "    class rdf:\n        class metadata: pass\n        class data: pass\n"
     )
     out.append(
-        "class internal:\n    class data:\n        class pre: pass\n        class core: pass\n        class post: pass\n    class metadata:\n        class pre: pass\n        class core: pass\n        class post: pass\n"
+        "class core:\n"
+        "    class xml:\n        class metadata: pass\n        class data: pass\n"
+        "    class internal:\n        class metadata: pass\n        class data: pass\n"
+        "    class rdf:\n        class metadata: pass\n        class data: pass\n"
     )
     out.append(
-        "class rdf:\n    class data:\n        class pre: pass\n        class core: pass\n        class post: pass\n    class metadata:\n        class pre: pass\n        class core: pass\n        class post: pass\n"
+        "class post:\n"
+        "    class xml:\n        class metadata: pass\n        class data: pass\n"
+        "    class internal:\n        class metadata: pass\n        class data: pass\n"
+        "    class rdf:\n        class metadata: pass\n        class data: pass\n"
     )
 
     grouped = {}
     for dotted, dt, dr, ph in MAPPING:
         grouped.setdefault((dt, dr, ph), []).append(dotted)
 
-    for (dt, dr, ph), names in grouped.items():
-        out.append(f"\n# ===== {dt}.{dr}.{ph} =====\n")
-        out.append(f"class {dt}_{dr}_{ph}:")
-        for name in names:
-            obj = resolve(name)
-            src = get_source_or_repr(name, obj)
-            block = indent(f"# BEGIN {name}\n{src}\n# END {name}\n", 4)
-            out.append(block)
-        out.append("")
+    for ph in ["pre", "core", "post"]:
+        for dt in ["xml", "internal", "rdf"]:
+            for dr in ["metadata", "data"]:
+                names = grouped.get((dt, dr, ph), [])
+                if not names:
+                    continue
+                out.append(f"\n# ===== {ph}.{dt}.{dr} =====\n")
+                out.append(f"class {dt}_{dr}_{ph}:")
+                for name in names:
+                    obj = resolve(name)
+                    src = get_source_or_repr(name, obj)
+                    block = indent(f"# BEGIN {name}\n{src}\n# END {name}\n", 4)
+                    out.append(block)
+                out.append("")
 
     orchestrator = """
 # ===== orchestrator =====
-class DrawioParser:
+class DrawIOParser:
     __data_type__ = "internal"
     __data_role__ = "metadata"
     __phase__ = "core"
     def __init__(self):
-        self.xml = xml
-        self.internal = internal
-        self.rdf = rdf
+        self.pre = pre
+        self.core = core
+        self.post = post
     def to_graph_from_file(self, path, **kw):
-        return internal_data_post.parse_drawio_to_graph(path, **kw)
+        return post.internal.data.parse_drawio_to_graph(path, **kw)
     def run_cli(self, argv=None):
-        return internal_metadata_post.main(argv)
+        return post.internal.metadata.main(argv)
 """
     out.append(orchestrator)
     src = "\n".join(out)
@@ -282,6 +296,12 @@ class DrawioParser:
         if base not in added:
             alias_lines.append(alias)
             added.add(base)
+
+    alias_lines.append("")
+    alias_lines.append("# ===== attach to nested namespaces =====")
+    for dotted, dt, dr, ph in MAPPING:
+        base = dotted.split(".")[-1]
+        alias_lines.append(f"setattr({ph}.{dt}.{dr}, '{base}', {dt}_{dr}_{ph}.{base})")
 
     src += "\n" + "\n".join(alias_lines) + "\n"
 

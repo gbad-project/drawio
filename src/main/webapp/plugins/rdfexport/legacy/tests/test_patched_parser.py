@@ -157,7 +157,7 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
         metacharacter_substitute=["remove"],
     )
 
-    assert isinstance(graph, draw_io_parser.DrawioParserGraph)
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
     assert graph.csv_path == "/mock/path/to/file.csv"
 
     namespace_map = {
@@ -176,7 +176,7 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
         metacharacter_substitute=["remove"],
     )
 
-    assert isinstance(graph, draw_io_parser.DrawioParserGraph)
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
     assert graph.csv_path is None
     assert graph.base is None
 
@@ -272,7 +272,7 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
             metacharacter_substitute=["remove"],
         )
 
-        assert isinstance(patched_graph, draw_io_parser.DrawioParserGraph)
+        assert isinstance(patched_graph, draw_io_parser.DrawIOParserGraph)
         assert patched_graph.csv_path == metadata_options["csvPath"]
         assert patched_graph.base is None
 

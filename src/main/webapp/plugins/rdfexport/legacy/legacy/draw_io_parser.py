@@ -51,7 +51,7 @@ from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 
-class DrawioParserGraph(Graph):
+class DrawIOParserGraph(Graph):
     """Graph subclass that records Draw.io specific metadata."""
 
     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
@@ -1173,7 +1173,7 @@ def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
 
 def _build_graph_from_raw_xml(
     raw_xml: str, config_args: dict[str, Any]
-) -> DrawioParserGraph:
+) -> DrawIOParserGraph:
     metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
         raw_xml
     )
@@ -1224,7 +1224,7 @@ def _build_graph_from_raw_xml(
         datatype_properties,
         serialisation_config,
         prefixes,
-        graph_cls=DrawioParserGraph,
+        graph_cls=DrawIOParserGraph,
         graph_kwargs={"csv_path": csv_path},
     )
 
@@ -1241,9 +1241,9 @@ def _build_graph_from_raw_xml(
     return graph
 
 
-def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawioParserGraph:
+def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawIOParserGraph:
     """
-    Parses a draw.io file and returns a DrawioParserGraph with metadata.
+    Parses a draw.io file and returns a DrawIOParserGraph with metadata.
     """
     with open(drawio_file_path, "r", encoding="utf-8") as f:
         raw_xml = f.read()
