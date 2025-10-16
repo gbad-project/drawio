@@ -35,11 +35,9 @@ draw = load_legacy()
 # ---- Explicit mapping ----
 MAPPING: List[Tuple[str, str, str, str]] = [
     # ===== PRE PHASE =====
-    
     # xml.metadata.pre - Extract metadata from XML
     ("_extract_drawio_metadata", "xml", "metadata", "pre"),
     ("_strip_metadata_user_object", "xml", "metadata", "pre"),
-    
     # internal.metadata.pre - Constants, defaults, getters
     ("DEFAULT_CAPITALISATION_SCHEME", "internal", "metadata", "pre"),
     ("DEFAULT_INDENTATION", "internal", "metadata", "pre"),
@@ -64,20 +62,15 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     ("get_prefix", "internal", "metadata", "pre"),
     ("get_prefix_iri", "internal", "metadata", "pre"),
     ("SerialisationConfig", "internal", "metadata", "pre"),
-    
     # internal.control.pre - User input via CLI
     ("_arguments_parser", "internal", "control", "pre"),
-    
     # rdf.data.pre - String manipulation for RDF compliance
     ("_handle_spaces", "rdf", "data", "pre"),
     ("_replace_metacharacter", "rdf", "data", "pre"),
     ("_replace_metacharacters", "rdf", "data", "pre"),
-    
     # rdf.control.pre - Validation of RDF config
     ("_parse_capitalisation_scheme", "rdf", "control", "pre"),
-    
     # ===== CORE PHASE =====
-    
     # xml.data.core - ALL XML parsing to Individual/Arrow
     ("NothingToParseException", "xml", "data", "core"),
     ("NoSourceException", "xml", "data", "core"),
@@ -102,14 +95,18 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     ("DrawIOXMLTree._is_possible_literal", "xml", "data", "core"),
     ("DrawIOXMLTree._arrow_label", "xml", "data", "core"),
     ("DrawIOXMLTree._add_arrow_if_find_label", "xml", "data", "core"),
-    ("DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells", "xml", "data", "core"),
+    (
+        "DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells",
+        "xml",
+        "data",
+        "core",
+    ),
     ("DrawIOXMLTree._close_enough", "xml", "data", "core"),
     ("DrawIOXMLTree._cell_close_to", "xml", "data", "core"),
     ("DrawIOXMLTree._defines_individual", "xml", "data", "core"),
     ("DrawIOXMLTree._cell_is_literal", "xml", "data", "core"),
     ("DrawIOXMLTree._source_or_target", "xml", "data", "core"),
     ("DrawIOXMLTree._arrow", "xml", "data", "core"),
-    
     # internal.data.core - Internal model instances and processing
     ("Individual", "internal", "data", "core"),
     ("Arrow", "internal", "data", "core"),
@@ -119,35 +116,29 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     ("_SourceNotIndividualException", "internal", "data", "core"),
     ("ArrowWithoutIndividualAsSourceException", "internal", "data", "core"),
     ("_add_individual_type", "internal", "data", "core"),
-    
     # internal.control.core - Orchestration and coupling
     ("_parse_space_substitute", "internal", "control", "core"),
     ("_parse_metacharacter_substitutes", "internal", "control", "core"),
     ("_build_graph_from_raw_xml", "internal", "control", "core"),
-    
     # rdf.data.core - RDF-specific exceptions
     ("NotInKnownException", "rdf", "data", "core"),
     ("_MetacharacterSubstituteParseException", "rdf", "data", "core"),
     ("MetacharacterException", "rdf", "data", "core"),
     ("_InvalidCapitalisationSchemeException", "rdf", "data", "core"),
-    
     # rdf.control.core - Graph class and preparation
     ("DrawIOParserGraph", "rdf", "control", "core"),
-    
     # ===== POST PHASE =====
-    
     # internal.data.post - Generator bridge
     ("DrawIOXMLTree.individuals_and_arrows", "internal", "data", "post"),
-    
     # internal.control.post - SDK/CLI wrappers and blocks assembly
     ("individual_blocks", "internal", "control", "post"),
     ("parse_drawio_to_graph", "internal", "control", "post"),
     ("_run", "internal", "control", "post"),
     ("main", "internal", "control", "post"),
-    
     # rdf.control.post - Final serialization
     ("serialise_to_graph", "rdf", "control", "post"),
 ]
+
 
 # ---- Helpers ----
 def resolve(dotted: str):
@@ -204,6 +195,7 @@ def get_source_or_repr(name: str, obj) -> str:
         return f"{name} = {getattr(obj, '__name__', repr(obj))}\n"
     return f"{name} = {repr(obj)}\n"
 
+
 def strip_static_methods(src: str, class_name: str, methods: set[str]) -> str:
     tree = ast.parse(src)
 
@@ -231,6 +223,7 @@ def strip_static_methods(src: str, class_name: str, methods: set[str]) -> str:
         return ast.unparse(new_tree)
     except Exception:
         return src
+
 
 # ---- Code generator ----
 def build_output() -> str:
@@ -352,7 +345,9 @@ class DrawIOParser:
     alias_lines.append("# ===== attach to nested namespaces =====")
     for dotted, dt, dr, ph in MAPPING:
         base = dotted.split(".")[-1]
-        alias_lines.append(f"setattr(pipeline.{ph}.{dt}.{dr}, '{base}', {dt}_{dr}_{ph}.{base})")
+        alias_lines.append(
+            f"setattr(pipeline.{ph}.{dt}.{dr}, '{base}', {dt}_{dr}_{ph}.{base})"
+        )
 
     # dynamically attach any extracted static methods back onto their parent classes
     for dotted, dt, dr, ph in MAPPING:
