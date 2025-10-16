@@ -1446,6 +1446,21 @@ class xml_data_core:
         return Arrow(str(arrow_label.strip()), source, target, is_datatype)
 
     # END DrawIOXMLTree._arrow
+    # BEGIN DrawIOXMLTree.individuals_and_arrows
+    def individuals_and_arrows(
+        self, strict_mode: bool, max_gap: float
+    ) -> Generator[Individual | Arrow, None, None]:
+        """
+        Returns as a generator all Individual and Arrow instances obtained
+        when parsing the nodes and arrows of the draw.io XML graph fed into the
+        DrawIOXMLTree instance upon its construction
+        """
+        for _, individual, _ in self.individual_cells:
+            yield individual
+        for arrow_data in self.arrow_cells:
+            yield self._arrow(arrow_data, strict_mode, max_gap)
+
+    # END DrawIOXMLTree.individuals_and_arrows
 
 
 # ===== core.xml.control =====
@@ -1641,6 +1656,75 @@ class internal_control_core:
             return
 
     # END _parse_metacharacter_substitutes
+    # BEGIN individual_blocks
+    def individual_blocks(
+        individuals_and_arrows: Iterator[Individual | Arrow],
+        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+        space_substitute: Replacement | None,
+        capitalisation_scheme: str,
+        prefixes: dict[str, str],
+    ) -> tuple[Blocks, set[str], set[str]]:
+        """
+        Takes an iterator of Individual and Arrow instances, such as that outputted
+        by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
+        assembles them into adictionary whose keys are individual IRIs. The value
+        for a given key is itself a dictionary, collecting together the facts and
+        types for that individual IRI which were defined by some Individual or Arrow
+        instance in the iterator (the individual IRI may occur many times in
+        Individual instances with differing values for the 'class' variable).
+        """
+        blocks: Blocks = {}
+        object_properties: set[str] = set()
+        datatype_properties: set[str] = set()
+        for individual_or_arrow in individuals_and_arrows:
+            if isinstance(individual_or_arrow, Individual):
+                _add_individual_type(
+                    blocks,
+                    individual_or_arrow,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+                continue
+            _ensure_known_curie(
+                individual_or_arrow.identifier,
+                prefixes,
+                (
+                    f"An arrow has label '{individual_or_arrow.identifier}', "
+                    "which is not a known object property or datatype property"
+                ),
+            )
+            if individual_or_arrow.is_datatype:
+                datatype_properties.add(individual_or_arrow.identifier)
+                target_identifier = individual_or_arrow.target
+            else:
+                object_properties.add(individual_or_arrow.identifier)
+                target_identifier = _replace_metacharacters(
+                    individual_or_arrow.target,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+            source_identifier = _replace_metacharacters(
+                individual_or_arrow.source,
+                metacharacter_substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+            try:
+                block = blocks[(source_identifier, individual_or_arrow.source)]
+            except KeyError:
+                blocks[(source_identifier, individual_or_arrow.source)] = {
+                    individual_or_arrow.identifier: {target_identifier}
+                }
+                continue
+            try:
+                block[individual_or_arrow.identifier].add(target_identifier)
+            except KeyError:
+                block[individual_or_arrow.identifier] = {target_identifier}
+        return blocks, object_properties, datatype_properties
+
+    # END individual_blocks
     # BEGIN _build_graph_from_raw_xml
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
@@ -1780,6 +1864,114 @@ class rdf_control_core:
             self.csv_path = csv_path
 
     # END DrawIOParserGraph
+    # BEGIN serialise_to_graph
+    def serialise_to_graph(
+        blocks: Blocks,
+        object_properties: set[str],
+        datatype_properties: set[str],
+        serialisation_config: SerialisationConfig,
+        prefixes: dict,
+        graph_cls: Type[Graph] = Graph,
+        graph_kwargs: Optional[Dict[str, Any]] = None,
+    ) -> Graph:
+        graph_kwargs = graph_kwargs or {}
+        g = graph_cls(**graph_kwargs)
+
+        # Bind prefixes
+        for prefix, uri in prefixes.items():
+            g.bind(prefix, Namespace(uri), replace=True)
+        if serialisation_config.prefix:
+            g.bind(
+                serialisation_config.prefix,
+                Namespace(
+                    serialisation_config.prefix_iri
+                    or get_prefix_iri(serialisation_config.ontology_iri)
+                ),
+            )
+
+        if serialisation_config.include_preamble:
+            # Add ontology definition
+            ontology_iri = serialisation_config.ontology_iri
+            if not ontology_iri:
+                ontology_iri = get_ontology_iri()
+            g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
+            g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
+
+        # Add property definitions
+        for prop in sorted(
+            prop for prop in object_properties if not prop.startswith("rico:")
+        ):
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            g.add((prop_uri, RDF.type, OWL.ObjectProperty))
+
+        for prop in sorted(
+            prop for prop in datatype_properties if not prop.startswith("rico:")
+        ):
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+
+        # Add individuals and their properties
+        for (individual_id, individual_label), types_and_facts in blocks.items():
+            prefix = serialisation_config.prefix
+            prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+                serialisation_config.ontology_iri
+            )
+            if prefix and prefix_iri:
+                individual_uri = Namespace(prefix_iri)[individual_id]
+            else:
+                # Fallback to a default base URI if no prefix is defined
+                base_uri = prefix_iri or get_prefix_iri(ontology_iri)
+                individual_uri = URIRef(f"{base_uri}{individual_id}")
+
+            g.add((individual_uri, RDF.type, OWL.NamedIndividual))
+
+            # Add types
+            for rdf_type in types_and_facts.get("Types", set()):
+                prefix, name = rdf_type.split(":")
+                g.add((individual_uri, RDF.type, Namespace(prefixes[prefix])[name]))
+
+            # Add label
+            if serialisation_config.include_label:
+                g.add((individual_uri, RDFS.label, Literal(individual_label)))
+
+            # Add facts
+            for prop, values in types_and_facts.items():
+                if prop == "Types":
+                    continue
+
+                prop_prefix, prop_name = prop.split(":")
+                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+
+                for value in values:
+                    if prop in object_properties:
+                        if prefix and prefix_iri:
+                            target_uri = Namespace(prefix_iri)[value]
+                        else:
+                            base_uri = prefix_iri or get_prefix_iri(ontology_iri)
+                            target_uri = URIRef(f"{base_uri}{value}")
+                        g.add((individual_uri, prop_uri, target_uri))
+                    elif prop in datatype_properties:
+                        # Simplified type inference
+                        if isinstance(value, int) or value.isnumeric():
+                            literal_value = Literal(value, datatype=XSD.integer)
+                        elif isinstance(value, float):
+                            literal_value = Literal(value, datatype=XSD.float)
+                        else:
+                            try:
+                                datetime.strptime(value, "%Y-%m-%d")
+                                literal_value = Literal(value, datatype=XSD.date)
+                            except (ValueError, TypeError):
+                                literal_value = Literal(value)
+                        g.add((individual_uri, prop_uri, literal_value))
+                    else:
+                        # Default to treating as a literal for safety
+                        g.add((individual_uri, prop_uri, Literal(value)))
+
+        return g
+
+    # END serialise_to_graph
 
 
 # ===== post.xml.metadata =====
@@ -1814,96 +2006,13 @@ class internal_metadata_post:
 
 
 class internal_data_post:
-    # BEGIN DrawIOXMLTree.individuals_and_arrows
-    def individuals_and_arrows(
-        self, strict_mode: bool, max_gap: float
-    ) -> Generator[Individual | Arrow, None, None]:
-        """
-        Returns as a generator all Individual and Arrow instances obtained
-        when parsing the nodes and arrows of the draw.io XML graph fed into the
-        DrawIOXMLTree instance upon its construction
-        """
-        for _, individual, _ in self.individual_cells:
-            yield individual
-        for arrow_data in self.arrow_cells:
-            yield self._arrow(arrow_data, strict_mode, max_gap)
-
-    # END DrawIOXMLTree.individuals_and_arrows
+    pass
 
 
 # ===== post.internal.control =====
 
 
 class internal_control_post:
-    # BEGIN individual_blocks
-    def individual_blocks(
-        individuals_and_arrows: Iterator[Individual | Arrow],
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-        space_substitute: Replacement | None,
-        capitalisation_scheme: str,
-        prefixes: dict[str, str],
-    ) -> tuple[Blocks, set[str], set[str]]:
-        """
-        Takes an iterator of Individual and Arrow instances, such as that outputted
-        by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
-        assembles them into adictionary whose keys are individual IRIs. The value
-        for a given key is itself a dictionary, collecting together the facts and
-        types for that individual IRI which were defined by some Individual or Arrow
-        instance in the iterator (the individual IRI may occur many times in
-        Individual instances with differing values for the 'class' variable).
-        """
-        blocks: Blocks = {}
-        object_properties: set[str] = set()
-        datatype_properties: set[str] = set()
-        for individual_or_arrow in individuals_and_arrows:
-            if isinstance(individual_or_arrow, Individual):
-                _add_individual_type(
-                    blocks,
-                    individual_or_arrow,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    capitalisation_scheme,
-                )
-                continue
-            _ensure_known_curie(
-                individual_or_arrow.identifier,
-                prefixes,
-                (
-                    f"An arrow has label '{individual_or_arrow.identifier}', "
-                    "which is not a known object property or datatype property"
-                ),
-            )
-            if individual_or_arrow.is_datatype:
-                datatype_properties.add(individual_or_arrow.identifier)
-                target_identifier = individual_or_arrow.target
-            else:
-                object_properties.add(individual_or_arrow.identifier)
-                target_identifier = _replace_metacharacters(
-                    individual_or_arrow.target,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    capitalisation_scheme,
-                )
-            source_identifier = _replace_metacharacters(
-                individual_or_arrow.source,
-                metacharacter_substitutes,
-                space_substitute,
-                capitalisation_scheme,
-            )
-            try:
-                block = blocks[(source_identifier, individual_or_arrow.source)]
-            except KeyError:
-                blocks[(source_identifier, individual_or_arrow.source)] = {
-                    individual_or_arrow.identifier: {target_identifier}
-                }
-                continue
-            try:
-                block[individual_or_arrow.identifier].add(target_identifier)
-            except KeyError:
-                block[individual_or_arrow.identifier] = {target_identifier}
-        return blocks, object_properties, datatype_properties
-
-    # END individual_blocks
     # BEGIN parse_drawio_to_graph
     def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawIOParserGraph:
         """
@@ -2027,114 +2136,7 @@ class rdf_data_post:
 
 
 class rdf_control_post:
-    # BEGIN serialise_to_graph
-    def serialise_to_graph(
-        blocks: Blocks,
-        object_properties: set[str],
-        datatype_properties: set[str],
-        serialisation_config: SerialisationConfig,
-        prefixes: dict,
-        graph_cls: Type[Graph] = Graph,
-        graph_kwargs: Optional[Dict[str, Any]] = None,
-    ) -> Graph:
-        graph_kwargs = graph_kwargs or {}
-        g = graph_cls(**graph_kwargs)
-
-        # Bind prefixes
-        for prefix, uri in prefixes.items():
-            g.bind(prefix, Namespace(uri), replace=True)
-        if serialisation_config.prefix:
-            g.bind(
-                serialisation_config.prefix,
-                Namespace(
-                    serialisation_config.prefix_iri
-                    or get_prefix_iri(serialisation_config.ontology_iri)
-                ),
-            )
-
-        if serialisation_config.include_preamble:
-            # Add ontology definition
-            ontology_iri = serialisation_config.ontology_iri
-            if not ontology_iri:
-                ontology_iri = get_ontology_iri()
-            g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
-            g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
-
-        # Add property definitions
-        for prop in sorted(
-            prop for prop in object_properties if not prop.startswith("rico:")
-        ):
-            prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-            g.add((prop_uri, RDF.type, OWL.ObjectProperty))
-
-        for prop in sorted(
-            prop for prop in datatype_properties if not prop.startswith("rico:")
-        ):
-            prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-            g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-
-        # Add individuals and their properties
-        for (individual_id, individual_label), types_and_facts in blocks.items():
-            prefix = serialisation_config.prefix
-            prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-                serialisation_config.ontology_iri
-            )
-            if prefix and prefix_iri:
-                individual_uri = Namespace(prefix_iri)[individual_id]
-            else:
-                # Fallback to a default base URI if no prefix is defined
-                base_uri = prefix_iri or get_prefix_iri(ontology_iri)
-                individual_uri = URIRef(f"{base_uri}{individual_id}")
-
-            g.add((individual_uri, RDF.type, OWL.NamedIndividual))
-
-            # Add types
-            for rdf_type in types_and_facts.get("Types", set()):
-                prefix, name = rdf_type.split(":")
-                g.add((individual_uri, RDF.type, Namespace(prefixes[prefix])[name]))
-
-            # Add label
-            if serialisation_config.include_label:
-                g.add((individual_uri, RDFS.label, Literal(individual_label)))
-
-            # Add facts
-            for prop, values in types_and_facts.items():
-                if prop == "Types":
-                    continue
-
-                prop_prefix, prop_name = prop.split(":")
-                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-
-                for value in values:
-                    if prop in object_properties:
-                        if prefix and prefix_iri:
-                            target_uri = Namespace(prefix_iri)[value]
-                        else:
-                            base_uri = prefix_iri or get_prefix_iri(ontology_iri)
-                            target_uri = URIRef(f"{base_uri}{value}")
-                        g.add((individual_uri, prop_uri, target_uri))
-                    elif prop in datatype_properties:
-                        # Simplified type inference
-                        if isinstance(value, int) or value.isnumeric():
-                            literal_value = Literal(value, datatype=XSD.integer)
-                        elif isinstance(value, float):
-                            literal_value = Literal(value, datatype=XSD.float)
-                        else:
-                            try:
-                                datetime.strptime(value, "%Y-%m-%d")
-                                literal_value = Literal(value, datatype=XSD.date)
-                            except (ValueError, TypeError):
-                                literal_value = Literal(value)
-                        g.add((individual_uri, prop_uri, literal_value))
-                    else:
-                        # Default to treating as a literal for safety
-                        g.add((individual_uri, prop_uri, Literal(value)))
-
-        return g
-
-    # END serialise_to_graph
+    pass
 
 
 # ===== orchestrator =====
@@ -2216,6 +2218,7 @@ _defines_individual = xml_data_core._defines_individual
 _cell_is_literal = xml_data_core._cell_is_literal
 _source_or_target = xml_data_core._source_or_target
 _arrow = xml_data_core._arrow
+individuals_and_arrows = xml_data_core.individuals_and_arrows
 Individual = internal_data_core.Individual
 Arrow = internal_data_core.Arrow
 _split_curie = internal_data_core._split_curie
@@ -2230,6 +2233,7 @@ _parse_space_substitute = internal_control_core._parse_space_substitute
 _parse_metacharacter_substitutes = (
     internal_control_core._parse_metacharacter_substitutes
 )
+individual_blocks = internal_control_core.individual_blocks
 _build_graph_from_raw_xml = internal_control_core._build_graph_from_raw_xml
 NotInKnownException = rdf_data_core.NotInKnownException
 _MetacharacterSubstituteParseException = (
@@ -2240,12 +2244,10 @@ _InvalidCapitalisationSchemeException = (
     rdf_data_core._InvalidCapitalisationSchemeException
 )
 DrawIOParserGraph = rdf_control_core.DrawIOParserGraph
-individuals_and_arrows = internal_data_post.individuals_and_arrows
-individual_blocks = internal_control_post.individual_blocks
+serialise_to_graph = rdf_control_core.serialise_to_graph
 parse_drawio_to_graph = internal_control_post.parse_drawio_to_graph
 _run = internal_control_post._run
 main = internal_control_post.main
-serialise_to_graph = rdf_control_post.serialise_to_graph
 
 # ===== attach to nested namespaces =====
 setattr(
@@ -2394,6 +2396,11 @@ setattr(
 setattr(pipeline.core.xml.data, "_cell_is_literal", xml_data_core._cell_is_literal)
 setattr(pipeline.core.xml.data, "_source_or_target", xml_data_core._source_or_target)
 setattr(pipeline.core.xml.data, "_arrow", xml_data_core._arrow)
+setattr(
+    pipeline.core.xml.data,
+    "individuals_and_arrows",
+    xml_data_core.individuals_and_arrows,
+)
 setattr(pipeline.core.internal.data, "Individual", internal_data_core.Individual)
 setattr(pipeline.core.internal.data, "Arrow", internal_data_core.Arrow)
 setattr(pipeline.core.internal.data, "_split_curie", internal_data_core._split_curie)
@@ -2434,6 +2441,11 @@ setattr(
 )
 setattr(
     pipeline.core.internal.control,
+    "individual_blocks",
+    internal_control_core.individual_blocks,
+)
+setattr(
+    pipeline.core.internal.control,
     "_build_graph_from_raw_xml",
     internal_control_core._build_graph_from_raw_xml,
 )
@@ -2459,14 +2471,7 @@ setattr(
     pipeline.core.rdf.control, "DrawIOParserGraph", rdf_control_core.DrawIOParserGraph
 )
 setattr(
-    pipeline.post.internal.data,
-    "individuals_and_arrows",
-    internal_data_post.individuals_and_arrows,
-)
-setattr(
-    pipeline.post.internal.control,
-    "individual_blocks",
-    internal_control_post.individual_blocks,
+    pipeline.core.rdf.control, "serialise_to_graph", rdf_control_core.serialise_to_graph
 )
 setattr(
     pipeline.post.internal.control,
@@ -2475,9 +2480,6 @@ setattr(
 )
 setattr(pipeline.post.internal.control, "_run", internal_control_post._run)
 setattr(pipeline.post.internal.control, "main", internal_control_post.main)
-setattr(
-    pipeline.post.rdf.control, "serialise_to_graph", rdf_control_post.serialise_to_graph
-)
 setattr(DrawIOXMLTree, "_geometry", staticmethod(_geometry))
 setattr(DrawIOXMLTree, "_x_and_y_in_geometry", staticmethod(_x_and_y_in_geometry))
 setattr(
