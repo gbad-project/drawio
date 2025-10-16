@@ -1,0 +1,130 @@
+# Artifact ID: drawio_pipeline_flow
+# Branch: 1 (main) (3867cfdc...)
+# Version: 1
+# Command: create
+# UUID: d8c0d7e4-6a0b-471f-8a18-774f95ba4f0f
+# Created: 10/16/2025, 9:33:45 AM
+# Change: Created
+
+# ---
+
+graph TB
+    subgraph PRE["PRE-PROCESSING PHASE"]
+        direction TB
+        XML_IN[Raw Draw.io XML]
+        
+        subgraph XML_PRE["xml.metadata.pre"]
+            EXTRACT[_extract_drawio_metadata]
+            STRIP[_strip_metadata_user_object]
+        end
+        
+        subgraph INT_META_PRE["internal.metadata.pre"]
+            DEFAULTS[Constants & Defaults]
+            GETTERS[get_ontology_iri, get_prefix, etc.]
+        end
+        
+        subgraph INT_CTRL_PRE["internal.control.pre"]
+            ARGPARSE[_arguments_parser]
+        end
+        
+        subgraph RDF_DATA_PRE["rdf.data.pre"]
+            METACHAR[Metacharacter handling]
+            CAPSCHEME[Capitalization schemes]
+        end
+        
+        XML_IN --> EXTRACT
+        EXTRACT --> |prefixes, base_uri, csv_path| STRIP
+        STRIP --> |cleaned XML| XMLCORE[To Core]
+        DEFAULTS --> METADATA[Metadata Pool]
+        GETTERS --> METADATA
+        ARGPARSE --> |user config| METADATA
+        METACHAR --> METADATA
+        CAPSCHEME --> METADATA
+    end
+    
+    subgraph CORE["CORE PROCESSING PHASE"]
+        direction TB
+        
+        subgraph XML_DATA_CORE["xml.data.core"]
+            TREE[DrawIOXMLTree]
+            GEOMETRY[Geometry calculations]
+            CELLS[Cell identification]
+            ARROWS[Arrow parsing]
+        end
+        
+        subgraph INT_DATA_CORE["internal.data.core"]
+            INDIV[Individual instances]
+            ARR[Arrow instances]
+            CURIE[CURIE handling]
+            VERIFY[_verify_is_ric_class]
+        end
+        
+        subgraph INT_CTRL_CORE["internal.control.core"]
+            BUILD[_build_graph_from_raw_xml]
+            COUPLE[Couple individuals/arrows + metadata]
+        end
+        
+        subgraph RDF_CTRL_CORE["rdf.control.core"]
+            GRAPHCLS[DrawIOParserGraph class]
+            PREP[Serialization preparation]
+        end
+        
+        XMLCORE --> TREE
+        TREE --> GEOMETRY
+        TREE --> CELLS
+        TREE --> ARROWS
+        GEOMETRY --> INDIV
+        CELLS --> INDIV
+        ARROWS --> ARR
+        INDIV --> COUPLE
+        ARR --> COUPLE
+        METADATA --> COUPLE
+        COUPLE --> |blocks, obj_props, data_props| BUILD
+        BUILD --> PREP
+        PREP --> GRAPHCLS
+    end
+    
+    subgraph POST["POST-PROCESSING PHASE"]
+        direction TB
+        
+        subgraph INT_DATA_POST["internal.data.post"]
+            GENERATOR[individuals_and_arrows generator]
+        end
+        
+        subgraph INT_CTRL_POST["internal.control.post"]
+            BLOCKS[individual_blocks assembly]
+            SDK[parse_drawio_to_graph]
+            CLI[_run, main]
+        end
+        
+        subgraph RDF_CTRL_POST["rdf.control.post"]
+            SERIALIZE[serialise_to_graph]
+            SECONDARY[Secondary serializations]
+            MANIPULATE[Graph manipulation]
+        end
+        
+        GRAPHCLS --> GENERATOR
+        GENERATOR --> BLOCKS
+        BLOCKS --> SERIALIZE
+        SERIALIZE --> |DrawIOParserGraph instance| SDK
+        SERIALIZE --> |DrawIOParserGraph instance| CLI
+        SDK --> SECONDARY
+        CLI --> OUTPUT[Final Output]
+        SECONDARY --> MANIPULATE
+        MANIPULATE --> OUTPUT
+    end
+    
+    style PRE fill:#e1f5ff
+    style CORE fill:#fff9e1
+    style POST fill:#e8f5e9
+    style XML_PRE fill:#b3e5fc
+    style INT_META_PRE fill:#c8e6c9
+    style INT_CTRL_PRE fill:#c8e6c9
+    style RDF_DATA_PRE fill:#f8bbd0
+    style XML_DATA_CORE fill:#b3e5fc
+    style INT_DATA_CORE fill:#c8e6c9
+    style INT_CTRL_CORE fill:#c8e6c9
+    style RDF_CTRL_CORE fill:#f8bbd0
+    style INT_DATA_POST fill:#c8e6c9
+    style INT_CTRL_POST fill:#c8e6c9
+    style RDF_CTRL_POST fill:#f8bbd0

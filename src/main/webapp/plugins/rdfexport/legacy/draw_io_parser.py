@@ -16,47 +16,46 @@ import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 
-class pre:
-    class xml:
-        class metadata: pass
-        class data: pass
-        class control: pass
-    class internal:
-        class metadata: pass
-        class data: pass
-        class control: pass
-    class rdf:
-        class metadata: pass
-        class data: pass
-        class control: pass
-
-class core:
-    class xml:
-        class metadata: pass
-        class data: pass
-        class control: pass
-    class internal:
-        class metadata: pass
-        class data: pass
-        class control: pass
-    class rdf:
-        class metadata: pass
-        class data: pass
-        class control: pass
-
-class post:
-    class xml:
-        class metadata: pass
-        class data: pass
-        class control: pass
-    class internal:
-        class metadata: pass
-        class data: pass
-        class control: pass
-    class rdf:
-        class metadata: pass
-        class data: pass
-        class control: pass
+class pipeline:
+    class pre:
+        class xml:
+            class metadata: pass
+            class data: pass
+            class control: pass
+        class internal:
+            class metadata: pass
+            class data: pass
+            class control: pass
+        class rdf:
+            class metadata: pass
+            class data: pass
+            class control: pass
+    class core:
+        class xml:
+            class metadata: pass
+            class data: pass
+            class control: pass
+        class internal:
+            class metadata: pass
+            class data: pass
+            class control: pass
+        class rdf:
+            class metadata: pass
+            class data: pass
+            class control: pass
+    class post:
+        class xml:
+            class metadata: pass
+            class data: pass
+            class control: pass
+        class internal:
+            class metadata: pass
+            class data: pass
+            class control: pass
+        class rdf:
+            class metadata: pass
+            class data: pass
+            class control: pass
 
 
 # ===== pre.xml.metadata =====
@@ -122,89 +121,7 @@ class xml_metadata_pre:
 # ===== pre.xml.data =====
 
 class xml_data_pre:
-    # BEGIN NodeHTMLParser
-    class NodeHTMLParser(HTMLParser):
-        """
-        Subclasses HTMLParser to define its behaviour with respect to 'handle_data',
-        'handle_starttag', and 'handle_endtag' (this is the usage pattern expected
-        by HTMLParser). It seems that text, including multi-line text, in draw.io
-        may come in three forms: as a simple string; as a string within a blockquote
-        element; or as a sequence of strings inside divs inside a blockquote. In
-        the simple string case, our subclassing of the three afore-mentioned methods
-        is such as to discard all information except these strings, and to collect
-        them, in the sequence they are encountered in, into a list.
-
-        The 'content' function takes such a list and collects the strings together
-        into paragraphs. Single line-breaks in the original graph (corresponding
-        usually to three consecutive divs, the middle one of which contains no
-        string) are ignored; two or more line-breaks in the original graph will lead
-        to a paragraph break.
-
-        The 'clear' function resets the internal state of the class, and should be
-        called before parsing a new chunk of HTML.
-        """
-
-        def __init__(self):
-            super().__init__()
-            self._chunks = []
-
-        def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
-            if tag in ["div", "blockquote", "p", "br"]:
-                # Otherwise words stick together in place of a single line break
-                self._chunks.append(" ")
-
-        def handle_endtag(self, tag: str) -> None:
-            if tag in ["div", "blockquote", "p"]:
-                # Otherwise words stick together in place of a single line break
-                self._chunks.append(" ")
-
-        def handle_data(self, data: str) -> None:
-            """
-            Overrides a function in HTMLParser, storing the raw data (text) inside
-            a HTML element in the instance variable 'raw_data'.
-            """
-            # Implementing chunks universally seems to fix lost data with single <br> tags
-            self._chunks.append(data)
-
-        def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
-            # This method is unsafe because can also generate line breaks in Individuals
-            previous_was_empty = False
-            paragraph_already_handled = False
-            current = ""
-            for chunk in self._chunks:
-                if not chunk:
-                    if current:
-                        yield current
-                    current = ""
-                    if previous_was_empty and not paragraph_already_handled:
-                        yield "\n\n"
-                        paragraph_already_handled = True
-                    else:
-                        previous_was_empty = True
-                    continue
-                current += chunk
-                previous_was_empty = False
-                paragraph_already_handled = False
-            if current:
-                yield current
-
-        def content(self) -> str:
-            """
-            Takes all of the string chunks (within divs and blockquotes) obtained
-            during the current run of the parser, and collects them together
-            into paragraphs, handling line breaks as described in the docstring
-            for this class
-            """
-            return "".join(self._prettify_linebreaks()).strip()
-
-        def clear(self) -> None:
-            """
-            Clears the internal state of the parser so that it is as though newly
-            constructed
-            """
-            self._chunks = []
-
-    # END NodeHTMLParser
+    pass
 
 
 # ===== pre.xml.control =====
@@ -532,13 +449,90 @@ class rdf_metadata_pre:
 # ===== pre.rdf.data =====
 
 class rdf_data_pre:
-    pass
+    # BEGIN _handle_spaces
+    def _handle_spaces(
+        identifier: str, space_substitute: Replacement, capitalisation_scheme: str
+    ) -> str:
+        if capitalisation_scheme == "upper-camel":
+            return f"{space_substitute}".join(
+                word[0].upper() + word[1:] for word in identifier.split()
+            )
+        if capitalisation_scheme == "lower-camel":
+            words = identifier.split()
+            return f"{space_substitute}".join(
+                [words[0][0].lower() + words[0][1:]]
+                + [word[0].upper() + word[1:] for word in words[1:]]
+            )
+        if capitalisation_scheme == "flat":
+            return f"{space_substitute}".join(
+                word[0].lower() + word[1:] for word in identifier.split()
+            )
+        if capitalisation_scheme == "none":
+            return f"{space_substitute}".join(identifier.split())
+        raise ValueError
+
+    # END _handle_spaces
+    # BEGIN _replace_metacharacter
+    def _replace_metacharacter(
+        metacharacter: str,
+        identifier: str,
+        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+    ) -> str:
+        if metacharacter not in identifier:
+            return identifier
+        for to_replace, replacement in metacharacter_substitutes:
+            if metacharacter == to_replace:
+                return identifier.replace(to_replace, replacement)
+        raise MetacharacterException(
+            f"The following contains the OWL metacharacter '{metacharacter}': "
+            f"'{identifier}'. Use the -m/--metacharacter-substitute option, more "
+            "than once if necessary, to define a character or string to substitute "
+            "it with, or to specify that it should be removed"
+        )
+
+    # END _replace_metacharacter
+    # BEGIN _replace_metacharacters
+    def _replace_metacharacters(
+        identifier: str,
+        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+        space_substitute: Replacement | None,
+        capitalisation_scheme: str,
+    ) -> str:
+        if " " in identifier:
+            if space_substitute is None:
+                raise MetacharacterException(
+                    "The following contains a space, but how to handle spaces in "
+                    "individual nodes has not been specified (spaces cannot be "
+                    f"used in OWL IRIs): '{identifier}'. Use the "
+                    "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
+                    "options to define how to handle spaces"
+                )
+            identifier = _handle_spaces(identifier, space_substitute, capitalisation_scheme)
+        elif capitalisation_scheme in ["lower-camel", "flat"]:
+            identifier = identifier[0].lower() + identifier[1:]
+        for metacharacter in OWL_METACHARACTERS:
+            identifier = _replace_metacharacter(
+                metacharacter, identifier, metacharacter_substitutes
+            )
+        return identifier
+
+    # END _replace_metacharacters
 
 
 # ===== pre.rdf.control =====
 
 class rdf_control_pre:
-    pass
+    # BEGIN _parse_capitalisation_scheme
+    def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
+        if capitalisation_scheme not in ["upper-camel", "lower-camel", "flat", "none"]:
+            raise _InvalidCapitalisationSchemeException(
+                "The following was passed into the -c/--capitalisation-scheme "
+                f"option, which is not a permitted value: "
+                f"{capitalisation_scheme}. See the documentation of the "
+                "-c/--capitalisation-scheme option for the permitted values"
+            )
+
+    # END _parse_capitalisation_scheme
 
 
 # ===== core.xml.metadata =====
@@ -558,11 +552,6 @@ class xml_data_core:
         """
 
     # END NothingToParseException
-    # BEGIN _NoCellCloseEnoughException
-    class _NoCellCloseEnoughException(Exception):
-        pass
-
-    # END _NoCellCloseEnoughException
     # BEGIN NoSourceException
     class NoSourceException(Exception):
         """
@@ -590,6 +579,11 @@ class xml_data_core:
         pass
 
     # END _NoValueException
+    # BEGIN _NoCellCloseEnoughException
+    class _NoCellCloseEnoughException(Exception):
+        pass
+
+    # END _NoCellCloseEnoughException
     # BEGIN ParseException
     class ParseException(Exception):
         """
@@ -601,6 +595,89 @@ class xml_data_core:
             super().__init__(message)
 
     # END ParseException
+    # BEGIN NodeHTMLParser
+    class NodeHTMLParser(HTMLParser):
+        """
+        Subclasses HTMLParser to define its behaviour with respect to 'handle_data',
+        'handle_starttag', and 'handle_endtag' (this is the usage pattern expected
+        by HTMLParser). It seems that text, including multi-line text, in draw.io
+        may come in three forms: as a simple string; as a string within a blockquote
+        element; or as a sequence of strings inside divs inside a blockquote. In
+        the simple string case, our subclassing of the three afore-mentioned methods
+        is such as to discard all information except these strings, and to collect
+        them, in the sequence they are encountered in, into a list.
+
+        The 'content' function takes such a list and collects the strings together
+        into paragraphs. Single line-breaks in the original graph (corresponding
+        usually to three consecutive divs, the middle one of which contains no
+        string) are ignored; two or more line-breaks in the original graph will lead
+        to a paragraph break.
+
+        The 'clear' function resets the internal state of the class, and should be
+        called before parsing a new chunk of HTML.
+        """
+
+        def __init__(self):
+            super().__init__()
+            self._chunks = []
+
+        def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
+            if tag in ["div", "blockquote", "p", "br"]:
+                # Otherwise words stick together in place of a single line break
+                self._chunks.append(" ")
+
+        def handle_endtag(self, tag: str) -> None:
+            if tag in ["div", "blockquote", "p"]:
+                # Otherwise words stick together in place of a single line break
+                self._chunks.append(" ")
+
+        def handle_data(self, data: str) -> None:
+            """
+            Overrides a function in HTMLParser, storing the raw data (text) inside
+            a HTML element in the instance variable 'raw_data'.
+            """
+            # Implementing chunks universally seems to fix lost data with single <br> tags
+            self._chunks.append(data)
+
+        def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
+            # This method is unsafe because can also generate line breaks in Individuals
+            previous_was_empty = False
+            paragraph_already_handled = False
+            current = ""
+            for chunk in self._chunks:
+                if not chunk:
+                    if current:
+                        yield current
+                    current = ""
+                    if previous_was_empty and not paragraph_already_handled:
+                        yield "\n\n"
+                        paragraph_already_handled = True
+                    else:
+                        previous_was_empty = True
+                    continue
+                current += chunk
+                previous_was_empty = False
+                paragraph_already_handled = False
+            if current:
+                yield current
+
+        def content(self) -> str:
+            """
+            Takes all of the string chunks (within divs and blockquotes) obtained
+            during the current run of the parser, and collects them together
+            into paragraphs, handling line breaks as described in the docstring
+            for this class
+            """
+            return "".join(self._prettify_linebreaks()).strip()
+
+        def clear(self) -> None:
+            """
+            Clears the internal state of the parser so that it is as though newly
+            constructed
+            """
+            self._chunks = []
+
+    # END NodeHTMLParser
     # BEGIN DrawIOXMLTree
     @dataclass(frozen=True)
     class DrawIOXMLTree:
@@ -826,6 +903,43 @@ class xml_data_core:
             for arrow_data in self.arrow_cells:
                 yield self._arrow(arrow_data, strict_mode, max_gap)
     # END DrawIOXMLTree
+    # BEGIN DrawIOXMLTree._cell_with_id
+    def _cell_with_id(self, _id: str) -> Element:
+        cell = self.draw_io_xml_tree.find(f".//*[@id='{_id}']")
+        if cell is None:
+            raise ValueError(f"No cell with id: {_id}")
+        return cell
+
+    # END DrawIOXMLTree._cell_with_id
+    # BEGIN DrawIOXMLTree._value_of
+    def _value_of(self, cell: Element) -> str:
+        try:
+            value = cell.attrib["value"].strip()
+        except KeyError as key_error:
+            raise _NoValueException from key_error
+        self.literal_node_html_parser.clear()
+        self.literal_node_html_parser.feed(value)
+        return self.literal_node_html_parser.content()
+
+    # END DrawIOXMLTree._value_of
+    # BEGIN DrawIOXMLTree._parent_of
+    def _parent_of(self, cell: Element) -> Element:
+        try:
+            parent_id = cell.attrib["parent"]
+        except KeyError as key_error:
+            raise ParseException(
+                "Could not parse XML tree: found an 'mxCell' element with "
+                "the following id which has value beginning with 'rico:' but "
+                f"with no parent: {cell.attrib['id']}"
+            ) from key_error
+        return self._cell_with_id(parent_id)
+
+    # END DrawIOXMLTree._parent_of
+    # BEGIN DrawIOXMLTree._child_of
+    def _child_of(self, parent_id: str) -> Generator[Element, None, None]:
+        yield from self.draw_io_xml_tree.findall(f".//*[@parent='{parent_id}']")
+
+    # END DrawIOXMLTree._child_of
     # BEGIN DrawIOXMLTree._geometry
     @staticmethod
     def _geometry(cell: Element) -> Element:
@@ -891,98 +1005,6 @@ class xml_data_core:
         return False
 
     # END DrawIOXMLTree._is_locked
-    # BEGIN DrawIOXMLTree._dimensions
-    @staticmethod
-    def _dimensions(individual_cell: Element) -> Dimensions:
-        geometry = DrawIOXMLTree._geometry(individual_cell)
-        try:
-            x = float(geometry.attrib["x"])
-        except KeyError:
-            x = 0.0
-            # raise ParseException(
-            #    "Expecting the mxGeometry element of the cell with the "
-            #    "following id to have an 'x' attribute, but it does not: "
-            #    f"{individual_cell.attrib['id']}"
-            # ) from key_error
-        try:
-            y = float(geometry.attrib["y"])
-        except KeyError:
-            y = 0.0
-            # raise ParseException(
-            #    "Expecting the mxGeometry element of the cell with the "
-            #    "following id to have a 'y' attribute, but it does not: "
-            #    f"{individual_cell.attrib['id']}"
-            # ) from key_error
-        try:
-            width = float(geometry.attrib["width"])
-        except KeyError as key_error:
-            raise ParseException(
-                "Expecting the mxGeometry element of the cell with the "
-                "following id to have a 'width' attribute, but it does not: "
-                f"{individual_cell.attrib['width']}"
-            ) from key_error
-        try:
-            height = float(geometry.attrib["height"])
-        except KeyError as key_error:
-            raise ParseException(
-                "Expecting the mxGeometry element of the cell with the "
-                "following id to have a 'height' attribute, but it does not: "
-                f"{individual_cell.attrib['height']}"
-            ) from key_error
-        return x, y, width, height
-
-    # END DrawIOXMLTree._dimensions
-    # BEGIN DrawIOXMLTree._close_enough
-    @staticmethod
-    def _close_enough(
-        arrow_endpoint: ArrowStart | ArrowEnd,
-        cell_dimensions: Dimensions,
-        max_gap: float,
-    ) -> bool:
-        endpoint_x, endpoint_y = arrow_endpoint
-        cell_x, cell_y, cell_width, cell_height = cell_dimensions
-        return (cell_x - max_gap <= endpoint_x <= cell_x + cell_width + max_gap) and (
-            cell_y - max_gap <= endpoint_y <= cell_y + cell_height + max_gap
-        )
-
-    # END DrawIOXMLTree._close_enough
-    # BEGIN DrawIOXMLTree._cell_with_id
-    def _cell_with_id(self, _id: str) -> Element:
-        cell = self.draw_io_xml_tree.find(f".//*[@id='{_id}']")
-        if cell is None:
-            raise ValueError(f"No cell with id: {_id}")
-        return cell
-
-    # END DrawIOXMLTree._cell_with_id
-    # BEGIN DrawIOXMLTree._value_of
-    def _value_of(self, cell: Element) -> str:
-        try:
-            value = cell.attrib["value"].strip()
-        except KeyError as key_error:
-            raise _NoValueException from key_error
-        self.literal_node_html_parser.clear()
-        self.literal_node_html_parser.feed(value)
-        return self.literal_node_html_parser.content()
-
-    # END DrawIOXMLTree._value_of
-    # BEGIN DrawIOXMLTree._parent_of
-    def _parent_of(self, cell: Element) -> Element:
-        try:
-            parent_id = cell.attrib["parent"]
-        except KeyError as key_error:
-            raise ParseException(
-                "Could not parse XML tree: found an 'mxCell' element with "
-                "the following id which has value beginning with 'rico:' but "
-                f"with no parent: {cell.attrib['id']}"
-            ) from key_error
-        return self._cell_with_id(parent_id)
-
-    # END DrawIOXMLTree._parent_of
-    # BEGIN DrawIOXMLTree._child_of
-    def _child_of(self, parent_id: str) -> Generator[Element, None, None]:
-        yield from self.draw_io_xml_tree.findall(f".//*[@parent='{parent_id}']")
-
-    # END DrawIOXMLTree._child_of
     # BEGIN DrawIOXMLTree._start_or_end
     def _start_or_end(
         self, cell: Element, as_attribute: str | None
@@ -1052,6 +1074,47 @@ class xml_data_core:
         return self._start_or_end(arrow_cell, "targetPoint")
 
     # END DrawIOXMLTree._arrow_end
+    # BEGIN DrawIOXMLTree._dimensions
+    @staticmethod
+    def _dimensions(individual_cell: Element) -> Dimensions:
+        geometry = DrawIOXMLTree._geometry(individual_cell)
+        try:
+            x = float(geometry.attrib["x"])
+        except KeyError:
+            x = 0.0
+            # raise ParseException(
+            #    "Expecting the mxGeometry element of the cell with the "
+            #    "following id to have an 'x' attribute, but it does not: "
+            #    f"{individual_cell.attrib['id']}"
+            # ) from key_error
+        try:
+            y = float(geometry.attrib["y"])
+        except KeyError:
+            y = 0.0
+            # raise ParseException(
+            #    "Expecting the mxGeometry element of the cell with the "
+            #    "following id to have a 'y' attribute, but it does not: "
+            #    f"{individual_cell.attrib['id']}"
+            # ) from key_error
+        try:
+            width = float(geometry.attrib["width"])
+        except KeyError as key_error:
+            raise ParseException(
+                "Expecting the mxGeometry element of the cell with the "
+                "following id to have a 'width' attribute, but it does not: "
+                f"{individual_cell.attrib['width']}"
+            ) from key_error
+        try:
+            height = float(geometry.attrib["height"])
+        except KeyError as key_error:
+            raise ParseException(
+                "Expecting the mxGeometry element of the cell with the "
+                "following id to have a 'height' attribute, but it does not: "
+                f"{individual_cell.attrib['height']}"
+            ) from key_error
+        return x, y, width, height
+
+    # END DrawIOXMLTree._dimensions
     # BEGIN DrawIOXMLTree._is_possible_literal
     @staticmethod
     def _is_possible_literal(cell: Element) -> bool:
@@ -1142,6 +1205,20 @@ class xml_data_core:
             #        (cell, individual, self._dimensions(parent)))
 
     # END DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells
+    # BEGIN DrawIOXMLTree._close_enough
+    @staticmethod
+    def _close_enough(
+        arrow_endpoint: ArrowStart | ArrowEnd,
+        cell_dimensions: Dimensions,
+        max_gap: float,
+    ) -> bool:
+        endpoint_x, endpoint_y = arrow_endpoint
+        cell_x, cell_y, cell_width, cell_height = cell_dimensions
+        return (cell_x - max_gap <= endpoint_x <= cell_x + cell_width + max_gap) and (
+            cell_y - max_gap <= endpoint_y <= cell_y + cell_height + max_gap
+        )
+
+    # END DrawIOXMLTree._close_enough
     # BEGIN DrawIOXMLTree._cell_close_to
     def _cell_close_to(
         self, arrow_endpoint: ArrowStart | ArrowEnd, max_gap: float
@@ -1235,21 +1312,6 @@ class xml_data_core:
         return Arrow(str(arrow_label.strip()), source, target, is_datatype)
 
     # END DrawIOXMLTree._arrow
-    # BEGIN DrawIOXMLTree.individuals_and_arrows
-    def individuals_and_arrows(
-        self, strict_mode: bool, max_gap: float
-    ) -> Generator[Individual | Arrow, None, None]:
-        """
-        Returns as a generator all Individual and Arrow instances obtained
-        when parsing the nodes and arrows of the draw.io XML graph fed into the
-        DrawIOXMLTree instance upon its construction
-        """
-        for _, individual, _ in self.individual_cells:
-            yield individual
-        for arrow_data in self.arrow_cells:
-            yield self._arrow(arrow_data, strict_mode, max_gap)
-
-    # END DrawIOXMLTree.individuals_and_arrows
 
 
 # ===== core.xml.control =====
@@ -1261,154 +1323,12 @@ class xml_control_core:
 # ===== core.internal.metadata =====
 
 class internal_metadata_core:
-    # BEGIN NotInKnownException
-    class NotInKnownException(Exception):
-        """
-        Can be thrown if an arrow has a label which does not correspond to an
-        object or datatype property in RiC-O, and if it has been specified that this
-        is not to be permitted
-        """
-
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END NotInKnownException
-    # BEGIN _MetacharacterSubstituteParseException
-    class _MetacharacterSubstituteParseException(Exception):
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END _MetacharacterSubstituteParseException
-    # BEGIN MetacharacterException
-    class MetacharacterException(Exception):
-        """
-        Can be thrown when calling the 'individual_blocks' function if an individual
-        has an identifier (the text in the upper half of an individual node)
-        containing an OWL metacharacter
-        """
-
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END MetacharacterException
-    # BEGIN _InvalidCapitalisationSchemeException
-    class _InvalidCapitalisationSchemeException(Exception):
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END _InvalidCapitalisationSchemeException
-    # BEGIN _split_curie
-    def _split_curie(curie: str) -> tuple[str, str]:
-        if ":" not in curie:
-            return "", ""
-        prefix, remainder = curie.split(":", 1)
-        return prefix, remainder.strip()
-
-    # END _split_curie
-    # BEGIN _ensure_known_curie
-    def _ensure_known_curie(
-        curie: str, prefixes: dict[str, str], error_message: str
-    ) -> tuple[str, str]:
-        prefix, reference = _split_curie(curie)
-        if prefix not in prefixes or not reference:
-            raise NotInKnownException(error_message)
-        return prefix, reference
-
-    # END _ensure_known_curie
-    # BEGIN _verify_is_ric_class
-    def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
-        _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
-
-    # END _verify_is_ric_class
-    # BEGIN _handle_spaces
-    def _handle_spaces(
-        identifier: str, space_substitute: Replacement, capitalisation_scheme: str
-    ) -> str:
-        if capitalisation_scheme == "upper-camel":
-            return f"{space_substitute}".join(
-                word[0].upper() + word[1:] for word in identifier.split()
-            )
-        if capitalisation_scheme == "lower-camel":
-            words = identifier.split()
-            return f"{space_substitute}".join(
-                [words[0][0].lower() + words[0][1:]]
-                + [word[0].upper() + word[1:] for word in words[1:]]
-            )
-        if capitalisation_scheme == "flat":
-            return f"{space_substitute}".join(
-                word[0].lower() + word[1:] for word in identifier.split()
-            )
-        if capitalisation_scheme == "none":
-            return f"{space_substitute}".join(identifier.split())
-        raise ValueError
-
-    # END _handle_spaces
-    # BEGIN _replace_metacharacter
-    def _replace_metacharacter(
-        metacharacter: str,
-        identifier: str,
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-    ) -> str:
-        if metacharacter not in identifier:
-            return identifier
-        for to_replace, replacement in metacharacter_substitutes:
-            if metacharacter == to_replace:
-                return identifier.replace(to_replace, replacement)
-        raise MetacharacterException(
-            f"The following contains the OWL metacharacter '{metacharacter}': "
-            f"'{identifier}'. Use the -m/--metacharacter-substitute option, more "
-            "than once if necessary, to define a character or string to substitute "
-            "it with, or to specify that it should be removed"
-        )
-
-    # END _replace_metacharacter
-    # BEGIN _replace_metacharacters
-    def _replace_metacharacters(
-        identifier: str,
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-        space_substitute: Replacement | None,
-        capitalisation_scheme: str,
-    ) -> str:
-        if " " in identifier:
-            if space_substitute is None:
-                raise MetacharacterException(
-                    "The following contains a space, but how to handle spaces in "
-                    "individual nodes has not been specified (spaces cannot be "
-                    f"used in OWL IRIs): '{identifier}'. Use the "
-                    "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
-                    "options to define how to handle spaces"
-                )
-            identifier = _handle_spaces(identifier, space_substitute, capitalisation_scheme)
-        elif capitalisation_scheme in ["lower-camel", "flat"]:
-            identifier = identifier[0].lower() + identifier[1:]
-        for metacharacter in OWL_METACHARACTERS:
-            identifier = _replace_metacharacter(
-                metacharacter, identifier, metacharacter_substitutes
-            )
-        return identifier
-
-    # END _replace_metacharacters
+    pass
 
 
 # ===== core.internal.data =====
 
 class internal_data_core:
-    # BEGIN _SourceNotIndividualException
-    class _SourceNotIndividualException(Exception):
-        pass
-
-    # END _SourceNotIndividualException
-    # BEGIN ArrowWithoutIndividualAsSourceException
-    class ArrowWithoutIndividualAsSourceException(Exception):
-        """
-        Can be thrown when calling the 'individuals_and_arrows' function if a given
-        arrow has a source that appears not to be an individual node
-        """
-
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END ArrowWithoutIndividualAsSourceException
     # BEGIN Individual
     @dataclass(frozen=True)
     class Individual:
@@ -1435,6 +1355,45 @@ class internal_data_core:
         is_datatype: bool
 
     # END Arrow
+    # BEGIN _split_curie
+    def _split_curie(curie: str) -> tuple[str, str]:
+        if ":" not in curie:
+            return "", ""
+        prefix, remainder = curie.split(":", 1)
+        return prefix, remainder.strip()
+
+    # END _split_curie
+    # BEGIN _ensure_known_curie
+    def _ensure_known_curie(
+        curie: str, prefixes: dict[str, str], error_message: str
+    ) -> tuple[str, str]:
+        prefix, reference = _split_curie(curie)
+        if prefix not in prefixes or not reference:
+            raise NotInKnownException(error_message)
+        return prefix, reference
+
+    # END _ensure_known_curie
+    # BEGIN _verify_is_ric_class
+    def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
+        _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
+
+    # END _verify_is_ric_class
+    # BEGIN _SourceNotIndividualException
+    class _SourceNotIndividualException(Exception):
+        pass
+
+    # END _SourceNotIndividualException
+    # BEGIN ArrowWithoutIndividualAsSourceException
+    class ArrowWithoutIndividualAsSourceException(Exception):
+        """
+        Can be thrown when calling the 'individuals_and_arrows' function if a given
+        arrow has a source that appears not to be an individual node
+        """
+
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END ArrowWithoutIndividualAsSourceException
     # BEGIN _add_individual_type
     def _add_individual_type(
         blocks: Blocks,
@@ -1462,6 +1421,11 @@ class internal_data_core:
             block["Types"] = {individual.ric_class}
 
     # END _add_individual_type
+
+
+# ===== core.internal.control =====
+
+class internal_control_core:
     # BEGIN _parse_space_substitute
     def _parse_space_substitute(metacharacter_substitutes: list[str]) -> str | None:
         has_remove = False
@@ -1539,22 +1503,6 @@ class internal_data_core:
             return
 
     # END _parse_metacharacter_substitutes
-    # BEGIN _parse_capitalisation_scheme
-    def _parse_capitalisation_scheme(capitalisation_scheme: str) -> None:
-        if capitalisation_scheme not in ["upper-camel", "lower-camel", "flat", "none"]:
-            raise _InvalidCapitalisationSchemeException(
-                "The following was passed into the -c/--capitalisation-scheme "
-                f"option, which is not a permitted value: "
-                f"{capitalisation_scheme}. See the documentation of the "
-                "-c/--capitalisation-scheme option for the permitted values"
-            )
-
-    # END _parse_capitalisation_scheme
-
-
-# ===== core.internal.control =====
-
-class internal_control_core:
     # BEGIN _build_graph_from_raw_xml
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
@@ -1637,7 +1585,42 @@ class rdf_metadata_core:
 # ===== core.rdf.data =====
 
 class rdf_data_core:
-    pass
+    # BEGIN NotInKnownException
+    class NotInKnownException(Exception):
+        """
+        Can be thrown if an arrow has a label which does not correspond to an
+        object or datatype property in RiC-O, and if it has been specified that this
+        is not to be permitted
+        """
+
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END NotInKnownException
+    # BEGIN _MetacharacterSubstituteParseException
+    class _MetacharacterSubstituteParseException(Exception):
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END _MetacharacterSubstituteParseException
+    # BEGIN MetacharacterException
+    class MetacharacterException(Exception):
+        """
+        Can be thrown when calling the 'individual_blocks' function if an individual
+        has an identifier (the text in the upper half of an individual node)
+        containing an OWL metacharacter
+        """
+
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END MetacharacterException
+    # BEGIN _InvalidCapitalisationSchemeException
+    class _InvalidCapitalisationSchemeException(Exception):
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END _InvalidCapitalisationSchemeException
 
 
 # ===== core.rdf.control =====
@@ -1681,6 +1664,26 @@ class internal_metadata_post:
 # ===== post.internal.data =====
 
 class internal_data_post:
+    # BEGIN DrawIOXMLTree.individuals_and_arrows
+    def individuals_and_arrows(
+        self, strict_mode: bool, max_gap: float
+    ) -> Generator[Individual | Arrow, None, None]:
+        """
+        Returns as a generator all Individual and Arrow instances obtained
+        when parsing the nodes and arrows of the draw.io XML graph fed into the
+        DrawIOXMLTree instance upon its construction
+        """
+        for _, individual, _ in self.individual_cells:
+            yield individual
+        for arrow_data in self.arrow_cells:
+            yield self._arrow(arrow_data, strict_mode, max_gap)
+
+    # END DrawIOXMLTree.individuals_and_arrows
+
+
+# ===== post.internal.control =====
+
+class internal_control_post:
     # BEGIN individual_blocks
     def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
@@ -1750,11 +1753,6 @@ class internal_data_post:
         return blocks, object_properties, datatype_properties
 
     # END individual_blocks
-
-
-# ===== post.internal.control =====
-
-class internal_control_post:
     # BEGIN parse_drawio_to_graph
     def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawIOParserGraph:
         """
@@ -1991,16 +1989,16 @@ class DrawIOParser:
     __data_role__ = "metadata"
     __phase__ = "core"
     def __init__(self):
-        self.pre = pre
-        self.core = core
-        self.post = post
+        self.pipeline = pipeline
     def to_graph_from_file(self, path, **kw):
-        return post.internal.control.parse_drawio_to_graph(path, **kw)
+        return pipeline.post.internal.control.parse_drawio_to_graph(path, **kw)
     def run_cli(self, argv=None):
-        return post.internal.control.main(argv)
+        return pipeline.post.internal.control.main(argv)
 
 
 # ===== module-level aliases =====
+_extract_drawio_metadata = xml_metadata_pre._extract_drawio_metadata
+_strip_metadata_user_object = xml_metadata_pre._strip_metadata_user_object
 DEFAULT_CAPITALISATION_SCHEME = internal_metadata_pre.DEFAULT_CAPITALISATION_SCHEME
 DEFAULT_INDENTATION = internal_metadata_pre.DEFAULT_INDENTATION
 DEFAULT_MAX_GAP = internal_metadata_pre.DEFAULT_MAX_GAP
@@ -2019,158 +2017,156 @@ Dimensions = internal_metadata_pre.Dimensions
 Paragraph = internal_metadata_pre.Paragraph
 Metacharacter = internal_metadata_pre.Metacharacter
 Replacement = internal_metadata_pre.Replacement
-NothingToParseException = xml_data_core.NothingToParseException
-NotInKnownException = internal_metadata_core.NotInKnownException
-_NoCellCloseEnoughException = xml_data_core._NoCellCloseEnoughException
-NoSourceException = xml_data_core.NoSourceException
-NoTargetException = xml_data_core.NoTargetException
-_NoValueException = xml_data_core._NoValueException
-_SourceNotIndividualException = internal_data_core._SourceNotIndividualException
-ArrowWithoutIndividualAsSourceException = internal_data_core.ArrowWithoutIndividualAsSourceException
-_MetacharacterSubstituteParseException = internal_metadata_core._MetacharacterSubstituteParseException
-MetacharacterException = internal_metadata_core.MetacharacterException
-_InvalidCapitalisationSchemeException = internal_metadata_core._InvalidCapitalisationSchemeException
-ParseException = xml_data_core.ParseException
 get_prefixes = internal_metadata_pre.get_prefixes
 get_ontology_iri = internal_metadata_pre.get_ontology_iri
 get_prefix = internal_metadata_pre.get_prefix
 get_prefix_iri = internal_metadata_pre.get_prefix_iri
-_extract_drawio_metadata = xml_metadata_pre._extract_drawio_metadata
-_strip_metadata_user_object = xml_metadata_pre._strip_metadata_user_object
-_split_curie = internal_metadata_core._split_curie
-_ensure_known_curie = internal_metadata_core._ensure_known_curie
-_verify_is_ric_class = internal_metadata_core._verify_is_ric_class
-Individual = internal_data_core.Individual
-Arrow = internal_data_core.Arrow
-NodeHTMLParser = xml_data_pre.NodeHTMLParser
 SerialisationConfig = internal_metadata_pre.SerialisationConfig
+_arguments_parser = internal_control_pre._arguments_parser
+_handle_spaces = rdf_data_pre._handle_spaces
+_replace_metacharacter = rdf_data_pre._replace_metacharacter
+_replace_metacharacters = rdf_data_pre._replace_metacharacters
+_parse_capitalisation_scheme = rdf_control_pre._parse_capitalisation_scheme
+NothingToParseException = xml_data_core.NothingToParseException
+NoSourceException = xml_data_core.NoSourceException
+NoTargetException = xml_data_core.NoTargetException
+_NoValueException = xml_data_core._NoValueException
+_NoCellCloseEnoughException = xml_data_core._NoCellCloseEnoughException
+ParseException = xml_data_core.ParseException
+NodeHTMLParser = xml_data_core.NodeHTMLParser
 DrawIOXMLTree = xml_data_core.DrawIOXMLTree
-_geometry = xml_data_core._geometry
-_x_and_y_in_geometry = xml_data_core._x_and_y_in_geometry
-_has_correct_as_attribute = xml_data_core._has_correct_as_attribute
-_is_locked = xml_data_core._is_locked
-_dimensions = xml_data_core._dimensions
-_close_enough = xml_data_core._close_enough
 _cell_with_id = xml_data_core._cell_with_id
 _value_of = xml_data_core._value_of
 _parent_of = xml_data_core._parent_of
 _child_of = xml_data_core._child_of
+_geometry = xml_data_core._geometry
+_x_and_y_in_geometry = xml_data_core._x_and_y_in_geometry
+_has_correct_as_attribute = xml_data_core._has_correct_as_attribute
+_is_locked = xml_data_core._is_locked
 _start_or_end = xml_data_core._start_or_end
 _arrow_start = xml_data_core._arrow_start
 _arrow_end = xml_data_core._arrow_end
+_dimensions = xml_data_core._dimensions
 _is_possible_literal = xml_data_core._is_possible_literal
 _arrow_label = xml_data_core._arrow_label
 _add_arrow_if_find_label = xml_data_core._add_arrow_if_find_label
 _extract_individual_and_arrow_and_literal_cells = xml_data_core._extract_individual_and_arrow_and_literal_cells
+_close_enough = xml_data_core._close_enough
 _cell_close_to = xml_data_core._cell_close_to
 _defines_individual = xml_data_core._defines_individual
 _cell_is_literal = xml_data_core._cell_is_literal
 _source_or_target = xml_data_core._source_or_target
 _arrow = xml_data_core._arrow
-individuals_and_arrows = xml_data_core.individuals_and_arrows
-_handle_spaces = internal_metadata_core._handle_spaces
-_replace_metacharacter = internal_metadata_core._replace_metacharacter
-_replace_metacharacters = internal_metadata_core._replace_metacharacters
+Individual = internal_data_core.Individual
+Arrow = internal_data_core.Arrow
+_split_curie = internal_data_core._split_curie
+_ensure_known_curie = internal_data_core._ensure_known_curie
+_verify_is_ric_class = internal_data_core._verify_is_ric_class
+_SourceNotIndividualException = internal_data_core._SourceNotIndividualException
+ArrowWithoutIndividualAsSourceException = internal_data_core.ArrowWithoutIndividualAsSourceException
 _add_individual_type = internal_data_core._add_individual_type
-individual_blocks = internal_data_post.individual_blocks
-DrawIOParserGraph = rdf_control_core.DrawIOParserGraph
-serialise_to_graph = rdf_control_post.serialise_to_graph
-_parse_space_substitute = internal_data_core._parse_space_substitute
-_parse_metacharacter_substitutes = internal_data_core._parse_metacharacter_substitutes
-_parse_capitalisation_scheme = internal_data_core._parse_capitalisation_scheme
+_parse_space_substitute = internal_control_core._parse_space_substitute
+_parse_metacharacter_substitutes = internal_control_core._parse_metacharacter_substitutes
 _build_graph_from_raw_xml = internal_control_core._build_graph_from_raw_xml
+NotInKnownException = rdf_data_core.NotInKnownException
+_MetacharacterSubstituteParseException = rdf_data_core._MetacharacterSubstituteParseException
+MetacharacterException = rdf_data_core.MetacharacterException
+_InvalidCapitalisationSchemeException = rdf_data_core._InvalidCapitalisationSchemeException
+DrawIOParserGraph = rdf_control_core.DrawIOParserGraph
+individuals_and_arrows = internal_data_post.individuals_and_arrows
+individual_blocks = internal_control_post.individual_blocks
 parse_drawio_to_graph = internal_control_post.parse_drawio_to_graph
-_arguments_parser = internal_control_pre._arguments_parser
 _run = internal_control_post._run
 main = internal_control_post.main
+serialise_to_graph = rdf_control_post.serialise_to_graph
 
 # ===== attach to nested namespaces =====
-setattr(pre.internal.metadata, 'DEFAULT_CAPITALISATION_SCHEME', internal_metadata_pre.DEFAULT_CAPITALISATION_SCHEME)
-setattr(pre.internal.metadata, 'DEFAULT_INDENTATION', internal_metadata_pre.DEFAULT_INDENTATION)
-setattr(pre.internal.metadata, 'DEFAULT_MAX_GAP', internal_metadata_pre.DEFAULT_MAX_GAP)
-setattr(pre.internal.metadata, 'OWL_METACHARACTERS', internal_metadata_pre.OWL_METACHARACTERS)
-setattr(pre.internal.metadata, 'Blocks', internal_metadata_pre.Blocks)
-setattr(pre.internal.metadata, 'CellID', internal_metadata_pre.CellID)
-setattr(pre.internal.metadata, 'XCoordinate', internal_metadata_pre.XCoordinate)
-setattr(pre.internal.metadata, 'YCoordinate', internal_metadata_pre.YCoordinate)
-setattr(pre.internal.metadata, 'Width', internal_metadata_pre.Width)
-setattr(pre.internal.metadata, 'Height', internal_metadata_pre.Height)
-setattr(pre.internal.metadata, 'ArrowStart', internal_metadata_pre.ArrowStart)
-setattr(pre.internal.metadata, 'ArrowEnd', internal_metadata_pre.ArrowEnd)
-setattr(pre.internal.metadata, 'Label', internal_metadata_pre.Label)
-setattr(pre.internal.metadata, 'ArrowData', internal_metadata_pre.ArrowData)
-setattr(pre.internal.metadata, 'Dimensions', internal_metadata_pre.Dimensions)
-setattr(pre.internal.metadata, 'Paragraph', internal_metadata_pre.Paragraph)
-setattr(pre.internal.metadata, 'Metacharacter', internal_metadata_pre.Metacharacter)
-setattr(pre.internal.metadata, 'Replacement', internal_metadata_pre.Replacement)
-setattr(core.xml.data, 'NothingToParseException', xml_data_core.NothingToParseException)
-setattr(core.internal.metadata, 'NotInKnownException', internal_metadata_core.NotInKnownException)
-setattr(core.xml.data, '_NoCellCloseEnoughException', xml_data_core._NoCellCloseEnoughException)
-setattr(core.xml.data, 'NoSourceException', xml_data_core.NoSourceException)
-setattr(core.xml.data, 'NoTargetException', xml_data_core.NoTargetException)
-setattr(core.xml.data, '_NoValueException', xml_data_core._NoValueException)
-setattr(core.internal.data, '_SourceNotIndividualException', internal_data_core._SourceNotIndividualException)
-setattr(core.internal.data, 'ArrowWithoutIndividualAsSourceException', internal_data_core.ArrowWithoutIndividualAsSourceException)
-setattr(core.internal.metadata, '_MetacharacterSubstituteParseException', internal_metadata_core._MetacharacterSubstituteParseException)
-setattr(core.internal.metadata, 'MetacharacterException', internal_metadata_core.MetacharacterException)
-setattr(core.internal.metadata, '_InvalidCapitalisationSchemeException', internal_metadata_core._InvalidCapitalisationSchemeException)
-setattr(core.xml.data, 'ParseException', xml_data_core.ParseException)
-setattr(pre.internal.metadata, 'get_prefixes', internal_metadata_pre.get_prefixes)
-setattr(pre.internal.metadata, 'get_ontology_iri', internal_metadata_pre.get_ontology_iri)
-setattr(pre.internal.metadata, 'get_prefix', internal_metadata_pre.get_prefix)
-setattr(pre.internal.metadata, 'get_prefix_iri', internal_metadata_pre.get_prefix_iri)
-setattr(pre.xml.metadata, '_extract_drawio_metadata', xml_metadata_pre._extract_drawio_metadata)
-setattr(pre.xml.metadata, '_strip_metadata_user_object', xml_metadata_pre._strip_metadata_user_object)
-setattr(core.internal.metadata, '_split_curie', internal_metadata_core._split_curie)
-setattr(core.internal.metadata, '_ensure_known_curie', internal_metadata_core._ensure_known_curie)
-setattr(core.internal.metadata, '_verify_is_ric_class', internal_metadata_core._verify_is_ric_class)
-setattr(core.internal.data, 'Individual', internal_data_core.Individual)
-setattr(core.internal.data, 'Arrow', internal_data_core.Arrow)
-setattr(pre.xml.data, 'NodeHTMLParser', xml_data_pre.NodeHTMLParser)
-setattr(pre.internal.metadata, 'SerialisationConfig', internal_metadata_pre.SerialisationConfig)
-setattr(core.xml.data, 'DrawIOXMLTree', xml_data_core.DrawIOXMLTree)
-setattr(core.xml.data, '_geometry', xml_data_core._geometry)
-setattr(core.xml.data, '_x_and_y_in_geometry', xml_data_core._x_and_y_in_geometry)
-setattr(core.xml.data, '_has_correct_as_attribute', xml_data_core._has_correct_as_attribute)
-setattr(core.xml.data, '_is_locked', xml_data_core._is_locked)
-setattr(core.xml.data, '_dimensions', xml_data_core._dimensions)
-setattr(core.xml.data, '_close_enough', xml_data_core._close_enough)
-setattr(core.xml.data, '_cell_with_id', xml_data_core._cell_with_id)
-setattr(core.xml.data, '_value_of', xml_data_core._value_of)
-setattr(core.xml.data, '_parent_of', xml_data_core._parent_of)
-setattr(core.xml.data, '_child_of', xml_data_core._child_of)
-setattr(core.xml.data, '_start_or_end', xml_data_core._start_or_end)
-setattr(core.xml.data, '_arrow_start', xml_data_core._arrow_start)
-setattr(core.xml.data, '_arrow_end', xml_data_core._arrow_end)
-setattr(core.xml.data, '_is_possible_literal', xml_data_core._is_possible_literal)
-setattr(core.xml.data, '_arrow_label', xml_data_core._arrow_label)
-setattr(core.xml.data, '_add_arrow_if_find_label', xml_data_core._add_arrow_if_find_label)
-setattr(core.xml.data, '_extract_individual_and_arrow_and_literal_cells', xml_data_core._extract_individual_and_arrow_and_literal_cells)
-setattr(core.xml.data, '_cell_close_to', xml_data_core._cell_close_to)
-setattr(core.xml.data, '_defines_individual', xml_data_core._defines_individual)
-setattr(core.xml.data, '_cell_is_literal', xml_data_core._cell_is_literal)
-setattr(core.xml.data, '_source_or_target', xml_data_core._source_or_target)
-setattr(core.xml.data, '_arrow', xml_data_core._arrow)
-setattr(core.xml.data, 'individuals_and_arrows', xml_data_core.individuals_and_arrows)
-setattr(core.internal.metadata, '_handle_spaces', internal_metadata_core._handle_spaces)
-setattr(core.internal.metadata, '_replace_metacharacter', internal_metadata_core._replace_metacharacter)
-setattr(core.internal.metadata, '_replace_metacharacters', internal_metadata_core._replace_metacharacters)
-setattr(core.internal.data, '_add_individual_type', internal_data_core._add_individual_type)
-setattr(post.internal.data, 'individual_blocks', internal_data_post.individual_blocks)
-setattr(core.rdf.control, 'DrawIOParserGraph', rdf_control_core.DrawIOParserGraph)
-setattr(post.rdf.control, 'serialise_to_graph', rdf_control_post.serialise_to_graph)
-setattr(core.internal.data, '_parse_space_substitute', internal_data_core._parse_space_substitute)
-setattr(core.internal.data, '_parse_metacharacter_substitutes', internal_data_core._parse_metacharacter_substitutes)
-setattr(core.internal.data, '_parse_capitalisation_scheme', internal_data_core._parse_capitalisation_scheme)
-setattr(core.internal.control, '_build_graph_from_raw_xml', internal_control_core._build_graph_from_raw_xml)
-setattr(post.internal.control, 'parse_drawio_to_graph', internal_control_post.parse_drawio_to_graph)
-setattr(pre.internal.control, '_arguments_parser', internal_control_pre._arguments_parser)
-setattr(post.internal.control, '_run', internal_control_post._run)
-setattr(post.internal.control, 'main', internal_control_post.main)
+setattr(pipeline.pre.xml.metadata, '_extract_drawio_metadata', xml_metadata_pre._extract_drawio_metadata)
+setattr(pipeline.pre.xml.metadata, '_strip_metadata_user_object', xml_metadata_pre._strip_metadata_user_object)
+setattr(pipeline.pre.internal.metadata, 'DEFAULT_CAPITALISATION_SCHEME', internal_metadata_pre.DEFAULT_CAPITALISATION_SCHEME)
+setattr(pipeline.pre.internal.metadata, 'DEFAULT_INDENTATION', internal_metadata_pre.DEFAULT_INDENTATION)
+setattr(pipeline.pre.internal.metadata, 'DEFAULT_MAX_GAP', internal_metadata_pre.DEFAULT_MAX_GAP)
+setattr(pipeline.pre.internal.metadata, 'OWL_METACHARACTERS', internal_metadata_pre.OWL_METACHARACTERS)
+setattr(pipeline.pre.internal.metadata, 'Blocks', internal_metadata_pre.Blocks)
+setattr(pipeline.pre.internal.metadata, 'CellID', internal_metadata_pre.CellID)
+setattr(pipeline.pre.internal.metadata, 'XCoordinate', internal_metadata_pre.XCoordinate)
+setattr(pipeline.pre.internal.metadata, 'YCoordinate', internal_metadata_pre.YCoordinate)
+setattr(pipeline.pre.internal.metadata, 'Width', internal_metadata_pre.Width)
+setattr(pipeline.pre.internal.metadata, 'Height', internal_metadata_pre.Height)
+setattr(pipeline.pre.internal.metadata, 'ArrowStart', internal_metadata_pre.ArrowStart)
+setattr(pipeline.pre.internal.metadata, 'ArrowEnd', internal_metadata_pre.ArrowEnd)
+setattr(pipeline.pre.internal.metadata, 'Label', internal_metadata_pre.Label)
+setattr(pipeline.pre.internal.metadata, 'ArrowData', internal_metadata_pre.ArrowData)
+setattr(pipeline.pre.internal.metadata, 'Dimensions', internal_metadata_pre.Dimensions)
+setattr(pipeline.pre.internal.metadata, 'Paragraph', internal_metadata_pre.Paragraph)
+setattr(pipeline.pre.internal.metadata, 'Metacharacter', internal_metadata_pre.Metacharacter)
+setattr(pipeline.pre.internal.metadata, 'Replacement', internal_metadata_pre.Replacement)
+setattr(pipeline.pre.internal.metadata, 'get_prefixes', internal_metadata_pre.get_prefixes)
+setattr(pipeline.pre.internal.metadata, 'get_ontology_iri', internal_metadata_pre.get_ontology_iri)
+setattr(pipeline.pre.internal.metadata, 'get_prefix', internal_metadata_pre.get_prefix)
+setattr(pipeline.pre.internal.metadata, 'get_prefix_iri', internal_metadata_pre.get_prefix_iri)
+setattr(pipeline.pre.internal.metadata, 'SerialisationConfig', internal_metadata_pre.SerialisationConfig)
+setattr(pipeline.pre.internal.control, '_arguments_parser', internal_control_pre._arguments_parser)
+setattr(pipeline.pre.rdf.data, '_handle_spaces', rdf_data_pre._handle_spaces)
+setattr(pipeline.pre.rdf.data, '_replace_metacharacter', rdf_data_pre._replace_metacharacter)
+setattr(pipeline.pre.rdf.data, '_replace_metacharacters', rdf_data_pre._replace_metacharacters)
+setattr(pipeline.pre.rdf.control, '_parse_capitalisation_scheme', rdf_control_pre._parse_capitalisation_scheme)
+setattr(pipeline.core.xml.data, 'NothingToParseException', xml_data_core.NothingToParseException)
+setattr(pipeline.core.xml.data, 'NoSourceException', xml_data_core.NoSourceException)
+setattr(pipeline.core.xml.data, 'NoTargetException', xml_data_core.NoTargetException)
+setattr(pipeline.core.xml.data, '_NoValueException', xml_data_core._NoValueException)
+setattr(pipeline.core.xml.data, '_NoCellCloseEnoughException', xml_data_core._NoCellCloseEnoughException)
+setattr(pipeline.core.xml.data, 'ParseException', xml_data_core.ParseException)
+setattr(pipeline.core.xml.data, 'NodeHTMLParser', xml_data_core.NodeHTMLParser)
+setattr(pipeline.core.xml.data, 'DrawIOXMLTree', xml_data_core.DrawIOXMLTree)
+setattr(pipeline.core.xml.data, '_cell_with_id', xml_data_core._cell_with_id)
+setattr(pipeline.core.xml.data, '_value_of', xml_data_core._value_of)
+setattr(pipeline.core.xml.data, '_parent_of', xml_data_core._parent_of)
+setattr(pipeline.core.xml.data, '_child_of', xml_data_core._child_of)
+setattr(pipeline.core.xml.data, '_geometry', xml_data_core._geometry)
+setattr(pipeline.core.xml.data, '_x_and_y_in_geometry', xml_data_core._x_and_y_in_geometry)
+setattr(pipeline.core.xml.data, '_has_correct_as_attribute', xml_data_core._has_correct_as_attribute)
+setattr(pipeline.core.xml.data, '_is_locked', xml_data_core._is_locked)
+setattr(pipeline.core.xml.data, '_start_or_end', xml_data_core._start_or_end)
+setattr(pipeline.core.xml.data, '_arrow_start', xml_data_core._arrow_start)
+setattr(pipeline.core.xml.data, '_arrow_end', xml_data_core._arrow_end)
+setattr(pipeline.core.xml.data, '_dimensions', xml_data_core._dimensions)
+setattr(pipeline.core.xml.data, '_is_possible_literal', xml_data_core._is_possible_literal)
+setattr(pipeline.core.xml.data, '_arrow_label', xml_data_core._arrow_label)
+setattr(pipeline.core.xml.data, '_add_arrow_if_find_label', xml_data_core._add_arrow_if_find_label)
+setattr(pipeline.core.xml.data, '_extract_individual_and_arrow_and_literal_cells', xml_data_core._extract_individual_and_arrow_and_literal_cells)
+setattr(pipeline.core.xml.data, '_close_enough', xml_data_core._close_enough)
+setattr(pipeline.core.xml.data, '_cell_close_to', xml_data_core._cell_close_to)
+setattr(pipeline.core.xml.data, '_defines_individual', xml_data_core._defines_individual)
+setattr(pipeline.core.xml.data, '_cell_is_literal', xml_data_core._cell_is_literal)
+setattr(pipeline.core.xml.data, '_source_or_target', xml_data_core._source_or_target)
+setattr(pipeline.core.xml.data, '_arrow', xml_data_core._arrow)
+setattr(pipeline.core.internal.data, 'Individual', internal_data_core.Individual)
+setattr(pipeline.core.internal.data, 'Arrow', internal_data_core.Arrow)
+setattr(pipeline.core.internal.data, '_split_curie', internal_data_core._split_curie)
+setattr(pipeline.core.internal.data, '_ensure_known_curie', internal_data_core._ensure_known_curie)
+setattr(pipeline.core.internal.data, '_verify_is_ric_class', internal_data_core._verify_is_ric_class)
+setattr(pipeline.core.internal.data, '_SourceNotIndividualException', internal_data_core._SourceNotIndividualException)
+setattr(pipeline.core.internal.data, 'ArrowWithoutIndividualAsSourceException', internal_data_core.ArrowWithoutIndividualAsSourceException)
+setattr(pipeline.core.internal.data, '_add_individual_type', internal_data_core._add_individual_type)
+setattr(pipeline.core.internal.control, '_parse_space_substitute', internal_control_core._parse_space_substitute)
+setattr(pipeline.core.internal.control, '_parse_metacharacter_substitutes', internal_control_core._parse_metacharacter_substitutes)
+setattr(pipeline.core.internal.control, '_build_graph_from_raw_xml', internal_control_core._build_graph_from_raw_xml)
+setattr(pipeline.core.rdf.data, 'NotInKnownException', rdf_data_core.NotInKnownException)
+setattr(pipeline.core.rdf.data, '_MetacharacterSubstituteParseException', rdf_data_core._MetacharacterSubstituteParseException)
+setattr(pipeline.core.rdf.data, 'MetacharacterException', rdf_data_core.MetacharacterException)
+setattr(pipeline.core.rdf.data, '_InvalidCapitalisationSchemeException', rdf_data_core._InvalidCapitalisationSchemeException)
+setattr(pipeline.core.rdf.control, 'DrawIOParserGraph', rdf_control_core.DrawIOParserGraph)
+setattr(pipeline.post.internal.data, 'individuals_and_arrows', internal_data_post.individuals_and_arrows)
+setattr(pipeline.post.internal.control, 'individual_blocks', internal_control_post.individual_blocks)
+setattr(pipeline.post.internal.control, 'parse_drawio_to_graph', internal_control_post.parse_drawio_to_graph)
+setattr(pipeline.post.internal.control, '_run', internal_control_post._run)
+setattr(pipeline.post.internal.control, 'main', internal_control_post.main)
+setattr(pipeline.post.rdf.control, 'serialise_to_graph', rdf_control_post.serialise_to_graph)
 setattr(DrawIOXMLTree, '_geometry', staticmethod(_geometry))
 setattr(DrawIOXMLTree, '_x_and_y_in_geometry', staticmethod(_x_and_y_in_geometry))
 setattr(DrawIOXMLTree, '_has_correct_as_attribute', staticmethod(_has_correct_as_attribute))
 setattr(DrawIOXMLTree, '_is_locked', staticmethod(_is_locked))
 setattr(DrawIOXMLTree, '_dimensions', staticmethod(_dimensions))
-setattr(DrawIOXMLTree, '_close_enough', staticmethod(_close_enough))
 setattr(DrawIOXMLTree, '_is_possible_literal', staticmethod(_is_possible_literal))
+setattr(DrawIOXMLTree, '_close_enough', staticmethod(_close_enough))

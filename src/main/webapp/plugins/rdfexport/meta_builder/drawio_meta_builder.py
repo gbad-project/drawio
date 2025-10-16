@@ -34,12 +34,17 @@ draw = load_legacy()
 
 # ---- Explicit mapping ----
 MAPPING: List[Tuple[str, str, str, str]] = [
-    # constants / defaults
+    # ===== PRE PHASE =====
+    
+    # xml.metadata.pre - Extract metadata from XML
+    ("_extract_drawio_metadata", "xml", "metadata", "pre"),
+    ("_strip_metadata_user_object", "xml", "metadata", "pre"),
+    
+    # internal.metadata.pre - Constants, defaults, getters
     ("DEFAULT_CAPITALISATION_SCHEME", "internal", "metadata", "pre"),
     ("DEFAULT_INDENTATION", "internal", "metadata", "pre"),
     ("DEFAULT_MAX_GAP", "internal", "metadata", "pre"),
     ("OWL_METACHARACTERS", "internal", "metadata", "pre"),
-    # type aliases
     ("Blocks", "internal", "metadata", "pre"),
     ("CellID", "internal", "metadata", "pre"),
     ("XCoordinate", "internal", "metadata", "pre"),
@@ -54,87 +59,95 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     ("Paragraph", "internal", "metadata", "pre"),
     ("Metacharacter", "internal", "metadata", "pre"),
     ("Replacement", "internal", "metadata", "pre"),
-    # exceptions
-    ("NothingToParseException", "xml", "data", "core"),
-    ("NotInKnownException", "internal", "metadata", "core"),
-    ("_NoCellCloseEnoughException", "xml", "data", "core"),
-    ("NoSourceException", "xml", "data", "core"),
-    ("NoTargetException", "xml", "data", "core"),
-    ("_NoValueException", "xml", "data", "core"),
-    ("_SourceNotIndividualException", "internal", "data", "core"),
-    ("ArrowWithoutIndividualAsSourceException", "internal", "data", "core"),
-    ("_MetacharacterSubstituteParseException", "internal", "metadata", "core"),
-    ("MetacharacterException", "internal", "metadata", "core"),
-    ("_InvalidCapitalisationSchemeException", "internal", "metadata", "core"),
-    ("ParseException", "xml", "data", "core"),
-    # metadata getters
     ("get_prefixes", "internal", "metadata", "pre"),
     ("get_ontology_iri", "internal", "metadata", "pre"),
     ("get_prefix", "internal", "metadata", "pre"),
     ("get_prefix_iri", "internal", "metadata", "pre"),
-    # xml + curie helpers
-    ("_extract_drawio_metadata", "xml", "metadata", "pre"),
-    ("_strip_metadata_user_object", "xml", "metadata", "pre"),
-    ("_split_curie", "internal", "metadata", "core"),
-    ("_ensure_known_curie", "internal", "metadata", "core"),
-    ("_verify_is_ric_class", "internal", "metadata", "core"),
-    # internal model
-    ("Individual", "internal", "data", "core"),
-    ("Arrow", "internal", "data", "core"),
-    # html/xml text parser
-    ("NodeHTMLParser", "xml", "data", "pre"),
-    # rdf config
     ("SerialisationConfig", "internal", "metadata", "pre"),
-    # xml tree + all key methods
+    
+    # internal.control.pre - User input via CLI
+    ("_arguments_parser", "internal", "control", "pre"),
+    
+    # rdf.data.pre - String manipulation for RDF compliance
+    ("_handle_spaces", "rdf", "data", "pre"),
+    ("_replace_metacharacter", "rdf", "data", "pre"),
+    ("_replace_metacharacters", "rdf", "data", "pre"),
+    
+    # rdf.control.pre - Validation of RDF config
+    ("_parse_capitalisation_scheme", "rdf", "control", "pre"),
+    
+    # ===== CORE PHASE =====
+    
+    # xml.data.core - ALL XML parsing to Individual/Arrow
+    ("NothingToParseException", "xml", "data", "core"),
+    ("NoSourceException", "xml", "data", "core"),
+    ("NoTargetException", "xml", "data", "core"),
+    ("_NoValueException", "xml", "data", "core"),
+    ("_NoCellCloseEnoughException", "xml", "data", "core"),
+    ("ParseException", "xml", "data", "core"),
+    ("NodeHTMLParser", "xml", "data", "core"),
     ("DrawIOXMLTree", "xml", "data", "core"),
-    ("DrawIOXMLTree._geometry", "xml", "data", "core"),
-    ("DrawIOXMLTree._x_and_y_in_geometry", "xml", "data", "core"),
-    ("DrawIOXMLTree._has_correct_as_attribute", "xml", "data", "core"),
-    ("DrawIOXMLTree._is_locked", "xml", "data", "core"),
-    ("DrawIOXMLTree._dimensions", "xml", "data", "core"),
-    ("DrawIOXMLTree._close_enough", "xml", "data", "core"),
     ("DrawIOXMLTree._cell_with_id", "xml", "data", "core"),
     ("DrawIOXMLTree._value_of", "xml", "data", "core"),
     ("DrawIOXMLTree._parent_of", "xml", "data", "core"),
     ("DrawIOXMLTree._child_of", "xml", "data", "core"),
+    ("DrawIOXMLTree._geometry", "xml", "data", "core"),
+    ("DrawIOXMLTree._x_and_y_in_geometry", "xml", "data", "core"),
+    ("DrawIOXMLTree._has_correct_as_attribute", "xml", "data", "core"),
+    ("DrawIOXMLTree._is_locked", "xml", "data", "core"),
     ("DrawIOXMLTree._start_or_end", "xml", "data", "core"),
     ("DrawIOXMLTree._arrow_start", "xml", "data", "core"),
     ("DrawIOXMLTree._arrow_end", "xml", "data", "core"),
+    ("DrawIOXMLTree._dimensions", "xml", "data", "core"),
     ("DrawIOXMLTree._is_possible_literal", "xml", "data", "core"),
     ("DrawIOXMLTree._arrow_label", "xml", "data", "core"),
     ("DrawIOXMLTree._add_arrow_if_find_label", "xml", "data", "core"),
-    (
-        "DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells",
-        "xml",
-        "data",
-        "core",
-    ),
+    ("DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells", "xml", "data", "core"),
+    ("DrawIOXMLTree._close_enough", "xml", "data", "core"),
     ("DrawIOXMLTree._cell_close_to", "xml", "data", "core"),
     ("DrawIOXMLTree._defines_individual", "xml", "data", "core"),
     ("DrawIOXMLTree._cell_is_literal", "xml", "data", "core"),
     ("DrawIOXMLTree._source_or_target", "xml", "data", "core"),
     ("DrawIOXMLTree._arrow", "xml", "data", "core"),
-    ("DrawIOXMLTree.individuals_and_arrows", "xml", "data", "core"),
-    # model processing
-    ("_handle_spaces", "internal", "metadata", "core"),
-    ("_replace_metacharacter", "internal", "metadata", "core"),
-    ("_replace_metacharacters", "internal", "metadata", "core"),
+    
+    # internal.data.core - Internal model instances and processing
+    ("Individual", "internal", "data", "core"),
+    ("Arrow", "internal", "data", "core"),
+    ("_split_curie", "internal", "data", "core"),
+    ("_ensure_known_curie", "internal", "data", "core"),
+    ("_verify_is_ric_class", "internal", "data", "core"),
+    ("_SourceNotIndividualException", "internal", "data", "core"),
+    ("ArrowWithoutIndividualAsSourceException", "internal", "data", "core"),
     ("_add_individual_type", "internal", "data", "core"),
-    ("individual_blocks", "internal", "data", "post"),
-    # rdf graph
-    ("DrawIOParserGraph", "rdf", "control", "core"),
-    ("serialise_to_graph", "rdf", "control", "post"),
-    # cli / sdk
-    ("_parse_space_substitute", "internal", "data", "core"),
-    ("_parse_metacharacter_substitutes", "internal", "data", "core"),
-    ("_parse_capitalisation_scheme", "internal", "data", "core"),
+    
+    # internal.control.core - Orchestration and coupling
+    ("_parse_space_substitute", "internal", "control", "core"),
+    ("_parse_metacharacter_substitutes", "internal", "control", "core"),
     ("_build_graph_from_raw_xml", "internal", "control", "core"),
+    
+    # rdf.data.core - RDF-specific exceptions
+    ("NotInKnownException", "rdf", "data", "core"),
+    ("_MetacharacterSubstituteParseException", "rdf", "data", "core"),
+    ("MetacharacterException", "rdf", "data", "core"),
+    ("_InvalidCapitalisationSchemeException", "rdf", "data", "core"),
+    
+    # rdf.control.core - Graph class and preparation
+    ("DrawIOParserGraph", "rdf", "control", "core"),
+    
+    # ===== POST PHASE =====
+    
+    # internal.data.post - Generator bridge
+    ("DrawIOXMLTree.individuals_and_arrows", "internal", "data", "post"),
+    
+    # internal.control.post - SDK/CLI wrappers and blocks assembly
+    ("individual_blocks", "internal", "control", "post"),
     ("parse_drawio_to_graph", "internal", "control", "post"),
-    ("_arguments_parser", "internal", "control", "pre"),
     ("_run", "internal", "control", "post"),
     ("main", "internal", "control", "post"),
+    
+    # rdf.control.post - Final serialization
+    ("serialise_to_graph", "rdf", "control", "post"),
 ]
-
 
 # ---- Helpers ----
 def resolve(dotted: str):
@@ -259,22 +272,19 @@ def build_output() -> str:
 
     # Predeclare namespaces
     out.append(
-        "class pre:\n"
-        "    class xml:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-        "    class internal:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-        "    class rdf:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-    )
-    out.append(
-        "class core:\n"
-        "    class xml:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-        "    class internal:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-        "    class rdf:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-    )
-    out.append(
-        "class post:\n"
-        "    class xml:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-        "    class internal:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
-        "    class rdf:\n        class metadata: pass\n        class data: pass\n        class control: pass\n"
+        "class pipeline:\n"
+        "    class pre:\n"
+        "        class xml:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "        class internal:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "        class rdf:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "    class core:\n"
+        "        class xml:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "        class internal:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "        class rdf:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "    class post:\n"
+        "        class xml:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "        class internal:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
+        "        class rdf:\n            class metadata: pass\n            class data: pass\n            class control: pass\n"
     )
 
     grouped = {}
@@ -319,13 +329,11 @@ class DrawIOParser:
     __data_role__ = "metadata"
     __phase__ = "core"
     def __init__(self):
-        self.pre = pre
-        self.core = core
-        self.post = post
+        self.pipeline = pipeline
     def to_graph_from_file(self, path, **kw):
-        return post.internal.control.parse_drawio_to_graph(path, **kw)
+        return pipeline.post.internal.control.parse_drawio_to_graph(path, **kw)
     def run_cli(self, argv=None):
-        return post.internal.control.main(argv)
+        return pipeline.post.internal.control.main(argv)
 """
     out.append(orchestrator)
     src = "\n".join(out)
@@ -344,7 +352,7 @@ class DrawIOParser:
     alias_lines.append("# ===== attach to nested namespaces =====")
     for dotted, dt, dr, ph in MAPPING:
         base = dotted.split(".")[-1]
-        alias_lines.append(f"setattr({ph}.{dt}.{dr}, '{base}', {dt}_{dr}_{ph}.{base})")
+        alias_lines.append(f"setattr(pipeline.{ph}.{dt}.{dr}, '{base}', {dt}_{dr}_{ph}.{base})")
 
     # dynamically attach any extracted static methods back onto their parent classes
     for dotted, dt, dr, ph in MAPPING:
