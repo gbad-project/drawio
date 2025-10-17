@@ -3,14 +3,95 @@
 # from draw_io_parser across three axes (data_type, data_role, phase).
 
 from __future__ import annotations
+
+import argparse
+import ast
 import importlib
 import importlib.util
 import inspect
 import os
 import sys
-import ast
-from typing import List, Tuple
-import argparse
+from dataclasses import dataclass
+from types import ModuleType
+from typing import Dict, List, Tuple
+
+
+VALID_TYPES = {"xml", "internal", "rdf"}
+VALID_ROLES = {"metadata", "data", "control"}
+VALID_PHASES = {"pre", "core", "post"}
+MODULE_LEVEL_ALIASES_FOR_NEW = False
+
+
+@dataclass(frozen=True)
+class OverrideSpec:
+    data_type: str
+    data_role: str
+    phase: str
+
+
+@dataclass(frozen=True)
+class OverrideRecord:
+    name: str
+    spec: OverrideSpec
+    obj: object
+    module: ModuleType
+    source_path: str | None = None
+
+    def normalised_source(self) -> str:
+        src = get_source_or_repr(self.name, self.obj)
+        return strip_override_decorator(src)
+
+    def origin_label(self) -> str:
+        if self.source_path:
+            return os.path.basename(self.source_path)
+        return getattr(self.module, "__name__", repr(self.module))
+
+
+@dataclass
+class OverrideCollection:
+    replacements: Dict[tuple[str, str, str, str], OverrideRecord]
+    extras: Dict[tuple[str, str, str], List[OverrideRecord]]
+    modules: List[str]
+
+    @property
+    def replacement_count(self) -> int:
+        return len(self.replacements)
+
+    @property
+    def addition_count(self) -> int:
+        return sum(len(v) for v in self.extras.values())
+
+
+DEFAULT_OVERRIDES_DIR = os.path.normpath(
+    os.path.join(os.path.dirname(__file__), "..", "legacy", "overrides")
+)
+
+
+def override(*, type: str, role: str, phase: str):
+    """Decorator used by override modules to tag replacement callables."""
+
+    if type not in VALID_TYPES:
+        raise ValueError(
+            f"override invalid type '{type}'. Expected one of: {sorted(VALID_TYPES)}"
+        )
+    if role not in VALID_ROLES:
+        raise ValueError(
+            f"override invalid role '{role}'. Expected one of: {sorted(VALID_ROLES)}"
+        )
+    if phase not in VALID_PHASES:
+        raise ValueError(
+            f"override invalid phase '{phase}'. Expected one of: {sorted(VALID_PHASES)}"
+        )
+
+    spec = OverrideSpec(type, role, phase)
+
+    def decorator(obj):
+        if not callable(obj):
+            raise TypeError("@override can only be applied to callables")
+        setattr(obj, "__drawio_override__", spec)
+        return obj
+
+    return decorator
 
 def override(*, type: str, role: str, phase: str, target: str | None = None):
     def wrap(fn):
@@ -34,13 +115,17 @@ def load_legacy():
         return importlib.import_module("legacy.original.draw_io_parser")
     except ModuleNotFoundError:
         here = os.path.dirname(__file__)
-        for name in ["draw_io_parser.py"]:
-            path = os.path.join(here, name)
-            if os.path.exists(path):
-                spec = importlib.util.spec_from_file_location("draw_io_parser", path)
+        search = [
+            os.path.join(here, "..", "legacy", "original", "draw_io_parser.py"),
+            os.path.join(here, "draw_io_parser.py"),
+        ]
+        for path in search:
+            norm = os.path.normpath(path)
+            if os.path.exists(norm):
+                spec = importlib.util.spec_from_file_location("draw_io_parser", norm)
                 mod = importlib.util.module_from_spec(spec)
                 sys.modules["draw_io_parser"] = mod
-                spec.loader.exec_module(mod)  # type: ignore
+                spec.loader.exec_module(mod)  # type: ignore[arg-type]
                 return mod
         raise RuntimeError("draw_io_parser source not found")
 
@@ -195,6 +280,12 @@ MAPPING: List[Tuple[str, str, str, str]] = [
 ]
 
 
+MAPPING_INDEX: Dict[tuple[str, str, str, str], str] = {}
+for dotted, dt, dr, ph in MAPPING:
+    base = dotted.split(".")[-1]
+    MAPPING_INDEX[(dt, dr, ph, base)] = dotted
+
+
 # ---- Helpers ----
 def resolve(name: str):
     base = name.split(".")[-1]
@@ -304,8 +395,145 @@ def strip_static_methods(src: str, class_name: str, methods: set[str]) -> str:
         return src
 
 
+def strip_override_decorator(src: str) -> str:
+    try:
+        tree = ast.parse(src)
+    except SyntaxError:
+        return src
+
+    def is_override_decorator(node: ast.AST) -> bool:
+        if isinstance(node, ast.Name):
+            return node.id == "override"
+        if isinstance(node, ast.Attribute):
+            return node.attr == "override"
+        if isinstance(node, ast.Call):
+            return is_override_decorator(node.func)
+        return False
+
+    class _StripOverride(ast.NodeTransformer):
+        def visit_FunctionDef(self, node: ast.FunctionDef):  # type: ignore[override]
+            node.decorator_list = [
+                d for d in node.decorator_list if not is_override_decorator(d)
+            ]
+            return self.generic_visit(node)
+
+        def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef):  # type: ignore[override]
+            node.decorator_list = [
+                d for d in node.decorator_list if not is_override_decorator(d)
+            ]
+            return self.generic_visit(node)
+
+        def visit_ClassDef(self, node: ast.ClassDef):  # type: ignore[override]
+            node.decorator_list = [
+                d for d in node.decorator_list if not is_override_decorator(d)
+            ]
+            return self.generic_visit(node)
+
+    new_tree = _StripOverride().visit(tree)
+    try:
+        return ast.unparse(new_tree)
+    except Exception:
+        return src
+
+
+def collect_overrides(
+    enabled: bool = True, overrides_dir: str | None = None
+) -> OverrideCollection:
+    if not enabled:
+        return OverrideCollection({}, {}, [])
+
+    directory = os.path.normpath(overrides_dir or DEFAULT_OVERRIDES_DIR)
+    if not os.path.isdir(directory):
+        return OverrideCollection({}, {}, [])
+
+    replacements: Dict[tuple[str, str, str, str], OverrideRecord] = {}
+    extras: Dict[tuple[str, str, str], List[OverrideRecord]] = {}
+    modules: List[str] = []
+
+    for idx, filename in enumerate(sorted(os.listdir(directory))):
+        if not filename.endswith(".py") or filename.startswith("_"):
+            continue
+        path = os.path.join(directory, filename)
+        module_name = f"drawio_meta_override_{idx}_{os.path.splitext(filename)[0]}"
+        spec = importlib.util.spec_from_file_location(module_name, path)
+        if spec is None or spec.loader is None:
+            raise RuntimeError(f"Unable to load override module from {path}")
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)  # type: ignore[arg-type]
+        modules.append(os.path.relpath(path, directory))
+
+        for attr_name in dir(module):
+            attr = getattr(module, attr_name)
+            spec_attr = getattr(attr, "__drawio_override__", None)
+            if spec_attr is None:
+                continue
+            if not isinstance(spec_attr, OverrideSpec):
+                raise TypeError(
+                    f"Object {attr_name} in {module.__name__} carries an invalid override"
+                )
+            record = OverrideRecord(attr.__name__, spec_attr, attr, module, path)
+            key = (
+                spec_attr.data_type,
+                spec_attr.data_role,
+                spec_attr.phase,
+                record.name,
+            )
+            if key in MAPPING_INDEX:
+                if key in replacements:
+                    raise ValueError(
+                        f"Duplicate override for {record.name} in {module.__name__}"
+                    )
+                replacements[key] = record
+            else:
+                extra_key = (
+                    spec_attr.data_type,
+                    spec_attr.data_role,
+                    spec_attr.phase,
+                )
+                existing = extras.setdefault(extra_key, [])
+                if any(r.name == record.name for r in existing):
+                    raise ValueError(
+                        f"Duplicate override name {record.name} for {extra_key}"
+                    )
+                existing.append(record)
+
+    for values in extras.values():
+        values.sort(key=lambda r: r.name)
+
+    return OverrideCollection(replacements, extras, modules)
+
+
 # ---- Code generator ----
-def build_output() -> str:
+def build_pipeline_namespace(overrides: OverrideCollection) -> str:
+    lines: List[str] = ["class pipeline:"]
+    for ph in ["pre", "core", "post"]:
+        lines.append(f"    class {ph}:")
+        for dt in ["xml", "internal", "rdf"]:
+            lines.append(f"        class {dt}:")
+            for dr in ["metadata", "data", "control"]:
+                lines.append(f"            class {dr}:")
+                extra_records = overrides.extras.get((dt, dr, ph), [])
+                if extra_records:
+                    for record in extra_records:
+                        label = f"{record.origin_label()}.{record.name}"
+                        block = (
+                            f"# BEGIN override {label}\n"
+                            f"{record.normalised_source()}\n"
+                            f"# END override {label}\n"
+                        )
+                        lines.append(indent(block, 16))
+                else:
+                    lines.append(" " * 16 + "pass")
+                lines.append("")
+    return "\n".join(lines)
+
+
+def build_output(
+    *, use_overrides: bool = True, overrides_dir: str | None = None
+) -> tuple[str, OverrideCollection]:
+    overrides = collect_overrides(enabled=use_overrides, overrides_dir=overrides_dir)
+
     header = [
         "# AUTO-GENERATED FILE — DO NOT EDIT",
         "# Generated by drawio_meta_builder.py",
@@ -342,27 +570,7 @@ def build_output() -> str:
             ordered.append(line)
     out = ["\n".join(header) + ("\n" + "\n".join(ordered) + "\n" if ordered else "\n")]
 
-    # ---- dynamically build pipeline tree ----
-    def build_pipeline_structure():
-        phases, types, roles = set(), set(), set()
-        for _, dt, dr, ph in MAPPING:
-            phases.add(ph); types.add(dt); roles.add(dr)
-        if OVERRIDES_ENABLED and overrides_dict:
-            for obj in overrides_dict.values():
-                phases.add(getattr(obj, "__phase__", "core"))
-                types.add(getattr(obj, "__data_type__", "internal"))
-                roles.add(getattr(obj, "__data_role__", "control"))
-
-        lines = ["class pipeline:"]
-        for ph in sorted(phases):
-            lines.append(f"    class {ph}:")
-            for dt in sorted(types):
-                lines.append(f"        class {dt}:")
-                for dr in sorted(roles):
-                    lines.append(f"            class {dr}: pass")
-        return "\n".join(lines) + "\n"
-    
-    out.append(build_pipeline_structure())
+    out.append(build_pipeline_namespace(overrides))
 
     grouped = {}
     for dotted, dt, dr, ph in MAPPING:
@@ -376,12 +584,19 @@ def build_output() -> str:
                 out.append(f"class {dt}_{dr}_{ph}:")
                 if names:
                     for name in names:
-                        obj = resolve(name)
-                        src = get_source_or_repr(name, obj)
-                        # If this symbol came from an override module, drop the decorator
-                        if getattr(obj, "__override__", None):
-                            src = strip_override_decorator(src)
-                        if inspect.isclass(obj):
+                        base = name.split(".")[-1]
+                        override_record = overrides.replacements.get((dt, dr, ph, base))
+                        if override_record:
+                            obj = override_record.obj
+                            src = override_record.normalised_source()
+                            src = (
+                                f"# override from {override_record.origin_label()}\n"
+                                + src
+                            )
+                        else:
+                            obj = resolve(name)
+                            src = get_source_or_repr(name, obj)
+                        if not override_record and inspect.isclass(obj):
                             clsname = name.split(".")[-1]
                             to_strip = {
                                 m.split(".")[-1]
@@ -478,16 +693,30 @@ class DrawIOParser:
         except Exception:
             continue
 
+    if MODULE_LEVEL_ALIASES_FOR_NEW:
+        for (dt, dr, ph), records in overrides.extras.items():
+            for record in records:
+                alias_lines.append(
+                    f"{record.name} = pipeline.{ph}.{dt}.{dr}.{record.name}"
+                )
+
     src += "\n" + "\n".join(alias_lines) + "\n"
 
-    return src
+    return src, overrides
 
 
-def write_output(path: str = "drawio_meta.py"):
-    src = build_output()
+def write_output(
+    path: str = "drawio_meta.py",
+    *,
+    use_overrides: bool = True,
+    overrides_dir: str | None = None,
+) -> tuple[str, OverrideCollection]:
+    src, overrides = build_output(
+        use_overrides=use_overrides, overrides_dir=overrides_dir
+    )
     with open(path, "w", encoding="utf-8") as f:
         f.write(src)
-    return path
+    return path, overrides
 
 
 def main():
@@ -504,15 +733,35 @@ def main():
         "--overrides",
         action=argparse.BooleanOptionalAction,
         default=True,
-        help="Enable or disable overrides (default: enabled)",
+        help="Enable discovery of legacy/overrides modules (default: enabled)",
+    )
+    parser.add_argument(
+        "--overrides-dir",
+        default=None,
+        help="Custom directory to search for overrides (defaults to legacy/overrides)",
     )
     args = parser.parse_args()
 
-    global OVERRIDES_ENABLED, overrides_dict
-    OVERRIDES_ENABLED = args.overrides
-    overrides_dict = load_overrides() if OVERRIDES_ENABLED else {}
+    path, overrides = write_output(
+        args.output,
+        use_overrides=args.overrides,
+        overrides_dir=args.overrides_dir,
+    )
 
-    write_output(args.output)
+    directory = os.path.normpath(args.overrides_dir or DEFAULT_OVERRIDES_DIR)
+    status = "on" if args.overrides else "off"
+    print(
+        f"[metabuilder] Wrote {path} (overrides {status}; "
+        f"replacements={overrides.replacement_count}, additions={overrides.addition_count})"
+    )
+    if args.overrides:
+        if overrides.modules:
+            modules = ", ".join(overrides.modules)
+            print(f"[metabuilder] Loaded override modules from {directory}: {modules}")
+        else:
+            print(f"[metabuilder] No override modules discovered in {directory}.")
+    else:
+        print("[metabuilder] Override discovery disabled via --no-overrides.")
 
 
 if __name__ == "__main__":
