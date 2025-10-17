@@ -14,9 +14,9 @@ def _split_curie_old(curie: str) -> tuple[str, str]:
 
 @override(phase="core", type="internal", role="data")
 def _split_curie(curie: str) -> tuple[str, str]:
-    print(
-        "[curie_validator] logic from original _split_curie method was manually copied and pasted into a new method, and then the old one was overriden with new; end result same except for this message that was added in override of old with new and will be displayed everywhere the old one was being used. additionally, the new override was placed under a different pipeline namespace class (i.e., control role rather than data) to show the flexibility."
-    )
+    """
+    "[curie_validator] logic from original _split_curie method was manually copied and pasted into a new method, and then the old one was overriden with new; end result same except for this message that was added in override of old with new and will be displayed everywhere the old one was being used. additionally, the new override was placed under a different pipeline namespace class (i.e., control role rather than data) to show the flexibility."
+    """
     return pipeline.core.internal.control._split_curie_old(curie)
 
 
