@@ -7,7 +7,7 @@ from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Optional, Dict, Any, Type
+from typing import Generator, Iterator, Optional, Dict, Any, Type
 from copy import deepcopy
 from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
@@ -18,60 +18,50 @@ from rdflib.namespace import RDF, RDFS, OWL, XSD
 
 
 class pipeline:
-    class core:
-        class control:
-            class control:
+    class pre:
+        class xml:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
+            class control:
                 pass
 
         class internal:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
+            class control:
                 pass
 
         class rdf:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
+            class control:
                 pass
 
+    class core:
         class xml:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
-                pass
-
-    class post:
-        class control:
             class control:
-                pass
-
-            class data:
-                pass
-
-            class metadata:
                 pass
 
         class internal:
-            class control:
+            class metadata:
                 pass
 
             class data:
@@ -89,64 +79,44 @@ class pipeline:
                 # END override curie_validator.py._split_curie_old
 
         class rdf:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
+            class control:
                 pass
 
+    class post:
         class xml:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
-                pass
-
-    class pre:
-        class control:
             class control:
-                pass
-
-            class data:
-                pass
-
-            class metadata:
                 pass
 
         class internal:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
+            class control:
                 pass
 
         class rdf:
-            class control:
+            class metadata:
                 pass
 
             class data:
                 pass
 
-            class metadata:
-                pass
-
-        class xml:
             class control:
-                pass
-
-            class data:
-                pass
-
-            class metadata:
                 pass
 
 
@@ -1696,10 +1666,72 @@ class internal_control_core:
 
     # END _parse_metacharacter_substitutes
     # BEGIN individual_blocks
-    @override(type="control", role="control", phase="core")
-    def individual_blocks_new():
-        pipeline.core.internal.control.individual_blocks()
-        print("hello there")
+    def individual_blocks(
+        individuals_and_arrows: Iterator[Individual | Arrow],
+        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+        space_substitute: Replacement | None,
+        capitalisation_scheme: str,
+        prefixes: dict[str, str],
+    ) -> tuple[Blocks, set[str], set[str]]:
+        """
+        Takes an iterator of Individual and Arrow instances, such as that outputted
+        by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
+        assembles them into adictionary whose keys are individual IRIs. The value
+        for a given key is itself a dictionary, collecting together the facts and
+        types for that individual IRI which were defined by some Individual or Arrow
+        instance in the iterator (the individual IRI may occur many times in
+        Individual instances with differing values for the 'class' variable).
+        """
+        blocks: Blocks = {}
+        object_properties: set[str] = set()
+        datatype_properties: set[str] = set()
+        for individual_or_arrow in individuals_and_arrows:
+            if isinstance(individual_or_arrow, Individual):
+                _add_individual_type(
+                    blocks,
+                    individual_or_arrow,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+                continue
+            _ensure_known_curie(
+                individual_or_arrow.identifier,
+                prefixes,
+                (
+                    f"An arrow has label '{individual_or_arrow.identifier}', "
+                    "which is not a known object property or datatype property"
+                ),
+            )
+            if individual_or_arrow.is_datatype:
+                datatype_properties.add(individual_or_arrow.identifier)
+                target_identifier = individual_or_arrow.target
+            else:
+                object_properties.add(individual_or_arrow.identifier)
+                target_identifier = _replace_metacharacters(
+                    individual_or_arrow.target,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+            source_identifier = _replace_metacharacters(
+                individual_or_arrow.source,
+                metacharacter_substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+            try:
+                block = blocks[(source_identifier, individual_or_arrow.source)]
+            except KeyError:
+                blocks[(source_identifier, individual_or_arrow.source)] = {
+                    individual_or_arrow.identifier: {target_identifier}
+                }
+                continue
+            try:
+                block[individual_or_arrow.identifier].add(target_identifier)
+            except KeyError:
+                block[individual_or_arrow.identifier] = {target_identifier}
+        return blocks, object_properties, datatype_properties
 
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml

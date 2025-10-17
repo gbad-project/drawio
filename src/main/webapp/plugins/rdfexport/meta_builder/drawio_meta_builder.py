@@ -93,21 +93,6 @@ def override(*, type: str, role: str, phase: str):
 
     return decorator
 
-def override(*, type: str, role: str, phase: str, target: str | None = None):
-    def wrap(fn):
-        t = target
-        if t is None:
-            n = fn.__name__
-            for suf in ("_new", "_override", "_ovr"):
-                if n.endswith(suf):
-                    n = n[: -len(suf)]
-                    break
-            t = n
-        fn.__override__ = (type, role, phase)
-        fn.__override_target__ = t
-        return fn
-    return wrap
-
 
 # ---- Load legacy module ----
 def load_legacy():
@@ -128,48 +113,6 @@ def load_legacy():
                 spec.loader.exec_module(mod)  # type: ignore[arg-type]
                 return mod
         raise RuntimeError("draw_io_parser source not found")
-
-
-# ---- Load overrides if enabled ----
-def load_overrides():
-    """Load only @override-decorated objects from legacy/overrides/*.py"""
-    overrides = {}
-    overrides_dir = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)), "legacy", "overrides"
-    )
-    if not os.path.isdir(overrides_dir):
-        return overrides
-
-    for fn in os.listdir(overrides_dir):
-        if not fn.endswith(".py"):
-            continue
-        name = os.path.splitext(fn)[0]
-        path = os.path.join(overrides_dir, fn)
-        spec = importlib.util.spec_from_file_location(f"overrides.{name}", path)
-        mod = importlib.util.module_from_spec(spec)
-        sys.modules[f"overrides.{name}"] = mod
-        # inject override decorator so @override(...) works inside the module
-        mod.override = override
-        spec.loader.exec_module(mod)  # type: ignore
-
-        for k, v in vars(mod).items():
-            if k.startswith("_"):
-                continue
-            if inspect.ismodule(v):
-                continue
-            if getattr(v, "__module__", "").startswith("legacy.draw_io_parser"):
-                continue  # ignore imports like “from legacy.draw_io_parser import pipeline”
-
-            meta = getattr(v, "__override__", None)
-            if not meta:
-                continue  # only decorated
-
-            v.__data_type__, v.__data_role__, v.__phase__ = meta
-            tgt = getattr(v, "__override_target__", getattr(v, "__name__", k))
-            if tgt in overrides:
-                raise RuntimeError(f"Duplicate override for target {tgt}")
-            overrides[tgt] = v  # keyed by target name
-    return overrides
 
 
 draw = load_legacy()
@@ -287,12 +230,9 @@ for dotted, dt, dr, ph in MAPPING:
 
 
 # ---- Helpers ----
-def resolve(name: str):
-    base = name.split(".")[-1]
-    if OVERRIDES_ENABLED and base in overrides_dict:
-        return overrides_dict[base]
+def resolve(dotted: str):
     cur = draw
-    for part in name.split("."):
+    for part in dotted.split("."):
         cur = getattr(cur, part)
     return cur
 
@@ -305,27 +245,6 @@ def safe_source(obj) -> str:
         return textwrap.dedent(src)
     except Exception:
         return f"# source unavailable for {getattr(obj, '__name__', repr(obj))}\n"
-    
-def strip_override_decorator(src: str) -> str:
-    """Remove any @override(...) decorator lines from a function's source."""
-    out_lines = []
-    skip = False
-    for raw_line in src.splitlines():
-        line = raw_line.lstrip()  # ignore indentation
-        # start of decorator
-        if line.startswith("@override("):
-            skip = True
-            # if decorator ends on same line, clear skip immediately
-            if line.rstrip().endswith(")"):
-                skip = False
-            continue
-        # continuation of decorator across lines
-        if skip:
-            if line.rstrip().endswith(")"):
-                skip = False
-            continue
-        out_lines.append(raw_line)
-    return "\n".join(out_lines)
 
 
 def indent(text: str, n: int = 8) -> str:
@@ -614,27 +533,7 @@ def build_output(
                         block = indent(f"# BEGIN {name}\n{src}\n# END {name}\n", 4)
                         out.append(block)
                 else:
-                    # Inline inject overrides targeting this exact (phase, type, role)
-                    injected = False
-                    if OVERRIDES_ENABLED and overrides_dict:
-                        for target, obj in overrides_dict.items():
-                            if (
-                                getattr(obj, "__data_type__", None) == dt
-                                and getattr(obj, "__data_role__", None) == dr
-                                and getattr(obj, "__phase__", None) == ph
-                            ):
-                                # never include the override decorator definition itself
-                                if getattr(obj, "__name__", "") == "override":
-                                    continue
-                                src = get_source_or_repr(target, obj)
-                                src = strip_override_decorator(src)
-                                block = indent(
-                                    f"# BEGIN override {target}\n{src}\n# END override {target}\n", 4
-                                )
-                                out.append(block)
-                                injected = True
-                    if not injected:
-                        out.append(indent("pass", 4))
+                    out.append(indent("pass", 4))
                 out.append("")
 
     orchestrator = """
