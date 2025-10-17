@@ -21,7 +21,7 @@ Task 3 now targets RML emission through DrawIO parser overrides. `legacy/map_sch
 
 A Node-compatible Pyodide build (run under Bun + Volta) provides a fully local, testable environment for executing and debugging Python code within TypeScript. Robust logging, incremental integration, and fine-grained test coverage (via Bun and pytest) ensure a stable, transparent, and extensible foundation for RDF data transformation directly within the DrawIO extension.
 
-Meta builder now supports override discovery so the DrawIO parser can be extended safely without editing generated artifacts. Drop new Python modules into `src/main/webapp/plugins/rdfexport/legacy/overrides/`, decorate exported replacements with `@meta_builder.drawio_meta_builder.override`, and regenerate—the Mermaid pipeline diagram at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (explained in `meta_builder/readme.md`) shows how override modules weave into the build.
+Meta builder now supports override discovery so the DrawIO parser can be extended safely without editing generated artifacts. Add new Python files under `src/main/webapp/plugins/rdfexport/legacy/overrides/`, decorate exported replacements with `@meta_builder.drawio_meta_builder.override`, and regenerate—the Mermaid pipeline diagram at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (with editable Mermaid source at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.mmd`, referenced in `meta_builder/readme.md`) shows how override modules weave into the build and where each namespace hook lands.
 
 Historical context (feat/rml branch milestones): the branch introduced the custom RDF/XML export plugin, followed by CSV path controls and deterministic regression fixtures (`1e4582a` → `5d2b0fb`). Subsequent merges added metadata-aware parser flows, reproducible baseline generators, and the mock black box annotated save path (through commits such as `f2034d1`, `a28a81a`, `gpt-5-codex` task reports). Latest `work` commit `9e073ca` (2025-10-09) aligned Turtle export metadata and ported rdflib isomorphism checks into the Bun regression harness to guard Pyodide outputs. The same-day stabilization commit `6fc153c` reconciled the Pyodide pipeline with the restored mock black box tests after the experimental Turtle download spike in `4952510`, ensuring Bun coverage stayed authoritative while the UI flipped to Turtle defaults.
 
@@ -173,16 +173,17 @@ Goal
 Enable RML output alongside Turtle by extending the DrawIO parser through meta builder overrides only. Generated artifacts such as `legacy/draw_io_parser.py` must remain untouched; new functionality should come from purpose-built modules in `src/main/webapp/plugins/rdfexport/legacy/overrides/`.
 
 Guidance
-	•	Add new override modules (for example, CURIE validators, triples map builders, metadata hooks) and decorate exported callables with `@meta_builder.drawio_meta_builder.override` so regeneration merges them automatically.
-	•	Consult `meta_builder/readme.md` plus the Mermaid pipeline diagram at `meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` to understand how overrides are discovered, ordered, and composed before writing code.
-	•	Propagate RML-specific metadata through `_extract_drawio_metadata`, `_build_graph_from_raw_xml`, and `DrawIOParserGraph` using overrides. The diagram metadata should expose an `rmlEnabled` flag that gates RML graph construction.
-	•	Inject RML graph assembly near `individual_blocks` so DrawIO-specific state is available. Reuse proven patterns from `legacy/map_schema.py` (URI encoding, mnemonic handling, namespace resolution) rather than reimplementing them.
-	•	Keep overrides narrowly scoped—one module per concern—to maintain predictable regeneration diffs and simplify review.
+	•	Compose one override module per concern. Expect to add files such as `rml_curie_validator.py`, `rml_triplesmap_builder.py`, and `rml_node_detector.py` so CURIE expansion, TriplesMap construction, and diagram metadata live in focused, swappable units. Use the existing `curie_validator.py` override as the canonical injection point for namespace logic until it is replaced.
+	•	Consult `meta_builder/readme.md` plus the Mermaid pipeline diagram at `meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (and `.mmd` source) to understand how overrides are discovered, ordered, and composed before writing code.
+	•	Propagate RML-specific metadata through `_extract_drawio_metadata`, `_build_graph_from_raw_xml`, and `DrawIOParserGraph` via overrides. The metadata contract must surface an `rmlEnabled` flag that gates RML graph construction and can be toggled from the TypeScript UI.
+	•	Inject RML graph assembly near `individual_blocks` so DrawIO-specific state is available. Reuse battle-tested patterns from `legacy/map_schema.py` (URI encoding, mnemonic handling, namespace resolution) rather than reimplementing them, and keep new helpers inside overrides.
+	•	Coordinate with the Pyodide harness: the TypeScript plugin should probe `rmlEnabled` before enabling UI affordances (for example an “Export RML” action) and pass a flag into the pipeline runner when RML should be emitted.
+	•	Keep overrides narrowly scoped—one module per concern—to maintain predictable regeneration diffs and simplify review. Document any new override in `docs/aicode/{your-name}-report-{timestamp}.md` and note updates in this task list.
 
 Testing (Python / pytest)
-	•	Unit – CURIE syntax + namespace validation, triples map assembly, metadata propagation.
-	•	Integration – XML fixture → `DrawIOParserGraph` → RML graph equivalence against baselines.
-	•	Regression – ensure Turtle exports remain unchanged when RML is disabled and that overrides do not leak into unrelated tasks.
+	•	Unit – CURIE syntax + namespace validation, triples map assembly, metadata propagation. Take inspiration from `map_schema.py` tests when designing fixtures.
+	•	Integration – XML fixture → `DrawIOParserGraph` → RML graph equivalence against baselines (store baselines under `tests/baselines/rml/`).
+	•	Regression – ensure Turtle exports remain unchanged when RML is disabled and that overrides do not leak into unrelated tasks. Capture Bun + pytest logs for review.
 
 ⸻
 
