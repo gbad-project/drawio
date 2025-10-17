@@ -23,10 +23,6 @@ A Node-compatible Pyodide build (run under Bun + Volta) provides a fully local, 
 
 Meta builder now supports override discovery so the DrawIO parser can be extended safely without editing generated artifacts. Add new Python files under `src/main/webapp/plugins/rdfexport/legacy/overrides/`, decorate exported replacements with `@meta_builder.drawio_meta_builder.override`, and regenerate—the Mermaid pipeline diagram at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (with editable Mermaid source at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.mmd`, referenced in `meta_builder/readme.md`) shows how override modules weave into the build and where each namespace hook lands.
 
-Historical context (feat/rml branch milestones): on 2025-10-08, commit `56fe128` carved the mock black box bridge into a reusable helper while `1fa6390` restored the checksum-guarded regression harness that exercises the DrawIO export path end-to-end. Later that evening, commits `a28a81a` and `da3ee356` revived Bun + pytest metadata regressions, and `3087ac1` with `dbc1f14` removed hard-coded CURIE handling in favor of deterministic namespace validation and sorted `.nt` baselines. The Pyodide mock pipeline landed in commit `b46b82f` (2025-10-09), followed by Turtle alignment and log restoration in `6fc153c`/`9e073ca` so Bun coverage stayed authoritative while the UI defaulted to Turtle exports. Meta builder guidance and override scaffolding were subsequently consolidated through commits `78a54ee`, `f6db26d`, `24ca6fc`, `d4ef9bf`, `b345eb5`, and merge `557c024` (all 2025-10-17), which captured the Mermaid documentation, override roadmap, and task directives now reflected below.
-
-⸻
-
 Task Status Summary
 - Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ Completed on 2025-10-09 by gpt-5-codex (recorded in CHANGELOG.md)
