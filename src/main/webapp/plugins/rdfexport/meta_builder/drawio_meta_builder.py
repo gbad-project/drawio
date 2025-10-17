@@ -19,6 +19,7 @@ from typing import Dict, List, Tuple
 VALID_TYPES = {"xml", "internal", "rdf"}
 VALID_ROLES = {"metadata", "data", "control"}
 VALID_PHASES = {"pre", "core", "post"}
+MODULE_LEVEL_ALIASES_FOR_NEW = False
 
 
 @dataclass(frozen=True)
@@ -591,9 +592,12 @@ class DrawIOParser:
         except Exception:
             continue
 
-    for (dt, dr, ph), records in overrides.extras.items():
-        for record in records:
-            alias_lines.append(f"{record.name} = pipeline.{ph}.{dt}.{dr}.{record.name}")
+    if MODULE_LEVEL_ALIASES_FOR_NEW:
+        for (dt, dr, ph), records in overrides.extras.items():
+            for record in records:
+                alias_lines.append(
+                    f"{record.name} = pipeline.{ph}.{dt}.{dr}.{record.name}"
+                )
 
     src += "\n" + "\n".join(alias_lines) + "\n"
 
