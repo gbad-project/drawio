@@ -1,6 +1,13 @@
-Script started on Thu Oct 16 11:32:43 2025
+Script started on Fri Oct 17 05:38:52 2025
 Command: bun run test
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
+[0m[2m[35m$[0m [2m[1mpython -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
+[metabuilder] Wrote legacy/draw_io_parser.py (overrides on; replacements=1, additions=1)
+[metabuilder] Loaded override modules from /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/overrides: curie_validator.py
+[0m[2m[35m$[0m [2m[1mruff check --fix .[0m
+All checks passed!
+[0m[2m[35m$[0m [2m[1mruff format .[0m
+2 files reformatted, 15 files left unchanged
 Attempting to regenerate baselines from 1 commit(s)...
 Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 
@@ -81,7 +88,7 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_met
 ==================================================== FAILURES ====================================================
 [31m[1m__________________________________ test_generated_metadata_fixtures_round_trip ___________________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-338/test_generated_metadata_fixtur0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-373/test_generated_metadata_fixtur0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
@@ -176,7 +183,7 @@ stdout = None, stderr = None, retcode = 1
             [94mif[39;49;00m check [95mand[39;49;00m retcode:[90m[39;49;00m
 >               [94mraise[39;49;00m CalledProcessError(retcode, process.args,[90m[39;49;00m
                                          output=stdout, stderr=stderr)[90m[39;49;00m
-[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-338/test_generated_metadata_fixtur0/General_Authority_bleep_mock-with-metadata.drawio', '{"csvPath": "/tmp/general-authority-bleep-mock.csv", "baseUri": "http://example.org/general-authority-bleep-mock/", "label": "General_Authority_bleep_mock metadata", "preamble": [{"rdfPrefix": "fx16", "rdfIRI": "http://example.org/general-authority-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}']' returned non-zero exit status 1.[0m
+[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-373/test_generated_metadata_fixtur0/General_Authority_bleep_mock-with-metadata.drawio', '{"csvPath": "/tmp/general-authority-bleep-mock.csv", "baseUri": "http://example.org/general-authority-bleep-mock/", "label": "General_Authority_bleep_mock metadata", "preamble": [{"rdfPrefix": "fx16", "rdfIRI": "http://example.org/general-authority-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}']' returned non-zero exit status 1.[0m
 
 [1m[31m/Users/anonymous/miniconda3/lib/python3.12/subprocess.py[0m:573: CalledProcessError
 ---------------------------------------------- Captured stderr call ----------------------------------------------
@@ -195,7 +202,7 @@ error: Drawio document already contains a <UserObject> root metadata node
 Bun v1.2.21 (macOS arm64)
 [36m[1m============================================ short test summary info =============================================[0m
 [31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:...
-[31m========================================== [31m[1m1 failed[0m, [32m28 passed[0m[31m in 1.19s[0m[31m ==========================================[0m
+[31m========================================== [31m[1m1 failed[0m, [32m28 passed[0m[31m in 1.53s[0m[31m ==========================================[0m
 Traceback (most recent call last):
   File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 294, in <module>
     main()
@@ -211,15 +218,16 @@ platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-[1mcollecting ... [0m[1mcollected 33 items                                                                                               [0m
+[1mcollecting ... [0m[1mcollected 38 items                                                                                               [0m
 
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                          [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                 [100%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                          [ 76%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                 [ 86%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                       [100%][0m
 
 ==================================================== FAILURES ====================================================
 [31m[1m__________________________________ test_generated_metadata_fixtures_round_trip ___________________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-339/test_generated_metadata_fixtur0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-374/test_generated_metadata_fixtur0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
@@ -314,7 +322,7 @@ stdout = None, stderr = None, retcode = 1
             [94mif[39;49;00m check [95mand[39;49;00m retcode:[90m[39;49;00m
 >               [94mraise[39;49;00m CalledProcessError(retcode, process.args,[90m[39;49;00m
                                          output=stdout, stderr=stderr)[90m[39;49;00m
-[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-339/test_generated_metadata_fixtur0/General_Authority_bleep_mock-with-metadata.drawio', '{"csvPath": "/tmp/general-authority-bleep-mock.csv", "baseUri": "http://example.org/general-authority-bleep-mock/", "label": "General_Authority_bleep_mock metadata", "preamble": [{"rdfPrefix": "fx16", "rdfIRI": "http://example.org/general-authority-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}']' returned non-zero exit status 1.[0m
+[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-374/test_generated_metadata_fixtur0/General_Authority_bleep_mock-with-metadata.drawio', '{"csvPath": "/tmp/general-authority-bleep-mock.csv", "baseUri": "http://example.org/general-authority-bleep-mock/", "label": "General_Authority_bleep_mock metadata", "preamble": [{"rdfPrefix": "fx16", "rdfIRI": "http://example.org/general-authority-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}']' returned non-zero exit status 1.[0m
 
 [1m[31m/Users/anonymous/miniconda3/lib/python3.12/subprocess.py[0m:573: CalledProcessError
 ---------------------------------------------- Captured stderr call ----------------------------------------------
@@ -333,7 +341,7 @@ error: Drawio document already contains a <UserObject> root metadata node
 Bun v1.2.21 (macOS arm64)
 [36m[1m============================================ short test summary info =============================================[0m
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:...
-[31m========================================== [31m[1m1 failed[0m, [32m32 passed[0m[31m in 1.04s[0m[31m ==========================================[0m
+[31m========================================== [31m[1m1 failed[0m, [32m37 passed[0m[31m in 1.99s[0m[31m ==========================================[0m
 [0m[1mbun test [0m[2mv1.2.21 (7c45ed97)[0m
 [0m
 tests/rdfexport.test.ts:
@@ -350,9 +358,9 @@ tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1658.82ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.74ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m43.55ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m2588.91ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[1.08ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m38.62ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -373,7 +381,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 124 vs 124
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m183.65ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m272.59ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44244 characters)
@@ -393,7 +401,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 91 vs 91
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m95.48ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m146.26ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23393 characters)
@@ -413,7 +421,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 51 vs 51
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m48.94ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m84.03ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23529 characters)
@@ -433,7 +441,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 48 vs 48
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m52.26ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m84.49ms[0m[2m][0m
 [0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -454,7 +462,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 75 vs 75
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m67.80ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m116.66ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44778 characters)
@@ -474,7 +482,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 84 vs 84
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m74.27ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m119.05ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39312 characters)
@@ -494,7 +502,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 72 vs 72
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m63.04ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m96.17ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (73820 characters)
@@ -514,7 +522,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 130 vs 130
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m116.96ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m185.41ms[0m[2m][0m
 [0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
@@ -536,7 +544,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 170 vs 170
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m149.35ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m262.15ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37601 characters)
@@ -556,7 +564,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 71 vs 71
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m71.46ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m105.47ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (95196 characters)
@@ -576,7 +584,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 130 vs 130
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m143.24ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m214.96ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (54115 characters)
@@ -596,7 +604,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 95 vs 95
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m80.79ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m121.66ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (58331 characters)
@@ -616,7 +624,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 101 vs 101
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m89.57ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m142.31ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (34878 characters)
@@ -636,7 +644,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 70 vs 70
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m57.65ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m89.94ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (49927 characters)
@@ -656,7 +664,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 96 vs 96
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m100.08ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m145.60ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (32192 characters)
@@ -676,7 +684,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 61 vs 61
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m57.42ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m83.12ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (40849 characters)
@@ -696,7 +704,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 84 vs 84
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m70.10ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m103.60ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (48145 characters)
@@ -716,7 +724,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 86 vs 86
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m76.46ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m107.63ms[0m[2m][0m
 [0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -737,7 +745,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 62 vs 62
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m52.55ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m69.81ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37282 characters)
@@ -757,7 +765,7 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 73 vs 73
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m63.40ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m82.94ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (42005 characters)
@@ -777,13 +785,13 @@ tests/rdfexport.test.ts:
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 73 vs 73
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
-[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m69.57ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m86.44ms[0m[2m][0m
 [BLACKBOX] Received serialized payload (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m17.20ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m21.58ms[0m[2m][0m
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36445 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -793,8 +801,8 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-43 (4714 characters)
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
-[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m13.12ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.34ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m18.15ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[6.33ms[0m[2m][0m
 
 [0m[2m5 tests skipped:[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
@@ -807,7 +815,7 @@ tests/rdfexport.test.ts:
  [0m[33m5 skip[0m
 [0m[2m 0 fail[0m
  493 expect() calls
-Ran 32 tests across 1 file. [0m[2m[[1m3.56s[0m[2m][0m
+Ran 32 tests across 1 file. [0m[2m[[1m5.43s[0m[2m][0m
 
 Command exit status: 0
-Script done on Thu Oct 16 11:32:50 2025
+Script done on Fri Oct 17 05:39:02 2025

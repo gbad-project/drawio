@@ -9,3 +9,13 @@ Metabuilder Python module: [drawio_meta_builder.py](drawio_meta_builder.py)
 ---
 
 Source chat for diagram: [Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture](docs/chats/Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture)
+
+## Override workflow
+
+Custom parser behaviour can be introduced by placing Python modules in
+`legacy/overrides/`. Decorate replacement functions or classes with the
+`@override` decorator exported by `meta_builder.drawio_meta_builder` and specify
+their data type, role, and phase. Matching entries in the builder mapping are
+replaced, while new symbols are injected directly into the generated pipeline
+namespace. Overrides are discovered by default when running
+`python -m meta_builder`, and the CLI now reports which modules were loaded.

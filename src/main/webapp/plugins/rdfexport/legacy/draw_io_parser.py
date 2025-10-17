@@ -68,7 +68,15 @@ class pipeline:
                 pass
 
             class control:
-                pass
+                # BEGIN override curie_validator.py._split_curie_old
+                def _split_curie_old(curie: str) -> tuple[str, str]:
+                    """This actually is a new override despite _old suffix."""
+                    if ":" not in curie:
+                        return ("", "")
+                    prefix, remainder = curie.split(":", 1)
+                    return (prefix, remainder.strip())
+
+                # END override curie_validator.py._split_curie_old
 
         class rdf:
             class metadata:
@@ -1508,11 +1516,12 @@ class internal_data_core:
 
     # END Arrow
     # BEGIN _split_curie
+    # override from curie_validator.py
     def _split_curie(curie: str) -> tuple[str, str]:
-        if ":" not in curie:
-            return "", ""
-        prefix, remainder = curie.split(":", 1)
-        return prefix, remainder.strip()
+        """
+        "[curie_validator] logic from original _split_curie method was manually copied and pasted into a new method, and then the old one was overriden with new; end result same except for this message that was added in override of old with new and will be displayed everywhere the old one was being used. additionally, the new override was placed under a different pipeline namespace class (i.e., control role rather than data) to show the flexibility."
+        """
+        return pipeline.core.internal.control._split_curie_old(curie)
 
     # END _split_curie
     # BEGIN _ensure_known_curie
