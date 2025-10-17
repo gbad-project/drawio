@@ -177,12 +177,14 @@ Guidance
 	•	Consult `meta_builder/readme.md` plus the Mermaid pipeline diagram at `meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (and `.mmd` source) to understand how overrides are discovered, ordered, and composed before writing code.
 	•	Propagate RML-specific metadata through `_extract_drawio_metadata`, `_build_graph_from_raw_xml`, and `DrawIOParserGraph` via overrides. The metadata contract must surface an `rmlEnabled` flag that gates RML graph construction and can be toggled from the TypeScript UI.
 	•	Inject RML graph assembly near `individual_blocks` so DrawIO-specific state is available. Reuse battle-tested patterns from `legacy/map_schema.py` (URI encoding, mnemonic handling, namespace resolution) rather than reimplementing them, and keep new helpers inside overrides.
+	•	Use the authoritative DrawIO inputs for regression: the General Authority and General ADD diagrams already live under `src/main/webapp/plugins/rdfexport/tests/fixtures/`. Pair them with the retired RML baselines and CSVs under `src/main/webapp/plugins/rmlexport/tests/fixtures/` to understand how `map_schema.py` shaped the canonical output before overrides existed.
+	•	Extend the existing baseline generator instead of hand-authoring RML samples. You may call into `legacy/map_schema.py` to regenerate `.rml` from the authority/ADD CSVs after preprocessing them with a small helper (factor this helper into a dedicated module so the DrawIO pipeline can reuse it). Those regenerated artifacts become the golden references for validating the override-powered pipeline.
 	•	Coordinate with the Pyodide harness: the TypeScript plugin should probe `rmlEnabled` before enabling UI affordances (for example an “Export RML” action) and pass a flag into the pipeline runner when RML should be emitted.
 	•	Keep overrides narrowly scoped—one module per concern—to maintain predictable regeneration diffs and simplify review. Document any new override in `docs/aicode/{your-name}-report-{timestamp}.md` and note updates in this task list.
 
 Testing (Python / pytest)
-	•	Unit – CURIE syntax + namespace validation, triples map assembly, metadata propagation. Take inspiration from `map_schema.py` tests when designing fixtures.
-	•	Integration – XML fixture → `DrawIOParserGraph` → RML graph equivalence against baselines (store baselines under `tests/baselines/rml/`).
+	•	Unit – CURIE syntax + namespace validation, triples map assembly, metadata propagation. Cross-check behavior against the `map_schema.py` helpers that previously produced the retired plugin’s RML.
+	•	Integration – XML fixture → `DrawIOParserGraph` → RML graph equivalence against baselines (store baselines under `tests/baselines/rml/`). Generate baselines from the General Authority/General ADD diagrams and their canonical CSV companions by invoking the extended baseline generator so the override flow and legacy `map_schema` stay lockstep.
 	•	Regression – ensure Turtle exports remain unchanged when RML is disabled and that overrides do not leak into unrelated tasks. Capture Bun + pytest logs for review.
 
 ⸻
@@ -234,6 +236,24 @@ Phase 2 – Incremental Functional Integration
 	•	Bun tests: async integration + E2E pipeline.
 	•	pytest: unit + integration for Python functions.
 	•	Cross-layer regression: compare browser vs. local Python outputs.
+
+Task 5 – RML Export Alignment
+
+Status: ⏳ Not started
+
+Goal
+Ensure every consumer of DrawIO-derived RDF (Pyodide UI, Bun CLI, pytest harness, downstream exporters) can flip between Turtle and RML without divergence once overrides land. This task activates after the override surface stabilizes so alignment work is not wasted on moving targets.
+
+Guidance
+	•	Track a single source of truth for golden data: the regenerated RML baselines from Task 3 should drive Bun fixtures, pytest assertions, and any Pyodide smoke tests.
+	•	Extend the export orchestrations (`runDrawioPipeline`, Pyodide worker handlers, and any CLI glue) so they surface both Turtle and RML artifacts while honoring the `rmlEnabled` metadata flag.
+	•	Keep map-schema-backed helpers reusable: the CSV preprocessing module introduced for Task 3 should be callable from alignment tests to ensure parity with the retired `rmlexport` plugin outputs.
+	•	Document the alignment contract in `docs/aicode/{your-name}-report-{timestamp}.md`, describing how to refresh baselines and validate both export formats end-to-end.
+
+Testing
+	•	Bun – simulate UI-triggered Turtle vs. RML downloads for the authority/ADD diagrams.
+	•	pytest – assert the DrawIO pipeline reproduces the regenerated map_schema RML baselines and maintains Turtle isomorphism.
+	•	Optional smoke – run the existing map_schema CLI against the same CSV inputs to prove regenerated fixtures remain faithful to the legacy flow.
 
 ⸻
 
