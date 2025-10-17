@@ -1,0 +1,135 @@
+# Artifact ID: drawio_pipeline_flow
+# Branch: 1 (main) (6ae7dc60...)
+# Version: 2
+# Command: rewrite
+# UUID: 59130388-3664-4eb6-871c-111c7a097f0a
+# Created: 10/16/2025, 9:54:57 AM
+# Change: Rewritten
+
+# ---
+
+graph TB
+    subgraph PRE["PRE-PROCESSING PHASE"]
+        direction TB
+        XML_IN[Raw Draw.io XML]
+        
+        subgraph XML_PRE["xml.metadata.pre"]
+            EXTRACT[_extract_drawio_metadata]
+            STRIP[_strip_metadata_user_object]
+        end
+        
+        subgraph INT_META_PRE["internal.metadata.pre"]
+            DEFAULTS[Constants & Defaults]
+            GETTERS[get_ontology_iri, get_prefix, etc.]
+            TYPES[Type Aliases]
+        end
+        
+        subgraph INT_CTRL_PRE["internal.control.pre"]
+            ARGPARSE[_arguments_parser]
+        end
+        
+        subgraph RDF_DATA_PRE["rdf.data.pre"]
+            METACHAR[Metacharacter handling]
+            CAPSCHEME[Capitalization schemes]
+        end
+        
+        subgraph RDF_CTRL_PRE["rdf.control.pre"]
+            VALIDATE[_parse_capitalisation_scheme]
+        end
+        
+        XML_IN --> EXTRACT
+        EXTRACT --> |prefixes, base_uri, csv_path| STRIP
+        STRIP --> |cleaned XML| XMLCORE[To Core]
+        DEFAULTS --> METADATA[Metadata Pool]
+        TYPES --> METADATA
+        GETTERS --> METADATA
+        ARGPARSE --> |user config| METADATA
+        METACHAR --> METADATA
+        VALIDATE --> METADATA
+    end
+    
+    subgraph CORE["CORE PROCESSING PHASE"]
+        direction TB
+        
+        subgraph XML_DATA_CORE["xml.data.core"]
+            TREE[DrawIOXMLTree]
+            GEOMETRY[Geometry calculations]
+            CELLS[Cell identification]
+            ARROWS[Arrow parsing]
+            INDIV_ARR[individuals_and_arrows method]
+        end
+        
+        subgraph INT_DATA_CORE["internal.data.core"]
+            INDIV[Individual class]
+            ARR[Arrow class]
+            CURIE[CURIE handling]
+            VERIFY[_verify_is_ric_class]
+            ADDTYPE[_add_individual_type]
+        end
+        
+        subgraph INT_CTRL_CORE["internal.control.core"]
+            BUILD[_build_graph_from_raw_xml]
+            COUPLE[Couple individuals/arrows + metadata]
+            PARSE_META[_parse_space_substitute, _parse_metacharacter_substitutes]
+            INDIV_BLOCKS[individual_blocks]
+        end
+        
+        subgraph RDF_DATA_CORE["rdf.data.core"]
+            RDF_EXCEPT[RDF-related exceptions]
+        end
+        
+        subgraph RDF_CTRL_CORE["rdf.control.core"]
+            GRAPHCLS[DrawIOParserGraph class]
+            SERIALIZE[serialise_to_graph]
+        end
+        
+        XMLCORE --> TREE
+        TREE --> GEOMETRY
+        TREE --> CELLS
+        TREE --> ARROWS
+        ARROWS --> INDIV_ARR
+        INDIV_ARR --> |Individual/Arrow instances| COUPLE
+        METADATA --> PARSE_META
+        PARSE_META --> COUPLE
+        COUPLE --> INDIV_BLOCKS
+        INDIV_BLOCKS --> |blocks, obj_props, data_props| SERIALIZE
+        SERIALIZE --> |DrawIOParserGraph instance| GRAPHOUT[To Post]
+    end
+    
+    subgraph POST["POST-PROCESSING PHASE"]
+        direction TB
+        
+        subgraph INT_CTRL_POST["internal.control.post"]
+            SDK[parse_drawio_to_graph]
+            CLI[_run, main]
+        end
+        
+        subgraph RDF_CTRL_POST["rdf.control.post"]
+            SECONDARY[Secondary serializations]
+            MANIPULATE[Graph manipulation]
+        end
+        
+        GRAPHOUT --> SDK
+        GRAPHOUT --> CLI
+        SDK --> OUTPUT[Final Output]
+        CLI --> OUTPUT
+        SDK --> SECONDARY
+        SECONDARY --> MANIPULATE
+        MANIPULATE --> OUTPUT
+    end
+    
+    style PRE fill:#e1f5ff
+    style CORE fill:#fff9e1
+    style POST fill:#e8f5e9
+    style XML_PRE fill:#b3e5fc
+    style INT_META_PRE fill:#c8e6c9
+    style INT_CTRL_PRE fill:#c8e6c9
+    style RDF_DATA_PRE fill:#f8bbd0
+    style RDF_CTRL_PRE fill:#f8bbd0
+    style XML_DATA_CORE fill:#b3e5fc
+    style INT_DATA_CORE fill:#c8e6c9
+    style INT_CTRL_CORE fill:#c8e6c9
+    style RDF_DATA_CORE fill:#f8bbd0
+    style RDF_CTRL_CORE fill:#f8bbd0
+    style INT_CTRL_POST fill:#c8e6c9
+    style RDF_CTRL_POST fill:#f8bbd0

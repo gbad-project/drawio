@@ -14,7 +14,7 @@ Feature Description — In-Browser RDF Transformation Pipeline for DrawIO Extens
 
 This feature introduces an in-browser data transformation pipeline to the DrawIO extension so serialized diagram XML can be round-tripped to Turtle without leaving the editor. The extension still serializes diagrams as XML, but that payload now flows through a TypeScript “black box” bridge (`src/main/webapp/plugins/rdfexport/src/mockBlackBox.ts`) that boots a Pyodide-backed Python runtime (`pyodidePipeline.ts`) before delegating to the patched DrawIO parser living in `legacy/draw_io_parser.py`.
 
-Inside Pyodide, `pyodide_pipeline/drawio_pipeline.py` normalizes the XML, calls `_build_graph_from_raw_xml`, and caches the resulting `DrawioParserGraph` plus its derived Turtle serialization. The bridge returns a JSON summary (graph id, namespaces, CSV path metadata, and Turtle payload) so the plugin can save a `.ttl` export using the existing RDF/XML save logic, with the hard switch to Turtle defaults now exercised by `runDrawioPipeline` in the Bun tests.
+Inside Pyodide, `pyodide_pipeline/drawio_pipeline.py` normalizes the XML, calls `_build_graph_from_raw_xml`, and caches the resulting `DrawIOParserGraph` plus its derived Turtle serialization. The bridge returns a JSON summary (graph id, namespaces, CSV path metadata, and Turtle payload) so the plugin can save a `.ttl` export using the existing RDF/XML save logic, with the hard switch to Turtle defaults now exercised by `runDrawioPipeline` in the Bun tests.
 
 Task 3 will still expose pure `graph_to_dataframe` / `dataframe_to_turtle` helpers out of `legacy/map_schema.py` so the pipeline can expand beyond the direct DrawIO parser output. Until that work lands, map_schema remains untouched in production flows and the Pyodide bridge focuses on faithfully reproducing the DrawIO parser’s Turtle output (guarded by the Bun + rdflib isomorphism harness).
 
@@ -28,7 +28,7 @@ Task Status Summary
 
 Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex
 Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ Completed on 2025-10-09 by gpt-5-codex
-Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawioParserGraph): ✅ Completed on 2025-02-14 by gpt-5-codex
+Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph): ✅ Completed on 2025-02-14 by gpt-5-codex
 Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration: ⏳ Not started
 Task 4 – Browser Execution Pipeline (Pyodide Integration): 🚧 Phase 1 completed 2025-02-15 by gpt-5-codex (Phase 2 pending)
 
@@ -98,13 +98,13 @@ Changes should be minimal and backward-compatible.
 
 ⸻
 
-Task 2b – Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawioParserGraph)
+Task 2b – Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph)
 
 Status: ✅ Completed on 2025-02-14 by gpt-5-codex
 
 Goal
 Enhance the DrawIO parser to correctly process stdin-supplied XML containing embedded metadata (CSV path, prefix–IRI pairs, and base URI) injected by rdfexport.ts.
-The parser must extract this information directly from the XML and return a specialized DrawioParserGraph object that:
+The parser must extract this information directly from the XML and return a specialized DrawIOParserGraph object that:
 	•	Is a full subclass of rdflib.Graph,
 	•	Has a single declared property csv_path,
 	•	Uses the standard rdflib namespace manager to hold prefix IRIs and base URI (no external metadata dict).
@@ -126,13 +126,13 @@ to produce corresponding *-with-metadata.drawio files embedding valid CSV path, 
 
 	•	Verify the generated files match the reference format.
 
-	3.	Define DrawioParserGraph Class
+	3.	Define DrawIOParserGraph Class
 	•	Implement a subclass of rdflib.Graph with one declared property for CSV path:
 
 from rdflib import Graph
 from typing import Optional
 
-class DrawioParserGraph(Graph):
+class DrawIOParserGraph(Graph):
     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.csv_path = csv_path
@@ -148,7 +148,7 @@ class DrawioParserGraph(Graph):
 	•	Base URI → assign to Graph,
 	•	CSV path → assign to csv_path property.
 	•	Populate triples as before; all other behavior remains unchanged.
-	•	Return a fully initialized DrawioParserGraph instance.
+	•	Return a fully initialized DrawIOParserGraph instance.
 	5.	Regression Testing (pytest)
 	•	Extend tests to include both pristine and *-with-metadata.drawio fixtures.
 	•	For each fixture:
