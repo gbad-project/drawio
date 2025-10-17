@@ -155,7 +155,8 @@ Guidance
 Testing (Python / pytest)
 - Unit – CURIE syntax + namespace validation, triples map assembly, metadata propagation. Cross-check behavior against the `map_schema.py` helpers that previously produced the retired plugin’s RML.
 - Integration – XML fixture → `DrawIOParserGraph` → RML graph equivalence against baselines (store baselines under `tests/baselines/rml/`). Generate baselines from the General Authority/General ADD diagrams and their canonical CSV companions by invoking the extended baseline generator so the override flow and legacy `map_schema` stay lockstep.
-- Regression – ensure Turtle exports remain unchanged when RML is disabled and that overrides do not leak into unrelated tasks. Capture Bun + pytest logs for review.
+- Regression – ensure Turtle exports remain unchanged when RML is disabled and that overrides do not leak into unrelated tasks.
+- Capture Bun + pytest logs for review.
 :::
 
 :::task-stub{title="Task 4 – Browser Execution Pipeline (Pyodide Integration)"}
