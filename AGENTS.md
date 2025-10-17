@@ -7,6 +7,7 @@ Contributor Guidelines
 - Once the task is completed and all planned tests pass, document all your efforts extensively under `docs/aicode/{your-name}-report-{timestamp}.md`. If applicable, update the task status here in AGENTS.md and update the task status summary below.
 - Before starting to work on your task, navigate to `src/main/webapp/plugins/rdfexport/`. Keep tooling aligned with the `package.json` scripts vetted workflow: install JavaScript dependencies with `bun install`, hydrate Python deps with `bun run setup:uv`, sync Pyodide assets via `bun run setup:pyodide`, then exercise Bun coverage with `bun run test`. To obtain precise regression diffs for a particular fixture, `bun run debug:help` is at your service.
 - **Always** be sure to run `bun run check` before committing and `bun run fix` and/or fix any issues before committing. Run `bun run test:log:linux` to capture your final test log and be sure to stage it in the commit.
+- When modifying the DrawIO parser, treat `legacy/draw_io_parser.py` as generated output. Compose Python overrides in `src/main/webapp/plugins/rdfexport/legacy/overrides/` (one module per concern) and decorate replacement symbols with `meta_builder.drawio_meta_builder.override` so the CLI can merge them during regeneration.
 
 ⸻
 
@@ -20,6 +21,8 @@ Task 3 will still expose pure `graph_to_dataframe` / `dataframe_to_turtle` helpe
 
 A Node-compatible Pyodide build (run under Bun + Volta) provides a fully local, testable environment for executing and debugging Python code within TypeScript. Robust logging, incremental integration, and fine-grained test coverage (via Bun and pytest) ensure a stable, transparent, and extensible foundation for RDF data transformation directly within the DrawIO extension.
 
+Meta builder now supports override discovery so the DrawIO parser can be extended safely without editing generated artifacts. Review `src/main/webapp/plugins/rdfexport/meta_builder/readme.md` and the Mermaid pipeline diagram at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` for the current generation flow before authoring overrides.
+
 Historical context (feat/rml branch milestones): the branch introduced the custom RDF/XML export plugin, followed by CSV path controls and deterministic regression fixtures (`1e4582a` → `5d2b0fb`). Subsequent merges added metadata-aware parser flows, reproducible baseline generators, and the mock black box annotated save path (through commits such as `f2034d1`, `a28a81a`, `gpt-5-codex` task reports). Latest `work` commit `9e073ca` (2025-10-09) aligned Turtle export metadata and ported rdflib isomorphism checks into the Bun regression harness to guard Pyodide outputs. The same-day stabilization commit `6fc153c` reconciled the Pyodide pipeline with the restored mock black box tests after the experimental Turtle download spike in `4952510`, ensuring Bun coverage stayed authoritative while the UI flipped to Turtle defaults.
 
 ⸻
@@ -31,6 +34,7 @@ Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ C
 Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph): ✅ Completed on 2025-02-14 by gpt-5-codex
 Task 3 – Expose and Extend map_schema Functions for Testing and DrawIO Integration: ⏳ Not started
 Task 4 – Browser Execution Pipeline (Pyodide Integration): 🚧 Phase 1 completed 2025-02-15 by gpt-5-codex (Phase 2 pending)
+Task 5 – RML export alignment: ⏳ Not started (defer until DrawIO parser override surface stabilizes)
 
 ⸻
 
