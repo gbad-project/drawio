@@ -4,7 +4,10 @@ import { DOMParser } from "@xmldom/xmldom";
 import { readFileSync, readdirSync, existsSync } from "fs";
 import type { BunPlugin } from "bun";
 import { join, extname, basename, normalize, dirname, resolve } from "path";
-import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
+import {
+  patchDrawioWithMetadata,
+  type DrawioMetadataPatchOptions,
+} from "./utils/patchDrawioWithMetadata";
 import { LOG_PREFIX, logInfo } from "../src/logging";
 
 const rdfexportUrl = fileURLToPath(
@@ -1887,4 +1890,86 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
   expect(patchedSnapshot.metadata).toEqual(expectedSnapshot.metadata);
   expect(patchedSnapshot.mxfile).toEqual(baseSnapshot.mxfile);
   expect(patchedSnapshot.graphModel).toEqual(baseSnapshot.graphModel);
+});
+
+test("patchDrawioWithMetadata updates existing metadata block", () => {
+  const metadataFixturePath = join(
+    fixturesDir,
+    "AA37 Department of Health-with-metadata.drawio",
+  );
+  const metadataContent = readFileSync(metadataFixturePath, "utf8");
+
+  const options = {
+    label: "Updated AA37 metadata",
+    csvPath: "/tmp/aa37.csv",
+    baseUri: "http://example.org/aa37/",
+    preamble: [
+      {
+        rdfPrefix: "updated",
+        rdfIRI: "http://example.org/aa37/vocab#",
+      },
+      {
+        rdfPrefix: "data",
+        rdfIRI: "http://example.org/aa37/data/",
+      },
+    ],
+  } satisfies DrawioMetadataPatchOptions;
+
+  const updatedContent = patchDrawioWithMetadata(metadataContent, options);
+
+  const parser = new DOMParser({
+    errorHandler: {
+      error(message: string) {
+        throw new Error(message);
+      },
+    },
+  });
+
+  const updatedDoc = parser.parseFromString(updatedContent, "application/xml");
+  if (updatedDoc.getElementsByTagName("parsererror").length > 0) {
+    throw new Error("Failed to parse patched DrawIO XML");
+  }
+
+  const metadataNode = updatedDoc
+    .getElementsByTagName("mxGraphModel")
+    .item(0)
+    ?.getElementsByTagName("root")
+    .item(0)
+    ?.getElementsByTagName("UserObject")
+    .item(0);
+
+  expect(metadataNode).not.toBeNull();
+  expect(metadataNode?.getAttribute("label")).toBe(options.label);
+  expect(metadataNode?.getAttribute("csvPath")).toBe(options.csvPath);
+  expect(metadataNode?.getAttribute("baseUri")).toBe(options.baseUri);
+  expect(metadataNode?.getAttribute("id")).toBe("0");
+
+  const preambleNodes = metadataNode?.getElementsByTagName(
+    "userObjectPreambleElement",
+  );
+  const actualPreamble = preambleNodes
+    ? Array.from({ length: preambleNodes.length }, (_, index) => {
+        const element = preambleNodes.item(index);
+        if (!element) {
+          throw new Error("Unexpected null preamble element");
+        }
+        return {
+          rdfPrefix: element.getAttribute("rdfPrefix"),
+          rdfIRI: element.getAttribute("rdfIRI"),
+        };
+      })
+    : [];
+
+  expect(actualPreamble).toEqual(
+    options.preamble.map((entry) => ({
+      rdfPrefix: entry.rdfPrefix,
+      rdfIRI: entry.rdfIRI,
+    })),
+  );
+
+  const mxCells = metadataNode?.getElementsByTagName("mxCell");
+  expect(mxCells?.length).toBe(1);
+
+  const repeatedContent = patchDrawioWithMetadata(updatedContent, options);
+  expect(repeatedContent).toBe(updatedContent);
 });
