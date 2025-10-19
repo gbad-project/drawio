@@ -12,8 +12,10 @@ from typing import Any, Dict, Iterable
 from xml.etree import ElementTree
 
 LEGACY_DIR = Path(__file__).resolve().parents[1] / "legacy"
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
+PACKAGE_ROOT = LEGACY_DIR.parent
+for path in (PACKAGE_ROOT, LEGACY_DIR):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
 
 from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     DrawIOParserGraph,
@@ -254,6 +256,9 @@ def _sorted_namespaces(graph: DrawIOParserGraph) -> Iterable[tuple[str | None, A
 def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
     base = getattr(graph, "base", None)
     csv_path = getattr(graph, "csv_path", None)
+    rml_enabled = bool(getattr(graph, "rml_enabled", False))
+    rml_triple_count = int(getattr(graph, "rml_triple_count", 0)) if rml_enabled else 0
+    raw_rml_text = getattr(graph, "rml_serialization", None) if rml_enabled else None
 
     namespaces = [
         {"prefix": prefix or "", "iri": str(iri)}
@@ -267,6 +272,11 @@ def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
         "base_uri": str(base) if base else None,
         "namespaces": namespaces,
         "raw_turtle": json.dumps(graph.serialize(format="turtle"), sort_keys=True),
+        "rml_enabled": rml_enabled,
+        "rml_triple_count": rml_triple_count,
+        "raw_rml": json.dumps(raw_rml_text, sort_keys=True)
+        if raw_rml_text is not None
+        else None,
     }
 
 

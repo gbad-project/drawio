@@ -9,13 +9,17 @@ from rdflib import Graph
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
+PACKAGE_ROOT = LEGACY_DIR.parent
+for path in (PACKAGE_ROOT, LEGACY_DIR):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
 
 import draw_io_parser  # noqa: E402
+from legacy.overrides import rml_state  # type: ignore[attr-defined]  # noqa: E402
 
 FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
+RML_BASELINES_DIR = BASELINES_DIR / "rml"
 PATCHER_MODULE_URI = (
     (LEGACY_DIR.parent / "tests" / "utils" / "patchDrawioWithMetadata.ts")
     .resolve()
@@ -179,6 +183,34 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
     assert graph.csv_path is None
     assert graph.base is None
+    assert graph.rml_enabled is False
+
+
+def test_parse_drawio_with_rml_metadata_emits_rml_graph(tmp_path: Path):
+    fixture_path = (
+        FIXTURES_DIR / "General Authority to RiC-O Model_2025-06-25_PZ.drawio"
+    )
+    metadata_options = _build_metadata_options(0, fixture_path, rml_enabled=True)
+    patched_path = tmp_path / "authority-with-rml.drawio"
+
+    _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)
+
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(patched_path),
+        metacharacter_substitute=["url"],
+        prefix_iri=metadata_options["baseUri"],
+    )
+
+    assert graph.rml_enabled is True
+    assert graph.rml_graph is not None
+    assert graph.rml_triple_count == len(graph.rml_graph)
+    assert graph.rml_serialization is not None
+
+    baseline_path = RML_BASELINES_DIR / f"{fixture_path.stem}.ttl"
+    expected = Graph()
+    expected.parse(baseline_path, format="turtle")
+
+    assert graph.rml_graph.isomorphic(expected)
 
 
 def test_individual_blocks_rejects_unknown_prefix():
@@ -223,14 +255,16 @@ def _run_drawio_metadata_patcher(
     )
 
 
-def _build_metadata_options(index: int, fixture_path: Path) -> dict:
+def _build_metadata_options(
+    index: int, fixture_path: Path, *, rml_enabled: bool | None = None
+) -> dict:
     slug = re.sub(r"[^a-z0-9]+", "-", fixture_path.stem.lower()).strip("-")
     if not slug:
         slug = f"fixture-{index}"
 
     csv_path = f"/tmp/{slug}.csv"
     base_uri = f"http://example.org/{slug}/"
-    return {
+    payload = {
         "csvPath": csv_path,
         "baseUri": base_uri,
         "label": f"{fixture_path.stem} metadata",
@@ -245,6 +279,9 @@ def _build_metadata_options(index: int, fixture_path: Path) -> dict:
             },
         ],
     }
+    if rml_enabled is not None:
+        payload["rmlEnabled"] = rml_enabled
+    return payload
 
 
 def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
@@ -290,3 +327,8 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
         assert _normalise_graph(patched_graph).isomorphic(
             _normalise_graph(original_graph)
         )
+
+
+@pytest.fixture(autouse=True)
+def _reset_rml_state() -> None:
+    rml_state.reset()

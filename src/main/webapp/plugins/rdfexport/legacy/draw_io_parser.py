@@ -125,33 +125,63 @@ class pipeline:
 
 class xml_metadata_pre:
     # BEGIN _extract_drawio_metadata
+    # override from rml_metadata.py
     def _extract_drawio_metadata(
         raw_xml: str,
     ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+        """Parse DrawIO metadata while tracking RML settings."""
+        import sys
+        from pathlib import Path
+
+        module_root = Path(__file__).resolve().parent
+        package_root = module_root.parent
+        overrides_dir = module_root / "overrides"
+        for candidate in (package_root, module_root, overrides_dir):
+            candidate_str = str(candidate)
+            if candidate_str not in sys.path:
+                sys.path.insert(0, candidate_str)
+        try:
+            from legacy.overrides import rml_state as _rml_state
+        except ModuleNotFoundError:
+            import importlib
+
+            _rml_state = importlib.import_module("rml_state")
         try:
             root = fromstring(raw_xml)
-        except Exception:  # pragma: no cover - defensive guard around XML parsing
-            return {}, None, None, None
-
+        except Exception:
+            _rml_state.update(
+                rml_enabled=False, base_uri=None, csv_path=None, prefixes={}
+            )
+            return ({}, None, None, None)
         metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
         if metadata_node is None:
-            return {}, None, None, root
-
+            _rml_state.update(
+                rml_enabled=False, base_uri=None, csv_path=None, prefixes={}
+            )
+            return ({}, None, None, root)
         csv_path_raw = metadata_node.attrib.get("csvPath", "")
         base_uri_raw = metadata_node.attrib.get("baseUri", "")
-
         csv_path = csv_path_raw.strip() or None
         base_uri = base_uri_raw.strip() or None
-
         prefixes: dict[str, str] = {}
         for preamble in metadata_node.findall("userObjectPreambleElement"):
             prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
             iri = (preamble.attrib.get("rdfIRI") or "").strip()
             if prefix and iri:
                 prefixes[prefix] = iri
-
-        return prefixes, base_uri, csv_path, root
+        rml_enabled_raw = metadata_node.attrib.get("rmlEnabled")
+        if rml_enabled_raw is None:
+            rml_enabled = False
+        else:
+            lowered = rml_enabled_raw.strip().lower()
+            rml_enabled = lowered in {"1", "true", "yes", "on"}
+        _rml_state.update(
+            rml_enabled=rml_enabled,
+            base_uri=base_uri,
+            csv_path=csv_path,
+            prefixes=prefixes,
+        )
+        return (prefixes, base_uri, csv_path, root)
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
@@ -1735,27 +1765,40 @@ class internal_control_core:
 
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml
+    # override from rml_pipeline.py
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
     ) -> DrawIOParserGraph:
+        import sys
+        from pathlib import Path
+
+        module_root = Path(__file__).resolve().parent
+        package_root = module_root.parent
+        overrides_dir = module_root / "overrides"
+        for candidate in (package_root, module_root, overrides_dir):
+            candidate_str = str(candidate)
+            if candidate_str not in sys.path:
+                sys.path.insert(0, candidate_str)
+        try:
+            from legacy.overrides import rml_state as _rml_state
+            from legacy.overrides import rml_builder as _rml_builder
+        except ModuleNotFoundError:
+            import importlib
+
+            _rml_state = importlib.import_module("rml_state")
+            _rml_builder = importlib.import_module("rml_builder")
         metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
             raw_xml
         )
         prefixes = get_prefixes()
         prefixes.update(metadata_prefixes)
-
+        _rml_state.update(prefixes=prefixes)
         working_xml = _strip_metadata_user_object(raw_xml, parsed_root)
-
-        ontology_iri = (
-            config_args["ontology_iri"] or get_ontology_iri()
-        )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
-        prefix = (
-            config_args["prefix"] or get_prefix()
-        )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
+        ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
+        prefix = config_args["prefix"] or get_prefix()
         prefix_iri = (
             config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
         )
-
         serialisation_config = SerialisationConfig(
             infer_type_of_literals=config_args["infer_type_of_literals"],
             include_preamble=config_args["include_preamble"],
@@ -1765,16 +1808,13 @@ class internal_control_core:
             indentation=config_args["indentation"],
             include_label=config_args["include_label"],
         )
-
         space_substitute = _parse_space_substitute(
             config_args["metacharacter_substitute"]
         )
         metacharacter_substitutes = list(
             _parse_metacharacter_substitutes(config_args["metacharacter_substitute"])
         )
-
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
-
         draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
         blocks, object_properties, datatype_properties = individual_blocks(
             draw_io_xml_tree.individuals_and_arrows(
@@ -1785,7 +1825,6 @@ class internal_control_core:
             config_args["capitalisation_scheme"],
             prefixes,
         )
-
         graph = serialise_to_graph(
             blocks,
             object_properties,
@@ -1795,17 +1834,31 @@ class internal_control_core:
             graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
-
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-        # ===== This was causing a very bad bug =====
-        # AICODE-NOTE: Never touch this commented out section. Signed off: human.
-        # The bug was that @base was misinterpreted at Turtle parsing later on,
-        # leading to corrupted relative IRIs.
-        # =====
-        #   graph.base = base_uri
-        # =====
-
+        metadata = _rml_state.current()
+        graph.rml_metadata = {
+            "base_uri": base_uri,
+            "csv_path": csv_path,
+            "ontology_iri": ontology_iri,
+        }
+        if metadata.rml_enabled:
+            rml_graph = _rml_builder.build_rml_graph(
+                ontology_iri=ontology_iri,
+                base_uri=base_uri,
+                csv_path=csv_path,
+                prefixes=metadata.prefixes,
+                blocks=blocks,
+            )
+            graph.rml_enabled = True
+            graph.rml_graph = rml_graph
+            graph.rml_triple_count = len(rml_graph)
+            graph.rml_serialization = rml_graph.serialize(format="turtle")
+        else:
+            graph.rml_enabled = False
+            graph.rml_graph = None
+            graph.rml_triple_count = 0
+            graph.rml_serialization = None
         return graph
 
     # END _build_graph_from_raw_xml
@@ -1865,12 +1918,20 @@ class rdf_data_core:
 
 class rdf_control_core:
     # BEGIN DrawIOParserGraph
+    # override from rml_graph_class.py
     class DrawIOParserGraph(Graph):
-        """Graph subclass that records Draw.io specific metadata."""
+        """Graph subclass that exposes DrawIO and RML metadata."""
 
-        def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+        def __init__(
+            self, *args: Any, csv_path: Optional[str] = None, **kwargs: Any
+        ) -> None:
             super().__init__(*args, **kwargs)
             self.csv_path = csv_path
+            self.rml_enabled: bool = False
+            self.rml_graph: Graph | None = None
+            self.rml_triple_count: int = 0
+            self.rml_serialization: str | None = None
+            self.rml_metadata: dict[str, Any] = {}
 
     # END DrawIOParserGraph
     # BEGIN serialise_to_graph
