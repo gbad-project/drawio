@@ -9,21 +9,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
-- 2025-10-21 – Added a parser setting and metadata flag to control HTML stripping so literals can preserve markup end-to-end, updating the DrawIO UI, Pyodide pipeline, parser overrides, fixtures, and Bun/pytest coverage.
+- 2025-10-20 – Added a parser setting and metadata flag to control HTML stripping so literals can preserve markup end-to-end, updating the DrawIO UI, Pyodide pipeline, parser overrides, fixtures, and Bun/pytest coverage.
 
 ### Changed
 
 - 2025-10-20 – Moved fixtures for RML regression testing from `src/main/webapp/plugins/rmlexport/` (deprecated and removed) to `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` for easier availability
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`
-- 2025-10-21 – Replaced the DrawIO parser CURIE splitter with an rdflib-backed validator and added pytest coverage for the override.
+- 2025-10-20 – Replaced the DrawIO parser CURIE splitter with an rdflib-backed validator and added pytest coverage for the override.
+- 2025-10-20 – Centralised DrawIO cell role classification and persisted unconnected
 
 ### Fixed
 
 - 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
-- 2025-10-21 – Prevented DrawIO literals that resemble CURIEs from bypassing rdflib validation so malformed prefixes (for example `picoL:`) now raise errors instead of becoming string values.
-- 2025-10-22 – Hardened DrawIO rdf:type detection so swimlane child cells are always treated as attempted individuals, rejecting missing-prefix or colon-only CURIEs and extending the AA37 severely mocked fixture and pytest suite to cover these failures.
-- 2025-10-23 – Ensured the meta builder preserves external imports from override modules so generated parser bundles include rdflib and HTML parsing dependencies required by the overrides.
-- 2025-10-24 – Registered the DrawIO cell classifier override with the pipeline so CURIE validation no longer imports helper classes from the override package, tightening pytest coverage for literal handling and typed individuals.
+- 2025-10-20 – Prevented DrawIO literals that resemble CURIEs from bypassing rdflib validation so malformed prefixes (for example `picoL:`) now raise errors instead of becoming string values.
+- 2025-10-20 – Hardened DrawIO rdf:type detection so swimlane child cells are always treated as attempted individuals, rejecting missing-prefix or colon-only CURIEs and extending the AA37 severely mocked fixture and pytest suite to cover these failures.
+- 2025-10-20 – Ensured the meta builder preserves external imports from override modules so generated parser bundles include rdflib and HTML parsing dependencies required by the overrides.
+- 2025-10-20 – Registered the DrawIO cell classifier override with the pipeline so CURIE validation no longer imports helper classes from the override package, tightening pytest coverage for literal handling and typed individuals.
 
 ## [2025-10-17] - Historical Review (Pavel Zhelnov contributions)
 
