@@ -180,6 +180,8 @@ const PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE =
 const PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 const PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 
+const RML_ENABLED_ATTRIBUTE = "rmlEnabled";
+
 const DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 const DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
 type CapitalisationScheme = "upper-camel" | "lower-camel" | "flat" | "none";
@@ -502,6 +504,7 @@ function buildParserConfigPayloadFromSettings(
     strict_mode: normalized.strictMode,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
+    rml_enabled: false,
   };
 }
 
@@ -647,6 +650,50 @@ function resolveLabel(key: string, fallback: string): string {
   }
 
   return fallback;
+}
+
+interface SerializeDiagramOptions {
+  rmlEnabled?: boolean;
+}
+
+function findRootMetadataNode(graphXml: Element): Element | null {
+  if (typeof graphXml.getElementsByTagName !== "function") {
+    return null;
+  }
+
+  const metadataNodes = graphXml.getElementsByTagName("UserObject");
+
+  for (let index = 0; index < metadataNodes.length; index += 1) {
+    const node = metadataNodes.item(index);
+
+    if (node?.getAttribute("id") === "0") {
+      return node;
+    }
+  }
+
+  return null;
+}
+
+function applyRmlEnabledMetadata(graphXml: Element, enabled: boolean): void {
+  const metadataNode = findRootMetadataNode(graphXml);
+
+  if (!metadataNode) {
+    return;
+  }
+
+  if (enabled) {
+    metadataNode.setAttribute(RML_ENABLED_ATTRIBUTE, "true");
+  } else {
+    metadataNode.removeAttribute(RML_ENABLED_ATTRIBUTE);
+  }
+}
+
+function cloneGraphXml(graphXml: Element): Element {
+  if (typeof graphXml.cloneNode === "function") {
+    return graphXml.cloneNode(true) as Element;
+  }
+
+  return graphXml;
 }
 
 function installCsvPathProperty(): void {
@@ -2227,18 +2274,31 @@ installCsvPathProperty();
 Draw.loadPlugin(function (editorUi: any): void {
   installCsvPathProperty();
 
-  function serializeDiagramXml(ui: any): string {
+  function serializeDiagramXml(
+    ui: any,
+    options?: SerializeDiagramOptions,
+  ): string {
     const graphXml = ui.editor.getGraphXml();
-    return mxUtils.getPrettyXml(graphXml);
+    const workingGraphXml = cloneGraphXml(graphXml);
+
+    const rmlEnabled = options?.rmlEnabled === true;
+    applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
+
+    return mxUtils.getPrettyXml(workingGraphXml);
   }
 
-  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
+  mxResources.parse(
+    "exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...\n" +
+      "exportRml=GBAD: Export as RML (.ttl)...",
+  );
 
   editorUi.actions.addAction("exportRdfXml", async function (): Promise<void> {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
 
     try {
-      const serializedXml = serializeDiagramXml(editorUi);
+      const serializedXml = serializeDiagramXml(editorUi, {
+        rmlEnabled: false,
+      });
       logInfo(
         LOG_PREFIX.PIPELINE,
         `Generated DrawIO XML payload (${serializedXml.length} characters)`,
@@ -2262,6 +2322,38 @@ Draw.loadPlugin(function (editorUi: any): void {
     }
   });
 
+  editorUi.actions.addAction("exportRml", async function (): Promise<void> {
+    logInfo(LOG_PREFIX.PIPELINE, "exportRml action invoked");
+
+    try {
+      const serializedXml = serializeDiagramXml(editorUi, { rmlEnabled: true });
+      logInfo(
+        LOG_PREFIX.PIPELINE,
+        `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`,
+      );
+
+      const parserConfig = buildParserConfigPayloadFromGraph(
+        editorUi?.editor?.graph ?? null,
+      );
+      const rmlConfig: DrawioParserConfigPayload = {
+        ...parserConfig,
+        rml_enabled: true,
+      };
+      const blackBoxPayload = await runDrawioPipeline(serializedXml, rmlConfig);
+      const filename = editorUi.getBaseFilename() + ".rml.ttl";
+
+      logInfo(LOG_PREFIX.PIPELINE, `Saving RML export payload to ${filename}`);
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
+      logInfo(
+        LOG_PREFIX.PIPELINE,
+        `Export pipeline completed for ${filename} (RML mode)`,
+      );
+    } catch (e) {
+      logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);
+      editorUi.handleError(e as Error);
+    }
+  });
+
   const exportMenu = editorUi.menus.get("exportAs");
 
   if (exportMenu != null) {
@@ -2269,7 +2361,11 @@ Draw.loadPlugin(function (editorUi: any): void {
 
     exportMenu.funct = function (menu: any, parent: any): void {
       oldFunct.call(this, menu, parent);
-      editorUi.menus.addMenuItems(menu, ["-", "exportRdfXml"], parent);
+      editorUi.menus.addMenuItems(
+        menu,
+        ["-", "exportRdfXml", "exportRml"],
+        parent,
+      );
     };
   }
 });
