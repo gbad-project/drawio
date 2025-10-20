@@ -272,6 +272,17 @@ class Debugger:
         original_xml = config.drawio_path.read_text(encoding="utf-8")
         patched_xml = self._apply_metadata_overrides(original_xml, config)
 
+        # Extract cell classifications before generating graphs - always try to get them
+        try:
+            cell_classifications = self._extract_cell_classifications(
+                patched_xml, config
+            )
+        except Exception as e:
+            self.console.print(
+                f"[yellow]Warning:[/yellow] Cell classification extraction failed: {e}"
+            )
+            cell_classifications = {}
+
         with tempfile.NamedTemporaryFile(
             "w", suffix=".drawio", delete=False, encoding="utf-8"
         ) as temp_file:
@@ -349,6 +360,7 @@ class Debugger:
                 ],
                 "legacy_commit": config.legacy_commit,
                 "format": config.serialization_format,
+                "cell_classifications": cell_classifications,
                 "results": {},
                 "isomorphism": {},
                 "errors": errors,
@@ -399,6 +411,7 @@ class Debugger:
             nt_hashes,
             isomorphism,
             errors,
+            cell_classifications,
         )
 
         summary_table = Table(title="Debug scenario results")
@@ -593,6 +606,7 @@ class Debugger:
         nt_hashes: dict[str, str],
         isomorphism: dict[str, bool],
         errors: dict[str, str],
+        cell_classifications: dict[str, dict],
     ) -> None:
         scenario_entry = {
             "drawio": str(self._relative_to_debug(config.drawio_path)),
@@ -603,6 +617,7 @@ class Debugger:
             ],
             "legacy_commit": config.legacy_commit,
             "format": config.serialization_format,
+            "cell_classifications": cell_classifications,
             "results": {
                 name: {
                     "path": str(outputs[name].relative_to(self.debug_dir)),
@@ -654,6 +669,138 @@ class Debugger:
             sort_keys=False,
         )
         scenario_path.write_text(scenario_text, encoding="utf-8")
+
+    def _extract_cell_classifications(
+        self, xml_text: str, config: ScenarioConfig
+    ) -> dict[str, dict]:
+        """Extract cell classifications for all mxCell elements."""
+        from xml.etree import ElementTree as ET
+
+        try:
+            root = ET.fromstring(xml_text)
+        except ET.ParseError:
+            return {}
+
+        # Import directly from the generated parser
+        import sys
+
+        # Add the parent directory to path if needed
+        parser_dir = self.debug_dir.parent
+        if str(parser_dir) not in sys.path:
+            sys.path.insert(0, str(parser_dir))
+
+        try:
+            from legacy.draw_io_parser import pipeline, _NoValueException
+
+            prefixes = dict(config.prefixes)
+
+            # Don't use DrawIOXMLTree - it validates structure too strictly
+            # Just get the cells directly and use the classifier
+            classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+
+            # Create a minimal mock tree object for the classifier
+            class MockTree:
+                def __init__(self, root, prefixes):
+                    self.draw_io_xml_tree = root
+                    self._prefixes = prefixes
+                    self.literal_node_html_parser = (
+                        pipeline.core.xml.data.NodeHTMLParser()
+                    )
+
+                def _value_of(self, cell):
+                    try:
+                        value = cell.attrib["value"].strip()
+                    except KeyError as key_error:
+                        raise _NoValueException from key_error
+                    self.literal_node_html_parser.clear()
+                    self.literal_node_html_parser.feed(value)
+                    return self.literal_node_html_parser.content()
+
+                def _parent_of(self, cell):
+                    parent_id = cell.attrib.get("parent")
+                    if not parent_id:
+                        raise _NoValueException
+                    return self.draw_io_xml_tree.find(f".//*[@id='{parent_id}']")
+
+            mock_tree = MockTree(root, prefixes)
+            classifier = classifier_cls(mock_tree, prefixes)
+
+            classifications = {}
+
+            # Get all mxCell and UserObject elements
+            try:
+                cells = root.findall(".//mxGraphModel/root//*[@id]")
+            except Exception:
+                return {}
+
+            for cell in cells:
+                # Skip if not mxCell or UserObject
+                if cell.tag not in ("mxCell", "UserObject"):
+                    continue
+
+                cell_id = cell.attrib.get("id")
+                if not cell_id:
+                    continue
+
+                # Get the cell value, handling _NoValueException
+                try:
+                    value = mock_tree._value_of(cell)
+                except _NoValueException:
+                    value = ""
+                except Exception:
+                    value = cell.attrib.get("value", "")
+
+                # Classify the cell
+                try:
+                    classification = classifier.classify(cell, value)
+                    classifications[cell_id] = {
+                        "kind": classification.kind.name
+                        if hasattr(classification.kind, "name")
+                        else str(classification.kind),
+                        "raw_value": classification.raw_value,
+                        "identifier": classification.identifier,
+                        "parent_identifier": classification.parent_identifier,
+                        "tokens": classification.tokens
+                        if classification.tokens
+                        else [],
+                    }
+                except Exception as e:
+                    classifications[cell_id] = {
+                        "kind": "CLASSIFICATION_ERROR",
+                        "raw_value": value,
+                        "error": str(e),
+                    }
+
+            if classifications:
+                stats = {
+                    "LITERAL": 0,
+                    "ARROW_LABEL": 0,
+                    "TYPED_INDIVIDUAL": 0,
+                    "STANDALONE_INDIVIDUAL": 0,
+                    "CLASSIFICATION_ERROR": 0,
+                }
+                for cell_data in classifications.values():
+                    kind = cell_data.get("kind", "UNKNOWN")
+                    stats[kind] = stats.get(kind, 0) + 1
+
+                total = len(classifications)
+                self.console.print(
+                    f"[green]✓[/green] Extracted {total} cell classifications:"
+                )
+                for kind, count in sorted(stats.items()):
+                    if count > 0:
+                        self.console.print(f"  {kind}: {count}")
+
+            return classifications
+
+        except Exception as e:
+            self.console.print(
+                f"[yellow]Warning:[/yellow] Failed to extract cell classifications: {e}"
+            )
+            import traceback
+
+            self.console.print(f"[dim]{traceback.format_exc()}[/dim]")
+            return {}
 
     # ------------------------------------------------------------------
     # Utility helpers
