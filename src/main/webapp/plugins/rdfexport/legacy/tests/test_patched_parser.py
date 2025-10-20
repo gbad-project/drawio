@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import Optional
 
 import pytest
-from rdflib import Graph, Namespace, URIRef
-from rdflib.namespace import OWL, RDF
+from rdflib import Graph, Namespace, Literal, URIRef
+from rdflib.namespace import OWL, RDF, RDFS
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 if str(LEGACY_DIR) not in sys.path:
@@ -259,6 +259,67 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     assert len(triples) == 1
     prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
     assert "rr" in prefixes
+
+
+def test_parse_drawio_default_strips_html_literals():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    literal_values = [str(obj) for obj in graph.objects() if isinstance(obj, Literal)]
+
+    assert literal_values
+    assert all("<" not in value for value in literal_values)
+
+
+def test_parse_drawio_respects_strip_html_config():
+    fixture_path = (
+        FIXTURES_DIR / "AA37 Department of Health-with-metadata-preserve-html.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+        strip_html=False,
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    literal_values = [str(obj) for obj in graph.objects() if isinstance(obj, Literal)]
+
+    html_literals = [value for value in literal_values if "<blockquote" in value]
+
+    assert html_literals
+
+    labels = [
+        str(label)
+        for label in graph.objects(predicate=RDFS.label)
+        if isinstance(label, Literal)
+    ]
+
+    assert labels
+    assert all("<" not in label for label in labels)
+
+
+def test_parse_drawio_metadata_strip_html_override():
+    fixture_path = (
+        FIXTURES_DIR / "AA37 Department of Health-with-metadata-preserve-html.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    literal_values = [str(obj) for obj in graph.objects() if isinstance(obj, Literal)]
+
+    html_literals = [value for value in literal_values if "<blockquote" in value]
+
+    assert html_literals
 
 
 def test_parse_drawio_without_metadata_sets_empty_metadata():

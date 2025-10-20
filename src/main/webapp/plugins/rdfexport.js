@@ -18720,7 +18720,7 @@ from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator, Optional, Dict, Any, Type
+from typing import Generator, Iterator, Optional, Any
 from copy import deepcopy
 from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
@@ -18781,15 +18781,7 @@ class pipeline:
                 pass
 
             class control:
-                # BEGIN override curie_validator.py._split_curie_old
-                def _split_curie_old(curie: str) -> tuple[str, str]:
-                    """This actually is a new override despite _old suffix."""
-                    if ":" not in curie:
-                        return ("", "")
-                    prefix, remainder = curie.split(":", 1)
-                    return (prefix, remainder.strip())
-
-                # END override curie_validator.py._split_curie_old
+                pass
 
         class rdf:
             class metadata:
@@ -19399,51 +19391,33 @@ class xml_data_core:
 
     # END ParseException
     # BEGIN NodeHTMLParser
+    # override from strip_html.py
     class NodeHTMLParser(HTMLParser):
-        """
-        Subclasses HTMLParser to define its behaviour with respect to 'handle_data',
-        'handle_starttag', and 'handle_endtag' (this is the usage pattern expected
-        by HTMLParser). It seems that text, including multi-line text, in draw.io
-        may come in three forms: as a simple string; as a string within a blockquote
-        element; or as a sequence of strings inside divs inside a blockquote. In
-        the simple string case, our subclassing of the three afore-mentioned methods
-        is such as to discard all information except these strings, and to collect
-        them, in the sequence they are encountered in, into a list.
+        """HTML parser mirroring the legacy behaviour while tracking raw markup."""
 
-        The 'content' function takes such a list and collects the strings together
-        into paragraphs. Single line-breaks in the original graph (corresponding
-        usually to three consecutive divs, the middle one of which contains no
-        string) are ignored; two or more line-breaks in the original graph will lead
-        to a paragraph break.
-
-        The 'clear' function resets the internal state of the class, and should be
-        called before parsing a new chunk of HTML.
-        """
-
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
-            self._chunks = []
+            self._chunks: list[str] = []
+            self._raw_html = ""
 
         def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
             if tag in ["div", "blockquote", "p", "br"]:
-                # Otherwise words stick together in place of a single line break
                 self._chunks.append(" ")
 
         def handle_endtag(self, tag: str) -> None:
             if tag in ["div", "blockquote", "p"]:
-                # Otherwise words stick together in place of a single line break
                 self._chunks.append(" ")
 
         def handle_data(self, data: str) -> None:
-            """
-            Overrides a function in HTMLParser, storing the raw data (text) inside
-            a HTML element in the instance variable 'raw_data'.
-            """
-            # Implementing chunks universally seems to fix lost data with single <br> tags
             self._chunks.append(data)
 
+        def feed(self, data: str) -> None:
+            from html import unescape
+
+            self._raw_html = unescape(data)
+            super().feed(data)
+
         def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
-            # This method is unsafe because can also generate line breaks in Individuals
             previous_was_empty = False
             paragraph_already_handled = False
             current = ""
@@ -19452,7 +19426,7 @@ class xml_data_core:
                     if current:
                         yield current
                     current = ""
-                    if previous_was_empty and not paragraph_already_handled:
+                    if previous_was_empty and (not paragraph_already_handled):
                         yield "\\n\\n"
                         paragraph_already_handled = True
                     else:
@@ -19465,20 +19439,15 @@ class xml_data_core:
                 yield current
 
         def content(self) -> str:
-            """
-            Takes all of the string chunks (within divs and blockquotes) obtained
-            during the current run of the parser, and collects them together
-            into paragraphs, handling line breaks as described in the docstring
-            for this class
-            """
             return "".join(self._prettify_linebreaks()).strip()
 
+        def raw_html(self) -> str:
+            return self._raw_html
+
         def clear(self) -> None:
-            """
-            Clears the internal state of the parser so that it is as though newly
-            constructed
-            """
             self._chunks = []
+            self._raw_html = ""
+            self.reset()
 
     # END NodeHTMLParser
     # BEGIN DrawIOXMLTree
@@ -20004,6 +19973,7 @@ class xml_data_core:
 
     # END DrawIOXMLTree._add_arrow_if_find_label
     # BEGIN DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells
+    # override from curie_validator.py
     def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
         try:
             if len(self.draw_io_xml_tree[0][0][0]) == 0:
@@ -20013,8 +19983,7 @@ class xml_data_core:
         for cell in self.draw_io_xml_tree[0][0][0]:
             if cell.tag != "mxCell":
                 raise ParseException(
-                    "Could not parse XML tree: expecting an element with tag "
-                    f"'mxCell', but had tag '{cell.tag}'"
+                    f"Could not parse XML tree: expecting an element with tag 'mxCell', but had tag '{cell.tag}'"
                 )
             try:
                 cell_value = self._value_of(cell)
@@ -20023,9 +19992,15 @@ class xml_data_core:
             if not cell_value:
                 self._add_arrow_if_find_label(cell)
                 continue
-            if cell_value.split(":")[0] not in self.prefixes.keys():
-                if self._is_possible_literal(cell):
-                    self.literal_cells.append((cell, self._dimensions(cell)))
+            raw_value = cell_value.strip()
+            has_separator = ":" in raw_value
+            prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
+            remainder = raw_value.split(":", 1)[1] if has_separator else ""
+            is_literal_candidate = self._is_possible_literal(cell)
+            parent_id = cell.attrib.get("parent")
+            has_parent_box = parent_id not in {None, "1"}
+            if is_literal_candidate and (not has_parent_box):
+                self.literal_cells.append((cell, self._dimensions(cell)))
                 continue
             try:
                 parent = self._parent_of(cell)
@@ -20044,20 +20019,45 @@ class xml_data_core:
                 continue
             if not individual_identifier:
                 continue
-            for prefix in self.prefixes.keys():
-                for ric_class in cell_value.split(f"{prefix}:")[1:]:
-                    ric_class = f"{prefix}:" + ric_class.strip()
-                    _verify_is_ric_class(ric_class, self.prefixes)
-                    individual = Individual(individual_identifier, ric_class)
-                    self.individual_cells.append(
-                        (cell, individual, self._dimensions(parent))
-                    )
-            # for ric_class in cell_value.split("rico:")[1:]:
-            #    ric_class = ric_class.strip()
-            #    _verify_is_ric_class(ric_class)
-            #    individual = Individual(individual_identifier, ric_class)
-            #    self.individual_cells.append(
-            #        (cell, individual, self._dimensions(parent)))
+            if not has_separator:
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type without a CURIE prefix separator."
+                )
+            if not prefix_head:
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', but no prefix was provided before the ':' separator."
+                )
+            if not remainder.strip():
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', but no reference portion was provided after the prefix."
+                )
+            if prefix_head not in prefixes.keys():
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
+                )
+            dimensions = self._dimensions(parent)
+            seen_classes: set[str] = set()
+            had_tokens = False
+            for token in raw_value.replace(",", " ").replace(";", " ").split():
+                candidate = token.strip()
+                if not candidate:
+                    continue
+                had_tokens = True
+                if candidate in seen_classes:
+                    continue
+                try:
+                    _verify_is_ric_class(candidate, prefixes)
+                except NotInKnownException as exc:
+                    raise NotInKnownException(
+                        f"The node '{individual_identifier}' declares rdf:type '{candidate}', which is not defined by the available prefixes."
+                    ) from exc
+                seen_classes.add(candidate)
+                individual = Individual(individual_identifier, candidate)
+                self.individual_cells.append((cell, individual, dimensions))
+            if not had_tokens:
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares an rdf:type value but no CURIE tokens could be parsed."
+                )
 
     # END DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells
     # BEGIN DrawIOXMLTree._close_enough
@@ -20231,20 +20231,42 @@ class internal_data_core:
     # BEGIN _split_curie
     # override from curie_validator.py
     def _split_curie(curie: str) -> tuple[str, str]:
-        """
-        "[curie_validator] logic from original _split_curie method was manually copied and pasted into a new method, and then the old one was overriden with new; end result same except for this message that was added in override of old with new and will be displayed everywhere the old one was being used. additionally, the new override was placed under a different pipeline namespace class (i.e., control role rather than data) to show the flexibility."
-        """
-        return pipeline.core.internal.control._split_curie_old(curie)
+        active_attr = "__curie_validator_active_prefixes"
+        prefixes = getattr(pipeline.core.internal.data, active_attr, None)
+        manager = Graph().namespace_manager
+        if isinstance(prefixes, dict):
+            for prefix, iri in prefixes.items():
+                manager.bind(prefix, iri, replace=True)
+        if ":" not in curie:
+            raise ValueError(f"CURIE '{curie}' must include a prefix separator")
+        prefix, remainder = curie.split(":", 1)
+        remainder = remainder.strip()
+        try:
+            manager.expand_curie(curie)
+        except Exception as exc:
+            raise ValueError(f"Failed to expand CURIE '{curie}'") from exc
+        if not remainder:
+            raise ValueError(f"CURIE '{curie}' is missing a reference component")
+        return (prefix, remainder)
 
     # END _split_curie
     # BEGIN _ensure_known_curie
+    # override from curie_validator.py
     def _ensure_known_curie(
         curie: str, prefixes: dict[str, str], error_message: str
     ) -> tuple[str, str]:
-        prefix, reference = _split_curie(curie)
-        if prefix not in prefixes or not reference:
+        active_attr = "__curie_validator_active_prefixes"
+        setattr(pipeline.core.internal.data, active_attr, prefixes)
+        try:
+            prefix, reference = _split_curie(curie)
+        except ValueError as exc:
+            raise NotInKnownException(error_message) from exc
+        finally:
+            if hasattr(pipeline.core.internal.data, active_attr):
+                delattr(pipeline.core.internal.data, active_attr)
+        if prefix not in prefixes:
             raise NotInKnownException(error_message)
-        return prefix, reference
+        return (prefix, reference)
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
@@ -20379,6 +20401,7 @@ class internal_control_core:
 
     # END _parse_metacharacter_substitutes
     # BEGIN individual_blocks
+    # override from curie_validator.py
     def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
@@ -20386,15 +20409,6 @@ class internal_control_core:
         capitalisation_scheme: str,
         prefixes: dict[str, str],
     ) -> tuple[Blocks, set[str], set[str]]:
-        """
-        Takes an iterator of Individual and Arrow instances, such as that outputted
-        by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
-        assembles them into adictionary whose keys are individual IRIs. The value
-        for a given key is itself a dictionary, collecting together the facts and
-        types for that individual IRI which were defined by some Individual or Arrow
-        instance in the iterator (the individual IRI may occur many times in
-        Individual instances with differing values for the 'class' variable).
-        """
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
@@ -20411,14 +20425,38 @@ class internal_control_core:
             _ensure_known_curie(
                 individual_or_arrow.identifier,
                 prefixes,
-                (
-                    f"An arrow has label '{individual_or_arrow.identifier}', "
-                    "which is not a known object property or datatype property"
-                ),
+                f"An arrow has label '{individual_or_arrow.identifier}', which is not a known object property or datatype property",
             )
             if individual_or_arrow.is_datatype:
                 datatype_properties.add(individual_or_arrow.identifier)
                 target_identifier = individual_or_arrow.target
+                literal_candidate = target_identifier.strip()
+                if (
+                    ":" in literal_candidate
+                    and "://" not in literal_candidate
+                    and literal_candidate
+                ):
+                    prefix, reference = literal_candidate.split(":", 1)
+                    if (
+                        prefix
+                        and (prefix[0].isalpha() or prefix[0] == "_")
+                        and all((ch.isalnum() or ch in "._-" for ch in prefix[1:]))
+                        and (
+                            not (
+                                reference
+                                and any((char.isspace() for char in reference))
+                            )
+                        )
+                    ):
+                        manager = Graph().namespace_manager
+                        for known_prefix, iri in prefixes.items():
+                            manager.bind(known_prefix, iri, replace=True)
+                        try:
+                            manager.expand_curie(literal_candidate)
+                        except Exception as exc:
+                            raise NotInKnownException(
+                                f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
+                            ) from exc
             else:
                 object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
@@ -20434,9 +20472,9 @@ class internal_control_core:
                 capitalisation_scheme,
             )
             try:
-                block = blocks[(source_identifier, individual_or_arrow.source)]
+                block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
-                blocks[(source_identifier, individual_or_arrow.source)] = {
+                blocks[source_identifier, individual_or_arrow.source] = {
                     individual_or_arrow.identifier: {target_identifier}
                 }
                 continue
@@ -20444,7 +20482,7 @@ class internal_control_core:
                 block[individual_or_arrow.identifier].add(target_identifier)
             except KeyError:
                 block[individual_or_arrow.identifier] = {target_identifier}
-        return blocks, object_properties, datatype_properties
+        return (blocks, object_properties, datatype_properties)
 
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml
@@ -20483,7 +20521,192 @@ class internal_control_core:
             )
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
+
+        def _coerce_flag(value: Any, fallback: bool) -> bool:
+            if isinstance(value, bool):
+                return value
+            if isinstance(value, str):
+                lowered = value.strip().lower()
+                if lowered in {"true", "1", "yes", "on"}:
+                    return True
+                if lowered in {"false", "0", "no", "off"}:
+                    return False
+            if value is None:
+                return fallback
+            return bool(value)
+
+        def _coerce_optional_flag(value: Any) -> bool | None:
+            if value is None:
+                return None
+            return _coerce_flag(value, True)
+
+        def _metadata_strip_html(parsed: Element | None) -> bool | None:
+            if parsed is None:
+                return None
+            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
+            if metadata_node is None:
+                return None
+            attribute = metadata_node.attrib.get("stripHtml")
+            if attribute is None:
+                return None
+            return _coerce_optional_flag(attribute)
+
+        def _metadata_enables_rml(parsed: Element | None) -> bool:
+            if parsed is None:
+                return False
+            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
+            if metadata_node is None:
+                return False
+            flag = metadata_node.attrib.get("rmlEnabled")
+            if flag is None:
+                return False
+            return _coerce_flag(flag, False)
+
+        strip_html_preference = True
+        config_strip = _coerce_optional_flag(config_args.get("strip_html"))
+        metadata_strip = _metadata_strip_html(parsed_root)
+        if config_strip is not None:
+            strip_html_preference = config_strip
+        elif metadata_strip is not None:
+            strip_html_preference = metadata_strip
+
+        def _gather_literal_replacements(
+            xml_tree: DrawIOXMLTree,
+        ) -> list[tuple[str, str, str, str]]:
+            from html import unescape
+
+            replacements: list[tuple[str, str, str, str]] = []
+            for arrow_cell, *_ in xml_tree.arrow_cells:
+                try:
+                    label = xml_tree._arrow_label(arrow_cell)
+                except Exception:
+                    continue
+                try:
+                    target_id = arrow_cell.attrib["target"]
+                    source_id = arrow_cell.attrib["source"]
+                except KeyError:
+                    continue
+                try:
+                    target_cell = xml_tree._cell_with_id(target_id)
+                except Exception:
+                    continue
+                try:
+                    is_literal = xml_tree._cell_is_literal(target_cell)
+                except Exception:
+                    is_literal = False
+                if not is_literal:
+                    continue
+                try:
+                    sanitized_target = xml_tree._source_or_target(target_cell, False)
+                except Exception:
+                    continue
+                try:
+                    source_cell = xml_tree._cell_with_id(source_id)
+                    source_identifier = xml_tree._source_or_target(source_cell, True)
+                except Exception:
+                    continue
+                sanitized_subject = _replace_metacharacters(
+                    source_identifier,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    config_args["capitalisation_scheme"],
+                )
+                raw_literal = unescape(target_cell.attrib.get("value", ""))
+                if not raw_literal:
+                    continue
+                if raw_literal.strip() == sanitized_target.strip():
+                    continue
+                replacements.append(
+                    (sanitized_subject, label.strip(), sanitized_target, raw_literal)
+                )
+            return replacements
+
+        def _restore_literal_markup(
+            graph: DrawIOParserGraph, replacements: list[tuple[str, str, str, str]]
+        ) -> None:
+            if not replacements:
+                return
+            prefix = serialisation_config.prefix
+            effective_prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+                serialisation_config.ontology_iri
+            )
+            fallback_base = effective_prefix_iri or get_prefix_iri(ontology_iri)
+            for (
+                subject_identifier,
+                property_identifier,
+                sanitized_value,
+                raw_value,
+            ) in replacements:
+                if ":" not in property_identifier:
+                    continue
+                prop_prefix, prop_name = property_identifier.split(":", 1)
+                try:
+                    prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+                except KeyError:
+                    continue
+                if prefix and effective_prefix_iri:
+                    subject_uri = Namespace(effective_prefix_iri)[subject_identifier]
+                else:
+                    subject_uri = URIRef(f"{fallback_base}{subject_identifier}")
+                sanitized_literal = Literal(sanitized_value)
+                if (subject_uri, prop_uri, sanitized_literal) not in graph:
+                    continue
+                graph.remove((subject_uri, prop_uri, sanitized_literal))
+                graph.add((subject_uri, prop_uri, Literal(raw_value)))
+
         draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+        literal_replacements: list[tuple[str, str, str, str]] = []
+        if not strip_html_preference:
+            literal_replacements = _gather_literal_replacements(draw_io_xml_tree)
+        try:
+            candidate_cells = draw_io_xml_tree.draw_io_xml_tree[0][0][0]
+        except IndexError:
+            candidate_cells = []
+        for cell in candidate_cells:
+            if cell.tag != "mxCell":
+                raise ParseException(
+                    f"Could not parse XML tree: expecting an element with tag 'mxCell', but had tag '{cell.tag}'"
+                )
+            if cell.attrib.get("edge") == "1":
+                continue
+            try:
+                cell_value = draw_io_xml_tree._value_of(cell)
+            except _NoValueException:
+                continue
+            if not cell_value:
+                continue
+            raw_value = cell_value.strip()
+            has_separator = ":" in raw_value
+            prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
+            remainder = raw_value.split(":", 1)[1] if has_separator else ""
+            is_literal_candidate = draw_io_xml_tree._is_possible_literal(cell)
+            try:
+                parent = draw_io_xml_tree._parent_of(cell)
+                individual_identifier = draw_io_xml_tree._value_of(parent)
+            except _NoValueException:
+                continue
+            if not individual_identifier:
+                continue
+            if parent.attrib.get("edge") == "1":
+                continue
+            if prefix_head not in prefixes.keys() and is_literal_candidate:
+                continue
+            if not has_separator:
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type without a CURIE prefix separator."
+                )
+            if not prefix_head:
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', but no prefix was provided before the ':' separator."
+                )
+            if not remainder.strip():
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', but no reference portion was provided after the prefix."
+                )
+            if prefix_head not in prefixes.keys():
+                raise NotInKnownException(
+                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
+                )
         blocks, object_properties, datatype_properties = (
             internal_control_core.individual_blocks(
                 draw_io_xml_tree.individuals_and_arrows(
@@ -20504,36 +20727,11 @@ class internal_control_core:
             graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
+        if not strip_html_preference:
+            _restore_literal_markup(graph, literal_replacements)
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-
-        def _coerce_flag(value: Any) -> bool:
-            if isinstance(value, bool):
-                return value
-            if isinstance(value, str):
-                lowered = value.strip().lower()
-                if lowered in {"true", "1", "yes", "on"}:
-                    return True
-                if lowered in {"false", "0", "no", "off"}:
-                    return False
-            if value is None:
-                return False
-            return bool(value)
-
-        def _metadata_enables_rml(parsed: Element | None) -> bool:
-            if parsed is None:
-                return False
-            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
-            if metadata_node is None:
-                return False
-            flag = metadata_node.attrib.get("rmlEnabled")
-            if flag is None:
-                return False
-            return flag.strip().lower() in {"true", "1", "yes", "on"}
-
-        rml_from_config = False
-        if isinstance(config_args, dict):
-            rml_from_config = _coerce_flag(config_args.get("rml_enabled"))
+        rml_from_config = _coerce_flag(config_args.get("rml_enabled"), False)
         if rml_from_config or _metadata_enables_rml(parsed_root):
             rr = Namespace("http://www.w3.org/ns/r2rml#")
             graph.namespace_manager.bind("rr", rr, replace=False)
@@ -20608,96 +20806,98 @@ class rdf_control_core:
 
     # END DrawIOParserGraph
     # BEGIN serialise_to_graph
+    # override from curie_validator.py
     def serialise_to_graph(
         blocks: Blocks,
         object_properties: set[str],
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
         prefixes: dict,
-        graph_cls: Type[Graph] = Graph,
-        graph_kwargs: Optional[Dict[str, Any]] = None,
+        graph_cls: type[Graph] = Graph,
+        graph_kwargs: dict[str, Any] | None = None,
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
-        g = graph_cls(**graph_kwargs)
-
-        # Bind prefixes
+        graph = graph_cls(**graph_kwargs)
         for prefix, uri in prefixes.items():
-            g.bind(prefix, Namespace(uri), replace=True)
+            graph.bind(prefix, Namespace(uri), replace=True)
         if serialisation_config.prefix:
-            g.bind(
+            graph.bind(
                 serialisation_config.prefix,
                 Namespace(
                     serialisation_config.prefix_iri
                     or get_prefix_iri(serialisation_config.ontology_iri)
                 ),
             )
-
         if serialisation_config.include_preamble:
-            # Add ontology definition
-            ontology_iri = serialisation_config.ontology_iri
-            if not ontology_iri:
-                ontology_iri = get_ontology_iri()
-            g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
-            g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
-
-        # Add property definitions
+            ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
+            graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
+            graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
         for prop in sorted(
-            prop for prop in object_properties if not prop.startswith("rico:")
+            (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
             prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-            g.add((prop_uri, RDF.type, OWL.ObjectProperty))
-
+            graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
-            prop for prop in datatype_properties if not prop.startswith("rico:")
+            (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
             prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-            g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-
-        # Add individuals and their properties
+            graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+        absolute_overrides = {
+            individual_id: individual_label
+            for individual_id, individual_label in blocks.keys()
+            if "://" in individual_label
+        }
+        prefix = serialisation_config.prefix
+        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+            serialisation_config.ontology_iri
+        )
         for (individual_id, individual_label), types_and_facts in blocks.items():
-            prefix = serialisation_config.prefix
-            prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-                serialisation_config.ontology_iri
-            )
-            if prefix and prefix_iri:
-                individual_uri = Namespace(prefix_iri)[individual_id]
+            if individual_id in absolute_overrides:
+                individual_uri = URIRef(absolute_overrides[individual_id])
+            elif prefix and serialisation_config.prefix_iri:
+                individual_uri = Namespace(serialisation_config.prefix_iri)[
+                    individual_id
+                ]
+            elif prefix_iri:
+                individual_uri = URIRef(f"{prefix_iri}{individual_id}")
             else:
-                # Fallback to a default base URI if no prefix is defined
-                base_uri = prefix_iri or get_prefix_iri(ontology_iri)
-                individual_uri = URIRef(f"{base_uri}{individual_id}")
-
-            g.add((individual_uri, RDF.type, OWL.NamedIndividual))
-
-            # Add types
+                individual_uri = URIRef(individual_id)
+            graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
             for rdf_type in types_and_facts.get("Types", set()):
-                prefix, name = rdf_type.split(":")
-                g.add((individual_uri, RDF.type, Namespace(prefixes[prefix])[name]))
-
-            # Add label
+                type_prefix, type_name = rdf_type.split(":")
+                graph.add(
+                    (
+                        individual_uri,
+                        RDF.type,
+                        Namespace(prefixes[type_prefix])[type_name],
+                    )
+                )
             if serialisation_config.include_label:
-                g.add((individual_uri, RDFS.label, Literal(individual_label)))
-
-            # Add facts
+                graph.add((individual_uri, RDFS.label, Literal(individual_label)))
             for prop, values in types_and_facts.items():
                 if prop == "Types":
                     continue
-
                 prop_prefix, prop_name = prop.split(":")
                 prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-
                 for value in values:
                     if prop in object_properties:
-                        if prefix and prefix_iri:
-                            target_uri = Namespace(prefix_iri)[value]
+                        if value in absolute_overrides:
+                            target_uri = URIRef(absolute_overrides[value])
+                        elif prefix and serialisation_config.prefix_iri:
+                            target_uri = Namespace(serialisation_config.prefix_iri)[
+                                value
+                            ]
+                        elif prefix_iri:
+                            target_uri = URIRef(f"{prefix_iri}{value}")
                         else:
-                            base_uri = prefix_iri or get_prefix_iri(ontology_iri)
-                            target_uri = URIRef(f"{base_uri}{value}")
-                        g.add((individual_uri, prop_uri, target_uri))
+                            target_uri = URIRef(value)
+                        graph.add((individual_uri, prop_uri, target_uri))
                     elif prop in datatype_properties:
-                        # Simplified type inference
-                        if isinstance(value, int) or value.isnumeric():
+                        if isinstance(value, int) or (
+                            isinstance(value, str) and value.isnumeric()
+                        ):
                             literal_value = Literal(value, datatype=XSD.integer)
                         elif isinstance(value, float):
                             literal_value = Literal(value, datatype=XSD.float)
@@ -20707,12 +20907,8 @@ class rdf_control_core:
                                 literal_value = Literal(value, datatype=XSD.date)
                             except (ValueError, TypeError):
                                 literal_value = Literal(value)
-                        g.add((individual_uri, prop_uri, literal_value))
-                    else:
-                        # Default to treating as a literal for safety
-                        g.add((individual_uri, prop_uri, Literal(value)))
-
-        return g
+                        graph.add((individual_uri, prop_uri, literal_value))
+        return graph
 
     # END serialise_to_graph
 
@@ -21318,6 +21514,7 @@ def _default_parser_config() -> dict[str, Any]:
         "include_label": True,
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
+        "strip_html": True,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -21406,6 +21603,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             config["strict_mode"] = _coerce_bool(
                 overrides["strict_mode"],
                 config["strict_mode"],
+            )
+        if "strip_html" in overrides:
+            config["strip_html"] = _coerce_bool(
+                overrides["strip_html"],
+                config["strip_html"],
             )
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
@@ -21871,6 +22073,7 @@ var PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE = "data-rdfexport-parser-include-
 var PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE = "data-rdfexport-parser-include-label";
 var PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE = "data-rdfexport-parser-infer-types";
 var PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE = "data-rdfexport-parser-strict-mode";
+var PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
 var PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 var PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 var PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE = "data-rdfexport-parser-ontology-iri";
@@ -21887,6 +22090,7 @@ var PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE = "data-rdfexport-parser-metachar-add
 var PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 var PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 var RML_ENABLED_ATTRIBUTE = "rmlEnabled";
+var STRIP_HTML_METADATA_ATTRIBUTE = "stripHtml";
 var DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 var DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
 var DRAWIO_PARSER_DEFAULT_CAPITALISATION = "upper-camel";
@@ -21934,6 +22138,7 @@ function createDefaultParserSettings() {
     inferTypeOfLiterals: true,
     includeLabel: true,
     strictMode: false,
+    stripHtml: true,
     indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
     maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
     ontologyIri: null,
@@ -22029,6 +22234,7 @@ function normaliseParserSettings(partial) {
     inferTypeOfLiterals: normalizeBoolean(partial?.inferTypeOfLiterals, defaults.inferTypeOfLiterals),
     includeLabel: normalizeBoolean(partial?.includeLabel, defaults.includeLabel),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
+    stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
     indentation: normalizeIndentation(partial?.indentation, defaults.indentation),
     maxGap: normalizeMaxGap(partial?.maxGap, defaults.maxGap),
     ontologyIri: partial?.ontologyIri != null ? normalizeNullableString(partial.ontologyIri) : null,
@@ -22084,6 +22290,7 @@ function buildParserConfigPayloadFromSettings(settings) {
     include_label: normalized.includeLabel,
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
+    strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false
@@ -22199,6 +22406,13 @@ function applyRmlEnabledMetadata(graphXml, enabled) {
   } else {
     metadataNode.removeAttribute(RML_ENABLED_ATTRIBUTE);
   }
+}
+function applyStripHtmlMetadata(graphXml, stripHtml) {
+  const metadataNode = findRootMetadataNode(graphXml);
+  if (!metadataNode) {
+    return;
+  }
+  metadataNode.setAttribute(STRIP_HTML_METADATA_ATTRIBUTE, stripHtml ? "true" : "false");
 }
 function cloneGraphXml(graphXml) {
   if (typeof graphXml.cloneNode === "function") {
@@ -22801,6 +23015,9 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
   const strictModeRow = createCheckboxRow("Enable strict arrow parsing", settings.strictMode, PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE);
   generalSection.appendChild(strictModeRow.container);
   const strictModeCheckbox = strictModeRow.input;
+  const stripHtmlRow = createCheckboxRow("Strip HTML tags from literal values", settings.stripHtml, PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE);
+  generalSection.appendChild(stripHtmlRow.container);
+  const stripHtmlCheckbox = stripHtmlRow.input;
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
   const prefixInput = createLabeledInput(identifiersSection, "Generated individual prefix", settings.prefix, PARSER_SETTINGS_PREFIX_ATTRIBUTE);
@@ -22959,6 +23176,7 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
       includeLabel: includeLabelCheckbox.checked,
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
+      stripHtml: stripHtmlCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,
@@ -23269,6 +23487,8 @@ Draw.loadPlugin(function(editorUi) {
     const workingGraphXml = cloneGraphXml(graphXml);
     const rmlEnabled = options?.rmlEnabled === true;
     applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
+    const stripHtml = options?.stripHtml ?? true;
+    applyStripHtmlMetadata(workingGraphXml, stripHtml);
     return mxUtils.getPrettyXml(workingGraphXml);
   }
   mxResources.parse(`exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...
@@ -23276,11 +23496,12 @@ Draw.loadPlugin(function(editorUi) {
   editorUi.actions.addAction("exportRdfXml", async function() {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
     try {
+      const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const serializedXml = serializeDiagramXml(editorUi, {
-        rmlEnabled: false
+        rmlEnabled: false,
+        stripHtml: parserConfig.strip_html
       });
       logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters)`);
-      const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const blackBoxPayload = await runDrawioPipeline(serializedXml, parserConfig);
       const filename = editorUi.getBaseFilename() + ".ttl";
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
@@ -23294,13 +23515,16 @@ Draw.loadPlugin(function(editorUi) {
   editorUi.actions.addAction("exportRml", async function() {
     logInfo(LOG_PREFIX.PIPELINE, "exportRml action invoked");
     try {
-      const serializedXml = serializeDiagramXml(editorUi, { rmlEnabled: true });
-      logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`);
       const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const rmlConfig = {
         ...parserConfig,
         rml_enabled: true
       };
+      const serializedXml = serializeDiagramXml(editorUi, {
+        rmlEnabled: true,
+        stripHtml: parserConfig.strip_html
+      });
+      logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`);
       const blackBoxPayload = await runDrawioPipeline(serializedXml, rmlConfig);
       const filename = editorUi.getBaseFilename() + ".rml.ttl";
       logInfo(LOG_PREFIX.PIPELINE, `Saving RML export payload to ${filename}`);
