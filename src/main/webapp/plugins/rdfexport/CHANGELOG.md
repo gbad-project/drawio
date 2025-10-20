@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 2025-10-21 – Prevented DrawIO literals that resemble CURIEs from bypassing rdflib validation so malformed prefixes (for example `picoL:`) now raise errors instead of becoming string values.
 - 2025-10-22 – Hardened DrawIO rdf:type detection so swimlane child cells are always treated as attempted individuals, rejecting missing-prefix or colon-only CURIEs and extending the AA37 severely mocked fixture and pytest suite to cover these failures.
 - 2025-10-23 – Ensured the meta builder preserves external imports from override modules so generated parser bundles include rdflib and HTML parsing dependencies required by the overrides.
+- 2025-10-24 – Registered the DrawIO cell classifier override with the pipeline so CURIE validation no longer imports helper classes from the override package, tightening pytest coverage for literal handling and typed individuals.
 
 ## [2025-10-17] - Historical Review (Pavel Zhelnov contributions)
 
