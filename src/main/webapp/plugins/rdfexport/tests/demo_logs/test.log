@@ -1,4 +1,4 @@
-Script started on Sun Oct 19 22:24:04 2025
+Script started on Sun Oct 19 23:09:15 2025
 Command: bun run test
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1mpython -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
@@ -50,11 +50,10 @@ Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 
 🧪 Running tests: webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py
 [1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0 -- /Users/anonymous/miniconda3/bin/python
+platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
 [1mcollecting ... [0m[1mcollected 30 items                                                                                               [0m
 
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_accepts_declared_prefix_curie [32mPASSED[0m[32m [  3%][0m
@@ -86,265 +85,20 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_with_rml_metadata_adds_triples_map [32mPASSED[0m[32m [ 90%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_without_metadata_sets_empty_metadata [32mPASSED[0m[32m [ 93%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_rejects_unknown_prefix [32mPASSED[0m[32m [ 96%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip [31mFAILED[0m[31m [100%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip [32mPASSED[0m[32m [100%][0m
 
-==================================================== FAILURES ====================================================
-[31m[1m__________________________________ test_generated_metadata_fixtures_round_trip ___________________________________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-377/test_generated_metadata_fixtur0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
-            path[90m[39;49;00m
-            [94mfor[39;49;00m path [95min[39;49;00m FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-            [94mif[39;49;00m [33m"[39;49;00m[33m-with-metadata[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m path.stem[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m fixture_paths, [33m"[39;49;00m[33mExpected drawio fixtures to patch[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        [94mfor[39;49;00m index, fixture_path [95min[39;49;00m [96menumerate[39;49;00m(fixture_paths):[90m[39;49;00m
-            metadata_options = _build_metadata_options(index, fixture_path)[90m[39;49;00m
-            patched_path = tmp_path / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfixture_path.stem[33m}[39;49;00m[33m-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
->           _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:281: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:231: in _run_drawio_metadata_patcher
-    [0msubprocess.run([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-input = None, capture_output = False, timeout = None, check = True
-popenargs = (['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'f...y-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}'],)
-kwargs = {}, process = <Popen: returncode: 1 args: ['bun', '--eval', "import { readFileSync, writeF...>
-stdout = None, stderr = None, retcode = 1
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mrun[39;49;00m(*popenargs,[90m[39;49;00m
-            [96minput[39;49;00m=[94mNone[39;49;00m, capture_output=[94mFalse[39;49;00m, timeout=[94mNone[39;49;00m, check=[94mFalse[39;49;00m, **kwargs):[90m[39;49;00m
-    [90m    [39;49;00m[33m"""Run command with arguments and return a CompletedProcess instance.[39;49;00m
-    [33m[39;49;00m
-    [33m    The returned instance will have attributes args, returncode, stdout and[39;49;00m
-    [33m    stderr. By default, stdout and stderr are not captured, and those attributes[39;49;00m
-    [33m    will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,[39;49;00m
-    [33m    or pass capture_output=True to capture both.[39;49;00m
-    [33m[39;49;00m
-    [33m    If check is True and the exit code was non-zero, it raises a[39;49;00m
-    [33m    CalledProcessError. The CalledProcessError object will have the return code[39;49;00m
-    [33m    in the returncode attribute, and output & stderr attributes if those streams[39;49;00m
-    [33m    were captured.[39;49;00m
-    [33m[39;49;00m
-    [33m    If timeout (seconds) is given and the process takes too long,[39;49;00m
-    [33m     a TimeoutExpired exception will be raised.[39;49;00m
-    [33m[39;49;00m
-    [33m    There is an optional argument "input", allowing you to[39;49;00m
-    [33m    pass bytes or a string to the subprocess's stdin.  If you use this argument[39;49;00m
-    [33m    you may not also use the Popen constructor's "stdin" argument, as[39;49;00m
-    [33m    it will be used internally.[39;49;00m
-    [33m[39;49;00m
-    [33m    By default, all communication is in bytes, and therefore any "input" should[39;49;00m
-    [33m    be bytes, and the stdout and stderr will be bytes. If in text mode, any[39;49;00m
-    [33m    "input" should be a string, and stdout and stderr will be strings decoded[39;49;00m
-    [33m    according to locale encoding, or by "encoding" if set. Text mode is[39;49;00m
-    [33m    triggered by setting any of text, encoding, errors or universal_newlines.[39;49;00m
-    [33m[39;49;00m
-    [33m    The other arguments are the same as for the Popen constructor.[39;49;00m
-    [33m    """[39;49;00m[90m[39;49;00m
-        [94mif[39;49;00m [96minput[39;49;00m [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-            [94mif[39;49;00m kwargs.get([33m'[39;49;00m[33mstdin[39;49;00m[33m'[39;49;00m) [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-                [94mraise[39;49;00m [96mValueError[39;49;00m([33m'[39;49;00m[33mstdin and input arguments may not both be used.[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
-            kwargs[[33m'[39;49;00m[33mstdin[39;49;00m[33m'[39;49;00m] = PIPE[90m[39;49;00m
-    [90m[39;49;00m
-        [94mif[39;49;00m capture_output:[90m[39;49;00m
-            [94mif[39;49;00m kwargs.get([33m'[39;49;00m[33mstdout[39;49;00m[33m'[39;49;00m) [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m [95mor[39;49;00m kwargs.get([33m'[39;49;00m[33mstderr[39;49;00m[33m'[39;49;00m) [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-                [94mraise[39;49;00m [96mValueError[39;49;00m([33m'[39;49;00m[33mstdout and stderr arguments may not be used [39;49;00m[33m'[39;49;00m[90m[39;49;00m
-                                 [33m'[39;49;00m[33mwith capture_output.[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
-            kwargs[[33m'[39;49;00m[33mstdout[39;49;00m[33m'[39;49;00m] = PIPE[90m[39;49;00m
-            kwargs[[33m'[39;49;00m[33mstderr[39;49;00m[33m'[39;49;00m] = PIPE[90m[39;49;00m
-    [90m[39;49;00m
-        [94mwith[39;49;00m Popen(*popenargs, **kwargs) [94mas[39;49;00m process:[90m[39;49;00m
-            [94mtry[39;49;00m:[90m[39;49;00m
-                stdout, stderr = process.communicate([96minput[39;49;00m, timeout=timeout)[90m[39;49;00m
-            [94mexcept[39;49;00m TimeoutExpired [94mas[39;49;00m exc:[90m[39;49;00m
-                process.kill()[90m[39;49;00m
-                [94mif[39;49;00m _mswindows:[90m[39;49;00m
-                    [90m# Windows accumulates the output in a single blocking[39;49;00m[90m[39;49;00m
-                    [90m# read() call run on child threads, with the timeout[39;49;00m[90m[39;49;00m
-                    [90m# being done in a join() on those threads.  communicate()[39;49;00m[90m[39;49;00m
-                    [90m# _after_ kill() is required to collect that and add it[39;49;00m[90m[39;49;00m
-                    [90m# to the exception.[39;49;00m[90m[39;49;00m
-                    exc.stdout, exc.stderr = process.communicate()[90m[39;49;00m
-                [94melse[39;49;00m:[90m[39;49;00m
-                    [90m# POSIX _communicate already populated the output so[39;49;00m[90m[39;49;00m
-                    [90m# far into the TimeoutExpired exception.[39;49;00m[90m[39;49;00m
-                    process.wait()[90m[39;49;00m
-                [94mraise[39;49;00m[90m[39;49;00m
-            [94mexcept[39;49;00m:  [90m# Including KeyboardInterrupt, communicate handled that.[39;49;00m[90m[39;49;00m
-                process.kill()[90m[39;49;00m
-                [90m# We don't call process.wait() as .__exit__ does that for us.[39;49;00m[90m[39;49;00m
-                [94mraise[39;49;00m[90m[39;49;00m
-            retcode = process.poll()[90m[39;49;00m
-            [94mif[39;49;00m check [95mand[39;49;00m retcode:[90m[39;49;00m
->               [94mraise[39;49;00m CalledProcessError(retcode, process.args,[90m[39;49;00m
-                                         output=stdout, stderr=stderr)[90m[39;49;00m
-[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-377/test_generated_metadata_fixtur0/General_Authority_bleep_mock-with-metadata.drawio', '{"csvPath": "/tmp/general-authority-bleep-mock.csv", "baseUri": "http://example.org/general-authority-bleep-mock/", "label": "General_Authority_bleep_mock metadata", "preamble": [{"rdfPrefix": "fx16", "rdfIRI": "http://example.org/general-authority-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}']' returned non-zero exit status 1.[0m
-
-[1m[31m/Users/anonymous/miniconda3/lib/python3.12/subprocess.py[0m:573: CalledProcessError
----------------------------------------------- Captured stderr call ----------------------------------------------
-75 |   const existingUserObject = rootChildren.find(
-76 |     (child) => child.tagName === "UserObject",
-77 |   );
-78 | 
-79 |   if (existingUserObject) {
-80 |     throw new Error(
-               ^
-error: Drawio document already contains a <UserObject> root metadata node
-      at patchDrawioWithMetadata (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts:80:11)
-      at /Volumes/home/anonymous/drawio/src/main/[eval]:7:17
-      at loadAndEvaluateModule (2:1)
-
-Bun v1.2.21 (macOS arm64)
-[36m[1m============================================ short test summary info =============================================[0m
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:...
-[31m========================================== [31m[1m1 failed[0m, [32m29 passed[0m[31m in 0.89s[0m[31m ==========================================[0m
-Traceback (most recent call last):
-  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 294, in <module>
-    main()
-  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 290, in main
-    run_pytest([str(TEST_PATH.relative_to(REPO_ROOT)), "-v"])
-  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 216, in run_pytest
-    subprocess.run(command, check=True, cwd=REPO_ROOT)
-  File "/Users/anonymous/miniconda3/lib/python3.12/subprocess.py", line 573, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['/Users/anonymous/miniconda3/bin/python', '-m', 'pytest', 'webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py', '-v']' returned non-zero exit status 1.
+[32m=============================================== [32m[1m30 passed[0m[32m in 1.74s[0m[32m ===============================================[0m
 [1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0
+platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
 [1mcollecting ... [0m[1mcollected 39 items                                                                                               [0m
 
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                         [ 76%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                 [ 87%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                       [100%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                         [ 76%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 87%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                       [100%][0m
 
-==================================================== FAILURES ====================================================
-[31m[1m__________________________________ test_generated_metadata_fixtures_round_trip ___________________________________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-378/test_generated_metadata_fixtur0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
-            path[90m[39;49;00m
-            [94mfor[39;49;00m path [95min[39;49;00m FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-            [94mif[39;49;00m [33m"[39;49;00m[33m-with-metadata[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m path.stem[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m fixture_paths, [33m"[39;49;00m[33mExpected drawio fixtures to patch[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        [94mfor[39;49;00m index, fixture_path [95min[39;49;00m [96menumerate[39;49;00m(fixture_paths):[90m[39;49;00m
-            metadata_options = _build_metadata_options(index, fixture_path)[90m[39;49;00m
-            patched_path = tmp_path / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfixture_path.stem[33m}[39;49;00m[33m-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
->           _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:281: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:231: in _run_drawio_metadata_patcher
-    [0msubprocess.run([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-input = None, capture_output = False, timeout = None, check = True
-popenargs = (['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'f...y-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}'],)
-kwargs = {}, process = <Popen: returncode: 1 args: ['bun', '--eval', "import { readFileSync, writeF...>
-stdout = None, stderr = None, retcode = 1
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mrun[39;49;00m(*popenargs,[90m[39;49;00m
-            [96minput[39;49;00m=[94mNone[39;49;00m, capture_output=[94mFalse[39;49;00m, timeout=[94mNone[39;49;00m, check=[94mFalse[39;49;00m, **kwargs):[90m[39;49;00m
-    [90m    [39;49;00m[33m"""Run command with arguments and return a CompletedProcess instance.[39;49;00m
-    [33m[39;49;00m
-    [33m    The returned instance will have attributes args, returncode, stdout and[39;49;00m
-    [33m    stderr. By default, stdout and stderr are not captured, and those attributes[39;49;00m
-    [33m    will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,[39;49;00m
-    [33m    or pass capture_output=True to capture both.[39;49;00m
-    [33m[39;49;00m
-    [33m    If check is True and the exit code was non-zero, it raises a[39;49;00m
-    [33m    CalledProcessError. The CalledProcessError object will have the return code[39;49;00m
-    [33m    in the returncode attribute, and output & stderr attributes if those streams[39;49;00m
-    [33m    were captured.[39;49;00m
-    [33m[39;49;00m
-    [33m    If timeout (seconds) is given and the process takes too long,[39;49;00m
-    [33m     a TimeoutExpired exception will be raised.[39;49;00m
-    [33m[39;49;00m
-    [33m    There is an optional argument "input", allowing you to[39;49;00m
-    [33m    pass bytes or a string to the subprocess's stdin.  If you use this argument[39;49;00m
-    [33m    you may not also use the Popen constructor's "stdin" argument, as[39;49;00m
-    [33m    it will be used internally.[39;49;00m
-    [33m[39;49;00m
-    [33m    By default, all communication is in bytes, and therefore any "input" should[39;49;00m
-    [33m    be bytes, and the stdout and stderr will be bytes. If in text mode, any[39;49;00m
-    [33m    "input" should be a string, and stdout and stderr will be strings decoded[39;49;00m
-    [33m    according to locale encoding, or by "encoding" if set. Text mode is[39;49;00m
-    [33m    triggered by setting any of text, encoding, errors or universal_newlines.[39;49;00m
-    [33m[39;49;00m
-    [33m    The other arguments are the same as for the Popen constructor.[39;49;00m
-    [33m    """[39;49;00m[90m[39;49;00m
-        [94mif[39;49;00m [96minput[39;49;00m [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-            [94mif[39;49;00m kwargs.get([33m'[39;49;00m[33mstdin[39;49;00m[33m'[39;49;00m) [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-                [94mraise[39;49;00m [96mValueError[39;49;00m([33m'[39;49;00m[33mstdin and input arguments may not both be used.[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
-            kwargs[[33m'[39;49;00m[33mstdin[39;49;00m[33m'[39;49;00m] = PIPE[90m[39;49;00m
-    [90m[39;49;00m
-        [94mif[39;49;00m capture_output:[90m[39;49;00m
-            [94mif[39;49;00m kwargs.get([33m'[39;49;00m[33mstdout[39;49;00m[33m'[39;49;00m) [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m [95mor[39;49;00m kwargs.get([33m'[39;49;00m[33mstderr[39;49;00m[33m'[39;49;00m) [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
-                [94mraise[39;49;00m [96mValueError[39;49;00m([33m'[39;49;00m[33mstdout and stderr arguments may not be used [39;49;00m[33m'[39;49;00m[90m[39;49;00m
-                                 [33m'[39;49;00m[33mwith capture_output.[39;49;00m[33m'[39;49;00m)[90m[39;49;00m
-            kwargs[[33m'[39;49;00m[33mstdout[39;49;00m[33m'[39;49;00m] = PIPE[90m[39;49;00m
-            kwargs[[33m'[39;49;00m[33mstderr[39;49;00m[33m'[39;49;00m] = PIPE[90m[39;49;00m
-    [90m[39;49;00m
-        [94mwith[39;49;00m Popen(*popenargs, **kwargs) [94mas[39;49;00m process:[90m[39;49;00m
-            [94mtry[39;49;00m:[90m[39;49;00m
-                stdout, stderr = process.communicate([96minput[39;49;00m, timeout=timeout)[90m[39;49;00m
-            [94mexcept[39;49;00m TimeoutExpired [94mas[39;49;00m exc:[90m[39;49;00m
-                process.kill()[90m[39;49;00m
-                [94mif[39;49;00m _mswindows:[90m[39;49;00m
-                    [90m# Windows accumulates the output in a single blocking[39;49;00m[90m[39;49;00m
-                    [90m# read() call run on child threads, with the timeout[39;49;00m[90m[39;49;00m
-                    [90m# being done in a join() on those threads.  communicate()[39;49;00m[90m[39;49;00m
-                    [90m# _after_ kill() is required to collect that and add it[39;49;00m[90m[39;49;00m
-                    [90m# to the exception.[39;49;00m[90m[39;49;00m
-                    exc.stdout, exc.stderr = process.communicate()[90m[39;49;00m
-                [94melse[39;49;00m:[90m[39;49;00m
-                    [90m# POSIX _communicate already populated the output so[39;49;00m[90m[39;49;00m
-                    [90m# far into the TimeoutExpired exception.[39;49;00m[90m[39;49;00m
-                    process.wait()[90m[39;49;00m
-                [94mraise[39;49;00m[90m[39;49;00m
-            [94mexcept[39;49;00m:  [90m# Including KeyboardInterrupt, communicate handled that.[39;49;00m[90m[39;49;00m
-                process.kill()[90m[39;49;00m
-                [90m# We don't call process.wait() as .__exit__ does that for us.[39;49;00m[90m[39;49;00m
-                [94mraise[39;49;00m[90m[39;49;00m
-            retcode = process.poll()[90m[39;49;00m
-            [94mif[39;49;00m check [95mand[39;49;00m retcode:[90m[39;49;00m
->               [94mraise[39;49;00m CalledProcessError(retcode, process.args,[90m[39;49;00m
-                                         output=stdout, stderr=stderr)[90m[39;49;00m
-[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-378/test_generated_metadata_fixtur0/General_Authority_bleep_mock-with-metadata.drawio', '{"csvPath": "/tmp/general-authority-bleep-mock.csv", "baseUri": "http://example.org/general-authority-bleep-mock/", "label": "General_Authority_bleep_mock metadata", "preamble": [{"rdfPrefix": "fx16", "rdfIRI": "http://example.org/general-authority-bleep-mock/vocab#"}, {"rdfPrefix": "data16", "rdfIRI": "http://example.org/general-authority-bleep-mock/data/"}]}']' returned non-zero exit status 1.[0m
-
-[1m[31m/Users/anonymous/miniconda3/lib/python3.12/subprocess.py[0m:573: CalledProcessError
----------------------------------------------- Captured stderr call ----------------------------------------------
-75 |   const existingUserObject = rootChildren.find(
-76 |     (child) => child.tagName === "UserObject",
-77 |   );
-78 | 
-79 |   if (existingUserObject) {
-80 |     throw new Error(
-               ^
-error: Drawio document already contains a <UserObject> root metadata node
-      at patchDrawioWithMetadata (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts:80:11)
-      at /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/[eval]:7:17
-      at loadAndEvaluateModule (2:1)
-
-Bun v1.2.21 (macOS arm64)
-[36m[1m============================================ short test summary info =============================================[0m
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:...
-[31m========================================== [31m[1m1 failed[0m, [32m38 passed[0m[31m in 1.26s[0m[31m ==========================================[0m
+[32m=============================================== [32m[1m39 passed[0m[32m in 2.24s[0m[32m ===============================================[0m
 [0m[1mbun test [0m[2mv1.2.21 (7c45ed97)[0m
 [0m
 tests/rdfexport.test.ts:
@@ -361,9 +115,9 @@ tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1354.03ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.62ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m20.54ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m2337.90ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.93ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m41.89ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -393,7 +147,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-3 (7106 characters)
 [PIPELINE] Saving RML export payload to F 4711 Orville Wood fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m181.74ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m311.39ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44244 characters)
@@ -422,7 +176,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-6 (5563 characters)
 [PIPELINE] Saving RML export payload to AA42 Ministry of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA42 Ministry of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m93.15ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m168.11ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23393 characters)
@@ -451,7 +205,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-9 (3068 characters)
 [PIPELINE] Saving RML export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl
 [PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m57.25ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m106.11ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23529 characters)
@@ -480,7 +234,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-12 (3804 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m51.46ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m99.64ms[0m[2m][0m
 [0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -510,7 +264,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-15 (4656 characters)
 [PIPELINE] Saving RML export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m79.24ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m138.14ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44778 characters)
@@ -539,7 +293,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-18 (5524 characters)
 [PIPELINE] Saving RML export payload to F 47-11 Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m87.40ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m136.86ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39312 characters)
@@ -568,7 +322,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-21 (5119 characters)
 [PIPELINE] Saving RML export payload to F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m77.76ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m126.51ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (73820 characters)
@@ -597,7 +351,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-24 (9152 characters)
 [PIPELINE] Saving RML export payload to General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m142.66ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m219.46ms[0m[2m][0m
 [0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
@@ -629,7 +383,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-27 (11286 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m169.41ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m262.66ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37601 characters)
@@ -658,7 +412,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-30 (4411 characters)
 [PIPELINE] Saving RML export payload to F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m75.02ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m112.87ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (95196 characters)
@@ -687,7 +441,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-33 (9892 characters)
 [PIPELINE] Saving RML export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m193.19ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m306.80ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (54115 characters)
@@ -716,7 +470,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-36 (6261 characters)
 [PIPELINE] Saving RML export payload to CA1934 Division of Tuberculosis Prevention.rml.ttl
 [PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m97.21ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m145.85ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (58331 characters)
@@ -745,7 +499,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-39 (9273 characters)
 [PIPELINE] Saving RML export payload to F 47 Simcoe Family fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m107.66ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m153.74ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (34878 characters)
@@ -774,7 +528,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-42 (5827 characters)
 [PIPELINE] Saving RML export payload to AA37 Department of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA37 Department of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m67.16ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m97.88ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (49927 characters)
@@ -803,7 +557,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-45 (6509 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m96.46ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m168.70ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (32192 characters)
@@ -832,7 +586,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-48 (3997 characters)
 [PIPELINE] Saving RML export payload to RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m63.65ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m151.40ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (40849 characters)
@@ -861,7 +615,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-51 (5781 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1 (VDB test).rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1 (VDB test).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m82.17ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m135.24ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (48145 characters)
@@ -890,7 +644,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-54 (5787 characters)
 [PIPELINE] Saving RML export payload to RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m89.18ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m143.47ms[0m[2m][0m
 [0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -920,7 +674,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-57 (5018 characters)
 [PIPELINE] Saving RML export payload to BA619 Walkerton Inquiry.rml.ttl
 [PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m60.98ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m95.05ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37282 characters)
@@ -949,7 +703,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-60 (4435 characters)
 [PIPELINE] Saving RML export payload to CA1853 Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m71.58ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m108.91ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (42005 characters)
@@ -978,19 +732,19 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-63 (6373 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m77.17ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m114.43ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36617 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36617)
 [PIPELINE] DrawIO parser produced graph graph-64 with 73 triples
 [BLACKBOX] Parsed DrawIO graph graph-64 with 73 triples
 [BLACKBOX] Returning Turtle payload for graph graph-64 (5812 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m15.20ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m21.54ms[0m[2m][0m
 [BLACKBOX] Received serialized payload (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m15.79ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m20.33ms[0m[2m][0m
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36445 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -1000,8 +754,8 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-65 (4714 characters)
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
-[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m14.89ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.25ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m21.23ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[7.49ms[0m[2m][0m
 
 [0m[2m6 tests skipped:[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
@@ -1015,7 +769,7 @@ tests/rdfexport.test.ts:
  [0m[33m6 skip[0m
 [0m[2m 0 fail[0m
  686 expect() calls
-Ran 34 tests across 1 file. [0m[2m[[1m3.47s[0m[2m][0m
+Ran 34 tests across 1 file. [0m[2m[[1m5.80s[0m[2m][0m
 
 Command exit status: 0
-Script done on Sun Oct 19 22:24:11 2025
+Script done on Sun Oct 19 23:09:26 2025

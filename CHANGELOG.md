@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
 
+### Fixed
+- 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
+
 ## [2025-10-17] - Historical Review (Pavel Zhelnov contributions)
 ### Added
 - [`1d1037d`] Feat: support drawio meta builder overrides, updating legacy pipeline code, the preserved original parser snapshot, meta builder overrides and meta builder package init. (Touchpoints: src/main/webapp/plugins/rdfexport/legacy/{legacy => original}/draw_io_parser.py, src/main/webapp/plugins/rdfexport/legacy/overrides/README.md, src/main/webapp/plugins/rdfexport/meta_builder/__init__.py, src/main/webapp/plugins/rdfexport/meta_builder/drawio_meta_builder.py, src/main/webapp/plugins/rdfexport/meta_builder/readme.md, src/main/webapp/plugins/rdfexport/meta_builder/tests/__init__.py, src/main/webapp/plugins/rdfexport/meta_builder/tests/test_drawio_meta_builder.py, src/main/webapp/plugins/rdfexport/scripts/test_legacy.sh, src/main/webapp/plugins/rdfexport/tests/demo_logs/test.log).
