@@ -1,5 +1,10 @@
 {
   "fixtures": {
+    "AA37 Department of Health-with-metadata-preserve-html.drawio": {
+      "path": "AA37 Department of Health-with-metadata-preserve-html.drawio",
+      "sha256": "ad9b6f5fc9d159828e7e2166ed910331bfe2294932e7355ce69f145a57c23865",
+      "size_bytes": 36617
+    },
     "AA37 Department of Health-with-metadata-rml.drawio": {
       "path": "AA37 Department of Health-with-metadata-rml.drawio",
       "sha256": "b4c639d3a4c2fc21ea892eafe131574968e1f345aaf55190b6ff933a8d447af7",
@@ -144,6 +149,589 @@
   "scenarios": {
     "aa37-department-of-health": {
       "base_uri": "ontology://generated-from-draw-io/mock#",
+      "cell_classifications": {
+        "0": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-29": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Dept. of Health\u00a0Authority Record",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-30": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health\u00a0Authority Record",
+          "raw_value": "rico:Record",
+          "tokens": ["rico:Record"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-31": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-32": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasDescribedBy",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-33": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-34": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasDocumentaryFormType",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-35": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Authority Record",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-36": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Authority Record",
+          "raw_value": "rico:DocumentaryFormType",
+          "tokens": ["rico:DocumentaryFormType"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-37": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-38": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasRegulatedBy",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-39": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Rules for Archival Description",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-40": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Rules for Archival Description",
+          "raw_value": "rico:Rule",
+          "tokens": ["rico:Rule"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-41": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-42": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:resultsOrResultedFrom",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-43": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Authority Record Creation",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-44": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Authority Record Creation",
+          "raw_value": "rico:Activity",
+          "tokens": ["rico:Activity"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-45": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-46": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasPerformedBy",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-47": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "R. Anger",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-48": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "R. Anger",
+          "raw_value": "rico:Person",
+          "tokens": ["rico:Person"]
+        },
+        "I4bDPw6PqqAUihyiD4HI-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-2": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isSuccessorOf",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-3": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:generalDescription",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Source Note:\u00a0MacTaggart, Hazel I.\u00a0 Publications of the Government of Ontario, 1901-1955 (1964).\u00a0Publications of the Government of Ontario, 1956-1971 (1975).\u00a0Canadiana Name Authorities, 1996-12-24",
+          "tokens": []
+        },
+        "QoX8hO-0wcaPtYNZqJav-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Function Note: The Department of Health was responsible for the\u00a0 management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.\u00a0 The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services.",
+          "tokens": []
+        },
+        "QoX8hO-0wcaPtYNZqJav-2": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "QoX8hO-0wcaPtYNZqJav-3": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:generalDescription",
+          "tokens": []
+        },
+        "Tc_GIQojTk6pTu17JZoE-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Dept. of Health",
+          "tokens": []
+        },
+        "Tc_GIQojTk6pTu17JZoE-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health",
+          "raw_value": "rico:CorporateBody",
+          "tokens": ["rico:CorporateBody"]
+        },
+        "Tc_GIQojTk6pTu17JZoE-23": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Provincial Board of Health of Ontario",
+          "tokens": []
+        },
+        "Tc_GIQojTk6pTu17JZoE-24": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Provincial Board of Health of Ontario",
+          "raw_value": "rico:CorporateBody",
+          "tokens": ["rico:CorporateBody"]
+        },
+        "_-RjwaxhbeTWfwVWe4ke-13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "_-RjwaxhbeTWfwVWe4ke-14": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:history",
+          "tokens": []
+        },
+        "_-RjwaxhbeTWfwVWe4ke-15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Established in 1924, the Department of Health replaced the Provincial Board of Health.\u00a0 Since its establishment, the Department's functions have both expanded and shrunk.\u00a0 In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.\u00a0 In 1956,\u00a0 the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).\u00a0 The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.\u00a0 In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972.",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-10": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-11": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:normalizedValue",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-12": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Department of Health",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "AA37",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-14": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "AA37",
+          "raw_value": "rico:Identifier",
+          "tokens": ["rico:Identifier"]
+        },
+        "gmwnegnUR_CNORKRYM6Y-16": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-17": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadIdentifier",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-18": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-19": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasIdentifierType",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-20": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Agent Identifier",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Agent Identifier",
+          "raw_value": "rico:IdentifierType",
+          "tokens": ["rico:IdentifierType"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Dept. of Health",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-10": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasBeginningDate",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-11": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1924",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "1924",
+          "raw_value": "rico:Date",
+          "tokens": ["rico:Date"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-18": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasEndDate",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-19": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1972",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health",
+          "raw_value": "rico:AgentName",
+          "tokens": ["rico:AgentName"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-20": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "1972",
+          "raw_value": "rico:Date",
+          "tokens": ["rico:Date"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-3": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadAgentName",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "A Ontario Government Name",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-6": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "A Ontario Government Name",
+          "raw_value": "rico:CorporateBodyType",
+          "tokens": ["rico:CorporateBodyType"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-7": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-8": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadCorporateBodyType",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "kRIpfUrG9O16BsR5oPXA-15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "kRIpfUrG9O16BsR5oPXA-16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:lastModificationDate",
+          "tokens": []
+        },
+        "kRIpfUrG9O16BsR5oPXA-17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "2007-06-16",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-10": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasRecordState",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-11": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Web Ready: Y",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Web Ready: Y",
+          "raw_value": "rico:RecordState",
+          "tokens": ["rico:RecordState"]
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Status: Approved",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-14": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Status: Approved",
+          "raw_value": "rico:RecordState",
+          "tokens": ["rico:RecordState"]
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasRecordState",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
+          "raw_value": "rico:Mandate",
+          "tokens": ["rico:Mandate"]
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-3": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:authorizedBy",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Ministry of Health",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-6": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Ministry of Health",
+          "raw_value": "rico:CorporateBody",
+          "tokens": ["rico:CorporateBody"]
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-7": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-8": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasSuccessor",
+          "tokens": []
+        }
+      },
       "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
       "format": "nt",
@@ -166,12 +754,12 @@
           "triples": 87
         },
         "ts_pipeline": {
-          "nt_sha256": "57f9a6dcbf69a3ce7baad570f3bf7f4a1f81a7bae7c345e03b9a87ec88132b2e",
+          "nt_sha256": "ac593309f11fde0062f2ccde3b79e8b80e5cca61b6d30a97ed88a840e527bad1",
           "path": "results/aa37-department-of-health/ts_pipeline.nt",
           "triples": 72
         },
         "ts_plugin": {
-          "nt_sha256": "57f9a6dcbf69a3ce7baad570f3bf7f4a1f81a7bae7c345e03b9a87ec88132b2e",
+          "nt_sha256": "ac593309f11fde0062f2ccde3b79e8b80e5cca61b6d30a97ed88a840e527bad1",
           "path": "results/aa37-department-of-health/ts_plugin.nt",
           "triples": 72
         }
@@ -179,6 +767,708 @@
     },
     "aa37-with-metadata-even-more-severely-mocked": {
       "base_uri": "ontology://generated-from-draw-io/mock#",
+      "cell_classifications": {
+        "0": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Some node",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-10": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "lolabout",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-11": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdf:some-predicate",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-14": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-15": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "hellow:there",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-16": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Vertical Container",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-18": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdf:type",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-2": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "List pnnpni",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-20": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "lol:index",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-3": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "List pnnpni",
+          "raw_value": "rico:Item%201",
+          "tokens": ["rico:Item%201"]
+        },
+        "EUA9VVVl7iRi0US9AbU_-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "List pnnpni",
+          "raw_value": "rdf:Item%202",
+          "tokens": ["rdf:Item%202"]
+        },
+        "EUA9VVVl7iRi0US9AbU_-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "lol:Item%203",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-6": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-7": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "hellothere2",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-8": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "hellothere",
+          "tokens": []
+        },
+        "EUA9VVVl7iRi0US9AbU_-9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-29": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Dept. of Health\u00a0Authority Record",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-30": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "lol:individual",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-31": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-32": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasDescribedBy",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-33": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-34": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "hellow:there",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-35": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Authority Record",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-36": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Authority Record",
+          "raw_value": "rico:DocumentaryFormType",
+          "tokens": ["rico:DocumentaryFormType"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-37": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-38": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasRegulatedBy",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-39": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Rules for Archival Description",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-40": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Rules for Archival Description",
+          "raw_value": "rico:Rule",
+          "tokens": ["rico:Rule"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-41": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-42": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:resultsOrResultedFrom",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-43": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Authority Record Creation",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-44": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Authority Record Creation",
+          "raw_value": "rico:Activity",
+          "tokens": ["rico:Activity"]
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-45": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-46": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasPerformedBy",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-47": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "R. Anger",
+          "tokens": []
+        },
+        "I4GB3cVhTv-sTvJ7h0Jz-48": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "R. Anger",
+          "raw_value": "rico:Person",
+          "tokens": ["rico:Person"]
+        },
+        "I4bDPw6PqqAUihyiD4HI-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-2": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isSuccessorOf",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-3": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:generalDescription",
+          "tokens": []
+        },
+        "I4bDPw6PqqAUihyiD4HI-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Source Note:\u00a0MacTaggart, Hazel I.\u00a0 Publications of the Government of Ontario, 1901-1955 (1964).\u00a0Publications of the Government of Ontario, 1956-1971 (1975).\u00a0Canadiana Name Authorities, 1996-12-24",
+          "tokens": []
+        },
+        "QoX8hO-0wcaPtYNZqJav-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Function Note: The Department of Health was responsible for the\u00a0 management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.\u00a0 The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services.",
+          "tokens": []
+        },
+        "QoX8hO-0wcaPtYNZqJav-2": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "QoX8hO-0wcaPtYNZqJav-3": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:generalDescription",
+          "tokens": []
+        },
+        "Tc_GIQojTk6pTu17JZoE-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Dept. of Health",
+          "tokens": []
+        },
+        "Tc_GIQojTk6pTu17JZoE-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health",
+          "raw_value": "rico:CorporateBody",
+          "tokens": ["rico:CorporateBody"]
+        },
+        "Tc_GIQojTk6pTu17JZoE-23": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Provincial Board of Health of Ontario",
+          "tokens": []
+        },
+        "Tc_GIQojTk6pTu17JZoE-24": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Provincial Board of Health of Ontario",
+          "raw_value": "rico:CorporateBody",
+          "tokens": ["rico:CorporateBody"]
+        },
+        "_-RjwaxhbeTWfwVWe4ke-13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "_-RjwaxhbeTWfwVWe4ke-14": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:history",
+          "tokens": []
+        },
+        "_-RjwaxhbeTWfwVWe4ke-15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Established in 1924, the Department of Health replaced the Provincial Board of Health.\u00a0 Since its establishment, the Department's functions have both expanded and shrunk.\u00a0 In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.\u00a0 In 1956,\u00a0 the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).\u00a0 The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.\u00a0 In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972.",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-10": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-11": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:normalizedValue",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-12": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Department of Health",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "AA37",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-14": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "AA37",
+          "raw_value": "rico:Identifier",
+          "tokens": ["rico:Identifier"]
+        },
+        "gmwnegnUR_CNORKRYM6Y-16": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-17": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadIdentifier",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-18": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-19": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasIdentifierType",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-20": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Agent Identifier",
+          "tokens": []
+        },
+        "gmwnegnUR_CNORKRYM6Y-21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Agent Identifier",
+          "raw_value": "rico:IdentifierType",
+          "tokens": ["rico:IdentifierType"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Dept. of Health",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-10": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasBeginningDate",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-11": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1924",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "1924",
+          "raw_value": "rico:Date",
+          "tokens": ["rico:Date"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-18": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasEndDate",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-19": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1972",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health",
+          "raw_value": "rico:AgentName",
+          "tokens": ["rico:AgentName"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-20": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "1972",
+          "raw_value": "rico:Date",
+          "tokens": ["rico:Date"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-3": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadAgentName",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "A Ontario Government Name",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-6": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "A Ontario Government Name",
+          "raw_value": "rico:CorporateBodyType",
+          "tokens": ["rico:CorporateBodyType"]
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-7": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-8": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadCorporateBodyType",
+          "tokens": []
+        },
+        "iiJ8OJKaNMLrSCaLO3TT-9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "kRIpfUrG9O16BsR5oPXA-15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "kRIpfUrG9O16BsR5oPXA-16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:lastModificationDate",
+          "tokens": []
+        },
+        "kRIpfUrG9O16BsR5oPXA-17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "2007-06-16",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-10": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "somprefix:lol",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-11": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Web Ready: Y",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Web Ready: Y",
+          "raw_value": "rico:RecordState",
+          "tokens": ["rico:RecordState"]
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-13": {
+          "identifier": "https://example.com",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "https://example.com",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-14": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "picoL:j",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "unknown:hey",
+          "tokens": []
+        },
+        "lTHjRTAcClQ9bYR0I0Gv-9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
+          "raw_value": "rico:Mandate",
+          "tokens": ["rico:Mandate"]
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-3": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:authorizedBy",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ontario. Ministry of Health",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-6": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Ministry of Health",
+          "raw_value": "rico:CorporateBody",
+          "tokens": ["rico:CorporateBody"]
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-7": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "ysJAvTtuVAxGOwe6Rh7X-8": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasSuccessor",
+          "tokens": []
+        }
+      },
       "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
       "errors": {
@@ -188,11 +1478,11 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 306, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 297, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 1881, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21267144,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 306, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 297, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 1881, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21267144,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 306, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 297, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 1881, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21267144,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 306, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 297, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 1881, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21267144,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
