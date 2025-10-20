@@ -63,6 +63,7 @@ def _default_parser_config() -> dict[str, Any]:
         "include_label": True,
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
+        "strip_html": True,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -151,6 +152,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             config["strict_mode"] = _coerce_bool(
                 overrides["strict_mode"],
                 config["strict_mode"],
+            )
+        if "strip_html" in overrides:
+            config["strip_html"] = _coerce_bool(
+                overrides["strip_html"],
+                config["strip_html"],
             )
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
