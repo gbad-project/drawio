@@ -220,11 +220,84 @@ def _build_graph_from_raw_xml(
             graph.add((subject_uri, prop_uri, Literal(raw_value)))
 
     draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
-
     literal_replacements: list[tuple[str, str, str, str]] = []
     if not strip_html_preference:
         literal_replacements = _gather_literal_replacements(draw_io_xml_tree)
+    try:
+        candidate_cells = draw_io_xml_tree.draw_io_xml_tree[0][0][0]
+    except IndexError:
+        candidate_cells = []
 
+    for cell in candidate_cells:
+        if cell.tag != "mxCell":
+            raise ParseException(
+                "Could not parse XML tree: expecting an element with tag "
+                f"'mxCell', but had tag '{cell.tag}'"
+            )
+
+        if cell.attrib.get("edge") == "1":
+            continue
+
+        try:
+            cell_value = draw_io_xml_tree._value_of(cell)
+        except _NoValueException:
+            continue
+
+        if not cell_value:
+            continue
+
+        raw_value = cell_value.strip()
+        has_separator = ":" in raw_value
+        prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
+        remainder = raw_value.split(":", 1)[1] if has_separator else ""
+        is_literal_candidate = draw_io_xml_tree._is_possible_literal(cell)
+
+        try:
+            parent = draw_io_xml_tree._parent_of(cell)
+            individual_identifier = draw_io_xml_tree._value_of(parent)
+        except _NoValueException:
+            continue
+
+        if not individual_identifier:
+            continue
+
+        if parent.attrib.get("edge") == "1":
+            continue
+
+        if prefix_head not in prefixes.keys() and is_literal_candidate:
+            continue
+
+        if not has_separator:
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    "without a CURIE prefix separator."
+                )
+            )
+
+        if not prefix_head:
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    f"'{raw_value}', but no prefix was provided before the ':' separator."
+                )
+            )
+
+        if not remainder.strip():
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    f"'{raw_value}', but no reference portion was provided after the prefix."
+                )
+            )
+
+        if prefix_head not in prefixes.keys():
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    f"'{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
+                )
+            )
     blocks, object_properties, datatype_properties = (
         internal_control_core.individual_blocks(  # type: ignore[attr-defined]
             draw_io_xml_tree.individuals_and_arrows(

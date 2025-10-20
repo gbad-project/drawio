@@ -1,15 +1,16 @@
 <mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="24.7.5">
   <diagram name="Page-1" id="JNRxnBV9_3tvGunqLC9R">
-    <mxGraphModel dx="1644" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
+    <mxGraphModel dx="1644" dy="462" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
       <root>
-        <UserObject label="" csvPath="/mock22/path/to/file.csv" baseUri="http://mock23-base-uri.com" id="0">
+        <UserObject label="" csvPath="/mock22/path/to/file.csv" baseUri="http://mock23-base-uri.com" rdfParserSettings="{&quot;version&quot;:1,&quot;settings&quot;:{&quot;includePreamble&quot;:false,&quot;inferTypeOfLiterals&quot;:true,&quot;includeLabel&quot;:false,&quot;strictMode&quot;:true,&quot;indentation&quot;:2,&quot;maxGap&quot;:10,&quot;ontologyIri&quot;:null,&quot;prefix&quot;:null,&quot;prefixIri&quot;:null,&quot;capitalisationScheme&quot;:&quot;upper-camel&quot;,&quot;metacharacterStrategy&quot;:&quot;url&quot;,&quot;metacharacterEntries&quot;:[]}}" id="0">
           <userObjectPreambleElement rdfPrefix="mock1" rdfIRI="http://mock-iri-ns.org" />
           <userObjectPreambleElement rdfPrefix="mock2" rdfIRI="http://prefix.com" />
           <userObjectPreambleElement rdfPrefix="rico" rdfIRI="rico://mock-rico" />
           <userObjectPreambleElement rdfPrefix="lol" rdfIRI="http://something.com" />
           <userObjectPreambleElement rdfPrefix="hellow" rdfIRI="some://helloworld" />
-          <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="://hello" />
+          <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="h://hello" />
           <userObjectPreambleElement rdfPrefix="unknown" rdfIRI="unknown://link" />
+          <userObjectPreambleElement rdfPrefix="picoL" rdfIRI="sdfsdf" />
           <mxCell />
         </UserObject>
         <mxCell id="1" parent="0" />
@@ -160,7 +161,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="I4GB3cVhTv-sTvJ7h0Jz-35" value="Authority Record" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
-          <mxGeometry x="-690" y="340" width="189" height="52" as="geometry">
+          <mxGeometry x="-759.5" y="440" width="189" height="52" as="geometry">
             <mxRectangle x="981" y="570" width="50" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -248,31 +249,7 @@
             <mxRectangle x="981" y="570" width="50" height="40" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="lTHjRTAcClQ9bYR0I0Gv-14" value="&lt;div&gt;picoL:&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lTHjRTAcClQ9bYR0I0Gv-13" vertex="1">
-          <mxGeometry y="26" width="150" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="danglingCurieNode" value="https://example.com/dangling-curie" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="40" y="270" width="150" height="52" as="geometry">
-            <mxRectangle x="1041" y="570" width="50" height="40" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="danglingCurieType" value="&lt;div&gt;:danglingCurie&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="danglingCurieNode" vertex="1">
-          <mxGeometry y="26" width="150" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="colonOnlyNode" value="https://example.com/colon-only" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="220" y="270" width="150" height="52" as="geometry">
-            <mxRectangle x="1101" y="570" width="50" height="40" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="colonOnlyType" value="&lt;div&gt;:&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="colonOnlyNode" vertex="1">
-          <mxGeometry y="26" width="150" height="26" as="geometry" />
-        </mxCell>
-        <mxCell id="noPrefixNode" value="https://example.com/no-prefix" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="400" y="270" width="150" height="52" as="geometry">
-            <mxRectangle x="1161" y="570" width="50" height="40" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="noPrefixType" value="&lt;div&gt;NoPrefixClass&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="noPrefixNode" vertex="1">
+        <mxCell id="lTHjRTAcClQ9bYR0I0Gv-14" value="&lt;div&gt;picoL:j&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lTHjRTAcClQ9bYR0I0Gv-13" vertex="1">
           <mxGeometry y="26" width="150" height="26" as="geometry" />
         </mxCell>
         <mxCell id="lTHjRTAcClQ9bYR0I0Gv-15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.43;exitY=-0.058;exitDx=0;exitDy=0;entryX=0.543;entryY=1.038;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" parent="1" source="I4GB3cVhTv-sTvJ7h0Jz-29" target="lTHjRTAcClQ9bYR0I0Gv-14" edge="1">
@@ -305,7 +282,9 @@
           <mxGeometry y="26" width="165" height="26" as="geometry" />
         </mxCell>
         <mxCell id="Tc_GIQojTk6pTu17JZoE-23" value="Provincial Board of Health of Ontario" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" parent="1" vertex="1">
-          <mxGeometry x="-70" y="680" width="190" height="52" as="geometry" />
+          <mxGeometry x="-70" y="680" width="190" height="52" as="geometry">
+            <mxRectangle x="-70" y="680" width="240" height="30" as="alternateBounds" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="Tc_GIQojTk6pTu17JZoE-24" value="rico:CorporateBody" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="Tc_GIQojTk6pTu17JZoE-23" vertex="1">
           <mxGeometry y="26" width="190" height="26" as="geometry" />
@@ -360,6 +339,72 @@
         </mxCell>
         <mxCell id="ysJAvTtuVAxGOwe6Rh7X-8" value="rico:hasSuccessor" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="ysJAvTtuVAxGOwe6Rh7X-7" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-1" value="Some node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;fontColor=#ffffff;strokeColor=#314354;" vertex="1" parent="1">
+          <mxGeometry x="-250" y="192" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-2" value="List pnnpni" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-460" y="60" width="140" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-3" value="rico:Item%201" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EUA9VVVl7iRi0US9AbU_-2">
+          <mxGeometry y="30" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-4" value="rdf:Item%202" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EUA9VVVl7iRi0US9AbU_-2">
+          <mxGeometry y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-5" value="lol:Item%203" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="EUA9VVVl7iRi0US9AbU_-2">
+          <mxGeometry y="90" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-6" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="EUA9VVVl7iRi0US9AbU_-4" target="EUA9VVVl7iRi0US9AbU_-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-310" y="220" as="sourcePoint" />
+            <mxPoint x="-260" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-11" value="rdf:some-predicate" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="EUA9VVVl7iRi0US9AbU_-6">
+          <mxGeometry x="-0.0264" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-7" value="hellothere2" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-110" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-8" value="hellothere" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-220" y="26" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-9" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Heading&lt;/h1&gt;&lt;p&gt;This diagram illustrates that the current implementation has a neat feature that any node that doesn&#39;t look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.&lt;/p&gt;&lt;p&gt;Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless &quot;strict arrow parsing&quot; is enabled in parser settings) but doesn&#39;t look like an individual&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-820" y="10" width="300" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-10" value="lolabout" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="-550" y="322" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-14" value="" style="endArrow=classic;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="EUA9VVVl7iRi0US9AbU_-5" target="EUA9VVVl7iRi0US9AbU_-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-520" y="190" as="sourcePoint" />
+            <mxPoint x="-430" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-15" value="hellow:there" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="EUA9VVVl7iRi0US9AbU_-14">
+          <mxGeometry x="-0.2344" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-16" value="Vertical Container" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-830" y="350" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-20" value="lol:index" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="EUA9VVVl7iRi0US9AbU_-16">
+          <mxGeometry x="90" y="29" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-17" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.586;exitY=0.933;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.89;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="EUA9VVVl7iRi0US9AbU_-5" target="EUA9VVVl7iRi0US9AbU_-16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-500" y="230" as="sourcePoint" />
+            <mxPoint x="-450" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EUA9VVVl7iRi0US9AbU_-18" value="rdf:type" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="EUA9VVVl7iRi0US9AbU_-17">
+          <mxGeometry x="0.7191" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
