@@ -5,6 +5,9 @@ import sys
 from pathlib import Path
 from xml.etree import ElementTree
 
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
 LEGACY_TESTS_DIR = Path(__file__).resolve().parent
 RDFEXPORT_DIR = LEGACY_TESTS_DIR.parents[1]
 
@@ -19,6 +22,7 @@ from pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
 )
 
 FIXTURES_DIR = RDFEXPORT_DIR / "tests" / "fixtures"
+RR = Namespace("http://www.w3.org/ns/r2rml#")
 
 
 def _load_fixture(name: str) -> str:
@@ -76,3 +80,31 @@ def test_duplicate_payloads_reuse_graph_identifier() -> None:
 
     assert first_summary["graph_id"] == second_summary["graph_id"]
     assert list_graph_ids() == [first_summary["graph_id"]]
+
+
+def _turtle_contains_mock_triple(turtle: str) -> bool:
+    graph = Graph()
+    graph.parse(data=turtle, format="turtle")
+    return any(graph.triples((None, RDF.type, RR.TriplesMap)))
+
+
+def test_metadata_flag_injects_mock_rml_triple() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37-with-metadata-severely-mocked-rml-enabled.drawio")
+
+    summary = json.loads(parse_drawio_xml_to_json(xml_payload))
+    turtle = json.loads(summary["raw_turtle"])
+
+    assert summary["triple_count"] > 0
+    assert _turtle_contains_mock_triple(turtle)
+
+
+def test_config_flag_injects_mock_rml_triple() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37 Department of Health.drawio")
+
+    summary = json.loads(parse_drawio_xml_to_json(xml_payload, {"rml_enabled": True}))
+    turtle = json.loads(summary["raw_turtle"])
+
+    assert summary["triple_count"] > 0
+    assert _turtle_contains_mock_triple(turtle)

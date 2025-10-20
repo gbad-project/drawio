@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph
+from rdflib import Graph, Namespace
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -33,6 +33,9 @@ const patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options
 writeFileSync(outputPath, patched);
 """
 ).strip()
+
+
+RR = Namespace("http://www.w3.org/ns/r2rml#")
 
 
 def test_individual_blocks_accepts_declared_prefix_curie():
@@ -204,6 +207,39 @@ def test_individual_blocks_rejects_unknown_prefix():
             draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
             prefixes,
         )
+
+
+def _count_mock_rml_triples(graph: Graph) -> int:
+    return sum(1 for _ in graph.triples((None, RDF.type, RR.TriplesMap)))
+
+
+def test_parse_drawio_respects_rml_metadata_flag():
+    fixture_path = (
+        FIXTURES_DIR / "AA37-with-metadata-severely-mocked-rml-enabled.drawio"
+    )
+
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+    assert getattr(graph, "rml_enabled", False) is True
+    assert _count_mock_rml_triples(graph) == 1
+
+
+def test_parse_drawio_accepts_rml_enabled_config_without_metadata():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+        rml_enabled=True,
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+    assert getattr(graph, "rml_enabled", False) is True
+    assert _count_mock_rml_triples(graph) == 1
 
 
 def _run_drawio_metadata_patcher(

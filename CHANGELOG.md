@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Introduced an experimental "Export RML" action in the rdfexport plugin that mirrors the Turtle export flow while tagging the serialized diagram with an `rmlEnabled` metadata flag and injecting a mock `rr:TriplesMap` triple for early pipeline validation.
+
 ### Historical Review (Pavel Zhelnov contributions)
 - 2025-09-15 – Commit 9fae9d8 (Put link to local webapp in README.md) — touched README.md. Summary: Put link to local webapp in README.md, updating the project README.
 - 2025-09-15 – Commit 2453b3e (Add RDF/XML export plugin) — touched docs/aicode/codex-report-20250915T173416Z.md, docs/plugins/rdfexport/README.md, src/main/webapp/js/app.min.js, src/main/webapp/js/diagramly/App.js, src/main/webapp/plugins/rdfexport.js. Summary: Add RDF/XML export plugin, updating AI code activity reports, RDF export plugin documentation, the minified draw.io application bundle and the draw.io UI bootstrap script.

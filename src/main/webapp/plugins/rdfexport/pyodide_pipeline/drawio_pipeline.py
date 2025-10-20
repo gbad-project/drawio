@@ -65,6 +65,7 @@ def _default_parser_config() -> dict[str, Any]:
         "strict_mode": False,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
+        "rml_enabled": False,
     }
 
 
@@ -176,6 +177,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             str,
         ):
             config["capitalisation_scheme"] = overrides["capitalisation_scheme"]
+        if "rml_enabled" in overrides:
+            config["rml_enabled"] = _coerce_bool(
+                overrides["rml_enabled"],
+                config["rml_enabled"],
+            )
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]

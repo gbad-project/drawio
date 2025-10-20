@@ -975,9 +975,15 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     const exportAction = actions.exportRdfXml;
     expect(exportAction).toBeDefined();
 
+    const exportRmlAction = actions.exportRml;
+    expect(exportRmlAction).toBeDefined();
+
+    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml", "exportRml"]);
+
     if (!exportAction) {
       throw new Error("exportRdfXml action was not registered by the plugin");
     }
+
     await exportAction();
 
     expect(savedExports).toHaveLength(1);
@@ -987,7 +993,6 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     expect(filename).toBe(`${baseFilename}.ttl`);
     expect(format).toBe("turtle");
     expect(mimeType).toBe("text/turtle");
-    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
 
     const referenceXml = mxUtils.getPrettyXml(graphModel);
     const expectedTurtle = await runDrawioPipeline(referenceXml);
@@ -1084,6 +1089,51 @@ json.dumps({
       LOG_PREFIX.TEST,
       `Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): ${dataVsExpectedResult.isomorphic}`,
     );
+
+    if (!exportRmlAction) {
+      throw new Error("exportRml action was not registered by the plugin");
+    }
+
+    await exportRmlAction();
+
+    expect(savedExports).toHaveLength(2);
+    const rmlExportData = savedExports[1]!;
+    expect(rmlExportData.filename).toBe(`${baseFilename}.ttl`);
+    expect(rmlExportData.format).toBe("turtle");
+    expect(rmlExportData.mimeType).toBe("text/turtle");
+
+    const rmlGraphStats = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(rmlExportData.data)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(graph),
+    "contains_mock": any(True for _ in graph.triples((None, RDF.type, rr.TriplesMap))),
+})
+      `)) as string,
+    ) as { triple_count: number; contains_mock: boolean };
+
+    expect(rmlGraphStats.triple_count).toBeGreaterThan(0);
+    expect(rmlGraphStats.contains_mock).toBe(true);
+
+    const lastConfig = JSON.parse(
+      (await debugPyodide(`
+import json
+from pyodide_pipeline.drawio_pipeline import get_last_parser_config
+
+json.dumps(get_last_parser_config())
+      `)) as string,
+    ) as Record<string, unknown> | null;
+
+    expect(lastConfig).not.toBeNull();
+    expect((lastConfig ?? {})["rml_enabled"]).toBe(true);
 
     const baselinePath = join(baselinesDir, baselineFile);
     const baselineContents = await Bun.file(baselinePath).text();
@@ -1887,4 +1937,37 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
   expect(patchedSnapshot.metadata).toEqual(expectedSnapshot.metadata);
   expect(patchedSnapshot.mxfile).toEqual(baseSnapshot.mxfile);
   expect(patchedSnapshot.graphModel).toEqual(baseSnapshot.graphModel);
+});
+
+test("runDrawioPipeline honours rmlEnabled metadata flag", async () => {
+  const fixturePath = join(
+    fixturesDir,
+    "AA37-with-metadata-severely-mocked-rml-enabled.drawio",
+  );
+  const xmlPayload = readFileSync(fixturePath, "utf8");
+
+  const turtle = await runDrawioPipeline(xmlPayload);
+
+  expect(turtle.length).toBeGreaterThan(0);
+
+  const stats = JSON.parse(
+    (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+g = Graph()
+g.parse(data=${JSON.stringify(turtle)}, format="turtle")
+
+json.dumps({
+    "triple_count": len(g),
+    "has_mock_triple": any(True for _ in g.triples((None, RDF.type, rr.TriplesMap))),
+})
+    `)) as string,
+  ) as { triple_count: number; has_mock_triple: boolean };
+
+  expect(stats.triple_count).toBeGreaterThan(0);
+  expect(stats.has_mock_triple).toBe(true);
 });
