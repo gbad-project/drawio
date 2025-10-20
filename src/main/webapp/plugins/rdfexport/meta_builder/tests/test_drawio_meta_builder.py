@@ -47,6 +47,7 @@ def individual_blocks_new():
         assert key in collection.replacements
         assert collection.replacement_count == 1
         assert collection.addition_count == 1
+        assert collection.external_imports == []
 
         generated, used = builder.build_output(
             use_overrides=True, overrides_dir=str(tmp_path)
@@ -138,3 +139,14 @@ def test_pipeline_symbols_and_overrides_exposed(tmp_path, use_overrides):
                 f"unexpected module-level alias for new override {rec.name}; "
                 "set MODULE_LEVEL_ALIASES_FOR_NEW=True if desired."
             )
+
+
+def test_existing_override_external_imports_included():
+    generated, overrides = builder.build_output(use_overrides=True, overrides_dir=None)
+
+    assert overrides.external_imports, "expected external imports from overrides"
+
+    for import_line in overrides.external_imports:
+        assert import_line in generated, (
+            f"missing override import '{import_line}' in generated module"
+        )
