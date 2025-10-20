@@ -173,10 +173,10 @@
         },
         "I4GB3cVhTv-sTvJ7h0Jz-30": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health\u00a0Authority Record",
           "raw_value": "rico:Record",
-          "tokens": []
+          "tokens": ["rico:Record"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-31": {
           "identifier": null,
@@ -215,10 +215,10 @@
         },
         "I4GB3cVhTv-sTvJ7h0Jz-36": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Authority Record",
           "raw_value": "rico:DocumentaryFormType",
-          "tokens": []
+          "tokens": ["rico:DocumentaryFormType"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-37": {
           "identifier": null,
@@ -243,10 +243,10 @@
         },
         "I4GB3cVhTv-sTvJ7h0Jz-40": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Rules for Archival Description",
           "raw_value": "rico:Rule",
-          "tokens": []
+          "tokens": ["rico:Rule"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-41": {
           "identifier": null,
@@ -271,10 +271,10 @@
         },
         "I4GB3cVhTv-sTvJ7h0Jz-44": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Authority Record Creation",
           "raw_value": "rico:Activity",
-          "tokens": []
+          "tokens": ["rico:Activity"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-45": {
           "identifier": null,
@@ -299,10 +299,10 @@
         },
         "I4GB3cVhTv-sTvJ7h0Jz-48": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "R. Anger",
           "raw_value": "rico:Person",
-          "tokens": []
+          "tokens": ["rico:Person"]
         },
         "I4bDPw6PqqAUihyiD4HI-1": {
           "identifier": null,
@@ -369,10 +369,10 @@
         },
         "Tc_GIQojTk6pTu17JZoE-2": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": []
+          "tokens": ["rico:CorporateBody"]
         },
         "Tc_GIQojTk6pTu17JZoE-23": {
           "identifier": null,
@@ -383,10 +383,10 @@
         },
         "Tc_GIQojTk6pTu17JZoE-24": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Provincial Board of Health of Ontario",
           "raw_value": "rico:CorporateBody",
-          "tokens": []
+          "tokens": ["rico:CorporateBody"]
         },
         "_-RjwaxhbeTWfwVWe4ke-13": {
           "identifier": null,
@@ -439,10 +439,10 @@
         },
         "gmwnegnUR_CNORKRYM6Y-14": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "AA37",
           "raw_value": "rico:Identifier",
-          "tokens": []
+          "tokens": ["rico:Identifier"]
         },
         "gmwnegnUR_CNORKRYM6Y-16": {
           "identifier": null,
@@ -481,10 +481,10 @@
         },
         "gmwnegnUR_CNORKRYM6Y-21": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Agent Identifier",
           "raw_value": "rico:IdentifierType",
-          "tokens": []
+          "tokens": ["rico:IdentifierType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-1": {
           "identifier": null,
@@ -509,10 +509,10 @@
         },
         "iiJ8OJKaNMLrSCaLO3TT-12": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "1924",
           "raw_value": "rico:Date",
-          "tokens": []
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-17": {
           "identifier": null,
@@ -537,17 +537,17 @@
         },
         "iiJ8OJKaNMLrSCaLO3TT-2": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:AgentName",
-          "tokens": []
+          "tokens": ["rico:AgentName"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-20": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "1972",
           "raw_value": "rico:Date",
-          "tokens": []
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-3": {
           "identifier": null,
@@ -572,10 +572,10 @@
         },
         "iiJ8OJKaNMLrSCaLO3TT-6": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "A Ontario Government Name",
           "raw_value": "rico:CorporateBodyType",
-          "tokens": []
+          "tokens": ["rico:CorporateBodyType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-7": {
           "identifier": null,
@@ -635,10 +635,10 @@
         },
         "lTHjRTAcClQ9bYR0I0Gv-12": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Web Ready: Y",
           "raw_value": "rico:RecordState",
-          "tokens": []
+          "tokens": ["rico:RecordState"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-13": {
           "identifier": null,
@@ -649,10 +649,10 @@
         },
         "lTHjRTAcClQ9bYR0I0Gv-14": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Status: Approved",
           "raw_value": "rico:RecordState",
-          "tokens": []
+          "tokens": ["rico:RecordState"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-15": {
           "identifier": null,
@@ -684,10 +684,10 @@
         },
         "ysJAvTtuVAxGOwe6Rh7X-2": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
           "raw_value": "rico:Mandate",
-          "tokens": []
+          "tokens": ["rico:Mandate"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-3": {
           "identifier": null,
@@ -712,10 +712,10 @@
         },
         "ysJAvTtuVAxGOwe6Rh7X-6": {
           "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Ontario. Ministry of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": []
+          "tokens": ["rico:CorporateBody"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-7": {
           "identifier": null,
@@ -733,7 +733,7 @@
         }
       },
       "csv_path": "/mock/path/to/file.csv",
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
+      "drawio": "/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
       "format": "nt",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -754,12 +754,12 @@
           "triples": 87
         },
         "ts_pipeline": {
-          "nt_sha256": "fad215d00708f42981cd8ba75913b08e26d7d8eff9ac56752739e63afc8121b0",
+          "nt_sha256": "3fbf44b885771e584527a372d9eed2e972302e9eb4119c569e12d2c0b183b799",
           "path": "results/aa37-department-of-health/ts_pipeline.nt",
           "triples": 72
         },
         "ts_plugin": {
-          "nt_sha256": "fad215d00708f42981cd8ba75913b08e26d7d8eff9ac56752739e63afc8121b0",
+          "nt_sha256": "3fbf44b885771e584527a372d9eed2e972302e9eb4119c569e12d2c0b183b799",
           "path": "results/aa37-department-of-health/ts_plugin.nt",
           "triples": 72
         }
