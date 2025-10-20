@@ -1,5 +1,5 @@
 slug: aa37-with-metadata-even-more-severely-mocked
-drawio: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio
+drawio: AA37-with-metadata-even-more-severely-mocked.drawio
 csv_path: /mock/path/to/file.csv
 base_uri: ontology://generated-from-draw-io/mock#
 prefixes:

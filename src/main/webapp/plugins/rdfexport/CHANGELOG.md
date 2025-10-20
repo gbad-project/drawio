@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- 2025-10-20 – Added a regression pytest that loads every DrawIO fixture and asserts each mxCell is represented in the parsed graph to prevent silent drops.
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
 - 2025-10-20 – Added a parser setting and metadata flag to control HTML stripping so literals can preserve markup end-to-end, updating the DrawIO UI, Pyodide pipeline, parser overrides, fixtures, and Bun/pytest coverage.
 
@@ -25,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 2025-10-20 – Hardened DrawIO rdf:type detection so swimlane child cells are always treated as attempted individuals, rejecting missing-prefix or colon-only CURIEs and extending the AA37 severely mocked fixture and pytest suite to cover these failures.
 - 2025-10-20 – Ensured the meta builder preserves external imports from override modules so generated parser bundles include rdflib and HTML parsing dependencies required by the overrides.
 - 2025-10-20 – Registered the DrawIO cell classifier override with the pipeline so CURIE validation no longer imports helper classes from the override package, tightening pytest coverage for literal handling and typed individuals.
+- 2025-10-20 – Restored unconnected DrawIO decoration text as `skos:note` metadata during serialization so mocked AA37 fixtures no longer lose their explanatory heading in Turtle output.
 
 ## [2025-10-17] - Historical Review (Pavel Zhelnov contributions)
 

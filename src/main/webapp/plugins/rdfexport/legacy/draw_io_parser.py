@@ -2094,6 +2094,18 @@ class internal_control_core:
                 graph.add((subject_uri, prop_uri, Literal(raw_value)))
 
         draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+        connected_literal_ids: set[str] = set()
+        for arrow_cell, *_ in getattr(draw_io_xml_tree, "arrow_cells", []):
+            target_id = arrow_cell.attrib.get("target")
+            if target_id:
+                connected_literal_ids.add(target_id)
+        classifier_cls = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
+        classifier = (
+            classifier_cls(draw_io_xml_tree, prefixes) if classifier_cls else None
+        )
+        processed_cell_ids: set[str] = set()
+        candidate_cell_ids: set[str] = set()
+        decoration_notes: list[str] = []
         literal_replacements: list[tuple[str, str, str, str]] = []
         if not strip_html_preference:
             literal_replacements = _gather_literal_replacements(draw_io_xml_tree)
@@ -2107,6 +2119,10 @@ class internal_control_core:
                     f"Could not parse XML tree: expecting an element with tag 'mxCell', but had tag '{cell.tag}'"
                 )
             if cell.attrib.get("edge") == "1":
+                cell_id = cell.attrib.get("id")
+                if cell_id:
+                    processed_cell_ids.add(cell_id)
+                    candidate_cell_ids.add(cell_id)
                 continue
             try:
                 cell_value = draw_io_xml_tree._value_of(cell)
@@ -2114,6 +2130,44 @@ class internal_control_core:
                 continue
             if not cell_value:
                 continue
+            cell_id = cell.attrib.get("id")
+            if cell_id:
+                candidate_cell_ids.add(cell_id)
+            if classifier is not None:
+                classification = classifier.classify(cell, cell_value)
+                kind_name = getattr(classification.kind, "name", "")
+                if kind_name == "ARROW_LABEL":
+                    if cell_id:
+                        processed_cell_ids.add(cell_id)
+                elif kind_name == "TYPED_INDIVIDUAL":
+                    if cell_id:
+                        processed_cell_ids.add(cell_id)
+                    parent_cell = getattr(classification, "parent_cell", None)
+                    if parent_cell is not None:
+                        parent_id = parent_cell.attrib.get("id")
+                        if parent_id:
+                            processed_cell_ids.add(parent_id)
+                            candidate_cell_ids.add(parent_id)
+                elif kind_name == "STANDALONE_INDIVIDUAL":
+                    if cell_id:
+                        processed_cell_ids.add(cell_id)
+                elif kind_name == "LITERAL":
+                    if cell_id:
+                        processed_cell_ids.add(cell_id)
+                        style = cell.attrib.get("style", "")
+                        is_text_shape = (
+                            style.startswith("text")
+                            or "text;" in style
+                            or "shape=text" in style
+                        )
+                        if (
+                            is_text_shape
+                            and cell_id not in connected_literal_ids
+                            and classification.raw_value.strip()
+                        ):
+                            decoration_notes.append(classification.raw_value.strip())
+            elif cell_id:
+                processed_cell_ids.add(cell_id)
             raw_value = cell_value.strip()
             has_separator = ":" in raw_value
             prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
@@ -2166,6 +2220,30 @@ class internal_control_core:
             graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
+        if decoration_notes:
+            from rdflib import BNode
+            from rdflib.namespace import SKOS
+
+            decoration_values = list(dict.fromkeys(decoration_notes))
+            if serialisation_config.ontology_iri:
+                decoration_subject = URIRef(serialisation_config.ontology_iri)
+            else:
+                decoration_subject = BNode()
+            for note in decoration_values:
+                graph.add((decoration_subject, SKOS.note, Literal(note)))
+        if hasattr(draw_io_xml_tree, "literal_cells"):
+            for literal_cell, _ in getattr(draw_io_xml_tree, "literal_cells", []):
+                literal_id = literal_cell.attrib.get("id")
+                if literal_id:
+                    processed_cell_ids.add(literal_id)
+                    candidate_cell_ids.add(literal_id)
+        for arrow_cell, *_ in getattr(draw_io_xml_tree, "arrow_cells", []):
+            arrow_id = arrow_cell.attrib.get("id")
+            if arrow_id:
+                processed_cell_ids.add(arrow_id)
+                candidate_cell_ids.add(arrow_id)
+        graph._drawio_processed_cells = processed_cell_ids
+        graph._drawio_candidate_cells = candidate_cell_ids
         if not strip_html_preference:
             _restore_literal_markup(graph, literal_replacements)
         if base_uri:
