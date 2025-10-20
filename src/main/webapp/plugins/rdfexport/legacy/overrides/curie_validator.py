@@ -4,6 +4,7 @@ from rdflib import Graph
 from xml.etree.ElementTree import Element
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
+from legacy.draw_io_parser import pipeline
 from meta_builder.drawio_meta_builder import override
 
 # ruff: noqa: F403, F405
@@ -57,13 +58,18 @@ def _ensure_known_curie(
 
 @override(phase="core", type="xml", role="data")
 def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
-    from legacy.overrides.cell_classifier import (
-        DEFAULT_STANDALONE_TYPE,
-        DrawIOCellClassifier,
+    classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+    decorations_attr = getattr(
+        classifier_cls,
+        "DECORATION_REGISTRY_ATTR",
+        "__drawio_literal_registry",
     )
-
-    decorations_attr = "__drawio_literal_registry"
-    classifier = DrawIOCellClassifier(self, prefixes)
+    default_standalone_type = getattr(
+        classifier_cls,
+        "DEFAULT_STANDALONE_TYPE",
+        "rico:Thing",
+    )
+    classifier = classifier_cls(self, prefixes)
     decorations: dict[str, dict[str, object]] = {}
     setattr(pipeline.core.internal.data, decorations_attr, decorations)
 
@@ -136,7 +142,7 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
         if kind_name == "STANDALONE_INDIVIDUAL":
             identifier = classification.identifier or classification.raw_value
             dimensions = self._dimensions(cell)
-            types = classification.tokens or [DEFAULT_STANDALONE_TYPE]
+            types = classification.tokens or [default_standalone_type]
             seen_types: set[str] = set()
             for rdf_type in types:
                 candidate = rdf_type.strip()

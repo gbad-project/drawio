@@ -16,7 +16,14 @@ if str(PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(PACKAGE_ROOT))
 
 import draw_io_parser  # noqa: E402
-from legacy.overrides import cell_classifier  # noqa: E402
+
+DrawIOCellClassifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier
+DECORATION_REGISTRY_ATTR = getattr(
+    DrawIOCellClassifier, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+)
+DEFAULT_STANDALONE_TYPE = getattr(
+    DrawIOCellClassifier, "DEFAULT_STANDALONE_TYPE", "rico:Thing"
+)
 
 
 def _vertex_cell(
@@ -89,7 +96,7 @@ def _drawio_xml(*cells: str) -> str:
 
 @pytest.fixture(autouse=True)
 def _clear_literal_registry():
-    attr = cell_classifier.DECORATION_REGISTRY_ATTR
+    attr = DECORATION_REGISTRY_ATTR
     if hasattr(draw_io_parser.pipeline.core.internal.data, attr):
         delattr(draw_io_parser.pipeline.core.internal.data, attr)
     yield
@@ -133,7 +140,7 @@ def test_classifier_detects_typed_individuals_and_literals():
 
     registry = getattr(
         draw_io_parser.pipeline.core.internal.data,
-        cell_classifier.DECORATION_REGISTRY_ATTR,
+        DECORATION_REGISTRY_ATTR,
         {},
     )
     assert registry["decor"]["value"] == "Decoration literal"
@@ -160,7 +167,7 @@ def test_absolute_uri_node_uses_default_type():
         (individual.identifier, individual.ric_class)
         for _, individual, _ in tree.individual_cells
     }
-    assert (uri_value, cell_classifier.DEFAULT_STANDALONE_TYPE) in observed
+    assert (uri_value, DEFAULT_STANDALONE_TYPE) in observed
 
 
 def test_decorations_serialise_to_skos_note(tmp_path: Path):
