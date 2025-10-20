@@ -1,3 +1,8 @@
+21-OCT-2025: Unreleased
+
+- [rdfexport] Centralised DrawIO cell role classification and persisted unconnected
+  literals as `skos:note` decorations.
+
 25-JUL-2024: 24.7.5
 
 - [conf cloud] Applies link adjustment configuration to diagram editor [DID-12118]

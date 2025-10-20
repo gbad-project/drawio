@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from rdflib import Graph
+from xml.etree.ElementTree import Element
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
 from meta_builder.drawio_meta_builder import override
@@ -56,6 +57,16 @@ def _ensure_known_curie(
 
 @override(phase="core", type="xml", role="data")
 def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
+    from legacy.overrides.cell_classifier import (
+        DEFAULT_STANDALONE_TYPE,
+        DrawIOCellClassifier,
+    )
+
+    decorations_attr = "__drawio_literal_registry"
+    classifier = DrawIOCellClassifier(self, prefixes)
+    decorations: dict[str, dict[str, object]] = {}
+    setattr(pipeline.core.internal.data, decorations_attr, decorations)
+
     try:
         if len(self.draw_io_xml_tree[0][0][0]) == 0:
             raise NothingToParseException
@@ -78,99 +89,97 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
             self._add_arrow_if_find_label(cell)
             continue
 
-        raw_value = cell_value.strip()
-        has_separator = ":" in raw_value
-        prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
-        remainder = raw_value.split(":", 1)[1] if has_separator else ""
-        is_literal_candidate = self._is_possible_literal(cell)
-        parent_id = cell.attrib.get("parent")
-        has_parent_box = parent_id not in {None, "1"}
+        classification = classifier.classify(cell, cell_value)
+        kind_name = getattr(classification.kind, "name", "")
 
-        if is_literal_candidate and not has_parent_box:
-            self.literal_cells.append((cell, self._dimensions(cell)))
+        if kind_name == "ARROW_LABEL":
             continue
 
-        try:
-            parent = self._parent_of(cell)
-            individual_identifier = self._value_of(parent)
-        except _NoValueException:
-            try:
-                arrow_data = (
-                    cell,
-                    self._arrow_start(cell),
-                    self._arrow_end(cell),
-                    cell.attrib["value"],
-                )
-                self.arrow_cells.append(arrow_data)
-            except _NoValueException:
-                pass
-            continue
-
-        if not individual_identifier:
-            continue
-
-        if not has_separator:
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    "without a CURIE prefix separator."
-                )
-            )
-
-        if not prefix_head:
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    f"'{raw_value}', but no prefix was provided before the ':' separator."
-                )
-            )
-
-        if not remainder.strip():
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    f"'{raw_value}', but no reference portion was provided after the prefix."
-                )
-            )
-
-        if prefix_head not in prefixes.keys():
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    f"'{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
-                )
-            )
-
-        dimensions = self._dimensions(parent)
-        seen_classes: set[str] = set()
-        had_tokens = False
-        for token in raw_value.replace(",", " ").replace(";", " ").split():
-            candidate = token.strip()
-            if not candidate:
+        if kind_name == "TYPED_INDIVIDUAL":
+            parent = classification.parent_cell
+            identifier = classification.parent_identifier
+            if parent is None or not identifier:
                 continue
-            had_tokens = True
-            if candidate in seen_classes:
-                continue
-            try:
-                _verify_is_ric_class(candidate, prefixes)
-            except NotInKnownException as exc:
+
+            dimensions = self._dimensions(parent)
+            seen_classes: set[str] = set()
+            had_tokens = False
+            for token in classification.tokens:
+                candidate = token.strip()
+                if not candidate:
+                    continue
+                had_tokens = True
+                if candidate in seen_classes:
+                    continue
+                try:
+                    _verify_is_ric_class(candidate, prefixes)
+                except NotInKnownException as exc:
+                    raise NotInKnownException(
+                        (
+                            f"The node '{identifier}' declares rdf:type "
+                            f"'{candidate}', which is not defined by the available prefixes.'"
+                        )
+                    ) from exc
+                seen_classes.add(candidate)
+                individual = Individual(identifier, candidate)
+                self.individual_cells.append((cell, individual, dimensions))
+
+            if not had_tokens:
                 raise NotInKnownException(
                     (
-                        f"The node '{individual_identifier}' declares rdf:type "
-                        f"'{candidate}', which is not defined by the available prefixes."
+                        f"The node '{identifier}' declares an rdf:type value "
+                        "but no CURIE tokens could be parsed."
                     )
-                ) from exc
-            seen_classes.add(candidate)
-            individual = Individual(individual_identifier, candidate)
-            self.individual_cells.append((cell, individual, dimensions))
-
-        if not had_tokens:
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares an rdf:type value "
-                    "but no CURIE tokens could be parsed."
                 )
-            )
+            continue
+
+        if kind_name == "STANDALONE_INDIVIDUAL":
+            identifier = classification.identifier or classification.raw_value
+            dimensions = self._dimensions(cell)
+            types = classification.tokens or [DEFAULT_STANDALONE_TYPE]
+            seen_types: set[str] = set()
+            for rdf_type in types:
+                candidate = rdf_type.strip()
+                if not candidate:
+                    continue
+                if candidate in seen_types:
+                    continue
+                try:
+                    _verify_is_ric_class(candidate, prefixes)
+                except NotInKnownException as exc:
+                    raise NotInKnownException(
+                        (
+                            f"The standalone node '{identifier}' declares rdf:type "
+                            f"'{candidate}', which is not defined by the available prefixes.'"
+                        )
+                    ) from exc
+                seen_types.add(candidate)
+                individual = Individual(identifier, candidate)
+                self.individual_cells.append((cell, individual, dimensions))
+            continue
+
+        self.literal_cells.append((cell, self._dimensions(cell)))
+        cell_id = cell.attrib.get("id")
+        if cell_id:
+            decorations[cell_id] = {
+                "value": classification.raw_value,
+                "connected": False,
+            }
+
+
+@override(phase="core", type="xml", role="data")
+def _cell_is_literal(self, candidate: Element) -> bool:
+    is_literal = any(
+        literal_cell is candidate for literal_cell, _ in self.literal_cells
+    )
+    if is_literal:
+        decorations_attr = "__drawio_literal_registry"
+        registry = getattr(pipeline.core.internal.data, decorations_attr, None)
+        if isinstance(registry, dict):
+            cell_id = candidate.attrib.get("id")
+            if cell_id in registry:
+                registry[cell_id]["connected"] = True
+    return is_literal
 
 
 @override(phase="core", type="internal", role="control")
@@ -275,6 +284,9 @@ def serialise_to_graph(
     graph_cls: type[Graph] = Graph,
     graph_kwargs: dict[str, Any] | None = None,
 ) -> Graph:
+    from rdflib import BNode
+    from rdflib.namespace import SKOS
+
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
 
@@ -372,5 +384,23 @@ def serialise_to_graph(
                         except (ValueError, TypeError):
                             literal_value = Literal(value)
                     graph.add((individual_uri, prop_uri, literal_value))
+
+    decorations_attr = "__drawio_literal_registry"
+    decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
+    decoration_values = [
+        entry.get("value")
+        for entry in decoration_registry.values()
+        if isinstance(entry, dict) and entry.get("value") and not entry.get("connected")
+    ]
+    if decoration_values:
+        if serialisation_config.ontology_iri:
+            decoration_subject = URIRef(serialisation_config.ontology_iri)
+        else:
+            decoration_subject = BNode()
+        for note in decoration_values:
+            graph.add((decoration_subject, SKOS.note, Literal(note)))
+
+    if hasattr(pipeline.core.internal.data, decorations_attr):
+        delattr(pipeline.core.internal.data, decorations_attr)
 
     return graph
