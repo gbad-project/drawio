@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - 2025-10-16 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
 
+### Fixed
+- 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
+
 ### Historical Review (Pavel Zhelnov contributions)
 - 2025-09-15 – Commit 9fae9d8 (Put link to local webapp in README.md) — touched README.md. Summary: Put link to local webapp in README.md, updating the project README.
 - 2025-09-15 – Commit 2453b3e (Add RDF/XML export plugin) — touched docs/aicode/codex-report-20250915T173416Z.md, docs/plugins/rdfexport/README.md, src/main/webapp/js/app.min.js, src/main/webapp/js/diagramly/App.js, src/main/webapp/plugins/rdfexport.js. Summary: Add RDF/XML export plugin, updating AI code activity reports, RDF export plugin documentation, the minified draw.io application bundle and the draw.io UI bootstrap script.

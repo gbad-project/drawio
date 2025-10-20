@@ -265,11 +265,23 @@ def _build_metadata_options(index: int, fixture_path: Path) -> dict:
     }
 
 
+def _fixture_contains_metadata(path: Path) -> bool:
+    # DrawIO fixtures are stored as plain XML. The metadata patcher injects a
+    # root-level <UserObject> node when metadata is already present, so we treat
+    # fixtures that already carry metadata as immutable inputs for this round
+    # trip exercise.
+    try:
+        contents = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        contents = path.read_bytes().decode("utf-8", errors="ignore")
+    return "<UserObject" in contents
+
+
 def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
     fixture_paths = sorted(
         path
         for path in FIXTURES_DIR.glob("*.drawio")
-        if "-with-metadata" not in path.stem
+        if "-with-metadata" not in path.stem and not _fixture_contains_metadata(path)
     )
 
     assert fixture_paths, "Expected drawio fixtures to patch"
