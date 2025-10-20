@@ -674,13 +674,6 @@ class Debugger:
         self, xml_text: str, config: ScenarioConfig
     ) -> dict[str, dict]:
         """Extract cell classifications for all mxCell elements."""
-        from xml.etree import ElementTree as ET
-
-        try:
-            root = ET.fromstring(xml_text)
-        except ET.ParseError:
-            return {}
-
         # Import directly from the generated parser
         import sys
 
@@ -690,9 +683,22 @@ class Debugger:
             sys.path.insert(0, str(parser_dir))
 
         try:
-            from legacy.draw_io_parser import pipeline, _NoValueException
+            from legacy.draw_io_parser import (
+                _NoValueException,
+                _extract_drawio_metadata,
+                get_prefixes,
+                pipeline,
+            )
 
-            prefixes = dict(config.prefixes)
+            metadata_prefixes, _, _, root = _extract_drawio_metadata(xml_text)
+            if root is None:
+                return {}
+
+            prefixes = get_prefixes()
+            prefixes.update(metadata_prefixes)
+            for prefix, iri in config.prefixes:
+                if prefix and iri:
+                    prefixes[prefix] = iri
 
             # Don't use DrawIOXMLTree - it validates structure too strictly
             # Just get the cells directly and use the classifier
