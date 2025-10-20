@@ -275,7 +275,7 @@ class Debugger:
         # Extract cell classifications before generating graphs - always try to get them
         try:
             cell_classifications = self._extract_cell_classifications(
-                patched_xml, config
+                original_xml, config
             )
         except Exception as e:
             self.console.print(
@@ -732,12 +732,32 @@ class Debugger:
             classifier = classifier_cls(mock_tree, prefixes)
 
             classifications = {}
+            typed_parent_tokens: dict[str, set[str]] = {}
+            typed_parent_children: dict[str, set[str]] = {}
 
             # Get all mxCell and UserObject elements
             try:
                 cells = root.findall(".//mxGraphModel/root//*[@id]")
             except Exception:
                 return {}
+
+            connected_ids: set[str] = set()
+            for cell in cells:
+                cell_id = cell.attrib.get("id")
+                if not cell_id:
+                    continue
+                parent_id = cell.attrib.get("parent")
+                if parent_id and parent_id not in {"0", "1"}:
+                    connected_ids.add(parent_id)
+                    connected_ids.add(cell_id)
+                if cell.attrib.get("edge") == "1":
+                    connected_ids.add(cell_id)
+                    source = cell.attrib.get("source")
+                    target = cell.attrib.get("target")
+                    if source:
+                        connected_ids.add(source)
+                    if target:
+                        connected_ids.add(target)
 
             for cell in cells:
                 # Skip if not mxCell or UserObject
@@ -759,10 +779,16 @@ class Debugger:
                 # Classify the cell
                 try:
                     classification = classifier.classify(cell, value)
-                    classifications[cell_id] = {
-                        "kind": classification.kind.name
+                    parent_cell_id = None
+                    if getattr(classification, "parent_cell", None) is not None:
+                        parent_cell_id = classification.parent_cell.attrib.get("id")
+                    kind_name = (
+                        classification.kind.name
                         if hasattr(classification.kind, "name")
-                        else str(classification.kind),
+                        else str(classification.kind)
+                    )
+                    classifications[cell_id] = {
+                        "kind": kind_name,
                         "raw_value": classification.raw_value,
                         "identifier": classification.identifier,
                         "parent_identifier": classification.parent_identifier,
@@ -770,6 +796,15 @@ class Debugger:
                         if classification.tokens
                         else [],
                     }
+                    if parent_cell_id:
+                        classifications[cell_id]["parent_cell_id"] = parent_cell_id
+                    if kind_name == "TYPED_INDIVIDUAL" and parent_cell_id:
+                        typed_parent_tokens.setdefault(parent_cell_id, set()).update(
+                            classification.tokens or []
+                        )
+                        typed_parent_children.setdefault(parent_cell_id, set()).add(
+                            cell_id
+                        )
                 except Exception as e:
                     classifications[cell_id] = {
                         "kind": "CLASSIFICATION_ERROR",
@@ -777,12 +812,32 @@ class Debugger:
                         "error": str(e),
                     }
 
+            for parent_id, tokens in typed_parent_tokens.items():
+                parent_entry = classifications.get(parent_id)
+                if not parent_entry:
+                    continue
+                if parent_entry.get("kind") == "LITERAL":
+                    parent_entry["kind"] = "STANDALONE_INDIVIDUAL"
+                if not parent_entry.get("identifier"):
+                    parent_entry["identifier"] = parent_entry.get("raw_value")
+                existing_tokens = set(parent_entry.get("tokens") or [])
+                existing_tokens.update(tokens)
+                parent_entry["tokens"] = sorted(existing_tokens)
+                parent_entry["derived_type_cells"] = sorted(
+                    typed_parent_children.get(parent_id, set())
+                )
+
+            for cell_id, entry in classifications.items():
+                if entry.get("kind") == "LITERAL" and cell_id not in connected_ids:
+                    entry["kind"] = "DECORATION"
+
             if classifications:
                 stats = {
                     "LITERAL": 0,
                     "ARROW_LABEL": 0,
                     "TYPED_INDIVIDUAL": 0,
                     "STANDALONE_INDIVIDUAL": 0,
+                    "DECORATION": 0,
                     "CLASSIFICATION_ERROR": 0,
                 }
                 for cell_data in classifications.values():
