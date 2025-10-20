@@ -10,42 +10,25 @@ All checks passed!
 Attempting to regenerate baselines from 1 commit(s)...
 Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 
-✅ Baselines regenerated using commit cf8f84bb84ff83843b6726ac96aff3a2055f4275
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio -> webapp/plugins/rdfexport/tests/baselines/AA37 Department of Health.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/AA42 Ministry of Health.drawio -> webapp/plugins/rdfexport/tests/baselines/AA42 Ministry of Health.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/BA619 Walkerton Inquiry.drawio -> webapp/plugins/rdfexport/tests/baselines/BA619 Walkerton Inquiry.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/CA1853 Chest Disease Service.drawio -> webapp/plugins/rdfexport/tests/baselines/CA1853 Chest Disease Service.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/CA1934 Division of Tuberculosis Prevention.drawio -> webapp/plugins/rdfexport/tests/baselines/CA1934 Division of Tuberculosis Prevention.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47 Simcoe Family fonds.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47 Simcoe Family fonds.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11 Elizabeth Simcoe sketches.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11 Elizabeth Simcoe sketches.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11-1 Elizabeth Simcoe loose sketches.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11-1 Elizabeth Simcoe loose sketches.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11-1-0-1 (VDB test).drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11-1-0-1 (VDB test).nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11-1-0-1.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11-1-0-1.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11-2 Elizabeth Simcoe sketchbook.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11-2 Elizabeth Simcoe sketchbook.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio -> webapp/plugins/rdfexport/tests/baselines/F 47-11-4 Notes on Elizabeth Simcoe sketches.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/F 4711 Orville Wood fonds.drawio -> webapp/plugins/rdfexport/tests/baselines/F 4711 Orville Wood fonds.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio -> webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio -> webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio -> webapp/plugins/rdfexport/tests/baselines/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio -> webapp/plugins/rdfexport/tests/baselines/RG 10-142 Correspondence of the Chief of the Chest Disease Service.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio -> webapp/plugins/rdfexport/tests/baselines/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio -> webapp/plugins/rdfexport/tests/baselines/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.nt
-  overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Walkerton Inquiry in RiC-O (original).drawio -> webapp/plugins/rdfexport/tests/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt
+[1m[91mF821 [0m[1mUndefined name `Tuple`[0m
+  [1m[94m-->[0m docs/chats/Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture/[2025-10-16_09-34-41] DrawIO_XML_parsing_pipeline_architecture - Branch1_main_v1_Updated_MAPPING_List_updated_mapping.py:11:15
+   [1m[94m|[0m
+[1m[94m 9 |[0m # ---
+[1m[94m10 |[0m
+[1m[94m11 |[0m MAPPING: List[Tuple[str, str, str, str]] = [
+   [1m[94m|[0m               [1m[91m^^^^^[0m
+[1m[94m12 |[0m     # ===== PRE PHASE =====
+   [1m[94m|[0m
 
-⚠️  Failed to generate baselines for 6 fixture(s):
-  ❌ webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-rml.drawio
-     Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
-  ❌ webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata.drawio
-     Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
-  ❌ webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-severely-mocked.drawio
-     Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
-  ❌ webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio
-     Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
-  ❌ webapp/plugins/rdfexport/tests/fixtures/knut_olborgs_forskningsnotater.drawio
-     An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
-  ❌ webapp/plugins/rdfexport/tests/fixtures/koronakommisjonen.drawio
-     An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
+[1m[91mF821 [0m[1mUndefined name `List`[0m
+  [1m[94m-->[0m docs/chats/Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture/[2025-10-16_09-55-56] DrawIO_XML_parsing_pipeline_architecture - Branch1_main_v2_Artifact_updated_mapping_updated_mapping.py:11:10
+   [1m[94m|[0m
+[1m[94m 9 |[0m # ---
+[1m[94m10 |[0m
+[1m[94m11 |[0m MAPPING: List[Tuple[str, str, str, str]] = [
+   [1m[94m|[0m          [1m[91m^^^^[0m
+[1m[94m12 |[0m     # ===== PRE PHASE =====
+   [1m[94m|[0m
 
 🧪 Running tests: webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py
 [1m===================================================== test session starts ======================================================[0m
@@ -53,7 +36,8 @@ platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- /workspace/drawi
 cachedir: .pytest_cache
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 31 items                                                                                                             [0m
+[1mcollecting ... [0m[1m
+collected 31 items                                                                                                             [0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_tracks_datatype_properties [32mPASSED[0m[32m   [  6%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path0] [32mPASSED[0m[32m [  9%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path1] [32mPASSED[0m[32m [ 12%][0m
@@ -87,7 +71,8 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_met
 [1m===================================================== test session starts ======================================================[0m
 platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
-[1mcollecting ... [0m[1mcollected 43 items                                                                                                             [0m
+[1mcollecting ... [0m[1m
+collected 43 items                                                                                                             [0m
 legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [  6%][0m
 legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [ 79%][0m
 legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 88%][0m

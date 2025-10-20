@@ -19,6 +19,5 @@ dev = [
 [tool.ruff]
 exclude = [
     "legacy/map_schema.py",
-    "docs/aicode",
-    "docs/chats",
+    "docs/",
 ]
