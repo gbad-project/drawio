@@ -104,13 +104,17 @@ def _is_possible_literal(cell: Element) -> bool:
 
 @override(phase="core", type="xml", role="data")
 def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
-    from legacy.overrides.cell_classifier import (
-        DEFAULT_STANDALONE_TYPE,
-        DrawIOCellClassifier,
-    )
-
     decorations_attr = "__drawio_literal_registry"
-    classifier = DrawIOCellClassifier(self, prefixes)
+    classifier_cls = getattr(
+        pipeline.core.internal.data,  # type: ignore[attr-defined]
+        "DrawIOCellClassifier",
+    )
+    default_standalone_type = getattr(
+        pipeline.core.internal.data,  # type: ignore[attr-defined]
+        "DEFAULT_STANDALONE_TYPE",
+        "rico:Thing",
+    )
+    classifier = classifier_cls(self, prefixes)
     decorations: dict[str, dict[str, object]] = {}
     setattr(pipeline.core.internal.data, decorations_attr, decorations)
 
@@ -183,7 +187,7 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
         if kind_name == "STANDALONE_INDIVIDUAL":
             identifier = classification.identifier or classification.raw_value
             dimensions = self._dimensions(cell)
-            types = classification.tokens or [DEFAULT_STANDALONE_TYPE]
+            types = classification.tokens or [default_standalone_type]
             seen_types: set[str] = set()
             for rdf_type in types:
                 candidate = rdf_type.strip()

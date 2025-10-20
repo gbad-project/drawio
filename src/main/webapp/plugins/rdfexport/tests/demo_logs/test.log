@@ -1,12 +1,12 @@
-Script started on 2025-10-20 18:03:06+00:00 [COMMAND="bun run test" TERM="xterm" COLUMNS="128" LINES="-1"]
+Script started on 2025-10-20 18:31:13+00:00 [COMMAND="bun run test" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1mpython -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
-[metabuilder] Wrote legacy/draw_io_parser.py ( overrides on; replacements=9 [NodeHTMLParser, _build_graph_from_raw_xml, _cell_is_literal, _ensure_known_curie, _extract_individual_and_arrow_and_literal_cells, _is_possible_literal, _split_curie, individual_blocks, serialise_to_graph] additions=0 )
+[metabuilder] Wrote legacy/draw_io_parser.py ( overrides on; replacements=9 [NodeHTMLParser, _build_graph_from_raw_xml, _cell_is_literal, _ensure_known_curie, _extract_individual_and_arrow_and_literal_cells, _is_possible_literal, _split_curie, individual_blocks, serialise_to_graph] additions=3 [CellClassification, CellKind, DrawIOCellClassifier] )
 [metabuilder] Loaded override modules from /workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/overrides: cell_classifier.py, curie_validator.py, rml_export.py, strip_html.py
 [0m[2m[35m$[0m [2m[1mruff check --fix .[0m
 Found 2 errors (2 fixed, 0 remaining).
 [0m[2m[35m$[0m [2m[1mruff format .[0m
-1 file reformatted, 24 files left unchanged
+1 file reformatted, 23 files left unchanged
 Attempting to regenerate baselines from 1 commit(s)...
 Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 
@@ -99,11 +99,11 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_rejects_unknown_prefix [32mPASSED[0m[31m       [ 97%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip [31mFAILED[0m[31m         [100%][0m
 
-=========================================================== FAILURES ===========================================================
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path0] ___________________________________[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N2ac007e58989452bafb52d5b2f629ee6 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nb57ba03ee2ad47d7903411572f827a9b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/AA37 Department of Health.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N705625a84b0b4094a8a564c9ee805e5b (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nf4cd1d02977d48eab714e921141b4301 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -124,14 +124,14 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N98ce36d4818d4a709fc22f9e7a7ca26b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N3b922014dd894b6cb4cbdc8e6dd6ff8a (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N5ffbec706cc548018b7f1c6fc29adecc (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N9795bff5f97844c1b5c7b86e09a54d6b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path1] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/AA42 Ministry of Health.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N0dc50c2acb4548b3864aed0c709b06de (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N1ad62bf1ddab49ccaaf21d2a4a717931 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfac9913d01ca4a0bb02bb8ba212bfacc (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nf54ca1e9754b448db994c9f45c81d388 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -152,14 +152,14 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nf1d3869ba8a54091acbc6932cbc9341b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N90beb417947149db9e2a8dc7ba97d982 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc6be6a686dab40eb9f123b15dc74eeac (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nf4cf854a92c7438f9df1f33821c6b91f (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path2] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/BA619 Walkerton Inquiry.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N63fc3e0b5f864975a1a881a9a7d9b24e (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N995ea5ba9c484b90a5c550d26974048d (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N87d3bce75ca34d06b575e99755fb052a (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N8fb63759806b4c0bba612cb58d8e802f (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -180,14 +180,14 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N8ea2ac6888c74e24b5bb28137dedfceb (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N8c6d1eadc6c24aac912db46f2fe1d61a (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N9efea354935d45d790afd4f4b7bb2599 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N5f4474ad55214843932f338128c84516 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path3] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/CA1853 Chest Disease Service.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N87e0e1b0517d493d9c0c329b85b412b5 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Ne68f42d989664728bc73e82ee081361d (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb107a89da6d44429ade1ad67d64e6578 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nb1a6840612ad486589d816419b7d0b11 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -208,14 +208,14 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc9bd8fa9b9984d1dae4e6c96845be058 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N4678195e53d247d69a7c3468d64521e0 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N7e245ab1c0b34d09bf4fda99a11cb4de (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nf9cc37c8c0894d6caf0894bb15c2d26c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path4] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/CA1934 Division of Tuberculosis Prevention.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nac1abf97bf304f759617dae007e3b01d (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N895ab96542fe4287a90696f46a33126c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N5578385bd8ba438d986f1226be59c389 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nb1f35a9c86374a188d218a740620d4a4 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -236,14 +236,14 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N1298a94461434e9e8e8a32f2e6017771 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N3ad39db2582b4b909f261cb73ea770ad (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N2beafdce71674f49a00fe31cfdd45592 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N75054de88f0b491fa59beeab37001228 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path5] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47 Simcoe Family fonds.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N45c17944b53f4c318dc3b25c7c68954f (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N61d2931ce7184e8f8bc55a077d77d931 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N0cd9904231f3448e96796d3fbdd3aab5 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N6c5cd1206bd444d68917312b26f5740b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -264,14 +264,14 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N029780d497854e4fa94438be50773dab (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N0fa2dc1cc76549878f5e192b4444671f (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N41895c67e0a44e78a99a2a2296c265ad (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N153d96fb62644ee994938df48037d7a2 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path6] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11 Elizabeth Simcoe sketches.nt')
-
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N253b3edf80fc4f07b3905186546a4ac8 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N42fb1fbe8d6b4e79b93719533b8b4773 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N96c7627bfdae44a7828504863e20fa31 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N1b0aeb5309e84781b7bf5f8b7c6e603b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
         [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
@@ -292,728 +292,28 @@ baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/t
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nd28fad11ec744a278fa13d7963872143 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nc340b0b8867346ef872f207a0451c1ba (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Na50b91daac454896b0fd92a0ad82da9c (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Naf8f07c0ec394c908eb4eb5bbe95ec09 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path7] ___________________________________[0m
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-0/test_generated_metadata_fixtur0')
 
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-1 Elizabeth Simcoe loose sketches.nt')
+[1m[31mE            +  where False = isomorphic(<Graph identifier=Na5c726dcd8b54298b643fbdff84a0063 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE            +    where isomorphic = <Graph identifier=N4b1192207e8c496cb4f1b7d0ce770f9d (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE            +      where <Graph identifier=N4b1192207e8c496cb4f1b7d0ce770f9d (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=Na4f96c03739b44c8a9d88ae4a3c49bc0 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
+[1m[31mE            +    and   <Graph identifier=Na5c726dcd8b54298b643fbdff84a0063 (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=Nee60fcf2e60a421e8510f42fd06ac4be (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
+[31m================================================ [31m[1m22 failed[0m, [32m17 passed[0m[31m in 6.45s[0m[31m =================================================[0m
+[1m[2m#[0m [31m[1mUnhandled error[0m[2m between tests[0m
+[2m-------------------------------[0m
+[31merror[0m[2m: [0m[1mCannot find module '../pyodide/wheels/rdflib-7.2.1-py3-none-any.whl.base64?raw' from '/workspace/drawio/src/main/webapp/plugins/rdfexport/src/pyodideRuntime.ts'[0m
+[0m[2m-------------------------------[0m
 
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ncdef7bbaf3c74dda8749dc48ecd6a711 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N1ae285a1104a46eeaabb6a446751eecf (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path8] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-1-0-1 (VDB test).nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N46ea6638410d4524b4d2c6b948952d8b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N0bf4267141d241fc94fcd55da862f537 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path9] ___________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-1-0-1.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N10dc31b4e7454e8bbab5bb1f80be2a18 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nbcc62cc3967d4a5580a67eaf044ab8fd (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path10] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-2 Elizabeth Simcoe sketchbook.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N52dedec01bb543f29846cde5d0c010ef (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N8060bd0196d741bd8c223dbd0762462c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path11] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N1c1704be76f640299aacc50c3a360365 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nd595f2b2e4ae4b4da4205cdd6b580a60 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path12] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-4 Notes on Elizabeth Simcoe sketches.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N076d6993956e4c46b91d120844501754 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Ne4d42a23baa241f3848b3db1404f3796 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path13] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 4711 Orville Wood fonds.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Na3a3ab1d7f404c568a8f4da75dc4cadf (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nbe87a811c7994e3da2c93b1557c10ca2 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path14] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ncf26179b80504237adc01c85187f8216 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N25e8abf250864e4e9db7ab9f4002ad6c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path15] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N28ad7ca45f9a4d5bbf5f5ca540e00137 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N5a1f403a554d423f8625d4d398f25ef5 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path16] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N793ac217f6364c789d1d1803614f5bd4 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nae73ebf07e9b4b55a8ece078b27cf647 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path17] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 10-142 Correspondence of the Chief of the Chest Disease Service.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N238cfc33aaf64a71b2a7e4b64e2cf46c (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N2b97cd1b0d884bc8b81f3abdce893354 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path18] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N57f5dc0dc8ab4c0c9cccb348e224d04b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Ne71ac654ce8e484d82718a2b968954b2 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path19] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb0347f7b9f02481a8c4429c425ff7567 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N1ec7dc3106304c99a63d8e2df585670c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m__________________________________ test_parse_drawio_matches_baseline_graphs[baseline_path20] __________________________________[0m
-
-baseline_path = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N3f79146c42dc403abef058bfdac1f638 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N52c8e34eac774a3b841cb704dd723b8f (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
-[31m[1m_________________________________________ test_generated_metadata_fixtures_round_trip __________________________________________[0m
-
-tmp_path = PosixPath('/tmp/pytest-of-root/pytest-1/test_generated_metadata_fixtur0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
-            path[90m[39;49;00m
-            [94mfor[39;49;00m path [95min[39;49;00m FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-            [94mif[39;49;00m [33m"[39;49;00m[33m-with-metadata[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m path.stem [95mand[39;49;00m [95mnot[39;49;00m _fixture_contains_metadata(path)[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m fixture_paths, [33m"[39;49;00m[33mExpected drawio fixtures to patch[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        [94mfor[39;49;00m index, fixture_path [95min[39;49;00m [96menumerate[39;49;00m(fixture_paths):[90m[39;49;00m
-            metadata_options = _build_metadata_options(index, fixture_path)[90m[39;49;00m
-            patched_path = tmp_path / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfixture_path.stem[33m}[39;49;00m[33m-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-            _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
-    [90m[39;49;00m
-            original_graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-                [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-                metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-                prefix_iri=metadata_options[[33m"[39;49;00m[33mbaseUri[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-            )[90m[39;49;00m
-            patched_graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-                [96mstr[39;49;00m(patched_path),[90m[39;49;00m
-                metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-            )[90m[39;49;00m
-    [90m[39;49;00m
-            [94massert[39;49;00m [96misinstance[39;49;00m(patched_graph, draw_io_parser.DrawIOParserGraph)[90m[39;49;00m
-            [94massert[39;49;00m patched_graph.csv_path == metadata_options[[33m"[39;49;00m[33mcsvPath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-            [94massert[39;49;00m patched_graph.base [95mis[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-            namespace_map = {[90m[39;49;00m
-                prefix: [96mstr[39;49;00m(uri)[90m[39;49;00m
-                [94mfor[39;49;00m prefix, uri [95min[39;49;00m patched_graph.namespace_manager.namespaces()[90m[39;49;00m
-            }[90m[39;49;00m
-            [94mfor[39;49;00m preamble_entry [95min[39;49;00m metadata_options[[33m"[39;49;00m[33mpreamble[39;49;00m[33m"[39;49;00m]:[90m[39;49;00m
-                [94massert[39;49;00m ([90m[39;49;00m
-                    namespace_map.get(preamble_entry[[33m"[39;49;00m[33mrdfPrefix[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
-                    == preamble_entry[[33m"[39;49;00m[33mrdfIRI[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-                )[90m[39;49;00m
-            [94massert[39;49;00m namespace_map.get([33m"[39;49;00m[33m"[39;49;00m) == metadata_options[[33m"[39;49;00m[33mbaseUri[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-    [90m[39;49;00m
->           [94massert[39;49;00m _normalise_graph(patched_graph).isomorphic([90m[39;49;00m
-                _normalise_graph(original_graph)[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           AssertionError: assert False[0m
-[1m[31mE            +  where False = isomorphic(<Graph identifier=Ne50f3aa21cfe43ebbe8ee0f2286521c6 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE            +    where isomorphic = <Graph identifier=N2c71d76ccf944fb299507dbb82e4d681 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-[1m[31mE            +      where <Graph identifier=N2c71d76ccf944fb299507dbb82e4d681 (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=N77d02503620e4a13bfc5964bf32c5700 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
-[1m[31mE            +    and   <Graph identifier=Ne50f3aa21cfe43ebbe8ee0f2286521c6 (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=Nefc4e87fcd8644de84bcdf6aefcbcad8 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
-
-[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:465: AssertionError
-[36m[1m=================================================== short test summary info ====================================================[0m
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path0][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path1][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path2][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path3][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path4][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path5][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path6][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path7][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path8][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path9][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path10][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path11][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path12][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path13][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path14][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path15][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path16][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path17][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path18][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path19][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path20][0m - AssertionError: assert False
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - AssertionError: assert False
-[31m================================================ [31m[1m22 failed[0m, [32m17 passed[0m[31m in 3.23s[0m[31m =================================================[0m
-Traceback (most recent call last):
-  File "/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 294, in <module>
-    main()
-  File "/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 290, in main
-    run_pytest([str(TEST_PATH.relative_to(REPO_ROOT)), "-v"])
-  File "/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 216, in run_pytest
-    subprocess.run(command, check=True, cwd=REPO_ROOT)
-  File "/root/.pyenv/versions/3.12.10/lib/python3.12/subprocess.py", line 571, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['/workspace/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python', '-m', 'pytest', 'webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py', '-v']' returned non-zero exit status 1.
-[0m[1mbun test [0m[2mv1.2.14 (6a363a38)[0m
-[0m
-tests/rdfexport.test.ts:
-[BLACKBOX] Received serialized payload (36445 characters)
-[PIPELINE] Initializing Pyodide runtime from /workspace/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/
-[PIPELINE] Pyodide runtime ready
-[PIPELINE] Preparing Pyodide Python environment
-[PIPELINE] Syncing Python module to virtual FS: /app/legacy/draw_io_parser.py
-[PIPELINE] Syncing Python module to virtual FS: /app/pyodide_pipeline/__init__.py
-[PIPELINE] Syncing Python module to virtual FS: /app/pyodide_pipeline/drawio_pipeline.py
-[PIPELINE] Syncing Python wheel to virtual FS: /app/wheels/rdflib-7.2.1-py3-none-any.whl
-[PIPELINE] Pyodide Python environment ready
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
-[PIPELINE] DrawIO parser produced graph graph-0 with 77 triples
-[BLACKBOX] Parsed DrawIO graph graph-0 with 77 triples
-[BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[0m[33m8929.97ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[2.68ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m245.89ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (37299 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (37299 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37299)
-[PIPELINE] DrawIO parser produced graph graph-1 with 80 triples
-[BLACKBOX] Parsed DrawIO graph graph-1 with 80 triples
-[BLACKBOX] Returning Turtle payload for graph graph-1 (5378 characters)
-[PIPELINE] Saving export payload to CA1853 Chest Disease Service.ttl
-[PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (37282 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37282)
-[PIPELINE] DrawIO parser produced graph graph-2 with 80 triples
-[BLACKBOX] Parsed DrawIO graph graph-2 with 80 triples
-[BLACKBOX] Returning Turtle payload for graph graph-2 (5378 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 80 vs 80
-[0m[1m1081 |[0m     expect(dataVsExpectedResult.expected_triples)[0m[3m[1m.toBeGreaterThan[0m([0m[33m0[0m)[0m[2m;[0m
-[0m[1m1082 |[0m     logInfo(
-[0m[1m1083 |[0m       LOG_PREFIX.TEST,
-[0m[1m1084 |[0m       [0m[32m`Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): [0m${dataVsExpectedResult.actual_triples}[0m[32m vs [0m${dataVsExpectedResult.expected_triples}[0m[32m`[0m,
-[0m[1m1085 |[0m     )[0m[2m;[0m
-[0m[1m1086 |[0m     expect(dataVsExpectedResult.isomorphic)[0m[3m[1m.toBe[0m([0m[33mtrue[0m)[0m[2m;[0m
-                                                   [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32mtrue[0m
-Received: [31mfalse[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1086[0m[2m:[33m45[0m[2m)[0m
-[0m[31m✗[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m661.03ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
-[0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (44795 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (44795 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44795)
-[PIPELINE] DrawIO parser produced graph graph-3 with 97 triples
-[BLACKBOX] Parsed DrawIO graph graph-3 with 97 triples
-[BLACKBOX] Returning Turtle payload for graph graph-3 (7462 characters)
-[PIPELINE] Saving export payload to F 47-11 Elizabeth Simcoe sketches.ttl
-[PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (44778 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44778)
-[PIPELINE] DrawIO parser produced graph graph-4 with 97 triples
-[BLACKBOX] Parsed DrawIO graph graph-4 with 97 triples
-[BLACKBOX] Returning Turtle payload for graph graph-4 (7462 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 97 vs 97
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[0m[1m1138 |[0m       actual_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1139 |[0m       baseline_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1140 |[0m       actual_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1141 |[0m     }[0m[2m;[0m
-[0m[1m1142 |[0m 
-[0m[1m1143 |[0m     expect(isomorphismResult.actual_filtered_triples)[0m[3m[1m.toBe[0m(
-                                                             [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m84[0m
-Received: [31m95[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m635.70ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (39399 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (39399 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39399)
-[PIPELINE] DrawIO parser produced graph graph-5 with 87 triples
-[BLACKBOX] Parsed DrawIO graph graph-5 with 87 triples
-[BLACKBOX] Returning Turtle payload for graph graph-5 (5935 characters)
-[PIPELINE] Saving export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.ttl
-[PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (39382 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39382)
-[PIPELINE] DrawIO parser produced graph graph-6 with 87 triples
-[BLACKBOX] Parsed DrawIO graph graph-6 with 87 triples
-[BLACKBOX] Returning Turtle payload for graph graph-6 (5935 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 87 vs 87
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[0m[1m1138 |[0m       actual_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1139 |[0m       baseline_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1140 |[0m       actual_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1141 |[0m     }[0m[2m;[0m
-[0m[1m1142 |[0m 
-[0m[1m1143 |[0m     expect(isomorphismResult.actual_filtered_triples)[0m[3m[1m.toBe[0m(
-                                                             [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m75[0m
-Received: [31m85[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m455.04ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
-[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (80881 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (80881 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 80881)
-[PIPELINE] DrawIO parser produced graph graph-7 with 178 triples
-[BLACKBOX] Parsed DrawIO graph graph-7 with 178 triples
-[BLACKBOX] Returning Turtle payload for graph graph-7 (12947 characters)
-[PIPELINE] Saving export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).ttl
-[PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).ttl
-[BLACKBOX] Generating Turtle payload for serialized input (80864 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 80864)
-[PIPELINE] DrawIO parser produced graph graph-8 with 178 triples
-[BLACKBOX] Parsed DrawIO graph graph-8 with 178 triples
-[BLACKBOX] Returning Turtle payload for graph graph-8 (12947 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 178 vs 178
-[0m[1m1081 |[0m     expect(dataVsExpectedResult.expected_triples)[0m[3m[1m.toBeGreaterThan[0m([0m[33m0[0m)[0m[2m;[0m
-[0m[1m1082 |[0m     logInfo(
-[0m[1m1083 |[0m       LOG_PREFIX.TEST,
-[0m[1m1084 |[0m       [0m[32m`Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): [0m${dataVsExpectedResult.actual_triples}[0m[32m vs [0m${dataVsExpectedResult.expected_triples}[0m[32m`[0m,
-[0m[1m1085 |[0m     )[0m[2m;[0m
-[0m[1m1086 |[0m     expect(dataVsExpectedResult.isomorphic)[0m[3m[1m.toBe[0m([0m[33mtrue[0m)[0m[2m;[0m
-                                                   [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32mtrue[0m
-Received: [31mfalse[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1086[0m[2m:[33m45[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m795.39ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (58348 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (58348 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58348)
-[PIPELINE] DrawIO parser produced graph graph-9 with 119 triples
-[BLACKBOX] Parsed DrawIO graph graph-9 with 119 triples
-[BLACKBOX] Returning Turtle payload for graph graph-9 (14405 characters)
-[PIPELINE] Saving export payload to F 47 Simcoe Family fonds.ttl
-[PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (58331 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58331)
-[PIPELINE] DrawIO parser produced graph graph-10 with 119 triples
-[BLACKBOX] Parsed DrawIO graph graph-10 with 119 triples
-[BLACKBOX] Returning Turtle payload for graph graph-10 (14405 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 119 vs 119
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[0m[1m1138 |[0m       actual_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1139 |[0m       baseline_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1140 |[0m       actual_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1141 |[0m     }[0m[2m;[0m
-[0m[1m1142 |[0m 
-[0m[1m1143 |[0m     expect(isomorphismResult.actual_filtered_triples)[0m[3m[1m.toBe[0m(
-                                                             [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m101[0m
-Received: [31m117[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m490.07ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (30823 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (30823 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 30823)
-[PIPELINE] DrawIO parser produced graph graph-11 with 69 triples
-[BLACKBOX] Parsed DrawIO graph graph-11 with 69 triples
-[BLACKBOX] Returning Turtle payload for graph graph-11 (7115 characters)
-[PIPELINE] Saving export payload to BA619 Walkerton Inquiry.ttl
-[PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (30806 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 30806)
-[PIPELINE] DrawIO parser produced graph graph-12 with 69 triples
-[BLACKBOX] Parsed DrawIO graph graph-12 with 69 triples
-[BLACKBOX] Returning Turtle payload for graph graph-12 (7115 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 69 vs 69
-[0m[1m1081 |[0m     expect(dataVsExpectedResult.expected_triples)[0m[3m[1m.toBeGreaterThan[0m([0m[33m0[0m)[0m[2m;[0m
-[0m[1m1082 |[0m     logInfo(
-[0m[1m1083 |[0m       LOG_PREFIX.TEST,
-[0m[1m1084 |[0m       [0m[32m`Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): [0m${dataVsExpectedResult.actual_triples}[0m[32m vs [0m${dataVsExpectedResult.expected_triples}[0m[32m`[0m,
-[0m[1m1085 |[0m     )[0m[2m;[0m
-[0m[1m1086 |[0m     expect(dataVsExpectedResult.isomorphic)[0m[3m[1m.toBe[0m([0m[33mtrue[0m)[0m[2m;[0m
-                                                   [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32mtrue[0m
-Received: [31mfalse[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1086[0m[2m:[33m45[0m[2m)[0m
-[0m[31m✗[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m249.03ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (23546 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (23546 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23546)
-[PIPELINE] DrawIO parser produced graph graph-13 with 53 triples
-[BLACKBOX] Parsed DrawIO graph graph-13 with 53 triples
-[BLACKBOX] Returning Turtle payload for graph graph-13 (3889 characters)
-[PIPELINE] Saving export payload to F 47-11-1-0-1.ttl
-[PIPELINE] Export pipeline completed for F 47-11-1-0-1.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (23529 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23529)
-[PIPELINE] DrawIO parser produced graph graph-14 with 53 triples
-[BLACKBOX] Parsed DrawIO graph graph-14 with 53 triples
-[BLACKBOX] Returning Turtle payload for graph graph-14 (3889 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 53 vs 53
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[0m[1m1138 |[0m       actual_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1139 |[0m       baseline_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1140 |[0m       actual_filtered_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1141 |[0m     }[0m[2m;[0m
-[0m[1m1142 |[0m 
-[0m[1m1143 |[0m     expect(isomorphismResult.actual_filtered_triples)[0m[3m[1m.toBe[0m(
-                                                             [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m48[0m
-Received: [31m51[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m239.92ms[0m[2m][0m
+ 0 pass[0m
+[0m[31m 1 fail[0m
+ [0m[31m1 error[0m
+Ran 1 tests across 1 files. [0m[2m[[1m165.00ms[0m[2m][0m
+Script done on 2025-10-20 18:31:22+00:00 [COMMAND_EXIT_CODE="1"]
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23410 characters)
