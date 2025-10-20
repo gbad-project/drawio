@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Optional
 
 import pytest
-from rdflib import Graph, Namespace, Literal
+from rdflib import Graph, Namespace, Literal, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
