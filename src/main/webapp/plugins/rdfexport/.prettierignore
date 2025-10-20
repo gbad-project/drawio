@@ -3,3 +3,6 @@
 .ruff_cache/
 dist/
 **/__pycache__/
+docs/aicode/
+docs/chats/
+AGENTS.md

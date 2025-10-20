@@ -8,6 +8,9 @@
 
 # ---
 
+from typing import List, Tuple
+
+
 MAPPING: List[Tuple[str, str, str, str]] = [
     # ===== PRE PHASE =====
     
