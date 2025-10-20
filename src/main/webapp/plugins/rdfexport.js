@@ -19391,51 +19391,33 @@ class xml_data_core:
 
     # END ParseException
     # BEGIN NodeHTMLParser
+    # override from strip_html.py
     class NodeHTMLParser(HTMLParser):
-        """
-        Subclasses HTMLParser to define its behaviour with respect to 'handle_data',
-        'handle_starttag', and 'handle_endtag' (this is the usage pattern expected
-        by HTMLParser). It seems that text, including multi-line text, in draw.io
-        may come in three forms: as a simple string; as a string within a blockquote
-        element; or as a sequence of strings inside divs inside a blockquote. In
-        the simple string case, our subclassing of the three afore-mentioned methods
-        is such as to discard all information except these strings, and to collect
-        them, in the sequence they are encountered in, into a list.
+        """HTML parser mirroring the legacy behaviour while tracking raw markup."""
 
-        The 'content' function takes such a list and collects the strings together
-        into paragraphs. Single line-breaks in the original graph (corresponding
-        usually to three consecutive divs, the middle one of which contains no
-        string) are ignored; two or more line-breaks in the original graph will lead
-        to a paragraph break.
-
-        The 'clear' function resets the internal state of the class, and should be
-        called before parsing a new chunk of HTML.
-        """
-
-        def __init__(self):
+        def __init__(self) -> None:
             super().__init__()
-            self._chunks = []
+            self._chunks: list[str] = []
+            self._raw_html = ""
 
         def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
             if tag in ["div", "blockquote", "p", "br"]:
-                # Otherwise words stick together in place of a single line break
                 self._chunks.append(" ")
 
         def handle_endtag(self, tag: str) -> None:
             if tag in ["div", "blockquote", "p"]:
-                # Otherwise words stick together in place of a single line break
                 self._chunks.append(" ")
 
         def handle_data(self, data: str) -> None:
-            """
-            Overrides a function in HTMLParser, storing the raw data (text) inside
-            a HTML element in the instance variable 'raw_data'.
-            """
-            # Implementing chunks universally seems to fix lost data with single <br> tags
             self._chunks.append(data)
 
+        def feed(self, data: str) -> None:
+            from html import unescape
+
+            self._raw_html = unescape(data)
+            super().feed(data)
+
         def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
-            # This method is unsafe because can also generate line breaks in Individuals
             previous_was_empty = False
             paragraph_already_handled = False
             current = ""
@@ -19444,7 +19426,7 @@ class xml_data_core:
                     if current:
                         yield current
                     current = ""
-                    if previous_was_empty and not paragraph_already_handled:
+                    if previous_was_empty and (not paragraph_already_handled):
                         yield "\\n\\n"
                         paragraph_already_handled = True
                     else:
@@ -19457,20 +19439,15 @@ class xml_data_core:
                 yield current
 
         def content(self) -> str:
-            """
-            Takes all of the string chunks (within divs and blockquotes) obtained
-            during the current run of the parser, and collects them together
-            into paragraphs, handling line breaks as described in the docstring
-            for this class
-            """
             return "".join(self._prettify_linebreaks()).strip()
 
+        def raw_html(self) -> str:
+            return self._raw_html
+
         def clear(self) -> None:
-            """
-            Clears the internal state of the parser so that it is as though newly
-            constructed
-            """
             self._chunks = []
+            self._raw_html = ""
+            self.reset()
 
     # END NodeHTMLParser
     # BEGIN DrawIOXMLTree
@@ -20544,7 +20521,143 @@ class internal_control_core:
             )
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
+
+        def _coerce_flag(value: Any, fallback: bool) -> bool:
+            if isinstance(value, bool):
+                return value
+            if isinstance(value, str):
+                lowered = value.strip().lower()
+                if lowered in {"true", "1", "yes", "on"}:
+                    return True
+                if lowered in {"false", "0", "no", "off"}:
+                    return False
+            if value is None:
+                return fallback
+            return bool(value)
+
+        def _coerce_optional_flag(value: Any) -> bool | None:
+            if value is None:
+                return None
+            return _coerce_flag(value, True)
+
+        def _metadata_strip_html(parsed: Element | None) -> bool | None:
+            if parsed is None:
+                return None
+            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
+            if metadata_node is None:
+                return None
+            attribute = metadata_node.attrib.get("stripHtml")
+            if attribute is None:
+                return None
+            return _coerce_optional_flag(attribute)
+
+        def _metadata_enables_rml(parsed: Element | None) -> bool:
+            if parsed is None:
+                return False
+            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
+            if metadata_node is None:
+                return False
+            flag = metadata_node.attrib.get("rmlEnabled")
+            if flag is None:
+                return False
+            return _coerce_flag(flag, False)
+
+        strip_html_preference = True
+        config_strip = _coerce_optional_flag(config_args.get("strip_html"))
+        metadata_strip = _metadata_strip_html(parsed_root)
+        if config_strip is not None:
+            strip_html_preference = config_strip
+        elif metadata_strip is not None:
+            strip_html_preference = metadata_strip
+
+        def _gather_literal_replacements(
+            xml_tree: DrawIOXMLTree,
+        ) -> list[tuple[str, str, str, str]]:
+            from html import unescape
+
+            replacements: list[tuple[str, str, str, str]] = []
+            for arrow_cell, *_ in xml_tree.arrow_cells:
+                try:
+                    label = xml_tree._arrow_label(arrow_cell)
+                except Exception:
+                    continue
+                try:
+                    target_id = arrow_cell.attrib["target"]
+                    source_id = arrow_cell.attrib["source"]
+                except KeyError:
+                    continue
+                try:
+                    target_cell = xml_tree._cell_with_id(target_id)
+                except Exception:
+                    continue
+                try:
+                    is_literal = xml_tree._cell_is_literal(target_cell)
+                except Exception:
+                    is_literal = False
+                if not is_literal:
+                    continue
+                try:
+                    sanitized_target = xml_tree._source_or_target(target_cell, False)
+                except Exception:
+                    continue
+                try:
+                    source_cell = xml_tree._cell_with_id(source_id)
+                    source_identifier = xml_tree._source_or_target(source_cell, True)
+                except Exception:
+                    continue
+                sanitized_subject = _replace_metacharacters(
+                    source_identifier,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    config_args["capitalisation_scheme"],
+                )
+                raw_literal = unescape(target_cell.attrib.get("value", ""))
+                if not raw_literal:
+                    continue
+                if raw_literal.strip() == sanitized_target.strip():
+                    continue
+                replacements.append(
+                    (sanitized_subject, label.strip(), sanitized_target, raw_literal)
+                )
+            return replacements
+
+        def _restore_literal_markup(
+            graph: DrawIOParserGraph, replacements: list[tuple[str, str, str, str]]
+        ) -> None:
+            if not replacements:
+                return
+            prefix = serialisation_config.prefix
+            effective_prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+                serialisation_config.ontology_iri
+            )
+            fallback_base = effective_prefix_iri or get_prefix_iri(ontology_iri)
+            for (
+                subject_identifier,
+                property_identifier,
+                sanitized_value,
+                raw_value,
+            ) in replacements:
+                if ":" not in property_identifier:
+                    continue
+                prop_prefix, prop_name = property_identifier.split(":", 1)
+                try:
+                    prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+                except KeyError:
+                    continue
+                if prefix and effective_prefix_iri:
+                    subject_uri = Namespace(effective_prefix_iri)[subject_identifier]
+                else:
+                    subject_uri = URIRef(f"{fallback_base}{subject_identifier}")
+                sanitized_literal = Literal(sanitized_value)
+                if (subject_uri, prop_uri, sanitized_literal) not in graph:
+                    continue
+                graph.remove((subject_uri, prop_uri, sanitized_literal))
+                graph.add((subject_uri, prop_uri, Literal(raw_value)))
+
         draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+        literal_replacements: list[tuple[str, str, str, str]] = []
+        if not strip_html_preference:
+            literal_replacements = _gather_literal_replacements(draw_io_xml_tree)
         try:
             candidate_cells = draw_io_xml_tree.draw_io_xml_tree[0][0][0]
         except IndexError:
@@ -20614,36 +20727,11 @@ class internal_control_core:
             graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
+        if not strip_html_preference:
+            _restore_literal_markup(graph, literal_replacements)
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-
-        def _coerce_flag(value: Any) -> bool:
-            if isinstance(value, bool):
-                return value
-            if isinstance(value, str):
-                lowered = value.strip().lower()
-                if lowered in {"true", "1", "yes", "on"}:
-                    return True
-                if lowered in {"false", "0", "no", "off"}:
-                    return False
-            if value is None:
-                return False
-            return bool(value)
-
-        def _metadata_enables_rml(parsed: Element | None) -> bool:
-            if parsed is None:
-                return False
-            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
-            if metadata_node is None:
-                return False
-            flag = metadata_node.attrib.get("rmlEnabled")
-            if flag is None:
-                return False
-            return flag.strip().lower() in {"true", "1", "yes", "on"}
-
-        rml_from_config = False
-        if isinstance(config_args, dict):
-            rml_from_config = _coerce_flag(config_args.get("rml_enabled"))
+        rml_from_config = _coerce_flag(config_args.get("rml_enabled"), False)
         if rml_from_config or _metadata_enables_rml(parsed_root):
             rr = Namespace("http://www.w3.org/ns/r2rml#")
             graph.namespace_manager.bind("rr", rr, replace=False)
@@ -21426,6 +21514,7 @@ def _default_parser_config() -> dict[str, Any]:
         "include_label": True,
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
+        "strip_html": True,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -21514,6 +21603,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             config["strict_mode"] = _coerce_bool(
                 overrides["strict_mode"],
                 config["strict_mode"],
+            )
+        if "strip_html" in overrides:
+            config["strip_html"] = _coerce_bool(
+                overrides["strip_html"],
+                config["strip_html"],
             )
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
@@ -21979,6 +22073,7 @@ var PARSER_SETTINGS_INCLUDE_PREAMBLE_ATTRIBUTE = "data-rdfexport-parser-include-
 var PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE = "data-rdfexport-parser-include-label";
 var PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE = "data-rdfexport-parser-infer-types";
 var PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE = "data-rdfexport-parser-strict-mode";
+var PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
 var PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 var PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 var PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE = "data-rdfexport-parser-ontology-iri";
@@ -21995,6 +22090,7 @@ var PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE = "data-rdfexport-parser-metachar-add
 var PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 var PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 var RML_ENABLED_ATTRIBUTE = "rmlEnabled";
+var STRIP_HTML_METADATA_ATTRIBUTE = "stripHtml";
 var DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 var DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
 var DRAWIO_PARSER_DEFAULT_CAPITALISATION = "upper-camel";
@@ -22042,6 +22138,7 @@ function createDefaultParserSettings() {
     inferTypeOfLiterals: true,
     includeLabel: true,
     strictMode: false,
+    stripHtml: true,
     indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
     maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
     ontologyIri: null,
@@ -22137,6 +22234,7 @@ function normaliseParserSettings(partial) {
     inferTypeOfLiterals: normalizeBoolean(partial?.inferTypeOfLiterals, defaults.inferTypeOfLiterals),
     includeLabel: normalizeBoolean(partial?.includeLabel, defaults.includeLabel),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
+    stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
     indentation: normalizeIndentation(partial?.indentation, defaults.indentation),
     maxGap: normalizeMaxGap(partial?.maxGap, defaults.maxGap),
     ontologyIri: partial?.ontologyIri != null ? normalizeNullableString(partial.ontologyIri) : null,
@@ -22192,6 +22290,7 @@ function buildParserConfigPayloadFromSettings(settings) {
     include_label: normalized.includeLabel,
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
+    strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false
@@ -22307,6 +22406,13 @@ function applyRmlEnabledMetadata(graphXml, enabled) {
   } else {
     metadataNode.removeAttribute(RML_ENABLED_ATTRIBUTE);
   }
+}
+function applyStripHtmlMetadata(graphXml, stripHtml) {
+  const metadataNode = findRootMetadataNode(graphXml);
+  if (!metadataNode) {
+    return;
+  }
+  metadataNode.setAttribute(STRIP_HTML_METADATA_ATTRIBUTE, stripHtml ? "true" : "false");
 }
 function cloneGraphXml(graphXml) {
   if (typeof graphXml.cloneNode === "function") {
@@ -22909,6 +23015,9 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
   const strictModeRow = createCheckboxRow("Enable strict arrow parsing", settings.strictMode, PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE);
   generalSection.appendChild(strictModeRow.container);
   const strictModeCheckbox = strictModeRow.input;
+  const stripHtmlRow = createCheckboxRow("Strip HTML tags from literal values", settings.stripHtml, PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE);
+  generalSection.appendChild(stripHtmlRow.container);
+  const stripHtmlCheckbox = stripHtmlRow.input;
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
   const prefixInput = createLabeledInput(identifiersSection, "Generated individual prefix", settings.prefix, PARSER_SETTINGS_PREFIX_ATTRIBUTE);
@@ -23067,6 +23176,7 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
       includeLabel: includeLabelCheckbox.checked,
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
+      stripHtml: stripHtmlCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,
@@ -23377,6 +23487,8 @@ Draw.loadPlugin(function(editorUi) {
     const workingGraphXml = cloneGraphXml(graphXml);
     const rmlEnabled = options?.rmlEnabled === true;
     applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
+    const stripHtml = options?.stripHtml ?? true;
+    applyStripHtmlMetadata(workingGraphXml, stripHtml);
     return mxUtils.getPrettyXml(workingGraphXml);
   }
   mxResources.parse(`exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...
@@ -23384,11 +23496,12 @@ Draw.loadPlugin(function(editorUi) {
   editorUi.actions.addAction("exportRdfXml", async function() {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
     try {
+      const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const serializedXml = serializeDiagramXml(editorUi, {
-        rmlEnabled: false
+        rmlEnabled: false,
+        stripHtml: parserConfig.strip_html
       });
       logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters)`);
-      const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const blackBoxPayload = await runDrawioPipeline(serializedXml, parserConfig);
       const filename = editorUi.getBaseFilename() + ".ttl";
       logInfo(LOG_PREFIX.PIPELINE, `Saving export payload to ${filename}`);
@@ -23402,13 +23515,16 @@ Draw.loadPlugin(function(editorUi) {
   editorUi.actions.addAction("exportRml", async function() {
     logInfo(LOG_PREFIX.PIPELINE, "exportRml action invoked");
     try {
-      const serializedXml = serializeDiagramXml(editorUi, { rmlEnabled: true });
-      logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`);
       const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const rmlConfig = {
         ...parserConfig,
         rml_enabled: true
       };
+      const serializedXml = serializeDiagramXml(editorUi, {
+        rmlEnabled: true,
+        stripHtml: parserConfig.strip_html
+      });
+      logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`);
       const blackBoxPayload = await runDrawioPipeline(serializedXml, rmlConfig);
       const filename = editorUi.getBaseFilename() + ".rml.ttl";
       logInfo(LOG_PREFIX.PIPELINE, `Saving RML export payload to ${filename}`);
