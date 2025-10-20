@@ -54,6 +54,125 @@ def _ensure_known_curie(
     return prefix, reference
 
 
+@override(phase="core", type="xml", role="data")
+def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
+    try:
+        if len(self.draw_io_xml_tree[0][0][0]) == 0:
+            raise NothingToParseException
+    except IndexError as key_error:
+        raise NothingToParseException from key_error
+
+    for cell in self.draw_io_xml_tree[0][0][0]:
+        if cell.tag != "mxCell":
+            raise ParseException(
+                "Could not parse XML tree: expecting an element with tag "
+                f"'mxCell', but had tag '{cell.tag}'"
+            )
+
+        try:
+            cell_value = self._value_of(cell)
+        except _NoValueException:
+            continue
+
+        if not cell_value:
+            self._add_arrow_if_find_label(cell)
+            continue
+
+        raw_value = cell_value.strip()
+        has_separator = ":" in raw_value
+        prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
+        remainder = raw_value.split(":", 1)[1] if has_separator else ""
+        is_literal_candidate = self._is_possible_literal(cell)
+        parent_id = cell.attrib.get("parent")
+        has_parent_box = parent_id not in {None, "1"}
+
+        if is_literal_candidate and not has_parent_box:
+            self.literal_cells.append((cell, self._dimensions(cell)))
+            continue
+
+        try:
+            parent = self._parent_of(cell)
+            individual_identifier = self._value_of(parent)
+        except _NoValueException:
+            try:
+                arrow_data = (
+                    cell,
+                    self._arrow_start(cell),
+                    self._arrow_end(cell),
+                    cell.attrib["value"],
+                )
+                self.arrow_cells.append(arrow_data)
+            except _NoValueException:
+                pass
+            continue
+
+        if not individual_identifier:
+            continue
+
+        if not has_separator:
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    "without a CURIE prefix separator."
+                )
+            )
+
+        if not prefix_head:
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    f"'{raw_value}', but no prefix was provided before the ':' separator."
+                )
+            )
+
+        if not remainder.strip():
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    f"'{raw_value}', but no reference portion was provided after the prefix."
+                )
+            )
+
+        if prefix_head not in prefixes.keys():
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares rdf:type "
+                    f"'{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
+                )
+            )
+
+        dimensions = self._dimensions(parent)
+        seen_classes: set[str] = set()
+        had_tokens = False
+        for token in raw_value.replace(",", " ").replace(";", " ").split():
+            candidate = token.strip()
+            if not candidate:
+                continue
+            had_tokens = True
+            if candidate in seen_classes:
+                continue
+            try:
+                _verify_is_ric_class(candidate, prefixes)
+            except NotInKnownException as exc:
+                raise NotInKnownException(
+                    (
+                        f"The node '{individual_identifier}' declares rdf:type "
+                        f"'{candidate}', which is not defined by the available prefixes."
+                    )
+                ) from exc
+            seen_classes.add(candidate)
+            individual = Individual(individual_identifier, candidate)
+            self.individual_cells.append((cell, individual, dimensions))
+
+        if not had_tokens:
+            raise NotInKnownException(
+                (
+                    f"The node '{individual_identifier}' declares an rdf:type value "
+                    "but no CURIE tokens could be parsed."
+                )
+            )
+
+
 @override(phase="core", type="internal", role="control")
 def individual_blocks(
     individuals_and_arrows: Iterator[Individual | Arrow],
@@ -144,3 +263,114 @@ def individual_blocks(
             block[individual_or_arrow.identifier] = {target_identifier}
 
     return blocks, object_properties, datatype_properties
+
+
+@override(phase="core", type="rdf", role="control")
+def serialise_to_graph(
+    blocks: Blocks,
+    object_properties: set[str],
+    datatype_properties: set[str],
+    serialisation_config: SerialisationConfig,
+    prefixes: dict,
+    graph_cls: type[Graph] = Graph,
+    graph_kwargs: dict[str, Any] | None = None,
+) -> Graph:
+    graph_kwargs = graph_kwargs or {}
+    graph = graph_cls(**graph_kwargs)
+
+    for prefix, uri in prefixes.items():
+        graph.bind(prefix, Namespace(uri), replace=True)
+    if serialisation_config.prefix:
+        graph.bind(
+            serialisation_config.prefix,
+            Namespace(
+                serialisation_config.prefix_iri
+                or get_prefix_iri(serialisation_config.ontology_iri)
+            ),
+        )
+
+    if serialisation_config.include_preamble:
+        ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
+        graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
+        graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
+
+    for prop in sorted(
+        prop for prop in object_properties if not prop.startswith("rico:")
+    ):
+        prop_prefix, prop_name = prop.split(":")
+        prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+        graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
+
+    for prop in sorted(
+        prop for prop in datatype_properties if not prop.startswith("rico:")
+    ):
+        prop_prefix, prop_name = prop.split(":")
+        prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+        graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+
+    absolute_overrides = {
+        individual_id: individual_label
+        for individual_id, individual_label in blocks.keys()
+        if "://" in individual_label
+    }
+
+    prefix = serialisation_config.prefix
+    prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+        serialisation_config.ontology_iri
+    )
+
+    for (individual_id, individual_label), types_and_facts in blocks.items():
+        if individual_id in absolute_overrides:
+            individual_uri = URIRef(absolute_overrides[individual_id])
+        elif prefix and serialisation_config.prefix_iri:
+            individual_uri = Namespace(serialisation_config.prefix_iri)[individual_id]
+        elif prefix_iri:
+            individual_uri = URIRef(f"{prefix_iri}{individual_id}")
+        else:
+            individual_uri = URIRef(individual_id)
+
+        graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
+
+        for rdf_type in types_and_facts.get("Types", set()):
+            type_prefix, type_name = rdf_type.split(":")
+            graph.add(
+                (individual_uri, RDF.type, Namespace(prefixes[type_prefix])[type_name])
+            )
+
+        if serialisation_config.include_label:
+            graph.add((individual_uri, RDFS.label, Literal(individual_label)))
+
+        for prop, values in types_and_facts.items():
+            if prop == "Types":
+                continue
+
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+
+            for value in values:
+                if prop in object_properties:
+                    if value in absolute_overrides:
+                        target_uri = URIRef(absolute_overrides[value])
+                    elif prefix and serialisation_config.prefix_iri:
+                        target_uri = Namespace(serialisation_config.prefix_iri)[value]
+                    elif prefix_iri:
+                        target_uri = URIRef(f"{prefix_iri}{value}")
+                    else:
+                        target_uri = URIRef(value)
+                    graph.add((individual_uri, prop_uri, target_uri))
+                elif prop in datatype_properties:
+                    if isinstance(value, int) or (
+                        isinstance(value, str) and value.isnumeric()
+                    ):
+                        literal_value = Literal(value, datatype=XSD.integer)
+                    elif isinstance(value, float):
+                        literal_value = Literal(value, datatype=XSD.float)
+                    else:
+                        try:
+                            datetime.strptime(value, "%Y-%m-%d")
+                            literal_value = Literal(value, datatype=XSD.date)
+                        except (ValueError, TypeError):
+                            literal_value = Literal(value)
+                    graph.add((individual_uri, prop_uri, literal_value))
+
+    return graph

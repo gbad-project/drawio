@@ -2,10 +2,12 @@ import json
 import re
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
+from typing import Optional
 
 import pytest
-from rdflib import Graph, Namespace
+from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -33,6 +35,39 @@ const patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options
 writeFileSync(outputPath, patched);
 """
 ).strip()
+
+
+TYPE_CELL_IDS = {
+    "unknown_prefix": "lTHjRTAcClQ9bYR0I0Gv-14",
+    "dangling_curie": "danglingCurieType",
+    "colon_only": "colonOnlyType",
+    "no_prefix": "noPrefixType",
+}
+
+TYPE_CASE_VALUES = {
+    "unknown_prefix": "<div>picoL:</div>",
+    "dangling_curie": "<div>:danglingCurie</div>",
+    "colon_only": "<div>:</div>",
+    "no_prefix": "<div>NoPrefixClass</div>",
+}
+
+
+def _mutate_fixture_for_case(tmp_path: Path, case_key: Optional[str]) -> Path:
+    tree = ET.parse(FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio")
+    root = tree.getroot()
+
+    for key, cell_id in TYPE_CELL_IDS.items():
+        cell = root.find(f".//mxCell[@id='{cell_id}']")
+        if cell is None:
+            raise AssertionError(f"Expected mxCell with id '{cell_id}' in fixture")
+        if case_key is not None and key == case_key:
+            cell.set("value", TYPE_CASE_VALUES[key])
+        else:
+            cell.set("value", "<div>rico:CorporateBody</div>")
+
+    output = tmp_path / f"AA37-{case_key or 'all-valid'}.drawio"
+    tree.write(output, encoding="unicode", xml_declaration=False)
+    return output
 
 
 def test_individual_blocks_accepts_declared_prefix_curie():
@@ -93,6 +128,45 @@ def test_individual_blocks_tracks_datatype_properties():
     assert "rdfs:label" in datatype_props
     facts = blocks[("LiteralNode", "LiteralNode")]["rdfs:label"]
     assert "Example literal" in facts
+
+
+@pytest.mark.parametrize(
+    "case_key",
+    ["unknown_prefix", "dangling_curie", "colon_only", "no_prefix"],
+)
+def test_parse_drawio_rejects_malformed_type_variants(tmp_path: Path, case_key: str):
+    fixture_path = _mutate_fixture_for_case(tmp_path, case_key)
+
+    with pytest.raises(draw_io_parser.NotInKnownException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+
+def test_parse_drawio_accepts_corrected_mock_types(tmp_path: Path):
+    fixture_path = _mutate_fixture_for_case(tmp_path, None)
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    expected_subjects = {
+        "https://example.com",
+        "https://example.com/dangling-curie",
+        "https://example.com/colon-only",
+        "https://example.com/no-prefix",
+    }
+
+    observed = {
+        str(subject)
+        for subject in graph.subjects(RDF.type, None)
+        if isinstance(subject, URIRef)
+    }
+
+    assert expected_subjects.issubset(observed)
 
 
 def _normalise_graph(graph: Graph) -> Graph:
