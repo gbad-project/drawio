@@ -1739,6 +1739,19 @@ class internal_control_core:
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
     ) -> DrawIOParserGraph:
+        def _coerce_flag(value: Any, default: bool = False) -> bool:
+            if isinstance(value, bool):
+                return value
+            if isinstance(value, str):
+                lowered = value.strip().lower()
+                if lowered in {"true", "1", "yes", "on"}:
+                    return True
+                if lowered in {"false", "0", "no", "off"}:
+                    return False
+            if value is None:
+                return default
+            return bool(value)
+
         metadata_prefixes, base_uri, csv_path, parsed_root = (
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
@@ -1771,6 +1784,24 @@ class internal_control_core:
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
         draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+        strip_html = True
+        if isinstance(config_args, dict):
+            strip_html = _coerce_flag(config_args.get("strip_html"), True)
+        if not strip_html:
+            original_value_of = draw_io_xml_tree._value_of
+
+            def _value_of_override(cell: Element, _original=original_value_of):
+                try:
+                    raw_value = cell.attrib["value"].strip()
+                except KeyError as key_error:
+                    raise _NoValueException from key_error
+                if draw_io_xml_tree._is_possible_literal(
+                    cell
+                ) or draw_io_xml_tree._cell_is_literal(cell):
+                    return raw_value
+                return _original(cell)
+
+            object.__setattr__(draw_io_xml_tree, "_value_of", _value_of_override)
         blocks, object_properties, datatype_properties = (
             internal_control_core.individual_blocks(
                 draw_io_xml_tree.individuals_and_arrows(
@@ -1793,19 +1824,6 @@ class internal_control_core:
         )
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-
-        def _coerce_flag(value: Any) -> bool:
-            if isinstance(value, bool):
-                return value
-            if isinstance(value, str):
-                lowered = value.strip().lower()
-                if lowered in {"true", "1", "yes", "on"}:
-                    return True
-                if lowered in {"false", "0", "no", "off"}:
-                    return False
-            if value is None:
-                return False
-            return bool(value)
 
         def _metadata_enables_rml(parsed: Element | None) -> bool:
             if parsed is None:

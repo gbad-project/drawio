@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph, Namespace
+from rdflib import Graph, Literal, Namespace
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -185,6 +185,48 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     assert len(triples) == 1
     prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
     assert "rr" in prefixes
+
+
+def test_parse_drawio_preserves_html_when_strip_html_disabled():
+    fixture_path = (
+        FIXTURES_DIR / "AA37 Department of Health-with-metadata-strip-html.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+        strip_html=False,
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    html_literals = [
+        str(obj)
+        for obj in graph.objects()
+        if isinstance(obj, Literal) and "<" in str(obj)
+    ]
+
+    assert html_literals
+    assert any("<blockquote" in literal for literal in html_literals)
+
+
+def test_parse_drawio_strips_html_by_default():
+    fixture_path = (
+        FIXTURES_DIR / "AA37 Department of Health-with-metadata-strip-html.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    html_literals = [
+        str(obj)
+        for obj in graph.objects()
+        if isinstance(obj, Literal) and "<" in str(obj)
+    ]
+
+    assert not html_literals
 
 
 def test_parse_drawio_without_metadata_sets_empty_metadata():

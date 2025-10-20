@@ -154,6 +154,7 @@ const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
   "data-rdfexport-parser-infer-types";
 const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
   "data-rdfexport-parser-strict-mode";
+const PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
 const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
@@ -247,6 +248,7 @@ interface ParserSettings {
   inferTypeOfLiterals: boolean;
   includeLabel: boolean;
   strictMode: boolean;
+  stripHtml: boolean;
   indentation: number;
   maxGap: number;
   ontologyIri: string | null;
@@ -268,6 +270,7 @@ function createDefaultParserSettings(): ParserSettings {
     inferTypeOfLiterals: true,
     includeLabel: true,
     strictMode: false,
+    stripHtml: true,
     indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
     maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
     ontologyIri: null,
@@ -408,6 +411,7 @@ function normaliseParserSettings(
       defaults.includeLabel,
     ),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
+    stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
     indentation: normalizeIndentation(
       partial?.indentation,
       defaults.indentation,
@@ -502,6 +506,7 @@ function buildParserConfigPayloadFromSettings(
     include_label: normalized.includeLabel,
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
+    strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false,
@@ -1647,6 +1652,14 @@ function createParserSettingsDialog(
   generalSection.appendChild(strictModeRow.container);
   const strictModeCheckbox = strictModeRow.input;
 
+  const stripHtmlRow = createCheckboxRow(
+    "Strip HTML tags from literals",
+    settings.stripHtml,
+    PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE,
+  );
+  generalSection.appendChild(stripHtmlRow.container);
+  const stripHtmlCheckbox = stripHtmlRow.input;
+
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
 
@@ -1896,6 +1909,7 @@ function createParserSettingsDialog(
       includeLabel: includeLabelCheckbox.checked,
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
+      stripHtml: stripHtmlCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,

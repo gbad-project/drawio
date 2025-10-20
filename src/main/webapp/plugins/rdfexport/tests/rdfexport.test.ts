@@ -449,6 +449,7 @@ const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
   "data-rdfexport-parser-infer-types";
 const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
   "data-rdfexport-parser-strict-mode";
+const PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
 const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
@@ -1235,6 +1236,7 @@ test(
       include_label: true,
       max_gap: 10,
       strict_mode: false,
+      strip_html: true,
       metacharacter_substitute: ["url"],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
@@ -1264,6 +1266,135 @@ json.dumps({
 
     expect(rmlSummary.triples_map_count).toBeGreaterThan(0);
     expect(rmlSummary.namespaces).toContain("rr");
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline preserves HTML literals when stripHtml metadata disabled",
+  async () => {
+    await loadPluginModule();
+
+    const fixtureName =
+      "AA37 Department of Health-with-metadata-strip-html.drawio";
+    const fixturePath = join(fixturesDir, fixtureName);
+    const xml = await Bun.file(fixturePath).text();
+
+    const document = new DOMParser().parseFromString(xml, "application/xml");
+    const userObjects = document.getElementsByTagName("UserObject");
+    let parserSettingsRaw: string | null = null;
+
+    for (let index = 0; index < userObjects.length; index += 1) {
+      const node = userObjects.item(index);
+      if (node?.getAttribute("id") === "0") {
+        parserSettingsRaw = node.getAttribute("rdfParserSettings");
+        break;
+      }
+    }
+
+    expect(parserSettingsRaw).toBeTruthy();
+    if (!parserSettingsRaw) {
+      throw new Error("Fixture is missing rdfParserSettings metadata");
+    }
+
+    interface StoredParserSettings {
+      version: number;
+      settings: {
+        includePreamble: boolean;
+        inferTypeOfLiterals: boolean;
+        includeLabel: boolean;
+        strictMode: boolean;
+        stripHtml?: boolean;
+        indentation: number;
+        maxGap: number;
+        ontologyIri: string | null;
+        prefix: string | null;
+        prefixIri: string | null;
+        capitalisationScheme: string;
+        metacharacterStrategy: string;
+        metacharacterEntries?: Array<{
+          character: string;
+          replacement: string;
+        }>;
+      };
+    }
+
+    const decodeParserSettings = (value: string): string =>
+      value.replace(/&amp;/g, "&").replace(/&quot;/g, '"');
+
+    const stored = JSON.parse(decodeParserSettings(parserSettingsRaw)) as
+      | StoredParserSettings
+      | StoredParserSettings["settings"];
+    const normalized =
+      "settings" in stored
+        ? stored.settings
+        : (stored as StoredParserSettings["settings"]);
+
+    expect(normalized.stripHtml).toBe(false);
+
+    const metacharacterSubstitute: string[] = [];
+    if (normalized.metacharacterStrategy === "url") {
+      metacharacterSubstitute.push("url");
+    } else if (normalized.metacharacterStrategy === "remove") {
+      metacharacterSubstitute.push("remove");
+    }
+
+    for (const entry of normalized.metacharacterEntries ?? []) {
+      metacharacterSubstitute.push(
+        `${entry.character ?? ""}=${entry.replacement ?? ""}`,
+      );
+    }
+
+    const config: DrawioParserConfigPayload = {
+      infer_type_of_literals: normalized.inferTypeOfLiterals,
+      include_preamble: normalized.includePreamble,
+      ontology_iri: normalized.ontologyIri ?? null,
+      prefix: normalized.prefix ?? null,
+      prefix_iri: normalized.prefixIri ?? null,
+      indentation: Number.isFinite(normalized.indentation)
+        ? normalized.indentation
+        : 2,
+      include_label: normalized.includeLabel,
+      max_gap: Number.isFinite(normalized.maxGap) ? normalized.maxGap : 10,
+      strict_mode: normalized.strictMode,
+      strip_html: normalized.stripHtml === false ? false : true,
+      metacharacter_substitute: metacharacterSubstitute,
+      capitalisation_scheme: normalized.capitalisationScheme ?? "upper-camel",
+      rml_enabled: true,
+    };
+
+    const turtle = await runDrawioPipeline(xml, config);
+
+    expect(turtle.length).toBeGreaterThan(0);
+    expect(turtle.includes("rr:TriplesMap")).toBe(true);
+
+    const literalSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Literal
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+
+html_literals = [
+    str(obj)
+    for obj in graph.objects()
+    if isinstance(obj, Literal) and "<" in str(obj)
+]
+
+json.dumps({
+    "html_literals": html_literals,
+    "total_literals": sum(1 for _ in graph.objects() if isinstance(_, Literal)),
+})
+      `)) as string,
+    ) as { html_literals: string[]; total_literals: number };
+
+    expect(literalSummary.total_literals).toBeGreaterThan(0);
+    expect(
+      literalSummary.html_literals.some(
+        (value) => value.includes("<blockquote") || value.includes("<span"),
+      ),
+    ).toBe(true);
   },
   { timeout: 60000 },
 );
@@ -1716,16 +1847,23 @@ test("parser settings dialog updates stored configuration and pipeline", async (
     PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE,
     "true",
   ) as ElementStub & { checked: boolean };
+  const stripHtmlInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE,
+    "true",
+  ) as ElementStub & { checked: boolean };
 
   expect(includePreambleInput.checked).toBe(true);
   expect(includeLabelInput.checked).toBe(true);
   expect(inferTypesInput.checked).toBe(true);
   expect(strictModeInput.checked).toBe(false);
+  expect(stripHtmlInput.checked).toBe(true);
 
   includePreambleInput.checked = false;
   includeLabelInput.checked = false;
   inferTypesInput.checked = false;
   strictModeInput.checked = true;
+  stripHtmlInput.checked = false;
 
   const prefixInput = findChildByAttribute(
     dialogContainer,
@@ -1829,6 +1967,7 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(stored.includeLabel).toBe(false);
   expect(stored.inferTypeOfLiterals).toBe(false);
   expect(stored.strictMode).toBe(true);
+  expect(stored.stripHtml).toBe(false);
   expect(stored.indentation).toBe(4);
   expect(stored.maxGap).toBeCloseTo(42.5);
   expect(stored.prefix).toBe("ex");
@@ -1855,6 +1994,7 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(config.include_label).toBe(false);
   expect(config.infer_type_of_literals).toBe(false);
   expect(config.strict_mode).toBe(true);
+  expect(config.strip_html).toBe(false);
   expect(config.indentation).toBe(4);
   expect(config.max_gap).toBeCloseTo(42.5);
   expect(config.prefix).toBe("ex");
