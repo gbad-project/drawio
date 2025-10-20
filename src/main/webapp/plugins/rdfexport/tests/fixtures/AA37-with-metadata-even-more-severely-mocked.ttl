@@ -4,6 +4,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rico: <rico://mock-rico> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix somprefix: <h://hello> .
 @prefix unknown: <unknown://link> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -21,6 +22,9 @@ somprefix:lol a owl:ObjectProperty .
 rdf:some-predicate a owl:DatatypeProperty .
 
 rdf:type a owl:ObjectProperty .
+
+<ontology://generated-from-draw-io/mock#> skos:note "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual",
+        "hellothere2" .
 
 hellow:there a owl:DatatypeProperty,
         owl:ObjectProperty .

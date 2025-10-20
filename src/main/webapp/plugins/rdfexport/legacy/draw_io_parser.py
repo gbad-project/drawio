@@ -1363,14 +1363,18 @@ class xml_data_core:
 
     # END DrawIOXMLTree._dimensions
     # BEGIN DrawIOXMLTree._is_possible_literal
-    @staticmethod
+    # override from literal_detection.py
     def _is_possible_literal(cell: Element) -> bool:
-        try:
-            if cell.attrib["parent"] != "1":
-                return False
-            return "rounded=1" in cell.attrib["style"]
-        except KeyError:
+        """Heuristically flag top-level text decorations as literals."""
+        parent = cell.attrib.get("parent")
+        if parent != "1":
             return False
+        style = cell.attrib.get("style", "")
+        if "rounded=1" in style:
+            return True
+        style_lower = style.lower()
+        decoration_tokens = ("text;", "shape=text", "shape=mxgraph.basic.text")
+        return any((token in style_lower for token in decoration_tokens))
 
     # END DrawIOXMLTree._is_possible_literal
     # BEGIN DrawIOXMLTree._arrow_label
@@ -2094,6 +2098,28 @@ class internal_control_core:
                 graph.add((subject_uri, prop_uri, Literal(raw_value)))
 
         draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+        classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+        decorations_attr = getattr(
+            classifier_cls, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+        )
+        decorations: dict[str, dict[str, object]] = {}
+        connected_literal_ids: set[str] = set()
+        for arrow_cell, *_ in draw_io_xml_tree.arrow_cells:
+            target_id = arrow_cell.attrib.get("target")
+            if target_id:
+                connected_literal_ids.add(str(target_id))
+        for cell, _ in draw_io_xml_tree.literal_cells:
+            cell_id = cell.attrib.get("id")
+            if not cell_id:
+                continue
+            value = draw_io_xml_tree._value_of(cell).strip()
+            if not value:
+                continue
+            decorations[cell_id] = {
+                "value": value,
+                "connected": cell_id in connected_literal_ids,
+            }
+        setattr(pipeline.core.internal.data, decorations_attr, decorations)
         literal_replacements: list[tuple[str, str, str, str]] = []
         if not strip_html_preference:
             literal_replacements = _gather_literal_replacements(draw_io_xml_tree)

@@ -1,5 +1,10 @@
 {
   "fixtures": {
+    "AA37 Department of Health-with-metadata-preserve-html.drawio": {
+      "path": "AA37 Department of Health-with-metadata-preserve-html.drawio",
+      "sha256": "ad9b6f5fc9d159828e7e2166ed910331bfe2294932e7355ce69f145a57c23865",
+      "size_bytes": 36617
+    },
     "AA37 Department of Health-with-metadata-rml.drawio": {
       "path": "AA37 Department of Health-with-metadata-rml.drawio",
       "sha256": "b4c639d3a4c2fc21ea892eafe131574968e1f345aaf55190b6ff933a8d447af7",
