@@ -649,10 +649,20 @@ def main():
 
     directory = os.path.normpath(args.overrides_dir or DEFAULT_OVERRIDES_DIR)
     status = "on" if args.overrides else "off"
-    print(
-        f"[metabuilder] Wrote {path} (overrides {status}; "
-        f"replacements={overrides.replacement_count}, additions={overrides.addition_count})"
-    )
+
+    def format_override_summary(overrides, path, status):
+        replaced = sorted(r.name for r in overrides.replacements.values())
+        added = sorted(r.name for records in overrides.extras.values() for r in records)
+        parts = [
+            f"[metabuilder] Wrote {path} ( overrides {status}; "
+            f"replacements={len(replaced)}"
+            + (f" [{', '.join(replaced)}]" if replaced else ""),
+            f"additions={len(added)}" + (f" [{', '.join(added)}]" if added else ""),
+            ")",
+        ]
+        return " ".join(parts)
+
+    print(format_override_summary(overrides, path, status))
     if args.overrides:
         if overrides.modules:
             modules = ", ".join(overrides.modules)
