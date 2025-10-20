@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph
+from rdflib import Graph, Namespace
 from rdflib.namespace import OWL, RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -167,6 +167,24 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
     assert namespace_map.get("mock1") == "http://mock-iri-ns.org"
     assert namespace_map.get("") == "http://mock-base-uri.com"
     assert graph.base is None
+
+
+def test_parse_drawio_with_rml_metadata_adds_triples_map():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata-rml.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+        rml_enabled=True,
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    rr = Namespace("http://www.w3.org/ns/r2rml#")
+    triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
+
+    assert len(triples) == 1
+    prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
+    assert "rr" in prefixes
 
 
 def test_parse_drawio_without_metadata_sets_empty_metadata():

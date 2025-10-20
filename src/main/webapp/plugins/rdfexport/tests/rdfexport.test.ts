@@ -87,6 +87,7 @@ import {
   debugPyodide,
   runDrawioPipeline,
   runMockBlackBox,
+  type DrawioParserConfigPayload,
   type DrawioParserResult,
 } from "../src/mockBlackBox";
 
@@ -973,7 +974,9 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     menuStub.funct([], null);
 
     const exportAction = actions.exportRdfXml;
+    const exportRmlAction = actions.exportRml;
     expect(exportAction).toBeDefined();
+    expect(exportRmlAction).toBeDefined();
 
     if (!exportAction) {
       throw new Error("exportRdfXml action was not registered by the plugin");
@@ -987,7 +990,7 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     expect(filename).toBe(`${baseFilename}.ttl`);
     expect(format).toBe("turtle");
     expect(mimeType).toBe("text/turtle");
-    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
+    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml", "exportRml"]);
 
     const referenceXml = mxUtils.getPrettyXml(graphModel);
     const expectedTurtle = await runDrawioPipeline(referenceXml);
@@ -1151,6 +1154,48 @@ json.dumps({
         `Also, Turtle is isomorphic to baseline N-Triples`,
       );
     }
+
+    if (!exportRmlAction) {
+      throw new Error("exportRml action was not registered by the plugin");
+    }
+
+    savedExports.splice(0, savedExports.length);
+    await exportRmlAction();
+
+    expect(savedExports).toHaveLength(1);
+    const rmlExport = savedExports[0]!;
+    expect(rmlExport.filename).toBe(`${baseFilename}.rml.ttl`);
+    expect(rmlExport.format).toBe("turtle");
+    expect(rmlExport.mimeType).toBe("text/turtle");
+    expect(rmlExport.data.length).toBeGreaterThan(0);
+
+    const rmlTripleCheck = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(rmlExport.data)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
+json.dumps({
+    "triples_map_count": len(triples),
+    "total_triples": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as {
+      triples_map_count: number;
+      total_triples: number;
+      namespaces: string[];
+    };
+
+    expect(rmlTripleCheck.triples_map_count).toBe(1);
+    expect(rmlTripleCheck.total_triples).toBe(
+      actualGraphInfo.triple_count + rmlTripleCheck.triples_map_count,
+    );
+    expect(rmlTripleCheck.namespaces).toContain("rr");
   });
 }
 
@@ -1168,6 +1213,60 @@ for (const file of readdirSync(fixturesDir)) {
     runRdfExportTest(file, baselineFile);
   }
 }
+
+test(
+  "runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata-rml.drawio",
+    );
+    const xml = await Bun.file(fixturePath).text();
+
+    const rmlConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: true,
+    };
+
+    const turtle = await runDrawioPipeline(xml, rmlConfig);
+
+    expect(turtle.length).toBeGreaterThan(0);
+    expect(turtle.includes("rr:TriplesMap")).toBe(true);
+
+    const rmlSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
+json.dumps({
+    "triples_map_count": len(triples),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triples_map_count: number; namespaces: string[] };
+
+    expect(rmlSummary.triples_map_count).toBeGreaterThan(0);
+    expect(rmlSummary.namespaces).toContain("rr");
+  },
+  { timeout: 60000 },
+);
 
 test("rdfexport plugin exposes preamble controls and diagram properties", async () => {
   const pluginModule = await loadPluginModule();
