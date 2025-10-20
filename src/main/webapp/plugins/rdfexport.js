@@ -18781,7 +18781,15 @@ class pipeline:
                 pass
 
             class control:
-                pass
+                # BEGIN override curie_validator.py._split_curie_old
+                def _split_curie_old(curie: str) -> tuple[str, str]:
+                    """This actually is a new override despite _old suffix."""
+                    if ":" not in curie:
+                        return ("", "")
+                    prefix, remainder = curie.split(":", 1)
+                    return (prefix, remainder.strip())
+
+                # END override curie_validator.py._split_curie_old
 
         class rdf:
             class metadata:
@@ -20159,6 +20167,21 @@ class xml_data_core:
         return Arrow(str(arrow_label.strip()), source, target, is_datatype)
 
     # END DrawIOXMLTree._arrow
+    # BEGIN DrawIOXMLTree.individuals_and_arrows
+    def individuals_and_arrows(
+        self, strict_mode: bool, max_gap: float
+    ) -> Generator[Individual | Arrow, None, None]:
+        """
+        Returns as a generator all Individual and Arrow instances obtained
+        when parsing the nodes and arrows of the draw.io XML graph fed into the
+        DrawIOXMLTree instance upon its construction
+        """
+        for _, individual, _ in self.individual_cells:
+            yield individual
+        for arrow_data in self.arrow_cells:
+            yield self._arrow(arrow_data, strict_mode, max_gap)
+
+    # END DrawIOXMLTree.individuals_and_arrows
 
 
 # ===== core.xml.control =====
@@ -20206,11 +20229,12 @@ class internal_data_core:
 
     # END Arrow
     # BEGIN _split_curie
+    # override from curie_validator.py
     def _split_curie(curie: str) -> tuple[str, str]:
-        if ":" not in curie:
-            return "", ""
-        prefix, remainder = curie.split(":", 1)
-        return prefix, remainder.strip()
+        """
+        "[curie_validator] logic from original _split_curie method was manually copied and pasted into a new method, and then the old one was overriden with new; end result same except for this message that was added in override of old with new and will be displayed everywhere the old one was being used. additionally, the new override was placed under a different pipeline namespace class (i.e., control role rather than data) to show the flexibility."
+        """
+        return pipeline.core.internal.control._split_curie_old(curie)
 
     # END _split_curie
     # BEGIN _ensure_known_curie
@@ -20354,200 +20378,6 @@ class internal_control_core:
             return
 
     # END _parse_metacharacter_substitutes
-    # BEGIN _build_graph_from_raw_xml
-    def _build_graph_from_raw_xml(
-        raw_xml: str, config_args: dict[str, Any]
-    ) -> DrawIOParserGraph:
-        metadata_prefixes, base_uri, csv_path, parsed_root = _extract_drawio_metadata(
-            raw_xml
-        )
-        prefixes = get_prefixes()
-        prefixes.update(metadata_prefixes)
-
-        working_xml = _strip_metadata_user_object(raw_xml, parsed_root)
-
-        ontology_iri = (
-            config_args["ontology_iri"] or get_ontology_iri()
-        )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
-        prefix = (
-            config_args["prefix"] or get_prefix()
-        )  # AICODE-NOTE: override via XML unsupported yet. Never delete this note. Signed off: human
-        prefix_iri = (
-            config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
-        )
-
-        serialisation_config = SerialisationConfig(
-            infer_type_of_literals=config_args["infer_type_of_literals"],
-            include_preamble=config_args["include_preamble"],
-            ontology_iri=ontology_iri,
-            prefix=prefix,
-            prefix_iri=prefix_iri,
-            indentation=config_args["indentation"],
-            include_label=config_args["include_label"],
-        )
-
-        space_substitute = _parse_space_substitute(
-            config_args["metacharacter_substitute"]
-        )
-        metacharacter_substitutes = list(
-            _parse_metacharacter_substitutes(config_args["metacharacter_substitute"])
-        )
-
-        _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
-
-        draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
-        blocks, object_properties, datatype_properties = individual_blocks(
-            draw_io_xml_tree.individuals_and_arrows(
-                config_args["strict_mode"], config_args["max_gap"]
-            ),
-            metacharacter_substitutes,
-            space_substitute,
-            config_args["capitalisation_scheme"],
-            prefixes,
-        )
-
-        graph = serialise_to_graph(
-            blocks,
-            object_properties,
-            datatype_properties,
-            serialisation_config,
-            prefixes,
-            graph_cls=DrawIOParserGraph,
-            graph_kwargs={"csv_path": csv_path},
-        )
-
-        if base_uri:
-            graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-        # ===== This was causing a very bad bug =====
-        # AICODE-NOTE: Never touch this commented out section. Signed off: human.
-        # The bug was that @base was misinterpreted at Turtle parsing later on,
-        # leading to corrupted relative IRIs.
-        # =====
-        #   graph.base = base_uri
-        # =====
-
-        return graph
-
-    # END _build_graph_from_raw_xml
-
-
-# ===== core.rdf.metadata =====
-
-
-class rdf_metadata_core:
-    pass
-
-
-# ===== core.rdf.data =====
-
-
-class rdf_data_core:
-    # BEGIN NotInKnownException
-    class NotInKnownException(Exception):
-        """
-        Can be thrown if an arrow has a label which does not correspond to an
-        object or datatype property in RiC-O, and if it has been specified that this
-        is not to be permitted
-        """
-
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END NotInKnownException
-    # BEGIN _MetacharacterSubstituteParseException
-    class _MetacharacterSubstituteParseException(Exception):
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END _MetacharacterSubstituteParseException
-    # BEGIN MetacharacterException
-    class MetacharacterException(Exception):
-        """
-        Can be thrown when calling the 'individual_blocks' function if an individual
-        has an identifier (the text in the upper half of an individual node)
-        containing an OWL metacharacter
-        """
-
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END MetacharacterException
-    # BEGIN _InvalidCapitalisationSchemeException
-    class _InvalidCapitalisationSchemeException(Exception):
-        def __init__(self, message: str) -> None:
-            super().__init__(message)
-
-    # END _InvalidCapitalisationSchemeException
-
-
-# ===== core.rdf.control =====
-
-
-class rdf_control_core:
-    # BEGIN DrawIOParserGraph
-    class DrawIOParserGraph(Graph):
-        """Graph subclass that records Draw.io specific metadata."""
-
-        def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.csv_path = csv_path
-
-    # END DrawIOParserGraph
-
-
-# ===== post.xml.metadata =====
-
-
-class xml_metadata_post:
-    pass
-
-
-# ===== post.xml.data =====
-
-
-class xml_data_post:
-    pass
-
-
-# ===== post.xml.control =====
-
-
-class xml_control_post:
-    pass
-
-
-# ===== post.internal.metadata =====
-
-
-class internal_metadata_post:
-    pass
-
-
-# ===== post.internal.data =====
-
-
-class internal_data_post:
-    # BEGIN DrawIOXMLTree.individuals_and_arrows
-    def individuals_and_arrows(
-        self, strict_mode: bool, max_gap: float
-    ) -> Generator[Individual | Arrow, None, None]:
-        """
-        Returns as a generator all Individual and Arrow instances obtained
-        when parsing the nodes and arrows of the draw.io XML graph fed into the
-        DrawIOXMLTree instance upon its construction
-        """
-        for _, individual, _ in self.individual_cells:
-            yield individual
-        for arrow_data in self.arrow_cells:
-            yield self._arrow(arrow_data, strict_mode, max_gap)
-
-    # END DrawIOXMLTree.individuals_and_arrows
-
-
-# ===== post.internal.control =====
-
-
-class internal_control_post:
     # BEGIN individual_blocks
     def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
@@ -20617,6 +20447,315 @@ class internal_control_post:
         return blocks, object_properties, datatype_properties
 
     # END individual_blocks
+    # BEGIN _build_graph_from_raw_xml
+    # override from rml_export.py
+    def _build_graph_from_raw_xml(
+        raw_xml: str, config_args: dict[str, Any]
+    ) -> DrawIOParserGraph:
+        metadata_prefixes, base_uri, csv_path, parsed_root = (
+            pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
+        )
+        prefixes = get_prefixes()
+        prefixes.update(metadata_prefixes)
+        working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
+            raw_xml, parsed_root
+        )
+        ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
+        prefix = config_args["prefix"] or get_prefix()
+        prefix_iri = (
+            config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+        )
+        serialisation_config = SerialisationConfig(
+            infer_type_of_literals=config_args["infer_type_of_literals"],
+            include_preamble=config_args["include_preamble"],
+            ontology_iri=ontology_iri,
+            prefix=prefix,
+            prefix_iri=prefix_iri,
+            indentation=config_args["indentation"],
+            include_label=config_args["include_label"],
+        )
+        space_substitute = internal_control_core._parse_space_substitute(
+            config_args["metacharacter_substitute"]
+        )
+        metacharacter_substitutes = list(
+            internal_control_core._parse_metacharacter_substitutes(
+                config_args["metacharacter_substitute"]
+            )
+        )
+        _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
+        draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
+        blocks, object_properties, datatype_properties = (
+            internal_control_core.individual_blocks(
+                draw_io_xml_tree.individuals_and_arrows(
+                    config_args["strict_mode"], config_args["max_gap"]
+                ),
+                metacharacter_substitutes,
+                space_substitute,
+                config_args["capitalisation_scheme"],
+                prefixes,
+            )
+        )
+        graph = serialise_to_graph(
+            blocks,
+            object_properties,
+            datatype_properties,
+            serialisation_config,
+            prefixes,
+            graph_cls=DrawIOParserGraph,
+            graph_kwargs={"csv_path": csv_path},
+        )
+        if base_uri:
+            graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
+
+        def _coerce_flag(value: Any) -> bool:
+            if isinstance(value, bool):
+                return value
+            if isinstance(value, str):
+                lowered = value.strip().lower()
+                if lowered in {"true", "1", "yes", "on"}:
+                    return True
+                if lowered in {"false", "0", "no", "off"}:
+                    return False
+            if value is None:
+                return False
+            return bool(value)
+
+        def _metadata_enables_rml(parsed: Element | None) -> bool:
+            if parsed is None:
+                return False
+            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
+            if metadata_node is None:
+                return False
+            flag = metadata_node.attrib.get("rmlEnabled")
+            if flag is None:
+                return False
+            return flag.strip().lower() in {"true", "1", "yes", "on"}
+
+        rml_from_config = False
+        if isinstance(config_args, dict):
+            rml_from_config = _coerce_flag(config_args.get("rml_enabled"))
+        if rml_from_config or _metadata_enables_rml(parsed_root):
+            rr = Namespace("http://www.w3.org/ns/r2rml#")
+            graph.namespace_manager.bind("rr", rr, replace=False)
+            from rdflib import BNode
+
+            graph.add((BNode(), RDF.type, rr.TriplesMap))
+        return graph
+
+    # END _build_graph_from_raw_xml
+
+
+# ===== core.rdf.metadata =====
+
+
+class rdf_metadata_core:
+    pass
+
+
+# ===== core.rdf.data =====
+
+
+class rdf_data_core:
+    # BEGIN NotInKnownException
+    class NotInKnownException(Exception):
+        """
+        Can be thrown if an arrow has a label which does not correspond to an
+        object or datatype property in RiC-O, and if it has been specified that this
+        is not to be permitted
+        """
+
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END NotInKnownException
+    # BEGIN _MetacharacterSubstituteParseException
+    class _MetacharacterSubstituteParseException(Exception):
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END _MetacharacterSubstituteParseException
+    # BEGIN MetacharacterException
+    class MetacharacterException(Exception):
+        """
+        Can be thrown when calling the 'individual_blocks' function if an individual
+        has an identifier (the text in the upper half of an individual node)
+        containing an OWL metacharacter
+        """
+
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END MetacharacterException
+    # BEGIN _InvalidCapitalisationSchemeException
+    class _InvalidCapitalisationSchemeException(Exception):
+        def __init__(self, message: str) -> None:
+            super().__init__(message)
+
+    # END _InvalidCapitalisationSchemeException
+
+
+# ===== core.rdf.control =====
+
+
+class rdf_control_core:
+    # BEGIN DrawIOParserGraph
+    class DrawIOParserGraph(Graph):
+        """Graph subclass that records Draw.io specific metadata."""
+
+        def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.csv_path = csv_path
+
+    # END DrawIOParserGraph
+    # BEGIN serialise_to_graph
+    def serialise_to_graph(
+        blocks: Blocks,
+        object_properties: set[str],
+        datatype_properties: set[str],
+        serialisation_config: SerialisationConfig,
+        prefixes: dict,
+        graph_cls: Type[Graph] = Graph,
+        graph_kwargs: Optional[Dict[str, Any]] = None,
+    ) -> Graph:
+        graph_kwargs = graph_kwargs or {}
+        g = graph_cls(**graph_kwargs)
+
+        # Bind prefixes
+        for prefix, uri in prefixes.items():
+            g.bind(prefix, Namespace(uri), replace=True)
+        if serialisation_config.prefix:
+            g.bind(
+                serialisation_config.prefix,
+                Namespace(
+                    serialisation_config.prefix_iri
+                    or get_prefix_iri(serialisation_config.ontology_iri)
+                ),
+            )
+
+        if serialisation_config.include_preamble:
+            # Add ontology definition
+            ontology_iri = serialisation_config.ontology_iri
+            if not ontology_iri:
+                ontology_iri = get_ontology_iri()
+            g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
+            g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
+
+        # Add property definitions
+        for prop in sorted(
+            prop for prop in object_properties if not prop.startswith("rico:")
+        ):
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            g.add((prop_uri, RDF.type, OWL.ObjectProperty))
+
+        for prop in sorted(
+            prop for prop in datatype_properties if not prop.startswith("rico:")
+        ):
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+
+        # Add individuals and their properties
+        for (individual_id, individual_label), types_and_facts in blocks.items():
+            prefix = serialisation_config.prefix
+            prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+                serialisation_config.ontology_iri
+            )
+            if prefix and prefix_iri:
+                individual_uri = Namespace(prefix_iri)[individual_id]
+            else:
+                # Fallback to a default base URI if no prefix is defined
+                base_uri = prefix_iri or get_prefix_iri(ontology_iri)
+                individual_uri = URIRef(f"{base_uri}{individual_id}")
+
+            g.add((individual_uri, RDF.type, OWL.NamedIndividual))
+
+            # Add types
+            for rdf_type in types_and_facts.get("Types", set()):
+                prefix, name = rdf_type.split(":")
+                g.add((individual_uri, RDF.type, Namespace(prefixes[prefix])[name]))
+
+            # Add label
+            if serialisation_config.include_label:
+                g.add((individual_uri, RDFS.label, Literal(individual_label)))
+
+            # Add facts
+            for prop, values in types_and_facts.items():
+                if prop == "Types":
+                    continue
+
+                prop_prefix, prop_name = prop.split(":")
+                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+
+                for value in values:
+                    if prop in object_properties:
+                        if prefix and prefix_iri:
+                            target_uri = Namespace(prefix_iri)[value]
+                        else:
+                            base_uri = prefix_iri or get_prefix_iri(ontology_iri)
+                            target_uri = URIRef(f"{base_uri}{value}")
+                        g.add((individual_uri, prop_uri, target_uri))
+                    elif prop in datatype_properties:
+                        # Simplified type inference
+                        if isinstance(value, int) or value.isnumeric():
+                            literal_value = Literal(value, datatype=XSD.integer)
+                        elif isinstance(value, float):
+                            literal_value = Literal(value, datatype=XSD.float)
+                        else:
+                            try:
+                                datetime.strptime(value, "%Y-%m-%d")
+                                literal_value = Literal(value, datatype=XSD.date)
+                            except (ValueError, TypeError):
+                                literal_value = Literal(value)
+                        g.add((individual_uri, prop_uri, literal_value))
+                    else:
+                        # Default to treating as a literal for safety
+                        g.add((individual_uri, prop_uri, Literal(value)))
+
+        return g
+
+    # END serialise_to_graph
+
+
+# ===== post.xml.metadata =====
+
+
+class xml_metadata_post:
+    pass
+
+
+# ===== post.xml.data =====
+
+
+class xml_data_post:
+    pass
+
+
+# ===== post.xml.control =====
+
+
+class xml_control_post:
+    pass
+
+
+# ===== post.internal.metadata =====
+
+
+class internal_metadata_post:
+    pass
+
+
+# ===== post.internal.data =====
+
+
+class internal_data_post:
+    pass
+
+
+# ===== post.internal.control =====
+
+
+class internal_control_post:
     # BEGIN parse_drawio_to_graph
     def parse_drawio_to_graph(drawio_file_path: str, **kwargs) -> DrawIOParserGraph:
         """
@@ -20740,114 +20879,7 @@ class rdf_data_post:
 
 
 class rdf_control_post:
-    # BEGIN serialise_to_graph
-    def serialise_to_graph(
-        blocks: Blocks,
-        object_properties: set[str],
-        datatype_properties: set[str],
-        serialisation_config: SerialisationConfig,
-        prefixes: dict,
-        graph_cls: Type[Graph] = Graph,
-        graph_kwargs: Optional[Dict[str, Any]] = None,
-    ) -> Graph:
-        graph_kwargs = graph_kwargs or {}
-        g = graph_cls(**graph_kwargs)
-
-        # Bind prefixes
-        for prefix, uri in prefixes.items():
-            g.bind(prefix, Namespace(uri), replace=True)
-        if serialisation_config.prefix:
-            g.bind(
-                serialisation_config.prefix,
-                Namespace(
-                    serialisation_config.prefix_iri
-                    or get_prefix_iri(serialisation_config.ontology_iri)
-                ),
-            )
-
-        if serialisation_config.include_preamble:
-            # Add ontology definition
-            ontology_iri = serialisation_config.ontology_iri
-            if not ontology_iri:
-                ontology_iri = get_ontology_iri()
-            g.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
-            g.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
-
-        # Add property definitions
-        for prop in sorted(
-            prop for prop in object_properties if not prop.startswith("rico:")
-        ):
-            prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-            g.add((prop_uri, RDF.type, OWL.ObjectProperty))
-
-        for prop in sorted(
-            prop for prop in datatype_properties if not prop.startswith("rico:")
-        ):
-            prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-            g.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-
-        # Add individuals and their properties
-        for (individual_id, individual_label), types_and_facts in blocks.items():
-            prefix = serialisation_config.prefix
-            prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-                serialisation_config.ontology_iri
-            )
-            if prefix and prefix_iri:
-                individual_uri = Namespace(prefix_iri)[individual_id]
-            else:
-                # Fallback to a default base URI if no prefix is defined
-                base_uri = prefix_iri or get_prefix_iri(ontology_iri)
-                individual_uri = URIRef(f"{base_uri}{individual_id}")
-
-            g.add((individual_uri, RDF.type, OWL.NamedIndividual))
-
-            # Add types
-            for rdf_type in types_and_facts.get("Types", set()):
-                prefix, name = rdf_type.split(":")
-                g.add((individual_uri, RDF.type, Namespace(prefixes[prefix])[name]))
-
-            # Add label
-            if serialisation_config.include_label:
-                g.add((individual_uri, RDFS.label, Literal(individual_label)))
-
-            # Add facts
-            for prop, values in types_and_facts.items():
-                if prop == "Types":
-                    continue
-
-                prop_prefix, prop_name = prop.split(":")
-                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-
-                for value in values:
-                    if prop in object_properties:
-                        if prefix and prefix_iri:
-                            target_uri = Namespace(prefix_iri)[value]
-                        else:
-                            base_uri = prefix_iri or get_prefix_iri(ontology_iri)
-                            target_uri = URIRef(f"{base_uri}{value}")
-                        g.add((individual_uri, prop_uri, target_uri))
-                    elif prop in datatype_properties:
-                        # Simplified type inference
-                        if isinstance(value, int) or value.isnumeric():
-                            literal_value = Literal(value, datatype=XSD.integer)
-                        elif isinstance(value, float):
-                            literal_value = Literal(value, datatype=XSD.float)
-                        else:
-                            try:
-                                datetime.strptime(value, "%Y-%m-%d")
-                                literal_value = Literal(value, datatype=XSD.date)
-                            except (ValueError, TypeError):
-                                literal_value = Literal(value)
-                        g.add((individual_uri, prop_uri, literal_value))
-                    else:
-                        # Default to treating as a literal for safety
-                        g.add((individual_uri, prop_uri, Literal(value)))
-
-        return g
-
-    # END serialise_to_graph
+    pass
 
 
 # ===== orchestrator =====
@@ -20929,6 +20961,7 @@ _defines_individual = xml_data_core._defines_individual
 _cell_is_literal = xml_data_core._cell_is_literal
 _source_or_target = xml_data_core._source_or_target
 _arrow = xml_data_core._arrow
+individuals_and_arrows = xml_data_core.individuals_and_arrows
 Individual = internal_data_core.Individual
 Arrow = internal_data_core.Arrow
 _split_curie = internal_data_core._split_curie
@@ -20943,6 +20976,7 @@ _parse_space_substitute = internal_control_core._parse_space_substitute
 _parse_metacharacter_substitutes = (
     internal_control_core._parse_metacharacter_substitutes
 )
+individual_blocks = internal_control_core.individual_blocks
 _build_graph_from_raw_xml = internal_control_core._build_graph_from_raw_xml
 NotInKnownException = rdf_data_core.NotInKnownException
 _MetacharacterSubstituteParseException = (
@@ -20953,12 +20987,10 @@ _InvalidCapitalisationSchemeException = (
     rdf_data_core._InvalidCapitalisationSchemeException
 )
 DrawIOParserGraph = rdf_control_core.DrawIOParserGraph
-individuals_and_arrows = internal_data_post.individuals_and_arrows
-individual_blocks = internal_control_post.individual_blocks
+serialise_to_graph = rdf_control_core.serialise_to_graph
 parse_drawio_to_graph = internal_control_post.parse_drawio_to_graph
 _run = internal_control_post._run
 main = internal_control_post.main
-serialise_to_graph = rdf_control_post.serialise_to_graph
 
 # ===== attach to nested namespaces =====
 setattr(
@@ -21107,6 +21139,11 @@ setattr(
 setattr(pipeline.core.xml.data, "_cell_is_literal", xml_data_core._cell_is_literal)
 setattr(pipeline.core.xml.data, "_source_or_target", xml_data_core._source_or_target)
 setattr(pipeline.core.xml.data, "_arrow", xml_data_core._arrow)
+setattr(
+    pipeline.core.xml.data,
+    "individuals_and_arrows",
+    xml_data_core.individuals_and_arrows,
+)
 setattr(pipeline.core.internal.data, "Individual", internal_data_core.Individual)
 setattr(pipeline.core.internal.data, "Arrow", internal_data_core.Arrow)
 setattr(pipeline.core.internal.data, "_split_curie", internal_data_core._split_curie)
@@ -21147,6 +21184,11 @@ setattr(
 )
 setattr(
     pipeline.core.internal.control,
+    "individual_blocks",
+    internal_control_core.individual_blocks,
+)
+setattr(
+    pipeline.core.internal.control,
     "_build_graph_from_raw_xml",
     internal_control_core._build_graph_from_raw_xml,
 )
@@ -21172,14 +21214,7 @@ setattr(
     pipeline.core.rdf.control, "DrawIOParserGraph", rdf_control_core.DrawIOParserGraph
 )
 setattr(
-    pipeline.post.internal.data,
-    "individuals_and_arrows",
-    internal_data_post.individuals_and_arrows,
-)
-setattr(
-    pipeline.post.internal.control,
-    "individual_blocks",
-    internal_control_post.individual_blocks,
+    pipeline.core.rdf.control, "serialise_to_graph", rdf_control_core.serialise_to_graph
 )
 setattr(
     pipeline.post.internal.control,
@@ -21188,9 +21223,6 @@ setattr(
 )
 setattr(pipeline.post.internal.control, "_run", internal_control_post._run)
 setattr(pipeline.post.internal.control, "main", internal_control_post.main)
-setattr(
-    pipeline.post.rdf.control, "serialise_to_graph", rdf_control_post.serialise_to_graph
-)
 setattr(DrawIOXMLTree, "_geometry", staticmethod(_geometry))
 setattr(DrawIOXMLTree, "_x_and_y_in_geometry", staticmethod(_x_and_y_in_geometry))
 setattr(
@@ -21288,6 +21320,7 @@ def _default_parser_config() -> dict[str, Any]:
         "strict_mode": False,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
+        "rml_enabled": False,
     }
 
 
@@ -21399,6 +21432,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             str,
         ):
             config["capitalisation_scheme"] = overrides["capitalisation_scheme"]
+        if "rml_enabled" in overrides:
+            config["rml_enabled"] = _coerce_bool(
+                overrides["rml_enabled"],
+                config["rml_enabled"],
+            )
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]
@@ -21848,6 +21886,7 @@ var PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE = "data-rdfexport-parser-metachar-
 var PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE = "data-rdfexport-parser-metachar-add";
 var PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 var PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
+var RML_ENABLED_ATTRIBUTE = "rmlEnabled";
 var DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 var DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
 var DRAWIO_PARSER_DEFAULT_CAPITALISATION = "upper-camel";
@@ -22046,7 +22085,8 @@ function buildParserConfigPayloadFromSettings(settings) {
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
     metacharacter_substitute: substitutes,
-    capitalisation_scheme: normalized.capitalisationScheme
+    capitalisation_scheme: normalized.capitalisationScheme,
+    rml_enabled: false
   };
 }
 function extractValueElement(model, rootCell) {
@@ -22135,6 +22175,36 @@ function resolveLabel(key, fallback) {
     }
   } catch (error) {}
   return fallback;
+}
+function findRootMetadataNode(graphXml) {
+  if (typeof graphXml.getElementsByTagName !== "function") {
+    return null;
+  }
+  const metadataNodes = graphXml.getElementsByTagName("UserObject");
+  for (let index = 0;index < metadataNodes.length; index += 1) {
+    const node = metadataNodes.item(index);
+    if (node?.getAttribute("id") === "0") {
+      return node;
+    }
+  }
+  return null;
+}
+function applyRmlEnabledMetadata(graphXml, enabled) {
+  const metadataNode = findRootMetadataNode(graphXml);
+  if (!metadataNode) {
+    return;
+  }
+  if (enabled) {
+    metadataNode.setAttribute(RML_ENABLED_ATTRIBUTE, "true");
+  } else {
+    metadataNode.removeAttribute(RML_ENABLED_ATTRIBUTE);
+  }
+}
+function cloneGraphXml(graphXml) {
+  if (typeof graphXml.cloneNode === "function") {
+    return graphXml.cloneNode(true);
+  }
+  return graphXml;
 }
 function installCsvPathProperty() {
   if (csvPropertyPatched) {
@@ -23194,15 +23264,21 @@ function createPreambleDialog(editorUi, model, rootCell, labels) {
 installCsvPathProperty();
 Draw.loadPlugin(function(editorUi) {
   installCsvPathProperty();
-  function serializeDiagramXml(ui) {
+  function serializeDiagramXml(ui, options) {
     const graphXml = ui.editor.getGraphXml();
-    return mxUtils.getPrettyXml(graphXml);
+    const workingGraphXml = cloneGraphXml(graphXml);
+    const rmlEnabled = options?.rmlEnabled === true;
+    applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
+    return mxUtils.getPrettyXml(workingGraphXml);
   }
-  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
+  mxResources.parse(`exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...
+` + "exportRml=GBAD: Export as RML (.ttl)...");
   editorUi.actions.addAction("exportRdfXml", async function() {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
     try {
-      const serializedXml = serializeDiagramXml(editorUi);
+      const serializedXml = serializeDiagramXml(editorUi, {
+        rmlEnabled: false
+      });
       logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters)`);
       const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
       const blackBoxPayload = await runDrawioPipeline(serializedXml, parserConfig);
@@ -23215,12 +23291,32 @@ Draw.loadPlugin(function(editorUi) {
       editorUi.handleError(e);
     }
   });
+  editorUi.actions.addAction("exportRml", async function() {
+    logInfo(LOG_PREFIX.PIPELINE, "exportRml action invoked");
+    try {
+      const serializedXml = serializeDiagramXml(editorUi, { rmlEnabled: true });
+      logInfo(LOG_PREFIX.PIPELINE, `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`);
+      const parserConfig = buildParserConfigPayloadFromGraph(editorUi?.editor?.graph ?? null);
+      const rmlConfig = {
+        ...parserConfig,
+        rml_enabled: true
+      };
+      const blackBoxPayload = await runDrawioPipeline(serializedXml, rmlConfig);
+      const filename = editorUi.getBaseFilename() + ".rml.ttl";
+      logInfo(LOG_PREFIX.PIPELINE, `Saving RML export payload to ${filename}`);
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
+      logInfo(LOG_PREFIX.PIPELINE, `Export pipeline completed for ${filename} (RML mode)`);
+    } catch (e) {
+      logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);
+      editorUi.handleError(e);
+    }
+  });
   const exportMenu = editorUi.menus.get("exportAs");
   if (exportMenu != null) {
     const oldFunct = exportMenu.funct;
     exportMenu.funct = function(menu, parent) {
       oldFunct.call(this, menu, parent);
-      editorUi.menus.addMenuItems(menu, ["-", "exportRdfXml"], parent);
+      editorUi.menus.addMenuItems(menu, ["-", "exportRdfXml", "exportRml"], parent);
     };
   }
 });
