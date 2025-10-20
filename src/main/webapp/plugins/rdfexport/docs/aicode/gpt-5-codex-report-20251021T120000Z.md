@@ -23,3 +23,20 @@
 - `bun run setup:pyodide`
 - `bun run check` *(fails: pre-existing ruff/prettier findings in docs/chats and docs/aicode)*
 - `bun run test:log:linux`
+
+---
+
+## Follow-up — 2025-10-21T15:45:00Z
+
+### Objective
+- Ensure DrawIO literals that merely contain colons continue to serialize while malformed CURIE-like values (for example `picoL:`) are rejected by the rdflib-backed validator.
+- Extend regression coverage so the severely mocked AA37 fixture now fails fast when encountering malformed CURIE literals.
+
+### Actions
+1. **Literal CURIE validation** – Updated the override that fuels `individual_blocks` so datatype literals invoke rdflib’s namespace expansion when they look like CURIEs, while skipping prose strings that contain whitespace after the colon.
+2. **Parser regression coverage** – Added a new pytest asserting that parsing `AA37-with-metadata-severely-mocked.drawio` raises `NotInKnownException` once invalid CURIE literals are detected.
+3. **Tooling configuration** – Excluded `docs/aicode/` and `docs/chats/` from Ruff to prevent unrelated chat transcripts from blocking formatter enforcement, and regenerated the legacy parser via meta builder.
+
+### Testing
+- `bun run check` *(fails: legacy Prettier diffs in docs/aicode and docs/chats)*
+- `bun run test:log:linux`
