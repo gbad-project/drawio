@@ -176,7 +176,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health\u00a0Authority Record",
           "raw_value": "rico:Record",
-          "tokens": ["rico:Record"]
+          "tokens": [
+            "rico:Record"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-31": {
           "identifier": null,
@@ -218,7 +220,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record",
           "raw_value": "rico:DocumentaryFormType",
-          "tokens": ["rico:DocumentaryFormType"]
+          "tokens": [
+            "rico:DocumentaryFormType"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-37": {
           "identifier": null,
@@ -246,7 +250,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Rules for Archival Description",
           "raw_value": "rico:Rule",
-          "tokens": ["rico:Rule"]
+          "tokens": [
+            "rico:Rule"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-41": {
           "identifier": null,
@@ -274,7 +280,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record Creation",
           "raw_value": "rico:Activity",
-          "tokens": ["rico:Activity"]
+          "tokens": [
+            "rico:Activity"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-45": {
           "identifier": null,
@@ -302,7 +310,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "R. Anger",
           "raw_value": "rico:Person",
-          "tokens": ["rico:Person"]
+          "tokens": [
+            "rico:Person"
+          ]
         },
         "I4bDPw6PqqAUihyiD4HI-1": {
           "identifier": null,
@@ -372,7 +382,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": ["rico:CorporateBody"]
+          "tokens": [
+            "rico:CorporateBody"
+          ]
         },
         "Tc_GIQojTk6pTu17JZoE-23": {
           "identifier": null,
@@ -386,7 +398,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Provincial Board of Health of Ontario",
           "raw_value": "rico:CorporateBody",
-          "tokens": ["rico:CorporateBody"]
+          "tokens": [
+            "rico:CorporateBody"
+          ]
         },
         "_-RjwaxhbeTWfwVWe4ke-13": {
           "identifier": null,
@@ -442,7 +456,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "AA37",
           "raw_value": "rico:Identifier",
-          "tokens": ["rico:Identifier"]
+          "tokens": [
+            "rico:Identifier"
+          ]
         },
         "gmwnegnUR_CNORKRYM6Y-16": {
           "identifier": null,
@@ -484,7 +500,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Agent Identifier",
           "raw_value": "rico:IdentifierType",
-          "tokens": ["rico:IdentifierType"]
+          "tokens": [
+            "rico:IdentifierType"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-1": {
           "identifier": null,
@@ -512,7 +530,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1924",
           "raw_value": "rico:Date",
-          "tokens": ["rico:Date"]
+          "tokens": [
+            "rico:Date"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-17": {
           "identifier": null,
@@ -540,14 +560,18 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:AgentName",
-          "tokens": ["rico:AgentName"]
+          "tokens": [
+            "rico:AgentName"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-20": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1972",
           "raw_value": "rico:Date",
-          "tokens": ["rico:Date"]
+          "tokens": [
+            "rico:Date"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-3": {
           "identifier": null,
@@ -575,7 +599,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "A Ontario Government Name",
           "raw_value": "rico:CorporateBodyType",
-          "tokens": ["rico:CorporateBodyType"]
+          "tokens": [
+            "rico:CorporateBodyType"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-7": {
           "identifier": null,
@@ -638,7 +664,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Web Ready: Y",
           "raw_value": "rico:RecordState",
-          "tokens": ["rico:RecordState"]
+          "tokens": [
+            "rico:RecordState"
+          ]
         },
         "lTHjRTAcClQ9bYR0I0Gv-13": {
           "identifier": null,
@@ -652,7 +680,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Status: Approved",
           "raw_value": "rico:RecordState",
-          "tokens": ["rico:RecordState"]
+          "tokens": [
+            "rico:RecordState"
+          ]
         },
         "lTHjRTAcClQ9bYR0I0Gv-15": {
           "identifier": null,
@@ -687,7 +717,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
           "raw_value": "rico:Mandate",
-          "tokens": ["rico:Mandate"]
+          "tokens": [
+            "rico:Mandate"
+          ]
         },
         "ysJAvTtuVAxGOwe6Rh7X-3": {
           "identifier": null,
@@ -715,7 +747,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Ministry of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": ["rico:CorporateBody"]
+          "tokens": [
+            "rico:CorporateBody"
+          ]
         },
         "ysJAvTtuVAxGOwe6Rh7X-7": {
           "identifier": null,
@@ -857,14 +891,18 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "List pnnpni",
           "raw_value": "rico:Item%201",
-          "tokens": ["rico:Item%201"]
+          "tokens": [
+            "rico:Item%201"
+          ]
         },
         "EUA9VVVl7iRi0US9AbU_-4": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "List pnnpni",
           "raw_value": "rdf:Item%202",
-          "tokens": ["rdf:Item%202"]
+          "tokens": [
+            "rdf:Item%202"
+          ]
         },
         "EUA9VVVl7iRi0US9AbU_-5": {
           "identifier": null,
@@ -955,7 +993,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record",
           "raw_value": "rico:DocumentaryFormType",
-          "tokens": ["rico:DocumentaryFormType"]
+          "tokens": [
+            "rico:DocumentaryFormType"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-37": {
           "identifier": null,
@@ -983,7 +1023,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Rules for Archival Description",
           "raw_value": "rico:Rule",
-          "tokens": ["rico:Rule"]
+          "tokens": [
+            "rico:Rule"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-41": {
           "identifier": null,
@@ -1011,7 +1053,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record Creation",
           "raw_value": "rico:Activity",
-          "tokens": ["rico:Activity"]
+          "tokens": [
+            "rico:Activity"
+          ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-45": {
           "identifier": null,
@@ -1039,7 +1083,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "R. Anger",
           "raw_value": "rico:Person",
-          "tokens": ["rico:Person"]
+          "tokens": [
+            "rico:Person"
+          ]
         },
         "I4bDPw6PqqAUihyiD4HI-1": {
           "identifier": null,
@@ -1109,7 +1155,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": ["rico:CorporateBody"]
+          "tokens": [
+            "rico:CorporateBody"
+          ]
         },
         "Tc_GIQojTk6pTu17JZoE-23": {
           "identifier": null,
@@ -1123,7 +1171,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Provincial Board of Health of Ontario",
           "raw_value": "rico:CorporateBody",
-          "tokens": ["rico:CorporateBody"]
+          "tokens": [
+            "rico:CorporateBody"
+          ]
         },
         "_-RjwaxhbeTWfwVWe4ke-13": {
           "identifier": null,
@@ -1179,7 +1229,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "AA37",
           "raw_value": "rico:Identifier",
-          "tokens": ["rico:Identifier"]
+          "tokens": [
+            "rico:Identifier"
+          ]
         },
         "gmwnegnUR_CNORKRYM6Y-16": {
           "identifier": null,
@@ -1221,7 +1273,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Agent Identifier",
           "raw_value": "rico:IdentifierType",
-          "tokens": ["rico:IdentifierType"]
+          "tokens": [
+            "rico:IdentifierType"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-1": {
           "identifier": null,
@@ -1249,7 +1303,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1924",
           "raw_value": "rico:Date",
-          "tokens": ["rico:Date"]
+          "tokens": [
+            "rico:Date"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-17": {
           "identifier": null,
@@ -1277,14 +1333,18 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:AgentName",
-          "tokens": ["rico:AgentName"]
+          "tokens": [
+            "rico:AgentName"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-20": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1972",
           "raw_value": "rico:Date",
-          "tokens": ["rico:Date"]
+          "tokens": [
+            "rico:Date"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-3": {
           "identifier": null,
@@ -1312,7 +1372,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "A Ontario Government Name",
           "raw_value": "rico:CorporateBodyType",
-          "tokens": ["rico:CorporateBodyType"]
+          "tokens": [
+            "rico:CorporateBodyType"
+          ]
         },
         "iiJ8OJKaNMLrSCaLO3TT-7": {
           "identifier": null,
@@ -1375,7 +1437,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Web Ready: Y",
           "raw_value": "rico:RecordState",
-          "tokens": ["rico:RecordState"]
+          "tokens": [
+            "rico:RecordState"
+          ]
         },
         "lTHjRTAcClQ9bYR0I0Gv-13": {
           "identifier": "https://example.com",
@@ -1424,7 +1488,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
           "raw_value": "rico:Mandate",
-          "tokens": ["rico:Mandate"]
+          "tokens": [
+            "rico:Mandate"
+          ]
         },
         "ysJAvTtuVAxGOwe6Rh7X-3": {
           "identifier": null,
@@ -1452,7 +1518,9 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Ministry of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": ["rico:CorporateBody"]
+          "tokens": [
+            "rico:CorporateBody"
+          ]
         },
         "ysJAvTtuVAxGOwe6Rh7X-7": {
           "identifier": null,
@@ -1478,11 +1546,11 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23091976,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23091976,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19778288,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23091976,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2146, in _build_graph_from_raw_xml\n    raise NotInKnownException(\n        f\"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes.\"\n    )\ndraw_io_parser.rdf_data_core.NotInKnownException: The node 'Ontario. Dept. of Health\u00a0Authority Record' declares rdf:type 'lol:individual', whose prefix 'lol' is not defined by the available prefixes.\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23091976,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
