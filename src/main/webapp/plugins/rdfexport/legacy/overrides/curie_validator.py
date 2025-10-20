@@ -1,11 +1,23 @@
 from __future__ import annotations
 
-from rdflib import Graph
+from rdflib import BNode, Graph
+from rdflib.namespace import SKOS
+from xml.etree.ElementTree import Element
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
 from meta_builder.drawio_meta_builder import override
 
 # ruff: noqa: F403, F405
+
+from legacy.overrides.node_classifier import (
+    DrawIONodeClassifier,
+    LiteralInfo,
+    NodeClassification,
+    NodeKind,
+)
+
+
+_LITERAL_REGISTRY_ATTR = "__drawio_literal_registry"
 
 
 @override(phase="core", type="internal", role="data")
@@ -62,6 +74,13 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
     except IndexError as key_error:
         raise NothingToParseException from key_error
 
+    classifier = DrawIONodeClassifier(prefixes)
+    node_classifications: dict[Element, NodeClassification] = {}
+    literal_registry: dict[Element, LiteralInfo] = {}
+    setattr(self, "_node_classifications", node_classifications)
+    setattr(self, "_literal_registry", literal_registry)
+    setattr(pipeline.core.internal.data, _LITERAL_REGISTRY_ATTR, literal_registry)
+
     for cell in self.draw_io_xml_tree[0][0][0]:
         if cell.tag != "mxCell":
             raise ParseException(
@@ -78,99 +97,179 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
             self._add_arrow_if_find_label(cell)
             continue
 
-        raw_value = cell_value.strip()
-        has_separator = ":" in raw_value
-        prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
-        remainder = raw_value.split(":", 1)[1] if has_separator else ""
-        is_literal_candidate = self._is_possible_literal(cell)
-        parent_id = cell.attrib.get("parent")
-        has_parent_box = parent_id not in {None, "1"}
-
-        if is_literal_candidate and not has_parent_box:
-            self.literal_cells.append((cell, self._dimensions(cell)))
+        classification = classifier.classify(cell, cell_value, self)
+        if classification is None:
             continue
 
-        try:
-            parent = self._parent_of(cell)
-            individual_identifier = self._value_of(parent)
-        except _NoValueException:
-            try:
-                arrow_data = (
-                    cell,
-                    self._arrow_start(cell),
-                    self._arrow_end(cell),
-                    cell.attrib["value"],
-                )
-                self.arrow_cells.append(arrow_data)
-            except _NoValueException:
-                pass
-            continue
-
-        if not individual_identifier:
-            continue
-
-        if not has_separator:
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    "without a CURIE prefix separator."
-                )
-            )
-
-        if not prefix_head:
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    f"'{raw_value}', but no prefix was provided before the ':' separator."
-                )
-            )
-
-        if not remainder.strip():
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    f"'{raw_value}', but no reference portion was provided after the prefix."
-                )
-            )
-
-        if prefix_head not in prefixes.keys():
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares rdf:type "
-                    f"'{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
-                )
-            )
-
-        dimensions = self._dimensions(parent)
-        seen_classes: set[str] = set()
-        had_tokens = False
-        for token in raw_value.replace(",", " ").replace(";", " ").split():
-            candidate = token.strip()
-            if not candidate:
-                continue
-            had_tokens = True
-            if candidate in seen_classes:
+        if classification.kind == NodeKind.TYPED_INDIVIDUAL:
+            node_classifications[cell] = classification
+            parent = classification.parent_cell
+            if parent is None:
                 continue
             try:
-                _verify_is_ric_class(candidate, prefixes)
-            except NotInKnownException as exc:
+                dimensions = self._dimensions(parent)
+            except ParseException:
+                continue
+            seen_classes: set[str] = set()
+            if not classification.types:
                 raise NotInKnownException(
                     (
-                        f"The node '{individual_identifier}' declares rdf:type "
-                        f"'{candidate}', which is not defined by the available prefixes."
+                        f"The node '{classification.identifier}' declares an rdf:type value "
+                        "but no CURIE tokens could be parsed."
                     )
-                ) from exc
-            seen_classes.add(candidate)
-            individual = Individual(individual_identifier, candidate)
-            self.individual_cells.append((cell, individual, dimensions))
-
-        if not had_tokens:
-            raise NotInKnownException(
-                (
-                    f"The node '{individual_identifier}' declares an rdf:type value "
-                    "but no CURIE tokens could be parsed."
                 )
-            )
+            for candidate in classification.types:
+                if candidate in seen_classes:
+                    continue
+                seen_classes.add(candidate)
+                try:
+                    _verify_is_ric_class(candidate, prefixes)
+                except NotInKnownException as exc:
+                    raise NotInKnownException(
+                        (
+                            f"The node '{classification.identifier}' declares rdf:type "
+                            f"'{candidate}', which is not defined by the available prefixes."
+                        )
+                    ) from exc
+                individual = Individual(classification.identifier, candidate)
+                self.individual_cells.append((cell, individual, dimensions))
+            continue
+
+        if classification.kind == NodeKind.INDIVIDUAL:
+            node_classifications[cell] = classification
+            try:
+                dimensions = self._dimensions(cell)
+            except ParseException:
+                continue
+            individual = Individual(classification.identifier, None)
+            self.individual_cells.append((cell, individual, dimensions))
+            continue
+
+        if classification.kind == NodeKind.LITERAL:
+            if not self._is_possible_literal(cell):
+                continue
+            try:
+                dimensions = self._dimensions(cell)
+            except ParseException:
+                continue
+            node_classifications[cell] = classification
+            literal_registry[cell] = LiteralInfo(classification.literal or "")
+            self.literal_cells.append((cell, dimensions))
+
+
+@override(phase="core", type="xml", role="data")
+def _source_or_target(
+    self, source_or_target_cell: Element, must_be_individual: bool
+) -> str:
+    node_classifications = getattr(self, "_node_classifications", {})
+    classification = node_classifications.get(source_or_target_cell)
+    if classification:
+        if classification.kind == NodeKind.LITERAL:
+            if must_be_individual:
+                raise _SourceNotIndividualException
+            return classification.literal or self._value_of(source_or_target_cell)
+        identifier = classification.identifier
+        if identifier:
+            if must_be_individual and not self._defines_individual(identifier):
+                raise _SourceNotIndividualException
+            return identifier
+
+    try:
+        value = self._value_of(source_or_target_cell)
+    except (_NoValueException, KeyError) as exc:
+        raise _NoValueException from exc
+
+    if value.split(":")[0] in self.prefixes.keys():
+        parent = self._parent_of(source_or_target_cell)
+        identifier = self._value_of(parent)
+        if must_be_individual and not self._defines_individual(identifier):
+            raise _SourceNotIndividualException
+        return identifier
+
+    if must_be_individual and (not self._defines_individual(value)):
+        raise _SourceNotIndividualException
+
+    return value
+
+
+@override(phase="core", type="xml", role="data")
+def _arrow(self, arrow_data: ArrowData, strict_mode: bool, max_gap: float) -> Arrow:
+    arrow_cell, arrow_start, arrow_end, arrow_label = arrow_data
+
+    try:
+        source_cell = self._cell_with_id(arrow_cell.attrib["source"])
+    except KeyError as key_error:
+        if strict_mode or arrow_start is None:
+            raise NoSourceException(
+                "The mxCell element with label "
+                f"'{arrow_label}' and id {arrow_cell.attrib['id']} seems to be an arrow, but its source was not able to be determined"
+            ) from key_error
+        try:
+            source_cell = self._cell_close_to(arrow_start, max_gap)
+        except _NoCellCloseEnoughException as not_close_enough_exception:
+            raise NoSourceException(
+                "The mxCell element with label "
+                f"'{arrow_label}' and id {arrow_cell.attrib['id']} seems to be an arrow, but its source was not able to be determined"
+            ) from not_close_enough_exception
+
+    try:
+        source = self._source_or_target(source_cell, True)
+    except _SourceNotIndividualException as exception:
+        raise ArrowWithoutIndividualAsSourceException(
+            f"The arrow with id {arrow_cell.attrib['id']} and label {arrow_label} has a source which appears not to be a node defining a RiC-O individual"
+        ) from exception
+
+    try:
+        target_cell = self._cell_with_id(arrow_cell.attrib["target"])
+    except KeyError as key_error:
+        if strict_mode or arrow_end is None:
+            raise NoSourceException(
+                "The mxCell element with label "
+                f"'{arrow_label}' and id {arrow_cell.attrib['id']} seems to be an arrow, but its target was not able to be determined"
+            ) from key_error
+        try:
+            target_cell = self._cell_close_to(arrow_end, max_gap)
+        except _NoCellCloseEnoughException as not_close_enough_exception:
+            raise NoSourceException(
+                "The mxCell element with label "
+                f"'{arrow_label}' and id {arrow_cell.attrib['id']} seems to be an arrow, but its target was not able to be determined"
+            ) from not_close_enough_exception
+
+    target = self._source_or_target(target_cell, False)
+
+    is_datatype = self._cell_is_literal(target_cell)
+    if not is_datatype and (not self._defines_individual(target)):
+        is_datatype = True
+
+    arrow = Arrow(str(arrow_label).strip(), source, target, is_datatype)
+
+    if is_datatype:
+        literal_registry = getattr(self, "_literal_registry", {})
+        info = literal_registry.get(target_cell)
+        if info is not None:
+            info.connected = True
+
+    return arrow
+
+
+@override(phase="core", type="internal", role="control")
+def _add_individual_type(
+    blocks: Blocks,
+    individual: Individual,
+    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+    space_substitute: Replacement | None,
+    capitalisation_scheme: str,
+) -> None:
+    individual_id = _replace_metacharacters(
+        individual.identifier,
+        metacharacter_substitutes,
+        space_substitute,
+        capitalisation_scheme,
+    )
+    block = blocks.setdefault((individual_id, individual.identifier), {})
+    types = block.setdefault("Types", set())
+    if individual.ric_class:
+        types.add(individual.ric_class)
 
 
 @override(phase="core", type="internal", role="control")
@@ -372,5 +471,29 @@ def serialise_to_graph(
                         except (ValueError, TypeError):
                             literal_value = Literal(value)
                     graph.add((individual_uri, prop_uri, literal_value))
+
+    literal_registry = getattr(
+        pipeline.core.internal.data, _LITERAL_REGISTRY_ATTR, None
+    )
+    decorations: list[str] = []
+    if isinstance(literal_registry, dict):
+        decorations = [
+            info.value
+            for info in literal_registry.values()
+            if isinstance(info, LiteralInfo) and info.value and not info.connected
+        ]
+
+    if decorations:
+        graph.bind("skos", SKOS, replace=False)
+        note_subject = (
+            URIRef(serialisation_config.ontology_iri)
+            if serialisation_config.ontology_iri
+            else BNode()
+        )
+        for note in dict.fromkeys(decorations):
+            graph.add((note_subject, SKOS.note, Literal(note)))
+
+    if hasattr(pipeline.core.internal.data, _LITERAL_REGISTRY_ATTR):
+        delattr(pipeline.core.internal.data, _LITERAL_REGISTRY_ATTR)
 
     return graph

@@ -1,3 +1,7 @@
+14-FEB-2025: Unreleased
+
+- [rdfexport] Centralises DrawIO node classification with shared validation logic and SKOS decorations.
+
 25-JUL-2024: 24.7.5
 
 - [conf cloud] Applies link adjustment configuration to diagram editor [DID-12118]
