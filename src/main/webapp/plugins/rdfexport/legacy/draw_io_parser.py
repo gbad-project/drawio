@@ -68,15 +68,7 @@ class pipeline:
                 pass
 
             class control:
-                # BEGIN override curie_validator.py._split_curie_old
-                def _split_curie_old(curie: str) -> tuple[str, str]:
-                    """This actually is a new override despite _old suffix."""
-                    if ":" not in curie:
-                        return ("", "")
-                    prefix, remainder = curie.split(":", 1)
-                    return (prefix, remainder.strip())
-
-                # END override curie_validator.py._split_curie_old
+                pass
 
         class rdf:
             class metadata:
@@ -1518,20 +1510,42 @@ class internal_data_core:
     # BEGIN _split_curie
     # override from curie_validator.py
     def _split_curie(curie: str) -> tuple[str, str]:
-        """
-        "[curie_validator] logic from original _split_curie method was manually copied and pasted into a new method, and then the old one was overriden with new; end result same except for this message that was added in override of old with new and will be displayed everywhere the old one was being used. additionally, the new override was placed under a different pipeline namespace class (i.e., control role rather than data) to show the flexibility."
-        """
-        return pipeline.core.internal.control._split_curie_old(curie)
+        active_attr = "__curie_validator_active_prefixes"
+        prefixes = getattr(pipeline.core.internal.data, active_attr, None)
+        manager = Graph().namespace_manager
+        if isinstance(prefixes, dict):
+            for prefix, iri in prefixes.items():
+                manager.bind(prefix, iri, replace=True)
+        if ":" not in curie:
+            raise ValueError(f"CURIE '{curie}' must include a prefix separator")
+        prefix, remainder = curie.split(":", 1)
+        remainder = remainder.strip()
+        try:
+            manager.expand_curie(curie)
+        except Exception as exc:
+            raise ValueError(f"Failed to expand CURIE '{curie}'") from exc
+        if not remainder:
+            raise ValueError(f"CURIE '{curie}' is missing a reference component")
+        return (prefix, remainder)
 
     # END _split_curie
     # BEGIN _ensure_known_curie
+    # override from curie_validator.py
     def _ensure_known_curie(
         curie: str, prefixes: dict[str, str], error_message: str
     ) -> tuple[str, str]:
-        prefix, reference = _split_curie(curie)
-        if prefix not in prefixes or not reference:
+        active_attr = "__curie_validator_active_prefixes"
+        setattr(pipeline.core.internal.data, active_attr, prefixes)
+        try:
+            prefix, reference = _split_curie(curie)
+        except ValueError as exc:
+            raise NotInKnownException(error_message) from exc
+        finally:
+            if hasattr(pipeline.core.internal.data, active_attr):
+                delattr(pipeline.core.internal.data, active_attr)
+        if prefix not in prefixes:
             raise NotInKnownException(error_message)
-        return prefix, reference
+        return (prefix, reference)
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
@@ -1666,6 +1680,7 @@ class internal_control_core:
 
     # END _parse_metacharacter_substitutes
     # BEGIN individual_blocks
+    # override from curie_validator.py
     def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
@@ -1673,15 +1688,6 @@ class internal_control_core:
         capitalisation_scheme: str,
         prefixes: dict[str, str],
     ) -> tuple[Blocks, set[str], set[str]]:
-        """
-        Takes an iterator of Individual and Arrow instances, such as that outputted
-        by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
-        assembles them into adictionary whose keys are individual IRIs. The value
-        for a given key is itself a dictionary, collecting together the facts and
-        types for that individual IRI which were defined by some Individual or Arrow
-        instance in the iterator (the individual IRI may occur many times in
-        Individual instances with differing values for the 'class' variable).
-        """
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
@@ -1698,14 +1704,38 @@ class internal_control_core:
             _ensure_known_curie(
                 individual_or_arrow.identifier,
                 prefixes,
-                (
-                    f"An arrow has label '{individual_or_arrow.identifier}', "
-                    "which is not a known object property or datatype property"
-                ),
+                f"An arrow has label '{individual_or_arrow.identifier}', which is not a known object property or datatype property",
             )
             if individual_or_arrow.is_datatype:
                 datatype_properties.add(individual_or_arrow.identifier)
                 target_identifier = individual_or_arrow.target
+                literal_candidate = target_identifier.strip()
+                if (
+                    ":" in literal_candidate
+                    and "://" not in literal_candidate
+                    and literal_candidate
+                ):
+                    prefix, reference = literal_candidate.split(":", 1)
+                    if (
+                        prefix
+                        and (prefix[0].isalpha() or prefix[0] == "_")
+                        and all((ch.isalnum() or ch in "._-" for ch in prefix[1:]))
+                        and (
+                            not (
+                                reference
+                                and any((char.isspace() for char in reference))
+                            )
+                        )
+                    ):
+                        manager = Graph().namespace_manager
+                        for known_prefix, iri in prefixes.items():
+                            manager.bind(known_prefix, iri, replace=True)
+                        try:
+                            manager.expand_curie(literal_candidate)
+                        except Exception as exc:
+                            raise NotInKnownException(
+                                f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
+                            ) from exc
             else:
                 object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
@@ -1721,9 +1751,9 @@ class internal_control_core:
                 capitalisation_scheme,
             )
             try:
-                block = blocks[(source_identifier, individual_or_arrow.source)]
+                block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
-                blocks[(source_identifier, individual_or_arrow.source)] = {
+                blocks[source_identifier, individual_or_arrow.source] = {
                     individual_or_arrow.identifier: {target_identifier}
                 }
                 continue
@@ -1731,7 +1761,7 @@ class internal_control_core:
                 block[individual_or_arrow.identifier].add(target_identifier)
             except KeyError:
                 block[individual_or_arrow.identifier] = {target_identifier}
-        return blocks, object_properties, datatype_properties
+        return (blocks, object_properties, datatype_properties)
 
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml

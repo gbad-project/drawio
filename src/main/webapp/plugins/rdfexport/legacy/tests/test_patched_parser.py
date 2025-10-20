@@ -199,6 +199,16 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert graph.base is None
 
 
+def test_parse_drawio_rejects_unknown_literal_curie():
+    fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
+
+    with pytest.raises(draw_io_parser.NotInKnownException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
