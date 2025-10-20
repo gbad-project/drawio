@@ -1227,14 +1227,43 @@ class xml_data_core:
 
     # END DrawIOXMLTree._dimensions
     # BEGIN DrawIOXMLTree._is_possible_literal
-    @staticmethod
+    # override from curie_validator.py
     def _is_possible_literal(cell: Element) -> bool:
         try:
-            if cell.attrib["parent"] != "1":
-                return False
-            return "rounded=1" in cell.attrib["style"]
+            parent_id = cell.attrib["parent"]
         except KeyError:
             return False
+        if parent_id != "1":
+            return False
+        style = cell.attrib.get("style", "")
+        decorations_attr = "__drawio_literal_registry"
+        registry = getattr(pipeline.core.internal.data, decorations_attr, None)
+        if not isinstance(registry, dict):
+            registry = {}
+            setattr(pipeline.core.internal.data, decorations_attr, registry)
+
+        def _register_literal() -> None:
+            cell_id = cell.attrib.get("id")
+            if cell_id and cell_id not in registry:
+                parser = NodeHTMLParser()
+                parser.feed(cell.attrib.get("value", ""))
+                registry[cell_id] = {"value": parser.content(), "connected": False}
+
+        if "rounded=1" in style:
+            _register_literal()
+            return True
+        first_token = style.split(";", 1)[0].strip().lower()
+        if first_token.startswith("text"):
+            _register_literal()
+            return True
+        if (
+            cell.attrib.get("vertex") == "1"
+            and "swimlane" not in style
+            and ("group" not in style)
+        ):
+            _register_literal()
+            return True
+        return False
 
     # END DrawIOXMLTree._is_possible_literal
     # BEGIN DrawIOXMLTree._arrow_label

@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
 - 2025-10-21 – Prevented DrawIO literals that resemble CURIEs from bypassing rdflib validation so malformed prefixes (for example `picoL:`) now raise errors instead of becoming string values.
 - 2025-10-22 – Hardened DrawIO rdf:type detection so swimlane child cells are always treated as attempted individuals, rejecting missing-prefix or colon-only CURIEs and extending the AA37 severely mocked fixture and pytest suite to cover these failures.
+- 2025-10-23 – Treated top-level decoration shapes as literals so standalone text (for example the AA37 heading) now lands in Turtle exports, and added a regression test that exercises every DrawIO fixture to ensure mxCell coverage.
 
 ## [2025-10-17] - Historical Review (Pavel Zhelnov contributions)
 

@@ -4,6 +4,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rico: <rico://mock-rico> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix somprefix: <h://hello> .
 @prefix unknown: <unknown://link> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -21,6 +22,8 @@ somprefix:lol a owl:ObjectProperty .
 rdf:some-predicate a owl:DatatypeProperty .
 
 rdf:type a owl:ObjectProperty .
+
+<ontology://generated-from-draw-io/2025-10-20T17-46-18> skos:note "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual" .
 
 hellow:there a owl:DatatypeProperty,
         owl:ObjectProperty .
@@ -54,14 +57,14 @@ unknown:hey a owl:ObjectProperty .
         rico:AgentName,
         rico:CorporateBody ;
     rico:authorizedBy :The%20Health%20Department%20Act%2C%20Statutes%20Of%20Ontario%201924%2C%20Chap.%2069 ;
-    rico:generalDescription "Function Note: The Department of Health was responsible for the  management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.  The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services." ;
+    rico:generalDescription "<blockquote style=\"margin: 0 0 0 40px; border: none; padding: 0px;\">Function Note: The Department of Health was responsible for the  management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.  The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services.</blockquote>" ;
     rico:hasBeginningDate :1924 ;
     rico:hasEndDate :1972 ;
     rico:hasOrHadAgentName :Ontario.%20Dept.%20Of%20Health ;
     rico:hasOrHadCorporateBodyType :A%20Ontario%20Government%20Name ;
     rico:hasOrHadIdentifier :AA37 ;
     rico:hasSuccessor :Ontario.%20Ministry%20Of%20Health ;
-    rico:history "Established in 1924, the Department of Health replaced the Provincial Board of Health.  Since its establishment, the Department's functions have both expanded and shrunk.  In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.  In 1956,  the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).  The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.  In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972." ;
+    rico:history "<blockquote style=\"margin: 0 0 0 40px; border: none; padding: 0px;\"><div style=\"line-height: 90%;\"><span style=\"font-size: 11px;\">Established in 1924, the Department of Health replaced the Provincial Board of Health.  Since its establishment, the Department's functions have both expanded and shrunk.  In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.  In 1956,  the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).  The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.  In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972.</span><br></div></blockquote>" ;
     rico:isOrWasDescribedBy :Ontario.%20Dept.%20Of%20Health%20Authority%20Record ;
     rico:isSuccessorOf :Provincial%20Board%20Of%20Health%20Of%20Ontario ;
     rico:normalizedValue "Department of Health" .
@@ -69,7 +72,7 @@ unknown:hey a owl:ObjectProperty .
 :Ontario.%20Dept.%20Of%20Health%20Authority%20Record a lol:individual,
         owl:NamedIndividual ;
     somprefix:lol :Web%20Ready%3A%20Y ;
-    rico:generalDescription "Source Note: MacTaggart, Hazel I.  Publications of the Government of Ontario, 1901-1955 (1964). Publications of the Government of Ontario, 1956-1971 (1975). Canadiana Name Authorities, 1996-12-24" ;
+    rico:generalDescription "<blockquote style=\"margin: 0 0 0 40px; border: none; padding: 0px;\">Source Note: MacTaggart, Hazel I.  Publications of the Government of Ontario, 1901-1955 (1964). Publications of the Government of Ontario, 1956-1971 (1975). Canadiana Name Authorities, 1996-12-24</blockquote>" ;
     rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
     rico:lastModificationDate "2007-06-16"^^xsd:date ;
     rico:resultsOrResultedFrom :Authority%20Record%20Creation ;
