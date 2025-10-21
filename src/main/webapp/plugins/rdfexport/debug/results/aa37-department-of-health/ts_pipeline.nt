@@ -1,5 +1,5 @@
-<ontology://generated-from-draw-io/2025-10-20T16-30-40> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
-<ontology://generated-from-draw-io/2025-10-20T16-30-40> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<ontology://generated-from-draw-io/2025-10-21T00-01-51> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<ontology://generated-from-draw-io/2025-10-21T00-01-51> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
 <ontology://generated-from-draw-io/mock#1924> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
 <ontology://generated-from-draw-io/mock#1924> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://www.ica.org/standards/RiC/ontology#Date> .
 <ontology://generated-from-draw-io/mock#1924> <http://www.w3.org/2000/01/rdf-schema#label> "1924" .
