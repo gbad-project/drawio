@@ -2,6 +2,7 @@ import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { basename, normalize } from "path";
+import type { DrawioParserConfigPayload } from "../src/mockBlackBox";
 
 interface ScenarioConfig {
   xmlPath: string;
@@ -10,6 +11,9 @@ interface ScenarioConfig {
   csvPath?: string;
   baseUri?: string;
   prefixes?: Array<{ prefix: string; iri: string }>;
+  metadataAttributes?: Record<string, unknown>;
+  preamble?: Array<{ prefix: string; iri: string }>;
+  parserConfig?: Record<string, unknown>;
 }
 
 const rdfexportUrl = fileURLToPath(
@@ -25,6 +29,187 @@ const pyodideIndexURL = normalize(pyodideIndexPath);
   : `${pyodideIndexURL}/`;
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
+const PARSER_SETTINGS_ATTRIBUTE_NAME = "rdfParserSettings";
+const PARSER_SETTINGS_STORAGE_VERSION = 1;
+
+function toCamelFromSnake(value: string): string {
+  return value.replace(/_([a-z])/g, (_match, group: string) =>
+    group.toUpperCase(),
+  );
+}
+
+function formatMetadataValue(value: unknown): string {
+  if (value == null) {
+    return "";
+  }
+
+  if (typeof value === "boolean") {
+    return value ? "true" : "false";
+  }
+
+  if (typeof value === "number" || typeof value === "bigint") {
+    return value.toString();
+  }
+
+  if (typeof value === "object") {
+    try {
+      return JSON.stringify(value);
+    } catch (_error) {
+      return String(value);
+    }
+  }
+
+  return String(value);
+}
+
+function deriveMetacharacterSettings(value: unknown): {
+  strategy?: string;
+  entries?: Array<{ character: string; replacement: string }>;
+} {
+  if (!Array.isArray(value)) {
+    return {};
+  }
+
+  const entries: Array<{ character: string; replacement: string }> = [];
+  let strategy: string | undefined;
+
+  for (const raw of value) {
+    if (typeof raw !== "string") {
+      continue;
+    }
+
+    if ((raw === "url" || raw === "remove") && strategy == null) {
+      strategy = raw;
+      continue;
+    }
+
+    const separatorIndex = raw.indexOf("=");
+    if (separatorIndex >= 0) {
+      const character = raw.slice(0, separatorIndex);
+      const replacement = raw.slice(separatorIndex + 1);
+      if (character.length > 0) {
+        entries.push({ character, replacement });
+      }
+    }
+  }
+
+  if (!strategy && entries.length > 0) {
+    strategy = "custom";
+  } else if (strategy && entries.length > 0 && strategy !== "custom") {
+    strategy = "custom";
+  }
+
+  return { strategy, entries };
+}
+
+function deriveStoredParserSettings(
+  parserConfig: Record<string, unknown> | null | undefined,
+  metadataAttributes: Record<string, unknown>,
+): string | null {
+  if (!parserConfig) {
+    return null;
+  }
+
+  if (
+    Object.prototype.hasOwnProperty.call(
+      metadataAttributes,
+      PARSER_SETTINGS_ATTRIBUTE_NAME,
+    )
+  ) {
+    return null;
+  }
+
+  const settings: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(parserConfig)) {
+    if (key === "metacharacter_substitute" || key === "rml_enabled") {
+      continue;
+    }
+    settings[toCamelFromSnake(key)] = value;
+  }
+
+  const metachar = deriveMetacharacterSettings(
+    parserConfig["metacharacter_substitute"],
+  );
+  if (metachar.strategy) {
+    settings.metacharacterStrategy = metachar.strategy;
+  }
+  if (metachar.entries && metachar.entries.length > 0) {
+    settings.metacharacterEntries = metachar.entries;
+  }
+
+  if (Object.keys(settings).length === 0) {
+    return null;
+  }
+
+  return JSON.stringify({
+    version: PARSER_SETTINGS_STORAGE_VERSION,
+    settings,
+  });
+}
+
+function normaliseMetadataAttributes(
+  config: ScenarioConfig,
+): Record<string, unknown> {
+  const attributes: Record<string, unknown> = {};
+
+  if (
+    config.metadataAttributes &&
+    typeof config.metadataAttributes === "object"
+  ) {
+    for (const [key, value] of Object.entries(config.metadataAttributes)) {
+      attributes[key] = value;
+    }
+  }
+
+  if (config.csvPath != null && attributes.csvPath == null) {
+    attributes.csvPath = config.csvPath;
+  }
+
+  if (config.baseUri != null && attributes.baseUri == null) {
+    attributes.baseUri = config.baseUri;
+  }
+
+  return attributes;
+}
+
+function normalisePreamble(
+  config: ScenarioConfig,
+): Array<{ prefix: string; iri: string }> {
+  const source =
+    Array.isArray(config.preamble) && config.preamble.length > 0
+      ? config.preamble
+      : config.prefixes;
+
+  if (!source) {
+    return [];
+  }
+
+  const result: Array<{ prefix: string; iri: string }> = [];
+  for (const entry of source) {
+    if (!entry) {
+      continue;
+    }
+
+    if (Array.isArray(entry) && entry.length === 2) {
+      const [prefix, iri] = entry;
+      if (prefix != null && iri != null) {
+        result.push({ prefix: String(prefix), iri: String(iri) });
+      }
+      continue;
+    }
+
+    if (typeof entry === "object") {
+      const prefix = (entry as { prefix?: unknown }).prefix;
+      const iri = (entry as { iri?: unknown }).iri;
+      if (prefix != null && iri != null) {
+        result.push({ prefix: String(prefix), iri: String(iri) });
+      }
+    }
+  }
+
+  return result;
+}
 
 type RdfExportModule = typeof import("../src/rdfexport");
 let loadedPluginModule: RdfExportModule | null = null;
@@ -317,6 +502,7 @@ interface GraphEnvironmentOptions {
   csvPath?: string;
   baseUri?: string;
   preamble?: Array<{ prefix: string; iri: string }>;
+  attributes?: Record<string, unknown>;
 }
 
 function createGraphEnvironment(
@@ -341,12 +527,30 @@ function createGraphEnvironment(
     throw new Error("Failed to initialize root element for graph environment");
   }
 
-  if (options.csvPath != null) {
-    rootElement.setAttribute("csvPath", options.csvPath);
+  const attributes: Record<string, unknown> = {
+    ...(options.attributes ?? {}),
+  };
+
+  if (options.csvPath != null && attributes.csvPath == null) {
+    attributes.csvPath = options.csvPath;
   }
 
-  if (options.baseUri != null) {
-    rootElement.setAttribute("baseUri", options.baseUri);
+  if (options.baseUri != null && attributes.baseUri == null) {
+    attributes.baseUri = options.baseUri;
+  }
+
+  for (const [attributeName, attributeValue] of Object.entries(attributes)) {
+    if (attributeValue == null) {
+      if (rootElement.hasAttribute(attributeName)) {
+        rootElement.removeAttribute(attributeName);
+      }
+      continue;
+    }
+
+    rootElement.setAttribute(
+      attributeName,
+      formatMetadataValue(attributeValue),
+    );
   }
 
   if (Array.isArray(options.preamble)) {
@@ -729,12 +933,12 @@ async function runPluginExport(
   xml: string,
   options: {
     baseFilename: string;
-    csvPath?: string;
-    baseUri?: string;
-    prefixes?: Array<{
+    metadataAttributes?: Record<string, unknown>;
+    preamble?: Array<{
       prefix: string;
       iri: string;
     }>;
+    parserConfig?: Record<string, unknown>;
   },
 ): Promise<string> {
   await loadPluginModule();
@@ -763,10 +967,25 @@ async function runPluginExport(
   }> = [];
   const menuStub: any = { funct: () => {} };
 
+  const metadataAttributes = {
+    ...(options.metadataAttributes ?? {}),
+  };
+
+  const derivedSettings = deriveStoredParserSettings(
+    options.parserConfig ?? null,
+    metadataAttributes,
+  );
+
+  if (
+    derivedSettings != null &&
+    metadataAttributes[PARSER_SETTINGS_ATTRIBUTE_NAME] == null
+  ) {
+    metadataAttributes[PARSER_SETTINGS_ATTRIBUTE_NAME] = derivedSettings;
+  }
+
   const { graph } = createGraphEnvironment({
-    csvPath: options.csvPath,
-    baseUri: options.baseUri,
-    preamble: options.prefixes,
+    attributes: metadataAttributes,
+    preamble: options.preamble,
   });
 
   const editorUi = {
@@ -832,13 +1051,18 @@ async function runScenario(config: ScenarioConfig) {
 
   const mockBlackBoxModule = await import("../src/mockBlackBox");
   //console.error(xml);
-  const pipeline = await mockBlackBoxModule.runDrawioPipeline(xml);
+  const parserConfig = (config.parserConfig ??
+    null) as DrawioParserConfigPayload | null;
+  const pipeline = await mockBlackBoxModule.runDrawioPipeline(
+    xml,
+    parserConfig,
+  );
   Reflect.set(mockBlackBoxModule, "runDrawioPipeline", async () => pipeline);
   const plugin = await runPluginExport(xml, {
     baseFilename,
-    csvPath: config.csvPath,
-    baseUri: config.baseUri,
-    prefixes: config.prefixes,
+    metadataAttributes: normaliseMetadataAttributes(config),
+    preamble: normalisePreamble(config),
+    parserConfig: config.parserConfig ?? null,
   });
 
   return { pipeline, plugin };
