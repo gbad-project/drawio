@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
 - 2025-10-20 – Added a parser setting and metadata flag to control HTML stripping so literals can preserve markup end-to-end, updating the DrawIO UI, Pyodide pipeline, parser overrides, fixtures, and Bun/pytest coverage.
+- 2025-10-20 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
 
 ### Changed
 
@@ -17,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`
 - 2025-10-20 – Replaced the DrawIO parser CURIE splitter with an rdflib-backed validator and added pytest coverage for the override.
 - 2025-10-20 – Centralised DrawIO cell role classification and persisted unconnected
+- 2025-10-20 – Refined DrawIO cell classification to aggregate child type tokens, detect decorative text nodes, deduplicate individual records, and introduced a `--skip-ts` debugger flag for Python-only regression runs.
 
 ### Fixed
 

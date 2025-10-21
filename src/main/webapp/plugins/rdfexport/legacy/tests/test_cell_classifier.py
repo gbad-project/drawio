@@ -147,6 +147,23 @@ def test_classifier_detects_typed_individuals_and_literals():
     assert registry["decor"]["connected"] is False
 
 
+def test_parent_cell_collects_child_type_tokens():
+    xml = _drawio_xml(
+        _vertex_cell("parent", "List pnnpni", style="swimlane"),
+        _vertex_cell("type1", "rico:Thing", parent="parent"),
+        _vertex_cell("type2", "rdf:Resource", parent="parent"),
+    )
+    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    observed = {
+        individual.ric_class
+        for _, individual, _ in tree.individual_cells
+        if individual.identifier == "List pnnpni"
+    }
+
+    assert observed == {"rico:Thing", "rdf:Resource"}
+
+
 def test_standalone_curie_node_creates_individual_without_parent():
     xml = _drawio_xml(_vertex_cell("solo", "rico:Thing"))
     tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())

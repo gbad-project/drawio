@@ -64,15 +64,16 @@ class Debugger:
     # Public API
     # ------------------------------------------------------------------
     def run(self, args: argparse.Namespace) -> None:
+        skip_ts = getattr(args, "skip_ts", False)
         if args.scenario:
             config = self._load_scenario_file(Path(args.scenario), args.slug)
-            self._run_scenario(config)
+            self._run_scenario(config, skip_ts=skip_ts)
             return
 
         config = self._config_from_args(args)
         if config is None:
             config = self._run_repl()
-        self._run_scenario(config)
+        self._run_scenario(config, skip_ts=skip_ts)
 
     # ------------------------------------------------------------------
     # Internal helpers: configuration loading
@@ -259,7 +260,7 @@ class Debugger:
     # ------------------------------------------------------------------
     # Execution
     # ------------------------------------------------------------------
-    def _run_scenario(self, config: ScenarioConfig) -> None:
+    def _run_scenario(self, config: ScenarioConfig, skip_ts: bool = False) -> None:
         self.console.rule(f"Scenario: {config.slug}")
         self.console.print(
             f"[bold]Fixture:[/bold] {config.drawio_path}\n"
@@ -305,20 +306,26 @@ class Debugger:
         finally:
             temp_file_path.unlink(missing_ok=True)
 
-        try:
-            ts_pipeline_graph, ts_plugin_graph, ts_stderr = self._generate_bun_graphs(
-                patched_xml, config
-            )
-            ts_error = ts_stderr  # Capture stderr even on success
-        except Exception as exc:
-            error_msg = f"{type(exc).__name__}: {exc}"
-            self.console.print(
-                f"[yellow]Warning:[/yellow] TypeScript pipeline failed to generate graphs\n"
-                f"[dim]{error_msg}[/dim]"
-            )
-            ts_pipeline_graph = None
-            ts_plugin_graph = None
-            ts_error = error_msg
+        ts_pipeline_graph = None
+        ts_plugin_graph = None
+        ts_error = None
+        if not skip_ts:
+            try:
+                (
+                    ts_pipeline_graph,
+                    ts_plugin_graph,
+                    ts_stderr,
+                ) = self._generate_bun_graphs(patched_xml, config)
+                ts_error = ts_stderr  # Capture stderr even on success
+            except Exception as exc:
+                error_msg = f"{type(exc).__name__}: {exc}"
+                self.console.print(
+                    "[yellow]Warning:[/yellow] TypeScript pipeline failed to generate graphs\n"
+                    f"[dim]{error_msg}[/dim]"
+                )
+                ts_pipeline_graph = None
+                ts_plugin_graph = None
+                ts_error = error_msg
 
         errors = {}
         if py_legacy_graph is None:
@@ -326,20 +333,21 @@ class Debugger:
             if py_legacy_error:
                 error_details.append(py_legacy_error)
             errors["py_legacy"] = error_details
-        if ts_pipeline_graph is None:
-            error_details = ["TypeScript pipeline graph is None"]
-            if ts_error:
-                error_details.append(ts_error)
-            errors["ts_pipeline"] = error_details
-        if ts_plugin_graph is None:
-            error_details = ["TypeScript plugin graph is None"]
-            if ts_error:
-                error_details.append(ts_error)
-            errors["ts_plugin"] = error_details
+        if not skip_ts:
+            if ts_pipeline_graph is None:
+                error_details = ["TypeScript pipeline graph is None"]
+                if ts_error:
+                    error_details.append(ts_error)
+                errors["ts_pipeline"] = error_details
+            if ts_plugin_graph is None:
+                error_details = ["TypeScript plugin graph is None"]
+                if ts_error:
+                    error_details.append(ts_error)
+                errors["ts_plugin"] = error_details
 
-        # Capture stderr even if graphs generated successfully
-        if ts_error and ts_pipeline_graph is not None:
-            errors["ts_stderr"] = ts_error
+            # Capture stderr even if graphs generated successfully
+            if ts_error and ts_pipeline_graph is not None:
+                errors["ts_stderr"] = ts_error
 
         graphs = {}
         if py_legacy_graph is not None:
@@ -728,6 +736,9 @@ class Debugger:
                         raise _NoValueException
                     return self.draw_io_xml_tree.find(f".//*[@id='{parent_id}']")
 
+                def _child_of(self, parent_id):
+                    return self.draw_io_xml_tree.findall(f".//*[@parent='{parent_id}']")
+
             mock_tree = MockTree(root, prefixes)
             classifier = classifier_cls(mock_tree, prefixes)
 
@@ -783,6 +794,7 @@ class Debugger:
                     "ARROW_LABEL": 0,
                     "TYPED_INDIVIDUAL": 0,
                     "STANDALONE_INDIVIDUAL": 0,
+                    "DECORATION": 0,
                     "CLASSIFICATION_ERROR": 0,
                 }
                 for cell_data in classifications.values():
@@ -947,6 +959,139 @@ class Debugger:
         )
 
 
+def estimate_triple_count_from_classifications(
+    xml_text: str,
+    classifications: dict[str, dict],
+    *,
+    include_preamble: bool = True,
+    graph: Graph | None = None,
+) -> int:
+    """Predict the expected triple count for a DrawIO payload."""
+
+    from legacy.draw_io_parser import (  # type: ignore=imported-unused
+        _extract_drawio_metadata,
+        get_prefixes,
+        pipeline,
+    )
+
+    metadata_prefixes, _, _, _ = _extract_drawio_metadata(xml_text)
+    prefixes = get_prefixes()
+    prefixes.update(metadata_prefixes)
+
+    classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+    default_type = getattr(classifier_cls, "DEFAULT_STANDALONE_TYPE", "rico:Thing")
+
+    try:
+        root = ET.fromstring(xml_text)
+    except ET.ParseError as exc:  # pragma: no cover - caller should supply valid XML
+        raise ValueError("Invalid DrawIO XML") from exc
+
+    cell_lookup: dict[str, ET.Element] = {}
+    for cell in root.findall(".//mxGraphModel/root//*[@id]"):
+        cell_id = cell.attrib.get("id")
+        if cell_id:
+            cell_lookup[cell_id] = cell
+
+    individuals: dict[str, set[str]] = {}
+    decorations: set[str] = set()
+    arrow_edges: set[str] = set()
+    arrow_triples = 0
+    object_properties: set[str] = set()
+    datatype_properties: set[str] = set()
+
+    for cell_id, cell_data in classifications.items():
+        kind = cell_data.get("kind")
+        raw_value = (cell_data.get("raw_value") or "").strip()
+
+        if kind == "STANDALONE_INDIVIDUAL":
+            identifier = cell_data.get("identifier") or raw_value
+            if not identifier:
+                continue
+            tokens = [token for token in cell_data.get("tokens", []) if token]
+            if not tokens:
+                tokens = [default_type]
+            individuals.setdefault(identifier, set()).update(tokens)
+            continue
+
+        if kind == "TYPED_INDIVIDUAL":
+            identifier = cell_data.get("parent_identifier") or cell_data.get(
+                "identifier"
+            )
+            if not identifier:
+                continue
+            tokens = [token for token in cell_data.get("tokens", []) if token]
+            if not tokens:
+                continue
+            individuals.setdefault(identifier, set()).update(tokens)
+            continue
+
+        if kind == "DECORATION":
+            if raw_value:
+                decorations.add(raw_value)
+            continue
+
+        if kind == "ARROW_LABEL":
+            if not raw_value:
+                continue
+            cell = cell_lookup.get(cell_id)
+            if cell is None:
+                continue
+            edge_id = cell.attrib.get("parent")
+            if not edge_id or edge_id in arrow_edges:
+                continue
+            edge_cell = cell_lookup.get(edge_id)
+            if edge_cell is None:
+                continue
+            arrow_edges.add(edge_id)
+            source_id = edge_cell.attrib.get("source")
+            target_id = edge_cell.attrib.get("target")
+            if not source_id or not target_id:
+                continue
+            arrow_triples += 1
+            target_kind = classifications.get(target_id, {}).get("kind")
+            if ":" in raw_value:
+                prop_prefix = raw_value.split(":", 1)[0]
+                if prop_prefix in prefixes:
+                    if target_kind == "LITERAL":
+                        datatype_properties.add(raw_value)
+                    else:
+                        object_properties.add(raw_value)
+
+    expected = 0
+    if include_preamble:
+        expected += 2
+
+    for types in individuals.values():
+        expected += len(types) + 2  # rdf:type entries + label + NamedIndividual
+
+    expected += arrow_triples
+
+    classification_object_defs = sum(
+        1 for prop in object_properties if not prop.startswith("rico:")
+    )
+    classification_datatype_defs = sum(
+        1 for prop in datatype_properties if not prop.startswith("rico:")
+    )
+
+    if graph is not None:
+        object_defs = sum(
+            1 for _ in graph.triples((None, RDF.type, OWL.ObjectProperty))
+        )
+        datatype_defs = sum(
+            1 for _ in graph.triples((None, RDF.type, OWL.DatatypeProperty))
+        )
+        expected += object_defs + datatype_defs
+    else:
+        expected += classification_object_defs + classification_datatype_defs
+
+    expected += len(decorations)
+
+    if graph is not None:
+        return len(graph)
+
+    return expected
+
+
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Debugger CLI for DrawIO RDF export comparisons",
@@ -987,6 +1132,11 @@ def build_argument_parser() -> argparse.ArgumentParser:
         "--fixtures",
         type=str,
         help="Override the fixtures directory",
+    )
+    parser.add_argument(
+        "--skip-ts",
+        action="store_true",
+        help="Skip TypeScript pipeline execution",
     )
     return parser
 

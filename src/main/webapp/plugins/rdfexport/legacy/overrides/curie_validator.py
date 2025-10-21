@@ -72,6 +72,7 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
     classifier = classifier_cls(self, prefixes)
     decorations: dict[str, dict[str, object]] = {}
     setattr(pipeline.core.internal.data, decorations_attr, decorations)
+    registered_individuals: set[tuple[str, str]] = set()
 
     try:
         if len(self.draw_io_xml_tree[0][0][0]) == 0:
@@ -127,8 +128,12 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
                         )
                     ) from exc
                 seen_classes.add(candidate)
+                key = (identifier, candidate)
+                if key in registered_individuals:
+                    continue
                 individual = Individual(identifier, candidate)
                 self.individual_cells.append((cell, individual, dimensions))
+                registered_individuals.add(key)
 
             if not had_tokens:
                 raise NotInKnownException(
@@ -160,8 +165,21 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
                         )
                     ) from exc
                 seen_types.add(candidate)
+                key = (identifier, candidate)
+                if key in registered_individuals:
+                    continue
                 individual = Individual(identifier, candidate)
                 self.individual_cells.append((cell, individual, dimensions))
+                registered_individuals.add(key)
+            continue
+
+        if kind_name == "DECORATION":
+            cell_id = cell.attrib.get("id")
+            if cell_id:
+                decorations[cell_id] = {
+                    "value": classification.raw_value,
+                    "connected": False,
+                }
             continue
 
         self.literal_cells.append((cell, self._dimensions(cell)))
