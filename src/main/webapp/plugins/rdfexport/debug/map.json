@@ -148,7 +148,6 @@
   },
   "scenarios": {
     "aa37-department-of-health": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Dept. of Health\u00a0Authority Record",
@@ -639,7 +638,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -648,7 +646,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -661,19 +666,18 @@
           "triples": 87
         },
         "ts_pipeline": {
-          "nt_sha256": "c00ed08bc93d60c4aaef1f7aa2742c1c84f9949d54c1160eee9767980a1d80a9",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/aa37-department-of-health/ts_pipeline.ttl",
           "triples": 60
         },
         "ts_plugin": {
-          "nt_sha256": "c00ed08bc93d60c4aaef1f7aa2742c1c84f9949d54c1160eee9767980a1d80a9",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/aa37-department-of-health/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "aa37-with-metadata-even-more-severely-mocked": {
-      "base_uri": "http://mock23-base-uri.com",
       "cell_classifications": {
         "EUA9VVVl7iRi0US9AbU_-1": {
           "identifier": null,
@@ -1276,7 +1280,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
@@ -1289,7 +1292,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "http://mock23-base-uri.com",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -1317,12 +1327,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "fd53fbbc1f0aad93e5b84736cb93a3e4b50f30bcdc6ae928381070e9dd71d3f8",
+          "nt_sha256": "b815bc28594485ba3ec61ed1b0098f67d84ef93b6e849bd82628ba47616507cb",
           "path": "results/aa37-with-metadata-even-more-severely-mocked/ts_pipeline.ttl",
           "triples": 74
         },
         "ts_plugin": {
-          "nt_sha256": "fd53fbbc1f0aad93e5b84736cb93a3e4b50f30bcdc6ae928381070e9dd71d3f8",
+          "nt_sha256": "b815bc28594485ba3ec61ed1b0098f67d84ef93b6e849bd82628ba47616507cb",
           "path": "results/aa37-with-metadata-even-more-severely-mocked/ts_plugin.ttl",
           "triples": 74
         }
@@ -1462,22 +1472,7 @@
       }
     },
     "knut-olborgs-forskningsnotater": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
-        "0": {
-          "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
-          "raw_value": "",
-          "tokens": []
-        },
-        "1": {
-          "identifier": null,
-          "kind": "LITERAL",
-          "parent_identifier": null,
-          "raw_value": "",
-          "tokens": []
-        },
         "3fLlHfyGAeuBOlRW-uyx-14": {
           "identifier": "Knut Olborgs Forskningsnotater Storage Instantiation",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1496,11 +1491,6 @@
             "rico:Instantiation"
           ]
         },
-        "3fLlHfyGAeuBOlRW-uyx-16": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadDigitalInstantiation"
-        },
         "3fLlHfyGAeuBOlRW-uyx-17": {
           "identifier": "Knut Olborgs Forskningsnotater Storage ID",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1518,11 +1508,6 @@
           "tokens": [
             "rico:Identifier"
           ]
-        },
-        "3fLlHfyGAeuBOlRW-uyx-19": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadIdentifier"
         },
         "3fLlHfyGAeuBOlRW-uyx-2": {
           "identifier": "Mappestruktur",
@@ -1551,11 +1536,6 @@
             "rico:InstantiationExtent"
           ]
         },
-        "3fLlHfyGAeuBOlRW-uyx-22": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasExtent"
-        },
         "3fLlHfyGAeuBOlRW-uyx-23": {
           "identifier": "Storage ID",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1574,22 +1554,12 @@
             "rico:IdentifierType"
           ]
         },
-        "3fLlHfyGAeuBOlRW-uyx-25": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasIdentifierType"
-        },
         "3fLlHfyGAeuBOlRW-uyx-26": {
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "d6ef5d07-8b2e-4d7b-9590-a70381765c9a",
           "tokens": []
-        },
-        "3fLlHfyGAeuBOlRW-uyx-27": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:identifier"
         },
         "3fLlHfyGAeuBOlRW-uyx-28": {
           "identifier": "Bytes",
@@ -1618,11 +1588,6 @@
             "rico:Mechanism"
           ]
         },
-        "3fLlHfyGAeuBOlRW-uyx-30": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasUnitOfMeasurement"
-        },
         "3fLlHfyGAeuBOlRW-uyx-31": {
           "identifier": "File Size",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1641,27 +1606,12 @@
             "rico:ExtentType"
           ]
         },
-        "3fLlHfyGAeuBOlRW-uyx-33": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasExtentType"
-        },
         "3fLlHfyGAeuBOlRW-uyx-36": {
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "3676160",
           "tokens": []
-        },
-        "3fLlHfyGAeuBOlRW-uyx-37": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:quantity"
-        },
-        "3fLlHfyGAeuBOlRW-uyx-4": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrganicOrFunctionalProvenance"
         },
         "7nN3YjujJQOfU681Miou-1": {
           "identifier": "DOBN Samling Shelf Space",
@@ -1678,11 +1628,6 @@
           "parent_identifier": null,
           "raw_value": "30",
           "tokens": []
-        },
-        "7nN3YjujJQOfU681Miou-11": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:quantity"
         },
         "7nN3YjujJQOfU681Miou-12": {
           "identifier": "Okkupasjonstiden Slutt",
@@ -1708,16 +1653,6 @@
           "parent_identifier": null,
           "raw_value": "1945",
           "tokens": []
-        },
-        "7nN3YjujJQOfU681Miou-15": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:normalizedDateValue"
-        },
-        "7nN3YjujJQOfU681Miou-16": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasEndDate"
         },
         "7nN3YjujJQOfU681Miou-17": {
           "identifier": "Okkupasjonstiden Start",
@@ -1753,21 +1688,6 @@
             "rico:InstantiationExtent"
           ]
         },
-        "7nN3YjujJQOfU681Miou-20": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:normalizedDateValue"
-        },
-        "7nN3YjujJQOfU681Miou-21": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasBeginningDate"
-        },
-        "7nN3YjujJQOfU681Miou-3": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasExtent"
-        },
         "7nN3YjujJQOfU681Miou-4": {
           "identifier": "Hyllemeter",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1786,11 +1706,6 @@
             "rico:UnitOfMeasurement"
           ]
         },
-        "7nN3YjujJQOfU681Miou-6": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasUnitOfMeasurement"
-        },
         "7nN3YjujJQOfU681Miou-7": {
           "identifier": "Shelf Space",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1808,11 +1723,6 @@
           "tokens": [
             "rico:ExtentType"
           ]
-        },
-        "7nN3YjujJQOfU681Miou-9": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasExtentType"
         },
         "9tAbXV2A5IAdRQd2oj-A-11": {
           "identifier": "Knut Olborgs Forskingsnotater",
@@ -1841,22 +1751,12 @@
             "rico:AgentName"
           ]
         },
-        "czsqDPXMuQd4v_eErH3M-11": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasSender"
-        },
         "czsqDPXMuQd4v_eErH3M-12": {
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har g\u00e5tt systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan v\u00e6re til nytte for andre forskere og studenter som skal arbeidet med dette tyskspr\u00e5klige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og best\u00e5r av 105 word-filer (pdf'er).",
           "tokens": []
-        },
-        "czsqDPXMuQd4v_eErH3M-16": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:scopeAndContent"
         },
         "czsqDPXMuQd4v_eErH3M-17": {
           "identifier": "Okkupasjonstiden",
@@ -1876,11 +1776,6 @@
             "rico:Event"
           ]
         },
-        "czsqDPXMuQd4v_eErH3M-19": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isAssociatedWithEvent"
-        },
         "czsqDPXMuQd4v_eErH3M-20": {
           "identifier": "Norge",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1898,11 +1793,6 @@
           "tokens": [
             "rico:Place"
           ]
-        },
-        "czsqDPXMuQd4v_eErH3M-22": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isAssociatedWithPlace"
         },
         "czsqDPXMuQd4v_eErH3M-23": {
           "identifier": "Norsk Bokm\u00e5l",
@@ -1922,16 +1812,6 @@
             "rico:Language"
           ]
         },
-        "czsqDPXMuQd4v_eErH3M-25": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadLanguage"
-        },
-        "czsqDPXMuQd4v_eErH3M-26": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isOrWasLanguageOf"
-        },
         "czsqDPXMuQd4v_eErH3M-27": {
           "identifier": "Country",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -1949,16 +1829,6 @@
           "tokens": [
             "rico:PlaceType"
           ]
-        },
-        "czsqDPXMuQd4v_eErH3M-29": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadPlaceType"
-        },
-        "czsqDPXMuQd4v_eErH3M-3": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasCreator"
         },
         "czsqDPXMuQd4v_eErH3M-30": {
           "identifier": "Arkivverket",
@@ -2006,21 +1876,6 @@
             "rico:AgentName"
           ]
         },
-        "czsqDPXMuQd4v_eErH3M-36": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:followsInTime"
-        },
-        "czsqDPXMuQd4v_eErH3M-37": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadHolder"
-        },
-        "czsqDPXMuQd4v_eErH3M-38": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isOrWasUnderAuthorityOf"
-        },
         "czsqDPXMuQd4v_eErH3M-39": {
           "identifier": null,
           "kind": "LITERAL",
@@ -2028,22 +1883,12 @@
           "raw_value": "National Archives of Norway",
           "tokens": []
         },
-        "czsqDPXMuQd4v_eErH3M-40": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:name"
-        },
         "czsqDPXMuQd4v_eErH3M-41": {
           "identifier": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
           "tokens": []
-        },
-        "czsqDPXMuQd4v_eErH3M-42": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rdfs:isDefinedBy"
         },
         "czsqDPXMuQd4v_eErH3M-43": {
           "identifier": "Knut Olborgs Forskningsnotater Start",
@@ -2063,11 +1908,6 @@
             "rico:Date"
           ]
         },
-        "czsqDPXMuQd4v_eErH3M-47": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasBeginningDate"
-        },
         "czsqDPXMuQd4v_eErH3M-48": {
           "identifier": "Knut Olborgs Forskningsnotater Slutt",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -2086,11 +1926,6 @@
             "rico:Date"
           ]
         },
-        "czsqDPXMuQd4v_eErH3M-50": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasEndDate"
-        },
         "czsqDPXMuQd4v_eErH3M-52": {
           "identifier": null,
           "kind": "LITERAL",
@@ -2098,22 +1933,12 @@
           "raw_value": "2018-08-05",
           "tokens": []
         },
-        "czsqDPXMuQd4v_eErH3M-53": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:normalizedDateValue"
-        },
         "czsqDPXMuQd4v_eErH3M-55": {
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2021-11-23",
           "tokens": []
-        },
-        "czsqDPXMuQd4v_eErH3M-56": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:normalizedDateValue"
         },
         "czsqDPXMuQd4v_eErH3M-8": {
           "identifier": "Knut Olborg",
@@ -2134,42 +1959,12 @@
             "rico:Person"
           ]
         },
-        "mxBBHEK_cXtyoJtayE4t-10": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isOrWasLanguageOf"
-        },
-        "mxBBHEK_cXtyoJtayE4t-12": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadPlaceType"
-        },
-        "mxBBHEK_cXtyoJtayE4t-14": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isAssociatedWithPlace"
-        },
-        "mxBBHEK_cXtyoJtayE4t-15": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isAssociatedWithPlace"
-        },
-        "mxBBHEK_cXtyoJtayE4t-17": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isAssociatedWithEvent"
-        },
         "mxBBHEK_cXtyoJtayE4t-18": {
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Et arkiv p\u00e5 om lag 30 hm som ble skapt av tyske milit\u00e6re som var internert i Norge etter krigens slutt. Under alliert kommando m\u00e5tte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden v\u00e5ren 1945 til ut i 1947.     Arkivet var i mange \u00e5r v\u00e6rt sv\u00e6rt lite tilgjengelig for bruk inntil Arkivverket i \u00e5rene 2016-19 gjennomgikk det og registrerte det i katalog.",
           "tokens": []
-        },
-        "mxBBHEK_cXtyoJtayE4t-19": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:scopeAndContent"
         },
         "mxBBHEK_cXtyoJtayE4t-20": {
           "identifier": "Deutscher Oberbefehlshaber Norwegen",
@@ -2199,11 +1994,6 @@
             "rico:AgentName"
           ]
         },
-        "mxBBHEK_cXtyoJtayE4t-23": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasCreator"
-        },
         "mxBBHEK_cXtyoJtayE4t-24": {
           "identifier": "DOBN Samling Storage Instantiation",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -2222,11 +2012,6 @@
             "rico:Instantiation"
           ]
         },
-        "mxBBHEK_cXtyoJtayE4t-26": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:hasOrHadAnalogueInstantiation"
-        },
         "mxBBHEK_cXtyoJtayE4t-3": {
           "identifier": "Deutscher Oberbefehlshaber Norwegen Samling",
           "kind": "STANDALONE_INDIVIDUAL",
@@ -2244,11 +2029,6 @@
           "tokens": [
             "rico:RecordSet"
           ]
-        },
-        "mxBBHEK_cXtyoJtayE4t-5": {
-          "error": "type object 'CellKind' has no attribute 'ARROW'",
-          "kind": "CLASSIFICATION_ERROR",
-          "raw_value": "rico:isRecordResourceAssociatedWithRecordResource"
         },
         "mxBBHEK_cXtyoJtayE4t-6": {
           "identifier": "Tyskland",
@@ -2287,7 +2067,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/knut_olborgs_forskningsnotater.drawio",
       "errors": {
         "py_legacy": [
@@ -2300,7 +2079,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -2308,12 +2094,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "cf4397e6753508e38e85a7a3fb1403702e2eeed636ef43e5a64795f4b37df875",
+          "nt_sha256": "543741d03eefdd45e99dfa4097ceb69a8f933273f570ad45a31e0ed8e2ab8350",
           "path": "results/knut-olborgs-forskningsnotater/ts_pipeline.ttl",
           "triples": 98
         },
         "ts_plugin": {
-          "nt_sha256": "cf4397e6753508e38e85a7a3fb1403702e2eeed636ef43e5a64795f4b37df875",
+          "nt_sha256": "543741d03eefdd45e99dfa4097ceb69a8f933273f570ad45a31e0ed8e2ab8350",
           "path": "results/knut-olborgs-forskningsnotater/ts_plugin.ttl",
           "triples": 98
         }
@@ -4459,7 +4245,7 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "e5b31d999e959c436caa2ddcd908bf2f2711ebbb214190c99db4fc5ee16a774e",
+          "nt_sha256": "613c4e823289c2d41edcd02101d14fbad216c0d1f3005aefa141adf5490601d4",
           "path": "results/pytest-aa37-department-of-health-with-metadata-rml/ts_pipeline.ttl",
           "triples": 61
         },
@@ -16094,11 +15880,11 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16447120,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16447120,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16447120,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16447120,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",

@@ -1,4 +1,4 @@
-Script started on Tue Oct 21 16:50:02 2025
+Script started on Tue Oct 21 16:55:27 2025
 Command: bun run test
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1mpython -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
@@ -103,7 +103,7 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_met
 ==================================================== FAILURES ====================================================
 [31m[1m_______________________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] ________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-438/test_parse_drawio_rejects_malf1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-440/test_parse_drawio_rejects_malf1')
 case_key = 'dangling_curie'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -137,7 +137,7 @@ Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (ysJAvTtuVAxGOwe
 Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (ysJAvTtuVAxGOwe6Rh7X-7) has no valid source.
 [31m[1m_________________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] __________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-438/test_parse_drawio_rejects_malf2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-440/test_parse_drawio_rejects_malf2')
 case_key = 'colon_only'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -171,7 +171,7 @@ Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (ysJAvTtuVAxGOwe
 Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (ysJAvTtuVAxGOwe6Rh7X-7) has no valid source.
 [31m[1m__________________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] __________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-438/test_parse_drawio_rejects_malf3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-440/test_parse_drawio_rejects_malf3')
 case_key = 'no_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -227,8 +227,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nab41248f703648ec8fdf5a3b0c347386 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N929cadabce9a4bf58b33307520182fd0 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfe8fc664b7dc401b8f0d7441c3ed2b52 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N2ee93d5bc9574dadac39fd0923de0107 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -272,8 +272,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb7b88ab0a08e4f7e9b3cd81b34d4d06f (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nd9f6cc5809fe4b61a3787099ef068c5f (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N1f83a90c9528454c98b45122570237ce (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N8cc7baaf4b324adb97da27daf7448cc9 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -325,8 +325,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nd816b0d231af4bd88296f4c2ce7c8696 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N7291721069da4c80af6a178f2dc5d3e6 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N94e45327bab040e3b4c36d383e44d595 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N5371072c0ebf4f8b862136d3a5bb6ed0 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -371,8 +371,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N89200f76969f49279264bf28a24d5c87 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nbb657bfcfa1c4c68892927ec530c4e01 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N9f2a64b6857d4dd6a98d2b40b5ed3d4e (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N40fdc8f1f6cd45c9a2c90922e7c589d7 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -419,8 +419,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N4b72cf848a42446f9f62f03bc460e3e8 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Na8714cb9d76b4f58bb8106c89393815c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N5941f76bcec74fd9a157f35914b372ad (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N7d26a3fbb4f94726b706075f6c4a582f (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -474,8 +474,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ndbf5911721224b48bbdc22e3827434f4 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N9defeba82bac4f41b88930dd1d842f06 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N78655bf8027c42cca6d2d1592b8291cd (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N82c785db2c0246e29aecd5379a725ad1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -535,8 +535,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Na0099ce57bea4742b4bd7980275bb913 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N94fac2026f874111b38785046e77af73 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N8c186be470fe4c53931446119e30f6cb (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nacaed060a1a04eccafea4a74003d7193 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -591,8 +591,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N1c4556e3f548408eb9fc471f17f8dd0a (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N24fcac87c289481ca7b273d008479e31 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N6bf2d1e29cf941b6bcb166c8e63b6a2f (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nb58c709ad7b94d1eac3dfce83c2759e2 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -645,8 +645,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N7b4d4ea10b184169aee16f3c860d495c (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N38eb9f45aa7d4e3995603308bfbc9623 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfe8a011975cf49e7bc69171d3433bfa1 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N1b0ec16ee330409085e01ce1b9b5afed (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -697,8 +697,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N1772b3b61e7941dc824ceded2c81c5ab (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nb733152a99024341be1cdb7493bc2560 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Na86b4a40a8eb4c1ba04a2aab9260ee81 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Na181af99a57b4803839ee0495d7d73b8 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -739,8 +739,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ne249afde7d9749cba5f1e125c398a4f7 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N9a9dcc4b360b4ce09e1f42639799a9b2 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfbfbc9d56465493d84828656d2dfc3aa (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N9ae9f1368e4b4e2586776d71a0e36e9e (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -791,8 +791,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N40c24606641248e8809a9e3aba41bcbb (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nadea1fc7b0834c1e8ebd1e94ae644c88 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfa4b0ccce28d49eba95b857957d5f2f4 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nbcbc1776df7d42bc9ded07fc56d19bea (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -844,8 +844,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N43ebe93e1ede49d0929f111e83b1a7a5 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N05fa5d417beb40a39c767e94799bb16e (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N8890fc51ce37461095853ff4b5e0f48b (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N8903650b1b99497885b15025e2b376f4 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -897,8 +897,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N0480e4b37a8545258e3a481f572dd9ae (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N680bad6f7c1941fb803ea85df4e96efa (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N3fb52b3c3e7c48b2abf1db89517eed38 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N372377b0f39144e0bc7b6976fbe38205 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -965,8 +965,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N94676a9bf9fe48e7b246ce1a283eca41 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Ne697a849618040678d2b1385887c8d83 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N49762b008f2240a7889c25a6998e92cd (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N62cb7385237043feb0e75e09d946df46 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1030,8 +1030,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N4c77b4803a2d455ca661f014e06f1b54 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N0e7c7be8fe074ad6b40a638f3155ad6c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N5e09bcda2275468ea79dcddd9668d7d7 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N9d7823e7f8b7423b86cc6e03f1b8d637 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1092,8 +1092,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N0e5a579f921f4f8698c9f77d19e4dc7a (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nc7bce8e30f444b8a892f81767dd494ff (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nd7bd0716fa494779a39755def6274c30 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N909e67cdbf1b4ef4b1f83650f28beb4e (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1134,8 +1134,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Na718224aa50a4bc4bfd4880a9bdcdd47 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Na02a30a9580646b98fc174ec681ffb12 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N6c117d1371cb48f4a092b8c07223db8f (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N63307b9bd75a494ab28af5be71aef2b1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1190,8 +1190,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N0ee78e2c80fc40e9a036625bc36c6b79 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N385acb0bae214344a9f68f6ab06a8ea1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Ne5f02dd5ab574aa0991326c7e280fc81 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N8c62f95d63844b88bae5b548bc0d9753 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1238,8 +1238,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb2637a892b3144f8b9c23b5a06307e50 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Ndfdbfa50013a40519d58831507fc3f00 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N3ead658b9eb14fc7b796b011ed50b25b (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N59fbb570d9d447c291629929e7f689fb (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1293,8 +1293,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nf81a8cdab34b4750a7f5736f9bf0a310 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nc59ee5fc0c8f47c1bf3b13a1acc9a6e5 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N9fbe4fa33fe84170b0f1eb32c28abe2a (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Ncdc3a804bd2541bf9094e94b7bdc067e (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -1430,7 +1430,7 @@ Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (ysJAvTtuVAxGOwe
 Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (ysJAvTtuVAxGOwe6Rh7X-7) has no valid source.
 [31m[1m__________________________________ test_generated_metadata_fixtures_round_trip ___________________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-438/test_generated_metadata_fixtur0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-440/test_generated_metadata_fixtur0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
@@ -1476,10 +1476,10 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
                 _normalise_graph(original_graph)[90m[39;49;00m
             )[90m[39;49;00m
 [1m[31mE           AssertionError: assert False[0m
-[1m[31mE            +  where False = isomorphic(<Graph identifier=N9c6822f5648f450aad6167f8b9b9f4a4 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE            +    where isomorphic = <Graph identifier=N6edbf1c756bf4026aea46a2435d2e3d3 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-[1m[31mE            +      where <Graph identifier=N6edbf1c756bf4026aea46a2435d2e3d3 (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=Nf7f0ba2827e34fe5aa4538c40ea3ae80 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
-[1m[31mE            +    and   <Graph identifier=N9c6822f5648f450aad6167f8b9b9f4a4 (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=Nea40aebc77c642c190f5e257b23f4c3d (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
+[1m[31mE            +  where False = isomorphic(<Graph identifier=N190cf881ab9d400fb5f914472c3a3b9d (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE            +    where isomorphic = <Graph identifier=N3069221f972743a7a013b9c36801d737 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE            +      where <Graph identifier=N3069221f972743a7a013b9c36801d737 (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=Nce2604f906b04701957f591e1aeac0b0 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
+[1m[31mE            +    and   <Graph identifier=N190cf881ab9d400fb5f914472c3a3b9d (<class 'rdflib.graph.Graph'>)> = _normalise_graph(<Graph identifier=N581f07c7f9654ec3b52f05996a89483e (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>)[0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:465: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -2219,358 +2219,16 @@ Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (nZdSzTGt5yp-Q97JL
 Warning: Skipping arrow due to error: Arrow 'rdfs:label' (oJl3FkC9V9rQO8DduHPF-4) has no valid source.
 Warning: Skipping arrow due to error: Arrow 'rdfs:label' (oJl3FkC9V9rQO8DduHPF-7) has no valid source.
 Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (oJl3FkC9V9rQO8DduHPF-15) target 'oJl3FkC9V9rQO8DduHPF-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (gmwnegnUR_CNORKRYM6Y-16) target 'gmwnegnUR_CNORKRYM6Y-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (gmwnegnUR_CNORKRYM6Y-18) target 'lstVy3rX84DfsURla7Zy-17' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadAgentName' (iiJ8OJKaNMLrSCaLO3TT-3) target 'iiJ8OJKaNMLrSCaLO3TT-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (iiJ8OJKaNMLrSCaLO3TT-9) target 'iiJ8OJKaNMLrSCaLO3TT-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (iiJ8OJKaNMLrSCaLO3TT-17) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (_-RjwaxhbeTWfwVWe4ke-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:history' (_-RjwaxhbeTWfwVWe4ke-13) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasRegulatedBy' (I4GB3cVhTv-sTvJ7h0Jz-37) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lTHjRTAcClQ9bYR0I0Gv-9) target 'lTHjRTAcClQ9bYR0I0Gv-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lTHjRTAcClQ9bYR0I0Gv-15) target 'lTHjRTAcClQ9bYR0I0Gv-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'auth:functionNote' (QoX8hO-0wcaPtYNZqJav-2) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadController' (LdrxgRQo7zRXQQt_UOkl-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:thingIsSourceOfRelation' (LdrxgRQo7zRXQQt_UOkl-9) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:relationHasTarget' (LdrxgRQo7zRXQQt_UOkl-11) target 'gmwnegnUR_CNORKRYM6Y-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (LdrxgRQo7zRXQQt_UOkl-13) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (LdrxgRQo7zRXQQt_UOkl-17) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadAgentName' (LdrxgRQo7zRXQQt_UOkl-21) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isSuccessorOf' (LdrxgRQo7zRXQQt_UOkl-28) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (LdrxgRQo7zRXQQt_UOkl-32) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadAgentName' (LdrxgRQo7zRXQQt_UOkl-36) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadCorporateBodyType' (LdrxgRQo7zRXQQt_UOkl-49) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadType' (LdrxgRQo7zRXQQt_UOkl-51) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadType' (PsgF6pNrnCMBm3obLfe6-1) target 'PsgF6pNrnCMBm3obLfe6-4' could not be found.
-Warning: Skipping arrow due to error: Arrow 'auth:privateNote' (cuPy41NEiSmLZpDvVlvN-2) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (cuPy41NEiSmLZpDvVlvN-4) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isEquivalentTo' (T4FhXZd-5XpHwweIhw_B-3) target 'T4FhXZd-5XpHwweIhw_B-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:title' (mXWEuhzCrtuQsP6tQl7L-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (mXWEuhzCrtuQsP6tQl7L-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (mXWEuhzCrtuQsP6tQl7L-9) has no target.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-26) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-29) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-32) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (gmwnegnUR_CNORKRYM6Y-16) target 'gmwnegnUR_CNORKRYM6Y-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (gmwnegnUR_CNORKRYM6Y-18) target 'lstVy3rX84DfsURla7Zy-17' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadAgentName' (iiJ8OJKaNMLrSCaLO3TT-3) target 'iiJ8OJKaNMLrSCaLO3TT-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (iiJ8OJKaNMLrSCaLO3TT-9) target 'iiJ8OJKaNMLrSCaLO3TT-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (iiJ8OJKaNMLrSCaLO3TT-17) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (_-RjwaxhbeTWfwVWe4ke-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:history' (_-RjwaxhbeTWfwVWe4ke-13) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasRegulatedBy' (I4GB3cVhTv-sTvJ7h0Jz-37) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lTHjRTAcClQ9bYR0I0Gv-9) target 'lTHjRTAcClQ9bYR0I0Gv-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lTHjRTAcClQ9bYR0I0Gv-15) target 'lTHjRTAcClQ9bYR0I0Gv-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'auth:functionNote' (QoX8hO-0wcaPtYNZqJav-2) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadController' (LdrxgRQo7zRXQQt_UOkl-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:thingIsSourceOfRelation' (LdrxgRQo7zRXQQt_UOkl-9) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:relationHasTarget' (LdrxgRQo7zRXQQt_UOkl-11) target 'gmwnegnUR_CNORKRYM6Y-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (LdrxgRQo7zRXQQt_UOkl-13) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (LdrxgRQo7zRXQQt_UOkl-17) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadAgentName' (LdrxgRQo7zRXQQt_UOkl-21) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isSuccessorOf' (LdrxgRQo7zRXQQt_UOkl-28) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (LdrxgRQo7zRXQQt_UOkl-32) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadAgentName' (LdrxgRQo7zRXQQt_UOkl-36) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadCorporateBodyType' (LdrxgRQo7zRXQQt_UOkl-49) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadType' (LdrxgRQo7zRXQQt_UOkl-51) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadType' (PsgF6pNrnCMBm3obLfe6-1) target 'PsgF6pNrnCMBm3obLfe6-4' could not be found.
-Warning: Skipping arrow due to error: Arrow 'auth:privateNote' (cuPy41NEiSmLZpDvVlvN-2) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (cuPy41NEiSmLZpDvVlvN-4) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isEquivalentTo' (T4FhXZd-5XpHwweIhw_B-3) target 'T4FhXZd-5XpHwweIhw_B-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:title' (mXWEuhzCrtuQsP6tQl7L-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (mXWEuhzCrtuQsP6tQl7L-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (mXWEuhzCrtuQsP6tQl7L-9) has no target.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-26) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-29) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-32) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (sWa0SD8Ajx1KSGOqKPP4-5) target 'sWa0SD8Ajx1KSGOqKPP4-4' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadInstantiation' (K4QZWATomJR9_dxTVFmW-37) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (K4QZWATomJR9_dxTVFmW-41) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (wiPwyt0miK05mvKJtJq--53) target 'wiPwyt0miK05mvKJtJq--56' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (Pa1L8ZfUJXBHrEYyGiSI-3) target 'Pa1L8ZfUJXBHrEYyGiSI-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (JUvVhaggt__ALHUesofw-3) target 'JUvVhaggt__ALHUesofw-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-7) target 'JUvVhaggt__ALHUesofw-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (BgzUFkZFLuuaoTEaSqZe-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (BgzUFkZFLuuaoTEaSqZe-13) target 'BgzUFkZFLuuaoTEaSqZe-16' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (BgzUFkZFLuuaoTEaSqZe-17) target 'BgzUFkZFLuuaoTEaSqZe-20' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isDirectlyIncludedIn' (BgzUFkZFLuuaoTEaSqZe-21) target 'BgzUFkZFLuuaoTEaSqZe-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isDirectlyIncludedIn' (Jj78cHQdAaoJRiL902HJ-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (Jj78cHQdAaoJRiL902HJ-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (sWa0SD8Ajx1KSGOqKPP4-5) target 'sWa0SD8Ajx1KSGOqKPP4-4' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadInstantiation' (K4QZWATomJR9_dxTVFmW-37) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (K4QZWATomJR9_dxTVFmW-41) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (wiPwyt0miK05mvKJtJq--53) target 'wiPwyt0miK05mvKJtJq--56' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (Pa1L8ZfUJXBHrEYyGiSI-3) target 'Pa1L8ZfUJXBHrEYyGiSI-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (JUvVhaggt__ALHUesofw-3) target 'JUvVhaggt__ALHUesofw-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-7) target 'JUvVhaggt__ALHUesofw-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (BgzUFkZFLuuaoTEaSqZe-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (BgzUFkZFLuuaoTEaSqZe-13) target 'BgzUFkZFLuuaoTEaSqZe-16' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (BgzUFkZFLuuaoTEaSqZe-17) target 'BgzUFkZFLuuaoTEaSqZe-20' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isDirectlyIncludedIn' (BgzUFkZFLuuaoTEaSqZe-21) target 'BgzUFkZFLuuaoTEaSqZe-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isDirectlyIncludedIn' (Jj78cHQdAaoJRiL902HJ-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (Jj78cHQdAaoJRiL902HJ-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (sWa0SD8Ajx1KSGOqKPP4-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:history' (K4QZWATomJR9_dxTVFmW-27) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadInstantiation' (K4QZWATomJR9_dxTVFmW-37) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (K4QZWATomJR9_dxTVFmW-41) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfAccess' (vEi_3DjQt7wcUmB-cSFn-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfUse' (vEi_3DjQt7wcUmB-cSFn-4) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (vEi_3DjQt7wcUmB-cSFn-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:accruals' (wiPwyt0miK05mvKJtJq--11) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (wiPwyt0miK05mvKJtJq--25) target 'wiPwyt0miK05mvKJtJq--24' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (wiPwyt0miK05mvKJtJq--31) target 'wiPwyt0miK05mvKJtJq--34' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (wiPwyt0miK05mvKJtJq--53) target 'wiPwyt0miK05mvKJtJq--56' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:resultsOrResultedFrom' (wiPwyt0miK05mvKJtJq--57) target 'wiPwyt0miK05mvKJtJq--60' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasPerformedBy' (wiPwyt0miK05mvKJtJq--61) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (Pa1L8ZfUJXBHrEYyGiSI-3) target 'Pa1L8ZfUJXBHrEYyGiSI-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (rlVAaZdWDM-1AO-MbrP8-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (JUvVhaggt__ALHUesofw-3) target 'JUvVhaggt__ALHUesofw-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-5) target 'JUvVhaggt__ALHUesofw-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-7) target 'JUvVhaggt__ALHUesofw-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:relationHasTarget' (Q8uZV5vyl1yQ3metHevY-5) target 'oq1ih978A7QFoimO-3pH-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (Q8uZV5vyl1yQ3metHevY-9) target 'oq1ih978A7QFoimO-3pH-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (Q8uZV5vyl1yQ3metHevY-15) target 'Q8uZV5vyl1yQ3metHevY-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (Q8uZV5vyl1yQ3metHevY-17) target 'Q8uZV5vyl1yQ3metHevY-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lszSfj4lrEIONad0Ssyt-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:thingIsSourceOfRelation' (Tz2F32KxXM1jOS5T9Jy2-1) target 'Tz2F32KxXM1jOS5T9Jy2-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (Tz2F32KxXM1jOS5T9Jy2-7) target 'oq1ih978A7QFoimO-3pH-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (Tz2F32KxXM1jOS5T9Jy2-17) target 'Tz2F32KxXM1jOS5T9Jy2-22' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (Tz2F32KxXM1jOS5T9Jy2-19) target 'Tz2F32KxXM1jOS5T9Jy2-24' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (sWa0SD8Ajx1KSGOqKPP4-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:history' (K4QZWATomJR9_dxTVFmW-27) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadInstantiation' (K4QZWATomJR9_dxTVFmW-37) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (K4QZWATomJR9_dxTVFmW-41) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfAccess' (vEi_3DjQt7wcUmB-cSFn-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfUse' (vEi_3DjQt7wcUmB-cSFn-4) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (vEi_3DjQt7wcUmB-cSFn-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:accruals' (wiPwyt0miK05mvKJtJq--11) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (wiPwyt0miK05mvKJtJq--25) target 'wiPwyt0miK05mvKJtJq--24' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (wiPwyt0miK05mvKJtJq--31) target 'wiPwyt0miK05mvKJtJq--34' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (wiPwyt0miK05mvKJtJq--53) target 'wiPwyt0miK05mvKJtJq--56' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:resultsOrResultedFrom' (wiPwyt0miK05mvKJtJq--57) target 'wiPwyt0miK05mvKJtJq--60' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasPerformedBy' (wiPwyt0miK05mvKJtJq--61) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (Pa1L8ZfUJXBHrEYyGiSI-3) target 'Pa1L8ZfUJXBHrEYyGiSI-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (rlVAaZdWDM-1AO-MbrP8-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (JUvVhaggt__ALHUesofw-3) target 'JUvVhaggt__ALHUesofw-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-5) target 'JUvVhaggt__ALHUesofw-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-7) target 'JUvVhaggt__ALHUesofw-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:relationHasTarget' (Q8uZV5vyl1yQ3metHevY-5) target 'oq1ih978A7QFoimO-3pH-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (Q8uZV5vyl1yQ3metHevY-9) target 'oq1ih978A7QFoimO-3pH-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (Q8uZV5vyl1yQ3metHevY-15) target 'Q8uZV5vyl1yQ3metHevY-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (Q8uZV5vyl1yQ3metHevY-17) target 'Q8uZV5vyl1yQ3metHevY-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lszSfj4lrEIONad0Ssyt-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:thingIsSourceOfRelation' (Tz2F32KxXM1jOS5T9Jy2-1) target 'Tz2F32KxXM1jOS5T9Jy2-14' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (Tz2F32KxXM1jOS5T9Jy2-7) target 'oq1ih978A7QFoimO-3pH-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (Tz2F32KxXM1jOS5T9Jy2-17) target 'Tz2F32KxXM1jOS5T9Jy2-22' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (Tz2F32KxXM1jOS5T9Jy2-19) target 'Tz2F32KxXM1jOS5T9Jy2-24' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (sWa0SD8Ajx1KSGOqKPP4-5) target 'sWa0SD8Ajx1KSGOqKPP4-4' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:scopeAndContent' (sWa0SD8Ajx1KSGOqKPP4-12) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfAccess' (vEi_3DjQt7wcUmB-cSFn-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfUse' (vEi_3DjQt7wcUmB-cSFn-4) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (wiPwyt0miK05mvKJtJq--25) target 'wiPwyt0miK05mvKJtJq--24' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (wiPwyt0miK05mvKJtJq--31) target 'wiPwyt0miK05mvKJtJq--34' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (wiPwyt0miK05mvKJtJq--53) target 'wiPwyt0miK05mvKJtJq--56' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:resultsOrResultedFrom' (wiPwyt0miK05mvKJtJq--57) target 'wiPwyt0miK05mvKJtJq--60' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasPerformedBy' (wiPwyt0miK05mvKJtJq--61) target 'wiPwyt0miK05mvKJtJq--64' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (wiPwyt0miK05mvKJtJq--71) target 'k-v4WMxrNF5Vd4GuPzRr-8' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (Pa1L8ZfUJXBHrEYyGiSI-3) target 'Pa1L8ZfUJXBHrEYyGiSI-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (rlVAaZdWDM-1AO-MbrP8-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (JUvVhaggt__ALHUesofw-3) target 'JUvVhaggt__ALHUesofw-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-5) target 'JUvVhaggt__ALHUesofw-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-7) target 'JUvVhaggt__ALHUesofw-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (k-v4WMxrNF5Vd4GuPzRr-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (WmDtzvjNodZwVyRvT-DU-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadInstantiation' (ky_l4YyN5fNchXo6go5T-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (ky_l4YyN5fNchXo6go5T-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (sWa0SD8Ajx1KSGOqKPP4-5) target 'sWa0SD8Ajx1KSGOqKPP4-4' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:scopeAndContent' (sWa0SD8Ajx1KSGOqKPP4-12) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfAccess' (vEi_3DjQt7wcUmB-cSFn-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfUse' (vEi_3DjQt7wcUmB-cSFn-4) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (wiPwyt0miK05mvKJtJq--25) target 'wiPwyt0miK05mvKJtJq--24' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (wiPwyt0miK05mvKJtJq--31) target 'wiPwyt0miK05mvKJtJq--34' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (wiPwyt0miK05mvKJtJq--53) target 'wiPwyt0miK05mvKJtJq--56' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:resultsOrResultedFrom' (wiPwyt0miK05mvKJtJq--57) target 'wiPwyt0miK05mvKJtJq--60' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasPerformedBy' (wiPwyt0miK05mvKJtJq--61) target 'wiPwyt0miK05mvKJtJq--64' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (wiPwyt0miK05mvKJtJq--71) target 'k-v4WMxrNF5Vd4GuPzRr-8' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (Pa1L8ZfUJXBHrEYyGiSI-3) target 'Pa1L8ZfUJXBHrEYyGiSI-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (rlVAaZdWDM-1AO-MbrP8-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (JUvVhaggt__ALHUesofw-3) target 'JUvVhaggt__ALHUesofw-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-5) target 'JUvVhaggt__ALHUesofw-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (JUvVhaggt__ALHUesofw-7) target 'JUvVhaggt__ALHUesofw-12' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (k-v4WMxrNF5Vd4GuPzRr-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (WmDtzvjNodZwVyRvT-DU-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadInstantiation' (ky_l4YyN5fNchXo6go5T-1) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (ky_l4YyN5fNchXo6go5T-5) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (ccQ81NhYz9qmqgse-E7F-3) target 'ccQ81NhYz9qmqgse-E7F-6' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:scopeAndContent' (ccQ81NhYz9qmqgse-E7F-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (ccQ81NhYz9qmqgse-E7F-12) target 'ccQ81NhYz9qmqgse-E7F-15' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (lcfxYehIKdb4-HDjwdr9-3) target 'lcfxYehIKdb4-HDjwdr9-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (lcfxYehIKdb4-HDjwdr9-7) target 'lcfxYehIKdb4-HDjwdr9-6' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:thingIsSourceOfRelation' (lcfxYehIKdb4-HDjwdr9-11) target 'lcfxYehIKdb4-HDjwdr9-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (lcfxYehIKdb4-HDjwdr9-17) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (lcfxYehIKdb4-HDjwdr9-28) target 'lcfxYehIKdb4-HDjwdr9-31' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (lcfxYehIKdb4-HDjwdr9-34) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (lcfxYehIKdb4-HDjwdr9-36) target 'lcfxYehIKdb4-HDjwdr9-39' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lcfxYehIKdb4-HDjwdr9-44) target 'lcfxYehIKdb4-HDjwdr9-41' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lcfxYehIKdb4-HDjwdr9-46) target 'lcfxYehIKdb4-HDjwdr9-43' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:resultsOrResultedFrom' (lcfxYehIKdb4-HDjwdr9-48) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasPerformedBy' (lcfxYehIKdb4-HDjwdr9-52) target 'lcfxYehIKdb4-HDjwdr9-55' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (lcfxYehIKdb4-HDjwdr9-56) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:accruals' (lcfxYehIKdb4-HDjwdr9-59) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (lcfxYehIKdb4-HDjwdr9-63) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfAccess' (lcfxYehIKdb4-HDjwdr9-65) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfUse' (lcfxYehIKdb4-HDjwdr9-67) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (lcfxYehIKdb4-HDjwdr9-71) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lcfxYehIKdb4-HDjwdr9-84) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lcfxYehIKdb4-HDjwdr9-86) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lcfxYehIKdb4-HDjwdr9-88) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (lcfxYehIKdb4-HDjwdr9-94) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (lcfxYehIKdb4-HDjwdr9-100) target 'lcfxYehIKdb4-HDjwdr9-103' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (lcfxYehIKdb4-HDjwdr9-104) target 'lcfxYehIKdb4-HDjwdr9-107' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (ccQ81NhYz9qmqgse-E7F-3) target 'ccQ81NhYz9qmqgse-E7F-6' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:scopeAndContent' (ccQ81NhYz9qmqgse-E7F-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (ccQ81NhYz9qmqgse-E7F-12) target 'ccQ81NhYz9qmqgse-E7F-15' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (lcfxYehIKdb4-HDjwdr9-3) target 'lcfxYehIKdb4-HDjwdr9-2' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (lcfxYehIKdb4-HDjwdr9-7) target 'lcfxYehIKdb4-HDjwdr9-6' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:thingIsSourceOfRelation' (lcfxYehIKdb4-HDjwdr9-11) target 'lcfxYehIKdb4-HDjwdr9-10' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (lcfxYehIKdb4-HDjwdr9-17) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadTitle' (lcfxYehIKdb4-HDjwdr9-28) target 'lcfxYehIKdb4-HDjwdr9-31' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasDescribedBy' (lcfxYehIKdb4-HDjwdr9-34) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasDocumentaryFormType' (lcfxYehIKdb4-HDjwdr9-36) target 'lcfxYehIKdb4-HDjwdr9-39' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lcfxYehIKdb4-HDjwdr9-44) target 'lcfxYehIKdb4-HDjwdr9-41' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordState' (lcfxYehIKdb4-HDjwdr9-46) target 'lcfxYehIKdb4-HDjwdr9-43' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:resultsOrResultedFrom' (lcfxYehIKdb4-HDjwdr9-48) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasPerformedBy' (lcfxYehIKdb4-HDjwdr9-52) target 'lcfxYehIKdb4-HDjwdr9-55' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:lastModificationDate' (lcfxYehIKdb4-HDjwdr9-56) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:accruals' (lcfxYehIKdb4-HDjwdr9-59) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (lcfxYehIKdb4-HDjwdr9-63) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfAccess' (lcfxYehIKdb4-HDjwdr9-65) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:conditionsOfUse' (lcfxYehIKdb4-HDjwdr9-67) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:generalDescription' (lcfxYehIKdb4-HDjwdr9-71) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lcfxYehIKdb4-HDjwdr9-84) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lcfxYehIKdb4-HDjwdr9-86) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasContentOfType' (lcfxYehIKdb4-HDjwdr9-88) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:instantiationExtent' (lcfxYehIKdb4-HDjwdr9-94) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (lcfxYehIKdb4-HDjwdr9-100) target 'lcfxYehIKdb4-HDjwdr9-103' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasIdentifierType' (lcfxYehIKdb4-HDjwdr9-104) target 'lcfxYehIKdb4-HDjwdr9-107' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isAssociatedWithEvent' (ccQ81NhYz9qmqgse-E7F-24) has no target.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (ccQ81NhYz9qmqgse-E7F-3) target 'ccQ81NhYz9qmqgse-E7F-6' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (ccQ81NhYz9qmqgse-E7F-12) target 'ccQ81NhYz9qmqgse-E7F-15' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isAssociatedWithPlace' (ccQ81NhYz9qmqgse-E7F-16) has no target.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadPlaceType' (ccQ81NhYz9qmqgse-E7F-20) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (ccQ81NhYz9qmqgse-E7F-28) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (ccQ81NhYz9qmqgse-E7F-30) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-36) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-38) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasRegulatedBy' (ccQ81NhYz9qmqgse-E7F-42) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:occupiesOrOccupied' (ccQ81NhYz9qmqgse-E7F-64) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (ccQ81NhYz9qmqgse-E7F-68) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (ccQ81NhYz9qmqgse-E7F-70) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-76) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-78) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-13) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-16) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-22) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-26) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-30) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-34) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-38) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-42) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-46) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-50) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-54) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-58) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-62) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-66) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-72) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-76) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-80) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-84) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-86) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-88) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-90) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-92) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-94) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-97) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-103) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-105) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-107) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadHolder' (HLbPBR5fNmHbn4HrSuu7-115) target 'HLbPBR5fNmHbn4HrSuu7-114' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadDigitalInstantiation' (HLbPBR5fNmHbn4HrSuu7-120) target 'HLbPBR5fNmHbn4HrSuu7-119' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasExtent' (HLbPBR5fNmHbn4HrSuu7-124) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasExtentType' (HLbPBR5fNmHbn4HrSuu7-133) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:quantity' (HLbPBR5fNmHbn4HrSuu7-135) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:occurredAtDate' (0Zy0miyS0KUs_HnzcUTQ-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:occurredAtDate' (0Zy0miyS0KUs_HnzcUTQ-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (0Zy0miyS0KUs_HnzcUTQ-9) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadMandateType' (ccQ81NhYz9qmqgse-E7F-52) target 'ccQ81NhYz9qmqgse-E7F-57' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:regulatesOrRegulated' (0Zy0miyS0KUs_HnzcUTQ-11) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadLeader' (ccQ81NhYz9qmqgse-E7F-62) target 'ccQ81NhYz9qmqgse-E7F-59' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isAssociatedWithEvent' (ccQ81NhYz9qmqgse-E7F-24) has no target.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (ccQ81NhYz9qmqgse-E7F-3) target 'ccQ81NhYz9qmqgse-E7F-6' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasCreator' (ccQ81NhYz9qmqgse-E7F-12) target 'ccQ81NhYz9qmqgse-E7F-15' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:isAssociatedWithPlace' (ccQ81NhYz9qmqgse-E7F-16) has no target.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadPlaceType' (ccQ81NhYz9qmqgse-E7F-20) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (ccQ81NhYz9qmqgse-E7F-28) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (ccQ81NhYz9qmqgse-E7F-30) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-36) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-38) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:isOrWasRegulatedBy' (ccQ81NhYz9qmqgse-E7F-42) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:occupiesOrOccupied' (ccQ81NhYz9qmqgse-E7F-64) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasBeginningDate' (ccQ81NhYz9qmqgse-E7F-68) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasEndDate' (ccQ81NhYz9qmqgse-E7F-70) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-76) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:normalizedDateValue' (ccQ81NhYz9qmqgse-E7F-78) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-13) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-16) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-22) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-26) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-30) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-34) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-38) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-42) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-46) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-50) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-54) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-58) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-62) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:includesOrIncluded' (HLbPBR5fNmHbn4HrSuu7-66) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-72) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-76) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-80) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-84) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-86) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-88) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-90) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-92) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-94) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-97) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-103) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-105) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasRecordSetType' (HLbPBR5fNmHbn4HrSuu7-107) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadHolder' (HLbPBR5fNmHbn4HrSuu7-115) target 'HLbPBR5fNmHbn4HrSuu7-114' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadDigitalInstantiation' (HLbPBR5fNmHbn4HrSuu7-120) target 'HLbPBR5fNmHbn4HrSuu7-119' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:hasExtent' (HLbPBR5fNmHbn4HrSuu7-124) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasExtentType' (HLbPBR5fNmHbn4HrSuu7-133) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:quantity' (HLbPBR5fNmHbn4HrSuu7-135) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:occurredAtDate' (0Zy0miyS0KUs_HnzcUTQ-3) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:occurredAtDate' (0Zy0miyS0KUs_HnzcUTQ-7) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (0Zy0miyS0KUs_HnzcUTQ-9) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadMandateType' (ccQ81NhYz9qmqgse-E7F-52) target 'ccQ81NhYz9qmqgse-E7F-57' could not be found.
-Warning: Skipping arrow due to error: Arrow 'rico:regulatesOrRegulated' (0Zy0miyS0KUs_HnzcUTQ-11) has no valid source.
-Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadLeader' (ccQ81NhYz9qmqgse-E7F-62) target 'ccQ81NhYz9qmqgse-E7F-59' could not be found.
 [33m================================================ warnings summary ================================================[0m
-legacy/tests/test_patched_parser.py: 338 warnings
+legacy/tests/test_patched_parser.py: 284 warnings
   /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:391: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     target_cell
 
-legacy/tests/test_patched_parser.py: 78 warnings
+legacy/tests/test_patched_parser.py: 62 warnings
   /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2323: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     parsed_root
 
-legacy/tests/test_patched_parser.py: 31 warnings
+legacy/tests/test_patched_parser.py: 23 warnings
   /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2326: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     if parsed_root.find(".//UserObject[@id='0']")
 
@@ -2603,7 +2261,7 @@ legacy/tests/test_patched_parser.py: 31 warnings
 [31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_respects_strip_html_config[0m - assert []
 [31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_metadata_strip_html_override[0m - assert []
 [31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - AssertionError: assert False
-[31m================================== [31m[1m27 failed[0m, [32m12 passed[0m, [33m447 warnings[0m[31m in 1.65s[0m[31m ===================================[0m
+[31m================================== [31m[1m27 failed[0m, [32m12 passed[0m, [33m369 warnings[0m[31m in 1.18s[0m[31m ===================================[0m
 Traceback (most recent call last):
   File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 294, in <module>
     main()
@@ -2653,8 +2311,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
                             ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x105d7fe70>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x10426a390>, individual_cells=[], arrow_cells=[], literal_cells=[])
-parser = <xml.etree.ElementTree.XMLParser object at 0x105d8a160>
+text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x106ce7ec0>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x106987c80>, individual_cells=[], arrow_cells=[], literal_cells=[])
+parser = <xml.etree.ElementTree.XMLParser object at 0x106cf2160>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mXML[39;49;00m(text, parser=[94mNone[39;49;00m):[90m[39;49;00m
     [90m    [39;49;00m[33m"""Parse XML document from string constant.[39;49;00m
@@ -2698,8 +2356,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
                             ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x105e6ff10>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x105d8e990>, individual_cells=[], arrow_cells=[], literal_cells=[])
-parser = <xml.etree.ElementTree.XMLParser object at 0x105da36a0>
+text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x106dd7f60>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x106cf78c0>, individual_cells=[], arrow_cells=[], literal_cells=[])
+parser = <xml.etree.ElementTree.XMLParser object at 0x106d0f6a0>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mXML[39;49;00m(text, parser=[94mNone[39;49;00m):[90m[39;49;00m
     [90m    [39;49;00m[33m"""Parse XML document from string constant.[39;49;00m
@@ -2739,8 +2397,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
                             ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x105ec9710>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x1042695b0>, individual_cells=[], arrow_cells=[], literal_cells=[])
-parser = <xml.etree.ElementTree.XMLParser object at 0x105da3c40>
+text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x106e31760>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x106cf7140>, individual_cells=[], arrow_cells=[], literal_cells=[])
+parser = <xml.etree.ElementTree.XMLParser object at 0x106d0fc40>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mXML[39;49;00m(text, parser=[94mNone[39;49;00m):[90m[39;49;00m
     [90m    [39;49;00m[33m"""Parse XML document from string constant.[39;49;00m
@@ -2781,8 +2439,8 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
                             ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x105ecaa20>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x105dbbe90>, individual_cells=[], arrow_cells=[], literal_cells=[])
-parser = <xml.etree.ElementTree.XMLParser object at 0x105da3240>
+text = xml_data_core.DrawIOXMLTree(draw_io_xml_tree=<Element 'mxfile' at 0x106e32a70>, literal_node_html_parser=<draw_io_parser.xml_data_core.NodeHTMLParser object at 0x106d23aa0>, individual_cells=[], arrow_cells=[], literal_cells=[])
+parser = <xml.etree.ElementTree.XMLParser object at 0x106d0f240>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mXML[39;49;00m(text, parser=[94mNone[39;49;00m):[90m[39;49;00m
     [90m    [39;49;00m[33m"""Parse XML document from string constant.[39;49;00m
@@ -2803,7 +2461,7 @@ parser = <xml.etree.ElementTree.XMLParser object at 0x105da3240>
 [1m[31m/Users/anonymous/miniconda3/lib/python3.12/xml/etree/ElementTree.py[0m:1335: TypeError
 [31m[1m______________________________________ test_literal_as_arrow_source_raises _______________________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-439/test_literal_as_arrow_source_r0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-441/test_literal_as_arrow_source_r0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_literal_as_arrow_source_raises[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -2880,7 +2538,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nb0506f891a3b41838201b76300cbe89b (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N8adb134622034cd3b83b1c6756756407 (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': 'Ontario. Dept. of Health\xa0Authority Record', 'kind': 'STANDALONE_INDIVID...tifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasDocumentaryFormType', ...}, ...}
 xml_text = '<mxfile host="gbad-project.github.io" agent="Mozilla/5.0 (iPad; CPU OS 18_4 like Mac OS X) AppleWebKit/605.1.15 (KHTM...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -2990,7 +2648,7 @@ xml_text = '<mxfile host="gbad-project.github.io" agent="Mozilla/5.0 (iPad; CPU 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasRegulatedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1062d9990>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x107255990>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path1] __________________________[0m
@@ -3050,7 +2708,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nc3e0c1460449437295293c769aadf4fc (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N1133429baa9e432a904318c26b2080ce (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': 'Ontario. Dept. of Health\xa0Authority Record', 'kind': 'STANDALONE_INDIVID...tifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasDocumentaryFormType', ...}, ...}
 xml_text = '<mxfile host="gbad-project.github.io" agent="Mozilla/5.0 (iPad; CPU OS 18_4 like Mac OS X) AppleWebKit/605.1.15 (KHTM...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -3160,7 +2818,7 @@ xml_text = '<mxfile host="gbad-project.github.io" agent="Mozilla/5.0 (iPad; CPU 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasRegulatedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce34c0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b4c0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path2] __________________________[0m
@@ -3220,7 +2878,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N50b3efb83c8c49d5a31527030b5b1704 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N4c3e6ddfd10e4b36806ad02c1d210c55 (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': 'Ontario. Dept. of Health\xa0Authority Record', 'kind': 'STANDALONE_INDIVID...tifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasDocumentaryFormType', ...}, ...}
 xml_text = '<mxfile host="gbad-project.github.io" agent="Mozilla/5.0 (iPad; CPU OS 18_4 like Mac OS X) AppleWebKit/605.1.15 (KHTM...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -3330,7 +2988,7 @@ xml_text = '<mxfile host="gbad-project.github.io" agent="Mozilla/5.0 (iPad; CPU 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasRegulatedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce36a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b6a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path3] __________________________[0m
@@ -3390,7 +3048,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N24e0e072ef914e62aa7af9a2e179e008 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N35e4362110c34435a74cd6d68151413f (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': 'Ontario. Dept. of Health\xa0Authority Record', 'kind': 'STANDALONE_INDIVID...tifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasDocumentaryFormType', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:53:08.452Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -3500,7 +3158,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:53:08.452Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasRegulatedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1052198a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1063298a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path4] __________________________[0m
@@ -3560,7 +3218,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N0021426ab450437890a6aaaba0595f94 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N32ace1ab3af04165af6d453379f206d0 (<class 'rdflib.graph.Graph'>)>
 classifications = {'EUA9VVVl7iRi0US9AbU_-1': {'identifier': None, 'kind': 'LITERAL', 'parent_identifier': None, 'raw_value': 'Some node'...bU_-15': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'hellow:there', ...}, ...}
 xml_text = '<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chr..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -3670,7 +3328,7 @@ xml_text = '<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rdf:some-predicate' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1052198a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1063298a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path5] __________________________[0m
@@ -3730,7 +3388,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N99baca6591774e03b5609123f9ce89d0 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=Na66e6cfbb370480ebedcf783f5bee429 (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': None, 'kind': 'LITERAL', 'parent_identifier': None, 'raw_value': 'Ontario. ...0Jz-34': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'hellow:there', ...}, ...}
 xml_text = '<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chr...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -3840,7 +3498,7 @@ xml_text = '<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasDescribedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce36a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b6a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path6] __________________________[0m
@@ -3900,7 +3558,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N6adeb8398ffa4873a6f304b972f569fe (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N549a1c5f0f044a749c62668466e2d81c (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': 'Ontario. Ministry of Health\xa0Authority Record', 'kind': 'STANDALONE_INDI...tifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasDocumentaryFormType', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:54:12.016Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -4010,7 +3668,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:54:12.016Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasDescribedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3010>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b010>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path7] __________________________[0m
@@ -4070,7 +3728,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N432798d770544305b62277cc77c43985 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N89fc86f26ee84d7c8df4009d0042a361 (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-27': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...IVIDUAL', 'parent_identifier': 'Ontario. Walkerton Inquiry\xa0Authority Record', 'raw_value': 'rico:Record', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-26T20:21:17.246Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...="510" height="110" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -4180,7 +3838,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-26T20:21:17.246Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:generalDescription' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10425e7a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105cb67a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path8] __________________________[0m
@@ -4240,7 +3898,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nd8c73e1c1d99428ab56b7aa0a985f054 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N9e462b80c1684913acfb7a711c09ef0c (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-29': {'identifier': 'Ontario. Chest Disease Service\xa0Authority Record', 'kind': 'STANDALONE_I...tifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasDocumentaryFormType', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:56:08.449Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...h="180" height="60" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -4350,7 +4008,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:56:08.449Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasRegulatedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105c42a70>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106baaa70>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m__________________________ test_debug_cli_matches_expected_triple_counts[fixture_path9] __________________________[0m
@@ -4410,7 +4068,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nc58095b83c84485b9c5e6236d94227a5 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=Na249323b752e4f3091aab352c8b70680 (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-10': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:..._INDIVIDUAL', 'parent_identifier': 'Ontario. Tuberculosis Prevention Branch', 'raw_value': 'rico:AgentName', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:56:54.645Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -4520,7 +4178,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:56:54.645Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasOrHadAgentName' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3970>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b970>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path10] __________________________[0m
@@ -4580,7 +4238,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N4b43ab287e31484fb9411f2e1084ec7b (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N9cfae5c26cd74efdaab72ca9c318ae2a (<class 'rdflib.graph.Graph'>)>
 classifications = {'JUvVhaggt__ALHUesofw-1': {'identifier': 'Archival Description', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier'...': None, 'kind': 'TYPED_INDIVIDUAL', 'parent_identifier': 'Web Enabled: Y', 'raw_value': 'rico:RecordState', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:00:35.049Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -4690,7 +4348,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:00:35.049Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasDocumentaryFormType' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3e20>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4be20>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path11] __________________________[0m
@@ -4750,7 +4408,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N28c83a44868d44099c5f7478e8b8eb4b (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N40c51d768fed45a7bf3b0905de46a0a2 (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-1': {'identifier': 'Simcoe, Elizabeth Posthuma, 1762-1850', 'kind': 'STANDALONE_INDIVIDUAL', 'p...mily fonds', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier': None, 'raw_value': 'Simcoe family fonds', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-17T15:14:51.073Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...h="140" height="26" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -4860,7 +4518,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-17T15:14:51.073Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasContentOfType' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10425e6b0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105cb66b0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path12] __________________________[0m
@@ -4920,7 +4578,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N5f2f1d0f278241ce9b2b5227c9b92ec4 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=Nf2822785e9834bb498238c865daada87 (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:23:29.477Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -5030,7 +4688,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:23:29.477Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1052198a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1063298a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path13] __________________________[0m
@@ -5090,7 +4748,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N859570e9d5dc4afba2da91b060bebe55 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N30500c79539c422aa5f738628d387283 (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:12:37.580Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -5200,7 +4858,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:12:37.580Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce2d40>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4ad40>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path14] __________________________[0m
@@ -5260,7 +4918,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N616ce4a9339e4851960dccd87383df04 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N7d052a28209d4e6084599393d855c664 (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:14:50.159Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -5370,7 +5028,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:14:50.159Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3e20>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4be20>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path15] __________________________[0m
@@ -5430,7 +5088,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nc574a6bbd8634201929db2c5b3ecbaae (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N4b7e696ec44349658a9f53f2e778bf69 (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:22:48.018Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...h="140" height="26" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -5540,7 +5198,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:22:48.018Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1052198a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1063298a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path16] __________________________[0m
@@ -5600,7 +5258,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N04155e43ace04e62996961aacc1c613d (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=Ne90fbd226ced489ba2de468debfd4981 (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:32:44.809Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...h="140" height="26" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -5710,7 +5368,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:32:44.809Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10425e6b0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105cb66b0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path17] __________________________[0m
@@ -5770,7 +5428,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N976e3f20338b430caa6906074c97c40e (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N2197892eead24e04ac482aec32dc82bc (<class 'rdflib.graph.Graph'>)>
 classifications = {'ACwB7Extp0PWbiBKnaxu-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:42:13.299Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -5880,7 +5538,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-19T13:42:13.299Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3010>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b010>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path18] __________________________[0m
@@ -5940,7 +5598,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nd4216b0892314278869ca207d5c55f32 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=Ne3d3dba69f634c72a31779e7e77f02b7 (<class 'rdflib.graph.Graph'>)>
 classifications = {'3LwroSje2Ng83wTQE8dh-1': {'identifier': 'Orville Alan Wood', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier': N...identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rico:hasOrHadIdentifier', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-04-26T13:53:35.415Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -6050,7 +5708,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-04-26T13:53:35.415Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasOrHadIdentifier' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3010>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b010>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path19] __________________________[0m
@@ -6110,7 +5768,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N4369a211fa9342b980c1bbada6279566 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N32f436cb31d849fb8ec1468300c621af (<class 'rdflib.graph.Graph'>)>
 classifications = {'1HVjy-BaL8XtYFnHSrnf-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rdfs:...': 'LITERAL', 'parent_identifier': None, 'raw_value': 'rr:template "{REFD_FILE} -\xa0{TITLE} (Record Set)"', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -6220,7 +5878,7 @@ xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isDirectlyIncludedIn' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10425ea70>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105cb6a70>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path20] __________________________[0m
@@ -6280,7 +5938,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N525a4da56e4a499b8c350022db6fc3ab (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N405c163077bc4b7f8cfbef7c0db1e04d (<class 'rdflib.graph.Graph'>)>
 classifications = {'I4GB3cVhTv-sTvJ7h0Jz-27': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'auth:...INDIVIDUAL', 'parent_identifier': 'rr:template "/KB/AuthorityRecord/{HEADING}"', 'raw_value': 'rico:Record', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -6390,7 +6048,7 @@ xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:isOrWasRegulatedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1062d9f30>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x107255f30>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path22] __________________________[0m
@@ -6450,7 +6108,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=Nae700273bf9447fe97ad49cf5452e37b (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N0bf80e8f8dd740739aa1dd97c6e7bf2f (<class 'rdflib.graph.Graph'>)>
 classifications = {'BgzUFkZFLuuaoTEaSqZe-11': {'identifier': 'Fisheries Branch photographs', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_id...dentifier': 'RG 1-659', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier': None, 'raw_value': 'RG 1-659', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:10:52.302Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -6560,7 +6218,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T14:10:52.302Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasOrHadIdentifier' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1062daa70>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x107256a70>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path23] __________________________[0m
@@ -6620,7 +6278,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N5289ec9b775d4ecb90e52eff5c9dbfd2 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=Nbadb0c71e70c4de0acf979b4fc89db2d (<class 'rdflib.graph.Graph'>)>
 classifications = {'JUvVhaggt__ALHUesofw-1': {'identifier': 'Archival Description', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier'...': None, 'kind': 'TYPED_INDIVIDUAL', 'parent_identifier': 'Web Enabled: Y', 'raw_value': 'rico:RecordState', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T15:30:53.947Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...h="110" height="50" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -6730,7 +6388,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T15:30:53.947Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasDocumentaryFormType' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce3010>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c4b010>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path24] __________________________[0m
@@ -6790,7 +6448,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N23a47e50d4fd4713856ddf1c798fdcb6 (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N7dd8a5aee92e492e9198bc1dfa1ae9e5 (<class 'rdflib.graph.Graph'>)>
 classifications = {'JUvVhaggt__ALHUesofw-1': {'identifier': 'Archival Description', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier'...': None, 'kind': 'TYPED_INDIVIDUAL', 'parent_identifier': 'Web Enabled: Y', 'raw_value': 'rico:RecordState', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:18:40.408Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -6900,7 +6558,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T13:18:40.408Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasDocumentaryFormType' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1062da200>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x107256200>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path25] __________________________[0m
@@ -6960,7 +6618,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N1d87890870444ccaa843b5b9a6f5963c (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N4a1cd82fc8f24d3596879844ef49ffee (<class 'rdflib.graph.Graph'>)>
 classifications = {'ccQ81NhYz9qmqgse-E7F-1': {'identifier': 'Records of the Walkerton Inquiry', 'kind': 'STANDALONE_INDIVIDUAL', 'parent...iry', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_identifier': None, 'raw_value': 'Ontario. Walkerton Inquiry', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T15:29:12.768Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...h="129" height="26" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -7070,7 +6728,7 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-21T15:29:12.768Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:hasCreator' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1052198a0>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1063298a0>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_________________________ test_debug_cli_matches_expected_triple_counts[fixture_path26] __________________________[0m
@@ -7130,7 +6788,7 @@ fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:193: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-graph = <Graph identifier=N9bf4ff79fc874c8b974ef9c93c1eda4d (<class 'rdflib.graph.Graph'>)>
+graph = <Graph identifier=N0b8ea10eb2b54081ae0ddbe0f9a951d1 (<class 'rdflib.graph.Graph'>)>
 classifications = {'0Zy0miyS0KUs_HnzcUTQ-1': {'identifier': 'Closing of Walkerton Inquiry', 'kind': 'STANDALONE_INDIVIDUAL', 'parent_ide... 'kind': 'TYPED_INDIVIDUAL', 'parent_identifier': 'Closing of Walkerton Inquiry', 'raw_value': 'rico:Event', ...}, ...}
 xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-03T17:03:22.962Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...ometry relative="1" as="geometry" />\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
 
@@ -7240,12 +6898,12 @@ xml_text = '<mxfile host="app.diagrams.net" modified="2024-06-03T17:03:22.962Z" 
                 ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 [1m[31mE               AssertionError: Property 'rico:authorizedBy' not used in graph[0m
 [1m[31mE               assert False[0m
-[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x105ce1300>)[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106c49300>)[0m
 
 [1m[31mlegacy/tests/test_debug_cli_regression.py[0m:139: AssertionError
 [31m[1m_______________________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] ________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-439/test_parse_drawio_rejects_malf1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-441/test_parse_drawio_rejects_malf1')
 case_key = 'dangling_curie'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -7279,7 +6937,7 @@ Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (ysJAvTtuVAxGOwe
 Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (ysJAvTtuVAxGOwe6Rh7X-7) has no valid source.
 [31m[1m_________________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] __________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-439/test_parse_drawio_rejects_malf2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-441/test_parse_drawio_rejects_malf2')
 case_key = 'colon_only'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -7313,7 +6971,7 @@ Warning: Skipping arrow due to error: Arrow 'rico:authorizedBy' (ysJAvTtuVAxGOwe
 Warning: Skipping arrow due to error: Arrow 'rico:hasSuccessor' (ysJAvTtuVAxGOwe6Rh7X-7) has no valid source.
 [31m[1m__________________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] __________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-439/test_parse_drawio_rejects_malf3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-441/test_parse_drawio_rejects_malf3')
 case_key = 'no_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -7369,8 +7027,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N1eb6466a30414839b7a2bb8a5a56841e (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N1714e5f81d6b417dbafa50dd8f8b4b23 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc41a2907c32a4295b23dc976708387ec (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nfb65615cbf5a4406bd42a8920ffe5f92 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7414,8 +7072,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N9391ceaba71d4b7fa78ee80385fb52db (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N675502a44c4648a0b2cfe387c33917e0 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N18eacc0e48f74453a317075d4407b61c (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N35e7ea52098c42889fb1ee381115aada (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7467,8 +7125,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N00e3711a59104f6bb68be38c9dbd142c (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N4b02d061823b4d34ac3caa5bcf3dc010 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfa8fc7e43f7a496ca8e8a8883c53e377 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N1cef3bf1f72f4fc4be78ae3b6311ed96 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7513,8 +7171,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Na161304bce47407c83d9fb91aeb4dc84 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N069c0112670b43c5b97f4a23def09e88 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Neba8bbb97a304adf9839641f70e5d2a1 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N0fe84c2e505441ddaa57548dc515774b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7561,8 +7219,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nedb07d5b354047eba095e5f9fa6fb05f (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N37509fec29094a08917d9802638a8275 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb94f3fe165c7498886cbde1565a415ca (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N998db937d8cc4ca08fa9a83de449ce02 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7616,8 +7274,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N6c90ec478cf645ee8037f14fc8c07907 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Na324ee1820444163831a4c07488a333e (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nf9af4e895720423a8fb88164f2275554 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N139ebbf885354711a6bbcaa30973e4b9 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7677,8 +7335,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N3a74f33bd52449719f67f18cb5187fd5 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N082429e9b5d844a1a1b35bce98ad2bab (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N420cd5aa40a24e159e07ea3088468607 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N42bd77437e994ec393b02943d996bce9 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7733,8 +7391,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N0a809363f25d4055ae2ce6739e665996 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nd77cf9b3a6074016bb67d86968f37ccb (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N6e6850ada983458ab65a3776fa6ff801 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nd8b66701f2cf4e5486e453bb4ee87cd3 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7787,8 +7445,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc938646710d147a596e79bad9cd987c3 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N8bceab974e1640b7a7d1c93ec98e8f04 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N4515ebad2916446d84a29e0240261318 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N5ae8a0a8db7a45df83ae05759e6917e2 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7839,8 +7497,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nda01ad96014b4c2b90b4d9f8bd0c47ad (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Na843db5959334930a20114f2260e8bb6 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N17089054e2d946b199d0144fde661e63 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N4389b3b9276e4d4f9c068b3e20c614a1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7881,8 +7539,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N98bdbcd4f0324704acc0af13b2c5a2cf (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nf2daade1126241269a9edfa16986952b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N9f0afc899a6e4223bdd1e8599879bae3 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N4a59cbe322484fdc9d70d828807e5a06 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7933,8 +7591,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Na681f2ae5c76485bb62e312879cd0a9b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N3210bdfb6aab4d478142ff6cb87edd79 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N1c686fa82b11462ca7068433c120e970 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N95367ae158164f0c9be34a64d31957c9 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -7986,8 +7644,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc98e7e37b0e744848f0b298f820441b1 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N77775d54792f4e859cd90caf23ba7892 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N67711e961d0d453a8b92829810f527ad (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N9dbf2ce697164a11a820143cb2867129 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8039,8 +7697,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N78350f9f89b146279395309007b3b78d (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nd4d7287c4caa4964bf963931046d73f1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nee9752bad2a048118970ae7cd500dc8c (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N70a7fb5f01744ea7ac61bd4eee155498 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8107,8 +7765,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb9447a0491ae4d5f914e5b74b13e5b3a (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Ncfc64c940ad347688fc6c3146e9f9a47 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N9cf733e34a0e4b6e9ef804d3f3daadbb (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N49a452e7378f45c48b5a50162720cc29 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8172,8 +7830,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb8dc2cd42e7c4683ac4d5fec1e455021 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N78a885265e3446d29ec3c6ec39650b98 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Na2b62806bde34399acf33b1580d2ab64 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N26a31102803144ba90b4edd89290e746 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8234,8 +7892,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N4322b66902ee4d99ba60f29ce1bcd650 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N47d1735e89bf445782eebac11e95bf27 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N443d5dbab5b64414b09393cc4bb4e33c (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nf542b4b0206f48e68fdca5dca2c5c3b7 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8276,8 +7934,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfd7b9165b1894682aac78bb536d86010 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N492e56759a134eee902813df8f9e1e50 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N4c1f02d7f72546c8b98558033b168d7b (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N1443755c134648a9bfc7e472b94cd584 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8332,8 +7990,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N65ec3de292c54314a05c33938d858d08 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Ncafbadfd01e543ac899cb4927a20cf45 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N7207b59fbc8b4b46894e5fe5ecb57bdc (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Ne8d187bbea6f438290b4e762caef6dd7 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8380,8 +8038,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfbe382a31bba4bb980143825858e64bc (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N3033d8fc76ad48a2b16a7536905d227b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N610fc6dc6b654f39bdee6bff68aa0063 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N98923d71b7f44bb7b67bcaf854aa9206 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8435,8 +8093,8 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ne618929b559c4dc7ad2396c33d4b762b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nb7337cc5e73f4a95a4c477172fe12e92 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb1c823f3b673460f86fbf603c9f1ca0f (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N8dc16d3e888c4bd9a7912fb5eb3b0afe (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:206: AssertionError
 ---------------------------------------------- Captured stdout call ----------------------------------------------
@@ -8646,7 +8304,7 @@ legacy/tests/test_patched_parser.py: 31 warnings
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path20][0m - AssertionError: assert False
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_respects_strip_html_config[0m - assert []
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_metadata_strip_html_override[0m - assert []
-[31m============================ [31m[1m57 failed[0m, [32m31 passed[0m, [33m1 skipped[0m, [33m482 warnings[0m[31m in 51.55s[0m[31m =============================[0m
+[31m============================ [31m[1m57 failed[0m, [32m31 passed[0m, [33m1 skipped[0m, [33m482 warnings[0m[31m in 52.48s[0m[31m =============================[0m
 [0m[1mbun test [0m[2mv1.2.21 (7c45ed97)[0m
 [0m
 tests/rdfexport.test.ts:
@@ -8679,9 +8337,9 @@ tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-0 with 60 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 60 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1392.69ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.69ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m20.72ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1437.88ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.62ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m18.99ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
@@ -8792,7 +8450,7 @@ Expected: [32m124[0m
 Received: [31m93[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m152.30ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m172.21ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44261 characters)
@@ -8871,7 +8529,7 @@ Expected: [32m91[0m
 Received: [31m71[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m85.38ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m92.04ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23410 characters)
@@ -8928,7 +8586,7 @@ Expected: [32m51[0m
 Received: [31m39[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m52.53ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m53.63ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23546 characters)
@@ -8985,7 +8643,7 @@ Expected: [32m48[0m
 Received: [31m37[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m45.88ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m47.28ms[0m[2m][0m
 [0m[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -9065,7 +8723,7 @@ Expected: [32m75[0m
 Received: [31m59[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m66.35ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m69.42ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44795 characters)
@@ -9150,7 +8808,7 @@ Expected: [32m84[0m
 Received: [31m66[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m74.41ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m77.20ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39329 characters)
@@ -9229,7 +8887,7 @@ Expected: [32m72[0m
 Received: [31m57[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m62.77ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m63.13ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (73837 characters)
@@ -9326,7 +8984,7 @@ Expected: [32m130[0m
 Received: [31m107[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m112.87ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m114.50ms[0m[2m][0m
 [0m[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
 [0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
@@ -9467,7 +9125,7 @@ Expected: [32m170[0m
 Received: [31m122[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m135.38ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m136.37ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37618 characters)
@@ -9544,7 +9202,7 @@ Expected: [32m71[0m
 Received: [31m56[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m64.07ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m63.52ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (95213 characters)
@@ -9647,7 +9305,7 @@ Expected: [32m130[0m
 Received: [31m108[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m149.13ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m160.97ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (54132 characters)
@@ -9730,7 +9388,7 @@ Expected: [32m95[0m
 Received: [31m73[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m85.07ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m87.51ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (58348 characters)
@@ -9825,7 +9483,7 @@ Expected: [32m101[0m
 Received: [31m81[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m86.69ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m90.27ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (34895 characters)
@@ -9888,7 +9546,7 @@ Expected: [32m70[0m
 Received: [31m58[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m59.83ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m63.61ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (49944 characters)
@@ -9971,7 +9629,7 @@ Expected: [32m96[0m
 Received: [31m78[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m80.51ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m82.49ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (32209 characters)
@@ -10040,7 +9698,7 @@ Expected: [32m61[0m
 Received: [31m48[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m52.24ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m53.62ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (40866 characters)
@@ -10117,7 +9775,7 @@ Expected: [32m84[0m
 Received: [31m65[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m67.64ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m68.29ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (48162 characters)
@@ -10202,7 +9860,7 @@ Expected: [32m86[0m
 Received: [31m67[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m76.00ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m76.37ms[0m[2m][0m
 [0m[0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -10268,7 +9926,7 @@ Expected: [32m62[0m
 Received: [31m50[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m52.48ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m53.31ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37299 characters)
@@ -10337,7 +9995,7 @@ Expected: [32m73[0m
 Received: [31m58[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m62.45ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m63.59ms[0m[2m][0m
 [0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (42022 characters)
@@ -10418,7 +10076,7 @@ Expected: [32m73[0m
 Received: [31m58[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1143[0m[2m:[33m55[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m62.60ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m64.62ms[0m[2m][0m
 [0m[BLACKBOX] Generating Turtle payload for serialized input (36617 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36617)
 [PYODIDE] Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (gmwnegnUR_CNORKRYM6Y-16) target 'gmwnegnUR_CNORKRYM6Y-14' could not be found.
@@ -10440,7 +10098,7 @@ Received: [31m58[0m
 [PIPELINE] DrawIO parser produced graph graph-43 with 61 triples
 [BLACKBOX] Parsed DrawIO graph graph-43 with 61 triples
 [BLACKBOX] Returning Turtle payload for graph graph-43 (5043 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m20.50ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m20.51ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36617 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36617)
 [PYODIDE] Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (gmwnegnUR_CNORKRYM6Y-16) target 'gmwnegnUR_CNORKRYM6Y-14' could not be found.
@@ -10496,7 +10154,7 @@ Expected: [32mtrue[0m
 Received: [31mfalse[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1353[0m[2m:[33m39[0m[2m)[0m
-[0m[31m✗[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m42.47ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m41.40ms[0m[2m][0m
 [0m[BLACKBOX] Received serialized payload (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PYODIDE] Warning: Skipping arrow due to error: Arrow 'rico:hasOrHadIdentifier' (gmwnegnUR_CNORKRYM6Y-16) target 'gmwnegnUR_CNORKRYM6Y-14' could not be found.
@@ -10518,7 +10176,7 @@ Received: [31mfalse[0m
 [PIPELINE] DrawIO parser produced graph graph-0 with 60 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 60 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m19.05ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m32.51ms[0m[2m][0m
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36445 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -10544,15 +10202,15 @@ Received: [31mfalse[0m
 [BLACKBOX] Returning Turtle payload for graph graph-46 (4831 characters)
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
-[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m19.94ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.09ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m22.08ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.04ms[0m[2m][0m
 
 [0m[32m 7 pass[0m
  [0m[33m8 skip[0m
 [0m[31m 22 fail[0m
  485 expect() calls
-Ran 37 tests across 1 file. [0m[2m[[1m3.24s[0m[2m][0m
+Ran 37 tests across 1 file. [0m[2m[[1m3.36s[0m[2m][0m
 [0m[31merror[0m[2m:[0m script [1m"test"[0m exited with code 1[0m
 
 Command exit status: 1
-Script done on Tue Oct 21 16:51:00 2025
+Script done on Tue Oct 21 16:56:25 2025
