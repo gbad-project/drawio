@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum, auto
+import typing
 from typing import Iterable
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
@@ -39,8 +40,16 @@ class DrawIOCellClassifier:
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
-    def __init__(self, raw_xml: str, prefixes: dict[str, str]):
-        self.draw_io_xml_tree = fromstring(raw_xml)
+    def __init__(self, raw_xml: typing.Any, prefixes: dict[str, str]):
+        source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
+        if isinstance(source_tree, Element):
+            self.draw_io_xml_tree = source_tree
+        else:
+            if isinstance(raw_xml, bytes):
+                parsed_xml = raw_xml.decode("utf-8")
+            else:
+                parsed_xml = str(raw_xml)
+            self.draw_io_xml_tree = fromstring(parsed_xml)
         self._prefixes = prefixes
         self._namespace_manager = Graph().namespace_manager
         for prefix, iri in prefixes.items():
@@ -119,6 +128,10 @@ class DrawIOCellClassifier:
                     ):
                         self.individuals.append(individual)
                     self._nodes_by_id[parent.attrib["id"]] = (parent, individual)
+                    # Some arrows reference the typed child cell directly instead of
+                    # the swimlane/container node. Retain a lookup for both so either
+                    # identifier can be resolved during edge reconstruction.
+                    self._nodes_by_id[cell_id] = (cell, individual)
 
             elif kind_name == "STANDALONE_INDIVIDUAL":
                 identifier = classification.identifier or classification.raw_value
@@ -150,9 +163,11 @@ class DrawIOCellClassifier:
                 arrow = self._resolve_arrow(cell)
                 if arrow:
                     self.arrows.append(arrow)
-            except (NoSourceException, ArrowWithoutIndividualAsSourceException) as e:
-                # Optionally log these errors, but continue processing
+            except NoSourceException as e:
                 print(f"Warning: Skipping arrow due to error: {e}")
+            except ArrowWithoutIndividualAsSourceException as e:
+                print(f"Warning: Skipping arrow due to error: {e}")
+                raise
 
     def classify(self, cell: Element, cell_value: str) -> CellClassification:
         """Determines the role of a given mxCell in the graph."""
@@ -318,6 +333,10 @@ class DrawIOCellClassifier:
         if source_id and source_id in self._nodes_by_id:
             source_cell, source_individual = self._nodes_by_id[source_id]
             source_identifier = source_individual.identifier
+        elif source_id and source_id in self._literals_by_id:
+            raise ArrowWithoutIndividualAsSourceException(
+                f"Arrow '{arrow_label}' ({arrow_id}) has a literal as source."
+            )
         else:
             raise NoSourceException(
                 f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."

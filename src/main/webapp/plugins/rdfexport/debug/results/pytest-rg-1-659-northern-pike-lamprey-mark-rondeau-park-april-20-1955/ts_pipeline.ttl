@@ -2,16 +2,15 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<ontology://generated-from-draw-io/2025-10-21T12-48-11> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "10 photographs : 4 black and white prints, 6 negatives" .
+<ontology://generated-from-draw-io/2025-10-21T17-23-23> a owl:Ontology ;
+    owl:imports rico: .
 
 <ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> a owl:NamedIndividual,
         rico:RecordSet ;
-    rdfs:label "[Lake Erie Management Unit]" .
+    rdfs:label "[Lake Erie Management Unit]" ;
+    rico:hasRecordSetType :Filing%20Class .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -27,7 +26,9 @@
 
 :Fisheries%20Branch%20Photographs a owl:NamedIndividual,
         rico:RecordSet ;
-    rdfs:label "Fisheries Branch photographs" .
+    rdfs:label "Fisheries Branch photographs" ;
+    rico:hasOrHadIdentifier :RG%201-659 ;
+    rico:hasRecordSetType :Series .
 
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
@@ -37,15 +38,24 @@
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955" ;
-    rico:creationDate 1955 .
+    rico:creationDate 1955 ;
+    rico:hasContentOfType :Graphic%20Materials ;
+    rico:hasOrHadInstantiation :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1 ;
+    rico:hasOrHadTitle :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955 ;
+    rico:hasRecordSetType :File ;
+    rico:isDirectlyIncludedIn :Fisheries%20Branch%20Photographs ;
+    rico:isOrWasDescribedBy :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description .
 
 :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
-    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description" .
+    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description" ;
+    rico:hasDocumentaryFormType :Archival%20Description ;
+    rico:hasRecordState :Web%20Enabled%3A%20Y .
 
 :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1 a owl:NamedIndividual,
         rico:Instantiation ;
-    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1" .
+    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1" ;
+    rico:instantiationExtent "10 photographs : 4 black and white prints, 6 negatives" .
 
 :RG%201-659 a owl:NamedIndividual,
         rico:Identifier ;

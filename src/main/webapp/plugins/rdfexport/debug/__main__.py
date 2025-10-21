@@ -777,10 +777,9 @@ class Debugger:
         elif "baseUri" in metadata.attrib:
             metadata.attrib.pop("baseUri")
 
-        for child in list(metadata.findall("userObjectPreambleElement")):
-            metadata.remove(child)
-
         if config.prefixes:
+            for child in list(metadata.findall("userObjectPreambleElement")):
+                metadata.remove(child)
             insertion_index = 0
             existing_children = list(metadata)
             for index, child in enumerate(existing_children):
@@ -829,7 +828,7 @@ class Debugger:
         self, raw: Iterable[object] | dict | None
     ) -> list[tuple[str, str]]:
         if raw is None:
-            return list(DEFAULT_PREFIXES)
+            return []
 
         if isinstance(raw, dict):
             return [
@@ -845,7 +844,7 @@ class Debugger:
                 iri = item.get("iri") or item.get("value")
                 if prefix and iri:
                     prefixes.append((str(prefix), str(iri)))
-        return prefixes or list(DEFAULT_PREFIXES)
+        return prefixes
 
     def _parse_prefix_string(self, value: str) -> list[tuple[str, str]]:
         entries: list[tuple[str, str]] = []
