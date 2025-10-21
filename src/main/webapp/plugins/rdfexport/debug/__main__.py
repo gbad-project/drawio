@@ -4,16 +4,18 @@ import argparse
 import hashlib
 import json
 import re
+import urllib.parse
 import tempfile
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable, Optional, Sequence
 from xml.etree import ElementTree as ET
 
 import yaml
-from rdflib import Graph, RDF, OWL
+from rdflib import Graph, RDF, OWL, Literal, URIRef, Namespace
 from rdflib.compare import to_isomorphic
+from rdflib.namespace import RDFS, SKOS
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
@@ -404,6 +406,28 @@ class Debugger:
                 graphs["ts_pipeline"], graphs["ts_plugin"]
             )
 
+        predictions: Optional[dict[str, object]] = None
+        coverage: Optional[dict[str, object]] = None
+        if cell_classifications:
+            try:
+                predictions = self._predict_triple_metrics(
+                    patched_xml, config, cell_classifications
+                )
+            except Exception as exc:  # pragma: no cover - diagnostics only
+                self.console.print(
+                    f"[yellow]Warning:[/yellow] Failed to predict triple counts: {exc}"
+                )
+        coverage_graph = graphs.get("ts_pipeline")
+        if cell_classifications and coverage_graph is not None:
+            try:
+                coverage = self._compute_graph_coverage(
+                    coverage_graph, patched_xml, config, cell_classifications
+                )
+            except Exception as exc:  # pragma: no cover - diagnostics only
+                self.console.print(
+                    f"[yellow]Warning:[/yellow] Failed to compute coverage: {exc}"
+                )
+
         self._update_map_entry(
             config,
             serialised_paths,
@@ -412,6 +436,8 @@ class Debugger:
             isomorphism,
             errors,
             cell_classifications,
+            predictions,
+            coverage,
         )
 
         summary_table = Table(title="Debug scenario results")
@@ -607,6 +633,8 @@ class Debugger:
         isomorphism: dict[str, bool],
         errors: dict[str, str],
         cell_classifications: dict[str, dict],
+        predictions: Optional[dict[str, object]] = None,
+        coverage: Optional[dict[str, object]] = None,
     ) -> None:
         scenario_entry = {
             "drawio": str(self._relative_to_debug(config.drawio_path)),
@@ -630,6 +658,10 @@ class Debugger:
         }
         if errors:
             scenario_entry["errors"] = errors
+        if predictions is not None:
+            scenario_entry["predictions"] = predictions
+        if coverage is not None:
+            scenario_entry["coverage"] = coverage
 
         self._map_data.setdefault("scenarios", {})[config.slug] = scenario_entry
         self._write_map()
@@ -670,6 +702,19 @@ class Debugger:
         )
         scenario_path.write_text(scenario_text, encoding="utf-8")
 
+    def _collect_prefix_context(
+        self, xml_text: str, config: ScenarioConfig
+    ) -> tuple[dict[str, str], Optional[ET.Element]]:
+        from legacy.draw_io_parser import _extract_drawio_metadata, get_prefixes
+
+        metadata_prefixes, _, _, root = _extract_drawio_metadata(xml_text)
+        prefixes = get_prefixes()
+        prefixes.update(metadata_prefixes)
+        for prefix, iri in config.prefixes:
+            if prefix and iri:
+                prefixes[prefix] = iri
+        return prefixes, root
+
     def _extract_cell_classifications(
         self, xml_text: str, config: ScenarioConfig
     ) -> dict[str, dict]:
@@ -685,20 +730,12 @@ class Debugger:
         try:
             from legacy.draw_io_parser import (
                 _NoValueException,
-                _extract_drawio_metadata,
-                get_prefixes,
                 pipeline,
             )
 
-            metadata_prefixes, _, _, root = _extract_drawio_metadata(xml_text)
+            prefixes, root = self._collect_prefix_context(xml_text, config)
             if root is None:
                 return {}
-
-            prefixes = get_prefixes()
-            prefixes.update(metadata_prefixes)
-            for prefix, iri in config.prefixes:
-                if prefix and iri:
-                    prefixes[prefix] = iri
 
             # Don't use DrawIOXMLTree - it validates structure too strictly
             # Just get the cells directly and use the classifier
@@ -727,6 +764,32 @@ class Debugger:
                     if not parent_id:
                         raise _NoValueException
                     return self.draw_io_xml_tree.find(f".//*[@id='{parent_id}']")
+
+                def _child_of(self, parent_id: str):
+                    try:
+                        return self.draw_io_xml_tree.findall(
+                            f".//*[@parent='{parent_id}']"
+                        )
+                    except Exception:
+                        return []
+
+                def _is_possible_literal(self, candidate):
+                    helper = getattr(
+                        pipeline.core.xml.data.DrawIOXMLTree,
+                        "_is_possible_literal",
+                        None,
+                    )
+                    if callable(helper):
+                        try:
+                            return helper(candidate)
+                        except Exception:
+                            return False
+                    try:
+                        return candidate.attrib.get(
+                            "parent"
+                        ) == "1" and "rounded=1" in candidate.attrib.get("style", "")
+                    except Exception:
+                        return False
 
             mock_tree = MockTree(root, prefixes)
             classifier = classifier_cls(mock_tree, prefixes)
@@ -783,6 +846,7 @@ class Debugger:
                     "ARROW_LABEL": 0,
                     "TYPED_INDIVIDUAL": 0,
                     "STANDALONE_INDIVIDUAL": 0,
+                    "DECORATION": 0,
                     "CLASSIFICATION_ERROR": 0,
                 }
                 for cell_data in classifications.values():
@@ -811,6 +875,242 @@ class Debugger:
     # ------------------------------------------------------------------
     # Utility helpers
     # ------------------------------------------------------------------
+    def _expand_curie(self, value: str, namespace_manager) -> Optional[str]:
+        try:
+            return str(namespace_manager.expand_curie(value))
+        except Exception:
+            return None
+
+    def _predict_triple_metrics(
+        self,
+        xml_text: str,
+        config: ScenarioConfig,
+        cell_classifications: dict[str, dict],
+    ) -> dict[str, object]:
+        from legacy.draw_io_parser import pipeline
+
+        prefixes, root = self._collect_prefix_context(xml_text, config)
+        classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+        default_type = getattr(classifier_cls, "DEFAULT_STANDALONE_TYPE", "rico:Thing")
+
+        individuals: dict[str, set[str]] = {}
+        for data in cell_classifications.values():
+            kind = data.get("kind")
+            raw_value = data.get("raw_value", "")
+            if not raw_value:
+                continue
+            if kind == "TYPED_INDIVIDUAL":
+                parent_identifier = data.get("parent_identifier")
+                tokens = data.get("tokens") or []
+                if parent_identifier:
+                    individuals.setdefault(parent_identifier, set()).update(tokens)
+            elif kind == "STANDALONE_INDIVIDUAL":
+                identifier = data.get("identifier") or raw_value
+                tokens = data.get("tokens") or [default_type]
+                individuals.setdefault(identifier, set()).update(tokens)
+
+        for identifier, tokens in individuals.items():
+            if not tokens:
+                tokens.add(default_type)
+
+        working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
+            xml_text, root
+        )
+        tree = pipeline.core.xml.data.DrawIOXMLTree(working_xml, prefixes)
+        arrow_count = 0
+        object_properties: set[str] = set()
+        datatype_properties: set[str] = set()
+        connected_literal_cells: set[str] = set()
+        for arrow_cell, *_, label in tree.arrow_cells:
+            label_value = str(label).strip()
+            if not label_value:
+                continue
+            arrow_count += 1
+            target_id = arrow_cell.attrib.get("target")
+            target_kind = cell_classifications.get(target_id, {}).get("kind")
+            if target_kind in {"LITERAL", "DECORATION"}:
+                datatype_properties.add(label_value)
+                if target_id:
+                    connected_literal_cells.add(target_id)
+            else:
+                object_properties.add(label_value)
+
+        decoration_count = 0
+        for cell_id, data in cell_classifications.items():
+            kind = data.get("kind")
+            if kind not in {"DECORATION", "LITERAL"}:
+                continue
+            if cell_id in connected_literal_cells:
+                continue
+            if not (data.get("raw_value") or "").strip():
+                continue
+            decoration_count += 1
+
+        include_preamble = True
+        include_label = True
+
+        predicted = 0
+        if include_preamble:
+            predicted += 2
+        predicted += sum(
+            1 for prop in object_properties if not str(prop).startswith("rico:")
+        )
+        predicted += sum(
+            1 for prop in datatype_properties if not str(prop).startswith("rico:")
+        )
+        for tokens in individuals.values():
+            predicted += 1  # owl:NamedIndividual
+            predicted += len(tokens)
+            if include_label:
+                predicted += 1
+        predicted += arrow_count
+        predicted += decoration_count
+
+        return {
+            "summary": {"ts_pipeline": predicted},
+            "details": {
+                "individual_count": len(individuals),
+                "arrow_count": arrow_count,
+                "decoration_count": decoration_count,
+                "object_properties": sorted(object_properties),
+                "datatype_properties": sorted(datatype_properties),
+            },
+        }
+
+    def _compute_graph_coverage(
+        self,
+        graph: Graph,
+        xml_text: str,
+        config: ScenarioConfig,
+        cell_classifications: dict[str, dict],
+    ) -> dict[str, object]:
+        prefixes, _ = self._collect_prefix_context(xml_text, config)
+        namespace_manager = Graph().namespace_manager
+        for prefix, iri in prefixes.items():
+            namespace_manager.bind(prefix, iri, replace=True)
+
+        coverage: dict[str, bool] = {}
+        missing: list[dict[str, str]] = []
+        total_cells = 0
+
+        predicate_strings = {str(predicate) for _, predicate, _ in graph}
+        literal_values = {str(obj) for _, _, obj in graph if isinstance(obj, Literal)}
+        note_values = {
+            str(obj)
+            for _, _, obj in graph.triples((None, SKOS.note, None))
+            if isinstance(obj, Literal)
+        }
+        uri_values = {str(obj) for _, _, obj in graph if isinstance(obj, URIRef)}
+        subjects_by_label: dict[str, set[URIRef]] = {}
+        for subject, label in graph.subject_objects(RDFS.label):
+            subjects_by_label.setdefault(str(label), set()).add(subject)
+        subject_types: dict[URIRef, set[URIRef]] = {}
+        for subject, rdf_type in graph.subject_objects(RDF.type):
+            subject_types.setdefault(subject, set()).add(rdf_type)
+
+        def _candidate_uris(curie: str) -> list[str]:
+            if ":" not in curie:
+                return []
+            prefix, local = curie.split(":", 1)
+            base = prefixes.get(prefix)
+            if not base:
+                return []
+            try:
+                candidate = str(Namespace(base)[local])
+            except Exception:
+                candidate = f"{base}{local}"
+            return [candidate]
+
+        for cell_id, data in cell_classifications.items():
+            raw_value = data.get("raw_value") or ""
+            if not raw_value:
+                continue
+            total_cells += 1
+            kind = data.get("kind")
+            represented = False
+
+            if kind == "ARROW_LABEL":
+                candidates = _candidate_uris(raw_value)
+                predicate_uri = self._expand_curie(raw_value, namespace_manager)
+                if predicate_uri:
+                    candidates.append(predicate_uri)
+                for candidate in candidates:
+                    if candidate in predicate_strings or any(
+                        existing.endswith(candidate) for existing in predicate_strings
+                    ):
+                        represented = True
+                        break
+            elif kind == "TYPED_INDIVIDUAL":
+                parent_label = data.get("parent_identifier")
+                tokens = data.get("tokens") or []
+                if parent_label:
+                    for subject in subjects_by_label.get(parent_label, set()):
+                        type_values = [
+                            str(value) for value in subject_types.get(subject, set())
+                        ]
+                        if not tokens:
+                            represented = True
+                            break
+                        matches = True
+                        for token in tokens:
+                            token_candidates = _candidate_uris(token)
+                            token_uri = self._expand_curie(token, namespace_manager)
+                            if token_uri:
+                                token_candidates.append(token_uri)
+                            if not token_candidates:
+                                matches = False
+                                break
+                            if not any(
+                                candidate in type_values
+                                or any(
+                                    existing.endswith(candidate)
+                                    for existing in type_values
+                                )
+                                for candidate in token_candidates
+                            ):
+                                matches = False
+                                break
+                        if matches:
+                            represented = True
+                            break
+            elif kind == "STANDALONE_INDIVIDUAL":
+                represented = bool(
+                    list(graph.triples((None, RDFS.label, Literal(raw_value))))
+                )
+            elif kind == "LITERAL":
+                if raw_value in literal_values or raw_value in note_values:
+                    represented = True
+                else:
+                    candidate_literals = {raw_value}
+                    encoded = urllib.parse.quote(raw_value)
+                    if encoded != raw_value:
+                        candidate_literals.add(encoded)
+                    for candidate in candidate_literals:
+                        if any(uri.endswith(candidate) for uri in uri_values):
+                            represented = True
+                            break
+            elif kind == "DECORATION":
+                represented = raw_value in note_values
+            else:
+                represented = True
+
+            coverage[cell_id] = represented
+            if not represented:
+                missing.append(
+                    {
+                        "id": cell_id,
+                        "kind": kind,
+                        "value": raw_value,
+                    }
+                )
+
+        return {
+            "graph": "ts_pipeline",
+            "total_cells": total_cells,
+            "represented_cells": sum(1 for value in coverage.values() if value),
+            "missing": missing,
+        }
+
     def _apply_metadata_overrides(self, xml_text: str, config: ScenarioConfig) -> str:
         try:
             root = ET.fromstring(xml_text)

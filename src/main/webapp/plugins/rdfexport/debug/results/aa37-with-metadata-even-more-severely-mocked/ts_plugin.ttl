@@ -1,9 +1,10 @@
 @prefix : <ontology://generated-from-draw-io/mock#> .
-@prefix ns1: <file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/> .
+@prefix ns1: <file:///workspace/drawio/src/main/webapp/plugins/rdfexport/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 ns1:sample-text3there a owl:DatatypeProperty,
@@ -17,8 +18,11 @@ rdf:some-predicate a owl:DatatypeProperty .
 
 rdf:type a owl:ObjectProperty .
 
-<ontology://generated-from-draw-io/2025-10-21T00-15-16> a owl:Ontology ;
-    owl:imports rico: .
+<ontology://generated-from-draw-io/2025-10-21T12-02-42> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual",
+        "hellothere",
+        "hellothere2" .
 
 :List%20Pnnpni a ns1:sample-textItem%203,
         rdf:Item%202,

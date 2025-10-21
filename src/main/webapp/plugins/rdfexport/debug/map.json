@@ -176,9 +176,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health\u00a0Authority Record",
           "raw_value": "rico:Record",
-          "tokens": [
-            "rico:Record"
-          ]
+          "tokens": ["rico:Record"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-31": {
           "identifier": null,
@@ -220,9 +218,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record",
           "raw_value": "rico:DocumentaryFormType",
-          "tokens": [
-            "rico:DocumentaryFormType"
-          ]
+          "tokens": ["rico:DocumentaryFormType"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-37": {
           "identifier": null,
@@ -250,9 +246,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Rules for Archival Description",
           "raw_value": "rico:Rule",
-          "tokens": [
-            "rico:Rule"
-          ]
+          "tokens": ["rico:Rule"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-41": {
           "identifier": null,
@@ -280,9 +274,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record Creation",
           "raw_value": "rico:Activity",
-          "tokens": [
-            "rico:Activity"
-          ]
+          "tokens": ["rico:Activity"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-45": {
           "identifier": null,
@@ -310,9 +302,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "R. Anger",
           "raw_value": "rico:Person",
-          "tokens": [
-            "rico:Person"
-          ]
+          "tokens": ["rico:Person"]
         },
         "I4bDPw6PqqAUihyiD4HI-1": {
           "identifier": null,
@@ -382,9 +372,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": ["rico:CorporateBody"]
         },
         "Tc_GIQojTk6pTu17JZoE-23": {
           "identifier": null,
@@ -398,9 +386,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Provincial Board of Health of Ontario",
           "raw_value": "rico:CorporateBody",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": ["rico:CorporateBody"]
         },
         "_-RjwaxhbeTWfwVWe4ke-13": {
           "identifier": null,
@@ -456,9 +442,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "AA37",
           "raw_value": "rico:Identifier",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": ["rico:Identifier"]
         },
         "gmwnegnUR_CNORKRYM6Y-16": {
           "identifier": null,
@@ -500,9 +484,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Agent Identifier",
           "raw_value": "rico:IdentifierType",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": ["rico:IdentifierType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-1": {
           "identifier": null,
@@ -530,9 +512,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1924",
           "raw_value": "rico:Date",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-17": {
           "identifier": null,
@@ -560,18 +540,14 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:AgentName",
-          "tokens": [
-            "rico:AgentName"
-          ]
+          "tokens": ["rico:AgentName"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-20": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1972",
           "raw_value": "rico:Date",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-3": {
           "identifier": null,
@@ -599,9 +575,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "A Ontario Government Name",
           "raw_value": "rico:CorporateBodyType",
-          "tokens": [
-            "rico:CorporateBodyType"
-          ]
+          "tokens": ["rico:CorporateBodyType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-7": {
           "identifier": null,
@@ -664,9 +638,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Web Ready: Y",
           "raw_value": "rico:RecordState",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": ["rico:RecordState"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-13": {
           "identifier": null,
@@ -680,9 +652,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Status: Approved",
           "raw_value": "rico:RecordState",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": ["rico:RecordState"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-15": {
           "identifier": null,
@@ -717,9 +687,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
           "raw_value": "rico:Mandate",
-          "tokens": [
-            "rico:Mandate"
-          ]
+          "tokens": ["rico:Mandate"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-3": {
           "identifier": null,
@@ -747,9 +715,7 @@
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Ministry of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": ["rico:CorporateBody"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-7": {
           "identifier": null,
@@ -852,11 +818,11 @@
           "tokens": []
         },
         "EUA9VVVl7iRi0US9AbU_-16": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Vertical Container",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Vertical Container",
-          "tokens": []
+          "tokens": ["lol:index"]
         },
         "EUA9VVVl7iRi0US9AbU_-17": {
           "identifier": null,
@@ -873,47 +839,39 @@
           "tokens": []
         },
         "EUA9VVVl7iRi0US9AbU_-2": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "List pnnpni",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "List pnnpni",
-          "tokens": []
+          "tokens": ["rico:Item%201", "rdf:Item%202", "lol:Item%203"]
         },
         "EUA9VVVl7iRi0US9AbU_-20": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Vertical Container",
           "raw_value": "lol:index",
-          "tokens": [
-            "lol:index"
-          ]
+          "tokens": ["lol:index"]
         },
         "EUA9VVVl7iRi0US9AbU_-3": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "List pnnpni",
           "raw_value": "rico:Item%201",
-          "tokens": [
-            "rico:Item%201"
-          ]
+          "tokens": ["rico:Item%201"]
         },
         "EUA9VVVl7iRi0US9AbU_-4": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "List pnnpni",
           "raw_value": "rdf:Item%202",
-          "tokens": [
-            "rdf:Item%202"
-          ]
+          "tokens": ["rdf:Item%202"]
         },
         "EUA9VVVl7iRi0US9AbU_-5": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "List pnnpni",
           "raw_value": "lol:Item%203",
-          "tokens": [
-            "lol:Item%203"
-          ]
+          "tokens": ["lol:Item%203"]
         },
         "EUA9VVVl7iRi0US9AbU_-6": {
           "identifier": null,
@@ -938,26 +896,24 @@
         },
         "EUA9VVVl7iRi0US9AbU_-9": {
           "identifier": null,
-          "kind": "LITERAL",
+          "kind": "DECORATION",
           "parent_identifier": null,
           "raw_value": "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual",
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Ontario. Dept. of Health\u00a0Authority Record",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Ontario. Dept. of Health\u00a0Authority Record",
-          "tokens": []
+          "tokens": ["lol:individual"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-30": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health\u00a0Authority Record",
           "raw_value": "lol:individual",
-          "tokens": [
-            "lol:individual"
-          ]
+          "tokens": ["lol:individual"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-31": {
           "identifier": null,
@@ -988,20 +944,18 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-35": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Authority Record",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Authority Record",
-          "tokens": []
+          "tokens": ["rico:DocumentaryFormType"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-36": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record",
           "raw_value": "rico:DocumentaryFormType",
-          "tokens": [
-            "rico:DocumentaryFormType"
-          ]
+          "tokens": ["rico:DocumentaryFormType"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-37": {
           "identifier": null,
@@ -1018,20 +972,18 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-39": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Rules for Archival Description",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
-          "tokens": []
+          "tokens": ["rico:Rule"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-40": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Rules for Archival Description",
           "raw_value": "rico:Rule",
-          "tokens": [
-            "rico:Rule"
-          ]
+          "tokens": ["rico:Rule"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-41": {
           "identifier": null,
@@ -1048,20 +1000,18 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-43": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Authority Record Creation",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Authority Record Creation",
-          "tokens": []
+          "tokens": ["rico:Activity"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-44": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Authority Record Creation",
           "raw_value": "rico:Activity",
-          "tokens": [
-            "rico:Activity"
-          ]
+          "tokens": ["rico:Activity"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-45": {
           "identifier": null,
@@ -1078,20 +1028,18 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-47": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "R. Anger",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "R. Anger",
-          "tokens": []
+          "tokens": ["rico:Person"]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-48": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "R. Anger",
           "raw_value": "rico:Person",
-          "tokens": [
-            "rico:Person"
-          ]
+          "tokens": ["rico:Person"]
         },
         "I4bDPw6PqqAUihyiD4HI-1": {
           "identifier": null,
@@ -1150,36 +1098,32 @@
           "tokens": []
         },
         "Tc_GIQojTk6pTu17JZoE-1": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Ontario. Dept. of Health",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Ontario. Dept. of Health",
-          "tokens": []
+          "tokens": ["rico:CorporateBody"]
         },
         "Tc_GIQojTk6pTu17JZoE-2": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": ["rico:CorporateBody"]
         },
         "Tc_GIQojTk6pTu17JZoE-23": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Provincial Board of Health of Ontario",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Provincial Board of Health of Ontario",
-          "tokens": []
+          "tokens": ["rico:CorporateBody"]
         },
         "Tc_GIQojTk6pTu17JZoE-24": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Provincial Board of Health of Ontario",
           "raw_value": "rico:CorporateBody",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": ["rico:CorporateBody"]
         },
         "_-RjwaxhbeTWfwVWe4ke-13": {
           "identifier": null,
@@ -1224,20 +1168,18 @@
           "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-13": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "AA37",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "AA37",
-          "tokens": []
+          "tokens": ["rico:Identifier"]
         },
         "gmwnegnUR_CNORKRYM6Y-14": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "AA37",
           "raw_value": "rico:Identifier",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": ["rico:Identifier"]
         },
         "gmwnegnUR_CNORKRYM6Y-16": {
           "identifier": null,
@@ -1268,27 +1210,25 @@
           "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-20": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Agent Identifier",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Agent Identifier",
-          "tokens": []
+          "tokens": ["rico:IdentifierType"]
         },
         "gmwnegnUR_CNORKRYM6Y-21": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Agent Identifier",
           "raw_value": "rico:IdentifierType",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": ["rico:IdentifierType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-1": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Ontario. Dept. of Health",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Ontario. Dept. of Health",
-          "tokens": []
+          "tokens": ["rico:AgentName"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-10": {
           "identifier": null,
@@ -1298,20 +1238,18 @@
           "tokens": []
         },
         "iiJ8OJKaNMLrSCaLO3TT-11": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "1924",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "1924",
-          "tokens": []
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-12": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1924",
           "raw_value": "rico:Date",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-17": {
           "identifier": null,
@@ -1328,29 +1266,25 @@
           "tokens": []
         },
         "iiJ8OJKaNMLrSCaLO3TT-19": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "1972",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "1972",
-          "tokens": []
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-2": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Dept. of Health",
           "raw_value": "rico:AgentName",
-          "tokens": [
-            "rico:AgentName"
-          ]
+          "tokens": ["rico:AgentName"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-20": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "1972",
           "raw_value": "rico:Date",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": ["rico:Date"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-3": {
           "identifier": null,
@@ -1367,20 +1301,18 @@
           "tokens": []
         },
         "iiJ8OJKaNMLrSCaLO3TT-5": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "A Ontario Government Name",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "A Ontario Government Name",
-          "tokens": []
+          "tokens": ["rico:CorporateBodyType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-6": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "A Ontario Government Name",
           "raw_value": "rico:CorporateBodyType",
-          "tokens": [
-            "rico:CorporateBodyType"
-          ]
+          "tokens": ["rico:CorporateBodyType"]
         },
         "iiJ8OJKaNMLrSCaLO3TT-7": {
           "identifier": null,
@@ -1432,36 +1364,32 @@
           "tokens": []
         },
         "lTHjRTAcClQ9bYR0I0Gv-11": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Web Ready: Y",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Web Ready: Y",
-          "tokens": []
+          "tokens": ["rico:RecordState"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-12": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Web Ready: Y",
           "raw_value": "rico:RecordState",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": ["rico:RecordState"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-13": {
           "identifier": "https://example.com",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "https://example.com",
-          "tokens": []
+          "tokens": ["picoL:j"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-14": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "https://example.com",
           "raw_value": "picoL:j",
-          "tokens": [
-            "picoL:j"
-          ]
+          "tokens": ["picoL:j"]
         },
         "lTHjRTAcClQ9bYR0I0Gv-15": {
           "identifier": null,
@@ -1485,20 +1413,18 @@
           "tokens": []
         },
         "ysJAvTtuVAxGOwe6Rh7X-1": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
-          "tokens": []
+          "tokens": ["rico:Mandate"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-2": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "The Health Department Act, Statutes of Ontario 1924, Chap. 69",
           "raw_value": "rico:Mandate",
-          "tokens": [
-            "rico:Mandate"
-          ]
+          "tokens": ["rico:Mandate"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-3": {
           "identifier": null,
@@ -1515,20 +1441,18 @@
           "tokens": []
         },
         "ysJAvTtuVAxGOwe6Rh7X-5": {
-          "identifier": null,
-          "kind": "LITERAL",
+          "identifier": "Ontario. Ministry of Health",
+          "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "Ontario. Ministry of Health",
-          "tokens": []
+          "tokens": ["rico:CorporateBody"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-6": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
           "parent_identifier": "Ontario. Ministry of Health",
           "raw_value": "rico:CorporateBody",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": ["rico:CorporateBody"]
         },
         "ysJAvTtuVAxGOwe6Rh7X-7": {
           "identifier": null,
@@ -1545,8 +1469,14 @@
           "tokens": []
         }
       },
+      "coverage": {
+        "graph": "ts_pipeline",
+        "missing": [],
+        "represented_cells": 74,
+        "total_cells": 74
+      },
       "csv_path": "/mock/path/to/file.csv",
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
+      "drawio": "/workspace/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -1558,6 +1488,43 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "predictions": {
+        "details": {
+          "arrow_count": 24,
+          "datatype_properties": [
+            "hellow:there",
+            "rdf:some-predicate",
+            "rico:generalDescription",
+            "rico:history",
+            "rico:lastModificationDate",
+            "rico:normalizedValue"
+          ],
+          "decoration_count": 3,
+          "individual_count": 18,
+          "object_properties": [
+            "hellow:there",
+            "rdf:type",
+            "rico:authorizedBy",
+            "rico:hasBeginningDate",
+            "rico:hasEndDate",
+            "rico:hasIdentifierType",
+            "rico:hasOrHadAgentName",
+            "rico:hasOrHadCorporateBodyType",
+            "rico:hasOrHadIdentifier",
+            "rico:hasSuccessor",
+            "rico:isOrWasDescribedBy",
+            "rico:isOrWasPerformedBy",
+            "rico:isOrWasRegulatedBy",
+            "rico:isSuccessorOf",
+            "rico:resultsOrResultedFrom",
+            "somprefix:lol",
+            "unknown:hey"
+          ]
+        },
+        "summary": {
+          "ts_pipeline": 92
+        }
+      },
       "prefixes": [
         {
           "iri": "http://mock-uri.com",
@@ -1586,14 +1553,14 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "75f0efeb22d066175b36e5e50f1df3da21a2528099e9ed90ea34f9d5fe1edf84",
+          "nt_sha256": "97f6d48cdaad56d02bd86758968a12d51227479cf3f496da69b203e913fbff53",
           "path": "results/aa37-with-metadata-even-more-severely-mocked/ts_pipeline.ttl",
-          "triples": 89
+          "triples": 92
         },
         "ts_plugin": {
-          "nt_sha256": "75f0efeb22d066175b36e5e50f1df3da21a2528099e9ed90ea34f9d5fe1edf84",
+          "nt_sha256": "97f6d48cdaad56d02bd86758968a12d51227479cf3f496da69b203e913fbff53",
           "path": "results/aa37-with-metadata-even-more-severely-mocked/ts_plugin.ttl",
-          "triples": 89
+          "triples": 92
         }
       }
     },

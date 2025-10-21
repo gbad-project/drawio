@@ -19,5 +19,6 @@ dev = [
 [tool.ruff]
 exclude = [
     "legacy/map_schema.py",
+    "legacy/draw_io_parser.py",
     "docs/",
 ]

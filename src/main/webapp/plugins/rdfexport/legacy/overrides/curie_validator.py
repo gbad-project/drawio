@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from types import MethodType
+from typing import Any, Iterator
+
 from rdflib import Graph
 from xml.etree.ElementTree import Element
 
@@ -79,6 +82,12 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
     except IndexError as key_error:
         raise NothingToParseException from key_error
 
+    def _safe_dimensions(target: Element):
+        try:
+            return self._dimensions(target)
+        except ParseException:
+            return (0.0, 0.0, 0.0, 0.0)
+
     for cell in self.draw_io_xml_tree[0][0][0]:
         if cell.tag != "mxCell":
             raise ParseException(
@@ -107,7 +116,7 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
             if parent is None or not identifier:
                 continue
 
-            dimensions = self._dimensions(parent)
+            dimensions = _safe_dimensions(parent)
             seen_classes: set[str] = set()
             had_tokens = False
             for token in classification.tokens:
@@ -141,7 +150,7 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
 
         if kind_name == "STANDALONE_INDIVIDUAL":
             identifier = classification.identifier or classification.raw_value
-            dimensions = self._dimensions(cell)
+            dimensions = _safe_dimensions(cell)
             types = classification.tokens or [default_standalone_type]
             seen_types: set[str] = set()
             for rdf_type in types:
@@ -164,13 +173,47 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
                 self.individual_cells.append((cell, individual, dimensions))
             continue
 
-        self.literal_cells.append((cell, self._dimensions(cell)))
+        if kind_name == "DECORATION":
+            cell_id = cell.attrib.get("id")
+            if cell_id:
+                decorations[cell_id] = {
+                    "value": classification.raw_value,
+                    "connected": False,
+                }
+            continue
+
+        self.literal_cells.append((cell, _safe_dimensions(cell)))
         cell_id = cell.attrib.get("id")
         if cell_id:
             decorations[cell_id] = {
                 "value": classification.raw_value,
                 "connected": False,
             }
+
+
+@override(phase="core", type="xml", role="data")
+def _bind_literal_classifier(
+    tree, decorations_attr: str, decorations: dict[str, dict[str, object]]
+) -> None:
+    """Attach literal detection that records decoration connectivity."""
+
+    def _cell_is_literal_override(self, candidate: Element) -> bool:
+        is_literal = any(
+            literal_cell is candidate for literal_cell, _ in self.literal_cells
+        )
+        if is_literal:
+            registry = getattr(pipeline.core.internal.data, decorations_attr, None)
+            if isinstance(registry, dict):
+                cell_id = candidate.attrib.get("id")
+                if cell_id in registry:
+                    registry[cell_id]["connected"] = True
+        return is_literal
+
+    object.__setattr__(
+        tree,
+        "_cell_is_literal",
+        MethodType(_cell_is_literal_override, tree),
+    )
 
 
 @override(phase="core", type="xml", role="data")
@@ -186,6 +229,163 @@ def _cell_is_literal(self, candidate: Element) -> bool:
             if cell_id in registry:
                 registry[cell_id]["connected"] = True
     return is_literal
+
+
+@override(phase="core", type="xml", role="data")
+def _reclassify_tree_cells(
+    tree, prefixes: dict[str, str]
+) -> dict[str, dict[str, object]]:
+    """Rebuild DrawIOXMLTree cell buckets using the override classifier."""
+
+    classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+    decorations_attr = getattr(
+        classifier_cls, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+    )
+    default_type = getattr(classifier_cls, "DEFAULT_STANDALONE_TYPE", "rico:Thing")
+    classifier = classifier_cls(tree, prefixes)
+
+    decorations: dict[str, dict[str, object]] = {}
+    setattr(pipeline.core.internal.data, decorations_attr, decorations)
+
+    object.__setattr__(tree, "individual_cells", [])
+    object.__setattr__(tree, "literal_cells", [])
+    object.__setattr__(tree, "arrow_cells", [])
+
+    def _safe_dimensions(target: Element):
+        try:
+            return tree._dimensions(target)
+        except ParseException:
+            return (0.0, 0.0, 0.0, 0.0)
+
+    try:
+        candidate_cells = tree.draw_io_xml_tree[0][0][0]
+    except IndexError as key_error:
+        raise NothingToParseException from key_error
+
+    for cell in candidate_cells:
+        if cell.tag != "mxCell":
+            raise ParseException(
+                "Could not parse XML tree: expecting an element with tag "
+                f"'mxCell', but had tag '{cell.tag}'"
+            )
+
+        try:
+            cell_value = tree._value_of(cell)
+        except _NoValueException:
+            continue
+
+        if not cell_value:
+            tree._add_arrow_if_find_label(cell)
+            continue
+
+        classification = classifier.classify(cell, cell_value)
+        kind_name = getattr(classification.kind, "name", "")
+
+        if kind_name == "ARROW_LABEL":
+            continue
+
+        if kind_name == "TYPED_INDIVIDUAL":
+            parent = classification.parent_cell
+            identifier = classification.parent_identifier
+            if parent is None or not identifier:
+                continue
+
+            dimensions = _safe_dimensions(parent)
+            seen_classes: set[str] = set()
+            had_tokens = False
+            for token in classification.tokens:
+                candidate = token.strip()
+                if not candidate:
+                    continue
+                had_tokens = True
+                if candidate in seen_classes:
+                    continue
+                try:
+                    _verify_is_ric_class(candidate, prefixes)
+                except NotInKnownException as exc:
+                    raise NotInKnownException(
+                        (
+                            f"The node '{identifier}' declares rdf:type "
+                            f"'{candidate}', which is not defined by the available prefixes.'"
+                        )
+                    ) from exc
+                seen_classes.add(candidate)
+                individual = Individual(identifier, candidate)
+                tree.individual_cells.append((cell, individual, dimensions))
+
+            if not had_tokens:
+                raise NotInKnownException(
+                    (
+                        f"The node '{identifier}' declares an rdf:type value "
+                        "but no CURIE tokens could be parsed."
+                    )
+                )
+            continue
+
+        if kind_name == "STANDALONE_INDIVIDUAL":
+            identifier = classification.identifier or classification.raw_value
+            dimensions = _safe_dimensions(cell)
+            types = classification.tokens or [default_type]
+            seen_types: set[str] = set()
+            for rdf_type in types:
+                candidate = rdf_type.strip()
+                if not candidate:
+                    continue
+                if candidate in seen_types:
+                    continue
+                try:
+                    _verify_is_ric_class(candidate, prefixes)
+                except NotInKnownException as exc:
+                    raise NotInKnownException(
+                        (
+                            f"The standalone node '{identifier}' declares rdf:type "
+                            f"'{candidate}', which is not defined by the available prefixes.'"
+                        )
+                    ) from exc
+                seen_types.add(candidate)
+                individual = Individual(identifier, candidate)
+                tree.individual_cells.append((cell, individual, dimensions))
+            continue
+
+        if kind_name == "DECORATION":
+            cell_id = cell.attrib.get("id")
+            if cell_id:
+                decorations[cell_id] = {
+                    "value": classification.raw_value,
+                    "connected": False,
+                }
+            continue
+
+        tree.literal_cells.append((cell, _safe_dimensions(cell)))
+        cell_id = cell.attrib.get("id")
+        if cell_id:
+            decorations[cell_id] = {
+                "value": classification.raw_value,
+                "connected": False,
+            }
+
+    decorations_attr = getattr(
+        classifier_cls, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+    )
+    pipeline.core.xml.data._bind_literal_classifier(  # type: ignore[attr-defined]
+        tree,
+        decorations_attr,
+        decorations,
+    )
+    return decorations
+
+
+@override(phase="core", type="xml", role="data")
+def _refresh_literal_classifier(tree, prefixes: dict[str, str]) -> None:
+    decorations = pipeline.core.xml.data._reclassify_tree_cells(  # type: ignore[attr-defined]
+        tree,
+        prefixes,
+    )
+    classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+    decorations_attr = getattr(
+        classifier_cls, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+    )
+    setattr(pipeline.core.internal.data, decorations_attr, decorations)
 
 
 @override(phase="core", type="internal", role="control")
@@ -391,7 +591,10 @@ def serialise_to_graph(
                             literal_value = Literal(value)
                     graph.add((individual_uri, prop_uri, literal_value))
 
-    decorations_attr = "__drawio_literal_registry"
+    classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+    decorations_attr = getattr(
+        classifier_cls, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+    )
     decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
     decoration_values = [
         entry.get("value")

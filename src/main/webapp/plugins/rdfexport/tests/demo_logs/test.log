@@ -1,13 +1,12 @@
-Script started on Tue Oct 21 00:14:18 2025
-Command: bun run test
+Script started on 2025-10-21 12:06:06+00:00 [COMMAND="bun run test" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1mpython -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
-[metabuilder] Wrote legacy/draw_io_parser.py ( overrides on; replacements=8 [NodeHTMLParser, _build_graph_from_raw_xml, _cell_is_literal, _ensure_known_curie, _extract_individual_and_arrow_and_literal_cells, _split_curie, individual_blocks, serialise_to_graph] additions=3 [CellClassification, CellKind, DrawIOCellClassifier] )
-[metabuilder] Loaded override modules from /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/overrides: cell_classifier.py, curie_validator.py, rml_export.py, strip_html.py
+[metabuilder] Wrote legacy/draw_io_parser.py ( overrides on; replacements=8 [NodeHTMLParser, _build_graph_from_raw_xml, _cell_is_literal, _ensure_known_curie, _extract_individual_and_arrow_and_literal_cells, _split_curie, individual_blocks, serialise_to_graph] additions=6 [CellClassification, CellKind, DrawIOCellClassifier, _bind_literal_classifier, _reclassify_tree_cells, _refresh_literal_classifier] )
+[metabuilder] Loaded override modules from /workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/overrides: cell_classifier.py, curie_validator.py, rml_export.py, strip_html.py
 [0m[2m[35m$[0m [2m[1mruff check --fix .[0m
-Found 15 errors (15 fixed, 0 remaining).
+All checks passed!
 [0m[2m[35m$[0m [2m[1mruff format .[0m
-2 files reformatted, 22 files left unchanged
+22 files left unchanged
 Attempting to regenerate baselines from 1 commit(s)...
 Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 
@@ -53,398 +52,973 @@ Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
      An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
 
 🧪 Running tests: webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py
-[1m========================================= test session starts ==========================================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- /workspace/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 39 items                                                                                     [0m
+[1mcollecting ... [0m[1mcollected 39 items                                                                                                             [0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_tracks_datatype_properties [32mPASSED[0m[32m   [  5%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_corrected_mock_types [32mPASSED[0m[32m      [ 17%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio] [31mFAILED[0m[31m [ 74%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio] [31mFAILED[0m[31m [ 76%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_with_metadata_exposes_namespace_and_csv_path [32mPASSED[0m[31m [ 79%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_with_rml_metadata_adds_triples_map [32mPASSED[0m[31m [ 82%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_default_strips_html_literals [32mPASSED[0m[31m      [ 84%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_respects_strip_html_config [32mPASSED[0m[31m        [ 87%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_metadata_strip_html_override [32mPASSED[0m[31m      [ 89%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_without_metadata_sets_empty_metadata [32mPASSED[0m[31m [ 92%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_rejects_unknown_literal_curie [32mPASSED[0m[31m     [ 94%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_rejects_unknown_prefix [32mPASSED[0m[31m       [ 97%][0m
+webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip [31mFAILED[0m[31m         [100%][0m
 
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_accepts_declared_prefix_curie [32mPASSED[0m[32m [  2%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_tracks_datatype_properties [32mPASSED[0m[32m [  5%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_rejects_malformed_type_variants[unknown_prefix] [32mPASSED[0m[32m [  7%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_rejects_malformed_type_variants[dangling_curie] [32mPASSED[0m[32m [ 10%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_rejects_malformed_type_variants[colon_only] [32mPASSED[0m[32m [ 12%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_rejects_malformed_type_variants[no_prefix] [32mPASSED[0m[32m [ 15%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_corrected_mock_types [32mPASSED[0m[32m [ 17%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path0] [32mPASSED[0m[32m [ 20%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path1] [32mPASSED[0m[32m [ 23%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path2] [32mPASSED[0m[32m [ 25%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path3] [32mPASSED[0m[32m [ 28%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path4] [32mPASSED[0m[32m [ 30%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path5] [32mPASSED[0m[32m [ 33%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path6] [32mPASSED[0m[32m [ 35%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path7] [32mPASSED[0m[32m [ 38%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path8] [32mPASSED[0m[32m [ 41%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path9] [32mPASSED[0m[32m [ 43%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path10] [32mPASSED[0m[32m [ 46%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path11] [32mPASSED[0m[32m [ 48%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path12] [32mPASSED[0m[32m [ 51%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path13] [32mPASSED[0m[32m [ 53%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path14] [32mPASSED[0m[32m [ 56%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path15] [32mPASSED[0m[32m [ 58%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path16] [32mPASSED[0m[32m [ 61%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path17] [32mPASSED[0m[32m [ 64%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path18] [32mPASSED[0m[32m [ 66%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path19] [32mPASSED[0m[32m [ 69%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_matches_baseline_graphs[baseline_path20] [32mPASSED[0m[32m [ 71%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 74%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 76%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_with_metadata_exposes_namespace_and_csv_path [32mPASSED[0m[32m [ 79%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_with_rml_metadata_adds_triples_map [32mPASSED[0m[32m [ 82%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_default_strips_html_literals [32mPASSED[0m[32m [ 84%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_respects_strip_html_config [32mPASSED[0m[32m [ 87%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_metadata_strip_html_override [32mPASSED[0m[32m [ 89%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_without_metadata_sets_empty_metadata [32mPASSED[0m[32m [ 92%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_rejects_unknown_literal_curie [32mPASSED[0m[32m [ 94%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_rejects_unknown_prefix [32mPASSED[0m[32m [ 97%][0m
-webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip [32mPASSED[0m[32m [100%][0m
+=========================================================== FAILURES ===========================================================
+[31m[1m_________________ test_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio] _________________[0m
 
-[32m========================================== [32m[1m39 passed[0m[32m in 1.65s[0m[32m ==========================================[0m
-[1m========================================= test session starts ==========================================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
-configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 59 items                                                                                     [0m
+individual_cell = <Element 'mxCell' at 0x7fd99fb7cbd0>
 
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                     [ 11%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 16%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                      [ 83%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                       [ 89%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                            [100%][0m
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
 
-[32m========================================== [32m[1m59 passed[0m[32m in 2.08s[0m[32m ==========================================[0m
-[0m[1mbun test [0m[2mv1.2.21 (7c45ed97)[0m
-[0m
-tests/rdfexport.test.ts:
-[BLACKBOX] Received serialized payload (36445 characters)
-[PIPELINE] Initializing Pyodide runtime from /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/
-[PIPELINE] Pyodide runtime ready
-[PIPELINE] Preparing Pyodide Python environment
-[PIPELINE] Syncing Python module to virtual FS: /app/legacy/draw_io_parser.py
-[PIPELINE] Syncing Python module to virtual FS: /app/pyodide_pipeline/__init__.py
-[PIPELINE] Syncing Python module to virtual FS: /app/pyodide_pipeline/drawio_pipeline.py
-[PIPELINE] Syncing Python wheel to virtual FS: /app/wheels/rdflib-7.2.1-py3-none-any.whl
-[PIPELINE] Pyodide Python environment ready
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
-[PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
-[BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
-[BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1373.10ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.63ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m19.59ms[0m[2m][0m
-[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
-[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (61829 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (61829 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61829)
-[PIPELINE] DrawIO parser produced graph graph-1 with 126 triples
-[BLACKBOX] Parsed DrawIO graph graph-1 with 126 triples
-[BLACKBOX] Returning Turtle payload for graph graph-1 (7040 characters)
-[PIPELINE] Saving export payload to F 4711 Orville Wood fonds.ttl
-[PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (61812 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61812)
-[PIPELINE] DrawIO parser produced graph graph-2 with 126 triples
-[BLACKBOX] Parsed DrawIO graph graph-2 with 126 triples
-[BLACKBOX] Returning Turtle payload for graph graph-2 (7040 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 126 vs 126
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 124 vs 124
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (61847 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (61847 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61847)
-[PIPELINE] DrawIO parser produced graph graph-3 with 127 triples
-[BLACKBOX] Parsed DrawIO graph graph-3 with 127 triples
-[BLACKBOX] Returning Turtle payload for graph graph-3 (7106 characters)
-[PIPELINE] Saving RML export payload to F 4711 Orville Wood fonds.rml.ttl
-[PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m228.74ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (44261 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (44261 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44261)
-[PIPELINE] DrawIO parser produced graph graph-4 with 93 triples
-[BLACKBOX] Parsed DrawIO graph graph-4 with 93 triples
-[BLACKBOX] Returning Turtle payload for graph graph-4 (5497 characters)
-[PIPELINE] Saving export payload to AA42 Ministry of Health.ttl
-[PIPELINE] Export pipeline completed for AA42 Ministry of Health.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (44244 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44244)
-[PIPELINE] DrawIO parser produced graph graph-5 with 93 triples
-[BLACKBOX] Parsed DrawIO graph graph-5 with 93 triples
-[BLACKBOX] Returning Turtle payload for graph graph-5 (5497 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 93 vs 93
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 91 vs 91
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (44279 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (44279 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44279)
-[PIPELINE] DrawIO parser produced graph graph-6 with 94 triples
-[BLACKBOX] Parsed DrawIO graph graph-6 with 94 triples
-[BLACKBOX] Returning Turtle payload for graph graph-6 (5563 characters)
-[PIPELINE] Saving RML export payload to AA42 Ministry of Health.rml.ttl
-[PIPELINE] Export pipeline completed for AA42 Ministry of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m122.36ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (23410 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (23410 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23410)
-[PIPELINE] DrawIO parser produced graph graph-7 with 53 triples
-[BLACKBOX] Parsed DrawIO graph graph-7 with 53 triples
-[BLACKBOX] Returning Turtle payload for graph graph-7 (3002 characters)
-[PIPELINE] Saving export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.ttl
-[PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (23393 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23393)
-[PIPELINE] DrawIO parser produced graph graph-8 with 53 triples
-[BLACKBOX] Parsed DrawIO graph graph-8 with 53 triples
-[BLACKBOX] Returning Turtle payload for graph graph-8 (3002 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 53 vs 53
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 51 vs 51
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (23428 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (23428 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23428)
-[PIPELINE] DrawIO parser produced graph graph-9 with 54 triples
-[BLACKBOX] Parsed DrawIO graph graph-9 with 54 triples
-[BLACKBOX] Returning Turtle payload for graph graph-9 (3068 characters)
-[PIPELINE] Saving RML export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl
-[PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m69.42ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (23546 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (23546 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23546)
-[PIPELINE] DrawIO parser produced graph graph-10 with 50 triples
-[BLACKBOX] Parsed DrawIO graph graph-10 with 50 triples
-[BLACKBOX] Returning Turtle payload for graph graph-10 (3738 characters)
-[PIPELINE] Saving export payload to F 47-11-1-0-1.ttl
-[PIPELINE] Export pipeline completed for F 47-11-1-0-1.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (23529 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23529)
-[PIPELINE] DrawIO parser produced graph graph-11 with 50 triples
-[BLACKBOX] Parsed DrawIO graph graph-11 with 50 triples
-[BLACKBOX] Returning Turtle payload for graph graph-11 (3738 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 50 vs 50
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 48 vs 48
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (23564 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (23564 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23564)
-[PIPELINE] DrawIO parser produced graph graph-12 with 51 triples
-[BLACKBOX] Parsed DrawIO graph graph-12 with 51 triples
-[BLACKBOX] Returning Turtle payload for graph graph-12 (3804 characters)
-[PIPELINE] Saving RML export payload to F 47-11-1-0-1.rml.ttl
-[PIPELINE] Export pipeline completed for F 47-11-1-0-1.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m68.75ms[0m[2m][0m
-[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (39399 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (39399 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39399)
-[PIPELINE] DrawIO parser produced graph graph-13 with 77 triples
-[BLACKBOX] Parsed DrawIO graph graph-13 with 77 triples
-[BLACKBOX] Returning Turtle payload for graph graph-13 (4590 characters)
-[PIPELINE] Saving export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.ttl
-[PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (39382 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39382)
-[PIPELINE] DrawIO parser produced graph graph-14 with 77 triples
-[BLACKBOX] Parsed DrawIO graph graph-14 with 77 triples
-[BLACKBOX] Returning Turtle payload for graph graph-14 (4590 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 77 vs 77
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 75 vs 75
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (39417 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (39417 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39417)
-[PIPELINE] DrawIO parser produced graph graph-15 with 78 triples
-[BLACKBOX] Parsed DrawIO graph graph-15 with 78 triples
-[BLACKBOX] Returning Turtle payload for graph graph-15 (4656 characters)
-[PIPELINE] Saving RML export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl
-[PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m102.49ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (44795 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (44795 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44795)
-[PIPELINE] DrawIO parser produced graph graph-16 with 86 triples
-[BLACKBOX] Parsed DrawIO graph graph-16 with 86 triples
-[BLACKBOX] Returning Turtle payload for graph graph-16 (5458 characters)
-[PIPELINE] Saving export payload to F 47-11 Elizabeth Simcoe sketches.ttl
-[PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (44778 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44778)
-[PIPELINE] DrawIO parser produced graph graph-17 with 86 triples
-[BLACKBOX] Parsed DrawIO graph graph-17 with 86 triples
-[BLACKBOX] Returning Turtle payload for graph graph-17 (5458 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 86 vs 86
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 84 vs 84
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (44813 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (44813 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44813)
-[PIPELINE] DrawIO parser produced graph graph-18 with 87 triples
-[BLACKBOX] Parsed DrawIO graph graph-18 with 87 triples
-[BLACKBOX] Returning Turtle payload for graph graph-18 (5524 characters)
-[PIPELINE] Saving RML export payload to F 47-11 Elizabeth Simcoe sketches.rml.ttl
-[PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m116.06ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (39329 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (39329 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39329)
-[PIPELINE] DrawIO parser produced graph graph-19 with 74 triples
-[BLACKBOX] Parsed DrawIO graph graph-19 with 74 triples
-[BLACKBOX] Returning Turtle payload for graph graph-19 (5053 characters)
-[PIPELINE] Saving export payload to F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.ttl
-[PIPELINE] Export pipeline completed for F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (39312 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39312)
-[PIPELINE] DrawIO parser produced graph graph-20 with 74 triples
-[BLACKBOX] Parsed DrawIO graph graph-20 with 74 triples
-[BLACKBOX] Returning Turtle payload for graph graph-20 (5053 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 74 vs 74
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 72 vs 72
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (39347 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (39347 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39347)
-[PIPELINE] DrawIO parser produced graph graph-21 with 75 triples
-[BLACKBOX] Parsed DrawIO graph graph-21 with 75 triples
-[BLACKBOX] Returning Turtle payload for graph graph-21 (5119 characters)
-[PIPELINE] Saving RML export payload to F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl
-[PIPELINE] Export pipeline completed for F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m102.50ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (73837 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (73837 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 73837)
-[PIPELINE] DrawIO parser produced graph graph-22 with 136 triples
-[BLACKBOX] Parsed DrawIO graph graph-22 with 136 triples
-[BLACKBOX] Returning Turtle payload for graph graph-22 (9086 characters)
-[PIPELINE] Saving export payload to General Authority to RiC-O Model_2025-06-25_PZ.ttl
-[PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (73820 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 73820)
-[PIPELINE] DrawIO parser produced graph graph-23 with 136 triples
-[BLACKBOX] Parsed DrawIO graph graph-23 with 136 triples
-[BLACKBOX] Returning Turtle payload for graph graph-23 (9086 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 136 vs 136
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 130 vs 130
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (73855 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (73855 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 73855)
-[PIPELINE] DrawIO parser produced graph graph-24 with 137 triples
-[BLACKBOX] Parsed DrawIO graph graph-24 with 137 triples
-[BLACKBOX] Returning Turtle payload for graph graph-24 (9152 characters)
-[PIPELINE] Saving RML export payload to General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl
-[PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m202.31ms[0m[2m][0m
-[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
-[0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
-[0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
-[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:1424: KeyError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_name = 'knut_olborgs_forskningsnotater.drawio'
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_name[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [[90m[39;49;00m
+            [33m"[39;49;00m[33mknut_olborgs_forskningsnotater.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mkoronakommisjonen.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ],[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_previous_unknown_properties[39;49;00m(fixture_name: [96mstr[39;49;00m):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / fixture_name[90m[39;49;00m
+>       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2283: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2062: in _build_graph_from_raw_xml
+    [0mpipeline.core.xml.data._refresh_literal_classifier(draw_io_xml_tree, prefixes)[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:341: in _refresh_literal_classifier
+    [0mdecorations = pipeline.core.xml.data._reclassify_tree_cells(tree, prefixes)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:309: in _reclassify_tree_cells
+    [0mdimensions = _safe_dimensions(cell)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:261: in _safe_dimensions
+    [0m[94mreturn[39;49;00m tree._dimensions(target)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individual_cell = <Element 'mxCell' at 0x7fd99fb7cbd0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+>               [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:1429: KeyError
+[31m[1m_______________________ test_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio] ________________________[0m
+
+individual_cell = <Element 'mxCell' at 0x7fd99f81f9c0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:1424: KeyError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_name = 'koronakommisjonen.drawio'
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_name[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [[90m[39;49;00m
+            [33m"[39;49;00m[33mknut_olborgs_forskningsnotater.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mkoronakommisjonen.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ],[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_previous_unknown_properties[39;49;00m(fixture_name: [96mstr[39;49;00m):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / fixture_name[90m[39;49;00m
+>       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2283: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2062: in _build_graph_from_raw_xml
+    [0mpipeline.core.xml.data._refresh_literal_classifier(draw_io_xml_tree, prefixes)[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:341: in _refresh_literal_classifier
+    [0mdecorations = pipeline.core.xml.data._reclassify_tree_cells(tree, prefixes)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:309: in _reclassify_tree_cells
+    [0mdimensions = _safe_dimensions(cell)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:261: in _safe_dimensions
+    [0m[94mreturn[39;49;00m tree._dimensions(target)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individual_cell = <Element 'mxCell' at 0x7fd99f81f9c0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+>               [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:1429: KeyError
+[31m[1m_________________________________________ test_generated_metadata_fixtures_round_trip __________________________________________[0m
+
+individual_cell = <Element 'mxCell' at 0x7fd99fb20f40>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:1424: KeyError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-6/test_generated_metadata_fixtur0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
+        fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
+            path[90m[39;49;00m
+            [94mfor[39;49;00m path [95min[39;49;00m FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            [94mif[39;49;00m [33m"[39;49;00m[33m-with-metadata[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m path.stem [95mand[39;49;00m [95mnot[39;49;00m _fixture_contains_metadata(path)[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94massert[39;49;00m fixture_paths, [33m"[39;49;00m[33mExpected drawio fixtures to patch[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m index, fixture_path [95min[39;49;00m [96menumerate[39;49;00m(fixture_paths):[90m[39;49;00m
+            metadata_options = _build_metadata_options(index, fixture_path)[90m[39;49;00m
+            patched_path = tmp_path / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfixture_path.stem[33m}[39;49;00m[33m-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
+    [90m[39;49;00m
+>           original_graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+                [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+                metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+                prefix_iri=metadata_options[[33m"[39;49;00m[33mbaseUri[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+            )[90m[39;49;00m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:440: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2283: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2062: in _build_graph_from_raw_xml
+    [0mpipeline.core.xml.data._refresh_literal_classifier(draw_io_xml_tree, prefixes)[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:341: in _refresh_literal_classifier
+    [0mdecorations = pipeline.core.xml.data._reclassify_tree_cells(tree, prefixes)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:309: in _reclassify_tree_cells
+    [0mdimensions = _safe_dimensions(cell)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:261: in _safe_dimensions
+    [0m[94mreturn[39;49;00m tree._dimensions(target)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individual_cell = <Element 'mxCell' at 0x7fd99fb20f40>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+>               [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:1429: KeyError
+[36m[1m=================================================== short test summary info ====================================================[0m
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio][0m - KeyError: 'height'
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio][0m - KeyError: 'height'
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - KeyError: 'height'
+[31m================================================ [31m[1m3 failed[0m, [32m36 passed[0m[31m in 12.20s[0m[31m =================================================[0m
+Traceback (most recent call last):
+  File "/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 294, in <module>
+    main()
+  File "/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 290, in main
+    run_pytest([str(TEST_PATH.relative_to(REPO_ROOT)), "-v"])
+  File "/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 216, in run_pytest
+    subprocess.run(command, check=True, cwd=REPO_ROOT)
+  File "/root/.pyenv/versions/3.12.10/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/workspace/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python', '-m', 'pytest', 'webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py', '-v']' returned non-zero exit status 1.
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
+[1mcollecting ... [0m[1mcollected 59 items                                                                                                             [0m
+
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                             [ 11%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 16%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                              [ 83%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                               [ 89%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                    [100%][0m
+
+=========================================================== FAILURES ===========================================================
+[31m[1m_________________ test_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio] _________________[0m
+
+individual_cell = <Element 'mxCell' at 0x7f42784520c0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:1424: KeyError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+fixture_name = 'knut_olborgs_forskningsnotater.drawio'
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_name[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [[90m[39;49;00m
+            [33m"[39;49;00m[33mknut_olborgs_forskningsnotater.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mkoronakommisjonen.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ],[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_previous_unknown_properties[39;49;00m(fixture_name: [96mstr[39;49;00m):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / fixture_name[90m[39;49;00m
+>       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2283: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2062: in _build_graph_from_raw_xml
+    [0mpipeline.core.xml.data._refresh_literal_classifier(draw_io_xml_tree, prefixes)[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:341: in _refresh_literal_classifier
+    [0mdecorations = pipeline.core.xml.data._reclassify_tree_cells(tree, prefixes)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:309: in _reclassify_tree_cells
+    [0mdimensions = _safe_dimensions(cell)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:261: in _safe_dimensions
+    [0m[94mreturn[39;49;00m tree._dimensions(target)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individual_cell = <Element 'mxCell' at 0x7f42784520c0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+>               [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:1429: KeyError
+[31m[1m_______________________ test_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio] ________________________[0m
+
+individual_cell = <Element 'mxCell' at 0x7f4278411cb0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:1424: KeyError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_name = 'koronakommisjonen.drawio'
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_name[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [[90m[39;49;00m
+            [33m"[39;49;00m[33mknut_olborgs_forskningsnotater.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mkoronakommisjonen.drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ],[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_previous_unknown_properties[39;49;00m(fixture_name: [96mstr[39;49;00m):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / fixture_name[90m[39;49;00m
+>       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:218: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2283: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2062: in _build_graph_from_raw_xml
+    [0mpipeline.core.xml.data._refresh_literal_classifier(draw_io_xml_tree, prefixes)[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:341: in _refresh_literal_classifier
+    [0mdecorations = pipeline.core.xml.data._reclassify_tree_cells(tree, prefixes)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:309: in _reclassify_tree_cells
+    [0mdimensions = _safe_dimensions(cell)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:261: in _safe_dimensions
+    [0m[94mreturn[39;49;00m tree._dimensions(target)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individual_cell = <Element 'mxCell' at 0x7f4278411cb0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+>               [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:1429: KeyError
+[31m[1m_________________________________________ test_generated_metadata_fixtures_round_trip __________________________________________[0m
+
+individual_cell = <Element 'mxCell' at 0x7f42785227a0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:1424: KeyError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-7/test_generated_metadata_fixtur0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
+        fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
+            path[90m[39;49;00m
+            [94mfor[39;49;00m path [95min[39;49;00m FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            [94mif[39;49;00m [33m"[39;49;00m[33m-with-metadata[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m path.stem [95mand[39;49;00m [95mnot[39;49;00m _fixture_contains_metadata(path)[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94massert[39;49;00m fixture_paths, [33m"[39;49;00m[33mExpected drawio fixtures to patch[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m index, fixture_path [95min[39;49;00m [96menumerate[39;49;00m(fixture_paths):[90m[39;49;00m
+            metadata_options = _build_metadata_options(index, fixture_path)[90m[39;49;00m
+            patched_path = tmp_path / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfixture_path.stem[33m}[39;49;00m[33m-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
+    [90m[39;49;00m
+>           original_graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+                [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+                metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+                prefix_iri=metadata_options[[33m"[39;49;00m[33mbaseUri[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+            )[90m[39;49;00m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:440: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2283: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2062: in _build_graph_from_raw_xml
+    [0mpipeline.core.xml.data._refresh_literal_classifier(draw_io_xml_tree, prefixes)[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:341: in _refresh_literal_classifier
+    [0mdecorations = pipeline.core.xml.data._reclassify_tree_cells(tree, prefixes)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:309: in _reclassify_tree_cells
+    [0mdimensions = _safe_dimensions(cell)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:261: in _safe_dimensions
+    [0m[94mreturn[39;49;00m tree._dimensions(target)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+individual_cell = <Element 'mxCell' at 0x7f42785227a0>
+
+    [0m[37m@staticmethod[39;49;00m[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92m_dimensions[39;49;00m(individual_cell: Element) -> Dimensions:[90m[39;49;00m
+        geometry = DrawIOXMLTree._geometry(individual_cell)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            x = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mx[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            x = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have an 'x' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            y = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33my[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m:[90m[39;49;00m
+            y = [94m0.0[39;49;00m[90m[39;49;00m
+            [90m# raise ParseException([39;49;00m[90m[39;49;00m
+            [90m#    "Expecting the mxGeometry element of the cell with the "[39;49;00m[90m[39;49;00m
+            [90m#    "following id to have a 'y' attribute, but it does not: "[39;49;00m[90m[39;49;00m
+            [90m#    f"{individual_cell.attrib['id']}"[39;49;00m[90m[39;49;00m
+            [90m# ) from key_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            width = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mwidth[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mwidth[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            height = [96mfloat[39;49;00m(geometry.attrib[[33m"[39;49;00m[33mheight[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+        [94mexcept[39;49;00m [96mKeyError[39;49;00m [94mas[39;49;00m key_error:[90m[39;49;00m
+            [94mraise[39;49;00m ParseException([90m[39;49;00m
+                [33m"[39;49;00m[33mExpecting the mxGeometry element of the cell with the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33m"[39;49;00m[33mfollowing id to have a [39;49;00m[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m[33m attribute, but it does not: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+>               [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mindividual_cell.attrib[[33m'[39;49;00m[33mheight[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+            ) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mkey_error[39;49;00m[90m[39;49;00m
+[1m[31mE           KeyError: 'height'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:1429: KeyError
+[36m[1m=================================================== short test summary info ====================================================[0m
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio][0m - KeyError: 'height'
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio][0m - KeyError: 'height'
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - KeyError: 'height'
+[31m================================================ [31m[1m3 failed[0m, [32m56 passed[0m[31m in 15.48s[0m[31m =================================================[0m
+[0m[1mbun test [0m[2mv1.2.14 (6a363a38)[0m
+[PIPELINE] Initializing Pyodide runtime from /workspace/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[0m[33m9306.87ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[5.17ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m324.93ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (34895 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (34895 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 34895)
+[PIPELINE] DrawIO parser produced graph graph-1 with 72 triples
+[BLACKBOX] Parsed DrawIO graph graph-1 with 72 triples
+[BLACKBOX] Returning Turtle payload for graph graph-1 (5761 characters)
+[PIPELINE] Saving export payload to AA37 Department of Health.ttl
+[PIPELINE] Export pipeline completed for AA37 Department of Health.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (34878 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 34878)
+[PIPELINE] DrawIO parser produced graph graph-2 with 72 triples
+[BLACKBOX] Parsed DrawIO graph graph-2 with 72 triples
+[BLACKBOX] Returning Turtle payload for graph graph-2 (5761 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 72 vs 72
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 70 vs 70
+[PIPELINE] Generated DrawIO XML payload (34913 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (34913 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 34913)
+[PIPELINE] DrawIO parser produced graph graph-3 with 73 triples
+[BLACKBOX] Parsed DrawIO graph graph-3 with 73 triples
+[BLACKBOX] Returning Turtle payload for graph graph-3 (5827 characters)
+[PIPELINE] Saving RML export payload to AA37 Department of Health.rml.ttl
+[PIPELINE] Export pipeline completed for AA37 Department of Health.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m1010.67ms[0m[2m][0m
 [PIPELINE] Generated DrawIO XML payload (80881 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (80881 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 80881)
-[PIPELINE] DrawIO parser produced graph graph-25 with 172 triples
-[BLACKBOX] Parsed DrawIO graph graph-25 with 172 triples
-[BLACKBOX] Returning Turtle payload for graph graph-25 (11220 characters)
+[PIPELINE] DrawIO parser produced graph graph-4 with 172 triples
+[BLACKBOX] Parsed DrawIO graph graph-4 with 172 triples
+[BLACKBOX] Returning Turtle payload for graph graph-4 (11220 characters)
 [PIPELINE] Saving export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).ttl
 [BLACKBOX] Generating Turtle payload for serialized input (80864 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 80864)
-[PIPELINE] DrawIO parser produced graph graph-26 with 172 triples
-[BLACKBOX] Parsed DrawIO graph graph-26 with 172 triples
-[BLACKBOX] Returning Turtle payload for graph graph-26 (11220 characters)
+[PIPELINE] DrawIO parser produced graph graph-5 with 172 triples
+[BLACKBOX] Parsed DrawIO graph graph-5 with 172 triples
+[BLACKBOX] Returning Turtle payload for graph graph-5 (11220 characters)
 [TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 172 vs 172
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 170 vs 170
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
 [PIPELINE] Generated DrawIO XML payload (80899 characters) for RML export
 [BLACKBOX] Generating Turtle payload for serialized input (80899 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 80899)
-[PIPELINE] DrawIO parser produced graph graph-27 with 173 triples
-[BLACKBOX] Parsed DrawIO graph graph-27 with 173 triples
-[BLACKBOX] Returning Turtle payload for graph graph-27 (11286 characters)
+[PIPELINE] DrawIO parser produced graph graph-6 with 173 triples
+[BLACKBOX] Parsed DrawIO graph graph-6 with 173 triples
+[BLACKBOX] Returning Turtle payload for graph graph-6 (11286 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m235.46ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (37618 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (37618 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37618)
-[PIPELINE] DrawIO parser produced graph graph-28 with 73 triples
-[BLACKBOX] Parsed DrawIO graph graph-28 with 73 triples
-[BLACKBOX] Returning Turtle payload for graph graph-28 (4345 characters)
-[PIPELINE] Saving export payload to F 47-11-2 Elizabeth Simcoe sketchbook.ttl
-[PIPELINE] Export pipeline completed for F 47-11-2 Elizabeth Simcoe sketchbook.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (37601 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37601)
-[PIPELINE] DrawIO parser produced graph graph-29 with 73 triples
-[BLACKBOX] Parsed DrawIO graph graph-29 with 73 triples
-[BLACKBOX] Returning Turtle payload for graph graph-29 (4345 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 73 vs 73
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 71 vs 71
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (37636 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (37636 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37636)
-[PIPELINE] DrawIO parser produced graph graph-30 with 74 triples
-[BLACKBOX] Parsed DrawIO graph graph-30 with 74 triples
-[BLACKBOX] Returning Turtle payload for graph graph-30 (4411 characters)
-[PIPELINE] Saving RML export payload to F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl
-[PIPELINE] Export pipeline completed for F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m94.92ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m1722.81ms[0m[2m][0m
+[PIPELINE] DrawIO parser produced graph graph-7 with 50 triples
+[BLACKBOX] Parsed DrawIO graph graph-7 with 50 triples
+[BLACKBOX] Returning Turtle payload for graph graph-7 (3738 characters)
+[PIPELINE] DrawIO parser produced graph graph-8 with 50 triples
+[BLACKBOX] Parsed DrawIO graph graph-8 with 50 triples
+[BLACKBOX] Returning Turtle payload for graph graph-8 (3738 characters)
+[PIPELINE] DrawIO parser produced graph graph-9 with 51 triples
+[BLACKBOX] Parsed DrawIO graph graph-9 with 51 triples
+[BLACKBOX] Returning Turtle payload for graph graph-9 (3804 characters)
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m387.24ms[0m[2m][0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
+[PIPELINE] Generated DrawIO XML payload (61829 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (61829 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61829)
+[PIPELINE] DrawIO parser produced graph graph-10 with 126 triples
+[BLACKBOX] Parsed DrawIO graph graph-10 with 126 triples
+[BLACKBOX] Returning Turtle payload for graph graph-10 (7040 characters)
+[PIPELINE] Saving export payload to F 4711 Orville Wood fonds.ttl
+[PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (61812 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61812)
+[PIPELINE] DrawIO parser produced graph graph-11 with 126 triples
+[BLACKBOX] Parsed DrawIO graph graph-11 with 126 triples
+[BLACKBOX] Returning Turtle payload for graph graph-11 (7040 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 126 vs 126
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 124 vs 124
+[PIPELINE] Generated DrawIO XML payload (61847 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (61847 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61847)
+[PIPELINE] DrawIO parser produced graph graph-12 with 127 triples
+[BLACKBOX] Parsed DrawIO graph graph-12 with 127 triples
+[BLACKBOX] Returning Turtle payload for graph graph-12 (7106 characters)
+[PIPELINE] Saving RML export payload to F 4711 Orville Wood fonds.rml.ttl
+[PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m977.16ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (54132 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (54132 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 54132)
+[PIPELINE] DrawIO parser produced graph graph-13 with 97 triples
+[BLACKBOX] Parsed DrawIO graph graph-13 with 97 triples
+[BLACKBOX] Returning Turtle payload for graph graph-13 (6195 characters)
+[PIPELINE] Saving export payload to CA1934 Division of Tuberculosis Prevention.ttl
+[PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (54115 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 54115)
+[PIPELINE] DrawIO parser produced graph graph-14 with 97 triples
+[BLACKBOX] Parsed DrawIO graph graph-14 with 97 triples
+[BLACKBOX] Returning Turtle payload for graph graph-14 (6195 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 97 vs 97
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 95 vs 95
+[PIPELINE] Generated DrawIO XML payload (54150 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (54150 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 54150)
+[PIPELINE] DrawIO parser produced graph graph-15 with 98 triples
+[BLACKBOX] Parsed DrawIO graph graph-15 with 98 triples
+[BLACKBOX] Returning Turtle payload for graph graph-15 (6261 characters)
+[PIPELINE] Saving RML export payload to CA1934 Division of Tuberculosis Prevention.rml.ttl
+[PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m865.78ms[0m[2m][0m
+[PIPELINE] DrawIO parser produced graph graph-16 with 74 triples
+[BLACKBOX] Parsed DrawIO graph graph-16 with 74 triples
+[BLACKBOX] Returning Turtle payload for graph graph-16 (5053 characters)
+[PIPELINE] DrawIO parser produced graph graph-17 with 74 triples
+[BLACKBOX] Parsed DrawIO graph graph-17 with 74 triples
+[BLACKBOX] Returning Turtle payload for graph graph-17 (5053 characters)
+[PIPELINE] DrawIO parser produced graph graph-18 with 75 triples
+[BLACKBOX] Parsed DrawIO graph graph-18 with 75 triples
+[BLACKBOX] Returning Turtle payload for graph graph-18 (5119 characters)
+[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m563.03ms[0m[2m][0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
+[0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
+[PIPELINE] Generated DrawIO XML payload (32209 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (32209 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 32209)
+[PIPELINE] DrawIO parser produced graph graph-19 with 63 triples
+[BLACKBOX] Parsed DrawIO graph graph-19 with 63 triples
+[BLACKBOX] Returning Turtle payload for graph graph-19 (3931 characters)
+[PIPELINE] Saving export payload to RG 10-145 Mobile Tuberculosis Testing Clinic photographs.ttl
+[PIPELINE] Export pipeline completed for RG 10-145 Mobile Tuberculosis Testing Clinic photographs.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (32192 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 32192)
+[PIPELINE] DrawIO parser produced graph graph-20 with 63 triples
+[BLACKBOX] Parsed DrawIO graph graph-20 with 63 triples
+[BLACKBOX] Returning Turtle payload for graph graph-20 (3931 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 63 vs 63
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 61 vs 61
+[PIPELINE] Generated DrawIO XML payload (32227 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (32227 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 32227)
+[PIPELINE] DrawIO parser produced graph graph-21 with 64 triples
+[BLACKBOX] Parsed DrawIO graph graph-21 with 64 triples
+[BLACKBOX] Returning Turtle payload for graph graph-21 (3997 characters)
+[PIPELINE] Saving RML export payload to RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl
+[PIPELINE] Export pipeline completed for RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m489.99ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (58348 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (58348 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58348)
+[PIPELINE] DrawIO parser produced graph graph-22 with 103 triples
+[BLACKBOX] Parsed DrawIO graph graph-22 with 103 triples
+[BLACKBOX] Returning Turtle payload for graph graph-22 (9207 characters)
+[PIPELINE] Saving export payload to F 47 Simcoe Family fonds.ttl
+[PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (58331 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58331)
+[PIPELINE] DrawIO parser produced graph graph-23 with 103 triples
+[BLACKBOX] Parsed DrawIO graph graph-23 with 103 triples
+[BLACKBOX] Returning Turtle payload for graph graph-23 (9207 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 103 vs 103
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 101 vs 101
+[PIPELINE] Generated DrawIO XML payload (58366 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (58366 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58366)
+[PIPELINE] DrawIO parser produced graph graph-24 with 104 triples
+[BLACKBOX] Parsed DrawIO graph graph-24 with 104 triples
+[BLACKBOX] Returning Turtle payload for graph graph-24 (9273 characters)
+[PIPELINE] Saving RML export payload to F 47 Simcoe Family fonds.rml.ttl
+[PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m782.01ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (95213 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (95213 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 95213)
-[PIPELINE] DrawIO parser produced graph graph-31 with 143 triples
-[BLACKBOX] Parsed DrawIO graph graph-31 with 143 triples
-[BLACKBOX] Returning Turtle payload for graph graph-31 (9826 characters)
+[PIPELINE] DrawIO parser produced graph graph-25 with 143 triples
+[BLACKBOX] Parsed DrawIO graph graph-25 with 143 triples
+[BLACKBOX] Returning Turtle payload for graph graph-25 (9826 characters)
 [PIPELINE] Saving export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.ttl
 [BLACKBOX] Generating Turtle payload for serialized input (95196 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 95196)
-[PIPELINE] DrawIO parser produced graph graph-32 with 143 triples
-[BLACKBOX] Parsed DrawIO graph graph-32 with 143 triples
-[BLACKBOX] Returning Turtle payload for graph graph-32 (9826 characters)
+[PIPELINE] DrawIO parser produced graph graph-26 with 143 triples
+[BLACKBOX] Parsed DrawIO graph graph-26 with 143 triples
+[BLACKBOX] Returning Turtle payload for graph graph-26 (9826 characters)
 [TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 143 vs 143
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 130 vs 130
@@ -453,102 +1027,276 @@ tests/rdfexport.test.ts:
 [PIPELINE] Generated DrawIO XML payload (95231 characters) for RML export
 [BLACKBOX] Generating Turtle payload for serialized input (95231 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 95231)
-[PIPELINE] DrawIO parser produced graph graph-33 with 144 triples
-[BLACKBOX] Parsed DrawIO graph graph-33 with 144 triples
-[BLACKBOX] Returning Turtle payload for graph graph-33 (9892 characters)
+[PIPELINE] DrawIO parser produced graph graph-27 with 144 triples
+[BLACKBOX] Parsed DrawIO graph graph-27 with 144 triples
+[BLACKBOX] Returning Turtle payload for graph graph-27 (9892 characters)
 [PIPELINE] Saving RML export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m238.72ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m1277.90ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (54132 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (54132 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 54132)
-[PIPELINE] DrawIO parser produced graph graph-34 with 97 triples
-[BLACKBOX] Parsed DrawIO graph graph-34 with 97 triples
-[BLACKBOX] Returning Turtle payload for graph graph-34 (6195 characters)
-[PIPELINE] Saving export payload to CA1934 Division of Tuberculosis Prevention.ttl
-[PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (54115 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 54115)
-[PIPELINE] DrawIO parser produced graph graph-35 with 97 triples
-[BLACKBOX] Parsed DrawIO graph graph-35 with 97 triples
-[BLACKBOX] Returning Turtle payload for graph graph-35 (6195 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 97 vs 97
+[PIPELINE] Generated DrawIO XML payload (39399 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (39399 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39399)
+[PIPELINE] DrawIO parser produced graph graph-28 with 77 triples
+[BLACKBOX] Parsed DrawIO graph graph-28 with 77 triples
+[BLACKBOX] Returning Turtle payload for graph graph-28 (4590 characters)
+[PIPELINE] Saving export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.ttl
+[PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (39382 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39382)
+[PIPELINE] DrawIO parser produced graph graph-29 with 77 triples
+[BLACKBOX] Parsed DrawIO graph graph-29 with 77 triples
+[BLACKBOX] Returning Turtle payload for graph graph-29 (4590 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 77 vs 77
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 95 vs 95
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 75 vs 75
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
 [PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (54150 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (54150 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 54150)
-[PIPELINE] DrawIO parser produced graph graph-36 with 98 triples
-[BLACKBOX] Parsed DrawIO graph graph-36 with 98 triples
-[BLACKBOX] Returning Turtle payload for graph graph-36 (6261 characters)
-[PIPELINE] Saving RML export payload to CA1934 Division of Tuberculosis Prevention.rml.ttl
-[PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m130.41ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (39417 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (39417 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 39417)
+[PIPELINE] DrawIO parser produced graph graph-30 with 78 triples
+[BLACKBOX] Parsed DrawIO graph graph-30 with 78 triples
+[BLACKBOX] Returning Turtle payload for graph graph-30 (4656 characters)
+[PIPELINE] Saving RML export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl
+[PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m694.48ms[0m[2m][0m
+[PIPELINE] DrawIO parser produced graph graph-31 with 73 triples
+[BLACKBOX] Parsed DrawIO graph graph-31 with 73 triples
+[BLACKBOX] Returning Turtle payload for graph graph-31 (4345 characters)
+[PIPELINE] DrawIO parser produced graph graph-32 with 73 triples
+[BLACKBOX] Parsed DrawIO graph graph-32 with 73 triples
+[BLACKBOX] Returning Turtle payload for graph graph-32 (4345 characters)
+[PIPELINE] DrawIO parser produced graph graph-33 with 74 triples
+[BLACKBOX] Parsed DrawIO graph graph-33 with 74 triples
+[BLACKBOX] Returning Turtle payload for graph graph-33 (4411 characters)
+[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m581.77ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (44795 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (44795 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44795)
+[PIPELINE] DrawIO parser produced graph graph-34 with 86 triples
+[BLACKBOX] Parsed DrawIO graph graph-34 with 86 triples
+[BLACKBOX] Returning Turtle payload for graph graph-34 (5458 characters)
+[PIPELINE] Saving export payload to F 47-11 Elizabeth Simcoe sketches.ttl
+[PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (44778 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44778)
+[PIPELINE] DrawIO parser produced graph graph-35 with 86 triples
+[BLACKBOX] Parsed DrawIO graph graph-35 with 86 triples
+[BLACKBOX] Returning Turtle payload for graph graph-35 (5458 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 86 vs 86
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 84 vs 84
+[PIPELINE] Generated DrawIO XML payload (44813 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (44813 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44813)
+[PIPELINE] DrawIO parser produced graph graph-36 with 87 triples
+[BLACKBOX] Parsed DrawIO graph graph-36 with 87 triples
+[BLACKBOX] Returning Turtle payload for graph graph-36 (5524 characters)
+[PIPELINE] Saving RML export payload to F 47-11 Elizabeth Simcoe sketches.rml.ttl
+[PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m644.96ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (42022 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (42022 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 42022)
+[PIPELINE] DrawIO parser produced graph graph-37 with 75 triples
+[BLACKBOX] Parsed DrawIO graph graph-37 with 75 triples
+[BLACKBOX] Returning Turtle payload for graph graph-37 (6307 characters)
+[PIPELINE] Saving export payload to F 47-11-1 Elizabeth Simcoe loose sketches.ttl
+[PIPELINE] Export pipeline completed for F 47-11-1 Elizabeth Simcoe loose sketches.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (42005 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 42005)
+[PIPELINE] DrawIO parser produced graph graph-38 with 75 triples
+[BLACKBOX] Parsed DrawIO graph graph-38 with 75 triples
+[BLACKBOX] Returning Turtle payload for graph graph-38 (6307 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 75 vs 75
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 73 vs 73
+[PIPELINE] Generated DrawIO XML payload (42040 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (42040 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 42040)
+[PIPELINE] DrawIO parser produced graph graph-39 with 76 triples
+[BLACKBOX] Parsed DrawIO graph graph-39 with 76 triples
+[BLACKBOX] Returning Turtle payload for graph graph-39 (6373 characters)
+[PIPELINE] Saving RML export payload to F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl
+[PIPELINE] Export pipeline completed for F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m580.74ms[0m[2m][0m
+[0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
+[PIPELINE] DrawIO parser produced graph graph-40 with 98 triples
+[BLACKBOX] Parsed DrawIO graph graph-40 with 98 triples
+[BLACKBOX] Returning Turtle payload for graph graph-40 (6443 characters)
+[PIPELINE] DrawIO parser produced graph graph-41 with 98 triples
+[BLACKBOX] Parsed DrawIO graph graph-41 with 98 triples
+[BLACKBOX] Returning Turtle payload for graph graph-41 (6443 characters)
+[PIPELINE] DrawIO parser produced graph graph-42 with 99 triples
+[BLACKBOX] Parsed DrawIO graph graph-42 with 99 triples
+[BLACKBOX] Returning Turtle payload for graph graph-42 (6509 characters)
+[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m737.77ms[0m[2m][0m
+[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
+[PIPELINE] Generated DrawIO XML payload (30823 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (30823 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 30823)
+[PIPELINE] DrawIO parser produced graph graph-43 with 64 triples
+[BLACKBOX] Parsed DrawIO graph graph-43 with 64 triples
+[BLACKBOX] Returning Turtle payload for graph graph-43 (4952 characters)
+[PIPELINE] Saving export payload to BA619 Walkerton Inquiry.ttl
+[PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (30806 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 30806)
+[PIPELINE] DrawIO parser produced graph graph-44 with 64 triples
+[BLACKBOX] Parsed DrawIO graph graph-44 with 64 triples
+[BLACKBOX] Returning Turtle payload for graph graph-44 (4952 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 64 vs 64
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 62 vs 62
+[PIPELINE] Generated DrawIO XML payload (30841 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (30841 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 30841)
+[PIPELINE] DrawIO parser produced graph graph-45 with 65 triples
+[BLACKBOX] Parsed DrawIO graph graph-45 with 65 triples
+[BLACKBOX] Returning Turtle payload for graph graph-45 (5018 characters)
+[PIPELINE] Saving RML export payload to BA619 Walkerton Inquiry.rml.ttl
+[PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m466.30ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (58348 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (58348 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58348)
-[PIPELINE] DrawIO parser produced graph graph-37 with 103 triples
-[BLACKBOX] Parsed DrawIO graph graph-37 with 103 triples
-[BLACKBOX] Returning Turtle payload for graph graph-37 (9207 characters)
-[PIPELINE] Saving export payload to F 47 Simcoe Family fonds.ttl
-[PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (58331 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58331)
-[PIPELINE] DrawIO parser produced graph graph-38 with 103 triples
-[BLACKBOX] Parsed DrawIO graph graph-38 with 103 triples
-[BLACKBOX] Returning Turtle payload for graph graph-38 (9207 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 103 vs 103
+[PIPELINE] Generated DrawIO XML payload (37299 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (37299 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37299)
+[PIPELINE] DrawIO parser produced graph graph-46 with 75 triples
+[BLACKBOX] Parsed DrawIO graph graph-46 with 75 triples
+[BLACKBOX] Returning Turtle payload for graph graph-46 (4369 characters)
+[PIPELINE] Saving export payload to CA1853 Chest Disease Service.ttl
+[PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (37282 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37282)
+[PIPELINE] DrawIO parser produced graph graph-47 with 75 triples
+[BLACKBOX] Parsed DrawIO graph graph-47 with 75 triples
+[BLACKBOX] Returning Turtle payload for graph graph-47 (4369 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 75 vs 75
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 101 vs 101
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 73 vs 73
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
 [PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (58366 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (58366 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 58366)
-[PIPELINE] DrawIO parser produced graph graph-39 with 104 triples
-[BLACKBOX] Parsed DrawIO graph graph-39 with 104 triples
-[BLACKBOX] Returning Turtle payload for graph graph-39 (9273 characters)
-[PIPELINE] Saving RML export payload to F 47 Simcoe Family fonds.rml.ttl
-[PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m160.47ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (37317 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (37317 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 37317)
+[PIPELINE] DrawIO parser produced graph graph-48 with 76 triples
+[BLACKBOX] Parsed DrawIO graph graph-48 with 76 triples
+[BLACKBOX] Returning Turtle payload for graph graph-48 (4435 characters)
+[PIPELINE] Saving RML export payload to CA1853 Chest Disease Service.rml.ttl
+[PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m582.64ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (34895 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (34895 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 34895)
-[PIPELINE] DrawIO parser produced graph graph-40 with 72 triples
-[BLACKBOX] Parsed DrawIO graph graph-40 with 72 triples
-[BLACKBOX] Returning Turtle payload for graph graph-40 (5761 characters)
-[PIPELINE] Saving export payload to AA37 Department of Health.ttl
-[PIPELINE] Export pipeline completed for AA37 Department of Health.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (34878 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 34878)
-[PIPELINE] DrawIO parser produced graph graph-41 with 72 triples
-[BLACKBOX] Parsed DrawIO graph graph-41 with 72 triples
-[BLACKBOX] Returning Turtle payload for graph graph-41 (5761 characters)
-[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 72 vs 72
+[PIPELINE] Generated DrawIO XML payload (73837 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (73837 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 73837)
+[PIPELINE] DrawIO parser produced graph graph-49 with 136 triples
+[BLACKBOX] Parsed DrawIO graph graph-49 with 136 triples
+[BLACKBOX] Returning Turtle payload for graph graph-49 (9086 characters)
+[PIPELINE] Saving export payload to General Authority to RiC-O Model_2025-06-25_PZ.ttl
+[PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (73820 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 73820)
+[PIPELINE] DrawIO parser produced graph graph-50 with 136 triples
+[BLACKBOX] Parsed DrawIO graph graph-50 with 136 triples
+[BLACKBOX] Returning Turtle payload for graph graph-50 (9086 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 136 vs 136
 [TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
-[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 70 vs 70
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 130 vs 130
 [TEST] Also, Turtle is isomorphic to baseline N-Triples
 [PIPELINE] exportRml action invoked
-[PIPELINE] Generated DrawIO XML payload (34913 characters) for RML export
-[BLACKBOX] Generating Turtle payload for serialized input (34913 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 34913)
-[PIPELINE] DrawIO parser produced graph graph-42 with 73 triples
-[BLACKBOX] Parsed DrawIO graph graph-42 with 73 triples
-[BLACKBOX] Returning Turtle payload for graph graph-42 (5827 characters)
-[PIPELINE] Saving RML export payload to AA37 Department of Health.rml.ttl
-[PIPELINE] Export pipeline completed for AA37 Department of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m88.39ms[0m[2m][0m
-[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
-[PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (49944 characters)
+[PIPELINE] Generated DrawIO XML payload (73855 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (73855 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 73855)
+[PIPELINE] DrawIO parser produced graph graph-51 with 137 triples
+[BLACKBOX] Parsed DrawIO graph graph-51 with 137 triples
+[BLACKBOX] Returning Turtle payload for graph graph-51 (9152 characters)
+[PIPELINE] Saving RML export payload to General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl
+[PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m1125.22ms[0m[2m][0m
+[PIPELINE] DrawIO parser produced graph graph-52 with 86 triples
+[BLACKBOX] Parsed DrawIO graph graph-52 with 86 triples
+[BLACKBOX] Returning Turtle payload for graph graph-52 (5715 characters)
+[PIPELINE] DrawIO parser produced graph graph-53 with 86 triples
+[BLACKBOX] Parsed DrawIO graph graph-53 with 86 triples
+[BLACKBOX] Returning Turtle payload for graph graph-53 (5715 characters)
+[PIPELINE] DrawIO parser produced graph graph-54 with 87 triples
+[BLACKBOX] Parsed DrawIO graph graph-54 with 87 triples
+[BLACKBOX] Returning Turtle payload for graph graph-54 (5781 characters)
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m643.93ms[0m[2m][0m
+[PIPELINE] DrawIO parser produced graph graph-55 with 88 triples
+[BLACKBOX] Parsed DrawIO graph graph-55 with 88 triples
+[BLACKBOX] Returning Turtle payload for graph graph-55 (5721 characters)
+[PIPELINE] DrawIO parser produced graph graph-56 with 88 triples
+[BLACKBOX] Parsed DrawIO graph graph-56 with 88 triples
+[BLACKBOX] Returning Turtle payload for graph graph-56 (5721 characters)
+[PIPELINE] DrawIO parser produced graph graph-57 with 89 triples
+[BLACKBOX] Parsed DrawIO graph graph-57 with 89 triples
+[BLACKBOX] Returning Turtle payload for graph graph-57 (5787 characters)
+[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m786.86ms[0m[2m][0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
+[PIPELINE] Generated DrawIO XML payload (23410 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (23410 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23410)
+[PIPELINE] DrawIO parser produced graph graph-58 with 53 triples
+[BLACKBOX] Parsed DrawIO graph graph-58 with 53 triples
+[BLACKBOX] Returning Turtle payload for graph graph-58 (3002 characters)
+[PIPELINE] Saving export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.ttl
+[PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (23393 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23393)
+[PIPELINE] DrawIO parser produced graph graph-59 with 53 triples
+[BLACKBOX] Parsed DrawIO graph graph-59 with 53 triples
+[BLACKBOX] Returning Turtle payload for graph graph-59 (3002 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 53 vs 53
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 51 vs 51
+[PIPELINE] Generated DrawIO XML payload (23428 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (23428 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 23428)
+[PIPELINE] DrawIO parser produced graph graph-60 with 54 triples
+[BLACKBOX] Parsed DrawIO graph graph-60 with 54 triples
+[BLACKBOX] Returning Turtle payload for graph graph-60 (3068 characters)
+[PIPELINE] Saving RML export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl
+[PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m396.02ms[0m[2m][0m
+[PIPELINE] Generated DrawIO XML payload (44261 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (44261 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44261)
+[PIPELINE] DrawIO parser produced graph graph-61 with 93 triples
+[BLACKBOX] Parsed DrawIO graph graph-61 with 93 triples
+[BLACKBOX] Returning Turtle payload for graph graph-61 (5497 characters)
+[PIPELINE] Saving export payload to AA42 Ministry of Health.ttl
+[PIPELINE] Export pipeline completed for AA42 Ministry of Health.ttl
+[BLACKBOX] Generating Turtle payload for serialized input (44244 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44244)
+[PIPELINE] DrawIO parser produced graph graph-62 with 93 triples
+[BLACKBOX] Parsed DrawIO graph graph-62 with 93 triples
+[BLACKBOX] Returning Turtle payload for graph graph-62 (5497 characters)
+[TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 93 vs 93
+[TEST] Number of filtered triples in Turtle vs baseline N-Triples: 91 vs 91
+[PIPELINE] Generated DrawIO XML payload (44279 characters) for RML export
+[BLACKBOX] Generating Turtle payload for serialized input (44279 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44279)
+[PIPELINE] DrawIO parser produced graph graph-63 with 94 triples
+[BLACKBOX] Parsed DrawIO graph graph-63 with 94 triples
+[BLACKBOX] Returning Turtle payload for graph graph-63 (5563 characters)
+[PIPELINE] Saving RML export payload to AA42 Ministry of Health.rml.ttl
+[PIPELINE] Export pipeline completed for AA42 Ministry of Health.rml.ttl (RML mode)
+[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m640.74ms[0m[2m][0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m129.25ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m257.22ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m125.93ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m125.11ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[[1m22.29ms[0m[2m][0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
+[0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
+[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
+ 693 expect() calls
+Ran 37 tests across 1 files. [0m[2m[[1m26.55s[0m[2m][0m
+Script done on 2025-10-21 12:07:03+00:00 [COMMAND_EXIT_CODE="0"]
 [BLACKBOX] Generating Turtle payload for serialized input (49944 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 49944)
 [PIPELINE] DrawIO parser produced graph graph-43 with 98 triples

@@ -28,6 +28,7 @@ from debug.__main__ import (  # noqa: E402
 )
 
 FIXTURES_DIR = PLUGIN_DIR / "tests" / "fixtures"
+ALL_DRAWIO_FIXTURES = sorted(FIXTURES_DIR.glob("*.drawio"))
 
 
 @pytest.mark.parametrize(
@@ -196,6 +197,45 @@ def test_repl_run_persists_scenario_file(monkeypatch):
     assert stored["legacy_commit"] == captured["config"].legacy_commit
 
     scenario_path.unlink(missing_ok=True)
+
+
+@pytest.mark.parametrize("fixture_path", ALL_DRAWIO_FIXTURES)
+def test_classification_predictions_match_graphs(fixture_path: Path):
+    debugger = Debugger(FIXTURES_DIR)
+    slug = f"coverage-{fixture_path.stem}-{uuid4().hex[:6]}"
+    config = ScenarioConfig(
+        slug=slug,
+        drawio_path=fixture_path,
+        csv_path=DEFAULT_CSV_PATH,
+        base_uri=DEFAULT_BASE_URI,
+        prefixes=list(DEFAULT_PREFIXES),
+        legacy_commit=DEFAULT_LEGACY_COMMIT,
+        serialization_format="turtle",
+    )
+
+    results_dir = debugger.results_dir / slug
+    try:
+        debugger._run_scenario(config)
+        map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
+        entry = map_data["scenarios"][slug]
+
+        predictions = entry.get("predictions", {})
+        summary = predictions.get("summary", {})
+        predicted = summary.get("ts_pipeline")
+        actual = entry["results"]["ts_pipeline"]["triples"]
+        assert predicted == actual
+
+        coverage = entry.get("coverage", {})
+        missing = coverage.get("missing", [])
+        assert missing == []
+        total_cells = coverage.get("total_cells")
+        represented = coverage.get("represented_cells")
+        if total_cells is not None and represented is not None:
+            assert total_cells == represented
+    finally:
+        shutil.rmtree(results_dir, ignore_errors=True)
+        debugger._map_data.get("scenarios", {}).pop(slug, None)
+        debugger._write_map()
 
 
 def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
