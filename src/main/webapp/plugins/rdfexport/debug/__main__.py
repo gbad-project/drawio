@@ -26,20 +26,40 @@ from legacy.tests.regenerate_baselines import (
 DEFAULT_CSV_PATH = "/mock/path/to/file.csv"
 DEFAULT_BASE_URI = "ontology://generated-from-draw-io/mock#"
 DEFAULT_PREFIXES = [("mock1", "http://mock-uri.com")]
+DEFAULT_METADATA_ATTRIBUTES = {
+    "csvPath": DEFAULT_CSV_PATH,
+    "baseUri": DEFAULT_BASE_URI,
+}
 DEFAULT_LEGACY_COMMIT = "cf8f84bb84ff83843b6726ac96aff3a2055f4275"
 DEFAULT_SERIALIZATION_FORMAT = "nt"
 DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
+DEFAULT_PARSER_CONFIG = {"ontology_iri": "mock://debug-ontology"}
+_MISSING = object()
 
 
 @dataclass
 class ScenarioConfig:
     slug: str
     drawio_path: Path
-    csv_path: str
-    base_uri: str
-    prefixes: list[tuple[str, str]]
     legacy_commit: str
     serialization_format: str
+    metadata_attributes: dict[str, object | None]
+    prefixes: list[tuple[str, str]]
+    parser_config: dict[str, object]
+
+    @property
+    def csv_path(self) -> str | None:
+        value = self.metadata_attributes.get("csvPath")
+        if value is None:
+            return None
+        return str(value)
+
+    @property
+    def base_uri(self) -> str | None:
+        value = self.metadata_attributes.get("baseUri")
+        if value is None:
+            return None
+        return str(value)
 
 
 class Debugger:
@@ -132,8 +152,10 @@ class Debugger:
         if not drawio_value:
             raise ValueError("Scenario must include a 'drawio' key")
 
-        csv_path = str(raw.get("csv_path", raw.get("csvPath", DEFAULT_CSV_PATH)))
-        base_uri = str(raw.get("base_uri", raw.get("baseUri", DEFAULT_BASE_URI)))
+        csv_path_key_present = "csv_path" in raw or "csvPath" in raw
+        base_uri_key_present = "base_uri" in raw or "baseUri" in raw
+        csv_path_value = raw.get("csv_path", raw.get("csvPath"))
+        base_uri_value = raw.get("base_uri", raw.get("baseUri"))
         legacy_commit = str(
             raw.get("legacy_commit", raw.get("legacyCommit", DEFAULT_LEGACY_COMMIT))
         )
@@ -143,16 +165,43 @@ class Debugger:
             )
         )
 
-        prefixes = self._normalise_prefixes(raw.get("prefixes"))
+        metadata_section = raw.get("metadata", {})
+        raw_attributes = {}
+        raw_preamble = None
+        if isinstance(metadata_section, dict):
+            raw_attributes = metadata_section.get("attributes", {}) or {}
+            raw_preamble = metadata_section.get("preamble")
+
+        prefixes_source = raw.get("preamble", raw.get("prefixes"))
+        if raw_preamble is not None:
+            prefixes_source = raw_preamble
+
+        prefixes = self._normalise_prefixes(prefixes_source)
+
+        metadata_attributes = self._normalise_metadata_attributes(
+            raw_attributes,
+            csv_path=(csv_path_value if csv_path_key_present else _MISSING),
+            base_uri=(base_uri_value if base_uri_key_present else _MISSING),
+        )
+
+        parser_config = self._normalise_parser_config(
+            raw.get("parser_config")
+            or raw.get("parserConfig")
+            or (
+                metadata_section.get("parser_config")
+                if isinstance(metadata_section, dict)
+                else None
+            )
+        )
 
         config = ScenarioConfig(
             slug=self._slugify(slug),
             drawio_path=self._resolve_drawio_path(drawio_value),
-            csv_path=csv_path,
-            base_uri=base_uri,
-            prefixes=prefixes,
             legacy_commit=legacy_commit,
             serialization_format=serialization_format,
+            metadata_attributes=metadata_attributes,
+            prefixes=prefixes,
+            parser_config=parser_config,
         )
         return config
 
@@ -165,15 +214,26 @@ class Debugger:
             args.format or DEFAULT_SERIALIZATION_FORMAT
         )
 
+        metadata_overrides = self._parse_key_value_entries(args.metadata)
+        parser_overrides = self._parse_key_value_entries(args.parser_option)
+
+        metadata_attributes = self._normalise_metadata_attributes(
+            metadata_overrides,
+            csv_path=(args.csv_path if args.csv_path is not None else _MISSING),
+            base_uri=(args.base_uri if args.base_uri is not None else _MISSING),
+        )
+
+        parser_config = self._normalise_parser_config(parser_overrides)
+
         slug_source = args.slug or Path(args.drawio).stem
         config = ScenarioConfig(
             slug=self._slugify(slug_source),
             drawio_path=self._resolve_drawio_path(args.drawio),
-            csv_path=args.csv_path or DEFAULT_CSV_PATH,
-            base_uri=args.base_uri or DEFAULT_BASE_URI,
-            prefixes=prefixes,
             legacy_commit=args.legacy_commit or DEFAULT_LEGACY_COMMIT,
             serialization_format=serialization_format,
+            metadata_attributes=metadata_attributes,
+            prefixes=prefixes,
+            parser_config=parser_config,
         )
         return config
 
@@ -214,14 +274,36 @@ class Debugger:
             "Serialization format", default=DEFAULT_SERIALIZATION_FORMAT
         )
 
+        metadata_input = Prompt.ask(
+            "Additional metadata attributes (comma-separated key=value pairs)",
+            default="",
+        )
+        metadata_overrides = self._parse_key_value_entries(
+            self._split_inline_pairs(metadata_input)
+        )
+        parser_input = Prompt.ask(
+            "Parser config overrides (comma-separated key=value pairs)",
+            default="",
+        )
+        parser_overrides = self._parse_key_value_entries(
+            self._split_inline_pairs(parser_input)
+        )
+
+        metadata_attributes = self._normalise_metadata_attributes(
+            metadata_overrides,
+            csv_path=csv_path,
+            base_uri=base_uri,
+        )
+        parser_config = self._normalise_parser_config(parser_overrides)
+
         config = ScenarioConfig(
             slug=self._slugify(slug),
             drawio_path=drawio_path,
-            csv_path=csv_path,
-            base_uri=base_uri,
-            prefixes=prefixes,
             legacy_commit=legacy_commit,
             serialization_format=self._normalise_format(serialization_format),
+            metadata_attributes=metadata_attributes,
+            prefixes=prefixes,
+            parser_config=parser_config,
         )
 
         # Save scenario config if it doesn't exist
@@ -237,15 +319,29 @@ class Debugger:
     def _save_scenario_config(self, config: ScenarioConfig) -> Path:
         scenario_path = self.scenarios_dir / f"{config.slug}.yml"
 
-        scenario_data = {
+        metadata_payload = self._prepare_metadata_payload(config.metadata_attributes)
+        preamble_payload = [
+            {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+        ]
+
+        scenario_data: dict[str, object] = {
             "slug": config.slug,
             "drawio": str(self._relative_to_debug(config.drawio_path)),
-            "csv_path": config.csv_path,
-            "base_uri": config.base_uri,
-            "prefixes": {prefix: iri for prefix, iri in config.prefixes},
             "legacy_commit": config.legacy_commit,
             "format": config.serialization_format,
         }
+
+        if metadata_payload:
+            scenario_data["metadata"] = {"attributes": metadata_payload}
+
+        if preamble_payload:
+            scenario_data.setdefault("metadata", {}).setdefault(
+                "preamble", preamble_payload
+            )
+
+        parser_payload = self._prepare_parser_payload(config.parser_config)
+        if parser_payload:
+            scenario_data["parser_config"] = parser_payload
 
         scenario_path.write_text(
             yaml.dump(scenario_data, default_flow_style=False, sort_keys=False),
@@ -361,13 +457,15 @@ class Debugger:
             self.console.print("[red]Error:[/red] All graph generation methods failed")
             scenario_entry = {
                 "drawio": str(self._relative_to_debug(config.drawio_path)),
-                "csv_path": config.csv_path,
-                "base_uri": config.base_uri,
-                "prefixes": [
-                    {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
-                ],
                 "legacy_commit": config.legacy_commit,
                 "format": config.serialization_format,
+                "metadata_attributes": self._prepare_metadata_payload(
+                    config.metadata_attributes
+                ),
+                "preamble": [
+                    {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+                ],
+                "parser_config": self._prepare_parser_payload(config.parser_config),
                 "cell_classifications": cell_classifications,
                 "results": {},
                 "isomorphism": {},
@@ -496,16 +594,33 @@ class Debugger:
             xml_path = temp_dir_path / "scenario.drawio"
             xml_path.write_text(serialized_xml, encoding="utf-8")
 
-            config_payload = {
+            metadata_payload = self._prepare_metadata_payload(
+                config.metadata_attributes
+            )
+            preamble_payload = [
+                {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+            ]
+            parser_payload = self._prepare_parser_payload(config.parser_config)
+
+            config_payload: dict[str, object] = {
                 "xmlPath": str(xml_path),
                 "baseFilename": config.drawio_path.stem,
-                "csvPath": config.csv_path,
-                "baseUri": config.base_uri,
-                "prefixes": [
-                    {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
-                ]
-                or None,
             }
+
+            if metadata_payload:
+                config_payload["metadataAttributes"] = metadata_payload
+            if preamble_payload:
+                config_payload["preamble"] = preamble_payload
+            if parser_payload:
+                config_payload["parserConfig"] = parser_payload
+
+            # Backwards compatibility for older harness consumers
+            if config.csv_path is not None:
+                config_payload["csvPath"] = config.csv_path
+            if config.base_uri is not None:
+                config_payload["baseUri"] = config.base_uri
+            if preamble_payload:
+                config_payload["prefixes"] = preamble_payload
 
             config_path = temp_dir_path / "config.json"
             config_path.write_text(json.dumps(config_payload), encoding="utf-8")
@@ -618,13 +733,15 @@ class Debugger:
     ) -> None:
         scenario_entry = {
             "drawio": str(self._relative_to_debug(config.drawio_path)),
-            "csv_path": config.csv_path,
-            "base_uri": config.base_uri,
-            "prefixes": [
-                {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
-            ],
             "legacy_commit": config.legacy_commit,
             "format": config.serialization_format,
+            "metadata_attributes": self._prepare_metadata_payload(
+                config.metadata_attributes
+            ),
+            "preamble": [
+                {"prefix": prefix, "iri": iri} for prefix, iri in config.prefixes
+            ],
+            "parser_config": self._prepare_parser_payload(config.parser_config),
             "cell_classifications": cell_classifications,
             "results": {
                 name: {
@@ -767,15 +884,11 @@ class Debugger:
             metadata.append(ET.Element("mxCell"))
             graph_root.insert(0, metadata)
 
-        if config.csv_path:
-            metadata.set("csvPath", config.csv_path)
-        elif "csvPath" in metadata.attrib:
-            metadata.attrib.pop("csvPath")
-
-        if config.base_uri:
-            metadata.set("baseUri", config.base_uri)
-        elif "baseUri" in metadata.attrib:
-            metadata.attrib.pop("baseUri")
+        for attribute, raw_value in config.metadata_attributes.items():
+            if raw_value is None:
+                metadata.attrib.pop(attribute, None)
+            else:
+                metadata.set(attribute, self._stringify_metadata_value(raw_value))
 
         for child in list(metadata.findall("userObjectPreambleElement")):
             metadata.remove(child)
@@ -846,6 +959,108 @@ class Debugger:
                 if prefix and iri:
                     prefixes.append((str(prefix), str(iri)))
         return prefixes or list(DEFAULT_PREFIXES)
+
+    def _split_inline_pairs(self, raw: str | None) -> list[str]:
+        if raw is None:
+            return []
+        return [part.strip() for part in str(raw).split(",") if part.strip()]
+
+    def _parse_scalar_value(self, raw: str) -> object:
+        try:
+            return yaml.safe_load(raw)
+        except Exception:
+            return raw
+
+    def _parse_key_value_entries(
+        self, entries: Iterable[str] | None
+    ) -> dict[str, object | None]:
+        result: dict[str, object | None] = {}
+        if not entries:
+            return result
+
+        for entry in entries:
+            if entry is None:
+                continue
+            text = str(entry).strip()
+            if not text:
+                continue
+            if "=" not in text:
+                raise ValueError(
+                    f"Invalid key-value pair '{text}'. Expected format KEY=VALUE."
+                )
+            key, raw_value = text.split("=", 1)
+            key = key.strip()
+            if not key:
+                raise ValueError(
+                    f"Invalid key-value pair '{text}'. Key must not be empty."
+                )
+            result[key] = self._parse_scalar_value(raw_value)
+        return result
+
+    def _normalise_metadata_attributes(
+        self,
+        overrides: dict[str, object | None] | None,
+        *,
+        csv_path: object = _MISSING,
+        base_uri: object = _MISSING,
+    ) -> dict[str, object | None]:
+        attributes: dict[str, object | None] = dict(DEFAULT_METADATA_ATTRIBUTES)
+
+        if overrides:
+            for key, value in overrides.items():
+                if key is None:
+                    continue
+                attributes[str(key)] = value
+
+        if csv_path is not _MISSING:
+            attributes["csvPath"] = csv_path
+        if base_uri is not _MISSING:
+            attributes["baseUri"] = base_uri
+
+        return attributes
+
+    def _normalise_parser_config(
+        self, raw: dict[str, object] | object | None
+    ) -> dict[str, object]:
+        if not raw:  # handles None or empty dict
+            return dict(DEFAULT_PARSER_CONFIG)
+
+        if isinstance(raw, dict):
+            return {str(key): value for key, value in raw.items()}
+
+        raise TypeError("Parser configuration overrides must be provided as a mapping")
+
+    def _normalise_json_value(self, value: object) -> object:
+        if value is None or isinstance(value, (str, int, float, bool)):
+            return value
+        if isinstance(value, (list, tuple, set)):
+            return [self._normalise_json_value(item) for item in value]
+        if isinstance(value, dict):
+            return {
+                str(key): self._normalise_json_value(val) for key, val in value.items()
+            }
+        return str(value)
+
+    def _prepare_metadata_payload(
+        self, metadata: dict[str, object | None]
+    ) -> dict[str, object | None]:
+        payload: dict[str, object | None] = {}
+        for key, value in metadata.items():
+            payload[str(key)] = self._normalise_json_value(value)
+        return payload
+
+    def _prepare_parser_payload(
+        self, parser_config: dict[str, object]
+    ) -> dict[str, object]:
+        payload: dict[str, object] = {}
+        for key, value in parser_config.items():
+            payload[str(key)] = self._normalise_json_value(value)
+        return payload
+
+    def _stringify_metadata_value(self, value: object) -> str:
+        if isinstance(value, bool):
+            return "true" if value else "false"
+        return str(value)
 
     def _parse_prefix_string(self, value: str) -> list[tuple[str, str]]:
         entries: list[tuple[str, str]] = []
@@ -1047,6 +1262,24 @@ def build_argument_parser() -> argparse.ArgumentParser:
         "--prefix",
         action="append",
         help="Prefix mapping in the form prefix:IRI (can be repeated)",
+    )
+    parser.add_argument(
+        "--metadata",
+        action="append",
+        metavar="KEY=VALUE",
+        help=(
+            "Additional metadata attribute to inject into the DrawIO root. "
+            "Repeat the flag to provide multiple entries."
+        ),
+    )
+    parser.add_argument(
+        "--parser-option",
+        action="append",
+        metavar="KEY=VALUE",
+        help=(
+            "Override parser configuration values passed to the pipeline. "
+            "Repeat the flag for multiple options."
+        ),
     )
     parser.add_argument(
         "--legacy-commit",

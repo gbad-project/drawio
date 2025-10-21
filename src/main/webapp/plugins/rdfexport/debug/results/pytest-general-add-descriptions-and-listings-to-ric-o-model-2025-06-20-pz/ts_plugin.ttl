@@ -13,7 +13,7 @@ add:howToOrder a owl:DatatypeProperty .
 
 add:privateNote a owl:DatatypeProperty .
 
-<ontology://generated-from-draw-io/2025-10-21T12-48-06> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "rml:reference   \"SCOPE\"",
         "rml:reference  \"AVAIL\"",

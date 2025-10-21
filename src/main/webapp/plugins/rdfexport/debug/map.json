@@ -2354,7 +2354,6 @@
       }
     },
     "pytest-aa37-department-of-health": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Dept. of Health\u00a0Authority Record",
@@ -2845,7 +2844,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -2854,7 +2852,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -2867,19 +2872,18 @@
           "triples": 87
         },
         "ts_pipeline": {
-          "nt_sha256": "c09a6a242ab562cdafe50cdaae2282ffe1a8f5f0a0f168f37d69ea126eb63080",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health/ts_pipeline.ttl",
           "triples": 60
         },
         "ts_plugin": {
-          "nt_sha256": "c09a6a242ab562cdafe50cdaae2282ffe1a8f5f0a0f168f37d69ea126eb63080",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "pytest-aa37-department-of-health-with-metadata": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Dept. of Health\u00a0Authority Record",
@@ -3370,7 +3374,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata.drawio",
       "errors": {
         "py_legacy": [
@@ -3383,7 +3386,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -3391,19 +3401,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "807af93161d581bc0ae093e2c388a1c97e3f62ed043ab51a8e2ca267ffb08554",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health-with-metadata/ts_pipeline.ttl",
           "triples": 60
         },
         "ts_plugin": {
-          "nt_sha256": "807af93161d581bc0ae093e2c388a1c97e3f62ed043ab51a8e2ca267ffb08554",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health-with-metadata/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "pytest-aa37-department-of-health-with-metadata-preserve-html": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Dept. of Health\u00a0Authority Record",
@@ -3894,7 +3903,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-preserve-html.drawio",
       "errors": {
         "py_legacy": [
@@ -3907,7 +3915,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -3915,19 +3930,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "b102c39c91dbc46154a786dd51eb63fcffb7fba7bc3004e5da83b44d5e104cb6",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health-with-metadata-preserve-html/ts_pipeline.ttl",
           "triples": 60
         },
         "ts_plugin": {
-          "nt_sha256": "b102c39c91dbc46154a786dd51eb63fcffb7fba7bc3004e5da83b44d5e104cb6",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health-with-metadata-preserve-html/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "pytest-aa37-department-of-health-with-metadata-rml": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Dept. of Health\u00a0Authority Record",
@@ -4418,7 +4432,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-rml.drawio",
       "errors": {
         "py_legacy": [
@@ -4431,7 +4444,14 @@
         "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -4439,19 +4459,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "f33310a413967a68ba2f00305b7fc727bb016bf0f39d0b1cd2f82d6aebabf4d7",
+          "nt_sha256": "e5b31d999e959c436caa2ddcd908bf2f2711ebbb214190c99db4fc5ee16a774e",
           "path": "results/pytest-aa37-department-of-health-with-metadata-rml/ts_pipeline.ttl",
           "triples": 61
         },
         "ts_plugin": {
-          "nt_sha256": "b8130310f65dc521ec3838295973996fc9b8bdc786707628e657bafd94927237",
+          "nt_sha256": "548d68bf02c000147b46fc7820f6cedd7a1350614986a549f1d7dd8051c797bc",
           "path": "results/pytest-aa37-department-of-health-with-metadata-rml/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "pytest-aa37-with-metadata-even-more-severely-mocked": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "EUA9VVVl7iRi0US9AbU_-1": {
           "identifier": null,
@@ -5039,7 +5058,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
@@ -5052,7 +5070,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -5060,19 +5085,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "9d6ca7a948fbe5224567be5b955975b063f7c96fcf879a7184e7f73fc61631eb",
+          "nt_sha256": "d96d8302ea53b3a0ef566299cf8b8f004f39d28ed366da437518df203334cb6f",
           "path": "results/pytest-aa37-with-metadata-even-more-severely-mocked/ts_pipeline.ttl",
           "triples": 69
         },
         "ts_plugin": {
-          "nt_sha256": "9d6ca7a948fbe5224567be5b955975b063f7c96fcf879a7184e7f73fc61631eb",
+          "nt_sha256": "d96d8302ea53b3a0ef566299cf8b8f004f39d28ed366da437518df203334cb6f",
           "path": "results/pytest-aa37-with-metadata-even-more-severely-mocked/ts_plugin.ttl",
           "triples": 69
         }
       }
     },
     "pytest-aa37-with-metadata-severely-mocked": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": null,
@@ -5597,7 +5621,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
@@ -5610,7 +5633,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -5618,19 +5648,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "9bd9d16045984b8155aedbf8cd1f6726b4e2d983b4244925f385c11d24d013a6",
+          "nt_sha256": "f0878dc3b882fcfd3d4d641af8d8c7a5f78ddea98462ad4ef7ee2f48308cba68",
           "path": "results/pytest-aa37-with-metadata-severely-mocked/ts_pipeline.ttl",
           "triples": 66
         },
         "ts_plugin": {
-          "nt_sha256": "9bd9d16045984b8155aedbf8cd1f6726b4e2d983b4244925f385c11d24d013a6",
+          "nt_sha256": "f0878dc3b882fcfd3d4d641af8d8c7a5f78ddea98462ad4ef7ee2f48308cba68",
           "path": "results/pytest-aa37-with-metadata-severely-mocked/ts_plugin.ttl",
           "triples": 66
         }
       }
     },
     "pytest-aa42-ministry-of-health": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Ministry of Health\u00a0Authority Record",
@@ -6271,7 +6300,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA42 Ministry of Health.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -6280,7 +6308,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -6293,19 +6328,18 @@
           "triples": 108
         },
         "ts_pipeline": {
-          "nt_sha256": "9e9bfaa758b2f64b6b52e3b0928169b9230d6b948c8ce2e767d03b114ac55124",
+          "nt_sha256": "59ddaabc2c9b468f7dd1a3c5f9f3246bf8b94d4b36644e923f5ce88e204712a6",
           "path": "results/pytest-aa42-ministry-of-health/ts_pipeline.ttl",
           "triples": 73
         },
         "ts_plugin": {
-          "nt_sha256": "9e9bfaa758b2f64b6b52e3b0928169b9230d6b948c8ce2e767d03b114ac55124",
+          "nt_sha256": "59ddaabc2c9b468f7dd1a3c5f9f3246bf8b94d4b36644e923f5ce88e204712a6",
           "path": "results/pytest-aa42-ministry-of-health/ts_plugin.ttl",
           "triples": 73
         }
       }
     },
     "pytest-ba619-walkerton-inquiry": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-27": {
           "identifier": null,
@@ -6746,7 +6780,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/BA619 Walkerton Inquiry.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -6755,7 +6788,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -6768,19 +6808,18 @@
           "triples": 79
         },
         "ts_pipeline": {
-          "nt_sha256": "65b6e7345e4011b8d5b733d4d089bcf60c070968e71966426d14f252073171eb",
+          "nt_sha256": "9cac5a1de12f62cb0d6b610c8969d45513400d41472b678b28845f296ec17468",
           "path": "results/pytest-ba619-walkerton-inquiry/ts_pipeline.ttl",
           "triples": 52
         },
         "ts_plugin": {
-          "nt_sha256": "65b6e7345e4011b8d5b733d4d089bcf60c070968e71966426d14f252073171eb",
+          "nt_sha256": "9cac5a1de12f62cb0d6b610c8969d45513400d41472b678b28845f296ec17468",
           "path": "results/pytest-ba619-walkerton-inquiry/ts_plugin.ttl",
           "triples": 52
         }
       }
     },
     "pytest-ca1853-chest-disease-service": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
           "identifier": "Ontario. Chest Disease Service\u00a0Authority Record",
@@ -7328,7 +7367,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/CA1853 Chest Disease Service.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -7337,7 +7375,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -7350,19 +7395,18 @@
           "triples": 90
         },
         "ts_pipeline": {
-          "nt_sha256": "12eea06bc06ca1cf582ccbe1dfa754d3247db1e6036542212500089cec05ace0",
+          "nt_sha256": "05392c3c49464f3bf0bce8b8c8da33b78f61ad2202b9ab11bd6749a4776dadc1",
           "path": "results/pytest-ca1853-chest-disease-service/ts_pipeline.ttl",
           "triples": 60
         },
         "ts_plugin": {
-          "nt_sha256": "12eea06bc06ca1cf582ccbe1dfa754d3247db1e6036542212500089cec05ace0",
+          "nt_sha256": "05392c3c49464f3bf0bce8b8c8da33b78f61ad2202b9ab11bd6749a4776dadc1",
           "path": "results/pytest-ca1853-chest-disease-service/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "pytest-ca1934-division-of-tuberculosis-prevention": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-10": {
           "identifier": null,
@@ -8103,7 +8147,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/CA1934 Division of Tuberculosis Prevention.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -8112,7 +8155,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -8125,19 +8175,18 @@
           "triples": 112
         },
         "ts_pipeline": {
-          "nt_sha256": "46d2b2c69ad38a46448b6eb0356c33d9bebcecc0ace12f167b3f44cba469b8a8",
+          "nt_sha256": "2c4f592581ea865d4403057003b1958987612c258c3d9c7240ef2eff339bb3ef",
           "path": "results/pytest-ca1934-division-of-tuberculosis-prevention/ts_pipeline.ttl",
           "triples": 75
         },
         "ts_plugin": {
-          "nt_sha256": "46d2b2c69ad38a46448b6eb0356c33d9bebcecc0ace12f167b3f44cba469b8a8",
+          "nt_sha256": "2c4f592581ea865d4403057003b1958987612c258c3d9c7240ef2eff339bb3ef",
           "path": "results/pytest-ca1934-division-of-tuberculosis-prevention/ts_plugin.ttl",
           "triples": 75
         }
       }
     },
     "pytest-f-47-11-1-0-1": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-12": {
           "identifier": null,
@@ -8475,7 +8524,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-1-0-1.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -8484,7 +8532,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -8497,19 +8552,18 @@
           "triples": 65
         },
         "ts_pipeline": {
-          "nt_sha256": "ce010f6fdf5a237794d9dbeac4118cd97c2eaddd1b99bbd61b2a2e3cd9d64ca8",
+          "nt_sha256": "963d3e6f67405bb1ce2c5ca2719dcf00eb291e24896c5ab554af5b56fac0c0de",
           "path": "results/pytest-f-47-11-1-0-1/ts_pipeline.ttl",
           "triples": 39
         },
         "ts_plugin": {
-          "nt_sha256": "ce010f6fdf5a237794d9dbeac4118cd97c2eaddd1b99bbd61b2a2e3cd9d64ca8",
+          "nt_sha256": "963d3e6f67405bb1ce2c5ca2719dcf00eb291e24896c5ab554af5b56fac0c0de",
           "path": "results/pytest-f-47-11-1-0-1/ts_plugin.ttl",
           "triples": 39
         }
       }
     },
     "pytest-f-47-11-1-0-1-vdb-test": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-12": {
           "identifier": null,
@@ -9096,7 +9150,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-1-0-1 (VDB test).drawio",
       "format": "turtle",
       "isomorphism": {
@@ -9105,7 +9158,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -9118,19 +9178,18 @@
           "triples": 101
         },
         "ts_pipeline": {
-          "nt_sha256": "2986d591545dfb1953fa80cfd4ec95c84a38eedf95d5ffb816b2e05c7ab10e0c",
+          "nt_sha256": "310315ce522db616fbdcf2f3600ee3110b9964e0bfbbe6b3e9981b14ad4548c8",
           "path": "results/pytest-f-47-11-1-0-1-vdb-test/ts_pipeline.ttl",
           "triples": 67
         },
         "ts_plugin": {
-          "nt_sha256": "2986d591545dfb1953fa80cfd4ec95c84a38eedf95d5ffb816b2e05c7ab10e0c",
+          "nt_sha256": "310315ce522db616fbdcf2f3600ee3110b9964e0bfbbe6b3e9981b14ad4548c8",
           "path": "results/pytest-f-47-11-1-0-1-vdb-test/ts_plugin.ttl",
           "triples": 67
         }
       }
     },
     "pytest-f-47-11-1-elizabeth-simcoe-loose-sketches": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-12": {
           "identifier": null,
@@ -9694,7 +9753,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-1 Elizabeth Simcoe loose sketches.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -9703,7 +9761,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -9716,19 +9781,18 @@
           "triples": 90
         },
         "ts_pipeline": {
-          "nt_sha256": "7f7728e3ff29ed612620c9cc3ffd3094c9c82a7c696bae9b40d146d136e24323",
+          "nt_sha256": "5bcdcf14720fc859ba720a5d8c702ca21f7c9d00d10de4ad143537c67cd5e4ff",
           "path": "results/pytest-f-47-11-1-elizabeth-simcoe-loose-sketches/ts_pipeline.ttl",
           "triples": 60
         },
         "ts_plugin": {
-          "nt_sha256": "7f7728e3ff29ed612620c9cc3ffd3094c9c82a7c696bae9b40d146d136e24323",
+          "nt_sha256": "5bcdcf14720fc859ba720a5d8c702ca21f7c9d00d10de4ad143537c67cd5e4ff",
           "path": "results/pytest-f-47-11-1-elizabeth-simcoe-loose-sketches/ts_plugin.ttl",
           "triples": 60
         }
       }
     },
     "pytest-f-47-11-2-elizabeth-simcoe-sketchbook": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-12": {
           "identifier": null,
@@ -10264,7 +10328,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-2 Elizabeth Simcoe sketchbook.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -10273,7 +10336,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -10286,19 +10356,18 @@
           "triples": 88
         },
         "ts_pipeline": {
-          "nt_sha256": "7d00677c0ba7d0d5af48de199f7c2cf622b38e351c97fd4a5d6789697a18563a",
+          "nt_sha256": "03715fa59be509b47d49bfcd9c88cd77d9c499cbfb1e9355ecbafdbae15edfd8",
           "path": "results/pytest-f-47-11-2-elizabeth-simcoe-sketchbook/ts_pipeline.ttl",
           "triples": 58
         },
         "ts_plugin": {
-          "nt_sha256": "7d00677c0ba7d0d5af48de199f7c2cf622b38e351c97fd4a5d6789697a18563a",
+          "nt_sha256": "03715fa59be509b47d49bfcd9c88cd77d9c499cbfb1e9355ecbafdbae15edfd8",
           "path": "results/pytest-f-47-11-2-elizabeth-simcoe-sketchbook/ts_plugin.ttl",
           "triples": 58
         }
       }
     },
     "pytest-f-47-11-3-elizabeth-simcoe-miscellaneous-sketches-and-fragments": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-12": {
           "identifier": null,
@@ -10848,7 +10917,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -10857,7 +10925,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -10870,19 +10945,18 @@
           "triples": 89
         },
         "ts_pipeline": {
-          "nt_sha256": "23b31ce771c6113a627b99b5f11d6c13406370a5c523398c5d3000920b179ba6",
+          "nt_sha256": "d36ed10742e09b1a346728e656cf9a09ef08554ec3dde00ff7421af2794e6586",
           "path": "results/pytest-f-47-11-3-elizabeth-simcoe-miscellaneous-sketches-and-fragments/ts_pipeline.ttl",
           "triples": 59
         },
         "ts_plugin": {
-          "nt_sha256": "23b31ce771c6113a627b99b5f11d6c13406370a5c523398c5d3000920b179ba6",
+          "nt_sha256": "d36ed10742e09b1a346728e656cf9a09ef08554ec3dde00ff7421af2794e6586",
           "path": "results/pytest-f-47-11-3-elizabeth-simcoe-miscellaneous-sketches-and-fragments/ts_plugin.ttl",
           "triples": 59
         }
       }
     },
     "pytest-f-47-11-4-notes-on-elizabeth-simcoe-sketches": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-12": {
           "identifier": null,
@@ -11443,7 +11517,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -11452,7 +11525,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -11465,19 +11545,18 @@
           "triples": 92
         },
         "ts_pipeline": {
-          "nt_sha256": "ce7d803dd40912aa7e7a5219ce6fb0afc874ffb55ca7710d9c098544160d09d1",
+          "nt_sha256": "999bc839e29b73a9501ef8da2a03252cf482f94ecf0535e70f3edf8f78b81638",
           "path": "results/pytest-f-47-11-4-notes-on-elizabeth-simcoe-sketches/ts_pipeline.ttl",
           "triples": 61
         },
         "ts_plugin": {
-          "nt_sha256": "ce7d803dd40912aa7e7a5219ce6fb0afc874ffb55ca7710d9c098544160d09d1",
+          "nt_sha256": "999bc839e29b73a9501ef8da2a03252cf482f94ecf0535e70f3edf8f78b81638",
           "path": "results/pytest-f-47-11-4-notes-on-elizabeth-simcoe-sketches/ts_plugin.ttl",
           "triples": 61
         }
       }
     },
     "pytest-f-47-11-elizabeth-simcoe-sketches": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ACwB7Extp0PWbiBKnaxu-1": {
           "identifier": "Simcoe, Elizabeth Posthuma, 1762-1850",
@@ -12102,7 +12181,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11 Elizabeth Simcoe sketches.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -12111,7 +12189,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -12124,19 +12209,18 @@
           "triples": 101
         },
         "ts_pipeline": {
-          "nt_sha256": "db1609ff04915d90cd8f573b319ee0b5d9676497b82d378a30afc9689d4cdcc6",
+          "nt_sha256": "da14f1e127c021f3615c94da7abee6fa1befc81163255a89532171e4b1d7a0be",
           "path": "results/pytest-f-47-11-elizabeth-simcoe-sketches/ts_pipeline.ttl",
           "triples": 68
         },
         "ts_plugin": {
-          "nt_sha256": "db1609ff04915d90cd8f573b319ee0b5d9676497b82d378a30afc9689d4cdcc6",
+          "nt_sha256": "da14f1e127c021f3615c94da7abee6fa1befc81163255a89532171e4b1d7a0be",
           "path": "results/pytest-f-47-11-elizabeth-simcoe-sketches/ts_plugin.ttl",
           "triples": 68
         }
       }
     },
     "pytest-f-47-simcoe-family-fonds": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "JUvVhaggt__ALHUesofw-1": {
           "identifier": "Archival Description",
@@ -12906,7 +12990,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47 Simcoe Family fonds.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -12915,7 +12998,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -12928,19 +13018,18 @@
           "triples": 118
         },
         "ts_pipeline": {
-          "nt_sha256": "4379d41228e2fd21788ee4341187cba11276ca3d77fd7d1722f831926dcda128",
+          "nt_sha256": "39401452e9017d6b2e87614edadd7a7c4e2b3d112ab25fa1a30bfcd6745b5c1a",
           "path": "results/pytest-f-47-simcoe-family-fonds/ts_pipeline.ttl",
           "triples": 83
         },
         "ts_plugin": {
-          "nt_sha256": "4379d41228e2fd21788ee4341187cba11276ca3d77fd7d1722f831926dcda128",
+          "nt_sha256": "39401452e9017d6b2e87614edadd7a7c4e2b3d112ab25fa1a30bfcd6745b5c1a",
           "path": "results/pytest-f-47-simcoe-family-fonds/ts_plugin.ttl",
           "triples": 83
         }
       }
     },
     "pytest-f-4711-orville-wood-fonds": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "3LwroSje2Ng83wTQE8dh-1": {
           "identifier": "Orville Alan Wood",
@@ -13799,7 +13888,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 4711 Orville Wood fonds.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -13808,7 +13896,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -13821,19 +13916,18 @@
           "triples": 141
         },
         "ts_pipeline": {
-          "nt_sha256": "46b1dd98045633e95d9b3cb4e5bfce7d356dee3c0ceb29c60ff2ebcb2558e09c",
+          "nt_sha256": "dc0fdd4e657b4193bd7b8ae8157aa965b5642f6fb814e3cb78df9ce1bdac2417",
           "path": "results/pytest-f-4711-orville-wood-fonds/ts_pipeline.ttl",
           "triples": 95
         },
         "ts_plugin": {
-          "nt_sha256": "46b1dd98045633e95d9b3cb4e5bfce7d356dee3c0ceb29c60ff2ebcb2558e09c",
+          "nt_sha256": "dc0fdd4e657b4193bd7b8ae8157aa965b5642f6fb814e3cb78df9ce1bdac2417",
           "path": "results/pytest-f-4711-orville-wood-fonds/ts_plugin.ttl",
           "triples": 95
         }
       }
     },
     "pytest-general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "1HVjy-BaL8XtYFnHSrnf-12": {
           "identifier": null,
@@ -14988,7 +15082,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -14997,7 +15090,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -15010,19 +15110,18 @@
           "triples": 147
         },
         "ts_pipeline": {
-          "nt_sha256": "1d39006619c33284cedaebb77e9e29c3bc3e07204c843e53a832eb425a6f7086",
+          "nt_sha256": "2c075d4f0bf76c09cc7f0ede250e1fd7e4159def0167dd89519863cd9b875a4e",
           "path": "results/pytest-general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/ts_pipeline.ttl",
           "triples": 114
         },
         "ts_plugin": {
-          "nt_sha256": "1d39006619c33284cedaebb77e9e29c3bc3e07204c843e53a832eb425a6f7086",
+          "nt_sha256": "2c075d4f0bf76c09cc7f0ede250e1fd7e4159def0167dd89519863cd9b875a4e",
           "path": "results/pytest-general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/ts_plugin.ttl",
           "triples": 114
         }
       }
     },
     "pytest-general-authority-bleep-mock": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-27": {
           "identifier": null,
@@ -15987,7 +16086,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio",
       "errors": {
         "py_legacy": [
@@ -15996,17 +16094,24 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 18571560,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 18571560,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 18571560,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 18571560,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2219, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2297, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2221, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 23421016,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -16015,7 +16120,6 @@
       "results": {}
     },
     "pytest-general-authority-to-ric-o-model-2025-06-25-pz": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "I4GB3cVhTv-sTvJ7h0Jz-27": {
           "identifier": null,
@@ -16967,7 +17071,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -16976,7 +17079,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -16989,19 +17099,18 @@
           "triples": 147
         },
         "ts_pipeline": {
-          "nt_sha256": "a02a9610aebc1fa6c4a456f2051fbb3321358f10ba062f5dacf25062712927a1",
+          "nt_sha256": "464ec568e689803b8528f8701422aba27b2b4ea0d6c68fd3aef7ccf5e446605d",
           "path": "results/pytest-general-authority-to-ric-o-model-2025-06-25-pz/ts_pipeline.ttl",
           "triples": 111
         },
         "ts_plugin": {
-          "nt_sha256": "a02a9610aebc1fa6c4a456f2051fbb3321358f10ba062f5dacf25062712927a1",
+          "nt_sha256": "464ec568e689803b8528f8701422aba27b2b4ea0d6c68fd3aef7ccf5e446605d",
           "path": "results/pytest-general-authority-to-ric-o-model-2025-06-25-pz/ts_plugin.ttl",
           "triples": 111
         }
       }
     },
     "pytest-knut-olborgs-forskningsnotater": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "3fLlHfyGAeuBOlRW-uyx-14": {
           "identifier": "Knut Olborgs Forskningsnotater Storage Instantiation",
@@ -17597,7 +17706,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/knut_olborgs_forskningsnotater.drawio",
       "errors": {
         "py_legacy": [
@@ -17610,7 +17718,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -17618,19 +17733,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "e51d2aeb7dd40bc45d5c304609bddfd99002b95236832f7d0a7584b67ceb7dba",
+          "nt_sha256": "543741d03eefdd45e99dfa4097ceb69a8f933273f570ad45a31e0ed8e2ab8350",
           "path": "results/pytest-knut-olborgs-forskningsnotater/ts_pipeline.ttl",
           "triples": 98
         },
         "ts_plugin": {
-          "nt_sha256": "e51d2aeb7dd40bc45d5c304609bddfd99002b95236832f7d0a7584b67ceb7dba",
+          "nt_sha256": "543741d03eefdd45e99dfa4097ceb69a8f933273f570ad45a31e0ed8e2ab8350",
           "path": "results/pytest-knut-olborgs-forskningsnotater/ts_plugin.ttl",
           "triples": 98
         }
       }
     },
     "pytest-koronakommisjonen": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "3fLlHfyGAeuBOlRW-uyx-11": {
           "identifier": "Kongelig Resolusjon",
@@ -18044,7 +18158,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/koronakommisjonen.drawio",
       "errors": {
         "py_legacy": [
@@ -18057,7 +18170,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -18065,19 +18185,18 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "99bb03e4dc147f0ea7e530f961b2a7002c1785a4d72027044eb28ca7c19a12a8",
+          "nt_sha256": "add6e6a02b4c8b88de74a28b1573cb39d6702e6ef5f8e940fb28c21f1db28bec",
           "path": "results/pytest-koronakommisjonen/ts_pipeline.ttl",
           "triples": 69
         },
         "ts_plugin": {
-          "nt_sha256": "99bb03e4dc147f0ea7e530f961b2a7002c1785a4d72027044eb28ca7c19a12a8",
+          "nt_sha256": "add6e6a02b4c8b88de74a28b1573cb39d6702e6ef5f8e940fb28c21f1db28bec",
           "path": "results/pytest-koronakommisjonen/ts_plugin.ttl",
           "triples": 69
         }
       }
     },
     "pytest-rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "BgzUFkZFLuuaoTEaSqZe-11": {
           "identifier": "Fisheries Branch photographs",
@@ -18426,7 +18545,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -18435,7 +18553,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -18448,19 +18573,18 @@
           "triples": 68
         },
         "ts_pipeline": {
-          "nt_sha256": "d5e0d70872c9b6c749aa36231bd396b8cdcd157c620091fdc21e3ac9ccd316d7",
+          "nt_sha256": "bb31edab4ebcae9c158f698a0b6dce73c3198d3efce1fca9df6bb6a40e91e898",
           "path": "results/pytest-rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955/ts_pipeline.ttl",
           "triples": 41
         },
         "ts_plugin": {
-          "nt_sha256": "d5e0d70872c9b6c749aa36231bd396b8cdcd157c620091fdc21e3ac9ccd316d7",
+          "nt_sha256": "bb31edab4ebcae9c158f698a0b6dce73c3198d3efce1fca9df6bb6a40e91e898",
           "path": "results/pytest-rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955/ts_plugin.ttl",
           "triples": 41
         }
       }
     },
     "pytest-rg-10-142-correspondence-of-the-chief-of-the-chest-disease-service": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "JUvVhaggt__ALHUesofw-1": {
           "identifier": "Archival Description",
@@ -19135,7 +19259,6 @@
           ]
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -19144,7 +19267,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -19157,19 +19287,18 @@
           "triples": 103
         },
         "ts_pipeline": {
-          "nt_sha256": "7d40aa2e209cda5d124b5a81420efc698e7c1e8244358f812a59925616a8e2a0",
+          "nt_sha256": "76ddee39e19e7bfcd8877ffdf895d82a6b81f8cef381e90c7d8dd8e21a2392b3",
           "path": "results/pytest-rg-10-142-correspondence-of-the-chief-of-the-chest-disease-service/ts_pipeline.ttl",
           "triples": 69
         },
         "ts_plugin": {
-          "nt_sha256": "7d40aa2e209cda5d124b5a81420efc698e7c1e8244358f812a59925616a8e2a0",
+          "nt_sha256": "76ddee39e19e7bfcd8877ffdf895d82a6b81f8cef381e90c7d8dd8e21a2392b3",
           "path": "results/pytest-rg-10-142-correspondence-of-the-chief-of-the-chest-disease-service/ts_plugin.ttl",
           "triples": 69
         }
       }
     },
     "pytest-rg-10-145-mobile-tuberculosis-testing-clinic-photographs": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "JUvVhaggt__ALHUesofw-1": {
           "identifier": "Archival Description",
@@ -19627,7 +19756,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -19636,7 +19764,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -19649,19 +19784,18 @@
           "triples": 78
         },
         "ts_pipeline": {
-          "nt_sha256": "b02877315c811046cb7fcae12ed56b6d589aff1752b56400236053bdcaa2692d",
+          "nt_sha256": "647c75ccc31fdf99545aed742d3cbaba4c1d382905a5ab715625f82fb2254ec5",
           "path": "results/pytest-rg-10-145-mobile-tuberculosis-testing-clinic-photographs/ts_pipeline.ttl",
           "triples": 50
         },
         "ts_plugin": {
-          "nt_sha256": "b02877315c811046cb7fcae12ed56b6d589aff1752b56400236053bdcaa2692d",
+          "nt_sha256": "647c75ccc31fdf99545aed742d3cbaba4c1d382905a5ab715625f82fb2254ec5",
           "path": "results/pytest-rg-10-145-mobile-tuberculosis-testing-clinic-photographs/ts_plugin.ttl",
           "triples": 50
         }
       }
     },
     "pytest-rg-18-210-records-of-the-walkerton-inquiry-revised-to-add-mapping": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "ccQ81NhYz9qmqgse-E7F-1": {
           "identifier": "Records of the Walkerton Inquiry",
@@ -20354,7 +20488,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio",
       "format": "turtle",
       "isomorphism": {
@@ -20363,7 +20496,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -20376,19 +20516,18 @@
           "triples": 113
         },
         "ts_pipeline": {
-          "nt_sha256": "92a18059060fe5e18369eba0db26a64e2d4fbd71963e4edde0143509d3edeb88",
+          "nt_sha256": "71dbae6fdf23a3be13b97b2a34de163580d94d8818a0f23e1bc73ff3dbac4f30",
           "path": "results/pytest-rg-18-210-records-of-the-walkerton-inquiry-revised-to-add-mapping/ts_pipeline.ttl",
           "triples": 80
         },
         "ts_plugin": {
-          "nt_sha256": "92a18059060fe5e18369eba0db26a64e2d4fbd71963e4edde0143509d3edeb88",
+          "nt_sha256": "71dbae6fdf23a3be13b97b2a34de163580d94d8818a0f23e1bc73ff3dbac4f30",
           "path": "results/pytest-rg-18-210-records-of-the-walkerton-inquiry-revised-to-add-mapping/ts_plugin.ttl",
           "triples": 80
         }
       }
     },
     "pytest-rg-18-210-walkerton-inquiry-in-ric-o-original": {
-      "base_uri": "ontology://generated-from-draw-io/mock#",
       "cell_classifications": {
         "0Zy0miyS0KUs_HnzcUTQ-1": {
           "identifier": "Closing of Walkerton Inquiry",
@@ -21515,7 +21654,6 @@
           "tokens": []
         }
       },
-      "csv_path": "/mock/path/to/file.csv",
       "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Walkerton Inquiry in RiC-O (original).drawio",
       "format": "turtle",
       "isomorphism": {
@@ -21524,7 +21662,14 @@
         "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
-      "prefixes": [
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
         {
           "iri": "http://mock-uri.com",
           "prefix": "mock1"
@@ -21537,12 +21682,12 @@
           "triples": 187
         },
         "ts_pipeline": {
-          "nt_sha256": "b44b13492247b6a6cae62db6340fbd2650a18afe4f85881a7981b72e8dbd999d",
+          "nt_sha256": "7cc95bb6561f508830b06ae997264ffae38198226c40ab80f85be606f3d15a68",
           "path": "results/pytest-rg-18-210-walkerton-inquiry-in-ric-o-original/ts_pipeline.ttl",
           "triples": 124
         },
         "ts_plugin": {
-          "nt_sha256": "b44b13492247b6a6cae62db6340fbd2650a18afe4f85881a7981b72e8dbd999d",
+          "nt_sha256": "7cc95bb6561f508830b06ae997264ffae38198226c40ab80f85be606f3d15a68",
           "path": "results/pytest-rg-18-210-walkerton-inquiry-in-ric-o-original/ts_plugin.ttl",
           "triples": 124
         }
