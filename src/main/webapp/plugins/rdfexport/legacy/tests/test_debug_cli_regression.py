@@ -156,7 +156,6 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
         slug,
         "--format",
         "turtle",
-        "--skip-ts",
     ]
 
     subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=True, capture_output=True)
@@ -170,12 +169,12 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     xml_text = fixture_path.read_text(encoding="utf-8")
 
     results = scenario_entry.get("results", {})
-    if "py_legacy" not in results:
+    if "ts_plugin" not in results:
         errors = scenario_entry.get("errors", {})
-        assert "py_legacy" in errors, "py_legacy graph missing without recorded error"
-        pytest.skip("py_legacy graph unavailable for this fixture")
+        assert "ts_plugin" in errors, "ts_plugin graph missing without recorded error"
+        pytest.skip("ts_plugin graph unavailable for this fixture")
 
-    ttl_path = DEBUG_DIR / results["py_legacy"]["path"]
+    ttl_path = DEBUG_DIR / results["ts_plugin"]["path"]
     assert ttl_path.exists(), f"Turtle output missing for {fixture_path.name}"
 
     graph = Graph()
@@ -184,7 +183,7 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     expected_triples = estimate_triple_count_from_classifications(
         xml_text, classifications, graph=graph
     )
-    actual_triples = results["py_legacy"]["triples"]
+    actual_triples = results["ts_plugin"]["triples"]
     assert actual_triples == expected_triples, (
         f"Triple count mismatch for {fixture_path.name}"
     )
