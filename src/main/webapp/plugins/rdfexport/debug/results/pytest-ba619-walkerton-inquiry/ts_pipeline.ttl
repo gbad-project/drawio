@@ -1,0 +1,85 @@
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<ontology://generated-from-draw-io/2025-10-21T10-41-12> a owl:Ontology ;
+    owl:imports rico: .
+
+:2000 a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "2000" .
+
+:2002 a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "2002" .
+
+:Authority%20Record a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+:Authority%20Record%20Creation a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Authority Record Creation" ;
+    rico:isOrWasPerformedBy :Dale .
+
+:B%20Ontario%20Government%20Name a owl:NamedIndividual,
+        rico:CorporateBodyType ;
+    rdfs:label "B Ontario Government Name" .
+
+:BA619 a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "BA619" ;
+    rico:hasIdentifierType :Government%20Of%20Ontario%20Agency%20Code .
+
+:Dale a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "Dale" .
+
+:Government%20Of%20Ontario%20Agency%20Code a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Government of Ontario Agency Code" .
+
+:Ontario.%20Walkerton%20Inquiry a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Walkerton Inquiry" ;
+    rico:authorizedBy :Order%20In%20Council%201170%20%2F%202000 ;
+    rico:generalDescription "Function Note: The Walkerton Inquiry was appointed to investigate the causes of the contamination of Walkerton's drinking water system with E. coli bacteria in May of 2000. This contamination caused the death of seven people and more than 2,300 became ill. The Inquiry was to find out who was responsible for the E. coli outbreak, and if it could have been prevented. The Inquiry was also responsible for making recommendations on how to avoid another outbreak in the future." ;
+    rico:hasBeginningDate :2000 ;
+    rico:hasEndDate :2002 ;
+    rico:hasOrHadAgentName :Ontario.%20Walkerton%20Inquiry ;
+    rico:hasOrHadCorporateBodyType :B%20Ontario%20Government%20Name ;
+    rico:hasOrHadIdentifier :BA619 ;
+    rico:history "The Walkerton Inquiry was established on 13 June 2000, pursuant to the Public Inquiries Act, with the Hon. Dennis R. O'Connor appointed as the Commissioner. The mandate of the commission was to (a) inquire into the circumstances that caused the outbreak of bacteria in Walkerton's drinking water system, (b) determine if government policies, procedures and practices had any effect upon the circumstances of the outbreak, and (c) inquire into any other pertinent matters necessary to ensure the safety of Ontario's drinking water system. Commissioner O'Connor divided the Inquiry into two parts, which ran more or less concurrently. The first part dealt exclusively with what happened in Walkerton, and involved extensive public hearings. The second part went beyond Walkerton and involved an investigation into other matters related to the general safety of Ontario's drinking water.  The work of the commission resulted in two reports published in 2002, entitled Part One and Part Two: Report of the Walkerton Inquiry. Justice O'Connor made a large number of recommendations related to the following: the protection of the sources of Ontario's drinking water; the need for effective standards and technology for the treatment of water and to monitor its quality; the need for stricter mandatory regulations from municipalities that provide drinking water; and, the need for a strengthened role for the provincial government in regulating and overseeing the safety of Ontario's drinking water." ;
+    rico:isOrWasDescribedBy :Ontario.%20Walkerton%20Inquiry%20Authority%20Record ;
+    rico:normalizedValue "Walkerton Inquiry" .
+
+:Ontario.%20Walkerton%20Inquiry%20Authority%20Record a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Ontario. Walkerton Inquiry Authority Record" ;
+    rico:generalDescription "Source Note: Final reports of the Commission." ;
+    rico:hasDocumentaryFormType :Authority%20Record ;
+    rico:hasRecordState :Status%3A%20Approved,
+        :Web%20Ready%3A%20Y ;
+    rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
+    rico:lastModificationDate "2007-06-16"^^xsd:date ;
+    rico:resultsOrResultedFrom :Authority%20Record%20Creation .
+
+:Order%20In%20Council%201170%20%2F%202000 a owl:NamedIndividual,
+        rico:Mandate ;
+    rdfs:label "Order in Council 1170 / 2000" .
+
+:Rules%20For%20Archival%20Description a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+:Status%3A%20Approved a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+:Web%20Ready%3A%20Y a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Ready: Y" .
+

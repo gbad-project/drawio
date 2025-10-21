@@ -1,0 +1,116 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<ontology://generated-from-draw-io/mock> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#2000> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "2000" .
+
+<ontology://generated-from-draw-io/mock#2002> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "2002" .
+
+<ontology://generated-from-draw-io/mock#Authority%20Record> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+<ontology://generated-from-draw-io/mock#Authority%20Record%20Creation> a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Authority Record Creation" ;
+    rico:isOrWasPerformedBy <ontology://generated-from-draw-io/mock#Dale> .
+
+<ontology://generated-from-draw-io/mock#B%20Ontario%20Government%20Name> a owl:NamedIndividual,
+        rico:CorporateBodyType ;
+    rdfs:label "B Ontario Government Name" .
+
+<ontology://generated-from-draw-io/mock#BA619> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "BA619" ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#Government%20Of%20Ontario%20Agency%20Code> .
+
+<ontology://generated-from-draw-io/mock#Dale> a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "Dale" .
+
+<ontology://generated-from-draw-io/mock#Government%20Of%20Ontario%20Agency%20Code> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Government of Ontario Agency Code" .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Walkerton%20Inquiry> a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Walkerton Inquiry" ;
+    rico:authorizedBy <ontology://generated-from-draw-io/mock#Order%20In%20Council%201170%20%2F%202000> ;
+    rico:generalDescription "Function Note: The Walkerton Inquiry was appointed to investigate the causes of the contamination of Walkerton's drinking water system with E. coli bacteria in May of 2000. This contamination caused the death of seven people and more than 2,300 became ill. The Inquiry was to find out who was responsible for the E. coli outbreak, and if it could have been prevented. The Inquiry was also responsible for making recommendations on how to avoid another outbreak in the future." ;
+    rico:hasBeginningDate <ontology://generated-from-draw-io/mock#2000> ;
+    rico:hasEndDate <ontology://generated-from-draw-io/mock#2002> ;
+    rico:hasOrHadAgentName <ontology://generated-from-draw-io/mock#Ontario.%20Walkerton%20Inquiry> ;
+    rico:hasOrHadCorporateBodyType <ontology://generated-from-draw-io/mock#B%20Ontario%20Government%20Name> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#BA619> ;
+    rico:history "The Walkerton Inquiry was established on 13 June 2000, pursuant to the Public Inquiries Act, with the Hon. Dennis R. O'Connor appointed as the Commissioner. The mandate of the commission was to (a) inquire into the circumstances that caused the outbreak of bacteria in Walkerton's drinking water system, (b) determine if government policies, procedures and practices had any effect upon the circumstances of the outbreak, and (c) inquire into any other pertinent matters necessary to ensure the safety of Ontario's drinking water system. Commissioner O'Connor divided the Inquiry into two parts, which ran more or less concurrently. The first part dealt exclusively with what happened in Walkerton, and involved extensive public hearings. The second part went beyond Walkerton and involved an investigation into other matters related to the general safety of Ontario's drinking water.  The work of the commission resulted in two reports published in 2002, entitled Part One and Part Two: Report of the Walkerton Inquiry. Justice O'Connor made a large number of recommendations related to the following: the protection of the sources of Ontario's drinking water; the need for effective standards and technology for the treatment of water and to monitor its quality; the need for stricter mandatory regulations from municipalities that provide drinking water; and, the need for a strengthened role for the provincial government in regulating and overseeing the safety of Ontario's drinking water." ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#Ontario.%20Walkerton%20Inquiry%20Authority%20Record> ;
+    rico:normalizedValue "Walkerton Inquiry" .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Walkerton%20Inquiry%20Authority%20Record> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Ontario. Walkerton Inquiry Authority Record" ;
+    rico:generalDescription "Source Note: Final reports of the Commission." ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Authority%20Record> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Status%3A%20Approved>,
+        <ontology://generated-from-draw-io/mock#Web%20Ready%3A%20Y> ;
+    rico:isOrWasRegulatedBy <ontology://generated-from-draw-io/mock#Rules%20For%20Archival%20Description> ;
+    rico:lastModificationDate "2007-06-16"^^xsd:date ;
+    rico:resultsOrResultedFrom <ontology://generated-from-draw-io/mock#Authority%20Record%20Creation> .
+
+<ontology://generated-from-draw-io/mock#Order%20In%20Council%201170%20%2F%202000> a owl:NamedIndividual,
+        rico:Mandate ;
+    rdfs:label "Order in Council 1170 / 2000" .
+
+<ontology://generated-from-draw-io/mock#Rules%20For%20Archival%20Description> a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+<ontology://generated-from-draw-io/mock#Web%20Ready%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Ready: Y" .
+
