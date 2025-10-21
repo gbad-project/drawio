@@ -33,6 +33,7 @@ DEFAULT_METADATA_ATTRIBUTES = {
 DEFAULT_LEGACY_COMMIT = "cf8f84bb84ff83843b6726ac96aff3a2055f4275"
 DEFAULT_SERIALIZATION_FORMAT = "nt"
 DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
+DEFAULT_PARSER_CONFIG = {"ontology_iri": "mock://debug-ontology"}
 _MISSING = object()
 
 
@@ -1021,8 +1022,8 @@ class Debugger:
     def _normalise_parser_config(
         self, raw: dict[str, object] | object | None
     ) -> dict[str, object]:
-        if raw is None:
-            return {}
+        if not raw:  # handles None or empty dict
+            return dict(DEFAULT_PARSER_CONFIG)
 
         if isinstance(raw, dict):
             return {str(key): value for key, value in raw.items()}

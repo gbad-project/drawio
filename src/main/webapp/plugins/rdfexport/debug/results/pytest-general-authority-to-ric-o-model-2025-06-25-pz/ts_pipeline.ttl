@@ -9,7 +9,7 @@ rdfs:label a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
-<ontology://generated-from-draw-io/2025-10-21T12-48-08> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "Rules for Archival Description",
         "rml:reference \"ADM\"",

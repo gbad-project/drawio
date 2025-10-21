@@ -4,7 +4,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<ontology://generated-from-draw-io/2025-10-21T12-48-04> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "0.1 centimetres of textual records;   98 photographs : black and white prints;   2 photographs : colour prints;   143 photographs : black and white negatives",
         "194X/1953",

@@ -4,7 +4,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<ontology://generated-from-draw-io/2025-10-21T12-48-01> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "2009-07-17",
         "35 watercolours 5 drawings",

@@ -4,7 +4,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<ontology://generated-from-draw-io/2025-10-21T12-48-16> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "18.6 metres of textual records (62 boxes)  4 data sets of textual records (53.5 GB)  1 website (56.9 MB)  5 audio cassettes  3 videocassettes",
         "2011-01-11",

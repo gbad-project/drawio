@@ -16,7 +16,7 @@
 <https://example.com/no-prefix> a owl:NamedIndividual ;
     rdfs:label "https://example.com/no-prefix" .
 
-<ontology://generated-from-draw-io/2025-10-21T12-47-43> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "2007-06-16",
         ":",
