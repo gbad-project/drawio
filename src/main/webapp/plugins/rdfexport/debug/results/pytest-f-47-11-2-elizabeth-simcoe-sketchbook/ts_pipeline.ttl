@@ -2,10 +2,18 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<ontology://generated-from-draw-io/2025-10-21T10-41-25> a owl:Ontology ;
-    owl:imports rico: .
+<ontology://generated-from-draw-io/2025-10-21T12-47-59> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "1 sketchbook (63 watercolours and drawings)",
+        "2009-07-17",
+        "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records.",
+        "Finding Aid Note: An online list is available for this sub-series.",
+        "No further accruals are expected.",
+        "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form.",
+        "Sub-series consists of a sketchbook containing 63 watercolours and drawings done by Elizabeth Simcoe during the time she accompanied her husband to Upper Canada.  Many of the sketches are rough views, with few details. Some of the sketches are identified as Fort Erie, 40 Mile Creek, Queenston, Huron and Chippewa. Some of the sketches are of flowers and have accompanying notes.",
+        "This material is closed for conservation reasons." .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -13,8 +21,7 @@
 
 :Archival%20Description%20Creation a owl:NamedIndividual,
         rico:Activity ;
-    rdfs:label "Archival Description Creation" ;
-    rico:isOrWasPerformedBy :Walz .
+    rdfs:label "Archival Description Creation" .
 
 :Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
@@ -24,41 +31,20 @@
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Elizabeth Simcoe sketchbook" ;
-    rico:accruals "No further accruals are expected." ;
-    rico:conditionsOfAccess "This material is closed for conservation reasons." ;
-    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
-    rico:creationDate "1795-1796" ;
-    rico:generalDescription "Finding Aid Note: An online list is available for this sub-series." ;
-    rico:hasContentOfType :Graphic%20Materials ;
-    rico:hasOrHadIdentifier :F%2047-11-2 ;
-    rico:hasOrHadInstantiation :Elizabeth%20Simcoe%20Sketchbook-i1 ;
-    rico:hasOrHadTitle :Elizabeth%20Simcoe%20Sketchbook ;
-    rico:hasRecordSetType :Sub-Series ;
-    rico:history "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." ;
-    rico:isDirectlyIncludedIn :Elizabeth%20Simcoe%20Sketches ;
-    rico:isOrWasDescribedBy :Elizabeth%20Simcoe%20Sketchbook%20Archival%20Description ;
-    rico:scopeAndContent "Sub-series consists of a sketchbook containing 63 watercolours and drawings done by Elizabeth Simcoe during the time she accompanied her husband to Upper Canada.  Many of the sketches are rough views, with few details. Some of the sketches are identified as Fort Erie, 40 Mile Creek, Queenston, Huron and Chippewa. Some of the sketches are of flowers and have accompanying notes." .
+    rico:creationDate "1795-1796" .
 
 :Elizabeth%20Simcoe%20Sketchbook%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
-    rdfs:label "Elizabeth Simcoe sketchbook Archival Description" ;
-    rico:hasDocumentaryFormType :Archival%20Description ;
-    rico:hasRecordState :Status%3A%20Approved,
-        :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate "2009-07-17"^^xsd:date ;
-    rico:resultsOrResultedFrom :Archival%20Description%20Creation .
+    rdfs:label "Elizabeth Simcoe sketchbook Archival Description" .
 
 :Elizabeth%20Simcoe%20Sketchbook-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Elizabeth Simcoe sketchbook-i1" ;
-    rico:generalDescription "How to Order: This material is closed for conservation reasons. Contact a Reference Archivist for more information." ;
-    rico:instantiationExtent "1 sketchbook (63 watercolours and drawings)" .
+    rico:generalDescription "How to Order: This material is closed for conservation reasons. Contact a Reference Archivist for more information." .
 
 :Elizabeth%20Simcoe%20Sketches a owl:NamedIndividual,
         rico:RecordSet ;
-    rdfs:label "Elizabeth Simcoe sketches" ;
-    rico:hasOrHadIdentifier :F%2047-11 ;
-    rico:hasRecordSetType :Series .
+    rdfs:label "Elizabeth Simcoe sketches" .
 
 :F%2047-11 a owl:NamedIndividual,
         rico:Identifier ;
@@ -66,8 +52,7 @@
 
 :F%2047-11-2 a owl:NamedIndividual,
         rico:Identifier ;
-    rdfs:label "F 47-11-2" ;
-    rico:hasIdentifierType :Current%20Reference%20Code .
+    rdfs:label "F 47-11-2" .
 
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;

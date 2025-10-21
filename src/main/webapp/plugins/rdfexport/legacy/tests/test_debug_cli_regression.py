@@ -47,7 +47,9 @@ def _ensure_graph_covers_classifications(
         namespace_manager.bind(prefix, iri, replace=True)
 
     classifier_cls = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier
-    default_type = getattr(classifier_cls, "DEFAULT_STANDALONE_TYPE", "rico:Thing")
+    default_type = getattr(
+        classifier_cls, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
+    )
 
     identifiers: set[str] = set()
     for cell_data in classifications.values():

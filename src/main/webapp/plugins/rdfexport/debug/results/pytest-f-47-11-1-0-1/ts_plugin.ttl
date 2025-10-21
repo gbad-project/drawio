@@ -2,9 +2,12 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-<ontology://generated-from-draw-io/2025-10-21T10-41-24> a owl:Ontology ;
-    owl:imports rico: .
+<ontology://generated-from-draw-io/2025-10-21T12-47-58> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "1 watercolour on paper",
+        "Notes: Old Code: 1" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -16,9 +19,7 @@
 
 :Elizabeth%20Simcoe%20Loose%20Sketches a owl:NamedIndividual,
         rico:RecordSet ;
-    rdfs:label "Elizabeth Simcoe loose sketches" ;
-    rico:hasOrHadIdentifier :F%2047-11-1 ;
-    rico:hasRecordSetType :Sub-Series .
+    rdfs:label "Elizabeth Simcoe loose sketches" .
 
 :F%2047-11-1 a owl:NamedIndividual,
         rico:Identifier ;
@@ -26,8 +27,7 @@
 
 :F%2047-11-1-0-1 a owl:NamedIndividual,
         rico:Identifier ;
-    rdfs:label "F 47-11-1-0-1" ;
-    rico:hasIdentifierType :Current%20Reference%20Code .
+    rdfs:label "F 47-11-1-0-1" .
 
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
@@ -37,25 +37,15 @@
         rico:Record,
         rico:Title ;
     rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I." ;
-    rico:creationDate "Oct. 29, 1791" ;
-    rico:generalDescription "Notes: Old Code: 1" ;
-    rico:hasContentOfType :Graphic%20Materials ;
-    rico:hasOrHadIdentifier :F%2047-11-1-0-1 ;
-    rico:hasOrHadInstantiation :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i1 ;
-    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.> ;
-    rico:isDirectlyIncludedIn :Elizabeth%20Simcoe%20Loose%20Sketches ;
-    rico:isOrWasDescribedBy :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.%20Archival%20Description .
+    rico:creationDate "Oct. 29, 1791" .
 
 :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
-    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I. Archival Description" ;
-    rico:hasDocumentaryFormType :Archival%20Description ;
-    rico:hasRecordState :Web%20Enabled%3A%20Y .
+    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I. Archival Description" .
 
 :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i1 a owl:NamedIndividual,
         rico:Instantiation ;
-    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i1" ;
-    rico:instantiationExtent "1 watercolour on paper" .
+    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i1" .
 
 :Sub-Series a owl:NamedIndividual,
         rico:RecordSetType ;

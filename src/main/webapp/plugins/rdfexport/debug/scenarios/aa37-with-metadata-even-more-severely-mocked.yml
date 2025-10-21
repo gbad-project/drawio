@@ -1,12 +1,12 @@
 slug: aa37-with-metadata-even-more-severely-mocked
 drawio: tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio
 csv_path: /mock/path/to/file.csv
-base_uri: ontology://generated-from-draw-io/mock#
+base_uri: http://mock23-base-uri.com
 prefixes:
   mock1: http://mock-uri.com
-  lol: sample-text
+  lol: http://something.com
   picoL: sample-test2
-  hellow: sample-text3
+  hellow: some://helloworld
   somprefix: sample-text4
   unknown: sample-text5
 legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275

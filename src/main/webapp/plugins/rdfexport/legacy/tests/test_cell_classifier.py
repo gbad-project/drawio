@@ -22,7 +22,7 @@ DECORATION_REGISTRY_ATTR = getattr(
     DrawIOCellClassifier, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
 )
 DEFAULT_STANDALONE_TYPE = getattr(
-    DrawIOCellClassifier, "DEFAULT_STANDALONE_TYPE", "rico:Thing"
+    DrawIOCellClassifier, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
 )
 
 
@@ -127,7 +127,7 @@ def _apply_drawio_overrides(monkeypatch):
 def test_classifier_detects_typed_individuals_and_literals():
     xml = _drawio_xml(
         _vertex_cell("parent", "My Individual", style="rounded=1"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Decoration literal"),
     )
     tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
@@ -136,7 +136,7 @@ def test_classifier_detects_typed_individuals_and_literals():
         (individual.identifier, individual.ric_class)
         for _, individual, _ in tree.individual_cells
     }
-    assert ("My Individual", "rico:Thing") in observed
+    assert ("My Individual", "owl:NamedIndividual") in observed
 
     registry = getattr(
         draw_io_parser.pipeline.core.internal.data,
@@ -150,7 +150,7 @@ def test_classifier_detects_typed_individuals_and_literals():
 def test_parent_cell_collects_child_type_tokens():
     xml = _drawio_xml(
         _vertex_cell("parent", "List pnnpni", style="swimlane"),
-        _vertex_cell("type1", "rico:Thing", parent="parent"),
+        _vertex_cell("type1", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("type2", "rdf:Resource", parent="parent"),
     )
     tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
@@ -161,18 +161,18 @@ def test_parent_cell_collects_child_type_tokens():
         if individual.identifier == "List pnnpni"
     }
 
-    assert observed == {"rico:Thing", "rdf:Resource"}
+    assert observed == {"owl:NamedIndividual", "rdf:Resource"}
 
 
 def test_standalone_curie_node_creates_individual_without_parent():
-    xml = _drawio_xml(_vertex_cell("solo", "rico:Thing"))
+    xml = _drawio_xml(_vertex_cell("solo", "owl:NamedIndividual"))
     tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
 
     observed = {
         (individual.identifier, individual.ric_class)
         for _, individual, _ in tree.individual_cells
     }
-    assert ("rico:Thing", "rico:Thing") in observed
+    assert ("owl:NamedIndividual", "owl:NamedIndividual") in observed
 
 
 def test_absolute_uri_node_uses_default_type():
@@ -190,7 +190,7 @@ def test_absolute_uri_node_uses_default_type():
 def test_decorations_serialise_to_skos_note(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Loose literal"),
     )
     path = tmp_path / "decorations.drawio"
@@ -209,7 +209,7 @@ def test_decorations_serialise_to_skos_note(tmp_path: Path):
 def test_connected_literal_not_treated_as_decoration(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Node A"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("literal", "Some literal"),
         _edge_cell("arrow", "", source="parent", target="literal"),
         _edge_label("label", parent="arrow", value="rdfs:label"),
@@ -234,7 +234,7 @@ def test_connected_literal_not_treated_as_decoration(tmp_path: Path):
 def test_literal_as_arrow_source_raises(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Node"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("literal", "Literal source"),
         _edge_cell("arrow", "", source="literal", target="parent"),
         _edge_label("label", parent="arrow", value="rdfs:label"),
@@ -249,7 +249,7 @@ def test_literal_as_arrow_source_raises(tmp_path: Path):
 def test_blank_node_used_for_decorations_without_ontology(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Detached"),
     )
     path = tmp_path / "blank.drawio"

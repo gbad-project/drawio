@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-from rdflib import Graph
-from xml.etree.ElementTree import Element
-
 from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
-from legacy.draw_io_parser import pipeline
 from meta_builder.drawio_meta_builder import override
+from rdflib import BNode
+from rdflib.namespace import SKOS
 
 # ruff: noqa: F403, F405
 
@@ -67,7 +65,7 @@ def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
     default_standalone_type = getattr(
         classifier_cls,
         "DEFAULT_STANDALONE_TYPE",
-        "rico:Thing",
+        "owl:NamedIndividual",
     )
     classifier = classifier_cls(self, prefixes)
     decorations: dict[str, dict[str, object]] = {}
@@ -308,9 +306,6 @@ def serialise_to_graph(
     graph_cls: type[Graph] = Graph,
     graph_kwargs: dict[str, Any] | None = None,
 ) -> Graph:
-    from rdflib import BNode
-    from rdflib.namespace import SKOS
-
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
 

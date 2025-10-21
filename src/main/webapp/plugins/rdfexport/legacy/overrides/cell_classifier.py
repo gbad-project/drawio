@@ -50,6 +50,8 @@ class DrawIOCellClassifier:
         self._edge_incidence = self._build_edge_incidence()
         self._child_token_cache: dict[str, list[str]] = {}
 
+        self.classifications: dict[str, Any] = {}
+
         # These will be populated by _process_graph
         self.individuals: list[Individual] = []
         self.arrows: list[Arrow] = []
@@ -93,6 +95,11 @@ class DrawIOCellClassifier:
                 continue
 
             classification = self.classify(cell, cell_value)
+
+            cell_id = cell.attrib.get("id")
+            if cell_id:
+                self.classifications[cell_id] = classification
+
             kind_name = getattr(classification.kind, "name", "")
             cell_id = cell.attrib.get("id")
 

@@ -681,127 +681,55 @@ class Debugger:
     def _extract_cell_classifications(
         self, xml_text: str, config: ScenarioConfig
     ) -> dict[str, dict]:
-        """Extract cell classifications for all mxCell elements."""
+        """Extract cell classifications using the refactored, self-contained classifier."""
         # Import directly from the generated parser
         import sys
 
-        # Add the parent directory to path if needed
         parser_dir = self.debug_dir.parent
         if str(parser_dir) not in sys.path:
             sys.path.insert(0, str(parser_dir))
 
         try:
             from legacy.draw_io_parser import (
-                _NoValueException,
                 _extract_drawio_metadata,
                 get_prefixes,
                 pipeline,
             )
 
-            metadata_prefixes, _, _, root = _extract_drawio_metadata(xml_text)
-            if root is None:
-                return {}
-
+            # 1. Setup prefixes, same as before
+            metadata_prefixes, _, _, _ = _extract_drawio_metadata(xml_text)
             prefixes = get_prefixes()
             prefixes.update(metadata_prefixes)
             for prefix, iri in config.prefixes:
                 if prefix and iri:
                     prefixes[prefix] = iri
 
-            # Don't use DrawIOXMLTree - it validates structure too strictly
-            # Just get the cells directly and use the classifier
+            # 2. Instantiate the new classifier directly with raw XML
+            #    The MockTree is no longer needed.
             classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+            classifier = classifier_cls(xml_text, prefixes)
 
-            # Create a minimal mock tree object for the classifier
-            class MockTree:
-                def __init__(self, root, prefixes):
-                    self.draw_io_xml_tree = root
-                    self._prefixes = prefixes
-                    self.literal_node_html_parser = (
-                        pipeline.core.xml.data.NodeHTMLParser()
-                    )
-
-                def _value_of(self, cell):
-                    try:
-                        value = cell.attrib["value"].strip()
-                    except KeyError as key_error:
-                        raise _NoValueException from key_error
-                    self.literal_node_html_parser.clear()
-                    self.literal_node_html_parser.feed(value)
-                    return self.literal_node_html_parser.content()
-
-                def _parent_of(self, cell):
-                    parent_id = cell.attrib.get("parent")
-                    if not parent_id:
-                        raise _NoValueException
-                    return self.draw_io_xml_tree.find(f".//*[@id='{parent_id}']")
-
-                def _child_of(self, parent_id):
-                    return self.draw_io_xml_tree.findall(f".//*[@parent='{parent_id}']")
-
-            mock_tree = MockTree(root, prefixes)
-            classifier = classifier_cls(mock_tree, prefixes)
-
-            classifications = {}
-
-            # Get all mxCell and UserObject elements
-            try:
-                cells = root.findall(".//mxGraphModel/root//*[@id]")
-            except Exception:
-                return {}
-
-            for cell in cells:
-                # Skip if not mxCell or UserObject
-                if cell.tag not in ("mxCell", "UserObject"):
-                    continue
-
-                cell_id = cell.attrib.get("id")
-                if not cell_id:
-                    continue
-
-                # Get the cell value, handling _NoValueException
-                try:
-                    value = mock_tree._value_of(cell)
-                except _NoValueException:
-                    value = ""
-                except Exception:
-                    value = cell.attrib.get("value", "")
-
-                # Classify the cell
-                try:
-                    classification = classifier.classify(cell, value)
-                    classifications[cell_id] = {
-                        "kind": classification.kind.name
-                        if hasattr(classification.kind, "name")
-                        else str(classification.kind),
-                        "raw_value": classification.raw_value,
-                        "identifier": classification.identifier,
-                        "parent_identifier": classification.parent_identifier,
-                        "tokens": classification.tokens
-                        if classification.tokens
-                        else [],
-                    }
-                except Exception as e:
-                    classifications[cell_id] = {
-                        "kind": "CLASSIFICATION_ERROR",
-                        "raw_value": value,
-                        "error": str(e),
-                    }
-
-            if classifications:
-                stats = {
-                    "LITERAL": 0,
-                    "ARROW_LABEL": 0,
-                    "TYPED_INDIVIDUAL": 0,
-                    "STANDALONE_INDIVIDUAL": 0,
-                    "DECORATION": 0,
-                    "CLASSIFICATION_ERROR": 0,
+            # 3. Format the stored classifications into the dictionary the script expects
+            output_classifications = {}
+            for cell_id, classification in classifier.classifications.items():
+                output_classifications[cell_id] = {
+                    "kind": classification.kind.name
+                    if hasattr(classification.kind, "name")
+                    else str(classification.kind),
+                    "raw_value": classification.raw_value,
+                    "identifier": classification.identifier,
+                    "parent_identifier": classification.parent_identifier,
+                    "tokens": classification.tokens or [],
                 }
-                for cell_data in classifications.values():
+
+            # 4. Print summary stats, same as before
+            if output_classifications:
+                stats = {}
+                for cell_data in output_classifications.values():
                     kind = cell_data.get("kind", "UNKNOWN")
                     stats[kind] = stats.get(kind, 0) + 1
 
-                total = len(classifications)
+                total = len(output_classifications)
                 self.console.print(
                     f"[green]✓[/green] Extracted {total} cell classifications:"
                 )
@@ -809,7 +737,7 @@ class Debugger:
                     if count > 0:
                         self.console.print(f"  {kind}: {count}")
 
-            return classifications
+            return output_classifications
 
         except Exception as e:
             self.console.print(
@@ -979,7 +907,9 @@ def estimate_triple_count_from_classifications(
     prefixes.update(metadata_prefixes)
 
     classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
-    default_type = getattr(classifier_cls, "DEFAULT_STANDALONE_TYPE", "rico:Thing")
+    default_type = getattr(
+        classifier_cls, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
+    )
 
     try:
         root = ET.fromstring(xml_text)

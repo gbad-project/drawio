@@ -106,7 +106,7 @@ def test_individual_blocks_tracks_datatype_properties():
 
     items = iter(
         [
-            draw_io_parser.Individual("LiteralNode", "rico:Thing"),
+            draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="rdfs:label",
                 source="LiteralNode",
@@ -349,7 +349,7 @@ def test_individual_blocks_rejects_unknown_prefix():
 
     items = iter(
         [
-            draw_io_parser.Individual("SourceNode", "rico:Thing"),
+            draw_io_parser.Individual("SourceNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="unknown:prop",
                 source="SourceNode",
