@@ -238,8 +238,8 @@ def individual_blocks(
 
         if individual_or_arrow.is_datatype:
             datatype_properties.add(individual_or_arrow.identifier)
-            target_identifier = individual_or_arrow.target
-            literal_candidate = target_identifier.strip()
+            raw_target = individual_or_arrow.target
+            literal_candidate = raw_target.strip()
             if (
                 ":" in literal_candidate
                 and "://" not in literal_candidate
@@ -264,6 +264,7 @@ def individual_blocks(
                                 f"'{literal_candidate}' does not correspond to a known CURIE"
                             )
                         ) from exc
+            target_identifier = ("__DRAWIO_LITERAL__", raw_target)
         else:
             object_properties.add(individual_or_arrow.identifier)
             target_identifier = _replace_metacharacters(
@@ -311,14 +312,47 @@ def serialise_to_graph(
 
     for prefix, uri in prefixes.items():
         graph.bind(prefix, Namespace(uri), replace=True)
-    if serialisation_config.prefix:
+
+    resolved_prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+        serialisation_config.ontology_iri
+    )
+    resolved_prefix = serialisation_config.prefix
+
+    if resolved_prefix_iri:
+        prefix_binding = resolved_prefix if resolved_prefix is not None else ""
         graph.bind(
-            serialisation_config.prefix,
-            Namespace(
-                serialisation_config.prefix_iri
-                or get_prefix_iri(serialisation_config.ontology_iri)
-            ),
+            prefix_binding,
+            Namespace(resolved_prefix_iri),
+            replace=True,
         )
+
+    def _resolve_curie(term: str) -> URIRef:
+        if ":" in term:
+            candidate_prefix, candidate_reference = term.split(":", 1)
+            namespace_iri = prefixes.get(candidate_prefix)
+            if namespace_iri and not namespace_iri.startswith("file://"):
+                return Namespace(namespace_iri)[candidate_reference]
+            local_reference = candidate_reference or term
+        else:
+            local_reference = term
+
+        if resolved_prefix_iri:
+            return Namespace(resolved_prefix_iri)[local_reference]
+
+        return URIRef(local_reference)
+
+    def _coerce_literal(value: object) -> Literal:
+        if isinstance(value, int) or (isinstance(value, str) and value.isnumeric()):
+            return Literal(value, datatype=XSD.integer)
+        if isinstance(value, float):
+            return Literal(value, datatype=XSD.float)
+        if isinstance(value, str):
+            try:
+                datetime.strptime(value, "%Y-%m-%d")
+                return Literal(value, datatype=XSD.date)
+            except (ValueError, TypeError):
+                return Literal(value)
+        return Literal(value)
 
     if serialisation_config.include_preamble:
         ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
@@ -328,15 +362,13 @@ def serialise_to_graph(
     for prop in sorted(
         prop for prop in object_properties if not prop.startswith("rico:")
     ):
-        prop_prefix, prop_name = prop.split(":")
-        prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+        prop_uri = _resolve_curie(prop)
         graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
 
     for prop in sorted(
         prop for prop in datatype_properties if not prop.startswith("rico:")
     ):
-        prop_prefix, prop_name = prop.split(":")
-        prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+        prop_uri = _resolve_curie(prop)
         graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
     absolute_overrides = {
@@ -345,28 +377,20 @@ def serialise_to_graph(
         if "://" in individual_label
     }
 
-    prefix = serialisation_config.prefix
-    prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-        serialisation_config.ontology_iri
-    )
-
     for (individual_id, individual_label), types_and_facts in blocks.items():
         if individual_id in absolute_overrides:
             individual_uri = URIRef(absolute_overrides[individual_id])
-        elif prefix and serialisation_config.prefix_iri:
-            individual_uri = Namespace(serialisation_config.prefix_iri)[individual_id]
-        elif prefix_iri:
-            individual_uri = URIRef(f"{prefix_iri}{individual_id}")
+        elif resolved_prefix and resolved_prefix_iri:
+            individual_uri = Namespace(resolved_prefix_iri)[individual_id]
+        elif resolved_prefix_iri:
+            individual_uri = URIRef(f"{resolved_prefix_iri}{individual_id}")
         else:
             individual_uri = URIRef(individual_id)
 
         graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
 
         for rdf_type in types_and_facts.get("Types", set()):
-            type_prefix, type_name = rdf_type.split(":")
-            graph.add(
-                (individual_uri, RDF.type, Namespace(prefixes[type_prefix])[type_name])
-            )
+            graph.add((individual_uri, RDF.type, _resolve_curie(rdf_type)))
 
         if serialisation_config.include_label:
             graph.add((individual_uri, RDFS.label, Literal(individual_label)))
@@ -375,34 +399,37 @@ def serialise_to_graph(
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = _resolve_curie(prop)
+            is_object_property = prop in object_properties
+            is_datatype_property = prop in datatype_properties
 
             for value in values:
-                if prop in object_properties:
-                    if value in absolute_overrides:
-                        target_uri = URIRef(absolute_overrides[value])
-                    elif prefix and serialisation_config.prefix_iri:
-                        target_uri = Namespace(serialisation_config.prefix_iri)[value]
-                    elif prefix_iri:
-                        target_uri = URIRef(f"{prefix_iri}{value}")
+                is_literal_marker = (
+                    isinstance(value, tuple)
+                    and len(value) == 2
+                    and value[0] == "__DRAWIO_LITERAL__"
+                )
+                if is_literal_marker or (
+                    is_datatype_property and not is_object_property
+                ):
+                    literal_raw = value[1] if is_literal_marker else value
+                    graph.add((individual_uri, prop_uri, _coerce_literal(literal_raw)))
+                    continue
+
+                if is_object_property:
+                    target_identifier = value
+                    if target_identifier in absolute_overrides:
+                        target_uri = URIRef(absolute_overrides[target_identifier])
+                    elif resolved_prefix and resolved_prefix_iri:
+                        target_uri = Namespace(resolved_prefix_iri)[target_identifier]
+                    elif resolved_prefix_iri:
+                        target_uri = URIRef(f"{resolved_prefix_iri}{target_identifier}")
                     else:
-                        target_uri = URIRef(value)
+                        target_uri = URIRef(target_identifier)
                     graph.add((individual_uri, prop_uri, target_uri))
-                elif prop in datatype_properties:
-                    if isinstance(value, int) or (
-                        isinstance(value, str) and value.isnumeric()
-                    ):
-                        literal_value = Literal(value, datatype=XSD.integer)
-                    elif isinstance(value, float):
-                        literal_value = Literal(value, datatype=XSD.float)
-                    else:
-                        try:
-                            datetime.strptime(value, "%Y-%m-%d")
-                            literal_value = Literal(value, datatype=XSD.date)
-                        except (ValueError, TypeError):
-                            literal_value = Literal(value)
-                    graph.add((individual_uri, prop_uri, literal_value))
+                    continue
+
+                graph.add((individual_uri, prop_uri, _coerce_literal(value)))
 
     decorations_attr = "__drawio_literal_registry"
     decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
