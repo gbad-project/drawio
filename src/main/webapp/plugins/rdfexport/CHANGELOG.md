@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
+- 2025-10-24 – Stopped treating DrawIO arrow labels lacking the `edgeLabel` style as standalone individuals so Turtle exports no longer type properties as `owl:NamedIndividual`, and added regression coverage for the updated classifier.
 - 2025-10-21 – Ensure mixed datatype/object properties retain literal targets (e.g., `lolabout`) and coerce invalid custom prefix IRIs back to the default namespace so debug outputs avoid `ns1:` URIs.
 - 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
 - 2025-10-20 – Prevented DrawIO literals that resemble CURIEs from bypassing rdflib validation so malformed prefixes (for example `picoL:`) now raise errors instead of becoming string values.

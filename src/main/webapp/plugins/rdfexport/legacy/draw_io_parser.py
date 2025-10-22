@@ -247,6 +247,18 @@ class pipeline:
                         if not raw_value:
                             return CellClassification(kind.LITERAL, raw_value, cell)
                         parent_cell, parent_identifier = self._resolve_parent(cell)
+                        if (
+                            parent_cell is not None
+                            and parent_cell.attrib.get("edge") == "1"
+                            and raw_value
+                        ):
+                            return CellClassification(
+                                kind.ARROW_LABEL,
+                                raw_value,
+                                cell,
+                                parent_cell,
+                                parent_identifier,
+                            )
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens) if tokens_are_valid else []
