@@ -1,0 +1,15 @@
+slug: rg-18-210-walkerton-inquiry-in-ric-o-original
+drawio:
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG
+  18-210 Walkerton Inquiry in RiC-O (original).drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: /mock/path/to/file.csv
+    baseUri: 
+  preamble:
+    - prefix: mock1
+      iri: http://mock-uri.com
+parser_config:
+  ontology_iri: ontology://generated-from-draw-io/2025-10-21T23-41-14

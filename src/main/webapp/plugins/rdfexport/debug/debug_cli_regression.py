@@ -10,8 +10,7 @@ import pytest
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS
 
-LEGACY_TESTS_DIR = Path(__file__).resolve().parent
-RDFEXPORT_DIR = LEGACY_TESTS_DIR.parents[1]
+RDFEXPORT_DIR = Path(__file__).resolve().parents[1]
 
 if str(RDFEXPORT_DIR) not in sys.path:
     sys.path.insert(0, str(RDFEXPORT_DIR))
@@ -191,3 +190,9 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     )
 
     _ensure_graph_covers_classifications(graph, classifications, xml_text)
+
+
+if __name__ == "__main__":
+    import pytest
+
+    pytest.main([__file__])
