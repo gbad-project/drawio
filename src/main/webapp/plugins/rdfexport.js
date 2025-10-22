@@ -21306,8 +21306,22 @@ class rdf_control_core:
                 individual_uri = URIRef(f"{prefix_iri}{individual_id}")
             else:
                 individual_uri = URIRef(individual_id)
-            graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
-            for rdf_type in types_and_facts.get("Types", set()):
+            declared_types = set(types_and_facts.get("Types", set()))
+            has_owl_property_type = any(
+                (
+                    candidate in {"owl:ObjectProperty", "owl:DatatypeProperty"}
+                    for candidate in declared_types
+                )
+            )
+            already_declared_as_property = any(
+                (
+                    (individual_uri, RDF.type, t) in graph
+                    for t in (OWL.ObjectProperty, OWL.DatatypeProperty)
+                )
+            )
+            if not has_owl_property_type and (not already_declared_as_property):
+                graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
+            for rdf_type in declared_types:
                 type_prefix, type_name = rdf_type.split(":")
                 graph.add(
                     (individual_uri, RDF.type, namespace_map[type_prefix][type_name])

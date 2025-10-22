@@ -50,6 +50,11 @@
       "sha256": "4e2fc50bc94af333952ac4b8e6f7d4015ea263755355ec78a60644293b7601c4",
       "size_bytes": 56394
     },
+    "Class_Diagram_tweaked.drawio": {
+      "path": "Class_Diagram_tweaked.drawio",
+      "sha256": "46cac1efc60db2723965d2607a2dfa20854bad6612100f185dd697af7afc4b81",
+      "size_bytes": 11913
+    },
     "F 47 Simcoe Family fonds.drawio": {
       "path": "F 47 Simcoe Family fonds.drawio",
       "sha256": "2b83ac400783c15411e8e3df54cb0cf479bf8611c5314f1c486967943528838f",
@@ -805,6 +810,226 @@
           "nt_sha256": "3ffb49923e7c7739c118e296f414afa73b4ba769af627e4b2bd13d9bd0f204ce",
           "path": "results/aa37-with-metadata-even-more-severely-mocked/ts_plugin.ttl",
           "triples": 92
+        }
+      }
+    },
+    "class-diagram-tweaked": {
+      "cell_classifications": {
+        "zkfFHV4jXpPFQw0GAbJ--0": {
+          "identifier": "rdf:Person",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rdf:Person",
+          "tokens": [
+            "rdf:Person"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--1": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Name",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--10": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Is Eligible To Enroll",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--11": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Get Seminars Taken",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Professor",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--14": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Salary",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Address",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--18": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Street",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--19": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "City",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--2": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Phone Number",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--20": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "State",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--21": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Postal Code",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--22": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Country",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--23": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--24": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Validate",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--25": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Output As Label",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--29": {
+          "identifier": "rdfs:mock",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": [
+            "rdfs:mock"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--3": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Email Address",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--4": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--5": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Purchase Parking Pass",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--6": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Student",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--7": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Student Number",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--8": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Average Mark",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        }
+      },
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value 'sourcePoint', but it does not: zkfFHV4jXpPFQw0GAbJ--0"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "a88aa40c68ddc4fa29f2625d11b08122d5e6c35fb0cecc9896e9395eac5c8832",
+          "path": "results/class-diagram-tweaked/ts_pipeline.ttl",
+          "triples": 28
+        },
+        "ts_plugin": {
+          "nt_sha256": "a88aa40c68ddc4fa29f2625d11b08122d5e6c35fb0cecc9896e9395eac5c8832",
+          "path": "results/class-diagram-tweaked/ts_plugin.ttl",
+          "triples": 28
         }
       }
     },
