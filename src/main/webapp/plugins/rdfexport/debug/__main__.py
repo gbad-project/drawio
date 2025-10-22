@@ -84,6 +84,8 @@ class Debugger:
         self._refresh_fixture_inventory()
         self._pyodide_ready = False
 
+        self.needs_fail_on_pytest = False
+
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
@@ -101,7 +103,7 @@ class Debugger:
 
     # ------------------------------------------------------------------
     # Internal helpers: configuration loading
-    # ------------------------------------------------------------------
+    # False------------------------------------------------------------------
     def _load_map(self) -> dict[str, dict]:
         if self.map_path.exists():
             try:
@@ -435,6 +437,10 @@ class Debugger:
     # ------------------------------------------------------------------
     # Execution
     # ------------------------------------------------------------------
+    def _needs_fail_on_pytest(self, errors: dict) -> None:
+        benign_keys = {"py_legacy"}
+        return any(k not in benign_keys for k in errors.keys())
+    
     def _run_scenario(self, config: ScenarioConfig, skip_ts: bool = False) -> None:
         self.console.rule(f"Scenario: {config.slug}")
         self.console.print(
@@ -615,6 +621,7 @@ class Debugger:
             }
             self._map_data.setdefault("scenarios", {})[config.slug] = scenario_entry
             self._write_map()
+            self.needs_fail_on_pytest = True  # definitely yes!
             return
 
         results_directory = self.results_dir / config.slug
@@ -680,6 +687,8 @@ class Debugger:
         for key, value in isomorphism.items():
             status = "✅" if value else "❌"
             self.console.print(f"  {status} {key}")
+
+        self.needs_fail_on_pytest = self._needs_fail_on_pytest(errors)
 
     # ------------------------------------------------------------------
     # Graph generation helpers
@@ -1513,6 +1522,9 @@ def main() -> None:
 
     debugger = Debugger(fixtures_dir)
     debugger.run(args)
+
+    import sys
+    sys.exit(1 if debugger.needs_fail_on_pytest else 0)
 
 
 if __name__ == "__main__":
