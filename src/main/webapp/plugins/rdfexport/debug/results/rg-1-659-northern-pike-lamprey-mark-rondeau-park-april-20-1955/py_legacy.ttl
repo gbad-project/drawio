@@ -1,0 +1,103 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<ontology://generated-from-draw-io/mock> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> a owl:NamedIndividual,
+        rico:RecordSet ;
+    rdfs:label "[Lake Erie Management Unit]" ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#Filing%20Class> .
+
+<ontology://generated-from-draw-io/mock#Archival%20Description> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Archival Description" .
+
+<ontology://generated-from-draw-io/mock#File> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "File" .
+
+<ontology://generated-from-draw-io/mock#Filing%20Class> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "Filing Class" .
+
+<ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> a owl:NamedIndividual,
+        rico:RecordSet ;
+    rdfs:label "Fisheries Branch photographs" ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#RG%201-659> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#Series> .
+
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> a owl:NamedIndividual,
+        rico:ContentType ;
+    rdfs:label "Graphic materials" .
+
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> a owl:NamedIndividual,
+        rico:RecordSet,
+        rico:Title ;
+    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955" ;
+    rico:creationDate 1955 ;
+    rico:hasContentOfType <ontology://generated-from-draw-io/mock#Graphic%20Materials> ;
+    rico:hasOrHadInstantiation <ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> ;
+    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#File> ;
+    rico:isDirectlyIncludedIn <ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D>,
+        <ontology://generated-from-draw-io/mock#Fisheries%20Branch%20Photographs> ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> .
+
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955%20Archival%20Description> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description" ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Archival%20Description> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> .
+
+<ontology://generated-from-draw-io/mock#Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1> a owl:NamedIndividual,
+        rico:Instantiation ;
+    rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1" ;
+    rico:instantiationExtent "10 photographs : 4 black and white prints, 6 negatives" .
+
+<ontology://generated-from-draw-io/mock#RG%201-659> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "RG 1-659" .
+
+<ontology://generated-from-draw-io/mock#Series> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "Series" .
+
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Enabled: Y" .
+

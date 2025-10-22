@@ -20909,6 +20909,394 @@
           "triples": 148
         }
       }
+    },
+    "rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955": {
+      "cell_classifications": {
+        "BgzUFkZFLuuaoTEaSqZe-11": {
+          "identifier": "Fisheries Branch photographs",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Fisheries Branch photographs",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Fisheries Branch photographs",
+          "raw_value": "rico:RecordSet",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-14": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadIdentifier",
+          "tokens": []
+        },
+        "BgzUFkZFLuuaoTEaSqZe-15": {
+          "identifier": "RG 1-659",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "RG 1-659",
+          "tokens": [
+            "rico:Identifier"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-16": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "RG 1-659",
+          "raw_value": "rico:Identifier",
+          "tokens": [
+            "rico:Identifier"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-18": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasRecordSetType",
+          "tokens": []
+        },
+        "BgzUFkZFLuuaoTEaSqZe-19": {
+          "identifier": "Series",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Series",
+          "tokens": [
+            "rico:RecordSetType"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-20": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Series",
+          "raw_value": "rico:RecordSetType",
+          "tokens": [
+            "rico:RecordSetType"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-22": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isDirectlyIncludedIn",
+          "tokens": []
+        },
+        "BgzUFkZFLuuaoTEaSqZe-3": {
+          "identifier": "[Lake Erie Management Unit]",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "[Lake Erie Management Unit]",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "[Lake Erie Management Unit]",
+          "raw_value": "rico:RecordSet",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-6": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasRecordSetType",
+          "tokens": []
+        },
+        "BgzUFkZFLuuaoTEaSqZe-7": {
+          "identifier": "Filing Class",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Filing Class",
+          "tokens": [
+            "rico:RecordSetType"
+          ]
+        },
+        "BgzUFkZFLuuaoTEaSqZe-8": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Filing Class",
+          "raw_value": "rico:RecordSetType",
+          "tokens": [
+            "rico:RecordSetType"
+          ]
+        },
+        "JUvVhaggt__ALHUesofw-1": {
+          "identifier": "Archival Description",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Archival Description",
+          "tokens": [
+            "rico:DocumentaryFormType"
+          ]
+        },
+        "JUvVhaggt__ALHUesofw-11": {
+          "identifier": "Web Enabled: Y",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Web Enabled: Y",
+          "tokens": [
+            "rico:RecordState"
+          ]
+        },
+        "JUvVhaggt__ALHUesofw-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Web Enabled: Y",
+          "raw_value": "rico:RecordState",
+          "tokens": [
+            "rico:RecordState"
+          ]
+        },
+        "JUvVhaggt__ALHUesofw-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Archival Description",
+          "raw_value": "rico:DocumentaryFormType",
+          "tokens": [
+            "rico:DocumentaryFormType"
+          ]
+        },
+        "JUvVhaggt__ALHUesofw-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasDocumentaryFormType",
+          "tokens": []
+        },
+        "JUvVhaggt__ALHUesofw-8": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasRecordState",
+          "tokens": []
+        },
+        "Jj78cHQdAaoJRiL902HJ-2": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isDirectlyIncludedIn",
+          "tokens": []
+        },
+        "Jj78cHQdAaoJRiL902HJ-3": {
+          "identifier": "Graphic materials",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Graphic materials",
+          "tokens": [
+            "rico:ContentType"
+          ]
+        },
+        "Jj78cHQdAaoJRiL902HJ-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Graphic materials",
+          "raw_value": "rico:ContentType",
+          "tokens": [
+            "rico:ContentType"
+          ]
+        },
+        "Jj78cHQdAaoJRiL902HJ-6": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasContentOfType",
+          "tokens": []
+        },
+        "K4QZWATomJR9_dxTVFmW-38": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadInstantiation",
+          "tokens": []
+        },
+        "K4QZWATomJR9_dxTVFmW-42": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:instantiationExtent",
+          "tokens": []
+        },
+        "K4QZWATomJR9_dxTVFmW-45": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "10 photographs : 4 black and white prints, 6 negatives",
+          "tokens": []
+        },
+        "Pa1L8ZfUJXBHrEYyGiSI-1": {
+          "identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Northern pike lamprey mark, Rondeau Park, April 20, 1955",
+          "tokens": [
+            "rico:Title"
+          ]
+        },
+        "Pa1L8ZfUJXBHrEYyGiSI-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955",
+          "raw_value": "rico:Title",
+          "tokens": [
+            "rico:Title"
+          ]
+        },
+        "Pa1L8ZfUJXBHrEYyGiSI-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadTitle",
+          "tokens": []
+        },
+        "Qn2IjXGipePgXItu5pY1-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1955",
+          "tokens": []
+        },
+        "Qn2IjXGipePgXItu5pY1-3": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:creationDate",
+          "tokens": []
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-1": {
+          "identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Northern pike lamprey mark, Rondeau Park, April 20, 1955",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-14": {
+          "identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1",
+          "tokens": [
+            "rico:Instantiation"
+          ]
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-15": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1",
+          "raw_value": "rico:Instantiation",
+          "tokens": [
+            "rico:Instantiation"
+          ]
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955",
+          "raw_value": "rico:RecordSet",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-3": {
+          "identifier": "File",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "File",
+          "tokens": [
+            "rico:RecordSetType"
+          ]
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "File",
+          "raw_value": "rico:RecordSetType",
+          "tokens": [
+            "rico:RecordSetType"
+          ]
+        },
+        "sWa0SD8Ajx1KSGOqKPP4-6": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasRecordSetType",
+          "tokens": []
+        },
+        "wiPwyt0miK05mvKJtJq--54": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rico:isOrWasDescribedBy",
+          "tokens": []
+        },
+        "wiPwyt0miK05mvKJtJq--55": {
+          "identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description",
+          "tokens": [
+            "rico:Record"
+          ]
+        },
+        "wiPwyt0miK05mvKJtJq--56": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Northern pike lamprey mark, Rondeau Park, April 20, 1955 Archival Description",
+          "raw_value": "rico:Record",
+          "tokens": [
+            "rico:Record"
+          ]
+        }
+      },
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio",
+      "format": "turtle",
+      "isomorphism": {
+        "py_legacy_vs_ts_pipeline": false,
+        "py_legacy_vs_ts_plugin": false,
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "py_legacy": {
+          "nt_sha256": "6fe69e40acc069e42cfa1032072ad89132ec7241aa9beacf093da85b0a484075",
+          "path": "results/rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955/py_legacy.ttl",
+          "triples": 68
+        },
+        "ts_pipeline": {
+          "nt_sha256": "b6110762a000dfdb5fdc068ca9cab783cdc017cfd2cd05b648a34e951c6d6104",
+          "path": "results/rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955/ts_pipeline.ttl",
+          "triples": 52
+        },
+        "ts_plugin": {
+          "nt_sha256": "b6110762a000dfdb5fdc068ca9cab783cdc017cfd2cd05b648a34e951c6d6104",
+          "path": "results/rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955/ts_plugin.ttl",
+          "triples": 52
+        }
+      }
     }
   }
 }
