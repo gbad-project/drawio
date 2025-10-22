@@ -3,7 +3,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 rdfs:label a owl:DatatypeProperty .
 
@@ -13,9 +12,8 @@ auth:privateNote a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
-<ontology://generated-from-draw-io/2025-10-21T17-23-02> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "Rules for Archival Description" .
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
 
 :Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:CorporateBody ;
@@ -40,7 +38,8 @@ auth:sourceNote a owl:DatatypeProperty .
 
 :Rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 a owl:NamedIndividual,
         rico:Rule ;
-    rdfs:label "rr:constant \"/KB/Rule/RulesForArchivalDescription\"" ;
+    rdfs:label "Rules for Archival Description",
+        "rr:constant \"/KB/Rule/RulesForArchivalDescription\"" ;
     rico:title "rml:reference \"RULES\"" .
 
 :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 a owl:NamedIndividual,

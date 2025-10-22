@@ -40,7 +40,14 @@ class DrawIOCellClassifier:
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
-    def __init__(self, raw_xml: typing.Any, prefixes: dict[str, str]):
+    def __init__(
+        self,
+        raw_xml: typing.Any,
+        prefixes: dict[str, str],
+        *,
+        strict_mode: bool = False,
+        max_gap: float | None = None,
+    ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
             self.draw_io_xml_tree = source_tree
@@ -54,6 +61,17 @@ class DrawIOCellClassifier:
         self._namespace_manager = Graph().namespace_manager
         for prefix, iri in prefixes.items():
             self._namespace_manager.bind(prefix, iri, replace=True)
+
+        self._strict_mode = bool(strict_mode)
+        default_gap = 10.0
+        gap_candidate = default_gap if max_gap is None else max_gap
+        try:
+            coerced_gap = float(gap_candidate)
+        except (TypeError, ValueError):
+            coerced_gap = float(default_gap)
+        if coerced_gap != coerced_gap or coerced_gap < 0.0:  # NaN or negative
+            coerced_gap = float(default_gap)
+        self._max_gap = coerced_gap
 
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
@@ -188,6 +206,20 @@ class DrawIOCellClassifier:
             return CellClassification(kind.LITERAL, raw_value, cell)
 
         parent_cell, parent_identifier = self._resolve_parent(cell)
+
+        if (
+            parent_cell is not None
+            and parent_cell.attrib.get("edge") == "1"
+            and raw_value
+        ):
+            return CellClassification(
+                kind.ARROW_LABEL,
+                raw_value,
+                cell,
+                parent_cell,
+                parent_identifier,
+            )
+
         value_tokens = self._tokenise(raw_value)
         tokens_are_valid = self._tokens_are_valid(value_tokens)
         tokens = list(value_tokens) if tokens_are_valid else []
@@ -282,6 +314,56 @@ class DrawIOCellClassifier:
             float(geom.attrib.get("height", 0.0)),
         )
 
+    def _absolute_dimensions(self, cell: Element) -> Dimensions:
+        geom = self._geometry(cell)
+        width = float(geom.attrib.get("width", 0.0))
+        height = float(geom.attrib.get("height", 0.0))
+        coordinates = self._start_or_end(cell, None)
+        if coordinates is None:
+            x = float(geom.attrib.get("x", 0.0))
+            y = float(geom.attrib.get("y", 0.0))
+        else:
+            x, y = coordinates
+        return x, y, width, height
+
+    def _close_enough(self, arrow_point: tuple[float, float], cell: Element) -> bool:
+        try:
+            x, y, width, height = self._absolute_dimensions(cell)
+        except ParseException:
+            return False
+        arrow_x, arrow_y = arrow_point
+        return (
+            x - self._max_gap <= arrow_x <= x + width + self._max_gap
+            and y - self._max_gap <= arrow_y <= y + height + self._max_gap
+        )
+
+    def _resolve_nearby_cell(
+        self,
+        arrow_point: tuple[float, float] | None,
+        *,
+        require_individual: bool,
+    ) -> tuple[Element, str, bool]:
+        if arrow_point is None:
+            raise _NoCellCloseEnoughException
+
+        for cell_id, (cell, individual) in self._nodes_by_id.items():
+            if self._close_enough(arrow_point, cell):
+                return cell, individual.identifier, False
+
+        if require_individual:
+            raise _NoCellCloseEnoughException
+
+        for cell_id, literal_cell in self._literals_by_id.items():
+            if not self._close_enough(arrow_point, literal_cell):
+                continue
+            try:
+                literal_value = self._value_of(literal_cell)
+            except _NoValueException as exc:
+                raise _NoCellCloseEnoughException from exc
+            return literal_cell, literal_value, True
+
+        raise _NoCellCloseEnoughException
+
     def _start_or_end(
         self, cell: Element, as_attribute: str | None
     ) -> tuple[float, float] | None:
@@ -328,6 +410,8 @@ class DrawIOCellClassifier:
         arrow_id = arrow_cell.attrib["id"]
         source_id = arrow_cell.attrib.get("source")
         target_id = arrow_cell.attrib.get("target")
+        arrow_start = self._start_or_end(arrow_cell, "sourcePoint")
+        arrow_end = self._start_or_end(arrow_cell, "targetPoint")
 
         # Resolve source
         if source_id and source_id in self._nodes_by_id:
@@ -335,12 +419,21 @@ class DrawIOCellClassifier:
             source_identifier = source_individual.identifier
         elif source_id and source_id in self._literals_by_id:
             raise ArrowWithoutIndividualAsSourceException(
-                f"Arrow '{arrow_label}' ({arrow_id}) has a literal as source."
+                f"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source."
             )
         else:
-            raise NoSourceException(
-                f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
-            )
+            if self._strict_mode:
+                raise NoSourceException(
+                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                )
+            try:
+                _, source_identifier, _ = self._resolve_nearby_cell(
+                    arrow_start, require_individual=True
+                )
+            except _NoCellCloseEnoughException as exc:
+                raise NoSourceException(
+                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                ) from exc
 
         # Resolve target
         target_cell = None
@@ -354,13 +447,33 @@ class DrawIOCellClassifier:
                 target_identifier = self._value_of(target_cell)
                 is_datatype = True
             else:
-                raise NoSourceException(
-                    f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
-                )
+                if self._strict_mode:
+                    raise NoSourceException(
+                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
+                    )
+                try:
+                    candidate_cell, target_identifier, is_datatype = (
+                        self._resolve_nearby_cell(arrow_end, require_individual=False)
+                    )
+                    target_cell = candidate_cell
+                except _NoCellCloseEnoughException as exc:
+                    raise NoSourceException(
+                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
+                    ) from exc
         else:
-            raise NoSourceException(
-                f"Arrow '{arrow_label}' ({arrow_id}) has no target."
-            )
+            if self._strict_mode:
+                raise NoSourceException(
+                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
+                )
+            try:
+                candidate_cell, target_identifier, is_datatype = (
+                    self._resolve_nearby_cell(arrow_end, require_individual=False)
+                )
+                target_cell = candidate_cell
+            except _NoCellCloseEnoughException as exc:
+                raise NoSourceException(
+                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
+                ) from exc
 
         if target_cell and target_cell.attrib.get("id") in self.decorations:
             self.decorations[target_cell.attrib["id"]]["connected"] = True
