@@ -1,28 +1,33 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. This is mostly AI-generated, however, so some notable changes may be missed.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+Dates are according to UTC time zone but occasionally can make zero sense (e.g., set in future).
+
+This is reviewed by a human maintainer from time to time.
 
 ## [Unreleased]
 
 ### Added
 
 - 2025-10-21 – Expanded the debug scenario harness to accept arbitrary parser and metadata configuration overrides, updated the Bun runner for automatic discovery, and added pytest coverage for dynamic option propagation.
+- 2025-10-21 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
 - 2025-10-20 – Added a parser setting and metadata flag to control HTML stripping so literals can preserve markup end-to-end, updating the DrawIO UI, Pyodide pipeline, parser overrides, fixtures, and Bun/pytest coverage.
-- 2025-10-20 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
 
 ### Changed
 
+- 2025-10-21 – Refined DrawIO cell classification to aggregate child type tokens, detect decorative text nodes, deduplicate individual records, and introduced a `--skip-ts` debugger flag for Python-only regression runs.
 - 2025-10-20 – Moved fixtures for RML regression testing from `src/main/webapp/plugins/rmlexport/` (deprecated and removed) to `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` for easier availability
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`
 - 2025-10-20 – Replaced the DrawIO parser CURIE splitter with an rdflib-backed validator and added pytest coverage for the override.
 - 2025-10-20 – Centralised DrawIO cell role classification and persisted unconnected
-- 2025-10-20 – Refined DrawIO cell classification to aggregate child type tokens, detect decorative text nodes, deduplicate individual records, and introduced a `--skip-ts` debugger flag for Python-only regression runs.
 
 ### Fixed
 
+- 2025-10-22 – Stopped treating DrawIO arrow labels lacking the `edgeLabel` style as standalone individuals so Turtle exports no longer type properties as `owl:NamedIndividual`, and added regression coverage for the updated classifier.
 - 2025-10-21 – Ensure mixed datatype/object properties retain literal targets (e.g., `lolabout`) and coerce invalid custom prefix IRIs back to the default namespace so debug outputs avoid `ns1:` URIs.
 - 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
 - 2025-10-20 – Prevented DrawIO literals that resemble CURIEs from bypassing rdflib validation so malformed prefixes (for example `picoL:`) now raise errors instead of becoming string values.
@@ -30,7 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - 2025-10-20 – Ensured the meta builder preserves external imports from override modules so generated parser bundles include rdflib and HTML parsing dependencies required by the overrides.
 - 2025-10-20 – Registered the DrawIO cell classifier override with the pipeline so CURIE validation no longer imports helper classes from the override package, tightening pytest coverage for literal handling and typed individuals.
 
-## [2025-10-17] - Historical Review (Pavel Zhelnov contributions)
+## [2025-10-17] - Historical Review
 
 ### Added
 

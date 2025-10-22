@@ -5,6 +5,8 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
+rdfs:mock a owl:DatatypeProperty .
+
 <mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "Average Mark",
@@ -30,10 +32,4 @@
         owl:NamedIndividual ;
     rdfs:label "rdf:Person" ;
     rdfs:mock "Address" .
-
-:rdfs%3Amock a rdfs:mock,
-        owl:NamedIndividual ;
-    rdfs:label "rdfs:mock" .
-
-rdfs:mock a owl:DatatypeProperty .
 

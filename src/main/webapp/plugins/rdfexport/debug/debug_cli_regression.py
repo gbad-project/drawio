@@ -144,6 +144,7 @@ def _ensure_graph_covers_classifications(
 @pytest.mark.parametrize(
     "fixture_path",
     sorted(FIXTURES_DIR.glob("*.drawio"), key=lambda path: path.name),
+    ids=lambda path: path.name,
 )
 def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     slug = _slugify(fixture_path.stem)
@@ -195,4 +196,4 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
 if __name__ == "__main__":
     import pytest
 
-    pytest.main([__file__])
+    pytest.main(["-v", __file__])
