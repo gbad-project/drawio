@@ -1,7 +1,5 @@
-slug: rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955
-drawio:
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG
-  1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio
+slug: class-diagram-tweaked
+drawio: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio
 legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 format: turtle
 metadata:
