@@ -3,7 +3,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
-<ontology://generated-from-draw-io/2025-10-21T17-21-51> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Archival%20Description a owl:NamedIndividual,

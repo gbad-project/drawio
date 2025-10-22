@@ -4,7 +4,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<ontology://generated-from-draw-io/2025-10-21T17-23-34> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :1948 a owl:NamedIndividual,

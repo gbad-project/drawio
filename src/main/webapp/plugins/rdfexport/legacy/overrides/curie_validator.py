@@ -105,7 +105,7 @@ def serialise_to_graph(
             namespace = Namespace(uri)
             graph.bind(prefix_key, namespace, replace=True)
         else:
-            namespace = Namespace(prefix_iri)
+            raise ParseException(f"Prefix IRI '{uri}' looks invalid")
         namespace_map[prefix_key] = namespace
 
     if prefix:

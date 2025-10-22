@@ -26,7 +26,7 @@ add:privateNote a owl:DatatypeProperty .
 
 add:relatedMaterial a owl:DatatypeProperty .
 
-<ontology://generated-from-draw-io/2025-10-21T17-22-50> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Rr%3Atemplate%20%22%2FKB%2FCreationRelation%2F%7BREFD_FILE%7D%2F%7BOFFICEABC_1..20%7D%2Furn%3Auuid%3A%7BUUID_OFFICEABC%7D%22 a owl:NamedIndividual,

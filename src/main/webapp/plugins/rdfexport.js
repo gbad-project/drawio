@@ -18729,6 +18729,7 @@ import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 from enum import Enum, auto
+import typing
 from typing import Iterable
 from rdflib import BNode
 from rdflib.namespace import SKOS
@@ -18800,8 +18801,16 @@ class pipeline:
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
-                    def __init__(self, raw_xml: str, prefixes: dict[str, str]):
-                        self.draw_io_xml_tree = fromstring(raw_xml)
+                    def __init__(self, raw_xml: typing.Any, prefixes: dict[str, str]):
+                        source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
+                        if isinstance(source_tree, Element):
+                            self.draw_io_xml_tree = source_tree
+                        else:
+                            if isinstance(raw_xml, bytes):
+                                parsed_xml = raw_xml.decode("utf-8")
+                            else:
+                                parsed_xml = str(raw_xml)
+                            self.draw_io_xml_tree = fromstring(parsed_xml)
                         self._prefixes = prefixes
                         self._namespace_manager = Graph().namespace_manager
                         for prefix, iri in prefixes.items():
@@ -18877,6 +18886,7 @@ class pipeline:
                                         parent,
                                         individual,
                                     )
+                                    self._nodes_by_id[cell_id] = (cell, individual)
                             elif kind_name == "STANDALONE_INDIVIDUAL":
                                 identifier = (
                                     classification.identifier
@@ -18911,11 +18921,11 @@ class pipeline:
                                 arrow = self._resolve_arrow(cell)
                                 if arrow:
                                     self.arrows.append(arrow)
-                            except (
-                                NoSourceException,
-                                ArrowWithoutIndividualAsSourceException,
-                            ) as e:
+                            except NoSourceException as e:
                                 print(f"Warning: Skipping arrow due to error: {e}")
+                            except ArrowWithoutIndividualAsSourceException as e:
+                                print(f"Warning: Skipping arrow due to error: {e}")
+                                raise
 
                     def classify(
                         self, cell: Element, cell_value: str
@@ -19076,6 +19086,10 @@ class pipeline:
                                 source_id
                             ]
                             source_identifier = source_individual.identifier
+                        elif source_id and source_id in self._literals_by_id:
+                            raise ArrowWithoutIndividualAsSourceException(
+                                f"Arrow '{arrow_label}' ({arrow_id}) has a literal as source."
+                            )
                         else:
                             raise NoSourceException(
                                 f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
@@ -20934,6 +20948,7 @@ class internal_control_core:
                             raise NotInKnownException(
                                 f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
                             ) from exc
+                property_value = (target_identifier, True)
             else:
                 object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
@@ -20942,6 +20957,7 @@ class internal_control_core:
                     space_substitute,
                     capitalisation_scheme,
                 )
+                property_value = (target_identifier, False)
             source_identifier = _replace_metacharacters(
                 individual_or_arrow.source,
                 metacharacter_substitutes,
@@ -20952,13 +20968,14 @@ class internal_control_core:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
                 blocks[source_identifier, individual_or_arrow.source] = {
-                    individual_or_arrow.identifier: {target_identifier}
+                    individual_or_arrow.identifier: {property_value}
                 }
                 continue
-            try:
-                block[individual_or_arrow.identifier].add(target_identifier)
-            except KeyError:
-                block[individual_or_arrow.identifier] = {target_identifier}
+            values = block.get(individual_or_arrow.identifier)
+            if values is None:
+                block[individual_or_arrow.identifier] = {property_value}
+            else:
+                values.add(property_value)
         return (blocks, object_properties, datatype_properties)
 
     # END individual_blocks
@@ -21124,16 +21141,30 @@ class rdf_control_core:
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
-        for prefix, uri in prefixes.items():
-            graph.bind(prefix, Namespace(uri), replace=True)
-        if serialisation_config.prefix:
-            graph.bind(
-                serialisation_config.prefix,
-                Namespace(
-                    serialisation_config.prefix_iri
-                    or get_prefix_iri(serialisation_config.ontology_iri)
-                ),
-            )
+        prefix = serialisation_config.prefix
+        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+            serialisation_config.ontology_iri
+        )
+
+        def _is_absolute_iri(candidate: str) -> bool:
+            if not candidate:
+                return False
+            try:
+                parsed = urllib.parse.urlparse(candidate)
+            except Exception:
+                return False
+            return bool(parsed.scheme and (parsed.netloc or parsed.path))
+
+        namespace_map: dict[str, Namespace] = {}
+        for prefix_key, uri in prefixes.items():
+            if _is_absolute_iri(uri):
+                namespace = Namespace(uri)
+                graph.bind(prefix_key, namespace, replace=True)
+            else:
+                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
+            namespace_map[prefix_key] = namespace
+        if prefix:
+            graph.bind(prefix, Namespace(prefix_iri), replace=True)
         if serialisation_config.include_preamble:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
@@ -21142,23 +21173,19 @@ class rdf_control_core:
             (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
             (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
         absolute_overrides = {
             individual_id: individual_label
             for individual_id, individual_label in blocks.keys()
             if "://" in individual_label
         }
-        prefix = serialisation_config.prefix
-        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-            serialisation_config.ontology_iri
-        )
         for (individual_id, individual_label), types_and_facts in blocks.items():
             if individual_id in absolute_overrides:
                 individual_uri = URIRef(absolute_overrides[individual_id])
@@ -21174,11 +21201,7 @@ class rdf_control_core:
             for rdf_type in types_and_facts.get("Types", set()):
                 type_prefix, type_name = rdf_type.split(":")
                 graph.add(
-                    (
-                        individual_uri,
-                        RDF.type,
-                        Namespace(prefixes[type_prefix])[type_name],
-                    )
+                    (individual_uri, RDF.type, namespace_map[type_prefix][type_name])
                 )
             if serialisation_config.include_label:
                 graph.add((individual_uri, RDFS.label, Literal(individual_label)))
@@ -21186,9 +21209,21 @@ class rdf_control_core:
                 if prop == "Types":
                     continue
                 prop_prefix, prop_name = prop.split(":")
-                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-                for value in values:
-                    if prop in object_properties:
+                prop_uri = namespace_map[prop_prefix][prop_name]
+                for raw_value in values:
+                    if (
+                        isinstance(raw_value, tuple)
+                        and len(raw_value) == 2
+                        and isinstance(raw_value[1], bool)
+                    ):
+                        value, is_literal = raw_value
+                    else:
+                        value = raw_value
+                        is_literal = (
+                            prop in datatype_properties
+                            and prop not in object_properties
+                        )
+                    if not is_literal:
                         if value in absolute_overrides:
                             target_uri = URIRef(absolute_overrides[value])
                         elif prefix and serialisation_config.prefix_iri:
@@ -21200,19 +21235,27 @@ class rdf_control_core:
                         else:
                             target_uri = URIRef(value)
                         graph.add((individual_uri, prop_uri, target_uri))
-                    elif prop in datatype_properties:
-                        if isinstance(value, int) or (
-                            isinstance(value, str) and value.isnumeric()
+                    else:
+                        literal_candidate = value
+                        if isinstance(literal_candidate, int) or (
+                            isinstance(literal_candidate, str)
+                            and literal_candidate.isnumeric()
                         ):
-                            literal_value = Literal(value, datatype=XSD.integer)
-                        elif isinstance(value, float):
-                            literal_value = Literal(value, datatype=XSD.float)
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.integer
+                            )
+                        elif isinstance(literal_candidate, float):
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.float
+                            )
                         else:
                             try:
-                                datetime.strptime(value, "%Y-%m-%d")
-                                literal_value = Literal(value, datatype=XSD.date)
+                                datetime.strptime(literal_candidate, "%Y-%m-%d")
+                                literal_value = Literal(
+                                    literal_candidate, datatype=XSD.date
+                                )
                             except (ValueError, TypeError):
-                                literal_value = Literal(value)
+                                literal_value = Literal(literal_candidate)
                         graph.add((individual_uri, prop_uri, literal_value))
         decorations_attr = "__drawio_literal_registry"
         decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})

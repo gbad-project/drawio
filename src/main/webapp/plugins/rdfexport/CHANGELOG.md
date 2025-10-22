@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- 2025-10-21 – Expanded the debug scenario harness to accept arbitrary parser and metadata configuration overrides, updated the Bun runner for automatic discovery, and added pytest coverage for dynamic option propagation.
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
 - 2025-10-20 – Added a parser setting and metadata flag to control HTML stripping so literals can preserve markup end-to-end, updating the DrawIO UI, Pyodide pipeline, parser overrides, fixtures, and Bun/pytest coverage.
 - 2025-10-20 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.

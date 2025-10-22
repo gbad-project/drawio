@@ -2448,7 +2448,7 @@ class rdf_control_core:
                 namespace = Namespace(uri)
                 graph.bind(prefix_key, namespace, replace=True)
             else:
-                namespace = Namespace(prefix_iri)
+                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
             namespace_map[prefix_key] = namespace
         if prefix:
             graph.bind(prefix, Namespace(prefix_iri), replace=True)
