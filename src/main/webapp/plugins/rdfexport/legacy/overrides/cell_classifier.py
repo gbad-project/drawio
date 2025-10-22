@@ -181,11 +181,12 @@ class DrawIOCellClassifier:
                 arrow = self._resolve_arrow(cell)
                 if arrow:
                     self.arrows.append(arrow)
-            except NoSourceException as e:
+            except (
+                NoSourceException,
+                NoTargetException,
+                ArrowWithoutIndividualAsSourceException,
+            ) as e:
                 print(f"Warning: Skipping arrow due to error: {e}")
-            except ArrowWithoutIndividualAsSourceException as e:
-                print(f"Warning: Skipping arrow due to error: {e}")
-                raise
 
     def classify(self, cell: Element, cell_value: str) -> CellClassification:
         """Determines the role of a given mxCell in the graph."""
@@ -448,7 +449,7 @@ class DrawIOCellClassifier:
                 is_datatype = True
             else:
                 if self._strict_mode:
-                    raise NoSourceException(
+                    raise NoTargetException(
                         f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
                     )
                 try:
@@ -457,12 +458,12 @@ class DrawIOCellClassifier:
                     )
                     target_cell = candidate_cell
                 except _NoCellCloseEnoughException as exc:
-                    raise NoSourceException(
+                    raise NoTargetException(
                         f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
                     ) from exc
         else:
             if self._strict_mode:
-                raise NoSourceException(
+                raise NoTargetException(
                     f"Arrow '{arrow_label}' ({arrow_id}) has no target."
                 )
             try:
@@ -471,7 +472,7 @@ class DrawIOCellClassifier:
                 )
                 target_cell = candidate_cell
             except _NoCellCloseEnoughException as exc:
-                raise NoSourceException(
+                raise NoTargetException(
                     f"Arrow '{arrow_label}' ({arrow_id}) has no target."
                 ) from exc
 
