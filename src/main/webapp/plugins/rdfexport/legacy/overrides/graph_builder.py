@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
 
@@ -10,13 +12,12 @@ from meta_builder.drawio_meta_builder import override
 def _build_graph_from_raw_xml(
     raw_xml: str, config_args: dict[str, Any]
 ) -> DrawIOParserGraph:
-    """
-    Builds an RDF graph from raw Draw.io XML using the new self-contained
-    DrawIOCellClassifier, completely bypassing DrawIOXMLTree.
-    """
-    DrawIOCellClassifier = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
+    """Assemble a parser graph from Draw.io XML using the classifier override."""
 
-    # 1. Initial Setup and Configuration
+    classifier_cls = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
+    if classifier_cls is None:
+        raise RuntimeError("DrawIOCellClassifier override is not available")
+
     metadata_prefixes, base_uri, csv_path, parsed_root = (
         pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
     )
@@ -41,31 +42,26 @@ def _build_graph_from_raw_xml(
     )
     _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
 
-    # 2. Instantiate Classifier to process the entire XML
-    # All parsing logic is now encapsulated here.
-    classifier = DrawIOCellClassifier(working_xml, prefixes)
+    classifier = classifier_cls(working_xml, prefixes)
 
-    # 3. Generate Intermediate Blocks from Classifier's results
-    space_substitute = internal_control_core._parse_space_substitute(
+    control = pipeline.core.internal.control
+    space_substitute = control._parse_space_substitute(
         config_args["metacharacter_substitute"]
     )
     metacharacter_substitutes = list(
-        internal_control_core._parse_metacharacter_substitutes(
+        control._parse_metacharacter_substitutes(
             config_args["metacharacter_substitute"]
         )
     )
 
-    blocks, object_properties, datatype_properties = (
-        internal_control_core.individual_blocks(
-            classifier.get_graph_elements(),  # Use the new generator
-            metacharacter_substitutes,
-            space_substitute,
-            config_args["capitalisation_scheme"],
-            prefixes,
-        )
+    blocks, object_properties, datatype_properties = control.individual_blocks(
+        classifier.get_graph_elements(),
+        metacharacter_substitutes,
+        space_substitute,
+        config_args["capitalisation_scheme"],
+        prefixes,
     )
 
-    # 4. Serialize to Final Graph
     graph = serialise_to_graph(
         blocks,
         object_properties,
@@ -76,26 +72,11 @@ def _build_graph_from_raw_xml(
         graph_kwargs={"csv_path": csv_path},
     )
 
-    # 5. Final post-processing (e.g., RML, base URI)
     if base_uri:
         graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
 
-    def _is_flag_enabled(value: Any) -> bool:
-        if isinstance(value, str):
-            return value.strip().lower() in {"true", "1", "yes", "on"}
-        return bool(value)
-
-    rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
-        parsed_root
-        and _is_flag_enabled(
-            parsed_root.find(".//UserObject[@id='0']").attrib.get("rmlEnabled")
-            if parsed_root.find(".//UserObject[@id='0']")
-            else False
-        )
-    )
-    if rml_enabled:
-        rr = Namespace("http://www.w3.org/ns/r2rml#")
-        graph.namespace_manager.bind("rr", rr, replace=False)
-        graph.add((BNode(), RDF.type, rr.TriplesMap))
+    rml_hook = getattr(pipeline.core.rdf.control, "maybe_enable_rml", None)
+    if callable(rml_hook):
+        rml_hook(graph, config_args, parsed_root)
 
     return graph

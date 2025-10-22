@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum, auto
-import typing
-from typing import Iterable
+from typing import Any, Generator, Iterable
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
@@ -40,7 +39,7 @@ class DrawIOCellClassifier:
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
-    def __init__(self, raw_xml: typing.Any, prefixes: dict[str, str]):
+    def __init__(self, raw_xml: Any, prefixes: dict[str, str]):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
             self.draw_io_xml_tree = source_tree
@@ -51,12 +50,13 @@ class DrawIOCellClassifier:
                 parsed_xml = str(raw_xml)
             self.draw_io_xml_tree = fromstring(parsed_xml)
         self._prefixes = prefixes
-        self._namespace_manager = Graph().namespace_manager
-        for prefix, iri in prefixes.items():
-            self._namespace_manager.bind(prefix, iri, replace=True)
-
         self._html_parser = NodeHTMLParser()
-        self._edge_incidence = self._build_edge_incidence()
+        navigator_cls = getattr(pipeline.core.xml.data, "DrawIOXmlNavigator", None)
+        if navigator_cls is None:
+            raise RuntimeError("DrawIOXmlNavigator override is not available")
+        self._xml_navigator = navigator_cls(self.draw_io_xml_tree, self._html_parser)
+        self._edge_incidence = self._xml_navigator.edge_incidence()
+        self._curie_tools = pipeline.core.internal.data
         self._child_token_cache: dict[str, list[str]] = {}
 
         self.classifications: dict[str, Any] = {}
@@ -87,7 +87,7 @@ class DrawIOCellClassifier:
         resolves all arrows (edges).
         """
         try:
-            cells = self.draw_io_xml_tree.findall(".//mxCell")
+            cells = self._xml_navigator.iter_cells()
             if not cells:
                 raise NothingToParseException
         except (IndexError, NothingToParseException) as e:
@@ -99,7 +99,7 @@ class DrawIOCellClassifier:
                 continue  # Skip edges for now
 
             try:
-                cell_value = self._value_of(cell)
+                cell_value = self._xml_navigator.value_of(cell)
             except _NoValueException:
                 continue
 
@@ -118,7 +118,14 @@ class DrawIOCellClassifier:
                 if parent is None or identifier is None or cell_id is None:
                     continue
                 for token in classification.tokens:
-                    _verify_is_ric_class(token, self._prefixes)
+                    self._curie_tools._ensure_known_curie(
+                        token,
+                        self._prefixes,
+                        (
+                            f"The node '{identifier}' declares rdf:type "
+                            f"'{token}', which is not defined by the available prefixes.'"
+                        ),
+                    )
                     individual = Individual(identifier, token)
                     # Check for duplicates before adding
                     if not any(
@@ -139,7 +146,14 @@ class DrawIOCellClassifier:
                     continue
                 types = classification.tokens or [self.DEFAULT_STANDALONE_TYPE]
                 for rdf_type in types:
-                    _verify_is_ric_class(rdf_type, self._prefixes)
+                    self._curie_tools._ensure_known_curie(
+                        rdf_type,
+                        self._prefixes,
+                        (
+                            f"The standalone node '{identifier}' declares rdf:type "
+                            f"'{rdf_type}', which is not defined by the available prefixes.'"
+                        ),
+                    )
                     individual = Individual(identifier, rdf_type)
                     if not any(
                         ind == individual
@@ -158,7 +172,7 @@ class DrawIOCellClassifier:
                     }
 
         # Second pass: resolve all edges now that nodes are mapped
-        for cell in self.draw_io_xml_tree.findall(".//*[@edge='1']"):
+        for cell in self._xml_navigator.iter_edges():
             try:
                 arrow = self._resolve_arrow(cell)
                 if arrow:
@@ -189,8 +203,8 @@ class DrawIOCellClassifier:
 
         parent_cell, parent_identifier = self._resolve_parent(cell)
         value_tokens = self._tokenise(raw_value)
-        tokens_are_valid = self._tokens_are_valid(value_tokens)
-        tokens = list(value_tokens) if tokens_are_valid else []
+        tokens = self._normalise_tokens(value_tokens)
+        tokens_are_valid = bool(tokens)
 
         child_tokens = self._collect_child_tokens(cell)
         if child_tokens:
@@ -239,89 +253,9 @@ class DrawIOCellClassifier:
         return CellClassification(kind.LITERAL, raw_value, cell)
 
     # region Helper Methods (Moved from DrawIOXMLTree)
-    def _value_of(self, cell: Element) -> str:
-        value = cell.attrib.get("value")
-        if value is None:
-            raise _NoValueException
-        self._html_parser.clear()
-        self._html_parser.feed(value)
-        return self._html_parser.content()
-
-    def _cell_with_id(self, _id: str) -> Element:
-        cell = self.draw_io_xml_tree.find(f".//*[@id='{_id}']")
-        if cell is None:
-            raise ValueError(f"No cell with id: {_id}")
-        return cell
-
-    def _parent_of(self, cell: Element) -> Element:
-        parent_id = cell.attrib.get("parent")
-        if not parent_id:
-            raise ParseException(
-                f"Cell {cell.attrib.get('id')} has no parent attribute."
-            )
-        return self._cell_with_id(parent_id)
-
-    def _child_of(self, parent_id: str) -> Generator[Element, None, None]:
-        yield from self.draw_io_xml_tree.findall(f".//*[@parent='{parent_id}']")
-
-    @staticmethod
-    def _geometry(cell: Element) -> Element:
-        geom = cell.find("mxGeometry")
-        if geom is None:
-            raise ParseException(
-                f"Cell {cell.attrib.get('id')} has no mxGeometry sub-element."
-            )
-        return geom
-
-    def _dimensions(self, cell: Element) -> Dimensions:
-        geom = self._geometry(cell)
-        return (
-            float(geom.attrib.get("x", 0.0)),
-            float(geom.attrib.get("y", 0.0)),
-            float(geom.attrib.get("width", 0.0)),
-            float(geom.attrib.get("height", 0.0)),
-        )
-
-    def _start_or_end(
-        self, cell: Element, as_attribute: str | None
-    ) -> tuple[float, float] | None:
-        geometry = self._geometry(cell)
-        if as_attribute is None:  # Case for getting a node's absolute position
-            x = float(geometry.attrib.get("x", 0.0))
-            y = float(geometry.attrib.get("y", 0.0))
-            parent_id = cell.attrib.get("parent")
-            if parent_id is None or parent_id == "1":
-                return x, y
-            try:
-                parent_coords = self._start_or_end(self._parent_of(cell), None)
-                if parent_coords:
-                    return x + parent_coords[0], y + parent_coords[1]
-                return x, y
-            except (ParseException, ValueError):
-                return x, y  # Fallback if parent can't be resolved
-
-        # Case for getting an arrow's endpoint
-        point = geometry.find(f"mxPoint[@as='{as_attribute}']")
-        if point is None:
-            return None
-        x = float(point.attrib.get("x", 0.0))
-        y = float(point.attrib.get("y", 0.0))
-        return x, y
-
-    def _arrow_label(self, arrow_cell: Element) -> str:
-        label_cell = self.draw_io_xml_tree.find(
-            f".//mxCell[@parent='{arrow_cell.attrib['id']}']"
-        )
-        if label_cell is not None:
-            try:
-                return self._value_of(label_cell)
-            except _NoValueException:
-                pass
-        raise _NoValueException("No label found for arrow")
-
     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:
         try:
-            arrow_label = self._arrow_label(arrow_cell)
+            arrow_label = self._xml_navigator.arrow_label(arrow_cell)
         except _NoValueException:
             return None  # Arrow has no label, so it's not a property
 
@@ -351,7 +285,7 @@ class DrawIOCellClassifier:
                 target_identifier = target_individual.identifier
             elif target_id in self._literals_by_id:
                 target_cell = self._literals_by_id[target_id]
-                target_identifier = self._value_of(target_cell)
+                target_identifier = self._xml_navigator.value_of(target_cell)
                 is_datatype = True
             else:
                 raise NoSourceException(
@@ -377,8 +311,8 @@ class DrawIOCellClassifier:
         if parent_id in {None, "1"}:
             return None, None
         try:
-            parent = self._parent_of(cell)
-            parent_value = self._value_of(parent).strip()
+            parent = self._xml_navigator.parent_of(cell)
+            parent_value = self._xml_navigator.value_of(parent).strip()
             return parent, parent_value or None
         except (ParseException, _NoValueException):
             return None, None
@@ -391,20 +325,24 @@ class DrawIOCellClassifier:
             if t.strip()
         ]
 
-    def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
-        if not tokens:
-            return False
+    def _normalise_tokens(self, tokens: Iterable[str]) -> list[str]:
+        normalised: list[str] = []
         for token in tokens:
-            if ":" not in token:
-                return False
-            prefix, remainder = token.split(":", 1)
-            if not prefix or not remainder.strip() or prefix not in self._prefixes:
-                return False
+            candidate = token.strip()
+            if not candidate:
+                continue
             try:
-                self._namespace_manager.expand_curie(token)
-            except Exception:
-                return False
-        return True
+                self._curie_tools._ensure_known_curie(
+                    candidate,
+                    self._prefixes,
+                    (
+                        f"The value '{candidate}' does not correspond to a known CURIE."
+                    ),
+                )
+            except NotInKnownException:
+                return []
+            normalised.append(candidate)
+        return normalised
 
     @staticmethod
     def _looks_like_absolute_uri(value: str) -> bool:
@@ -422,25 +360,19 @@ class DrawIOCellClassifier:
         if cell_id in self._child_token_cache:
             return list(self._child_token_cache[cell_id])
 
-        tokens = []
-        for child in self._child_of(cell_id):
+        tokens: list[str] = []
+        for child in self._xml_navigator.children_of(cell_id):
             try:
-                child_value = self._value_of(child).strip()
-                child_tokens = self._tokenise(child_value)
-                if self._tokens_are_valid(child_tokens):
-                    tokens.extend(t for t in child_tokens if t not in tokens)
+                child_value = self._xml_navigator.value_of(child).strip()
             except (_NoValueException, ParseException):
                 continue
+            child_tokens = self._normalise_tokens(self._tokenise(child_value))
+            if child_tokens:
+                for token in child_tokens:
+                    if token not in tokens:
+                        tokens.append(token)
         self._child_token_cache[cell_id] = tokens
         return tokens
-
-    def _build_edge_incidence(self) -> set[str]:
-        return {
-            id
-            for edge in self.draw_io_xml_tree.findall(".//*[@edge='1']")
-            for key in ("source", "target")
-            if (id := edge.attrib.get(key))
-        }
 
     def _has_incident_edge(self, cell: Element) -> bool:
         cell_id = cell.attrib.get("id")

@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- 2025-10-22 – Refactored legacy parser overrides by extracting shared XML navigation, CURIE validation, graph building, and RML toggle helpers so the DrawIO cell classifier and downstream exports reuse the same utilities.
 - 2025-10-20 – Moved fixtures for RML regression testing from `src/main/webapp/plugins/rmlexport/` (deprecated and removed) to `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` for easier availability
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`
 - 2025-10-20 – Replaced the DrawIO parser CURIE splitter with an rdflib-backed validator and added pytest coverage for the override.
