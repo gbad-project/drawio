@@ -6,7 +6,7 @@ from textwrap import dedent
 
 import pytest
 from rdflib import BNode, Literal, URIRef
-from rdflib.namespace import RDFS, SKOS
+from rdflib.namespace import RDF, RDFS, SKOS, OWL
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 PACKAGE_ROOT = LEGACY_DIR.parent
@@ -70,6 +70,18 @@ def _edge_label(cell_id: str, *, parent: str, value: str) -> str:
         f"""
         <mxCell id='{cell_id}' value='{value}' style='edgeLabel;html=1;' parent='{parent}' vertex='1'>
           <mxGeometry x='0' y='0' width='0' height='0' as='geometry'/>
+        </mxCell>
+        """
+    ).strip()
+
+
+def _edge_label_without_edge_style(cell_id: str, *, parent: str, value: str) -> str:
+    return dedent(
+        f"""
+        <mxCell id='{cell_id}' value='{value}' style='text;html=1;resizable=0;points=[];align=center;verticalAlign=middle;labelBackgroundColor=none;rounded=0;shadow=0;strokeWidth=1;fontSize=12;' parent='{parent}' vertex='1' connectable='0'>
+          <mxGeometry x='0.5' y='0.5' relative='1' as='geometry'>
+            <mxPoint x='-20' y='16' as='offset'/>
+          </mxGeometry>
         </mxCell>
         """
     ).strip()
@@ -244,6 +256,30 @@ def test_literal_as_arrow_source_raises(tmp_path: Path):
 
     with pytest.raises(draw_io_parser.ArrowWithoutIndividualAsSourceException):
         draw_io_parser.parse_drawio_to_graph(str(path))
+
+
+def test_arrow_label_without_edge_style_is_not_individual(tmp_path: Path):
+    xml = _drawio_xml(
+        _vertex_cell("source", "Source"),
+        _vertex_cell("source_type", "rico:Record", parent="source"),
+        _vertex_cell("literal", "Address"),
+        _edge_cell("arrow", "", source="source", target="literal"),
+        _edge_label_without_edge_style("label", parent="arrow", value="rdfs:mock"),
+    )
+    path = tmp_path / "class-diagram-property.drawio"
+    path.write_text(xml, encoding="utf-8")
+
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(path),
+        ontology_iri="ontology://test",
+        prefix="mock",
+        prefix_iri="http://example.com/mock#",
+        metacharacter_substitute=["remove"],
+    )
+
+    property_uri = URIRef("http://www.w3.org/2000/01/rdf-schema#mock")
+    assert not list(graph.triples((property_uri, RDF.type, OWL.NamedIndividual)))
+    assert list(graph.triples((property_uri, RDF.type, OWL.DatatypeProperty)))
 
 
 def test_blank_node_used_for_decorations_without_ontology(tmp_path: Path):

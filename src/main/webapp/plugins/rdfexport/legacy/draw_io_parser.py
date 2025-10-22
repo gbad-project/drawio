@@ -16,6 +16,7 @@ import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 from enum import Enum, auto
+import typing
 from typing import Iterable
 from rdflib import BNode
 from rdflib.namespace import SKOS
@@ -87,12 +88,37 @@ class pipeline:
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
-                    def __init__(self, raw_xml: str, prefixes: dict[str, str]):
-                        self.draw_io_xml_tree = fromstring(raw_xml)
+                    def __init__(
+                        self,
+                        raw_xml: typing.Any,
+                        prefixes: dict[str, str],
+                        *,
+                        strict_mode: bool = False,
+                        max_gap: float | None = None,
+                    ):
+                        source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
+                        if isinstance(source_tree, Element):
+                            self.draw_io_xml_tree = source_tree
+                        else:
+                            if isinstance(raw_xml, bytes):
+                                parsed_xml = raw_xml.decode("utf-8")
+                            else:
+                                parsed_xml = str(raw_xml)
+                            self.draw_io_xml_tree = fromstring(parsed_xml)
                         self._prefixes = prefixes
                         self._namespace_manager = Graph().namespace_manager
                         for prefix, iri in prefixes.items():
                             self._namespace_manager.bind(prefix, iri, replace=True)
+                        self._strict_mode = bool(strict_mode)
+                        default_gap = 10.0
+                        gap_candidate = default_gap if max_gap is None else max_gap
+                        try:
+                            coerced_gap = float(gap_candidate)
+                        except (TypeError, ValueError):
+                            coerced_gap = float(default_gap)
+                        if coerced_gap != coerced_gap or coerced_gap < 0.0:
+                            coerced_gap = float(default_gap)
+                        self._max_gap = coerced_gap
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_token_cache: dict[str, list[str]] = {}
@@ -164,6 +190,7 @@ class pipeline:
                                         parent,
                                         individual,
                                     )
+                                    self._nodes_by_id[cell_id] = (cell, individual)
                             elif kind_name == "STANDALONE_INDIVIDUAL":
                                 identifier = (
                                     classification.identifier
@@ -198,11 +225,11 @@ class pipeline:
                                 arrow = self._resolve_arrow(cell)
                                 if arrow:
                                     self.arrows.append(arrow)
-                            except (
-                                NoSourceException,
-                                ArrowWithoutIndividualAsSourceException,
-                            ) as e:
+                            except NoSourceException as e:
                                 print(f"Warning: Skipping arrow due to error: {e}")
+                            except ArrowWithoutIndividualAsSourceException as e:
+                                print(f"Warning: Skipping arrow due to error: {e}")
+                                raise
 
                     def classify(
                         self, cell: Element, cell_value: str
@@ -220,6 +247,18 @@ class pipeline:
                         if not raw_value:
                             return CellClassification(kind.LITERAL, raw_value, cell)
                         parent_cell, parent_identifier = self._resolve_parent(cell)
+                        if (
+                            parent_cell is not None
+                            and parent_cell.attrib.get("edge") == "1"
+                            and raw_value
+                        ):
+                            return CellClassification(
+                                kind.ARROW_LABEL,
+                                raw_value,
+                                cell,
+                                parent_cell,
+                                parent_identifier,
+                            )
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens) if tokens_are_valid else []
@@ -313,6 +352,56 @@ class pipeline:
                             float(geom.attrib.get("height", 0.0)),
                         )
 
+                    def _absolute_dimensions(self, cell: Element) -> Dimensions:
+                        geom = self._geometry(cell)
+                        width = float(geom.attrib.get("width", 0.0))
+                        height = float(geom.attrib.get("height", 0.0))
+                        coordinates = self._start_or_end(cell, None)
+                        if coordinates is None:
+                            x = float(geom.attrib.get("x", 0.0))
+                            y = float(geom.attrib.get("y", 0.0))
+                        else:
+                            x, y = coordinates
+                        return (x, y, width, height)
+
+                    def _close_enough(
+                        self, arrow_point: tuple[float, float], cell: Element
+                    ) -> bool:
+                        try:
+                            x, y, width, height = self._absolute_dimensions(cell)
+                        except ParseException:
+                            return False
+                        arrow_x, arrow_y = arrow_point
+                        return (
+                            x - self._max_gap <= arrow_x <= x + width + self._max_gap
+                            and y - self._max_gap
+                            <= arrow_y
+                            <= y + height + self._max_gap
+                        )
+
+                    def _resolve_nearby_cell(
+                        self,
+                        arrow_point: tuple[float, float] | None,
+                        *,
+                        require_individual: bool,
+                    ) -> tuple[Element, str, bool]:
+                        if arrow_point is None:
+                            raise _NoCellCloseEnoughException
+                        for cell_id, (cell, individual) in self._nodes_by_id.items():
+                            if self._close_enough(arrow_point, cell):
+                                return (cell, individual.identifier, False)
+                        if require_individual:
+                            raise _NoCellCloseEnoughException
+                        for cell_id, literal_cell in self._literals_by_id.items():
+                            if not self._close_enough(arrow_point, literal_cell):
+                                continue
+                            try:
+                                literal_value = self._value_of(literal_cell)
+                            except _NoValueException as exc:
+                                raise _NoCellCloseEnoughException from exc
+                            return (literal_cell, literal_value, True)
+                        raise _NoCellCloseEnoughException
+
                     def _start_or_end(
                         self, cell: Element, as_attribute: str | None
                     ) -> tuple[float, float] | None:
@@ -358,15 +447,30 @@ class pipeline:
                         arrow_id = arrow_cell.attrib["id"]
                         source_id = arrow_cell.attrib.get("source")
                         target_id = arrow_cell.attrib.get("target")
+                        arrow_start = self._start_or_end(arrow_cell, "sourcePoint")
+                        arrow_end = self._start_or_end(arrow_cell, "targetPoint")
                         if source_id and source_id in self._nodes_by_id:
                             source_cell, source_individual = self._nodes_by_id[
                                 source_id
                             ]
                             source_identifier = source_individual.identifier
-                        else:
-                            raise NoSourceException(
-                                f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                        elif source_id and source_id in self._literals_by_id:
+                            raise ArrowWithoutIndividualAsSourceException(
+                                f"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source."
                             )
+                        else:
+                            if self._strict_mode:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                                )
+                            try:
+                                _, source_identifier, _ = self._resolve_nearby_cell(
+                                    arrow_start, require_individual=True
+                                )
+                            except _NoCellCloseEnoughException as exc:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                                ) from exc
                         target_cell = None
                         is_datatype = False
                         if target_id:
@@ -380,13 +484,37 @@ class pipeline:
                                 target_identifier = self._value_of(target_cell)
                                 is_datatype = True
                             else:
-                                raise NoSourceException(
-                                    f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
-                                )
+                                if self._strict_mode:
+                                    raise NoSourceException(
+                                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
+                                    )
+                                try:
+                                    candidate_cell, target_identifier, is_datatype = (
+                                        self._resolve_nearby_cell(
+                                            arrow_end, require_individual=False
+                                        )
+                                    )
+                                    target_cell = candidate_cell
+                                except _NoCellCloseEnoughException as exc:
+                                    raise NoSourceException(
+                                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
+                                    ) from exc
                         else:
-                            raise NoSourceException(
-                                f"Arrow '{arrow_label}' ({arrow_id}) has no target."
-                            )
+                            if self._strict_mode:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
+                                )
+                            try:
+                                candidate_cell, target_identifier, is_datatype = (
+                                    self._resolve_nearby_cell(
+                                        arrow_end, require_individual=False
+                                    )
+                                )
+                                target_cell = candidate_cell
+                            except _NoCellCloseEnoughException as exc:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
+                                ) from exc
                         if (
                             target_cell
                             and target_cell.attrib.get("id") in self.decorations
@@ -2221,6 +2349,7 @@ class internal_control_core:
                             raise NotInKnownException(
                                 f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
                             ) from exc
+                property_value = (target_identifier, True)
             else:
                 object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
@@ -2229,6 +2358,7 @@ class internal_control_core:
                     space_substitute,
                     capitalisation_scheme,
                 )
+                property_value = (target_identifier, False)
             source_identifier = _replace_metacharacters(
                 individual_or_arrow.source,
                 metacharacter_substitutes,
@@ -2239,13 +2369,14 @@ class internal_control_core:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
                 blocks[source_identifier, individual_or_arrow.source] = {
-                    individual_or_arrow.identifier: {target_identifier}
+                    individual_or_arrow.identifier: {property_value}
                 }
                 continue
-            try:
-                block[individual_or_arrow.identifier].add(target_identifier)
-            except KeyError:
-                block[individual_or_arrow.identifier] = {target_identifier}
+            values = block.get(individual_or_arrow.identifier)
+            if values is None:
+                block[individual_or_arrow.identifier] = {property_value}
+            else:
+                values.add(property_value)
         return (blocks, object_properties, datatype_properties)
 
     # END individual_blocks
@@ -2261,6 +2392,12 @@ class internal_control_core:
         DrawIOCellClassifier = getattr(
             pipeline.core.xml.data, "DrawIOCellClassifier", None
         )
+
+        def _is_flag_enabled(value: Any) -> bool:
+            if isinstance(value, str):
+                return value.strip().lower() in {"true", "1", "yes", "on"}
+            return bool(value)
+
         metadata_prefixes, base_uri, csv_path, parsed_root = (
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
@@ -2284,7 +2421,14 @@ class internal_control_core:
             include_label=not config_args.get("label_disable", False),
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
-        classifier = DrawIOCellClassifier(working_xml, prefixes)
+        strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
+        try:
+            max_gap = float(config_args.get("max_gap", DEFAULT_MAX_GAP))
+        except (TypeError, ValueError):
+            max_gap = float(DEFAULT_MAX_GAP)
+        classifier = DrawIOCellClassifier(
+            working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap
+        )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
         )
@@ -2313,12 +2457,6 @@ class internal_control_core:
         )
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-
-        def _is_flag_enabled(value: Any) -> bool:
-            if isinstance(value, str):
-                return value.strip().lower() in {"true", "1", "yes", "on"}
-            return bool(value)
-
         rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
             parsed_root
             and _is_flag_enabled(
@@ -2411,16 +2549,30 @@ class rdf_control_core:
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
-        for prefix, uri in prefixes.items():
-            graph.bind(prefix, Namespace(uri), replace=True)
-        if serialisation_config.prefix:
-            graph.bind(
-                serialisation_config.prefix,
-                Namespace(
-                    serialisation_config.prefix_iri
-                    or get_prefix_iri(serialisation_config.ontology_iri)
-                ),
-            )
+        prefix = serialisation_config.prefix
+        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+            serialisation_config.ontology_iri
+        )
+
+        def _is_absolute_iri(candidate: str) -> bool:
+            if not candidate:
+                return False
+            try:
+                parsed = urllib.parse.urlparse(candidate)
+            except Exception:
+                return False
+            return bool(parsed.scheme and (parsed.netloc or parsed.path))
+
+        namespace_map: dict[str, Namespace] = {}
+        for prefix_key, uri in prefixes.items():
+            if _is_absolute_iri(uri):
+                namespace = Namespace(uri)
+                graph.bind(prefix_key, namespace, replace=True)
+            else:
+                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
+            namespace_map[prefix_key] = namespace
+        if prefix:
+            graph.bind(prefix, Namespace(prefix_iri), replace=True)
         if serialisation_config.include_preamble:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
@@ -2429,23 +2581,19 @@ class rdf_control_core:
             (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
             (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
         absolute_overrides = {
             individual_id: individual_label
             for individual_id, individual_label in blocks.keys()
             if "://" in individual_label
         }
-        prefix = serialisation_config.prefix
-        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-            serialisation_config.ontology_iri
-        )
         for (individual_id, individual_label), types_and_facts in blocks.items():
             if individual_id in absolute_overrides:
                 individual_uri = URIRef(absolute_overrides[individual_id])
@@ -2461,11 +2609,7 @@ class rdf_control_core:
             for rdf_type in types_and_facts.get("Types", set()):
                 type_prefix, type_name = rdf_type.split(":")
                 graph.add(
-                    (
-                        individual_uri,
-                        RDF.type,
-                        Namespace(prefixes[type_prefix])[type_name],
-                    )
+                    (individual_uri, RDF.type, namespace_map[type_prefix][type_name])
                 )
             if serialisation_config.include_label:
                 graph.add((individual_uri, RDFS.label, Literal(individual_label)))
@@ -2473,9 +2617,21 @@ class rdf_control_core:
                 if prop == "Types":
                     continue
                 prop_prefix, prop_name = prop.split(":")
-                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-                for value in values:
-                    if prop in object_properties:
+                prop_uri = namespace_map[prop_prefix][prop_name]
+                for raw_value in values:
+                    if (
+                        isinstance(raw_value, tuple)
+                        and len(raw_value) == 2
+                        and isinstance(raw_value[1], bool)
+                    ):
+                        value, is_literal = raw_value
+                    else:
+                        value = raw_value
+                        is_literal = (
+                            prop in datatype_properties
+                            and prop not in object_properties
+                        )
+                    if not is_literal:
                         if value in absolute_overrides:
                             target_uri = URIRef(absolute_overrides[value])
                         elif prefix and serialisation_config.prefix_iri:
@@ -2487,19 +2643,27 @@ class rdf_control_core:
                         else:
                             target_uri = URIRef(value)
                         graph.add((individual_uri, prop_uri, target_uri))
-                    elif prop in datatype_properties:
-                        if isinstance(value, int) or (
-                            isinstance(value, str) and value.isnumeric()
+                    else:
+                        literal_candidate = value
+                        if isinstance(literal_candidate, int) or (
+                            isinstance(literal_candidate, str)
+                            and literal_candidate.isnumeric()
                         ):
-                            literal_value = Literal(value, datatype=XSD.integer)
-                        elif isinstance(value, float):
-                            literal_value = Literal(value, datatype=XSD.float)
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.integer
+                            )
+                        elif isinstance(literal_candidate, float):
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.float
+                            )
                         else:
                             try:
-                                datetime.strptime(value, "%Y-%m-%d")
-                                literal_value = Literal(value, datatype=XSD.date)
+                                datetime.strptime(literal_candidate, "%Y-%m-%d")
+                                literal_value = Literal(
+                                    literal_candidate, datatype=XSD.date
+                                )
                             except (ValueError, TypeError):
-                                literal_value = Literal(value)
+                                literal_value = Literal(literal_candidate)
                         graph.add((individual_uri, prop_uri, literal_value))
         decorations_attr = "__drawio_literal_registry"
         decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
