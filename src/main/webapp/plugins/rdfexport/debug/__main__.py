@@ -463,17 +463,34 @@ class Debugger:
         # Extract cell classifications before generating graphs - always try to get them
         self.console.print("Starting cell classifications...")
         try:
+            ansi_re = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
             stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
-            with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
-                cell_classifications = self._extract_cell_classifications(patched_xml, config)
-            py_stdout, py_stderr = stdout_buf.getvalue(), stderr_buf.getvalue()
+
+            def cleanse_ansi(text: str) -> str:
+                return ansi_re.sub("", text)
+
+            with (
+                contextlib.redirect_stdout(stdout_buf),
+                contextlib.redirect_stderr(stderr_buf),
+            ):
+                cell_classifications = self._extract_cell_classifications(
+                    patched_xml, config
+                )
+            py_stdout, py_stderr = (
+                cleanse_ansi(stdout_buf.getvalue()),
+                cleanse_ansi(stderr_buf.getvalue()),
+            )
             self.console.print(
                 f"[green]✓[/green] Classified {len(cell_classifications)} mxCells"
             )
             if py_stdout.strip():
-                self.console.print(f"[cyan]Classifier stdout:[/cyan]\n[dim]{py_stdout.strip()}[/dim]")
+                self.console.print(
+                    f"[cyan]Classifier stdout:[/cyan]\n[dim]{py_stdout.strip()}[/dim]"
+                )
             if py_stderr.strip():
-                self.console.print(f"[magenta]Classifier stderr:[/magenta]\n[dim]{py_stderr.strip()}[/dim]")
+                self.console.print(
+                    f"[magenta]Classifier stderr:[/magenta]\n[dim]{py_stderr.strip()}[/dim]"
+                )
         except Exception as e:
             self.console.print(
                 f"[yellow]Warning:[/yellow] Cell classification extraction failed: {e}"
@@ -537,10 +554,16 @@ class Debugger:
 
         # Cell classification
         if py_stdout.strip() or py_stderr.strip():
-            errors.update({k: v for k, v in {
-                "py_stdout": py_stdout.strip() or None,
-                "py_stderr": py_stderr.strip() or None,
-            }.items() if v})
+            errors.update(
+                {
+                    k: v
+                    for k, v in {
+                        "py_stdout": py_stdout.strip() or None,
+                        "py_stderr": py_stderr.strip() or None,
+                    }.items()
+                    if v
+                }
+            )
 
         # Output from runs
         if py_legacy_graph is None:
