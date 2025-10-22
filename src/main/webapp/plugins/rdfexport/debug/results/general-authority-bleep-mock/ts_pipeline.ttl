@@ -1,5 +1,6 @@
 @prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix bleep: <mock://bleep-iri> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
@@ -12,7 +13,7 @@ auth:privateNote a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
-<ontology://generated-from-draw-io/2025-10-15T14-58-45> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
@@ -45,6 +46,14 @@ auth:sourceNote a owl:DatatypeProperty .
 :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "rr:constant \"/Schema/Authority/AgencyReferenceCode\"" .
+
+:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord1%22 a owl:NamedIndividual,
+        bleep:DocumentaryFormType ;
+    rdfs:label "rr:constant \"/Schema/Authority/AuthorityRecord1\"" .
+
+:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord2%22 a owl:NamedIndividual,
+        bleep:DocumentaryFormType ;
+    rdfs:label "rr:constant  \"/Schema/Authority/AuthorityRecord2\"" .
 
 :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 a owl:NamedIndividual,
         rico:Type ;
@@ -116,10 +125,10 @@ auth:sourceNote a owl:DatatypeProperty .
         rico:Record ;
     rdfs:label "rr:template \"/KB/AuthorityRecord/{HEADING}\"" ;
     auth:sourceNote "rml:reference \"SOURCE\"" ;
-    rico:hasDocumentaryFormType "bleep:DocumentaryFormType",
-        "rr:constant \"/Schema/Authority/AuthorityRecord1\"" ;
-    rico:hasRecordState :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22,
-        <ontology://generated-from-draw-io/mock#bleep:RecordState> ;
+    rico:hasDocumentaryFormType :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord1%22,
+        :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord2%22 ;
+    rico:hasRecordState :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22,
+        :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 ;
     rico:isOrWasRegulatedBy :Rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 ;
     rico:lastModificationDate "rml:reference \"MOD_DATE\"" .
 
@@ -162,6 +171,10 @@ auth:sourceNote a owl:DatatypeProperty .
 :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 a owl:NamedIndividual,
         rico:CorporateBodyType ;
     rdfs:label "rr:template \"/Schema/Authority/AuthorityType#{AUTHTP_1..2}\"" .
+
+:Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22 a owl:NamedIndividual,
+        bleep:RecordState ;
+    rdfs:label "rr:template  \"/Schema/Authority/Status#{STATUSA}\"" .
 
 :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 a owl:NamedIndividual,
         rico:RecordState ;

@@ -19,11 +19,6 @@
     rico:isOrWasLeaderOf <ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> ;
     rico:occupiesOrOccupied :President .
 
-:Terrace%20Bay%2C%20Ontario a owl:NamedIndividual,
-        rico:Place ;
-    rdfs:label "Terrace Bay, Ontario" ;
-    rico:hasOrHadPlaceType :Township .
-
 <ontology://generated-from-draw-io/mock#%5B194-%5D-1953> a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "[194-]-1953" ;
@@ -76,7 +71,8 @@
     rico:hasOrHadIdentifier :F%204711 ;
     rico:hasOrHadSomeMembersWithContentType :Graphic%20Material,
         :Textual%20Records ;
-    rico:hasOrHadSubject :Atikokan%2C%20Ontario ;
+    rico:hasOrHadSubject :Atikokan%2C%20Ontario,
+        :Terrace%20Bay%2C%20Ontario ;
     rico:hasRecordSetType :Fonds ;
     rico:history "The Orville Wood fonds was donated to the Archives of Ontario by his son, Bruce Arthur Wood, in 2018." ;
     rico:recordResourceExtent "0.1 centimetres of textual records;   98 photographs : black and white prints;   2 photographs : colour prints;   143 photographs : black and white negatives" ;
@@ -105,6 +101,11 @@
         rico:Place ;
     rdfs:label "South River, Ontario" ;
     rico:hasOrHadPlaceType :Village .
+
+:Terrace%20Bay%2C%20Ontario a owl:NamedIndividual,
+        rico:Place ;
+    rdfs:label "Terrace Bay, Ontario" ;
+    rico:hasOrHadPlaceType :Township .
 
 :Textual%20Records a owl:NamedIndividual,
         rico:ContentType ;
