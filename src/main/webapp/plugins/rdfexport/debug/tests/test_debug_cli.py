@@ -28,6 +28,8 @@ from debug.__main__ import (  # noqa: E402
     ScenarioConfig,
 )
 
+import debug.__main__ as debug_main  # noqa: E402
+
 FIXTURES_DIR = PLUGIN_DIR / "tests" / "fixtures"
 
 
@@ -340,3 +342,113 @@ def test_stdout_stderr_captured_from_extract_cell_classifications(
         shutil.rmtree(results_dir, ignore_errors=True)
         debugger._map_data.get("scenarios", {}).pop(slug, None)
         debugger._write_map()
+
+
+def test_run_reports_map_errors(monkeypatch):
+    debugger = Debugger(FIXTURES_DIR)
+    slug = f"pytest-{uuid4().hex[:8]}"
+    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    config = build_config(slug, drawio_path)
+
+    args = argparse.Namespace(
+        scenario=None,
+        slug=slug,
+        drawio=str(drawio_path),
+        csv_path=None,
+        base_uri=None,
+        prefix=None,
+        metadata=None,
+        parser_option=None,
+        legacy_commit=None,
+        format=None,
+        fixtures=None,
+        skip_ts=False,
+    )
+
+    def fake_config_from_args(self, parsed_args):
+        assert parsed_args is args
+        return config
+
+    def fake_run_scenario(self, cfg, *, skip_ts=False):
+        assert cfg is config
+        assert skip_ts is False
+        self._map_data.setdefault("scenarios", {})[cfg.slug] = {
+            "errors": {"py_legacy": ["boom"]}
+        }
+        return False
+
+    monkeypatch.setattr(Debugger, "_config_from_args", fake_config_from_args)
+    monkeypatch.setattr(Debugger, "_run_scenario", fake_run_scenario)
+
+    try:
+        assert debugger.run(args) is True
+    finally:
+        debugger._map_data.get("scenarios", {}).pop(slug, None)
+        debugger._write_map()
+
+
+def test_main_exits_with_code_one_when_errors(monkeypatch, tmp_path):
+    class DummyParser:
+        def parse_args(self):
+            return argparse.Namespace(
+                scenario=None,
+                slug=None,
+                drawio=None,
+                csv_path=None,
+                base_uri=None,
+                prefix=None,
+                metadata=None,
+                parser_option=None,
+                legacy_commit=None,
+                format=None,
+                fixtures=str(tmp_path),
+                skip_ts=False,
+            )
+
+    class DummyDebugger:
+        def __init__(self, fixtures_dir: Path):
+            assert fixtures_dir == tmp_path
+
+        def run(self, args):
+            assert isinstance(args, argparse.Namespace)
+            return True
+
+    monkeypatch.setattr(debug_main, "build_argument_parser", lambda: DummyParser())
+    monkeypatch.setattr(debug_main, "Debugger", DummyDebugger)
+
+    with pytest.raises(SystemExit) as excinfo:
+        debug_main.main()
+
+    assert excinfo.value.code == 1
+
+
+def test_main_allows_zero_exit_without_errors(monkeypatch, tmp_path):
+    class DummyParser:
+        def parse_args(self):
+            return argparse.Namespace(
+                scenario=None,
+                slug=None,
+                drawio=None,
+                csv_path=None,
+                base_uri=None,
+                prefix=None,
+                metadata=None,
+                parser_option=None,
+                legacy_commit=None,
+                format=None,
+                fixtures=str(tmp_path),
+                skip_ts=False,
+            )
+
+    class DummyDebugger:
+        def __init__(self, fixtures_dir: Path):
+            assert fixtures_dir == tmp_path
+
+        def run(self, args):
+            assert isinstance(args, argparse.Namespace)
+            return False
+
+    monkeypatch.setattr(debug_main, "build_argument_parser", lambda: DummyParser())
+    monkeypatch.setattr(debug_main, "Debugger", DummyDebugger)
+
+    debug_main.main()

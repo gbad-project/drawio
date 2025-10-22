@@ -5,3 +5,5 @@ dist/
 **/__pycache__/
 *.md
 docs/
+debug/map.json
+debug/results/
