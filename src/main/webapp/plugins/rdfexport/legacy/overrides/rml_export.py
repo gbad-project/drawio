@@ -16,6 +16,11 @@ def _build_graph_from_raw_xml(
     """
     DrawIOCellClassifier = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
 
+    def _is_flag_enabled(value: Any) -> bool:
+        if isinstance(value, str):
+            return value.strip().lower() in {"true", "1", "yes", "on"}
+        return bool(value)
+
     # 1. Initial Setup and Configuration
     metadata_prefixes, base_uri, csv_path, parsed_root = (
         pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
@@ -43,7 +48,18 @@ def _build_graph_from_raw_xml(
 
     # 2. Instantiate Classifier to process the entire XML
     # All parsing logic is now encapsulated here.
-    classifier = DrawIOCellClassifier(working_xml, prefixes)
+    strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
+    try:
+        max_gap = float(config_args.get("max_gap", DEFAULT_MAX_GAP))
+    except (TypeError, ValueError):
+        max_gap = float(DEFAULT_MAX_GAP)
+
+    classifier = DrawIOCellClassifier(
+        working_xml,
+        prefixes,
+        strict_mode=strict_mode,
+        max_gap=max_gap,
+    )
 
     # 3. Generate Intermediate Blocks from Classifier's results
     space_substitute = internal_control_core._parse_space_substitute(
@@ -79,11 +95,6 @@ def _build_graph_from_raw_xml(
     # 5. Final post-processing (e.g., RML, base URI)
     if base_uri:
         graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-
-    def _is_flag_enabled(value: Any) -> bool:
-        if isinstance(value, str):
-            return value.strip().lower() in {"true", "1", "yes", "on"}
-        return bool(value)
 
     rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
         parsed_root
