@@ -19157,7 +19157,7 @@ class pipeline:
                             source_identifier = source_individual.identifier
                         elif source_id and source_id in self._literals_by_id:
                             raise ArrowWithoutIndividualAsSourceException(
-                                f"Arrow '{arrow_label}' ({arrow_id}) has a literal as source."
+                                f"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source."
                             )
                         else:
                             if self._strict_mode:
