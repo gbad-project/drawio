@@ -388,7 +388,7 @@ class Debugger:
 
         try:
             py_legacy_graph = self._generate_py_legacy_graph(
-                temp_file_path, config.legacy_commit
+                temp_file_path, config.legacy_commit, config
             )
             py_legacy_error = None
         except Exception as exc:
@@ -541,7 +541,9 @@ class Debugger:
     # ------------------------------------------------------------------
     # Graph generation helpers
     # ------------------------------------------------------------------
-    def _generate_py_legacy_graph(self, drawio_path: Path, commit: str) -> Graph:
+    def _generate_py_legacy_graph(
+        self, drawio_path: Path, commit: str, config: ScenarioConfig
+    ) -> Graph:
         with (
             PreviousParserLoader(commit) as py_legacy_parser,
             PreviousParserLoader("HEAD") as py_current_parser,
@@ -556,16 +558,35 @@ class Debugger:
             if current_get_prefixes is not None:
                 setattr(py_legacy_parser, "get_prefixes", current_get_prefixes)
 
-            get_ontology_iri = getattr(py_current_parser, "get_ontology_iri", None)
-            ontology_iri = None
-            if get_ontology_iri is not None:
-                ontology_iri = get_ontology_iri("mock")
+            parser_overrides: dict[str, object] = dict(config.parser_config)
 
-            graph = parse_drawio(
-                str(drawio_path),
-                ontology_iri=ontology_iri,
-                metacharacter_substitute=list(DEFAULT_METACHARACTER_SUBSTITUTE),
+            # Normalise ontology IRI so legacy parser honours scenario overrides
+            get_ontology_iri = getattr(py_current_parser, "get_ontology_iri", None)
+            ontology_iri_override = parser_overrides.get("ontology_iri")
+            if ontology_iri_override:
+                parser_overrides["ontology_iri"] = str(ontology_iri_override)
+            elif get_ontology_iri is not None:
+                parser_overrides["ontology_iri"] = get_ontology_iri("mock")
+
+            # Mirror base URI semantics so prefix IRIs line up with the pipeline
+            base_uri = config.base_uri
+            prefix_iri_override = parser_overrides.get("prefix_iri")
+            if prefix_iri_override:
+                parser_overrides["prefix_iri"] = str(prefix_iri_override)
+            elif base_uri:
+                parser_overrides["prefix_iri"] = base_uri
+            else:
+                get_prefix_iri = getattr(py_current_parser, "get_prefix_iri", None)
+                if get_prefix_iri is not None:
+                    parser_overrides["prefix_iri"] = get_prefix_iri(
+                        parser_overrides.get("ontology_iri")
+                    )
+
+            parser_overrides.setdefault(
+                "metacharacter_substitute", list(DEFAULT_METACHARACTER_SUBSTITUTE)
             )
+
+            graph = parse_drawio(str(drawio_path), **parser_overrides)
 
             if not isinstance(graph, Graph):
                 raise TypeError("Legacy Python parser did not return an rdflib Graph")
@@ -919,12 +940,56 @@ class Debugger:
         return self._resolve_drawio_path(choice)
 
     def _resolve_drawio_path(self, value: str | Path) -> Path:
-        path = Path(value)
+        """Resolve ``value`` to a concrete ``.drawio`` path.
+
+        Scenarios historically captured absolute paths from contributor
+        workstations (for example ``/Volumes/home/...``). When those
+        scenarios run in a different environment, the files are unavailable
+        even though the fixture exists locally. To keep the debug tool
+        portable, fall back to matching fixtures by filename inside the
+        repository whenever the provided path cannot be opened.
+        """
+
+        raw_value = str(value).strip()
+        path = Path(raw_value)
+
+        # First honour the caller's path if it already exists.
+        if path.exists():
+            return path.resolve()
+
+        # Support relative paths with respect to the fixtures directory.
         if not path.is_absolute():
             fixture_candidate = self.fixtures_dir / path
             if fixture_candidate.exists():
                 return fixture_candidate.resolve()
-            path = Path(value).expanduser().resolve()
+
+            expanded = Path(raw_value).expanduser()
+            if expanded.exists():
+                return expanded.resolve()
+            path = expanded if expanded.is_absolute() else path
+        else:
+            expanded = path.expanduser()
+            if expanded.exists():
+                return expanded.resolve()
+            path = expanded
+
+        # Fallback: try resolving by filename within the fixtures inventory.
+        fixture_name = Path(raw_value).name
+        if fixture_name:
+            fixture_candidate = self.fixtures_dir / fixture_name
+            if fixture_candidate.exists():
+                return fixture_candidate.resolve()
+
+            fixtures = self._map_data.get("fixtures", {})
+            lowered_name = fixture_name.lower()
+            for info in fixtures.values():
+                rel_path = info.get("path")
+                if not rel_path:
+                    continue
+                candidate = self.fixtures_dir / rel_path
+                if candidate.exists() and candidate.name.lower() == lowered_name:
+                    return candidate.resolve()
+
         return path
 
     def _normalise_format(self, fmt: str | None) -> str:
