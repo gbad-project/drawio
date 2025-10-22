@@ -196,4 +196,4 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
 if __name__ == "__main__":
     import pytest
 
-    pytest.main([__file__])
+    pytest.main(["-v", __file__])
