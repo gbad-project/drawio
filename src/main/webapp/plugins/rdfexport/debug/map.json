@@ -22434,11 +22434,11 @@
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "baseUri": null,
         "csvPath": "/mock/path/to/file.csv"
       },
       "parser_config": {
-        "ontology_iri": "mock://debug-ontology"
+        "ontology_iri": "ontology://generated-from-draw-io/2025-10-21T23-41-14"
       },
       "preamble": [
         {
@@ -22453,12 +22453,12 @@
           "triples": 187
         },
         "ts_pipeline": {
-          "nt_sha256": "e2fbcb40a40e87ffaa31f3921a158b97c47ae7b7042cb74204805ef41f80e7b1",
+          "nt_sha256": "640495114685e597c0d66925042a0e9dc7275f41ac1c0db731b84f5b4e1a1ef9",
           "path": "results/rg-18-210-walkerton-inquiry-in-ric-o-original/ts_pipeline.ttl",
           "triples": 170
         },
         "ts_plugin": {
-          "nt_sha256": "e2fbcb40a40e87ffaa31f3921a158b97c47ae7b7042cb74204805ef41f80e7b1",
+          "nt_sha256": "640495114685e597c0d66925042a0e9dc7275f41ac1c0db731b84f5b4e1a1ef9",
           "path": "results/rg-18-210-walkerton-inquiry-in-ric-o-original/ts_plugin.ttl",
           "triples": 170
         }

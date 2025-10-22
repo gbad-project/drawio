@@ -191,6 +191,8 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
 
     _ensure_graph_covers_classifications(graph, classifications, xml_text)
 
+
 if __name__ == "__main__":
     import pytest
+
     pytest.main([__file__])
