@@ -158,6 +158,8 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
         slug,
         "--format",
         "turtle",
+        "--parser-option",
+        "ontology_iri=mock://pytest-debug-ontology",
     ]
 
     subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=True, capture_output=True)

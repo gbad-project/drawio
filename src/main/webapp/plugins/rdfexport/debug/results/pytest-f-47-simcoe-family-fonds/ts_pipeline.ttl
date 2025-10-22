@@ -4,7 +4,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<mock://debug-ontology> a owl:Ontology ;
+<mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Architectural%20And%20Technical%20Drawings a owl:NamedIndividual,

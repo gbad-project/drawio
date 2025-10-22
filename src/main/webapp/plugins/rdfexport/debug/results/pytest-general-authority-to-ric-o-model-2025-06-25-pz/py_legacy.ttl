@@ -34,7 +34,7 @@ add:privateNote a owl:DatatypeProperty .
 
 add:relatedMaterial a owl:DatatypeProperty .
 
-<mock://debug-ontology> a owl:Ontology ;
+<mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 <ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22> a owl:NamedIndividual,

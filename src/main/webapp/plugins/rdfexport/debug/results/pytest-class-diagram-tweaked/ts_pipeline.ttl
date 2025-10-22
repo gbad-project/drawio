@@ -7,7 +7,7 @@
 
 rdfs:mock a owl:DatatypeProperty .
 
-<mock://debug-ontology> a owl:Ontology ;
+<mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note "Average Mark",
         "City",

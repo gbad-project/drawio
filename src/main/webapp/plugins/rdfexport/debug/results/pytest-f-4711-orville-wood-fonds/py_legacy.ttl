@@ -34,7 +34,7 @@ add:privateNote a owl:DatatypeProperty .
 
 add:relatedMaterial a owl:DatatypeProperty .
 
-<mock://debug-ontology> a owl:Ontology ;
+<mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 <ontology://generated-from-draw-io/mock#Orville%20Alan%20Wood> a owl:NamedIndividual,

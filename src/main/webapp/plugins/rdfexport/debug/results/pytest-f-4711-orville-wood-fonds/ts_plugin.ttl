@@ -3,7 +3,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
-<mock://debug-ontology> a owl:Ontology ;
+<mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Orville%20Alan%20Wood a owl:NamedIndividual,
