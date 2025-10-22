@@ -317,7 +317,7 @@ class DrawIOCellClassifier:
         geom = cell.find("mxGeometry")
         if geom is None:
             raise ParseException(
-                f"Cell {cell.attrib.get('id')} has no mxGeometry sub-element."
+                f"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element."
             )
         return geom
 
