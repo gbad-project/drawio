@@ -4,8 +4,14 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+<<<<<<< HEAD
 <ontology://generated-from-draw-io/2025-10-21T17-23-23> a owl:Ontology ;
     owl:imports rico: .
+=======
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "10 photographs : 4 black and white prints, 6 negatives" .
+>>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
 
 <ontology://generated-from-draw-io/mock#%5BLake%20Erie%20Management%20Unit%5D> a owl:NamedIndividual,
         rico:RecordSet ;

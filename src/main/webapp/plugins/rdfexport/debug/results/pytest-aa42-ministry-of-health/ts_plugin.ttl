@@ -4,12 +4,21 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+<<<<<<< HEAD
 <ontology://generated-from-draw-io/2025-10-21T17-20-18> a owl:Ontology ;
     owl:imports rico: .
 
 :1972 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1972" .
+=======
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "2024-04-18",
+        "Function Note: The Ministry of Health is responsible for administering the health care system and providing services to the Ontario public through programs such as health insurance, care for the mentally ill, drug services, home care services, and the regulation of hospitals and nursing homes. The Ministry also operates psychiatric hospitals, medical laboratories and provides funding and leadership for local public health services.",
+        "Source Note: Government of Ontario Telephone Directory, 1995-96. KWIC Indexes, 1972-1995. Canadiana Name Authorities, 1996-12-24.",
+        "The Department of Health was renamed the Ministry of Health in 1972.   Since 1972, the Ministry has been restructured often and a number of different divisions have existed within it.  They have, however, tended to focus around five primary areas: health insurance; community and public health services; institutional health (including administration of hospitals, ambulance services, nursing homes and psychiatric hospitals); administration and finance; and information systems.   Agencies which report to the Ministry include the Addiction Research Foundation, the Ontario Cancer Treatment and Research Foundation, the District Health Councils, and the Ontario Mental Health Foundation.   On June 17, 1999 the Ministry of Health was renamed the Ministry of Health and Long-Term Care." .
+>>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
 
 :1999 a owl:NamedIndividual,
         rico:Date ;

@@ -22,6 +22,7 @@ from debug.__main__ import (  # noqa: E402
     DEFAULT_BASE_URI,
     DEFAULT_CSV_PATH,
     DEFAULT_LEGACY_COMMIT,
+    DEFAULT_METADATA_ATTRIBUTES,
     DEFAULT_PREFIXES,
     Debugger,
     ScenarioConfig,
@@ -55,15 +56,7 @@ def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
     slug = f"pytest-{uuid4().hex[:8]}"
     drawio_path = FIXTURES_DIR / fixture_name
 
-    config = ScenarioConfig(
-        slug=slug,
-        drawio_path=drawio_path,
-        csv_path=DEFAULT_CSV_PATH,
-        base_uri=DEFAULT_BASE_URI,
-        prefixes=list(DEFAULT_PREFIXES),
-        legacy_commit=DEFAULT_LEGACY_COMMIT,
-        serialization_format="nt",
-    )
+    config = build_config(slug, drawio_path)
 
     results_dir = debugger.results_dir / slug
     try:
@@ -81,6 +74,13 @@ def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
 
         map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
         scenario_entry = map_data["scenarios"][slug]
+
+        metadata = scenario_entry["metadata_attributes"]
+        assert metadata["csvPath"] == DEFAULT_CSV_PATH
+        assert metadata["baseUri"] == DEFAULT_BASE_URI
+        assert scenario_entry["preamble"] == [
+            {"prefix": prefix, "iri": iri} for prefix, iri in DEFAULT_PREFIXES
+        ]
 
         for key in ("py_legacy", "ts_pipeline", "ts_plugin"):
             result_info = scenario_entry["results"][key]
@@ -102,15 +102,7 @@ def test_outputs_are_isomorphic_across_sources():
     slug = f"pytest-{uuid4().hex[:8]}"
     drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
 
-    config = ScenarioConfig(
-        slug=slug,
-        drawio_path=drawio_path,
-        csv_path=DEFAULT_CSV_PATH,
-        base_uri=DEFAULT_BASE_URI,
-        prefixes=list(DEFAULT_PREFIXES),
-        legacy_commit=DEFAULT_LEGACY_COMMIT,
-        serialization_format="nt",
-    )
+    config = build_config(slug, drawio_path)
 
     results_dir = debugger.results_dir / slug
     try:
@@ -157,7 +149,7 @@ def test_repl_run_persists_scenario_file(monkeypatch):
     scenario_path = debugger.scenarios_dir / f"{slug}.yml"
     scenario_path.unlink(missing_ok=True)
 
-    responses = iter(["1", slug, None, None, None, None, None])
+    responses = iter(["1", slug, None, None, None, None, None, None, None])
 
     def fake_prompt(prompt: str, **kwargs):
         value = next(responses)
@@ -170,7 +162,7 @@ def test_repl_run_persists_scenario_file(monkeypatch):
     monkeypatch.setattr("debug.__main__.Prompt.ask", fake_prompt)
     monkeypatch.setattr(
         "debug.__main__.Debugger._run_scenario",
-        lambda self, config: captured.setdefault("config", config),
+        lambda self, config, skip_ts=False: captured.setdefault("config", config),
     )
 
     args = argparse.Namespace(
@@ -180,6 +172,8 @@ def test_repl_run_persists_scenario_file(monkeypatch):
         csv_path=None,
         base_uri=None,
         prefix=None,
+        metadata=None,
+        parser_option=None,
         legacy_commit=None,
         format=None,
         fixtures=None,
@@ -192,7 +186,9 @@ def test_repl_run_persists_scenario_file(monkeypatch):
 
     stored = yaml.safe_load(scenario_path.read_text(encoding="utf-8"))
     assert stored["slug"] == slug
-    assert stored["csv_path"] == captured["config"].csv_path
+    metadata = stored["metadata"]["attributes"]
+    assert metadata["csvPath"] == captured["config"].csv_path
+    assert metadata["baseUri"] == captured["config"].base_uri
     assert stored["legacy_commit"] == captured["config"].legacy_commit
 
     scenario_path.unlink(missing_ok=True)
@@ -205,7 +201,7 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
     original_content = "original: true\n"
     scenario_path.write_text(original_content, encoding="utf-8")
 
-    responses = iter(["1", slug, None, None, None, None, None])
+    responses = iter(["1", slug, None, None, None, None, None, None, None])
 
     def fake_prompt(prompt: str, **kwargs):
         value = next(responses)
@@ -215,7 +211,8 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
 
     monkeypatch.setattr("debug.__main__.Prompt.ask", fake_prompt)
     monkeypatch.setattr(
-        "debug.__main__.Debugger._run_scenario", lambda self, config: None
+        "debug.__main__.Debugger._run_scenario",
+        lambda self, config, skip_ts=False: None,
     )
 
     args = argparse.Namespace(
@@ -225,6 +222,8 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
         csv_path=None,
         base_uri=None,
         prefix=None,
+        metadata=None,
+        parser_option=None,
         legacy_commit=None,
         format=None,
         fixtures=None,
@@ -243,15 +242,7 @@ def test_ts_stderr_captured_as_warning(monkeypatch):
     slug = f"pytest-{uuid4().hex[:8]}"
     drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
 
-    config = ScenarioConfig(
-        slug=slug,
-        drawio_path=drawio_path,
-        csv_path=DEFAULT_CSV_PATH,
-        base_uri=DEFAULT_BASE_URI,
-        prefixes=list(DEFAULT_PREFIXES),
-        legacy_commit=DEFAULT_LEGACY_COMMIT,
-        serialization_format="nt",
-    )
+    config = build_config(slug, drawio_path)
 
     results_dir = debugger.results_dir / slug
 
@@ -288,3 +279,25 @@ def test_ts_stderr_captured_as_warning(monkeypatch):
         shutil.rmtree(results_dir, ignore_errors=True)
         debugger._map_data.get("scenarios", {}).pop(slug, None)
         debugger._write_map()
+
+
+def build_config(
+    slug: str,
+    drawio_path: Path,
+    *,
+    metadata: dict[str, object | None] | None = None,
+    parser_config: dict[str, object] | None = None,
+) -> ScenarioConfig:
+    metadata_attributes = dict(DEFAULT_METADATA_ATTRIBUTES)
+    if metadata:
+        metadata_attributes.update(metadata)
+
+    return ScenarioConfig(
+        slug=slug,
+        drawio_path=drawio_path,
+        legacy_commit=DEFAULT_LEGACY_COMMIT,
+        serialization_format="nt",
+        metadata_attributes=metadata_attributes,
+        prefixes=list(DEFAULT_PREFIXES),
+        parser_config=parser_config or {},
+    )

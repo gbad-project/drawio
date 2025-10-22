@@ -4,8 +4,25 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+<<<<<<< HEAD
 <ontology://generated-from-draw-io/2025-10-21T17-21-04> a owl:Ontology ;
     owl:imports rico: .
+=======
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "2.67 metres of textual records  63 volumes of textual records  353 watercolours  63 drawings  8 prints  4 photographs  1 sketchbook (63 watercolours and drawings)  98 maps  3 celestial charts  4 technical drawings  2 architectural drawings  1 sabre with scabbard  1 dress sword with scabbard  1 walking cane  1 wedding ring",
+        "2002-12-08",
+        "Associated Material: Library and Archives Canada holds a large series of transcriptions from the Simcoe family records. See the correspondence of Eliza Simcoe and the Coles family for details on these copying projects. The originals from which these transcriptions were made are largely contained in this fonds.",
+        "Associated Material: The Clements Library of the University of Michigan in Ann Arbor, Michigan, holds a collection of correspondence from John Graves and Elizabeth Simcoe dating from the 1770s through 1810. The Archives of Ontario possesses a microfilm copy of this collection.",
+        "Availability of Other Formats: Refer to series and sub-series descriptions for information on the availability of other formats.",
+        "Custodial History: The Simcoe Family papers were held by descendants of John Graves and Elizabeth Simcoe until the mid to late-20th century. Eliza Simcoe, the eldest daughter of John Graves and Elizabeth Simcoe, retained possession of the records which make up this fonds until her death in 1865. Between 1859 and 1861, a portion of the records were loaned to the Canadian Library of Parliament for arrangement and partial copying. On the death of Eliza Simcoe, the records passed to the children of the Reverend Henry Addington Simcoe, Eliza's only surviving brother. Some time after this, part of the records came into the possession of the Vowler family and the Coles family, each related to the Simcoes through marriage to a daughter or granddaughter of Henry Addington Simcoe.  In the late 1940s Dr. S. McLaughlan purchased the records then held by the Coles family and donated the whole to the University of Toronto Library. In 1951 the University and the Ontario Department of Archives and Records opened negotiations to transfer the custody, but not ownership, of the Simcoe records to the province.  In 1952, an agreement was signed, and the Simcoe Papers were transferred to the Archives of Ontario in order that they might be preserved in more appropriate circumstances and to ease public access to the records. The records which came to the Archives under the terms of this long-term loan agreement represent the bulk of the fonds. A subsequent purchase by the Archives of records and artifacts from other Simcoe descendants in 1993, and a number of small donations from a variety of sources have since added to the fonds.",
+        "Finding Aid Note: Please see series and sub-series descriptions for listings.",
+        "No further accruals are expected.",
+        "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form.",
+        "Refer to series and sub-series descriptions for information on access restrictions.",
+        "Related Material: Fonds F 1174 (John Ross Robertson fonds) contains 57 items of incoming and outgoing correspondence by John Graves Simcoe and Elizabeth Simcoe. Robertson was a biographer of the Simcoes.",
+        "Related Material: MS 83 consists of a Letterbook dated January 1792 through July 1793.  Evidence points to this item being the missing volume from F 47-2-5, Brigade Majors Department." .
+>>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
 
 :Architectural%20And%20Technical%20Drawings a owl:NamedIndividual,
         rico:ContentType ;
