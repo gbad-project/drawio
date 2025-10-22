@@ -27,6 +27,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored legacy arrow classification semantics for DrawIO parser overrides so edge labels embedded on the edge element are parsed, ARROW classifications are recorded for debugging, and strict arrow parsing raises exceptions again; added pytest parity checks against the original parser, strict-mode regression coverage, and refreshed debug artifacts.
 - 2025-10-22 – Stopped treating DrawIO arrow labels lacking the `edgeLabel` style as standalone individuals so Turtle exports no longer type properties as `owl:NamedIndividual`, and added regression coverage for the updated classifier.
 - 2025-10-21 – Ensure mixed datatype/object properties retain literal targets (e.g., `lolabout`) and coerce invalid custom prefix IRIs back to the default namespace so debug outputs avoid `ns1:` URIs.
 - 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.

@@ -21,6 +21,7 @@ class DrawIOCellClassifier:
     """
 
     class CellKind(Enum):
+        ARROW = auto()
         ARROW_LABEL = auto()
         TYPED_INDIVIDUAL = auto()
         STANDALONE_INDIVIDUAL = auto()
@@ -113,8 +114,23 @@ class DrawIOCellClassifier:
 
         # First pass: classify and create all nodes (individuals and literals)
         for cell in cells:
+            cell_id = cell.attrib.get("id")
+
             if cell.attrib.get("edge") == "1":
-                continue  # Skip edges for now
+                try:
+                    raw_value = self._value_of(cell)
+                except _NoValueException:
+                    raw_value = (cell.attrib.get("value") or "").strip()
+
+                classification = self.CellClassification(
+                    self.CellKind.ARROW, raw_value, cell
+                )
+
+                if cell_id:
+                    self.classifications[cell_id] = classification
+
+                # defer arrow resolution to the second pass
+                continue
 
             try:
                 cell_value = self._value_of(cell)
@@ -123,7 +139,6 @@ class DrawIOCellClassifier:
 
             classification = self.classify(cell, cell_value)
 
-            cell_id = cell.attrib.get("id")
             if cell_id:
                 self.classifications[cell_id] = classification
 
@@ -186,6 +201,8 @@ class DrawIOCellClassifier:
                 NoTargetException,
                 ArrowWithoutIndividualAsSourceException,
             ) as e:
+                if self._strict_mode:
+                    raise
                 print(f"Warning: Skipping arrow due to error: {e}")
 
     def classify(self, cell: Element, cell_value: str) -> CellClassification:
@@ -400,6 +417,18 @@ class DrawIOCellClassifier:
                 return self._value_of(label_cell)
             except _NoValueException:
                 pass
+
+        try:
+            value = self._value_of(arrow_cell)
+        except _NoValueException as exc:
+            direct_value = (arrow_cell.attrib.get("value") or "").strip()
+            if direct_value:
+                return direct_value
+            raise exc
+
+        if value:
+            return value
+
         raise _NoValueException("No label found for arrow")
 
     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:

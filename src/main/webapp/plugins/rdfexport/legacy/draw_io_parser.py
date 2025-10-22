@@ -69,6 +69,7 @@ class pipeline:
                     """
 
                     class CellKind(Enum):
+                        ARROW = auto()
                         ARROW_LABEL = auto()
                         TYPED_INDIVIDUAL = auto()
                         STANDALONE_INDIVIDUAL = auto()
@@ -154,14 +155,23 @@ class pipeline:
                         except (IndexError, NothingToParseException) as e:
                             raise NothingToParseException from e
                         for cell in cells:
+                            cell_id = cell.attrib.get("id")
                             if cell.attrib.get("edge") == "1":
+                                try:
+                                    raw_value = self._value_of(cell)
+                                except _NoValueException:
+                                    raw_value = (cell.attrib.get("value") or "").strip()
+                                classification = self.CellClassification(
+                                    self.CellKind.ARROW, raw_value, cell
+                                )
+                                if cell_id:
+                                    self.classifications[cell_id] = classification
                                 continue
                             try:
                                 cell_value = self._value_of(cell)
                             except _NoValueException:
                                 continue
                             classification = self.classify(cell, cell_value)
-                            cell_id = cell.attrib.get("id")
                             if cell_id:
                                 self.classifications[cell_id] = classification
                             kind_name = getattr(classification.kind, "name", "")
@@ -230,6 +240,8 @@ class pipeline:
                                 NoTargetException,
                                 ArrowWithoutIndividualAsSourceException,
                             ) as e:
+                                if self._strict_mode:
+                                    raise
                                 print(f"Warning: Skipping arrow due to error: {e}")
 
                     def classify(
@@ -438,6 +450,17 @@ class pipeline:
                                 return self._value_of(label_cell)
                             except _NoValueException:
                                 pass
+                        try:
+                            value = self._value_of(arrow_cell)
+                        except _NoValueException as exc:
+                            direct_value = (
+                                arrow_cell.attrib.get("value") or ""
+                            ).strip()
+                            if direct_value:
+                                return direct_value
+                            raise exc
+                        if value:
+                            return value
                         raise _NoValueException("No label found for arrow")
 
                     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:

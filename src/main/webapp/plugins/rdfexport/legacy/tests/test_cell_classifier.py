@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 from pathlib import Path
 import sys
 from textwrap import dedent
@@ -255,7 +256,53 @@ def test_literal_as_arrow_source_raises(tmp_path: Path):
     path.write_text(xml, encoding="utf-8")
 
     with pytest.raises(draw_io_parser.ArrowWithoutIndividualAsSourceException):
-        draw_io_parser.parse_drawio_to_graph(str(path))
+        draw_io_parser.parse_drawio_to_graph(str(path), strict_mode=True)
+
+
+def test_classifier_arrows_match_legacy_for_edge_value_labels():
+    xml = _drawio_xml(
+        _vertex_cell("source", "Source", style="swimlane"),
+        _vertex_cell("source_type", "rico:Record", parent="source"),
+        _vertex_cell("target", "Target", style="swimlane"),
+        _vertex_cell("target_type", "rico:Record", parent="target"),
+        _edge_cell(
+            "arrow",
+            "rico:hasCreator",
+            source="source",
+            target="target",
+        ),
+    )
+
+    prefixes = draw_io_parser.get_prefixes()
+
+    classifier = DrawIOCellClassifier(xml, prefixes)
+    observed = {
+        (arrow.identifier, arrow.source, arrow.target, arrow.is_datatype)
+        for arrow in classifier.arrows
+    }
+
+    legacy_module = importlib.import_module("legacy.original.draw_io_parser")
+    legacy_tree = legacy_module.DrawIOXMLTree(xml, prefixes)
+    expected = {
+        (arrow.identifier, arrow.source, arrow.target, arrow.is_datatype)
+        for arrow in legacy_tree.individuals_and_arrows(strict_mode=False, max_gap=10.0)
+        if isinstance(arrow, legacy_module.Arrow)
+    }
+
+    assert observed == expected
+
+
+def test_strict_mode_raises_for_missing_arrow_target(tmp_path: Path):
+    xml = _drawio_xml(
+        _vertex_cell("source", "Node", style="swimlane"),
+        _vertex_cell("source_type", "owl:NamedIndividual", parent="source"),
+        _edge_cell("arrow", "rico:hasCreator", source="source", target="missing"),
+    )
+    path = tmp_path / "strict-arrow.drawio"
+    path.write_text(xml, encoding="utf-8")
+
+    with pytest.raises(draw_io_parser.NoTargetException):
+        draw_io_parser.parse_drawio_to_graph(str(path), strict_mode=True)
 
 
 def test_arrow_label_without_edge_style_is_not_individual(tmp_path: Path):
