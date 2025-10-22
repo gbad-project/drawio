@@ -301,3 +301,38 @@ def build_config(
         prefixes=list(DEFAULT_PREFIXES),
         parser_config=parser_config or {},
     )
+
+def test_stdout_stderr_captured_from_extract_cell_classifications(monkeypatch, tmp_path):
+    debugger = Debugger(FIXTURES_DIR)
+    slug = f"pytest-{uuid4().hex[:8]}"
+    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    config = build_config(slug, drawio_path)
+
+    # Mock _extract_cell_classifications to emit stdout/stderr
+    def mock_extract(xml_text, cfg):
+        print("Demo STDOUT message from classification")
+        import sys
+        print("Demo STDERR message from classification", file=sys.stderr)
+        return {"1": {"kind": "MOCK_KIND", "raw_value": "demo"}}
+
+    monkeypatch.setattr(debugger, "_extract_cell_classifications", mock_extract)
+
+    results_dir = debugger.results_dir / slug
+    try:
+        debugger._run_scenario(config, skip_ts=True)
+
+        # Load the written map.json to verify captured output
+        map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
+        scenario_entry = map_data["scenarios"][slug]
+        errors = scenario_entry.get("errors", {})
+
+        # Verify captured stdout/stderr
+        assert "py_stdout" in errors
+        assert "Demo STDOUT message" in errors["py_stdout"]
+        assert "py_stderr" in errors
+        assert "Demo STDERR message" in errors["py_stderr"]
+
+    finally:
+        shutil.rmtree(results_dir, ignore_errors=True)
+        debugger._map_data.get("scenarios", {}).pop(slug, None)
+        debugger._write_map()

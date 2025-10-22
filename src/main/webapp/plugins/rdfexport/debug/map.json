@@ -2249,6 +2249,966 @@
         }
       }
     },
+    "knut-olborgs-forskningsnotater": {
+      "cell_classifications": {
+        "0": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": null,
+          "raw_value": null,
+          "tokens": []
+        },
+        "1": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-14": {
+          "identifier": "Knut Olborgs Forskningsnotater Storage Instantiation",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborgs Forskningsnotater Storage Instantiation",
+          "tokens": [
+            "rico:Instantiation"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-15": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborgs Forskningsnotater Storage Instantiation",
+          "raw_value": "rico:Instantiation",
+          "tokens": [
+            "rico:Instantiation"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-16": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadDigitalInstantiation",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-17": {
+          "identifier": "Knut Olborgs Forskningsnotater Storage ID",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborgs Forskningsnotater Storage ID",
+          "tokens": [
+            "rico:Identifier"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-18": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborgs Forskningsnotater Storage ID",
+          "raw_value": "rico:Identifier",
+          "tokens": [
+            "rico:Identifier"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-19": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadIdentifier",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-2": {
+          "identifier": "Mappestruktur",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Mappestruktur",
+          "tokens": [
+            "rico:Mechanism"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-20": {
+          "identifier": "Knut Olborgs Forskningsnotater Tar File Size",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborgs Forskningsnotater Tar File Size",
+          "tokens": [
+            "rico:InstantiationExtent"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborgs Forskningsnotater Tar File Size",
+          "raw_value": "rico:InstantiationExtent",
+          "tokens": [
+            "rico:InstantiationExtent"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-22": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasExtent",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-23": {
+          "identifier": "Storage ID",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Storage ID",
+          "tokens": [
+            "rico:IdentifierType"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-24": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Storage ID",
+          "raw_value": "rico:IdentifierType",
+          "tokens": [
+            "rico:IdentifierType"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-25": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasIdentifierType",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-26": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "d6ef5d07-8b2e-4d7b-9590-a70381765c9a",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-27": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:identifier",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-28": {
+          "identifier": "Bytes",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Bytes",
+          "tokens": [
+            "rico:UnitOfMeasurement"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-29": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Bytes",
+          "raw_value": "rico:UnitOfMeasurement",
+          "tokens": [
+            "rico:UnitOfMeasurement"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-3": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Mappestruktur",
+          "raw_value": "rico:Mechanism",
+          "tokens": [
+            "rico:Mechanism"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-30": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasUnitOfMeasurement",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-31": {
+          "identifier": "File Size",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "File Size",
+          "tokens": [
+            "rico:ExtentType"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-32": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "File Size",
+          "raw_value": "rico:ExtentType",
+          "tokens": [
+            "rico:ExtentType"
+          ]
+        },
+        "3fLlHfyGAeuBOlRW-uyx-33": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasExtentType",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-36": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "3676160",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-37": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:quantity",
+          "tokens": []
+        },
+        "3fLlHfyGAeuBOlRW-uyx-4": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrganicOrFunctionalProvenance",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-1": {
+          "identifier": "DOBN Samling Shelf Space",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "DOBN Samling Shelf Space",
+          "tokens": [
+            "rico:InstantiationExtent"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-10": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "30",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-11": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:quantity",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-12": {
+          "identifier": "Okkupasjonstiden Slutt",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Okkupasjonstiden Slutt",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-13": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Okkupasjonstiden Slutt",
+          "raw_value": "rico:Date",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-14": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1945",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-15": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:normalizedDateValue",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-16": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasEndDate",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-17": {
+          "identifier": "Okkupasjonstiden Start",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Okkupasjonstiden Start",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-18": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Okkupasjonstiden Start",
+          "raw_value": "rico:Date",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-19": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "1940",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "DOBN Samling Shelf Space",
+          "raw_value": "rico:InstantiationExtent",
+          "tokens": [
+            "rico:InstantiationExtent"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-20": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:normalizedDateValue",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-21": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasBeginningDate",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-3": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasExtent",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-4": {
+          "identifier": "Hyllemeter",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Hyllemeter",
+          "tokens": [
+            "rico:UnitOfMeasurement"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-5": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Hyllemeter",
+          "raw_value": "rico:UnitOfMeasurement",
+          "tokens": [
+            "rico:UnitOfMeasurement"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-6": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasUnitOfMeasurement",
+          "tokens": []
+        },
+        "7nN3YjujJQOfU681Miou-7": {
+          "identifier": "Shelf Space",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Shelf Space",
+          "tokens": [
+            "rico:ExtentType"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-8": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Shelf Space",
+          "raw_value": "rico:ExtentType",
+          "tokens": [
+            "rico:ExtentType"
+          ]
+        },
+        "7nN3YjujJQOfU681Miou-9": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasExtentType",
+          "tokens": []
+        },
+        "9tAbXV2A5IAdRQd2oj-A-11": {
+          "identifier": "Knut Olborgs Forskingsnotater",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborgs Forskingsnotater",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "9tAbXV2A5IAdRQd2oj-A-12": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborgs Forskingsnotater",
+          "raw_value": "rico:RecordSet",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-10": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborg",
+          "raw_value": "rico:AgentName",
+          "tokens": [
+            "rico:AgentName"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-11": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasSender",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-12": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har g\u00e5tt systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan v\u00e6re til nytte for andre forskere og studenter som skal arbeidet med dette tyskspr\u00e5klige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og best\u00e5r av 105 word-filer (pdf'er).",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-16": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:scopeAndContent",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-17": {
+          "identifier": "Okkupasjonstiden",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Okkupasjonstiden",
+          "tokens": [
+            "rico:Event"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-18": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Okkupasjonstiden",
+          "raw_value": "rico:Event",
+          "tokens": [
+            "rico:Event"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-19": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isAssociatedWithEvent",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-20": {
+          "identifier": "Norge",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Norge",
+          "tokens": [
+            "rico:Place"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Norge",
+          "raw_value": "rico:Place",
+          "tokens": [
+            "rico:Place"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-22": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isAssociatedWithPlace",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-23": {
+          "identifier": "Norsk Bokm\u00e5l",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Norsk Bokm\u00e5l",
+          "tokens": [
+            "rico:Language"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-24": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Norsk Bokm\u00e5l",
+          "raw_value": "rico:Language",
+          "tokens": [
+            "rico:Language"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-25": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadLanguage",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-26": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isOrWasLanguageOf",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-27": {
+          "identifier": "Country",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Country",
+          "tokens": [
+            "rico:PlaceType"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-28": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Country",
+          "raw_value": "rico:PlaceType",
+          "tokens": [
+            "rico:PlaceType"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-29": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadPlaceType",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-3": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasCreator",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-30": {
+          "identifier": "Arkivverket",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Arkivverket",
+          "tokens": [
+            "rico:CorporateBody",
+            "rico:AgentName"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-31": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Arkivverket",
+          "raw_value": "rico:CorporateBody",
+          "tokens": [
+            "rico:CorporateBody"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-32": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Arkivverket",
+          "raw_value": "rico:AgentName",
+          "tokens": [
+            "rico:AgentName"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-33": {
+          "identifier": "Arkivvesenet",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Arkivvesenet",
+          "tokens": [
+            "rico:AgentName"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-35": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Arkivvesenet",
+          "raw_value": "rico:AgentName",
+          "tokens": [
+            "rico:AgentName"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-36": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:followsInTime",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-37": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadHolder",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-38": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isOrWasUnderAuthorityOf",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-39": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "National Archives of Norway",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-40": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:name",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-41": {
+          "identifier": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-42": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rdfs:isDefinedBy",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-43": {
+          "identifier": "Knut Olborgs Forskningsnotater Start",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborgs Forskningsnotater Start",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-44": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborgs Forskningsnotater Start",
+          "raw_value": "rico:Date",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-47": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasBeginningDate",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-48": {
+          "identifier": "Knut Olborgs Forskningsnotater Slutt",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborgs Forskningsnotater Slutt",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-49": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborgs Forskningsnotater Slutt",
+          "raw_value": "rico:Date",
+          "tokens": [
+            "rico:Date"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-50": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasEndDate",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-52": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "2018-08-05",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-53": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:normalizedDateValue",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-55": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "2021-11-23",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-56": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:normalizedDateValue",
+          "tokens": []
+        },
+        "czsqDPXMuQd4v_eErH3M-8": {
+          "identifier": "Knut Olborg",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Knut Olborg",
+          "tokens": [
+            "rico:Person",
+            "rico:AgentName"
+          ]
+        },
+        "czsqDPXMuQd4v_eErH3M-9": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Knut Olborg",
+          "raw_value": "rico:Person",
+          "tokens": [
+            "rico:Person"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-10": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isOrWasLanguageOf",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-12": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadPlaceType",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-14": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isAssociatedWithPlace",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-15": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isAssociatedWithPlace",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-17": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isAssociatedWithEvent",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-18": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Et arkiv p\u00e5 om lag 30 hm som ble skapt av tyske milit\u00e6re som var internert i Norge etter krigens slutt. Under alliert kommando m\u00e5tte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden v\u00e5ren 1945 til ut i 1947.     Arkivet var i mange \u00e5r v\u00e6rt sv\u00e6rt lite tilgjengelig for bruk inntil Arkivverket i \u00e5rene 2016-19 gjennomgikk det og registrerte det i katalog.",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-19": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:scopeAndContent",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-20": {
+          "identifier": "Deutscher Oberbefehlshaber Norwegen",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Deutscher Oberbefehlshaber Norwegen",
+          "tokens": [
+            "rico:CorporateBody",
+            "rico:AgentName"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Deutscher Oberbefehlshaber Norwegen",
+          "raw_value": "rico:CorporateBody",
+          "tokens": [
+            "rico:CorporateBody"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-22": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Deutscher Oberbefehlshaber Norwegen",
+          "raw_value": "rico:AgentName",
+          "tokens": [
+            "rico:AgentName"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-23": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasCreator",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-24": {
+          "identifier": "DOBN Samling Storage Instantiation",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "DOBN Samling Storage Instantiation",
+          "tokens": [
+            "rico:Instantiation"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-25": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "DOBN Samling Storage Instantiation",
+          "raw_value": "rico:Instantiation",
+          "tokens": [
+            "rico:Instantiation"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-26": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:hasOrHadAnalogueInstantiation",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-3": {
+          "identifier": "Deutscher Oberbefehlshaber Norwegen Samling",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Deutscher Oberbefehlshaber Norwegen Samling",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Deutscher Oberbefehlshaber Norwegen Samling",
+          "raw_value": "rico:RecordSet",
+          "tokens": [
+            "rico:RecordSet"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-5": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:isRecordResourceAssociatedWithRecordResource",
+          "tokens": []
+        },
+        "mxBBHEK_cXtyoJtayE4t-6": {
+          "identifier": "Tyskland",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Tyskland",
+          "tokens": [
+            "rico:Place"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-7": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Tyskland",
+          "raw_value": "rico:Place",
+          "tokens": [
+            "rico:Place"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-8": {
+          "identifier": "Tysk",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Tysk",
+          "tokens": [
+            "rico:Language"
+          ]
+        },
+        "mxBBHEK_cXtyoJtayE4t-9": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Tysk",
+          "raw_value": "rico:Language",
+          "tokens": [
+            "rico:Language"
+          ]
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "LITERAL": 10,
+          "STANDALONE_INDIVIDUAL": 28,
+          "TYPED_INDIVIDUAL": 30,
+          "UNCLASSIFIED": 45
+        },
+        "classified": 68,
+        "total_cells": 113,
+        "unclassified": 45
+      },
+      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/knut_olborgs_forskningsnotater.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "NotInKnownException: An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "543741d03eefdd45e99dfa4097ceb69a8f933273f570ad45a31e0ed8e2ab8350",
+          "path": "results/knut-olborgs-forskningsnotater/ts_pipeline.ttl",
+          "triples": 98
+        },
+        "ts_plugin": {
+          "nt_sha256": "543741d03eefdd45e99dfa4097ceb69a8f933273f570ad45a31e0ed8e2ab8350",
+          "path": "results/knut-olborgs-forskningsnotater/ts_plugin.ttl",
+          "triples": 98
+        }
+      }
+    },
     "pytest-aa37-department-of-health": {
       "cell_classifications": {
         "0": {
