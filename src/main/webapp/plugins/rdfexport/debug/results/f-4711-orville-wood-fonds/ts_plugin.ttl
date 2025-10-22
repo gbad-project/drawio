@@ -1,6 +1,38 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
 
 <ontology://generated-from-draw-io/2025-10-21T22-20-31> a owl:Ontology ;
     owl:imports rico: .
@@ -17,11 +49,6 @@
     rico:isCreatorOf <ontology://generated-from-draw-io/2025-10-21T22-20-31#Orville%20Wood%20Fonds> ;
     rico:isOrWasLeaderOf <ontology://generated-from-draw-io/2025-10-21T22-20-31#Fort%20York%20Construction%20Company%20Ltd.> ;
     rico:occupiesOrOccupied <ontology://generated-from-draw-io/2025-10-21T22-20-31#President> .
-
-<ontology://generated-from-draw-io/2025-10-21T22-20-31#Terrace%20Bay%2C%20Ontario> a owl:NamedIndividual,
-        rico:Place ;
-    rdfs:label "Terrace Bay, Ontario" ;
-    rico:hasOrHadPlaceType <ontology://generated-from-draw-io/2025-10-21T22-20-31#Township> .
 
 <ontology://generated-from-draw-io/2025-10-21T22-20-31#%5B194-%5D-1953> a owl:NamedIndividual,
         rico:Date ;
@@ -75,7 +102,8 @@
     rico:hasOrHadIdentifier <ontology://generated-from-draw-io/2025-10-21T22-20-31#F%204711> ;
     rico:hasOrHadSomeMembersWithContentType <ontology://generated-from-draw-io/2025-10-21T22-20-31#Graphic%20Material>,
         <ontology://generated-from-draw-io/2025-10-21T22-20-31#Textual%20Records> ;
-    rico:hasOrHadSubject <ontology://generated-from-draw-io/2025-10-21T22-20-31#Atikokan%2C%20Ontario> ;
+    rico:hasOrHadSubject <ontology://generated-from-draw-io/2025-10-21T22-20-31#Atikokan%2C%20Ontario>,
+        <ontology://generated-from-draw-io/2025-10-21T22-20-31#Terrace%20Bay%2C%20Ontario> ;
     rico:hasRecordSetType <ontology://generated-from-draw-io/2025-10-21T22-20-31#Fonds> ;
     rico:history "The Orville Wood fonds was donated to the Archives of Ontario by his son, Bruce Arthur Wood, in 2018." ;
     rico:recordResourceExtent "0.1 centimetres of textual records;   98 photographs : black and white prints;   2 photographs : colour prints;   143 photographs : black and white negatives" ;
@@ -104,6 +132,11 @@
         rico:Place ;
     rdfs:label "South River, Ontario" ;
     rico:hasOrHadPlaceType <ontology://generated-from-draw-io/2025-10-21T22-20-31#Village> .
+
+<ontology://generated-from-draw-io/2025-10-21T22-20-31#Terrace%20Bay%2C%20Ontario> a owl:NamedIndividual,
+        rico:Place ;
+    rdfs:label "Terrace Bay, Ontario" ;
+    rico:hasOrHadPlaceType <ontology://generated-from-draw-io/2025-10-21T22-20-31#Township> .
 
 <ontology://generated-from-draw-io/2025-10-21T22-20-31#Textual%20Records> a owl:NamedIndividual,
         rico:ContentType ;
