@@ -1271,7 +1271,7 @@ json.dumps({
 );
 
 test(
-  "runDrawioPipeline preserves literal HTML when stripHtml disabled",
+  "runDrawioPipeline strips literal HTML when stripHtml enabled",
   async () => {
     await loadPluginModule();
 
@@ -1321,10 +1321,35 @@ json.dumps({
 
     expect(sanitizedSummary.values.length).toBeGreaterThan(0);
     expect(sanitizedSummary.has_html).toBe(false);
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline preserves literal HTML when stripHtml disabled",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata-preserve-html.drawio",
+    );
+    const xml = await Bun.file(fixturePath).text();
 
     const preservedConfig: DrawioParserConfigPayload = {
-      ...baseConfig,
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
       strip_html: false,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: true,
     };
 
     const preservedTurtle = await runDrawioPipeline(xml, preservedConfig);
