@@ -106,7 +106,7 @@ def test_individual_blocks_tracks_datatype_properties():
 
     items = iter(
         [
-            draw_io_parser.Individual("LiteralNode", "rico:Thing"),
+            draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="rdfs:label",
                 source="LiteralNode",
@@ -127,7 +127,73 @@ def test_individual_blocks_tracks_datatype_properties():
     assert not object_props
     assert "rdfs:label" in datatype_props
     facts = blocks[("LiteralNode", "LiteralNode")]["rdfs:label"]
-    assert "Example literal" in facts
+    assert any(
+        isinstance(value, tuple)
+        and len(value) == 2
+        and value[0] == "Example literal"
+        and value[1] is True
+        for value in facts
+    )
+
+
+def test_parse_drawio_preserves_literal_targets():
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "AA37-with-metadata-even-more-severely-mocked.drawio"),
+        metacharacter_substitute=["url"],
+    )
+
+    hellow = Namespace("some://helloworld")
+    literal_values = list(graph.objects(predicate=hellow.there))
+
+    assert Literal("lolabout") in literal_values
+
+
+def test_serialise_to_graph_falls_back_for_relative_prefixes():
+    prefixes = draw_io_parser.get_prefixes().copy()
+    prefixes["bad"] = "relative-prefix"
+
+    items = iter(
+        [
+            draw_io_parser.Individual("Source", "owl:NamedIndividual"),
+            draw_io_parser.Arrow(
+                identifier="bad:prop",
+                source="Source",
+                target="literal value",
+                is_datatype=True,
+            ),
+        ]
+    )
+
+    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
+        items,
+        [],
+        None,
+        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+        prefixes,
+    )
+
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=True,
+        include_preamble=False,
+        ontology_iri="http://example.com/ontology",
+        prefix="",
+        prefix_iri="http://example.com/",
+        indentation=2,
+        include_label=False,
+    )
+
+    graph = draw_io_parser.serialise_to_graph(
+        blocks,
+        object_props,
+        datatype_props,
+        config,
+        prefixes,
+    )
+
+    subject = URIRef("http://example.com/Source")
+    predicate = URIRef("http://example.com/prop")
+
+    assert (subject, predicate, Literal("literal value")) in graph
 
 
 @pytest.mark.parametrize(
@@ -349,7 +415,7 @@ def test_individual_blocks_rejects_unknown_prefix():
 
     items = iter(
         [
-            draw_io_parser.Individual("SourceNode", "rico:Thing"),
+            draw_io_parser.Individual("SourceNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="unknown:prop",
                 source="SourceNode",

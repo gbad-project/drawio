@@ -6,7 +6,7 @@ from textwrap import dedent
 
 import pytest
 from rdflib import BNode, Literal, URIRef
-from rdflib.namespace import RDFS, SKOS
+from rdflib.namespace import RDF, RDFS, SKOS, OWL
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 PACKAGE_ROOT = LEGACY_DIR.parent
@@ -16,7 +16,14 @@ if str(PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(PACKAGE_ROOT))
 
 import draw_io_parser  # noqa: E402
-from legacy.overrides import cell_classifier  # noqa: E402
+
+DrawIOCellClassifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier
+DECORATION_REGISTRY_ATTR = getattr(
+    DrawIOCellClassifier, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
+)
+DEFAULT_STANDALONE_TYPE = getattr(
+    DrawIOCellClassifier, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
+)
 
 
 def _vertex_cell(
@@ -68,6 +75,18 @@ def _edge_label(cell_id: str, *, parent: str, value: str) -> str:
     ).strip()
 
 
+def _edge_label_without_edge_style(cell_id: str, *, parent: str, value: str) -> str:
+    return dedent(
+        f"""
+        <mxCell id='{cell_id}' value='{value}' style='text;html=1;resizable=0;points=[];align=center;verticalAlign=middle;labelBackgroundColor=none;rounded=0;shadow=0;strokeWidth=1;fontSize=12;' parent='{parent}' vertex='1' connectable='0'>
+          <mxGeometry x='0.5' y='0.5' relative='1' as='geometry'>
+            <mxPoint x='-20' y='16' as='offset'/>
+          </mxGeometry>
+        </mxCell>
+        """
+    ).strip()
+
+
 def _drawio_xml(*cells: str) -> str:
     body = "\n        ".join(cells)
     return dedent(
@@ -89,7 +108,7 @@ def _drawio_xml(*cells: str) -> str:
 
 @pytest.fixture(autouse=True)
 def _clear_literal_registry():
-    attr = cell_classifier.DECORATION_REGISTRY_ATTR
+    attr = DECORATION_REGISTRY_ATTR
     if hasattr(draw_io_parser.pipeline.core.internal.data, attr):
         delattr(draw_io_parser.pipeline.core.internal.data, attr)
     yield
@@ -120,7 +139,7 @@ def _apply_drawio_overrides(monkeypatch):
 def test_classifier_detects_typed_individuals_and_literals():
     xml = _drawio_xml(
         _vertex_cell("parent", "My Individual", style="rounded=1"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Decoration literal"),
     )
     tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
@@ -129,26 +148,43 @@ def test_classifier_detects_typed_individuals_and_literals():
         (individual.identifier, individual.ric_class)
         for _, individual, _ in tree.individual_cells
     }
-    assert ("My Individual", "rico:Thing") in observed
+    assert ("My Individual", "owl:NamedIndividual") in observed
 
     registry = getattr(
         draw_io_parser.pipeline.core.internal.data,
-        cell_classifier.DECORATION_REGISTRY_ATTR,
+        DECORATION_REGISTRY_ATTR,
         {},
     )
     assert registry["decor"]["value"] == "Decoration literal"
     assert registry["decor"]["connected"] is False
 
 
+def test_parent_cell_collects_child_type_tokens():
+    xml = _drawio_xml(
+        _vertex_cell("parent", "List pnnpni", style="swimlane"),
+        _vertex_cell("type1", "owl:NamedIndividual", parent="parent"),
+        _vertex_cell("type2", "rdf:Resource", parent="parent"),
+    )
+    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    observed = {
+        individual.ric_class
+        for _, individual, _ in tree.individual_cells
+        if individual.identifier == "List pnnpni"
+    }
+
+    assert observed == {"owl:NamedIndividual", "rdf:Resource"}
+
+
 def test_standalone_curie_node_creates_individual_without_parent():
-    xml = _drawio_xml(_vertex_cell("solo", "rico:Thing"))
+    xml = _drawio_xml(_vertex_cell("solo", "owl:NamedIndividual"))
     tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
 
     observed = {
         (individual.identifier, individual.ric_class)
         for _, individual, _ in tree.individual_cells
     }
-    assert ("rico:Thing", "rico:Thing") in observed
+    assert ("owl:NamedIndividual", "owl:NamedIndividual") in observed
 
 
 def test_absolute_uri_node_uses_default_type():
@@ -160,13 +196,13 @@ def test_absolute_uri_node_uses_default_type():
         (individual.identifier, individual.ric_class)
         for _, individual, _ in tree.individual_cells
     }
-    assert (uri_value, cell_classifier.DEFAULT_STANDALONE_TYPE) in observed
+    assert (uri_value, DEFAULT_STANDALONE_TYPE) in observed
 
 
 def test_decorations_serialise_to_skos_note(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Loose literal"),
     )
     path = tmp_path / "decorations.drawio"
@@ -185,7 +221,7 @@ def test_decorations_serialise_to_skos_note(tmp_path: Path):
 def test_connected_literal_not_treated_as_decoration(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Node A"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("literal", "Some literal"),
         _edge_cell("arrow", "", source="parent", target="literal"),
         _edge_label("label", parent="arrow", value="rdfs:label"),
@@ -210,7 +246,7 @@ def test_connected_literal_not_treated_as_decoration(tmp_path: Path):
 def test_literal_as_arrow_source_raises(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Node"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("literal", "Literal source"),
         _edge_cell("arrow", "", source="literal", target="parent"),
         _edge_label("label", parent="arrow", value="rdfs:label"),
@@ -222,10 +258,34 @@ def test_literal_as_arrow_source_raises(tmp_path: Path):
         draw_io_parser.parse_drawio_to_graph(str(path))
 
 
+def test_arrow_label_without_edge_style_is_not_individual(tmp_path: Path):
+    xml = _drawio_xml(
+        _vertex_cell("source", "Source"),
+        _vertex_cell("source_type", "rico:Record", parent="source"),
+        _vertex_cell("literal", "Address"),
+        _edge_cell("arrow", "", source="source", target="literal"),
+        _edge_label_without_edge_style("label", parent="arrow", value="rdfs:mock"),
+    )
+    path = tmp_path / "class-diagram-property.drawio"
+    path.write_text(xml, encoding="utf-8")
+
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(path),
+        ontology_iri="ontology://test",
+        prefix="mock",
+        prefix_iri="http://example.com/mock#",
+        metacharacter_substitute=["remove"],
+    )
+
+    property_uri = URIRef("http://www.w3.org/2000/01/rdf-schema#mock")
+    assert not list(graph.triples((property_uri, RDF.type, OWL.NamedIndividual)))
+    assert list(graph.triples((property_uri, RDF.type, OWL.DatatypeProperty)))
+
+
 def test_blank_node_used_for_decorations_without_ontology(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),
-        _vertex_cell("type", "rico:Thing", parent="parent"),
+        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Detached"),
     )
     path = tmp_path / "blank.drawio"

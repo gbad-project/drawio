@@ -1,0 +1,114 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#Archival%20Description> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Archival Description" .
+
+<ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Archival Description Creation" ;
+    rico:isOrWasPerformedBy <ontology://generated-from-draw-io/mock#O%27Rourke> .
+
+<ontology://generated-from-draw-io/mock#Current%20Reference%20Code> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Current Reference Code" .
+
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> a owl:NamedIndividual,
+        rico:ContentType ;
+    rdfs:label "Graphic materials" .
+
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> a owl:NamedIndividual,
+        rico:RecordSet,
+        rico:Title ;
+    rdfs:label "Mobile Tuberculosis Testing Clinic photographs" ;
+    rico:conditionsOfAccess "No restrictions on access." ;
+    rico:conditionsOfUse "Crown copyright exists in these photographs. Permission to publish is required from the Archives of Ontario. Submit a Request for Permission to Publish, Exhibit or Broadcast form." ;
+    rico:creationDate "[ca. 1950]-1964" ;
+    rico:generalDescription "Availability of Other Formats: Some of the photographs from this series are available in digital format in the Archives of Ontario Visual Database. Search using reference code RG 10-145." ;
+    rico:hasContentOfType <ontology://generated-from-draw-io/mock#Graphic%20Materials> ;
+    rico:hasCreator <ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#RG%2010-145> ;
+    rico:hasOrHadInstantiation <ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> ;
+    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#Series> ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> ;
+    rico:scopeAndContent "This series contains photographs of the mobile tuberculosis testing clinics administered by the Department of Health. This includes photographs of chest X-ray machinery, Community X-ray Survey trucks, the Chest X-ray train, information displays for fairs, TB testing equipment, department staff, and interior views of the clinics." .
+
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Mobile Tuberculosis Testing Clinic photographs archival description" ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Archival%20Description> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Status%3A%20Approved>,
+        <ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> ;
+    rico:lastModificationDate "2002-08-20"^^xsd:date ;
+    rico:resultsOrResultedFrom <ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> .
+
+<ontology://generated-from-draw-io/mock#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> a owl:NamedIndividual,
+        rico:Instantiation ;
+    rdfs:label "Mobile Tuberculosis Testing Clinic photographs-i1" ;
+    rico:generalDescription "How to Order: To view these records, order Series RG 10-145, container B 972." ;
+    rico:instantiationExtent "ca. 200 photographs" .
+
+<ontology://generated-from-draw-io/mock#O%27Rourke> a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "O'Rourke" .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Dept. of Health" .
+
+<ontology://generated-from-draw-io/mock#RG%2010-145> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "RG 10-145" ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#Current%20Reference%20Code> .
+
+<ontology://generated-from-draw-io/mock#Series> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "Series" .
+
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Enabled: Y" .
+

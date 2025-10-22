@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from html.parser import HTMLParser
-from typing import Generator
-
-from legacy.draw_io_parser import Paragraph  # type: ignore[attr-defined]
+from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
+
+# ruff: noqa: F403, F405
 
 
 @override(phase="core", type="xml", role="data")

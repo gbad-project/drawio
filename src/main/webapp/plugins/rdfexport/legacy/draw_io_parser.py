@@ -15,6 +15,11 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
+from enum import Enum, auto
+import typing
+from typing import Iterable
+from rdflib import BNode
+from rdflib.namespace import SKOS
 
 
 class pipeline:
@@ -55,7 +60,574 @@ class pipeline:
                 pass
 
             class data:
-                pass
+                # BEGIN override cell_classifier.py.DrawIOCellClassifier
+                class DrawIOCellClassifier:
+                    """
+                    A self-contained class to parse Draw.io XML into graph elements.
+                    It supersedes DrawIOXMLTree by handling XML parsing, cell classification,
+                    and graph element generation in a single place.
+                    """
+
+                    class CellKind(Enum):
+                        ARROW_LABEL = auto()
+                        TYPED_INDIVIDUAL = auto()
+                        STANDALONE_INDIVIDUAL = auto()
+                        LITERAL = auto()
+                        DECORATION = auto()
+
+                    @dataclass(slots=True)
+                    class CellClassification:
+                        kind: Enum
+                        raw_value: str
+                        cell: Element
+                        parent_cell: Optional[Element] = None
+                        parent_identifier: Optional[str] = None
+                        identifier: Optional[str] = None
+                        tokens: list[str] = field(default_factory=list)
+
+                    DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
+                    DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
+
+                    def __init__(
+                        self,
+                        raw_xml: typing.Any,
+                        prefixes: dict[str, str],
+                        *,
+                        strict_mode: bool = False,
+                        max_gap: float | None = None,
+                    ):
+                        source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
+                        if isinstance(source_tree, Element):
+                            self.draw_io_xml_tree = source_tree
+                        else:
+                            if isinstance(raw_xml, bytes):
+                                parsed_xml = raw_xml.decode("utf-8")
+                            else:
+                                parsed_xml = str(raw_xml)
+                            self.draw_io_xml_tree = fromstring(parsed_xml)
+                        self._prefixes = prefixes
+                        self._namespace_manager = Graph().namespace_manager
+                        for prefix, iri in prefixes.items():
+                            self._namespace_manager.bind(prefix, iri, replace=True)
+                        self._strict_mode = bool(strict_mode)
+                        default_gap = 10.0
+                        gap_candidate = default_gap if max_gap is None else max_gap
+                        try:
+                            coerced_gap = float(gap_candidate)
+                        except (TypeError, ValueError):
+                            coerced_gap = float(default_gap)
+                        if coerced_gap != coerced_gap or coerced_gap < 0.0:
+                            coerced_gap = float(default_gap)
+                        self._max_gap = coerced_gap
+                        self._html_parser = NodeHTMLParser()
+                        self._edge_incidence = self._build_edge_incidence()
+                        self._child_token_cache: dict[str, list[str]] = {}
+                        self.classifications: dict[str, Any] = {}
+                        self.individuals: list[Individual] = []
+                        self.arrows: list[Arrow] = []
+                        self.decorations: dict[str, dict[str, Any]] = {}
+                        self._nodes_by_id: dict[str, tuple[Element, Individual]] = {}
+                        self._literals_by_id: dict[str, Element] = {}
+                        setattr(
+                            pipeline.core.internal.data,
+                            self.DECORATION_REGISTRY_ATTR,
+                            self.decorations,
+                        )
+                        self._process_graph()
+
+                    def get_graph_elements(
+                        self,
+                    ) -> Generator[Individual | Arrow, None, None]:
+                        """Yields all parsed Individual and Arrow objects."""
+                        yield from self.individuals
+                        yield from self.arrows
+
+                    def _process_graph(self):
+                        """
+                        Main processing loop. First classifies all nodes (vertices), then
+                        resolves all arrows (edges).
+                        """
+                        try:
+                            cells = self.draw_io_xml_tree.findall(".//mxCell")
+                            if not cells:
+                                raise NothingToParseException
+                        except (IndexError, NothingToParseException) as e:
+                            raise NothingToParseException from e
+                        for cell in cells:
+                            if cell.attrib.get("edge") == "1":
+                                continue
+                            try:
+                                cell_value = self._value_of(cell)
+                            except _NoValueException:
+                                continue
+                            classification = self.classify(cell, cell_value)
+                            cell_id = cell.attrib.get("id")
+                            if cell_id:
+                                self.classifications[cell_id] = classification
+                            kind_name = getattr(classification.kind, "name", "")
+                            cell_id = cell.attrib.get("id")
+                            if kind_name == "TYPED_INDIVIDUAL":
+                                parent = classification.parent_cell
+                                identifier = classification.parent_identifier
+                                if (
+                                    parent is None
+                                    or identifier is None
+                                    or cell_id is None
+                                ):
+                                    continue
+                                for token in classification.tokens:
+                                    _verify_is_ric_class(token, self._prefixes)
+                                    individual = Individual(identifier, token)
+                                    if not any(
+                                        (
+                                            ind == individual
+                                            for ind in self.individuals
+                                            if ind.identifier == identifier
+                                        )
+                                    ):
+                                        self.individuals.append(individual)
+                                    self._nodes_by_id[parent.attrib["id"]] = (
+                                        parent,
+                                        individual,
+                                    )
+                                    self._nodes_by_id[cell_id] = (cell, individual)
+                            elif kind_name == "STANDALONE_INDIVIDUAL":
+                                identifier = (
+                                    classification.identifier
+                                    or classification.raw_value
+                                )
+                                if not cell_id:
+                                    continue
+                                types = classification.tokens or [
+                                    self.DEFAULT_STANDALONE_TYPE
+                                ]
+                                for rdf_type in types:
+                                    _verify_is_ric_class(rdf_type, self._prefixes)
+                                    individual = Individual(identifier, rdf_type)
+                                    if not any(
+                                        (
+                                            ind == individual
+                                            for ind in self.individuals
+                                            if ind.identifier == identifier
+                                        )
+                                    ):
+                                        self.individuals.append(individual)
+                                    self._nodes_by_id[cell_id] = (cell, individual)
+                            elif kind_name in ("LITERAL", "DECORATION"):
+                                if cell_id:
+                                    self._literals_by_id[cell_id] = cell
+                                    self.decorations[cell_id] = {
+                                        "value": classification.raw_value,
+                                        "connected": False,
+                                    }
+                        for cell in self.draw_io_xml_tree.findall(".//*[@edge='1']"):
+                            try:
+                                arrow = self._resolve_arrow(cell)
+                                if arrow:
+                                    self.arrows.append(arrow)
+                            except NoSourceException as e:
+                                print(f"Warning: Skipping arrow due to error: {e}")
+                            except ArrowWithoutIndividualAsSourceException as e:
+                                print(f"Warning: Skipping arrow due to error: {e}")
+                                raise
+
+                    def classify(
+                        self, cell: Element, cell_value: str
+                    ) -> CellClassification:
+                        """Determines the role of a given mxCell in the graph."""
+                        CellClassification = self.CellClassification
+                        CellKind = self.CellKind
+                        kind = CellKind
+                        raw_value = cell_value.strip()
+                        if cell.attrib.get("edge") == "1":
+                            return CellClassification(kind.ARROW, raw_value, cell)
+                        style = cell.attrib.get("style", "")
+                        if "edgeLabel" in style:
+                            return CellClassification(kind.ARROW_LABEL, raw_value, cell)
+                        if not raw_value:
+                            return CellClassification(kind.LITERAL, raw_value, cell)
+                        parent_cell, parent_identifier = self._resolve_parent(cell)
+                        if (
+                            parent_cell is not None
+                            and parent_cell.attrib.get("edge") == "1"
+                            and raw_value
+                        ):
+                            return CellClassification(
+                                kind.ARROW_LABEL,
+                                raw_value,
+                                cell,
+                                parent_cell,
+                                parent_identifier,
+                            )
+                        value_tokens = self._tokenise(raw_value)
+                        tokens_are_valid = self._tokens_are_valid(value_tokens)
+                        tokens = list(value_tokens) if tokens_are_valid else []
+                        child_tokens = self._collect_child_tokens(cell)
+                        if child_tokens:
+                            if tokens_are_valid:
+                                tokens.extend(
+                                    (t for t in child_tokens if t not in tokens)
+                                )
+                            else:
+                                tokens = list(child_tokens)
+                                tokens_are_valid = True
+                        if (
+                            parent_cell is not None
+                            and parent_identifier
+                            and tokens
+                            and tokens_are_valid
+                        ):
+                            return CellClassification(
+                                kind.TYPED_INDIVIDUAL,
+                                raw_value,
+                                cell,
+                                parent_cell,
+                                parent_identifier,
+                                tokens=tokens,
+                            )
+                        if tokens and tokens_are_valid:
+                            return CellClassification(
+                                kind.STANDALONE_INDIVIDUAL,
+                                raw_value,
+                                cell,
+                                identifier=raw_value,
+                                tokens=tokens,
+                            )
+                        if self._looks_like_absolute_uri(raw_value):
+                            return CellClassification(
+                                kind.STANDALONE_INDIVIDUAL,
+                                raw_value,
+                                cell,
+                                identifier=raw_value,
+                                tokens=[],
+                            )
+                        if self._is_decoration(cell, raw_value):
+                            return CellClassification(kind.DECORATION, raw_value, cell)
+                        return CellClassification(kind.LITERAL, raw_value, cell)
+
+                    def _value_of(self, cell: Element) -> str:
+                        value = cell.attrib.get("value")
+                        if value is None:
+                            raise _NoValueException
+                        self._html_parser.clear()
+                        self._html_parser.feed(value)
+                        return self._html_parser.content()
+
+                    def _cell_with_id(self, _id: str) -> Element:
+                        cell = self.draw_io_xml_tree.find(f".//*[@id='{_id}']")
+                        if cell is None:
+                            raise ValueError(f"No cell with id: {_id}")
+                        return cell
+
+                    def _parent_of(self, cell: Element) -> Element:
+                        parent_id = cell.attrib.get("parent")
+                        if not parent_id:
+                            raise ParseException(
+                                f"Cell {cell.attrib.get('id')} has no parent attribute."
+                            )
+                        return self._cell_with_id(parent_id)
+
+                    def _child_of(
+                        self, parent_id: str
+                    ) -> Generator[Element, None, None]:
+                        yield from self.draw_io_xml_tree.findall(
+                            f".//*[@parent='{parent_id}']"
+                        )
+
+                    @staticmethod
+                    def _geometry(cell: Element) -> Element:
+                        geom = cell.find("mxGeometry")
+                        if geom is None:
+                            raise ParseException(
+                                f"Cell {cell.attrib.get('id')} has no mxGeometry sub-element."
+                            )
+                        return geom
+
+                    def _dimensions(self, cell: Element) -> Dimensions:
+                        geom = self._geometry(cell)
+                        return (
+                            float(geom.attrib.get("x", 0.0)),
+                            float(geom.attrib.get("y", 0.0)),
+                            float(geom.attrib.get("width", 0.0)),
+                            float(geom.attrib.get("height", 0.0)),
+                        )
+
+                    def _absolute_dimensions(self, cell: Element) -> Dimensions:
+                        geom = self._geometry(cell)
+                        width = float(geom.attrib.get("width", 0.0))
+                        height = float(geom.attrib.get("height", 0.0))
+                        coordinates = self._start_or_end(cell, None)
+                        if coordinates is None:
+                            x = float(geom.attrib.get("x", 0.0))
+                            y = float(geom.attrib.get("y", 0.0))
+                        else:
+                            x, y = coordinates
+                        return (x, y, width, height)
+
+                    def _close_enough(
+                        self, arrow_point: tuple[float, float], cell: Element
+                    ) -> bool:
+                        try:
+                            x, y, width, height = self._absolute_dimensions(cell)
+                        except ParseException:
+                            return False
+                        arrow_x, arrow_y = arrow_point
+                        return (
+                            x - self._max_gap <= arrow_x <= x + width + self._max_gap
+                            and y - self._max_gap
+                            <= arrow_y
+                            <= y + height + self._max_gap
+                        )
+
+                    def _resolve_nearby_cell(
+                        self,
+                        arrow_point: tuple[float, float] | None,
+                        *,
+                        require_individual: bool,
+                    ) -> tuple[Element, str, bool]:
+                        if arrow_point is None:
+                            raise _NoCellCloseEnoughException
+                        for cell_id, (cell, individual) in self._nodes_by_id.items():
+                            if self._close_enough(arrow_point, cell):
+                                return (cell, individual.identifier, False)
+                        if require_individual:
+                            raise _NoCellCloseEnoughException
+                        for cell_id, literal_cell in self._literals_by_id.items():
+                            if not self._close_enough(arrow_point, literal_cell):
+                                continue
+                            try:
+                                literal_value = self._value_of(literal_cell)
+                            except _NoValueException as exc:
+                                raise _NoCellCloseEnoughException from exc
+                            return (literal_cell, literal_value, True)
+                        raise _NoCellCloseEnoughException
+
+                    def _start_or_end(
+                        self, cell: Element, as_attribute: str | None
+                    ) -> tuple[float, float] | None:
+                        geometry = self._geometry(cell)
+                        if as_attribute is None:
+                            x = float(geometry.attrib.get("x", 0.0))
+                            y = float(geometry.attrib.get("y", 0.0))
+                            parent_id = cell.attrib.get("parent")
+                            if parent_id is None or parent_id == "1":
+                                return (x, y)
+                            try:
+                                parent_coords = self._start_or_end(
+                                    self._parent_of(cell), None
+                                )
+                                if parent_coords:
+                                    return (x + parent_coords[0], y + parent_coords[1])
+                                return (x, y)
+                            except (ParseException, ValueError):
+                                return (x, y)
+                        point = geometry.find(f"mxPoint[@as='{as_attribute}']")
+                        if point is None:
+                            return None
+                        x = float(point.attrib.get("x", 0.0))
+                        y = float(point.attrib.get("y", 0.0))
+                        return (x, y)
+
+                    def _arrow_label(self, arrow_cell: Element) -> str:
+                        label_cell = self.draw_io_xml_tree.find(
+                            f".//mxCell[@parent='{arrow_cell.attrib['id']}']"
+                        )
+                        if label_cell is not None:
+                            try:
+                                return self._value_of(label_cell)
+                            except _NoValueException:
+                                pass
+                        raise _NoValueException("No label found for arrow")
+
+                    def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:
+                        try:
+                            arrow_label = self._arrow_label(arrow_cell)
+                        except _NoValueException:
+                            return None
+                        arrow_id = arrow_cell.attrib["id"]
+                        source_id = arrow_cell.attrib.get("source")
+                        target_id = arrow_cell.attrib.get("target")
+                        arrow_start = self._start_or_end(arrow_cell, "sourcePoint")
+                        arrow_end = self._start_or_end(arrow_cell, "targetPoint")
+                        if source_id and source_id in self._nodes_by_id:
+                            source_cell, source_individual = self._nodes_by_id[
+                                source_id
+                            ]
+                            source_identifier = source_individual.identifier
+                        elif source_id and source_id in self._literals_by_id:
+                            raise ArrowWithoutIndividualAsSourceException(
+                                f"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source."
+                            )
+                        else:
+                            if self._strict_mode:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                                )
+                            try:
+                                _, source_identifier, _ = self._resolve_nearby_cell(
+                                    arrow_start, require_individual=True
+                                )
+                            except _NoCellCloseEnoughException as exc:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
+                                ) from exc
+                        target_cell = None
+                        is_datatype = False
+                        if target_id:
+                            if target_id in self._nodes_by_id:
+                                target_cell, target_individual = self._nodes_by_id[
+                                    target_id
+                                ]
+                                target_identifier = target_individual.identifier
+                            elif target_id in self._literals_by_id:
+                                target_cell = self._literals_by_id[target_id]
+                                target_identifier = self._value_of(target_cell)
+                                is_datatype = True
+                            else:
+                                if self._strict_mode:
+                                    raise NoSourceException(
+                                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
+                                    )
+                                try:
+                                    candidate_cell, target_identifier, is_datatype = (
+                                        self._resolve_nearby_cell(
+                                            arrow_end, require_individual=False
+                                        )
+                                    )
+                                    target_cell = candidate_cell
+                                except _NoCellCloseEnoughException as exc:
+                                    raise NoSourceException(
+                                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
+                                    ) from exc
+                        else:
+                            if self._strict_mode:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
+                                )
+                            try:
+                                candidate_cell, target_identifier, is_datatype = (
+                                    self._resolve_nearby_cell(
+                                        arrow_end, require_individual=False
+                                    )
+                                )
+                                target_cell = candidate_cell
+                            except _NoCellCloseEnoughException as exc:
+                                raise NoSourceException(
+                                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
+                                ) from exc
+                        if (
+                            target_cell
+                            and target_cell.attrib.get("id") in self.decorations
+                        ):
+                            self.decorations[target_cell.attrib["id"]]["connected"] = (
+                                True
+                            )
+                        return Arrow(
+                            str(arrow_label.strip()),
+                            source_identifier,
+                            target_identifier,
+                            is_datatype,
+                        )
+
+                    def _resolve_parent(
+                        self, cell: Element
+                    ) -> tuple[Optional[Element], Optional[str]]:
+                        parent_id = cell.attrib.get("parent")
+                        if parent_id in {None, "1"}:
+                            return (None, None)
+                        try:
+                            parent = self._parent_of(cell)
+                            parent_value = self._value_of(parent).strip()
+                            return (parent, parent_value or None)
+                        except (ParseException, _NoValueException):
+                            return (None, None)
+
+                    @staticmethod
+                    def _tokenise(value: str) -> list[str]:
+                        return [
+                            t.strip()
+                            for t in value.replace(",", " ").replace(";", " ").split()
+                            if t.strip()
+                        ]
+
+                    def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
+                        if not tokens:
+                            return False
+                        for token in tokens:
+                            if ":" not in token:
+                                return False
+                            prefix, remainder = token.split(":", 1)
+                            if (
+                                not prefix
+                                or not remainder.strip()
+                                or prefix not in self._prefixes
+                            ):
+                                return False
+                            try:
+                                self._namespace_manager.expand_curie(token)
+                            except Exception:
+                                return False
+                        return True
+
+                    @staticmethod
+                    def _looks_like_absolute_uri(value: str) -> bool:
+                        if not value or any((ch.isspace() for ch in value)):
+                            return False
+                        try:
+                            return str(URIRef(value)) == value and "://" in value
+                        except Exception:
+                            return False
+
+                    def _collect_child_tokens(self, cell: Element) -> list[str]:
+                        cell_id = cell.attrib.get("id")
+                        if not cell_id:
+                            return []
+                        if cell_id in self._child_token_cache:
+                            return list(self._child_token_cache[cell_id])
+                        tokens = []
+                        for child in self._child_of(cell_id):
+                            try:
+                                child_value = self._value_of(child).strip()
+                                child_tokens = self._tokenise(child_value)
+                                if self._tokens_are_valid(child_tokens):
+                                    tokens.extend(
+                                        (t for t in child_tokens if t not in tokens)
+                                    )
+                            except (_NoValueException, ParseException):
+                                continue
+                        self._child_token_cache[cell_id] = tokens
+                        return tokens
+
+                    def _build_edge_incidence(self) -> set[str]:
+                        return {
+                            id
+                            for edge in self.draw_io_xml_tree.findall(".//*[@edge='1']")
+                            for key in ("source", "target")
+                            if (id := edge.attrib.get(key))
+                        }
+
+                    def _has_incident_edge(self, cell: Element) -> bool:
+                        cell_id = cell.attrib.get("id")
+                        return cell_id in self._edge_incidence if cell_id else False
+
+                    @staticmethod
+                    def _style_suggests_decoration(style: str) -> bool:
+                        if not style:
+                            return False
+                        return "text;" in style or "shape=text" in style
+
+                    def _is_decoration(self, cell: Element, raw_value: str) -> bool:
+                        if not raw_value:
+                            return False
+                        return (
+                            not self._collect_child_tokens(cell)
+                            and (not self._has_incident_edge(cell))
+                            and self._style_suggests_decoration(
+                                cell.attrib.get("style", "")
+                            )
+                        )
+
+                # END override cell_classifier.py.DrawIOCellClassifier
 
             class control:
                 pass
@@ -1262,15 +1834,17 @@ class xml_data_core:
     # BEGIN DrawIOXMLTree._extract_individual_and_arrow_and_literal_cells
     # override from curie_validator.py
     def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
-        from legacy.overrides.cell_classifier import (
-            DEFAULT_STANDALONE_TYPE,
-            DrawIOCellClassifier,
+        classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+        decorations_attr = getattr(
+            classifier_cls, "DECORATION_REGISTRY_ATTR", "__drawio_literal_registry"
         )
-
-        decorations_attr = "__drawio_literal_registry"
-        classifier = DrawIOCellClassifier(self, prefixes)
+        default_standalone_type = getattr(
+            classifier_cls, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
+        )
+        classifier = classifier_cls(self, prefixes)
         decorations: dict[str, dict[str, object]] = {}
         setattr(pipeline.core.internal.data, decorations_attr, decorations)
+        registered_individuals: set[tuple[str, str]] = set()
         try:
             if len(self.draw_io_xml_tree[0][0][0]) == 0:
                 raise NothingToParseException
@@ -1314,8 +1888,12 @@ class xml_data_core:
                             f"The node '{identifier}' declares rdf:type '{candidate}', which is not defined by the available prefixes.'"
                         ) from exc
                     seen_classes.add(candidate)
+                    key = (identifier, candidate)
+                    if key in registered_individuals:
+                        continue
                     individual = Individual(identifier, candidate)
                     self.individual_cells.append((cell, individual, dimensions))
+                    registered_individuals.add(key)
                 if not had_tokens:
                     raise NotInKnownException(
                         f"The node '{identifier}' declares an rdf:type value but no CURIE tokens could be parsed."
@@ -1324,7 +1902,7 @@ class xml_data_core:
             if kind_name == "STANDALONE_INDIVIDUAL":
                 identifier = classification.identifier or classification.raw_value
                 dimensions = self._dimensions(cell)
-                types = classification.tokens or [DEFAULT_STANDALONE_TYPE]
+                types = classification.tokens or [default_standalone_type]
                 seen_types: set[str] = set()
                 for rdf_type in types:
                     candidate = rdf_type.strip()
@@ -1339,8 +1917,20 @@ class xml_data_core:
                             f"The standalone node '{identifier}' declares rdf:type '{candidate}', which is not defined by the available prefixes.'"
                         ) from exc
                     seen_types.add(candidate)
+                    key = (identifier, candidate)
+                    if key in registered_individuals:
+                        continue
                     individual = Individual(identifier, candidate)
                     self.individual_cells.append((cell, individual, dimensions))
+                    registered_individuals.add(key)
+                continue
+            if kind_name == "DECORATION":
+                cell_id = cell.attrib.get("id")
+                if cell_id:
+                    decorations[cell_id] = {
+                        "value": classification.raw_value,
+                        "connected": False,
+                    }
                 continue
             self.literal_cells.append((cell, self._dimensions(cell)))
             cell_id = cell.attrib.get("id")
@@ -1759,6 +2349,7 @@ class internal_control_core:
                             raise NotInKnownException(
                                 f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
                             ) from exc
+                property_value = (target_identifier, True)
             else:
                 object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
@@ -1767,6 +2358,7 @@ class internal_control_core:
                     space_substitute,
                     capitalisation_scheme,
                 )
+                property_value = (target_identifier, False)
             source_identifier = _replace_metacharacters(
                 individual_or_arrow.source,
                 metacharacter_substitutes,
@@ -1777,13 +2369,14 @@ class internal_control_core:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
                 blocks[source_identifier, individual_or_arrow.source] = {
-                    individual_or_arrow.identifier: {target_identifier}
+                    individual_or_arrow.identifier: {property_value}
                 }
                 continue
-            try:
-                block[individual_or_arrow.identifier].add(target_identifier)
-            except KeyError:
-                block[individual_or_arrow.identifier] = {target_identifier}
+            values = block.get(individual_or_arrow.identifier)
+            if values is None:
+                block[individual_or_arrow.identifier] = {property_value}
+            else:
+                values.add(property_value)
         return (blocks, object_properties, datatype_properties)
 
     # END individual_blocks
@@ -1792,10 +2385,23 @@ class internal_control_core:
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
     ) -> DrawIOParserGraph:
+        """
+        Builds an RDF graph from raw Draw.io XML using the new self-contained
+        DrawIOCellClassifier, completely bypassing DrawIOXMLTree.
+        """
+        DrawIOCellClassifier = getattr(
+            pipeline.core.xml.data, "DrawIOCellClassifier", None
+        )
+
+        def _is_flag_enabled(value: Any) -> bool:
+            if isinstance(value, str):
+                return value.strip().lower() in {"true", "1", "yes", "on"}
+            return bool(value)
+
         metadata_prefixes, base_uri, csv_path, parsed_root = (
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
-        prefixes = get_prefixes()
+        prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
         working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
             raw_xml, parsed_root
@@ -1806,13 +2412,22 @@ class internal_control_core:
             config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
         )
         serialisation_config = SerialisationConfig(
-            infer_type_of_literals=config_args["infer_type_of_literals"],
-            include_preamble=config_args["include_preamble"],
+            infer_type_of_literals=not config_args.get("infer_types_disable", False),
+            include_preamble=not config_args.get("preamble_disable", False),
             ontology_iri=ontology_iri,
             prefix=prefix,
             prefix_iri=prefix_iri,
             indentation=config_args["indentation"],
-            include_label=config_args["include_label"],
+            include_label=not config_args.get("label_disable", False),
+        )
+        _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
+        strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
+        try:
+            max_gap = float(config_args.get("max_gap", DEFAULT_MAX_GAP))
+        except (TypeError, ValueError):
+            max_gap = float(DEFAULT_MAX_GAP)
+        classifier = DrawIOCellClassifier(
+            working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
@@ -1822,198 +2437,9 @@ class internal_control_core:
                 config_args["metacharacter_substitute"]
             )
         )
-        _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
-
-        def _coerce_flag(value: Any, fallback: bool) -> bool:
-            if isinstance(value, bool):
-                return value
-            if isinstance(value, str):
-                lowered = value.strip().lower()
-                if lowered in {"true", "1", "yes", "on"}:
-                    return True
-                if lowered in {"false", "0", "no", "off"}:
-                    return False
-            if value is None:
-                return fallback
-            return bool(value)
-
-        def _coerce_optional_flag(value: Any) -> bool | None:
-            if value is None:
-                return None
-            return _coerce_flag(value, True)
-
-        def _metadata_strip_html(parsed: Element | None) -> bool | None:
-            if parsed is None:
-                return None
-            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
-            if metadata_node is None:
-                return None
-            attribute = metadata_node.attrib.get("stripHtml")
-            if attribute is None:
-                return None
-            return _coerce_optional_flag(attribute)
-
-        def _metadata_enables_rml(parsed: Element | None) -> bool:
-            if parsed is None:
-                return False
-            metadata_node = parsed.find(".//mxGraphModel/root/UserObject[@id='0']")
-            if metadata_node is None:
-                return False
-            flag = metadata_node.attrib.get("rmlEnabled")
-            if flag is None:
-                return False
-            return _coerce_flag(flag, False)
-
-        strip_html_preference = True
-        config_strip = _coerce_optional_flag(config_args.get("strip_html"))
-        metadata_strip = _metadata_strip_html(parsed_root)
-        if config_strip is not None:
-            strip_html_preference = config_strip
-        elif metadata_strip is not None:
-            strip_html_preference = metadata_strip
-
-        def _gather_literal_replacements(
-            xml_tree: DrawIOXMLTree,
-        ) -> list[tuple[str, str, str, str]]:
-            from html import unescape
-
-            replacements: list[tuple[str, str, str, str]] = []
-            for arrow_cell, *_ in xml_tree.arrow_cells:
-                try:
-                    label = xml_tree._arrow_label(arrow_cell)
-                except Exception:
-                    continue
-                try:
-                    target_id = arrow_cell.attrib["target"]
-                    source_id = arrow_cell.attrib["source"]
-                except KeyError:
-                    continue
-                try:
-                    target_cell = xml_tree._cell_with_id(target_id)
-                except Exception:
-                    continue
-                try:
-                    is_literal = xml_tree._cell_is_literal(target_cell)
-                except Exception:
-                    is_literal = False
-                if not is_literal:
-                    continue
-                try:
-                    sanitized_target = xml_tree._source_or_target(target_cell, False)
-                except Exception:
-                    continue
-                try:
-                    source_cell = xml_tree._cell_with_id(source_id)
-                    source_identifier = xml_tree._source_or_target(source_cell, True)
-                except Exception:
-                    continue
-                sanitized_subject = _replace_metacharacters(
-                    source_identifier,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    config_args["capitalisation_scheme"],
-                )
-                raw_literal = unescape(target_cell.attrib.get("value", ""))
-                if not raw_literal:
-                    continue
-                if raw_literal.strip() == sanitized_target.strip():
-                    continue
-                replacements.append(
-                    (sanitized_subject, label.strip(), sanitized_target, raw_literal)
-                )
-            return replacements
-
-        def _restore_literal_markup(
-            graph: DrawIOParserGraph, replacements: list[tuple[str, str, str, str]]
-        ) -> None:
-            if not replacements:
-                return
-            prefix = serialisation_config.prefix
-            effective_prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-                serialisation_config.ontology_iri
-            )
-            fallback_base = effective_prefix_iri or get_prefix_iri(ontology_iri)
-            for (
-                subject_identifier,
-                property_identifier,
-                sanitized_value,
-                raw_value,
-            ) in replacements:
-                if ":" not in property_identifier:
-                    continue
-                prop_prefix, prop_name = property_identifier.split(":", 1)
-                try:
-                    prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-                except KeyError:
-                    continue
-                if prefix and effective_prefix_iri:
-                    subject_uri = Namespace(effective_prefix_iri)[subject_identifier]
-                else:
-                    subject_uri = URIRef(f"{fallback_base}{subject_identifier}")
-                sanitized_literal = Literal(sanitized_value)
-                if (subject_uri, prop_uri, sanitized_literal) not in graph:
-                    continue
-                graph.remove((subject_uri, prop_uri, sanitized_literal))
-                graph.add((subject_uri, prop_uri, Literal(raw_value)))
-
-        draw_io_xml_tree = DrawIOXMLTree(working_xml, prefixes)
-        literal_replacements: list[tuple[str, str, str, str]] = []
-        if not strip_html_preference:
-            literal_replacements = _gather_literal_replacements(draw_io_xml_tree)
-        try:
-            candidate_cells = draw_io_xml_tree.draw_io_xml_tree[0][0][0]
-        except IndexError:
-            candidate_cells = []
-        for cell in candidate_cells:
-            if cell.tag != "mxCell":
-                raise ParseException(
-                    f"Could not parse XML tree: expecting an element with tag 'mxCell', but had tag '{cell.tag}'"
-                )
-            if cell.attrib.get("edge") == "1":
-                continue
-            try:
-                cell_value = draw_io_xml_tree._value_of(cell)
-            except _NoValueException:
-                continue
-            if not cell_value:
-                continue
-            raw_value = cell_value.strip()
-            has_separator = ":" in raw_value
-            prefix_head = raw_value.split(":", 1)[0] if has_separator else raw_value
-            remainder = raw_value.split(":", 1)[1] if has_separator else ""
-            is_literal_candidate = draw_io_xml_tree._is_possible_literal(cell)
-            try:
-                parent = draw_io_xml_tree._parent_of(cell)
-                individual_identifier = draw_io_xml_tree._value_of(parent)
-            except _NoValueException:
-                continue
-            if not individual_identifier:
-                continue
-            if parent.attrib.get("edge") == "1":
-                continue
-            if prefix_head not in prefixes.keys() and is_literal_candidate:
-                continue
-            if not has_separator:
-                raise NotInKnownException(
-                    f"The node '{individual_identifier}' declares rdf:type without a CURIE prefix separator."
-                )
-            if not prefix_head:
-                raise NotInKnownException(
-                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', but no prefix was provided before the ':' separator."
-                )
-            if not remainder.strip():
-                raise NotInKnownException(
-                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', but no reference portion was provided after the prefix."
-                )
-            if prefix_head not in prefixes.keys():
-                raise NotInKnownException(
-                    f"The node '{individual_identifier}' declares rdf:type '{raw_value}', whose prefix '{prefix_head}' is not defined by the available prefixes."
-                )
         blocks, object_properties, datatype_properties = (
             internal_control_core.individual_blocks(
-                draw_io_xml_tree.individuals_and_arrows(
-                    config_args["strict_mode"], config_args["max_gap"]
-                ),
+                classifier.get_graph_elements(),
                 metacharacter_substitutes,
                 space_substitute,
                 config_args["capitalisation_scheme"],
@@ -2029,16 +2455,19 @@ class internal_control_core:
             graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
         )
-        if not strip_html_preference:
-            _restore_literal_markup(graph, literal_replacements)
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-        rml_from_config = _coerce_flag(config_args.get("rml_enabled"), False)
-        if rml_from_config or _metadata_enables_rml(parsed_root):
+        rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
+            parsed_root
+            and _is_flag_enabled(
+                parsed_root.find(".//UserObject[@id='0']").attrib.get("rmlEnabled")
+                if parsed_root.find(".//UserObject[@id='0']")
+                else False
+            )
+        )
+        if rml_enabled:
             rr = Namespace("http://www.w3.org/ns/r2rml#")
             graph.namespace_manager.bind("rr", rr, replace=False)
-            from rdflib import BNode
-
             graph.add((BNode(), RDF.type, rr.TriplesMap))
         return graph
 
@@ -2118,21 +2547,32 @@ class rdf_control_core:
         graph_cls: type[Graph] = Graph,
         graph_kwargs: dict[str, Any] | None = None,
     ) -> Graph:
-        from rdflib import BNode
-        from rdflib.namespace import SKOS
-
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
-        for prefix, uri in prefixes.items():
-            graph.bind(prefix, Namespace(uri), replace=True)
-        if serialisation_config.prefix:
-            graph.bind(
-                serialisation_config.prefix,
-                Namespace(
-                    serialisation_config.prefix_iri
-                    or get_prefix_iri(serialisation_config.ontology_iri)
-                ),
-            )
+        prefix = serialisation_config.prefix
+        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+            serialisation_config.ontology_iri
+        )
+
+        def _is_absolute_iri(candidate: str) -> bool:
+            if not candidate:
+                return False
+            try:
+                parsed = urllib.parse.urlparse(candidate)
+            except Exception:
+                return False
+            return bool(parsed.scheme and (parsed.netloc or parsed.path))
+
+        namespace_map: dict[str, Namespace] = {}
+        for prefix_key, uri in prefixes.items():
+            if _is_absolute_iri(uri):
+                namespace = Namespace(uri)
+                graph.bind(prefix_key, namespace, replace=True)
+            else:
+                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
+            namespace_map[prefix_key] = namespace
+        if prefix:
+            graph.bind(prefix, Namespace(prefix_iri), replace=True)
         if serialisation_config.include_preamble:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
@@ -2141,23 +2581,19 @@ class rdf_control_core:
             (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
             (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
             prop_prefix, prop_name = prop.split(":")
-            prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
         absolute_overrides = {
             individual_id: individual_label
             for individual_id, individual_label in blocks.keys()
             if "://" in individual_label
         }
-        prefix = serialisation_config.prefix
-        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-            serialisation_config.ontology_iri
-        )
         for (individual_id, individual_label), types_and_facts in blocks.items():
             if individual_id in absolute_overrides:
                 individual_uri = URIRef(absolute_overrides[individual_id])
@@ -2173,11 +2609,7 @@ class rdf_control_core:
             for rdf_type in types_and_facts.get("Types", set()):
                 type_prefix, type_name = rdf_type.split(":")
                 graph.add(
-                    (
-                        individual_uri,
-                        RDF.type,
-                        Namespace(prefixes[type_prefix])[type_name],
-                    )
+                    (individual_uri, RDF.type, namespace_map[type_prefix][type_name])
                 )
             if serialisation_config.include_label:
                 graph.add((individual_uri, RDFS.label, Literal(individual_label)))
@@ -2185,9 +2617,21 @@ class rdf_control_core:
                 if prop == "Types":
                     continue
                 prop_prefix, prop_name = prop.split(":")
-                prop_uri = Namespace(prefixes[prop_prefix])[prop_name]
-                for value in values:
-                    if prop in object_properties:
+                prop_uri = namespace_map[prop_prefix][prop_name]
+                for raw_value in values:
+                    if (
+                        isinstance(raw_value, tuple)
+                        and len(raw_value) == 2
+                        and isinstance(raw_value[1], bool)
+                    ):
+                        value, is_literal = raw_value
+                    else:
+                        value = raw_value
+                        is_literal = (
+                            prop in datatype_properties
+                            and prop not in object_properties
+                        )
+                    if not is_literal:
                         if value in absolute_overrides:
                             target_uri = URIRef(absolute_overrides[value])
                         elif prefix and serialisation_config.prefix_iri:
@@ -2199,19 +2643,27 @@ class rdf_control_core:
                         else:
                             target_uri = URIRef(value)
                         graph.add((individual_uri, prop_uri, target_uri))
-                    elif prop in datatype_properties:
-                        if isinstance(value, int) or (
-                            isinstance(value, str) and value.isnumeric()
+                    else:
+                        literal_candidate = value
+                        if isinstance(literal_candidate, int) or (
+                            isinstance(literal_candidate, str)
+                            and literal_candidate.isnumeric()
                         ):
-                            literal_value = Literal(value, datatype=XSD.integer)
-                        elif isinstance(value, float):
-                            literal_value = Literal(value, datatype=XSD.float)
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.integer
+                            )
+                        elif isinstance(literal_candidate, float):
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.float
+                            )
                         else:
                             try:
-                                datetime.strptime(value, "%Y-%m-%d")
-                                literal_value = Literal(value, datatype=XSD.date)
+                                datetime.strptime(literal_candidate, "%Y-%m-%d")
+                                literal_value = Literal(
+                                    literal_candidate, datatype=XSD.date
+                                )
                             except (ValueError, TypeError):
-                                literal_value = Literal(value)
+                                literal_value = Literal(literal_candidate)
                         graph.add((individual_uri, prop_uri, literal_value))
         decorations_attr = "__drawio_literal_registry"
         decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
