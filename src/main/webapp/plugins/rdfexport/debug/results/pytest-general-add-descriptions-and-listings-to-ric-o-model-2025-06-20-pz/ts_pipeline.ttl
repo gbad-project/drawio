@@ -24,10 +24,9 @@ add:notes a owl:DatatypeProperty .
 
 add:privateNote a owl:DatatypeProperty .
 
-<<<<<<< HEAD
 add:relatedMaterial a owl:DatatypeProperty .
 
-<ontology://generated-from-draw-io/2025-10-21T17-22-49> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Rr%3Atemplate%20%22%2FKB%2FCreationRelation%2F%7BREFD_FILE%7D%2F%7BOFFICEABC_1..20%7D%2Furn%3Auuid%3A%7BUUID_OFFICEABC%7D%22 a owl:NamedIndividual,
@@ -39,24 +38,6 @@ add:relatedMaterial a owl:DatatypeProperty .
     rico:hasEndDate :Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEOFF_1..20_END%7D%22 ;
     rico:relationHasSource :Rr%3Atemplate%20%22%2FKB%2FRecordSet%2F%7BREFD_FILE%7D%22 ;
     rico:relationHasTarget :Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BABC_REFA_1..20%7D%22 .
-=======
-<mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "rml:reference   \"SCOPE\"",
-        "rml:reference  \"AVAIL\"",
-        "rml:reference  \"CUSTOD\"",
-        "rml:reference  \"ISA\"",
-        "rml:reference  \"NOTES\"",
-        "rml:reference  \"REST\"",
-        "rml:reference  \"RESTRTX\"",
-        "rml:reference \"ACCRUAL\"",
-        "rml:reference \"ASSMAT\"",
-        "rml:reference \"FINDAID\"",
-        "rml:reference \"RELMAT\"",
-        "rml:reference \"TGU\"",
-        "rr:template \"{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
-        "rr:template \"{TITLE} - {OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"" .
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
 
 :Rr%3Aconstant%20%22%2FSchema%2FDescription-Listings%2FArchivalDescriptionRecord%22 a owl:NamedIndividual,
         rico:DocumentaryFormType ;

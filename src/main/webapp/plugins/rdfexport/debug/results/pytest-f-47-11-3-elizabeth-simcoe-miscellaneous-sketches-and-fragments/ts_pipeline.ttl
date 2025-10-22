@@ -4,22 +4,8 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-22-14> a owl:Ontology ;
-    owl:imports rico: .
-=======
 <mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "2009-07-17",
-        "35 watercolours 5 drawings",
-        "Availability of Other Formats: Some of this material is available through the Archives' on-line Visual Database.",
-        "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records.",
-        "Finding Aid Note: An online list is available for this sub-series.",
-        "No further accruals are expected.",
-        "No restrictions on access.",
-        "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form.",
-        "Sub-series consists of miscellaneous watercolour and drawing fragments, which were kept separately from the completed pieces contained in sub-series F 47-11-1.  The first group, F 47-11-3-1, contains fragments of views of what appears to be Upper Canada; most are smudged and unidentified. Two fragments contain no sketch but identity Kingston, and \"near Queenston\", which suggests these may have been backing paper for a smaller mounted drawing. The second group, F 47-11-3-2, contains watercolour and drawing fragments of places in England and Europe, drawn after Mrs. Simcoe's return to England. Many of these have some identification. Differences in style suggest that some were not created by Mrs. Simcoe." .
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
+    owl:imports rico: .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;

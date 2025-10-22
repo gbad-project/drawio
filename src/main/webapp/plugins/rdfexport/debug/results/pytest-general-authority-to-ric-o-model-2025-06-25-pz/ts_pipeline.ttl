@@ -13,11 +13,7 @@ auth:privateNote a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-23-01> a owl:Ontology ;
-=======
 <mock://debug-ontology> a owl:Ontology ;
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
     owl:imports rico: ;
     skos:note "Rules for Archival Description" .
 

@@ -3,17 +3,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-21-40> a owl:Ontology ;
-    owl:imports rico: .
-=======
 <mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "1 digital image (66.1 KB) : colour (jpeg)",
-        "1 watercolour on paper",
-        "Notes: Old Code: 1",
-        "Resolution (DPI): 300" .
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
+    owl:imports rico: .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;

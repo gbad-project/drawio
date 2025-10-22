@@ -4,20 +4,8 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-23-34> a owl:Ontology ;
-    owl:imports rico: .
-=======
 <mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "2012-03-29",
-        "9.8 metres of textual records (32 Boxes)",
-        "Access to these records is governed by the Freedom of Information and Protection of Privacy Act. Requests for access to records 100 years old or less must be submitted in writing to the Information and Privacy Unit of the Archives of Ontario.",
-        "Copyright is held primarily by the Crown. There are no restrictions on reproduction. Permission of the Archives of Ontario is required for publication; submit a Request for Permission to Publish, Exhibit or Broadcast Form.",
-        "Finding Aid Note: No file list is available.",
-        "Immediate Source of Acquisition: Records in this series were transferred to the Archives of Ontario by the Ministry of Health.",
-        "No further accruals are expected." .
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
+    owl:imports rico: .
 
 :1948 a owl:NamedIndividual,
         rico:Date ;

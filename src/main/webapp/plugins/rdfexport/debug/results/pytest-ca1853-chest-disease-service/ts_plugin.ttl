@@ -4,21 +4,8 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-20-41> a owl:Ontology ;
-    owl:imports rico: .
-=======
 <mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "2010-07-19",
-        "Function Note: The Chest Disease Service was established to eradicate tuberculosis and to deal with other diseases of the chest and lungs.",
-        "In 1974, in response to the continuing decline of the incidence of TB, the Tuberculosis Prevention Service was renamed Chest Disease Service, and was moved, within the Clinic Services Branch, to the Community Health Division.  Throughout the late 1970s and into the 1980s, the Chest Disease Service was transferred several times within the public health function to different offices. Finally in 1982 it was effectively shut down. Of the 23 chest clinics that the service operated, 18 were closed and the remaining 5, all located in Northern Ontario, were transferred to the Ministry of Labour for the purposes of screening miners.",
-        "Source Note: Not in Canadiana. Inventory for RG 10. Archivaria, Number 41, Spring 1996." .
-
-:1982 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "1982" .
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
+    owl:imports rico: .
 
 :Agent%20Identifier a owl:NamedIndividual,
         rico:IdentifierType ;

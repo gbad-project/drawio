@@ -7,11 +7,7 @@
 <https://forvaltningsdatabasen.sikt.no/data/enhet/55009> a owl:NamedIndividual ;
     rdfs:label "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-24-34> a owl:Ontology ;
-=======
 <mock://debug-ontology> a owl:Ontology ;
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
     owl:imports rico: ;
     skos:note "131070863360",
         "2020-04-24",

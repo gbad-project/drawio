@@ -4,24 +4,8 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<<<<<<< HEAD
-<ontology://generated-from-draw-io/2025-10-21T17-20-52> a owl:Ontology ;
-    owl:imports rico: .
-=======
 <mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "2024-06-03",
-        "Function Note: The Tuberculosis Prevention Division developed and promoted measures designed to eradicate tuberculosis in its early stages.",
-        "The origins of tuberculosis prevention in the government of Ontario date to 1923 when a Diagnostic Chest Clinic was established in the Division of Preventable Diseases. In 1935 a separate Division of Tuberculosis Prevention was created. In 1959 the division was renamed the Tuberculosis Prevention Branch.           As part of a major reorganization of the Department of Health in 1966, the newly named Tuberculosis Prevention Service became part of the Special Health Services Branch of the Public Health Division.         In 1969 a number of changes occured in the branch. The TB case register was turned over to the Epidemiology Service and in conformity with the Task Force on Tuberculosis Prevention, the service assumed responsibility for all chest clinics in the province. Up until that year, voluntary agencies had operated the chest clinics. Fourteen permanent chest clinics were operated at Ottawa, Belleville, Timmins, Lindsay, North Bay, Orillia, Brantford, Kingston, Windsor, Fort William, Kirkland Lake, London, Kitchener, Hamilton, with sub-office in Sault Ste. Marie, Sudbury, Cornwall, and Barrie. By 1970, the department was responsible for 28 chest clinic offices.         In 1973 the Tuberculosis Prevention Service was moved to the Clinic Services Branch, which formed part of the Direct Services Division.          The unit was headed by G.C. Brink (1935-1959), S.A. Holling (1959-1965), and C.H. Rorabeck (1965-1973).           In 1974 the service was renamed the Chest Disease Service and formed part of the Clinic Service Branch." .
-
-:1972 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "1972" .
-
-:1974 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "1974" .
->>>>>>> codex/debug-rdfexport-cell-classifications-p1sglp
+    owl:imports rico: .
 
 :Agent%20Identifier a owl:NamedIndividual,
         rico:IdentifierType ;
