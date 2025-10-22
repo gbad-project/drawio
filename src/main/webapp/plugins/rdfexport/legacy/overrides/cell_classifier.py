@@ -85,6 +85,7 @@ class DrawIOCellClassifier:
         self.decorations: dict[str, dict[str, Any]] = {}
         self._nodes_by_id: dict[str, tuple[Element, Individual]] = {}
         self._literals_by_id: dict[str, Element] = {}
+        self._declared_individual_identifiers: set[str] = set()
 
         # Set the registry for the serializer to find
         setattr(
@@ -114,6 +115,17 @@ class DrawIOCellClassifier:
         # First pass: classify and create all nodes (individuals and literals)
         for cell in cells:
             if cell.attrib.get("edge") == "1":
+                cell_id = cell.attrib.get("id")
+                if cell_id:
+                    try:
+                        arrow_value = self._arrow_label(cell)
+                    except _NoValueException:
+                        arrow_value = cell.attrib.get("value", "").strip()
+                    self.classifications[cell_id] = self.CellClassification(
+                        self.CellKind.ARROW_LABEL,
+                        arrow_value,
+                        cell,
+                    )
                 continue  # Skip edges for now
 
             try:
@@ -145,6 +157,7 @@ class DrawIOCellClassifier:
                         if ind.identifier == identifier
                     ):
                         self.individuals.append(individual)
+                    self._declared_individual_identifiers.add(identifier)
                     self._nodes_by_id[parent.attrib["id"]] = (parent, individual)
                     # Some arrows reference the typed child cell directly instead of
                     # the swimlane/container node. Retain a lookup for both so either
@@ -165,6 +178,8 @@ class DrawIOCellClassifier:
                         if ind.identifier == identifier
                     ):
                         self.individuals.append(individual)
+                    if classification.tokens:
+                        self._declared_individual_identifiers.add(identifier)
                     self._nodes_by_id[cell_id] = (cell, individual)
 
             elif kind_name in ("LITERAL", "DECORATION"):
@@ -181,11 +196,11 @@ class DrawIOCellClassifier:
                 arrow = self._resolve_arrow(cell)
                 if arrow:
                     self.arrows.append(arrow)
-            except (
-                NoSourceException,
-                NoTargetException,
-                ArrowWithoutIndividualAsSourceException,
-            ) as e:
+            except ArrowWithoutIndividualAsSourceException:
+                raise
+            except (NoSourceException, NoTargetException) as e:
+                if self._strict_mode:
+                    raise
                 print(f"Warning: Skipping arrow due to error: {e}")
 
     def classify(self, cell: Element, cell_value: str) -> CellClassification:
@@ -306,6 +321,44 @@ class DrawIOCellClassifier:
             )
         return geom
 
+    @staticmethod
+    def _has_correct_as_attribute(
+        element: Element, as_attribute: str, cell_id: str
+    ) -> bool:
+        try:
+            return element.attrib["as"] == as_attribute
+        except KeyError as key_error:
+            raise ParseException(
+                "Encountered an mxPoint element of the cell with the "
+                f"following id without an 'as' attribute: {cell_id}"
+            ) from key_error
+
+    @staticmethod
+    def _is_locked(cell: Element, as_attribute: str) -> bool:
+        if as_attribute == "sourcePoint" and ("source" in cell.attrib):
+            return True
+        if as_attribute == "targetPoint" and ("target" in cell.attrib):
+            return True
+        return False
+
+    @staticmethod
+    def _x_and_y_in_geometry(geometry: Element, cell_id: str) -> tuple[float, float]:
+        try:
+            x = float(geometry.attrib["x"])
+        except KeyError as key_error:
+            raise ParseException(
+                "Encountered an mxGeometry element of the cell with the "
+                f"following id without an 'x' attribute: {cell_id}"
+            ) from key_error
+        try:
+            y = float(geometry.attrib["y"])
+        except KeyError as key_error:
+            raise ParseException(
+                "Encountered an mxGeometry element of the cell with the "
+                f"following id without a 'y' attribute: {cell_id}"
+            ) from key_error
+        return x, y
+
     def _dimensions(self, cell: Element) -> Dimensions:
         geom = self._geometry(cell)
         return (
@@ -319,12 +372,7 @@ class DrawIOCellClassifier:
         geom = self._geometry(cell)
         width = float(geom.attrib.get("width", 0.0))
         height = float(geom.attrib.get("height", 0.0))
-        coordinates = self._start_or_end(cell, None)
-        if coordinates is None:
-            x = float(geom.attrib.get("x", 0.0))
-            y = float(geom.attrib.get("y", 0.0))
-        else:
-            x, y = coordinates
+        x, y = self._start_or_end(cell, None)
         return x, y, width, height
 
     def _close_enough(self, arrow_point: tuple[float, float], cell: Element) -> bool:
@@ -347,14 +395,14 @@ class DrawIOCellClassifier:
         if arrow_point is None:
             raise _NoCellCloseEnoughException
 
-        for cell_id, (cell, individual) in self._nodes_by_id.items():
+        for cell, individual in self._nodes_by_id.values():
             if self._close_enough(arrow_point, cell):
                 return cell, individual.identifier, False
 
         if require_individual:
             raise _NoCellCloseEnoughException
 
-        for cell_id, literal_cell in self._literals_by_id.items():
+        for literal_cell in self._literals_by_id.values():
             if not self._close_enough(arrow_point, literal_cell):
                 continue
             try:
@@ -365,41 +413,77 @@ class DrawIOCellClassifier:
 
         raise _NoCellCloseEnoughException
 
+    def _defines_individual(self, identifier: str) -> bool:
+        return identifier in self._declared_individual_identifiers
+
     def _start_or_end(
         self, cell: Element, as_attribute: str | None
     ) -> tuple[float, float] | None:
         geometry = self._geometry(cell)
-        if as_attribute is None:  # Case for getting a node's absolute position
-            x = float(geometry.attrib.get("x", 0.0))
-            y = float(geometry.attrib.get("y", 0.0))
-            parent_id = cell.attrib.get("parent")
-            if parent_id is None or parent_id == "1":
-                return x, y
+        cell_id = cell.attrib.get("id", "")
+        if as_attribute is None:
+            return self._x_and_y_in_geometry(geometry, cell_id)
+        if len(geometry) == 0:
+            raise ParseException(
+                "Expecting the mxGeometry element of the cell with the "
+                "following id to have sub-elements, but has no sub-elements "
+                f"at all: {cell_id}"
+            )
+        for element in geometry:
+            if element.tag != "mxPoint" or not self._has_correct_as_attribute(
+                element, as_attribute, cell_id
+            ):
+                continue
             try:
-                parent_coords = self._start_or_end(self._parent_of(cell), None)
-                if parent_coords:
-                    return x + parent_coords[0], y + parent_coords[1]
+                x = float(element.attrib["x"])
+            except KeyError as key_error:
+                if self._is_locked(cell, as_attribute):
+                    return None
+                raise ParseException(
+                    "Encountered an mxPoint element of the cell with the "
+                    "following id without an 'x' attribute: "
+                    f"{cell_id}"
+                ) from key_error
+            try:
+                y = float(element.attrib["y"])
+            except KeyError as key_error:
+                if self._is_locked(cell, as_attribute):
+                    return None
+                raise ParseException(
+                    "Encountered an mxPoint element of the cell with the "
+                    "following id without a 'y' attribute: "
+                    f"{cell_id}"
+                ) from key_error
+            parent_id = cell.attrib.get("parent")
+            if parent_id == "1" or parent_id is None:
                 return x, y
-            except (ParseException, ValueError):
-                return x, y  # Fallback if parent can't be resolved
-
-        # Case for getting an arrow's endpoint
-        point = geometry.find(f"mxPoint[@as='{as_attribute}']")
-        if point is None:
-            return None
-        x = float(point.attrib.get("x", 0.0))
-        y = float(point.attrib.get("y", 0.0))
-        return x, y
+            parent_coordinates = self._start_or_end(self._parent_of(cell), None)
+            if parent_coordinates is None:
+                raise ValueError
+            parent_x, parent_y = parent_coordinates
+            return x + parent_x, y + parent_y
+        raise ParseException(
+            "Expecting the mxGeometry element of the cell with the following "
+            "id to have an mxPoint sub-element with 'as' attribute having "
+            f"value '{as_attribute}', but it does not: {cell_id}"
+        )
 
     def _arrow_label(self, arrow_cell: Element) -> str:
-        label_cell = self.draw_io_xml_tree.find(
-            f".//mxCell[@parent='{arrow_cell.attrib['id']}']"
-        )
-        if label_cell is not None:
+        for cell in self._child_of(arrow_cell.attrib["id"]):
             try:
-                return self._value_of(label_cell)
-            except _NoValueException:
-                pass
+                style = cell.attrib["style"]
+            except KeyError:
+                style = ""
+            has_value = bool(cell.attrib.get("value"))
+            if "edgeLabel" in style or has_value:
+                try:
+                    return self._value_of(cell)
+                except _NoValueException:
+                    if has_value:
+                        return cell.attrib.get("value", "").strip()
+        fallback = arrow_cell.attrib.get("value", "").strip()
+        if fallback:
+            return fallback
         raise _NoValueException("No label found for arrow")
 
     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:
@@ -478,6 +562,9 @@ class DrawIOCellClassifier:
 
         if target_cell and target_cell.attrib.get("id") in self.decorations:
             self.decorations[target_cell.attrib["id"]]["connected"] = True
+
+        if not is_datatype and not self._defines_individual(target_identifier):
+            is_datatype = True
 
         return Arrow(
             str(arrow_label.strip()), source_identifier, target_identifier, is_datatype

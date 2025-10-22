@@ -16,6 +16,7 @@ if str(PACKAGE_ROOT) not in sys.path:
     sys.path.insert(0, str(PACKAGE_ROOT))
 
 import draw_io_parser  # noqa: E402
+import original.draw_io_parser as original_draw_io_parser  # noqa: E402
 
 DrawIOCellClassifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier
 DECORATION_REGISTRY_ATTR = getattr(
@@ -24,6 +25,8 @@ DECORATION_REGISTRY_ATTR = getattr(
 DEFAULT_STANDALONE_TYPE = getattr(
     DrawIOCellClassifier, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
 )
+
+FIXTURES_DIR = PACKAGE_ROOT / "tests" / "fixtures"
 
 
 def _vertex_cell(
@@ -300,3 +303,59 @@ def test_blank_node_used_for_decorations_without_ontology(tmp_path: Path):
     for subject, _, _ in triples:
         assert isinstance(subject, (BNode, URIRef))
         break
+
+
+def _arrow_signature(arrow: object) -> tuple[str, str, str, bool]:
+    return (
+        arrow.identifier,
+        arrow.source,
+        arrow.target,
+        bool(getattr(arrow, "is_datatype", False)),
+    )
+
+
+@pytest.mark.parametrize(
+    "fixture_name",
+    [
+        "knut_olborgs_forskningsnotater.drawio",
+        "RG 18-210 Walkerton Inquiry in RiC-O (original).drawio",
+    ],
+)
+def test_classifier_arrows_align_with_legacy_parser(fixture_name: str):
+    xml_path = FIXTURES_DIR / fixture_name
+    raw_xml = xml_path.read_text(encoding="utf-8")
+    prefixes = draw_io_parser.get_prefixes()
+
+    classifier = DrawIOCellClassifier(
+        raw_xml,
+        prefixes,
+        strict_mode=False,
+        max_gap=draw_io_parser.DEFAULT_MAX_GAP,
+    )
+    patched_arrows = {_arrow_signature(arrow) for arrow in classifier.arrows}
+
+    legacy_tree = original_draw_io_parser.DrawIOXMLTree(raw_xml, prefixes)
+    legacy_arrows = {
+        _arrow_signature(arrow)
+        for arrow in legacy_tree.individuals_and_arrows(
+            False, draw_io_parser.DEFAULT_MAX_GAP
+        )
+        if isinstance(arrow, original_draw_io_parser.Arrow)
+    }
+
+    assert patched_arrows == legacy_arrows
+
+
+def test_classifier_strict_mode_raises_for_invalid_arrows():
+    xml_path = FIXTURES_DIR / "RG 18-210 Walkerton Inquiry in RiC-O (original).drawio"
+    raw_xml = xml_path.read_text(encoding="utf-8")
+    prefixes = draw_io_parser.get_prefixes()
+
+    with pytest.raises(
+        (
+            draw_io_parser.NoSourceException,
+            draw_io_parser.NoTargetException,
+            draw_io_parser.ArrowWithoutIndividualAsSourceException,
+        )
+    ):
+        DrawIOCellClassifier(raw_xml, prefixes, strict_mode=True)

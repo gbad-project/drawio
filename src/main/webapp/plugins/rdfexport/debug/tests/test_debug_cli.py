@@ -302,7 +302,10 @@ def build_config(
         parser_config=parser_config or {},
     )
 
-def test_stdout_stderr_captured_from_extract_cell_classifications(monkeypatch, tmp_path):
+
+def test_stdout_stderr_captured_from_extract_cell_classifications(
+    monkeypatch, tmp_path
+):
     debugger = Debugger(FIXTURES_DIR)
     slug = f"pytest-{uuid4().hex[:8]}"
     drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
@@ -312,6 +315,7 @@ def test_stdout_stderr_captured_from_extract_cell_classifications(monkeypatch, t
     def mock_extract(xml_text, cfg):
         print("Demo STDOUT message from classification")
         import sys
+
         print("Demo STDERR message from classification", file=sys.stderr)
         return {"1": {"kind": "MOCK_KIND", "raw_value": "demo"}}
 

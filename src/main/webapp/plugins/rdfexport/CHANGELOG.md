@@ -27,6 +27,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - 2025-10-22 – Stopped treating DrawIO arrow labels lacking the `edgeLabel` style as standalone individuals so Turtle exports no longer type properties as `owl:NamedIndividual`, and added regression coverage for the updated classifier.
 - 2025-10-21 – Ensure mixed datatype/object properties retain literal targets (e.g., `lolabout`) and coerce invalid custom prefix IRIs back to the default namespace so debug outputs avoid `ns1:` URIs.
 - 2025-10-20 – Ensured the rdfexport legacy test harness activates the project virtual environment before running Python tooling and skipped auto-metadata fixtures when regenerating metadata patch tests so baseline regeneration succeeds alongside the updated DrawIO assets.
@@ -49,6 +50,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`44bfa04`] Bring back build:py and build:ts commands, updating plugin package scripts and the legacy test script. (Touchpoints: src/main/webapp/plugins/rdfexport/package.json, src/main/webapp/plugins/rdfexport/scripts/test_legacy.sh).
 
 ### Tests
@@ -90,6 +92,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`5cc785a`] Add control data role and fixes to metabuilder, updating the legacy DrawIO parser, meta builder core logic and recorded test logs. (Touchpoints: src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py, src/main/webapp/plugins/rdfexport/meta_builder/drawio_meta_builder.py, src/main/webapp/plugins/rdfexport/tests/demo_logs/test.log).
 - [`12ca3aa`] Rerun bun run fix && bun run build, updating the built RDF export plugin bundle, the legacy DrawIO parser and meta builder core logic. (Touchpoints: src/main/webapp/plugins/rdfexport.js, src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py, src/main/webapp/plugins/rdfexport/meta_builder/drawio_meta_builder.py).
 
@@ -111,6 +114,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`09766a3`] Fix button showing on prod, updating the built RDF export plugin bundle, the TypeScript RDF export implementation and recorded test logs. (Touchpoints: src/main/webapp/plugins/rdfexport.js, src/main/webapp/plugins/rdfexport/src/rdfexport.ts, src/main/webapp/plugins/rdfexport/tests/demo_logs/test.log).
 
 ### Tests
@@ -143,6 +147,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`c16e5ac`] Fix base URI, updating the debug CLI toolkit, the legacy DrawIO parser and the Pyodide runtime glue. (Touchpoints: src/main/webapp/plugins/rdfexport/debug/map.json, .../plugins/rdfexport/debug/results/aa37-department-of-health/ts_pipeline.nt, .../plugins/rdfexport/debug/results/aa37-department-of-health/ts_plugin.nt, .../rdfexport/debug/results/f-47-11-2-elizabeth-simcoe-sketchbook/py_legacy.ttl, .../debug/results/f-47-11-2-elizabeth-simcoe-sketchbook/ts_pipeline.ttl, .../rdfexport/debug/results/f-47-11-2-elizabeth-simcoe-sketchbook/ts_plugin.ttl, .../debug/results/general-authority-to-ric-o-model-2025-06-25-pz/py_legacy.ttl, .../debug/results/general-authority-to-ric-o-model-2025-06-25-pz/ts_pipeline.ttl, .../debug/results/general-authority-to-ric-o-model-2025-06-25-pz/ts_plugin.ttl, .../plugins/rdfexport/debug/scenarios/f-47-11-2-elizabeth-simcoe-sketchbook.yml, .../rdfexport/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz.yml, src/main/webapp/plugins/rdfexport/debug/tests/test_debug_cli.py, src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py, src/main/webapp/plugins/rdfexport/src/pyodideRuntime.ts).
 - [`af85e1b`] Fix typo in parent, updating the task guidance notes. (Touchpoints: AGENTS.md).
 
@@ -179,6 +184,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`7a6e56a`] Draw io parser: add more default prefix/IRIs, updating the built RDF export plugin bundle and the legacy DrawIO parser. (Touchpoints: src/main/webapp/plugins/rdfexport.js, src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py).
 
 ### Tests
@@ -203,6 +209,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`b734fa2`] Fix typo and clarify parent commit, updating fixture diagrams and RDF samples. (Touchpoints: src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-severely-mocked-README.md).
 
 ### Tests
@@ -253,6 +260,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`f09c94d`] Draw io parser: mv base and prefix uri to module level, updating the legacy DrawIO parser. (Touchpoints: src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py).
 - [`747dc27`] Fix dir structure in pyodide download script, updating automation scripts. (Touchpoints: src/main/webapp/plugins/rdfexport/scripts/download_pyodide_assets.sh).
 - [`9feabd9`] Fix local path to pyodide and confirm it works, updating the Pyodide runtime glue. (Touchpoints: src/main/webapp/plugins/rdfexport/src/pyodideRuntime.ts).
@@ -306,6 +314,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`56fe128`] Check that blackbox work with a fix, updating the built RDF export plugin bundle, the mock black box bridge, the TypeScript RDF export implementation and the Bun regression tests. (Touchpoints: src/main/webapp/plugins/rdfexport.js, src/main/webapp/plugins/rdfexport/src/mockBlackBox.ts, src/main/webapp/plugins/rdfexport/src/rdfexport.ts, src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts).
 
 ### Tests
@@ -357,6 +366,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`a519ecf`] Fix RDF export plugin CSV property bundle, updating AI code activity reports, the built RDF export plugin bundle, the TypeScript RDF export implementation and the Bun regression tests. (Touchpoints: docs/aicode/codex-report-20250916T190955Z.md, src/main/webapp/plugins/rdfexport.js, src/main/webapp/plugins/rdfexport/src/rdfexport.ts, src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts).
 
 ### Infrastructure
@@ -395,6 +405,7 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
 - [`23514e6`] Bring back src/main/webapp/js/app.min.js, updating the minified draw.io application bundle. (Touchpoints: src/main/webapp/js/app.min.js).
 - [`f37c986`] Fix app.min.js: bring back codex's change, updating the minified draw.io application bundle. (Touchpoints: src/main/webapp/js/app.min.js).
 - [`be6f9df`] Fix RDF export to clone graph element, updating AI code activity reports, RDF export plugin documentation and the built RDF export plugin bundle. (Touchpoints: docs/aicode/codex-report-20250915T173416Z.md, docs/plugins/rdfexport/README.md, src/main/webapp/plugins/rdfexport.js).
