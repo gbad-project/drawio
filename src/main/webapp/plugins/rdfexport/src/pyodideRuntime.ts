@@ -25,8 +25,10 @@ export interface DrawioParserConfigPayload {
   include_label: boolean;
   max_gap: number;
   strict_mode: boolean;
+  strip_html: boolean;
   metacharacter_substitute: string[];
   capitalisation_scheme: string;
+  rml_enabled: boolean;
 }
 
 type RawGraphSummary = {

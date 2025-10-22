@@ -87,6 +87,7 @@ import {
   debugPyodide,
   runDrawioPipeline,
   runMockBlackBox,
+  type DrawioParserConfigPayload,
   type DrawioParserResult,
 } from "../src/mockBlackBox";
 
@@ -448,6 +449,7 @@ const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
   "data-rdfexport-parser-infer-types";
 const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
   "data-rdfexport-parser-strict-mode";
+const PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
 const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
@@ -973,7 +975,9 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     menuStub.funct([], null);
 
     const exportAction = actions.exportRdfXml;
+    const exportRmlAction = actions.exportRml;
     expect(exportAction).toBeDefined();
+    expect(exportRmlAction).toBeDefined();
 
     if (!exportAction) {
       throw new Error("exportRdfXml action was not registered by the plugin");
@@ -987,7 +991,7 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     expect(filename).toBe(`${baseFilename}.ttl`);
     expect(format).toBe("turtle");
     expect(mimeType).toBe("text/turtle");
-    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml"]);
+    expect(exportMenuItems).toContainEqual(["-", "exportRdfXml", "exportRml"]);
 
     const referenceXml = mxUtils.getPrettyXml(graphModel);
     const expectedTurtle = await runDrawioPipeline(referenceXml);
@@ -1151,6 +1155,48 @@ json.dumps({
         `Also, Turtle is isomorphic to baseline N-Triples`,
       );
     }
+
+    if (!exportRmlAction) {
+      throw new Error("exportRml action was not registered by the plugin");
+    }
+
+    savedExports.splice(0, savedExports.length);
+    await exportRmlAction();
+
+    expect(savedExports).toHaveLength(1);
+    const rmlExport = savedExports[0]!;
+    expect(rmlExport.filename).toBe(`${baseFilename}.rml.ttl`);
+    expect(rmlExport.format).toBe("turtle");
+    expect(rmlExport.mimeType).toBe("text/turtle");
+    expect(rmlExport.data.length).toBeGreaterThan(0);
+
+    const rmlTripleCheck = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(rmlExport.data)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
+json.dumps({
+    "triples_map_count": len(triples),
+    "total_triples": len(graph),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as {
+      triples_map_count: number;
+      total_triples: number;
+      namespaces: string[];
+    };
+
+    expect(rmlTripleCheck.triples_map_count).toBe(1);
+    expect(rmlTripleCheck.total_triples).toBe(
+      actualGraphInfo.triple_count + rmlTripleCheck.triples_map_count,
+    );
+    expect(rmlTripleCheck.namespaces).toContain("rr");
   });
 }
 
@@ -1168,6 +1214,146 @@ for (const file of readdirSync(fixturesDir)) {
     runRdfExportTest(file, baselineFile);
   }
 }
+
+test(
+  "runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata-rml.drawio",
+    );
+    const xml = await Bun.file(fixturePath).text();
+
+    const rmlConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: true,
+    };
+
+    const turtle = await runDrawioPipeline(xml, rmlConfig);
+
+    expect(turtle.length).toBeGreaterThan(0);
+    expect(turtle.includes("rr:TriplesMap")).toBe(true);
+
+    const rmlSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace
+from rdflib.namespace import RDF
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
+json.dumps({
+    "triples_map_count": len(triples),
+    "namespaces": sorted(prefix or "" for prefix, _ in graph.namespace_manager.namespaces()),
+})
+      `)) as string,
+    ) as { triples_map_count: number; namespaces: string[] };
+
+    expect(rmlSummary.triples_map_count).toBeGreaterThan(0);
+    expect(rmlSummary.namespaces).toContain("rr");
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline preserves literal HTML when stripHtml disabled",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata-preserve-html.drawio",
+    );
+    const xml = await Bun.file(fixturePath).text();
+
+    const baseConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: true,
+    };
+
+    const sanitizedTurtle = await runDrawioPipeline(xml, baseConfig);
+    expect(sanitizedTurtle.length).toBeGreaterThan(0);
+
+    const sanitizedSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Literal
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(sanitizedTurtle)}, format="turtle")
+values = [
+    str(obj)
+    for _, _, obj in graph
+    if isinstance(obj, Literal) and "Function Note:" in str(obj)
+]
+json.dumps({
+    "values": values,
+    "has_html": any("<blockquote" in value for value in values),
+})
+      `)) as string,
+    ) as { values: string[]; has_html: boolean };
+
+    expect(sanitizedSummary.values.length).toBeGreaterThan(0);
+    expect(sanitizedSummary.has_html).toBe(false);
+
+    const preservedConfig: DrawioParserConfigPayload = {
+      ...baseConfig,
+      strip_html: false,
+    };
+
+    const preservedTurtle = await runDrawioPipeline(xml, preservedConfig);
+    expect(preservedTurtle.length).toBeGreaterThan(0);
+
+    const preservedSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Literal
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(preservedTurtle)}, format="turtle")
+values = [
+    str(obj)
+    for _, _, obj in graph
+    if isinstance(obj, Literal) and "Function Note:" in str(obj)
+]
+json.dumps({
+    "values": values,
+    "has_html": any("<blockquote" in value for value in values),
+})
+      `)) as string,
+    ) as { values: string[]; has_html: boolean };
+
+    expect(preservedSummary.values.length).toBeGreaterThan(0);
+    expect(preservedSummary.has_html).toBe(true);
+  },
+  { timeout: 60000 },
+);
 
 test("rdfexport plugin exposes preamble controls and diagram properties", async () => {
   const pluginModule = await loadPluginModule();
@@ -1617,16 +1803,23 @@ test("parser settings dialog updates stored configuration and pipeline", async (
     PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE,
     "true",
   ) as ElementStub & { checked: boolean };
+  const stripHtmlInput = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE,
+    "true",
+  ) as ElementStub & { checked: boolean };
 
   expect(includePreambleInput.checked).toBe(true);
   expect(includeLabelInput.checked).toBe(true);
   expect(inferTypesInput.checked).toBe(true);
   expect(strictModeInput.checked).toBe(false);
+  expect(stripHtmlInput.checked).toBe(true);
 
   includePreambleInput.checked = false;
   includeLabelInput.checked = false;
   inferTypesInput.checked = false;
   strictModeInput.checked = true;
+  stripHtmlInput.checked = false;
 
   const prefixInput = findChildByAttribute(
     dialogContainer,
@@ -1730,6 +1923,7 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(stored.includeLabel).toBe(false);
   expect(stored.inferTypeOfLiterals).toBe(false);
   expect(stored.strictMode).toBe(true);
+  expect(stored.stripHtml).toBe(false);
   expect(stored.indentation).toBe(4);
   expect(stored.maxGap).toBeCloseTo(42.5);
   expect(stored.prefix).toBe("ex");
@@ -1756,6 +1950,7 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(config.include_label).toBe(false);
   expect(config.infer_type_of_literals).toBe(false);
   expect(config.strict_mode).toBe(true);
+  expect(config.strip_html).toBe(false);
   expect(config.indentation).toBe(4);
   expect(config.max_gap).toBeCloseTo(42.5);
   expect(config.prefix).toBe("ex");

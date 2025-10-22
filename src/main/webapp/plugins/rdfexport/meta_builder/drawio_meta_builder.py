@@ -52,6 +52,7 @@ class OverrideCollection:
     replacements: Dict[tuple[str, str, str, str], OverrideRecord]
     extras: Dict[tuple[str, str, str], List[OverrideRecord]]
     modules: List[str]
+    external_imports: List[str]
 
     @property
     def replacement_count(self) -> int:
@@ -355,19 +356,32 @@ def strip_override_decorator(src: str) -> str:
         return src
 
 
+def format_import_node(node: ast.AST) -> str:
+    if isinstance(node, ast.Import):
+        names = [n.name + (f" as {n.asname}" if n.asname else "") for n in node.names]
+        return "import " + ", ".join(names)
+    if isinstance(node, ast.ImportFrom):
+        module = ("." * node.level) + (node.module or "")
+        names = [n.name + (f" as {n.asname}" if n.asname else "") for n in node.names]
+        return f"from {module} import " + ", ".join(names)
+    raise TypeError(f"Unsupported import node: {ast.dump(node)}")
+
+
 def collect_overrides(
     enabled: bool = True, overrides_dir: str | None = None
 ) -> OverrideCollection:
     if not enabled:
-        return OverrideCollection({}, {}, [])
+        return OverrideCollection({}, {}, [], [])
 
     directory = os.path.normpath(overrides_dir or DEFAULT_OVERRIDES_DIR)
     if not os.path.isdir(directory):
-        return OverrideCollection({}, {}, [])
+        return OverrideCollection({}, {}, [], [])
 
     replacements: Dict[tuple[str, str, str, str], OverrideRecord] = {}
     extras: Dict[tuple[str, str, str], List[OverrideRecord]] = {}
     modules: List[str] = []
+    external_imports: List[str] = []
+    seen_external_imports: set[str] = set()
 
     for idx, filename in enumerate(sorted(os.listdir(directory))):
         if not filename.endswith(".py") or filename.startswith("_"):
@@ -381,6 +395,46 @@ def collect_overrides(
         sys.modules[module_name] = module
         spec.loader.exec_module(module)  # type: ignore[arg-type]
         modules.append(os.path.relpath(path, directory))
+
+        try:
+            with open(path, "r", encoding="utf-8") as handle:
+                override_src = handle.read()
+        except OSError:
+            override_src = ""
+
+        try:
+            override_tree = ast.parse(override_src or "")
+        except SyntaxError:
+            override_tree = None
+
+        if override_tree is not None:
+            for node in override_tree.body:
+                if not isinstance(node, (ast.Import, ast.ImportFrom)):
+                    continue
+                if isinstance(node, ast.ImportFrom):
+                    module_name = ("." * node.level) + (node.module or "")
+                    if module_name == "__future__":
+                        continue
+                    if module_name.startswith("meta_builder"):
+                        continue
+                    if module_name.startswith("legacy."):
+                        continue
+                    if module_name.startswith("."):
+                        continue
+                    formatted = format_import_node(node)
+                else:
+                    names = [
+                        alias
+                        for alias in node.names
+                        if not alias.name.startswith("meta_builder")
+                        and not alias.name.startswith("legacy.")
+                    ]
+                    if not names:
+                        continue
+                    formatted = format_import_node(ast.Import(names=names))
+                if formatted not in seen_external_imports:
+                    seen_external_imports.add(formatted)
+                    external_imports.append(formatted)
 
         for attr_name in dir(module):
             attr = getattr(module, attr_name)
@@ -420,7 +474,7 @@ def collect_overrides(
     for values in extras.values():
         values.sort(key=lambda r: r.name)
 
-    return OverrideCollection(replacements, extras, modules)
+    return OverrideCollection(replacements, extras, modules, external_imports)
 
 
 # ---- Code generator ----
@@ -465,22 +519,13 @@ def build_output(
     import_lines = []
     for node in tree.body:
         if isinstance(node, (ast.Import, ast.ImportFrom)):
-            if (
-                isinstance(node, ast.ImportFrom)
-                and getattr(node, "module", "") == "__future__"
-            ):
+            module_name = ""
+            if isinstance(node, ast.ImportFrom):
+                module_name = ("." * node.level) + (node.module or "")
+            if module_name == "__future__":
                 continue
-            if isinstance(node, ast.Import):
-                names = [
-                    n.name + (f" as {n.asname}" if n.asname else "") for n in node.names
-                ]
-                import_lines.append("import " + ", ".join(names))
-            else:
-                module = ("." * node.level) + (node.module or "")
-                names = [
-                    n.name + (f" as {n.asname}" if n.asname else "") for n in node.names
-                ]
-                import_lines.append(f"from {module} import " + ", ".join(names))
+            import_lines.append(format_import_node(node))
+    import_lines.extend(overrides.external_imports)
     seen = set()
     ordered = []
     for line in import_lines:
@@ -649,10 +694,20 @@ def main():
 
     directory = os.path.normpath(args.overrides_dir or DEFAULT_OVERRIDES_DIR)
     status = "on" if args.overrides else "off"
-    print(
-        f"[metabuilder] Wrote {path} (overrides {status}; "
-        f"replacements={overrides.replacement_count}, additions={overrides.addition_count})"
-    )
+
+    def format_override_summary(overrides, path, status):
+        replaced = sorted(r.name for r in overrides.replacements.values())
+        added = sorted(r.name for records in overrides.extras.values() for r in records)
+        parts = [
+            f"[metabuilder] Wrote {path} ( overrides {status}; "
+            f"replacements={len(replaced)}"
+            + (f" [{', '.join(replaced)}]" if replaced else ""),
+            f"additions={len(added)}" + (f" [{', '.join(added)}]" if added else ""),
+            ")",
+        ]
+        return " ".join(parts)
+
+    print(format_override_summary(overrides, path, status))
     if args.overrides:
         if overrides.modules:
             modules = ", ".join(overrides.modules)

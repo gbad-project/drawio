@@ -2,11 +2,13 @@ import json
 import re
 import subprocess
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
+from typing import Optional
 
 import pytest
-from rdflib import Graph
-from rdflib.namespace import OWL, RDF
+from rdflib import Graph, Namespace, Literal, URIRef
+from rdflib.namespace import OWL, RDF, RDFS
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 if str(LEGACY_DIR) not in sys.path:
@@ -33,6 +35,39 @@ const patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options
 writeFileSync(outputPath, patched);
 """
 ).strip()
+
+
+TYPE_CELL_IDS = {
+    "unknown_prefix": "lTHjRTAcClQ9bYR0I0Gv-14",
+    "dangling_curie": "danglingCurieType",
+    "colon_only": "colonOnlyType",
+    "no_prefix": "noPrefixType",
+}
+
+TYPE_CASE_VALUES = {
+    "unknown_prefix": "<div>picoL:</div>",
+    "dangling_curie": "<div>:danglingCurie</div>",
+    "colon_only": "<div>:</div>",
+    "no_prefix": "<div>NoPrefixClass</div>",
+}
+
+
+def _mutate_fixture_for_case(tmp_path: Path, case_key: Optional[str]) -> Path:
+    tree = ET.parse(FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio")
+    root = tree.getroot()
+
+    for key, cell_id in TYPE_CELL_IDS.items():
+        cell = root.find(f".//mxCell[@id='{cell_id}']")
+        if cell is None:
+            raise AssertionError(f"Expected mxCell with id '{cell_id}' in fixture")
+        if case_key is not None and key == case_key:
+            cell.set("value", TYPE_CASE_VALUES[key])
+        else:
+            cell.set("value", "<div>rico:CorporateBody</div>")
+
+    output = tmp_path / f"AA37-{case_key or 'all-valid'}.drawio"
+    tree.write(output, encoding="unicode", xml_declaration=False)
+    return output
 
 
 def test_individual_blocks_accepts_declared_prefix_curie():
@@ -71,7 +106,7 @@ def test_individual_blocks_tracks_datatype_properties():
 
     items = iter(
         [
-            draw_io_parser.Individual("LiteralNode", "rico:Thing"),
+            draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="rdfs:label",
                 source="LiteralNode",
@@ -92,7 +127,112 @@ def test_individual_blocks_tracks_datatype_properties():
     assert not object_props
     assert "rdfs:label" in datatype_props
     facts = blocks[("LiteralNode", "LiteralNode")]["rdfs:label"]
-    assert "Example literal" in facts
+    assert any(
+        isinstance(value, tuple)
+        and len(value) == 2
+        and value[0] == "Example literal"
+        and value[1] is True
+        for value in facts
+    )
+
+
+def test_parse_drawio_preserves_literal_targets():
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "AA37-with-metadata-even-more-severely-mocked.drawio"),
+        metacharacter_substitute=["url"],
+    )
+
+    hellow = Namespace("some://helloworld")
+    literal_values = list(graph.objects(predicate=hellow.there))
+
+    assert Literal("lolabout") in literal_values
+
+
+def test_serialise_to_graph_falls_back_for_relative_prefixes():
+    prefixes = draw_io_parser.get_prefixes().copy()
+    prefixes["bad"] = "relative-prefix"
+
+    items = iter(
+        [
+            draw_io_parser.Individual("Source", "owl:NamedIndividual"),
+            draw_io_parser.Arrow(
+                identifier="bad:prop",
+                source="Source",
+                target="literal value",
+                is_datatype=True,
+            ),
+        ]
+    )
+
+    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
+        items,
+        [],
+        None,
+        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+        prefixes,
+    )
+
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=True,
+        include_preamble=False,
+        ontology_iri="http://example.com/ontology",
+        prefix="",
+        prefix_iri="http://example.com/",
+        indentation=2,
+        include_label=False,
+    )
+
+    graph = draw_io_parser.serialise_to_graph(
+        blocks,
+        object_props,
+        datatype_props,
+        config,
+        prefixes,
+    )
+
+    subject = URIRef("http://example.com/Source")
+    predicate = URIRef("http://example.com/prop")
+
+    assert (subject, predicate, Literal("literal value")) in graph
+
+
+@pytest.mark.parametrize(
+    "case_key",
+    ["unknown_prefix", "dangling_curie", "colon_only", "no_prefix"],
+)
+def test_parse_drawio_rejects_malformed_type_variants(tmp_path: Path, case_key: str):
+    fixture_path = _mutate_fixture_for_case(tmp_path, case_key)
+
+    with pytest.raises(draw_io_parser.NotInKnownException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+
+def test_parse_drawio_accepts_corrected_mock_types(tmp_path: Path):
+    fixture_path = _mutate_fixture_for_case(tmp_path, None)
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    expected_subjects = {
+        "https://example.com",
+        "https://example.com/dangling-curie",
+        "https://example.com/colon-only",
+        "https://example.com/no-prefix",
+    }
+
+    observed = {
+        str(subject)
+        for subject in graph.subjects(RDF.type, None)
+        if isinstance(subject, URIRef)
+    }
+
+    assert expected_subjects.issubset(observed)
 
 
 def _normalise_graph(graph: Graph) -> Graph:
@@ -169,6 +309,85 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
     assert graph.base is None
 
 
+def test_parse_drawio_with_rml_metadata_adds_triples_map():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata-rml.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+        rml_enabled=True,
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    rr = Namespace("http://www.w3.org/ns/r2rml#")
+    triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
+
+    assert len(triples) == 1
+    prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
+    assert "rr" in prefixes
+
+
+def test_parse_drawio_default_strips_html_literals():
+    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata.drawio"
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    literal_values = [str(obj) for obj in graph.objects() if isinstance(obj, Literal)]
+
+    assert literal_values
+    assert all("<" not in value for value in literal_values)
+
+
+def test_parse_drawio_respects_strip_html_config():
+    fixture_path = (
+        FIXTURES_DIR / "AA37 Department of Health-with-metadata-preserve-html.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+        strip_html=False,
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    literal_values = [str(obj) for obj in graph.objects() if isinstance(obj, Literal)]
+
+    html_literals = [value for value in literal_values if "<blockquote" in value]
+
+    assert html_literals
+
+    labels = [
+        str(label)
+        for label in graph.objects(predicate=RDFS.label)
+        if isinstance(label, Literal)
+    ]
+
+    assert labels
+    assert all("<" not in label for label in labels)
+
+
+def test_parse_drawio_metadata_strip_html_override():
+    fixture_path = (
+        FIXTURES_DIR / "AA37 Department of Health-with-metadata-preserve-html.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+    )
+
+    assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
+
+    literal_values = [str(obj) for obj in graph.objects() if isinstance(obj, Literal)]
+
+    html_literals = [value for value in literal_values if "<blockquote" in value]
+
+    assert html_literals
+
+
 def test_parse_drawio_without_metadata_sets_empty_metadata():
     fixture_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
     graph = draw_io_parser.parse_drawio_to_graph(
@@ -181,12 +400,22 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert graph.base is None
 
 
+def test_parse_drawio_rejects_unknown_literal_curie():
+    fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
+
+    with pytest.raises(draw_io_parser.NotInKnownException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(fixture_path),
+            metacharacter_substitute=["remove"],
+        )
+
+
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
     items = iter(
         [
-            draw_io_parser.Individual("SourceNode", "rico:Thing"),
+            draw_io_parser.Individual("SourceNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="unknown:prop",
                 source="SourceNode",
@@ -247,11 +476,23 @@ def _build_metadata_options(index: int, fixture_path: Path) -> dict:
     }
 
 
+def _fixture_contains_metadata(path: Path) -> bool:
+    # DrawIO fixtures are stored as plain XML. The metadata patcher injects a
+    # root-level <UserObject> node when metadata is already present, so we treat
+    # fixtures that already carry metadata as immutable inputs for this round
+    # trip exercise.
+    try:
+        contents = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        contents = path.read_bytes().decode("utf-8", errors="ignore")
+    return "<UserObject" in contents
+
+
 def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
     fixture_paths = sorted(
         path
         for path in FIXTURES_DIR.glob("*.drawio")
-        if "-with-metadata" not in path.stem
+        if "-with-metadata" not in path.stem and not _fixture_contains_metadata(path)
     )
 
     assert fixture_paths, "Expected drawio fixtures to patch"

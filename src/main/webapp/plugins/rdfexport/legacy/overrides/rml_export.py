@@ -1,0 +1,112 @@
+from __future__ import annotations
+
+from legacy.draw_io_parser import *  # type: ignore=imported-unused
+from meta_builder.drawio_meta_builder import override
+
+# ruff: noqa: F403, F405
+
+
+@override(phase="core", type="internal", role="control")
+def _build_graph_from_raw_xml(
+    raw_xml: str, config_args: dict[str, Any]
+) -> DrawIOParserGraph:
+    """
+    Builds an RDF graph from raw Draw.io XML using the new self-contained
+    DrawIOCellClassifier, completely bypassing DrawIOXMLTree.
+    """
+    DrawIOCellClassifier = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
+
+    def _is_flag_enabled(value: Any) -> bool:
+        if isinstance(value, str):
+            return value.strip().lower() in {"true", "1", "yes", "on"}
+        return bool(value)
+
+    # 1. Initial Setup and Configuration
+    metadata_prefixes, base_uri, csv_path, parsed_root = (
+        pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
+    )
+    prefixes = pipeline.pre.internal.metadata.get_prefixes()
+    prefixes.update(metadata_prefixes)
+    working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
+        raw_xml, parsed_root
+    )
+
+    ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
+    prefix = config_args["prefix"] or get_prefix()
+    prefix_iri = config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
+
+    serialisation_config = SerialisationConfig(
+        infer_type_of_literals=not config_args.get("infer_types_disable", False),
+        include_preamble=not config_args.get("preamble_disable", False),
+        ontology_iri=ontology_iri,
+        prefix=prefix,
+        prefix_iri=prefix_iri,
+        indentation=config_args["indentation"],
+        include_label=not config_args.get("label_disable", False),
+    )
+    _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
+
+    # 2. Instantiate Classifier to process the entire XML
+    # All parsing logic is now encapsulated here.
+    strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
+    try:
+        max_gap = float(config_args.get("max_gap", DEFAULT_MAX_GAP))
+    except (TypeError, ValueError):
+        max_gap = float(DEFAULT_MAX_GAP)
+
+    classifier = DrawIOCellClassifier(
+        working_xml,
+        prefixes,
+        strict_mode=strict_mode,
+        max_gap=max_gap,
+    )
+
+    # 3. Generate Intermediate Blocks from Classifier's results
+    space_substitute = internal_control_core._parse_space_substitute(
+        config_args["metacharacter_substitute"]
+    )
+    metacharacter_substitutes = list(
+        internal_control_core._parse_metacharacter_substitutes(
+            config_args["metacharacter_substitute"]
+        )
+    )
+
+    blocks, object_properties, datatype_properties = (
+        internal_control_core.individual_blocks(
+            classifier.get_graph_elements(),  # Use the new generator
+            metacharacter_substitutes,
+            space_substitute,
+            config_args["capitalisation_scheme"],
+            prefixes,
+        )
+    )
+
+    # 4. Serialize to Final Graph
+    graph = serialise_to_graph(
+        blocks,
+        object_properties,
+        datatype_properties,
+        serialisation_config,
+        prefixes,
+        graph_cls=DrawIOParserGraph,
+        graph_kwargs={"csv_path": csv_path},
+    )
+
+    # 5. Final post-processing (e.g., RML, base URI)
+    if base_uri:
+        graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
+
+    rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
+        parsed_root
+        and _is_flag_enabled(
+            parsed_root.find(".//UserObject[@id='0']").attrib.get("rmlEnabled")
+            if parsed_root.find(".//UserObject[@id='0']")
+            else False
+        )
+    )
+    if rml_enabled:
+        rr = Namespace("http://www.w3.org/ns/r2rml#")
+        graph.namespace_manager.bind("rr", rr, replace=False)
+        graph.add((BNode(), RDF.type, rr.TriplesMap))
+
+    return graph

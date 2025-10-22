@@ -3,3 +3,5 @@
 .ruff_cache/
 dist/
 **/__pycache__/
+*.md
+docs/

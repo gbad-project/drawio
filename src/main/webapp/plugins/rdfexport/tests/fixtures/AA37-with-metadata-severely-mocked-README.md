@@ -7,6 +7,17 @@
 
 Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and Serialize` button from GBAD VS Code Extension [version 0.0.2-prerelease.2](https://github.com/gbad-project/records_in_contexts_draw_io_parser/blob/cd4f0f692cec8a2096b1b596161b2f53c50e9091/vs_code_extension/gbad-vsce-0.0.2-prerelease.2.vsix)) once the prefix IRI on Line 7 is fixed.
 
+## Malformed rdf:type scenarios
+
+The mocked diagram now includes dedicated nodes for each malformed rdf:type case that the parser must flag:
+
+- `https://example.com/dangling-curie` → rdf:type `:danglingCurie` (missing prefix component).
+- `https://example.com/colon-only` → rdf:type `:` (colon without reference component).
+- `https://example.com/no-prefix` → rdf:type `NoPrefixClass` (no CURIE separator at all).
+- `https://example.com` → rdf:type `picoL:` (unknown prefix combined with missing reference).
+
+All of these shapes are rectangular children of swimlane nodes, ensuring the parser interprets them as attempted individual type declarations rather than literals.
+
 ## Preparation process
 
 Please refer to the [main plugin readme](../../README.md) for launch/installation instructions.

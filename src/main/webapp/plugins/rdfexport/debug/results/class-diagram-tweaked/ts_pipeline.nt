@@ -1,0 +1,25 @@
+<http://www.w3.org/2000/01/rdf-schema#mock> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<mock://debug-ontology> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<mock://debug-ontology> <http://www.w3.org/2002/07/owl#imports> <https://www.ica.org/standards/RiC/ontology#> .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Average Mark" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "City" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Country" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Email Address" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Get Seminars Taken" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Is Eligible To Enroll" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Name" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Output As Label" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Phone Number" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Postal Code" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Professor" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Purchase Parking Pass" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Salary" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "State" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Street" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Student Number" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Student" .
+<mock://debug-ontology> <http://www.w3.org/2004/02/skos/core#note> "Validate" .
+<ontology://generated-from-draw-io/mock#rdf%3APerson> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Person> .
+<ontology://generated-from-draw-io/mock#rdf%3APerson> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#NamedIndividual> .
+<ontology://generated-from-draw-io/mock#rdf%3APerson> <http://www.w3.org/2000/01/rdf-schema#label> "rdf:Person" .
+<ontology://generated-from-draw-io/mock#rdf%3APerson> <http://www.w3.org/2000/01/rdf-schema#mock> "Address" .
