@@ -12,6 +12,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-23 – Completed the RML pipeline by routing the parser override
+  through `serialise_to_rml`, emitting full TriplesMaps with logical
+  sources, predicate/object maps, refreshed Bun/Pyodide tests, and
+  regenerated demo logs for the new exporter.
 - 2025-10-21 – Expanded the debug scenario harness to accept arbitrary parser and metadata configuration overrides, updated the Bun runner for automatic discovery, and added pytest coverage for dynamic option propagation.
 - 2025-10-21 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.

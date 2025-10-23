@@ -1192,11 +1192,38 @@ json.dumps({
       namespaces: string[];
     };
 
-    expect(rmlTripleCheck.triples_map_count).toBe(1);
-    expect(rmlTripleCheck.total_triples).toBe(
-      actualGraphInfo.triple_count + rmlTripleCheck.triples_map_count,
+    const rmlSubjectInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace, Literal, URIRef
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(rmlExport.data)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+subject_constants = []
+for _, _, subject_map in graph.triples((None, rr.subjectMap, None)):
+    for _, _, constant in graph.triples((subject_map, rr.constant, None)):
+        subject_constants.append(constant)
+
+json.dumps({
+    "subject_constant_count": len({repr(item) for item in subject_constants}),
+    "all_uri_or_literal": all(isinstance(item, (URIRef, Literal)) for item in subject_constants),
+})
+      `)) as string,
+    ) as { subject_constant_count: number; all_uri_or_literal: boolean };
+
+    expect(rmlTripleCheck.triples_map_count).toBe(
+      rmlSubjectInfo.subject_constant_count,
     );
-    expect(rmlTripleCheck.namespaces).toContain("rr");
+    expect(rmlTripleCheck.triples_map_count).toBeGreaterThan(0);
+    expect(rmlTripleCheck.total_triples).toBeGreaterThan(
+      actualGraphInfo.triple_count,
+    );
+    expect(rmlTripleCheck.namespaces).toEqual(
+      expect.arrayContaining(["rr", "rml", "ql"]),
+    );
+    expect(rmlSubjectInfo.all_uri_or_literal).toBe(true);
   });
 }
 
@@ -1264,8 +1291,35 @@ json.dumps({
       `)) as string,
     ) as { triples_map_count: number; namespaces: string[] };
 
+    const rmlStructure = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace, Literal, URIRef
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+subject_constants = []
+for _, _, subject_map in graph.triples((None, rr.subjectMap, None)):
+    for _, _, constant in graph.triples((subject_map, rr.constant, None)):
+        subject_constants.append(constant)
+
+json.dumps({
+    "subject_constant_count": len({repr(item) for item in subject_constants}),
+    "all_uri_or_literal": all(isinstance(item, (URIRef, Literal)) for item in subject_constants),
+})
+      `)) as string,
+    ) as { subject_constant_count: number; all_uri_or_literal: boolean };
+
+    expect(rmlSummary.triples_map_count).toBe(
+      rmlStructure.subject_constant_count,
+    );
     expect(rmlSummary.triples_map_count).toBeGreaterThan(0);
-    expect(rmlSummary.namespaces).toContain("rr");
+    expect(rmlSummary.namespaces).toEqual(
+      expect.arrayContaining(["rr", "rml", "ql"]),
+    );
+    expect(rmlStructure.all_uri_or_literal).toBe(true);
   },
   { timeout: 60000 },
 );

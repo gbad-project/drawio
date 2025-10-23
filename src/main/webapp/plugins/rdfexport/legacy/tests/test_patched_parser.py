@@ -322,9 +322,16 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     rr = Namespace("http://www.w3.org/ns/r2rml#")
     triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
 
-    assert len(triples) == 1
+    subject_constants = {
+        constant
+        for _, _, subject_map in graph.triples((None, rr.subjectMap, None))
+        for _, _, constant in graph.triples((subject_map, rr.constant, None))
+    }
+
+    assert len(triples) == len(subject_constants)
+    assert all(isinstance(value, (URIRef, Literal)) for value in subject_constants)
     prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
-    assert "rr" in prefixes
+    assert {"rr", "rml", "ql"}.issubset(prefixes)
 
 
 def test_parse_drawio_default_strips_html_literals():
