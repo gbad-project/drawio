@@ -829,33 +829,52 @@ class pipeline:
 
 class xml_metadata_pre:
     # BEGIN _extract_drawio_metadata
+    # override from metadata_extraction.py
     def _extract_drawio_metadata(
         raw_xml: str,
     ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+        """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
         try:
             root = fromstring(raw_xml)
-        except Exception:  # pragma: no cover - defensive guard around XML parsing
-            return {}, None, None, None
-
+        except Exception:
+            return ({}, None, None, None)
         metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
         if metadata_node is None:
-            return {}, None, None, root
-
-        csv_path_raw = metadata_node.attrib.get("csvPath", "")
-        base_uri_raw = metadata_node.attrib.get("baseUri", "")
-
-        csv_path = csv_path_raw.strip() or None
-        base_uri = base_uri_raw.strip() or None
-
+            graph_root = root.find(".//mxGraphModel/root")
+            if graph_root is not None:
+                for candidate in list(graph_root):
+                    tag_lower = candidate.tag.lower()
+                    if tag_lower not in {"userobject", "object"}:
+                        continue
+                    has_metadata_payload = bool(
+                        candidate.attrib.get("csvPath")
+                        or candidate.attrib.get("baseUri")
+                        or any(
+                            (
+                                child.tag
+                                in {
+                                    "userObjectPreambleElement",
+                                    "UserObjectPreambleElement",
+                                }
+                                for child in list(candidate)
+                            )
+                        )
+                    )
+                    if has_metadata_payload:
+                        metadata_node = candidate
+                        break
+        if metadata_node is None:
+            return ({}, None, None, root)
+        csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
+        base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None
         prefixes: dict[str, str] = {}
-        for preamble in metadata_node.findall("userObjectPreambleElement"):
-            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-            iri = (preamble.attrib.get("rdfIRI") or "").strip()
-            if prefix and iri:
-                prefixes[prefix] = iri
-
-        return prefixes, base_uri, csv_path, root
+        for tag in ("userObjectPreambleElement", "UserObjectPreambleElement"):
+            for preamble in metadata_node.findall(tag):
+                prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
+                iri = (preamble.attrib.get("rdfIRI") or "").strip()
+                if prefix and iri:
+                    prefixes[prefix] = iri
+        return (prefixes, base_uri, csv_path, root)
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
