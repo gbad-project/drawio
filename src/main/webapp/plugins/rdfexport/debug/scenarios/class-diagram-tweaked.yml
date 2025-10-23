@@ -7,7 +7,7 @@ metadata:
     csvPath: /mock/path/to/file.csv
     baseUri: ontology://generated-from-draw-io/mock#
   preamble:
-  - prefix: mock1
-    iri: http://mock-uri.com
+    - prefix: mock1
+      iri: http://mock-uri.com
 parser_config:
   ontology_iri: mock://debug-ontology

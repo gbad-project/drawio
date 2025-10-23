@@ -202,6 +202,21 @@ def test_absolute_uri_node_uses_default_type():
     assert (uri_value, DEFAULT_STANDALONE_TYPE) in observed
 
 
+def test_classifier_treats_text_rounded_nodes_as_literals():
+    xml = _drawio_xml(
+        _vertex_cell(
+            "literal",
+            "Literal Value",
+            style="text;html=1;rounded=1;whiteSpace=wrap;",
+        )
+    )
+
+    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    literal_ids = {cell.attrib.get("id") for cell, _ in tree.literal_cells}
+    assert "literal" in literal_ids
+
+
 def test_decorations_serialise_to_skos_note(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),

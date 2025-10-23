@@ -718,15 +718,26 @@ class pipeline:
                             return False
                         return "text;" in style or "shape=text" in style
 
+                    @staticmethod
+                    def _style_suggests_literal(style: str) -> bool:
+                        if not style:
+                            return False
+                        for fragment in style.split(";"):
+                            key, _, value = fragment.partition("=")
+                            if key.strip() == "rounded" and value.strip() == "1":
+                                return True
+                        return False
+
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:
+                            return False
+                        style = cell.attrib.get("style", "")
+                        if self._style_suggests_literal(style):
                             return False
                         return (
                             not self._collect_child_tokens(cell)
                             and (not self._has_incident_edge(cell))
-                            and self._style_suggests_decoration(
-                                cell.attrib.get("style", "")
-                            )
+                            and self._style_suggests_decoration(style)
                         )
 
                 # END override cell_classifier.py.DrawIOCellClassifier
