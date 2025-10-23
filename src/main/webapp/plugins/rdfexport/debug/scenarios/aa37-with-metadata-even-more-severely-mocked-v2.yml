@@ -1,0 +1,25 @@
+slug: aa37-with-metadata-even-more-severely-mocked-v2
+drawio: tests/fixtures/AA37-with-metadata-even-more-severely-mocked-v2.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: /mock/path/to/file.csv
+    baseUri: http://mock23-base-uri.com
+  preamble:
+  - prefix: mock1
+    iri: http://mock-uri.com
+  - prefix: lol
+    iri: http://something.com
+  - prefix: picoL
+    iri: sdfsdf://asdf
+  - prefix: rico
+    iri: rico://mock-rico
+  - prefix: hellow
+    iri: some://helloworld
+  - prefix: somprefix
+    iri: h://hello
+  - prefix: unknown
+    iri: unknown://link
+parser_config:
+  ontology_iri: ontology://generated-from-draw-io/2025-10-23T03-44-35
