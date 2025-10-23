@@ -2,6 +2,10 @@ slug: flowchart-tweaked
 drawio: tests/fixtures/Flowchart_tweaked.drawio
 legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 format: turtle
+# Can add this because ex: looks better than ns1:
+#prefixes:
+#  ex: http://example/schema#
+#  kb: mock://debug-knowledge-base/
 metadata:
   attributes:
     csvPath: /mock/path/to/file.csv

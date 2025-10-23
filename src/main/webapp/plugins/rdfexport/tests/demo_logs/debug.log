@@ -1,13 +1,13 @@
-Script started on Thu Oct 23 15:24:08 2025
+Script started on Thu Oct 23 15:45:33 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1mpython -m debug.debug_cli_regression[0m
-[1m===================================== test session starts =====================================[0m
+[1m====================================== test session starts ======================================[0m
 platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0 -- /Users/anonymous/miniconda3/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-[1mcollecting ... [0m[1mcollected 33 items                                                                            [0m
+[1mcollecting ... [0m[1mcollected 33 items                                                                              [0m
 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  3%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  6%][0m
@@ -30,21 +30,74 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] [32mPASSED[0m[32m [ 57%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 60%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] [32mPASSED[0m[32m [ 63%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] [33mXFAIL[0m[32m [ 66%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[32m [ 69%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[32m [ 72%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[32m [ 75%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[32m [ 78%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[32m [ 81%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[32m [ 84%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[32m [ 87%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 90%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 93%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 96%][0m
-debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failur...)[32m [100%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] [31mFAILED[0m[31m [ 66%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[31m [ 69%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[31m [ 72%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[31m [ 75%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[31m [ 78%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[31m [ 81%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[31m [ 84%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[31m [ 87%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[31m [ 90%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[31m [ 93%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[31m [ 96%][0m
+debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure ...)[31m [100%][0m
 
-=========================================== PASSES ============================================
-[36m[1m=================================== short test summary info ===================================[0m
+=========================================== FAILURES ============================================
+[31m[1m____________ test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] ____________[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Flowchart_tweaked.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+>           pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           Failed: Unexpected skip: ts_plugin graph unavailable for Flowchart_tweaked.drawio. Errors: ['TypeScript plugin graph is None', 'RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 1886, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File "/app/legacy/draw_io_parser.py", line 141, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 251, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 582, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f"Arrow \'{arrow_label}\' ({arrow_id}) has a literal (\'{self._value_of(self._cell_with_id(source_id))}\') as source."\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'http://example/schema#Yes\' (WIyWlLk6GJQsqaUBKTNV-4) has a literal (\'kb:Lamppluggedin\') as source.\n\n       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",\n __error_address: 18060064,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 1886, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File "/app/legacy/draw_io_parser.py", line 141, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 251, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 582, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f"Arrow \'{arrow_label}\' ({arrow_id}) has a literal (\'{self._value_of(self._cell_with_id(source_id))}\') as source."\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'http://example/schema#Yes\' (WIyWlLk6GJQsqaUBKTNV-4) has a literal (\'kb:Lamppluggedin\') as source.\n\n       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",\n __error_address: 18060064,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)'][0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:254: Failed
+============================================ PASSES =============================================
+[36m[1m==================================== short test summary info ====================================[0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
@@ -75,12 +128,12 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - reason: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - reason: Graph/classification mismatch in AA37-with-metadata-even-more-severely-mocked.drawio: Missing rdf:type 'picoL:j' for 'https://example.com'
 assert False
- +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x107f46c50>)
+ +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106742c50>)
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
-[33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m - reason: ts_plugin expectedly fails (for now) because IRIs in arrows are currently unrecognized.  |  Command: python python -m debug --scenario flowchart-tweaked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - reason: ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - reason: Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m========================== [32m[1m27 passed[0m, [33m6 xfailed[0m[32m in 93.33s (0:01:33)[0m[32m ===========================[0m
+[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m - Failed: Unexpected skip: ts_plugin graph unavailable for Flowchart_tweaked.drawio. Errors: [...
+[31m====================== [31m[1m1 failed[0m, [32m27 passed[0m, [33m5 xfailed[0m[31m in 143.51s (0:02:23)[0m[31m ======================[0m
 
 Command exit status: 0
-Script done on Thu Oct 23 15:25:43 2025
+Script done on Thu Oct 23 15:47:57 2025
