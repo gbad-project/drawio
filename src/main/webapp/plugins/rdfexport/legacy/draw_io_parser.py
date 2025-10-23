@@ -284,6 +284,8 @@ class pipeline:
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens) if tokens_are_valid else []
+                        if self._style_denotes_literal(cell, style, tokens_are_valid):
+                            return CellClassification(kind.LITERAL, raw_value, cell)
                         child_tokens = self._collect_child_tokens(cell)
                         if child_tokens:
                             if tokens_are_valid:
@@ -717,6 +719,16 @@ class pipeline:
                         if not style:
                             return False
                         return "text;" in style or "shape=text" in style
+
+                    @staticmethod
+                    def _style_denotes_literal(
+                        cell: Element, style: str, tokens_are_valid: bool
+                    ) -> bool:
+                        if tokens_are_valid:
+                            return False
+                        if cell.attrib.get("parent") != "1":
+                            return False
+                        return "rounded=1" in style if style else False
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:

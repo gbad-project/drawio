@@ -162,6 +162,28 @@ def test_classifier_detects_typed_individuals_and_literals():
     assert registry["decor"]["connected"] is False
 
 
+def test_top_level_rounded_text_treated_as_literal():
+    xml = _drawio_xml(
+        _vertex_cell(
+            "literal",
+            "Custom:Value",
+            style="text;rounded=1;whiteSpace=wrap;html=1;",
+        )
+    )
+    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    literal_ids = {cell.attrib["id"] for cell, _ in tree.literal_cells}
+    assert "literal" in literal_ids
+
+    registry = getattr(
+        draw_io_parser.pipeline.core.internal.data,
+        DECORATION_REGISTRY_ATTR,
+        {},
+    )
+    assert registry["literal"]["value"] == "Custom:Value"
+    assert registry["literal"]["connected"] is False
+
+
 def test_parent_cell_collects_child_type_tokens():
     xml = _drawio_xml(
         _vertex_cell("parent", "List pnnpni", style="swimlane"),
