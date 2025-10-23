@@ -312,7 +312,6 @@ def test_run_manual_scenarios_after_xfails() -> None:
         print(f"[OK] {fname} completed successfully.\n")
 
 
-
 if __name__ == "__main__":
     import pytest
 

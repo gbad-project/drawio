@@ -1,13 +1,13 @@
-Script started on Thu Oct 23 02:32:24 2025
+Script started on Thu Oct 23 03:06:33 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1mpython -m debug.debug_cli_regression[0m
-[1m====================================== test session starts ======================================[0m
+[1m=================================== test session starts ====================================[0m
 platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0 -- /Users/anonymous/miniconda3/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-[1mcollecting ... [0m[1mcollected 31 items                                                                              [0m
+[1mcollecting ... [0m[1mcollected 31 items                                                                         [0m
 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  3%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  6%][0m
@@ -19,91 +19,38 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA4
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] [32mPASSED[0m[32m [ 25%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio] [32mPASSED[0m[32m [ 29%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio] [32mPASSED[0m[32m [ 32%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] [31mFAILED[0m[31m [ 35%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio] [32mPASSED[0m[31m [ 38%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[31m [ 41%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] [32mPASSED[0m[31m [ 45%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] [32mPASSED[0m[31m [ 48%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] [32mPASSED[0m[31m [ 51%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] [32mPASSED[0m[31m [ 54%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] [32mPASSED[0m[31m [ 58%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[31m [ 61%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] [32mPASSED[0m[31m [ 64%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[31m [ 67%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[31m [ 70%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[31m [ 74%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[31m [ 77%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[31m [ 80%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[31m [ 83%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[31m [ 87%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[31m [ 90%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[31m [ 93%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[31m [ 96%][0m
-debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [32mPASSED[0m[31m              [100%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] [32mPASSED[0m[32m [ 35%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio] [32mPASSED[0m[32m [ 38%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 41%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] [32mPASSED[0m[32m [ 45%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] [32mPASSED[0m[32m [ 48%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] [32mPASSED[0m[32m [ 51%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] [32mPASSED[0m[32m [ 54%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] [32mPASSED[0m[32m [ 58%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 61%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] [32mPASSED[0m[32m [ 64%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[32m [ 67%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[32m [ 70%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[32m [ 74%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[32m [ 77%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[32m [ 80%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[32m [ 83%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[32m [ 87%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 90%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 93%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 96%][0m
+debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [32mPASSED[0m[32m         [100%][0m
 
-=========================================== FAILURES ============================================
-[31m[1m__________ test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] __________[0m
-
-fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
-        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
-        slug = _slugify(fixture_path.stem)[90m[39;49;00m
-        cmd = [[90m[39;49;00m
-            sys.executable,[90m[39;49;00m
-            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug,[90m[39;49;00m
-            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        ][90m[39;49;00m
-    [90m[39;49;00m
-        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
-        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
-        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
-        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
-        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
-        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
-            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
-            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            fname = fixture_path.name[90m[39;49;00m
-            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
-                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
-                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
-                pytest.xfail(reason)[90m[39;49;00m
->           pytest.fail([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           Failed: Unexpected skip: ts_plugin graph unavailable for Class_Diagram_tweaked.drawio. Errors: ['TypeScript plugin graph is None', 'RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File "/app/legacy/draw_io_parser.py", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, "sourcePoint")\n  File "/app/legacy/draw_io_parser.py", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File "/app/legacy/draw_io_parser.py", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File "/app/legacy/draw_io_parser.py", line 363, in _geometry\n    raise ParseException(\n        f"Cell {cell.attrib.get(\'id\')} (value=\'{cell.attrib.get(\'value\')}\') has no mxGeometry sub-element."\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value=\'None\') has no mxGeometry sub-element.\n\n       type: "xml_data_core.ParseException",\n __error_address: 16696400,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File "/app/legacy/draw_io_parser.py", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, "sourcePoint")\n  File "/app/legacy/draw_io_parser.py", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File "/app/legacy/draw_io_parser.py", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File "/app/legacy/draw_io_parser.py", line 363, in _geometry\n    raise ParseException(\n        f"Cell {cell.attrib.get(\'id\')} (value=\'{cell.attrib.get(\'value\')}\') has no mxGeometry sub-element."\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value=\'None\') has no mxGeometry sub-element.\n\n       type: "xml_data_core.ParseException",\n __error_address: 16696400,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)'][0m
-
-[1m[31mdebug/debug_cli_regression.py[0m:221: Failed
-============================================ PASSES =============================================
-[32m[1m____________________________ test_run_manual_scenarios_after_xfails _____________________________[0m
-------------------------------------- Captured stdout call --------------------------------------
+========================================== PASSES ==========================================
+[32m[1m__________________________ test_run_manual_scenarios_after_xfails __________________________[0m
+----------------------------------- Captured stdout call -----------------------------------
 
 [Running follow-up scenario for AA37-with-metadata-even-more-severely-mocked.drawio]
 Reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).
-──────────────────── Scenario: aa37-with-metadata-even-more-severely-mocked ─────────────────────
+────────────────── Scenario: aa37-with-metadata-even-more-severely-mocked ──────────────────
 Fixture: 
-/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadat
-a-even-more-severely-mocked.drawio
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-me
+tadata-even-more-severely-mocked.drawio
 CSV path: /mock/path/to/file.csv
 Base URI: http://mock23-base-uri.com
 Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
@@ -120,15 +67,15 @@ Injected 1 unclassified mxCells (using unprocessed values)
   TYPED_INDIVIDUAL: 21
   UNCLASSIFIED: 1
 Warning: Legacy Python parser failed to parse DrawIO file
-ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 
-'UserObject'
-                                     Debug scenario results                                      
-┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Graph       ┃ Triples ┃ Output                            ┃ N-Triples SHA256                  ┃
-┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ ts_pipeline │      92 │ results/aa37-with-metadata-even-… │ 3ffb49923e7c7739c118e296f414afa7… │
-│ ts_plugin   │      92 │ results/aa37-with-metadata-even-… │ 3ffb49923e7c7739c118e296f414afa7… │
-└─────────────┴─────────┴───────────────────────────────────┴───────────────────────────────────┘
+ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had 
+tag 'UserObject'
+                                   Debug scenario results                                   
+┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Graph       ┃ Triples ┃ Output                         ┃ N-Triples SHA256                ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ts_pipeline │      92 │ results/aa37-with-metadata-ev… │ 3ffb49923e7c7739c118e296f414af… │
+│ ts_plugin   │      92 │ results/aa37-with-metadata-ev… │ 3ffb49923e7c7739c118e296f414af… │
+└─────────────┴─────────┴────────────────────────────────┴─────────────────────────────────┘
 Isomorphism checks:
   ✅ ts_pipeline_vs_ts_plugin
 
@@ -137,10 +84,10 @@ Isomorphism checks:
 
 [Running follow-up scenario for AA37-with-metadata-severely-mocked.drawio]
 Reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).
-───────────────────────── Scenario: aa37-with-metadata-severely-mocked ──────────────────────────
+─────────────────────── Scenario: aa37-with-metadata-severely-mocked ───────────────────────
 Fixture: 
-/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadat
-a-severely-mocked.drawio
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-me
+tadata-severely-mocked.drawio
 CSV path: /mock/path/to/file.csv
 Base URI: ontology://generated-from-draw-io/mock#
 Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
@@ -157,15 +104,15 @@ Injected 1 unclassified mxCells (using unprocessed values)
   TYPED_INDIVIDUAL: 16
   UNCLASSIFIED: 1
 Warning: Legacy Python parser failed to parse DrawIO file
-ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 
-'UserObject'
-                                     Debug scenario results                                      
-┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Graph       ┃ Triples ┃ Output                            ┃ N-Triples SHA256                  ┃
-┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ ts_pipeline │      83 │ results/aa37-with-metadata-sever… │ 0217556e27d6cd30e3edae349b0a1cd1… │
-│ ts_plugin   │      83 │ results/aa37-with-metadata-sever… │ 0217556e27d6cd30e3edae349b0a1cd1… │
-└─────────────┴─────────┴───────────────────────────────────┴───────────────────────────────────┘
+ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had 
+tag 'UserObject'
+                                   Debug scenario results                                   
+┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Graph       ┃ Triples ┃ Output                         ┃ N-Triples SHA256                ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ts_pipeline │      83 │ results/aa37-with-metadata-se… │ 0217556e27d6cd30e3edae349b0a1c… │
+│ ts_plugin   │      83 │ results/aa37-with-metadata-se… │ 0217556e27d6cd30e3edae349b0a1c… │
+└─────────────┴─────────┴────────────────────────────────┴─────────────────────────────────┘
 Isomorphism checks:
   ✅ ts_pipeline_vs_ts_plugin
 
@@ -174,10 +121,10 @@ Isomorphism checks:
 
 [Running follow-up scenario for General_Authority_bleep_mock.drawio]
 Reason: ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.
-──────────────────────────── Scenario: general-authority-bleep-mock ─────────────────────────────
+────────────────────────── Scenario: general-authority-bleep-mock ──────────────────────────
 Fixture: 
-/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority
-_bleep_mock.drawio
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Auth
+ority_bleep_mock.drawio
 CSV path: /mock/path/to/file.csv
 Base URI: ontology://generated-from-draw-io/mock#
 Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
@@ -193,21 +140,21 @@ Injected 1 unclassified mxCells (using unprocessed values)
   TYPED_INDIVIDUAL: 30
   UNCLASSIFIED: 1
 Warning: Legacy Python parser failed to parse DrawIO file
-ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 
-'UserObject'
-                                     Debug scenario results                                      
-┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Graph       ┃ Triples ┃ Output                            ┃ N-Triples SHA256                  ┃
-┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ ts_pipeline │     140 │ results/general-authority-bleep-… │ 667d9ea4343a02aa43853e5b3f7b1afe… │
-│ ts_plugin   │     140 │ results/general-authority-bleep-… │ 667d9ea4343a02aa43853e5b3f7b1afe… │
-└─────────────┴─────────┴───────────────────────────────────┴───────────────────────────────────┘
+ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had 
+tag 'UserObject'
+                                   Debug scenario results                                   
+┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Graph       ┃ Triples ┃ Output                         ┃ N-Triples SHA256                ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ts_pipeline │     140 │ results/general-authority-ble… │ 667d9ea4343a02aa43853e5b3f7b1a… │
+│ ts_plugin   │     140 │ results/general-authority-ble… │ 667d9ea4343a02aa43853e5b3f7b1a… │
+└─────────────┴─────────┴────────────────────────────────┴─────────────────────────────────┘
 Isomorphism checks:
   ✅ ts_pipeline_vs_ts_plugin
 
 [OK] General_Authority_bleep_mock.drawio completed successfully.
 
-[36m[1m==================================== short test summary info ====================================[0m
+[36m[1m================================= short test summary info ==================================[0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
@@ -216,6 +163,7 @@ Isomorphism checks:
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio][0m
+[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio][0m
@@ -238,8 +186,7 @@ Isomorphism checks:
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - reason: ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
-[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio][0m - Failed: Unexpected skip: ts_plugin graph unavailable for Class_Diagram_tweaked.drawio. Error...
-[31m=========================== [31m[1m1 failed[0m, [32m27 passed[0m, [33m3 xfailed[0m[31m in 55.69s[0m[31m ============================[0m
+[32m============================== [32m[1m28 passed[0m, [33m3 xfailed[0m[32m in 56.63s[0m[32m ==============================[0m
 
 Command exit status: 0
-Script done on Thu Oct 23 02:33:20 2025
+Script done on Thu Oct 23 03:07:30 2025

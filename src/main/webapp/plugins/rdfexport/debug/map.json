@@ -943,7 +943,7 @@
         "total_cells": 99,
         "unclassified": 1
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
+      "drawio": "tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -1697,7 +1697,7 @@
         "total_cells": 88,
         "unclassified": 1
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-severely-mocked.drawio",
+      "drawio": "tests/fixtures/AA37-with-metadata-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -1772,220 +1772,227 @@
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--0": {
-          "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "identifier": "rdf:Person",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
           "raw_value": "rdf:Person",
-          "tokens": []
+          "tokens": [
+            "rdf:Person"
+          ]
         },
         "zkfFHV4jXpPFQw0GAbJ--1": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Name",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--10": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Is Eligible To Enroll",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--11": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Get Seminars Taken",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--12": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--13": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "Professor",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--14": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--13",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Salary",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--15": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--13",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--16": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--17": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "Address",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--18": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Street",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--19": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "City",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--2": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Phone Number",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--20": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "State",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--21": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Postal Code",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--22": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Country",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--23": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--24": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Validate",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--25": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Output As Label",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--26": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
-          "raw_value": "",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--29": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--26",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
           "raw_value": "rdfs:mock",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--3": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Email Address",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--4": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--5": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Purchase Parking Pass",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--6": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "Student",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--7": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Student Number",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--8": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Average Mark",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--9": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         }
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio",
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 4,
+          "DECORATION": 16,
+          "LITERAL": 7,
+          "STANDALONE_INDIVIDUAL": 1,
+          "UNCLASSIFIED": 2
+        },
+        "classified": 28,
+        "total_cells": 30,
+        "unclassified": 2
+      },
+      "drawio": "tests/fixtures/Class_Diagram_tweaked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
           "ParseException: Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value 'sourcePoint', but it does not: zkfFHV4jXpPFQw0GAbJ--0"
-        ],
-        "py_stdout": "Warning: Failed to extract cell classifications: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has \nno mxGeometry sub-element.\nTraceback (most recent call last):\n  File \"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py\", line\n1006, in _extract_cell_classifications\n    classifier = classifier_cls(xml_text, prefixes)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n137, in __init__\n    self._process_graph()\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n                         ^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n465, in _start_or_end\n    geometry = self._geometry(cell)\n               ^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n363, in _geometry\n    raise ParseException(\nlegacy.draw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') \nhas no mxGeometry sub-element.",
-        "ts_pipeline": [
-          "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 17118424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 17118424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
-        ],
-        "ts_plugin": [
-          "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 17118424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 17118424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
-      "isomorphism": {},
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
         "baseUri": "ontology://generated-from-draw-io/mock#",
@@ -2000,7 +2007,18 @@
           "prefix": "mock1"
         }
       ],
-      "results": {}
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "77c461f32a164bbb342583dcf495d2970e1e7abbf7d8654c5c23c9dc3ff8a409",
+          "path": "results/class-diagram-tweaked/ts_pipeline.ttl",
+          "triples": 25
+        },
+        "ts_plugin": {
+          "nt_sha256": "77c461f32a164bbb342583dcf495d2970e1e7abbf7d8654c5c23c9dc3ff8a409",
+          "path": "results/class-diagram-tweaked/ts_plugin.ttl",
+          "triples": 25
+        }
+      }
     },
     "general-authority-bleep-mock": {
       "cell_classifications": {
@@ -3313,7 +3331,7 @@
         "total_cells": 168,
         "unclassified": 1
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio",
+      "drawio": "tests/fixtures/General_Authority_bleep_mock.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -4019,7 +4037,7 @@
         "total_cells": 83,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio",
+      "drawio": "tests/fixtures/AA37 Department of Health.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -4710,7 +4728,7 @@
         "total_cells": 82,
         "unclassified": 1
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata.drawio",
+      "drawio": "tests/fixtures/AA37 Department of Health-with-metadata.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -5400,7 +5418,7 @@
         "total_cells": 82,
         "unclassified": 1
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-preserve-html.drawio",
+      "drawio": "tests/fixtures/AA37 Department of Health-with-metadata-preserve-html.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -6090,7 +6108,7 @@
         "total_cells": 82,
         "unclassified": 1
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-rml.drawio",
+      "drawio": "tests/fixtures/AA37 Department of Health-with-metadata-rml.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -6112,7 +6130,7 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "69c1626e4e45f7357180ebdaa555f8c411965299be79ffc17e3266d0eaa14e8d",
+          "nt_sha256": "77f967d81437367210054ede822095d1adc83ca5c69e18d042b864801e368c30",
           "path": "results/pytest-aa37-department-of-health-with-metadata-rml/ts_pipeline.ttl",
           "triples": 73
         },
@@ -6901,7 +6919,7 @@
           "tokens": []
         }
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
+      "drawio": "tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -6909,11 +6927,11 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2540, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2663, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23483928,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2540, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2663, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23483928,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2551, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2674, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23461424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2551, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2674, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23461424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2540, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2663, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23483928,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2540, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2663, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23483928,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2551, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2674, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23461424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2551, in _build_graph_from_raw_xml\n    graph = serialise_to_graph(\n        blocks,\n    ...<5 lines>...\n        graph_kwargs={\"csv_path\": csv_path},\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 2674, in serialise_to_graph\n    raise ParseException(f\"Prefix IRI '{uri}' looks invalid\")\ndraw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 23461424,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
@@ -7612,7 +7630,7 @@
           "tokens": []
         }
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-severely-mocked.drawio",
+      "drawio": "tests/fixtures/AA37-with-metadata-severely-mocked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -7620,11 +7638,11 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19580648,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19580648,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16475248,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16475248,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19580648,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19580648,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16475248,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"picoL\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'picoL:' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 16475248,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
@@ -8496,7 +8514,7 @@
         "total_cells": 107,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA42 Ministry of Health.drawio",
+      "drawio": "tests/fixtures/AA42 Ministry of Health.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -9130,7 +9148,7 @@
         "total_cells": 75,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/BA619 Walkerton Inquiry.drawio",
+      "drawio": "tests/fixtures/BA619 Walkerton Inquiry.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -9906,7 +9924,7 @@
         "total_cells": 93,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/CA1853 Chest Disease Service.drawio",
+      "drawio": "tests/fixtures/CA1853 Chest Disease Service.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -10931,7 +10949,7 @@
         "total_cells": 124,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/CA1934 Division of Tuberculosis Prevention.drawio",
+      "drawio": "tests/fixtures/CA1934 Division of Tuberculosis Prevention.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -10982,220 +11000,227 @@
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--0": {
-          "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "identifier": "rdf:Person",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
           "raw_value": "rdf:Person",
-          "tokens": []
+          "tokens": [
+            "rdf:Person"
+          ]
         },
         "zkfFHV4jXpPFQw0GAbJ--1": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Name",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--10": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Is Eligible To Enroll",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--11": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Get Seminars Taken",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--12": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--13": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "Professor",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--14": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--13",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Salary",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--15": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--13",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--16": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--17": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "Address",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--18": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Street",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--19": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "City",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--2": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Phone Number",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--20": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "State",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--21": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Postal Code",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--22": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Country",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--23": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--24": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Validate",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--25": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--17",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Output As Label",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--26": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
-          "raw_value": "",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--29": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--26",
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
           "raw_value": "rdfs:mock",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--3": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Email Address",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--4": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--5": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--0",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Purchase Parking Pass",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--6": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-1",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "Student",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--7": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Student Number",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--8": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "DECORATION",
+          "parent_identifier": null,
           "raw_value": "Average Mark",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--9": {
           "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": "zkfFHV4jXpPFQw0GAbJ--6",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "",
           "tokens": []
         }
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio",
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 4,
+          "DECORATION": 16,
+          "LITERAL": 7,
+          "STANDALONE_INDIVIDUAL": 1,
+          "UNCLASSIFIED": 2
+        },
+        "classified": 28,
+        "total_cells": 30,
+        "unclassified": 2
+      },
+      "drawio": "tests/fixtures/Class_Diagram_tweaked.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
           "ParseException: Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value 'sourcePoint', but it does not: zkfFHV4jXpPFQw0GAbJ--0"
-        ],
-        "py_stdout": "Warning: Failed to extract cell classifications: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has \nno mxGeometry sub-element.\nTraceback (most recent call last):\n  File \"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py\", line\n1013, in _extract_cell_classifications\n    classifier = classifier_cls(xml_text, prefixes)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n137, in __init__\n    self._process_graph()\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n                         ^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n465, in _start_or_end\n    geometry = self._geometry(cell)\n               ^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py\", line\n363, in _geometry\n    raise ParseException(\nlegacy.draw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') \nhas no mxGeometry sub-element.",
-        "ts_pipeline": [
-          "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 16696400,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 16696400,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
-        ],
-        "ts_plugin": [
-          "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 16696400,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2520, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/legacy/draw_io_parser.py\", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 537, in _resolve_arrow\n    arrow_start = self._start_or_end(arrow_cell, \"sourcePoint\")\n  File \"/app/legacy/draw_io_parser.py\", line 500, in _start_or_end\n    parent_coordinates = self._start_or_end(\n        self._parent_of(cell), None\n    )\n  File \"/app/legacy/draw_io_parser.py\", line 465, in _start_or_end\n    geometry = self._geometry(cell)\n  File \"/app/legacy/draw_io_parser.py\", line 363, in _geometry\n    raise ParseException(\n        f\"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.\"\n    )\ndraw_io_parser.xml_data_core.ParseException: Cell WIyWlLk6GJQsqaUBKTNV-1 (value='None') has no mxGeometry sub-element.\n\n       type: \"xml_data_core.ParseException\",\n __error_address: 16696400,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
-      "isomorphism": {},
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
         "baseUri": "ontology://generated-from-draw-io/mock#",
@@ -11205,7 +11230,18 @@
         "ontology_iri": "mock://pytest-debug-ontology"
       },
       "preamble": [],
-      "results": {}
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "f1e93800f21c594e29e39c069451ca0dd55a93d6b0fe743919f05cf7f4e2571b",
+          "path": "results/pytest-class-diagram-tweaked/ts_pipeline.ttl",
+          "triples": 25
+        },
+        "ts_plugin": {
+          "nt_sha256": "f1e93800f21c594e29e39c069451ca0dd55a93d6b0fe743919f05cf7f4e2571b",
+          "path": "results/pytest-class-diagram-tweaked/ts_plugin.ttl",
+          "triples": 25
+        }
+      }
     },
     "pytest-f-47-11-1-0-1": {
       "cell_classifications": {
@@ -11669,7 +11705,7 @@
         "total_cells": 57,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-1-0-1.drawio",
+      "drawio": "tests/fixtures/F 47-11-1-0-1.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -12498,7 +12534,7 @@
         "total_cells": 100,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-1-0-1 (VDB test).drawio",
+      "drawio": "tests/fixtures/F 47-11-1-0-1 (VDB test).drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -13311,7 +13347,7 @@
         "total_cells": 100,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-1 Elizabeth Simcoe loose sketches.drawio",
+      "drawio": "tests/fixtures/F 47-11-1 Elizabeth Simcoe loose sketches.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -14082,7 +14118,7 @@
         "total_cells": 94,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-2 Elizabeth Simcoe sketchbook.drawio",
+      "drawio": "tests/fixtures/F 47-11-2 Elizabeth Simcoe sketchbook.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -14874,7 +14910,7 @@
         "total_cells": 97,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio",
+      "drawio": "tests/fixtures/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -15677,7 +15713,7 @@
         "total_cells": 98,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio",
+      "drawio": "tests/fixtures/F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -16565,7 +16601,7 @@
         "total_cells": 109,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47-11 Elizabeth Simcoe sketches.drawio",
+      "drawio": "tests/fixtures/F 47-11 Elizabeth Simcoe sketches.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -17654,7 +17690,7 @@
         "total_cells": 136,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 47 Simcoe Family fonds.drawio",
+      "drawio": "tests/fixtures/F 47 Simcoe Family fonds.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -18867,7 +18903,7 @@
         "total_cells": 150,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/F 4711 Orville Wood fonds.drawio",
+      "drawio": "tests/fixtures/F 4711 Orville Wood fonds.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -20488,7 +20524,7 @@
         "total_cells": 208,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+      "drawio": "tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -21809,7 +21845,7 @@
           "tokens": []
         }
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General_Authority_bleep_mock.drawio",
+      "drawio": "tests/fixtures/General_Authority_bleep_mock.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -21817,11 +21853,11 @@
         ],
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19173512,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19173512,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21086568,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21086568,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19173512,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2438, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2532, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2440, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 19173512,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21086568,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/app/legacy/draw_io_parser.py\", line 2449, in individual_blocks\n    manager.expand_curie(literal_candidate)\n    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/app/packages/rdflib/namespace/__init__.py\", line 726, in expand_curie\n    raise ValueError(\n        f\"Prefix \\\"{curie.split(':')[0]}\\\" not bound to any namespace.\"\n    )\nValueError: Prefix \"bleep\" not bound to any namespace.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/legacy/draw_io_parser.py\", line 2543, in _build_graph_from_raw_xml\n    internal_control_core.individual_blocks(\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^\n        classifier.get_graph_elements(),\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        prefixes,\n        ^^^^^^^^^\n    )\n    ^\n  File \"/app/legacy/draw_io_parser.py\", line 2451, in individual_blocks\n    raise NotInKnownException(\n        f\"The literal value '{literal_candidate}' does not correspond to a known CURIE\"\n    ) from exc\ndraw_io_parser.rdf_data_core.NotInKnownException: The literal value 'bleep:RecordState' does not correspond to a known CURIE\n\n       type: \"rdf_data_core.NotInKnownException\",\n __error_address: 21086568,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)"
         ]
       },
       "format": "turtle",
@@ -23116,7 +23152,7 @@
         "total_cells": 164,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+      "drawio": "tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -24073,7 +24109,7 @@
         "total_cells": 113,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/knut_olborgs_forskningsnotater.drawio",
+      "drawio": "tests/fixtures/knut_olborgs_forskningsnotater.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -24763,7 +24799,7 @@
         "total_cells": 80,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/koronakommisjonen.drawio",
+      "drawio": "tests/fixtures/koronakommisjonen.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
@@ -25269,7 +25305,7 @@
         "total_cells": 58,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio",
+      "drawio": "tests/fixtures/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -26228,7 +26264,7 @@
         "total_cells": 118,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio",
+      "drawio": "tests/fixtures/RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -26893,7 +26929,7 @@
         "total_cells": 80,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio",
+      "drawio": "tests/fixtures/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -27870,7 +27906,7 @@
         "total_cells": 120,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio",
+      "drawio": "tests/fixtures/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
@@ -29449,7 +29485,7 @@
         "total_cells": 196,
         "unclassified": 2
       },
-      "drawio": "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Walkerton Inquiry in RiC-O (original).drawio",
+      "drawio": "tests/fixtures/RG 18-210 Walkerton Inquiry in RiC-O (original).drawio",
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": true,
