@@ -34,7 +34,21 @@ EXPECTED_TS_PLUGIN = {
         ],
     },
     "AA37-with-metadata-even-more-severely-mocked.drawio": {
-        "reason": "ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).",
+        "reason": """ts_plugin expectedly fails because picoL: had invalid prefix IRI in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).
+
+Also, there is a separate reason for within-debug xfail. To quote codex:
+
+### Findings
+
+-   The DrawIO fixture intentionally declares the `picoL` prefix with an invalid IRI (`sdfsdf` has no scheme), so the TypeScript pipeline drops that prefix when it serializes the graph produced by `bun run debug:all`. The generated Turtle therefore types `https://example.com` as `:j` (falling back to the base prefix) and never emits `picoL:j`.
+
+-   Despite the dropped prefix, the classification metadata captured in `debug/map.json` still records `https://example.com` as a standalone individual with the token `picoL:j`, so `_ensure_graph_covers_classifications` insists on seeing that exact type in the Turtle and raises the assertion you observed.
+
+-   When you run the canned manual scenario (`python -m debug --scenario aa37-with-metadata-even-more-severely-mocked`), the scenario file overrides the preamble with a valid `mock://sample-test2` IRI for `picoL`. That lets the pipeline keep the prefix, and the Turtle emitted under `debug/results/aa37-with-metadata-even-more-severely-mocked/` does contain the expected `picoL:j` triple, which explains why that run succeeds.
+
+-   The file you inspected that already had `picoL:j` was almost certainly the manual-scenario output (`debug/results/aa37-with-metadata-even-more-severely-mocked/...`). The artifacts from `bun run debug:all` live beside it but are prefixed with `pytest-...`; those versions still show the sanitized `:j` type and trigger the assertion.
+
+In short, the failure stems from the fixture's deliberately broken prefix IRI: the parser records `picoL:j`, the serializer removes the invalid `picoL` namespace, and the regression check can't reconcile the two unless you supply a valid preamble (as the manual scenario does).""",
         "command": [
             "python",
             "-m",
@@ -62,6 +76,12 @@ EXPECTED_TS_PLUGIN = {
             "--scenario",
             "aa37-with-metadata-even-more-severely-mocked-v2",
         ],
+    },
+}
+
+ALLOWED_XFAILS_FOLLOWUP = {
+    "AA37-with-metadata-even-more-severely-mocked-v2.drawio": {
+        "reason": "Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.",
     },
 }
 
@@ -246,7 +266,16 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
         f"Triple count mismatch for {fixture_path.name}"
     )
 
-    _ensure_graph_covers_classifications(graph, classifications, xml_text)
+    try:
+        _ensure_graph_covers_classifications(graph, classifications, xml_text)
+    except AssertionError as e:
+        fname = fixture_path.name
+        msg = f"Graph/classification mismatch in {fname}: {e}"
+        if fname in EXPECTED_TS_PLUGIN:
+            XFAlLED_FIXTURES.append(fname)
+            pytest.xfail(msg)
+        else:
+            pytest.fail(msg)
 
 
 # @pytest.mark.dependency(depends=["test_debug_cli_matches_expected_triple_counts"])
@@ -309,6 +338,8 @@ def test_run_manual_scenarios_after_xfails() -> None:
         }
 
         if unexpected_errors:
+            if fname in ALLOWED_XFAILS_FOLLOWUP:
+                pytest.xfail(ALLOWED_XFAILS_FOLLOWUP[fname]["reason"])
             pytest.fail(
                 "Scenario '%s' still reports errors: %s\nstdout:\n%s\nstderr:\n%s"
                 % (

@@ -328,12 +328,19 @@ def serialise_to_graph(
         return bool(parsed.scheme and (parsed.netloc or parsed.path))
 
     namespace_map: dict[str, Namespace] = {}
+    fallback_namespace: Namespace | None = None
+    if prefix_iri and _is_absolute_iri(prefix_iri):
+        fallback_namespace = Namespace(prefix_iri)
+
     for prefix_key, uri in prefixes.items():
         if _is_absolute_iri(uri):
             namespace = Namespace(uri)
-            graph.bind(prefix_key, namespace, replace=True)
+        elif fallback_namespace is not None:
+            namespace = fallback_namespace
         else:
             raise ParseException(f"Prefix IRI '{uri}' looks invalid")
+
+        graph.bind(prefix_key, namespace, replace=True)
         namespace_map[prefix_key] = namespace
 
     if prefix:

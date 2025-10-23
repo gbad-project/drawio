@@ -20,6 +20,8 @@ import typing
 from typing import Iterable
 from rdflib import BNode
 from rdflib.namespace import SKOS
+import json
+from html import unescape
 
 
 class pipeline:
@@ -95,6 +97,7 @@ class pipeline:
                         *,
                         strict_mode: bool = False,
                         max_gap: float | None = None,
+                        strip_html: bool = True,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -119,6 +122,7 @@ class pipeline:
                         if coerced_gap != coerced_gap or coerced_gap < 0.0:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
+                        self._strip_html = bool(strip_html)
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_token_cache: dict[str, list[str]] = {}
@@ -174,7 +178,8 @@ class pipeline:
                                 cell_value = self._value_of(cell)
                             except _NoValueException:
                                 continue
-                            classification = self.classify(cell, cell_value)
+                            raw_html = self._html_parser.raw_html()
+                            classification = self.classify(cell, cell_value, raw_html)
                             cell_id = cell.attrib.get("id")
                             if cell_id:
                                 self.classifications[cell_id] = classification
@@ -254,38 +259,57 @@ class pipeline:
                                 print(f"Warning: Skipping arrow due to error: {e}")
 
                     def classify(
-                        self, cell: Element, cell_value: str
+                        self,
+                        cell: Element,
+                        cell_value: str,
+                        raw_html: str | None = None,
                     ) -> CellClassification:
                         """Determines the role of a given mxCell in the graph."""
                         CellClassification = self.CellClassification
                         CellKind = self.CellKind
-                        kind = CellKind
                         raw_value = cell_value.strip()
+                        literal_value = raw_value
+                        if raw_html is not None and (not self._strip_html):
+                            literal_value = raw_html
+
+                        def build(
+                            kind: CellKind, value: str = raw_value, **kwargs
+                        ) -> CellClassification:
+                            selected_value: str = (
+                                value.strip() if isinstance(value, str) else value
+                            )
+                            if kind == CellKind.LITERAL and isinstance(
+                                literal_value, str
+                            ):
+                                selected_value = literal_value
+                            return CellClassification(
+                                kind, selected_value, cell, **kwargs
+                            )
+
                         if cell.attrib.get("edge") == "1":
-                            return CellClassification(kind.ARROW, raw_value, cell)
+                            return build(CellKind.ARROW)
                         style = cell.attrib.get("style", "")
                         if "edgeLabel" in style:
-                            return CellClassification(kind.ARROW_LABEL, raw_value, cell)
+                            return build(CellKind.ARROW_LABEL)
                         if not raw_value:
-                            return CellClassification(kind.LITERAL, raw_value, cell)
+                            return build(CellKind.LITERAL)
                         parent_cell, parent_identifier = self._resolve_parent(cell)
                         if (
                             parent_cell is not None
                             and parent_cell.attrib.get("edge") == "1"
                             and raw_value
                         ):
-                            return CellClassification(
-                                kind.ARROW_LABEL,
-                                raw_value,
-                                cell,
-                                parent_cell,
-                                parent_identifier,
+                            return build(
+                                CellKind.ARROW_LABEL,
+                                parent_cell=parent_cell,
+                                parent_identifier=parent_identifier,
                             )
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
-                        tokens = list(value_tokens) if tokens_are_valid else []
+                        tokens = list(value_tokens)
+                        looks_like_curie = any((":" in token for token in tokens))
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
-                            return CellClassification(kind.LITERAL, raw_value, cell)
+                            return build(CellKind.LITERAL)
                         child_tokens = self._collect_child_tokens(cell)
                         if child_tokens:
                             if tokens_are_valid:
@@ -295,46 +319,44 @@ class pipeline:
                             else:
                                 tokens = list(child_tokens)
                                 tokens_are_valid = True
-                        if (
-                            parent_cell is not None
-                            and parent_identifier
-                            and tokens
-                            and tokens_are_valid
-                        ):
-                            return CellClassification(
-                                kind.TYPED_INDIVIDUAL,
-                                raw_value,
-                                cell,
-                                parent_cell,
-                                parent_identifier,
-                                tokens=tokens,
-                            )
+                        if parent_cell is not None and parent_identifier and tokens:
+                            if looks_like_curie:
+                                return build(
+                                    CellKind.TYPED_INDIVIDUAL,
+                                    parent_cell=parent_cell,
+                                    parent_identifier=parent_identifier,
+                                    tokens=tokens,
+                                )
+                            if not tokens_are_valid and "html=1" in style:
+                                for token in tokens:
+                                    candidate = token.strip()
+                                    if not candidate:
+                                        continue
+                                    _verify_is_ric_class(candidate, self._prefixes)
                         if tokens and tokens_are_valid:
-                            return CellClassification(
-                                kind.STANDALONE_INDIVIDUAL,
-                                raw_value,
-                                cell,
+                            return build(
+                                CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=tokens,
                             )
                         if self._looks_like_absolute_uri(raw_value):
-                            return CellClassification(
-                                kind.STANDALONE_INDIVIDUAL,
-                                raw_value,
-                                cell,
+                            return build(
+                                CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=[],
                             )
                         if self._is_decoration(cell, raw_value):
-                            return CellClassification(kind.DECORATION, raw_value, cell)
-                        return CellClassification(kind.LITERAL, raw_value, cell)
+                            return build(CellKind.DECORATION)
+                        return build(CellKind.LITERAL)
 
-                    def _value_of(self, cell: Element) -> str:
+                    def _value_of(self, cell: Element, *, raw: bool = False) -> str:
                         value = cell.attrib.get("value")
                         if value is None:
                             raise _NoValueException
                         self._html_parser.clear()
                         self._html_parser.feed(value)
+                        if raw and (not self._strip_html):
+                            return self._html_parser.raw_html()
                         return self._html_parser.content()
 
                     def _cell_with_id(self, _id: str) -> Element:
@@ -452,7 +474,9 @@ class pipeline:
                             if not self._close_enough(arrow_point, literal_cell):
                                 continue
                             try:
-                                literal_value = self._value_of(literal_cell)
+                                literal_value = self._value_of(
+                                    literal_cell, raw=not self._strip_html
+                                )
                             except _NoValueException as exc:
                                 raise _NoCellCloseEnoughException from exc
                             return (literal_cell, literal_value, True)
@@ -581,7 +605,9 @@ class pipeline:
                                 target_identifier = target_individual.identifier
                             elif target_id in self._literals_by_id:
                                 target_cell = self._literals_by_id[target_id]
-                                target_identifier = self._value_of(target_cell)
+                                target_identifier = self._value_of(
+                                    target_cell, raw=not self._strip_html
+                                )
                                 is_datatype = True
                             else:
                                 if self._strict_mode:
@@ -616,7 +642,7 @@ class pipeline:
                                     f"Arrow '{arrow_label}' ({arrow_id}) has no target."
                                 ) from exc
                         if (
-                            target_cell
+                            target_cell is not None
                             and target_cell.attrib.get("id") in self.decorations
                         ):
                             self.decorations[target_cell.attrib["id"]]["connected"] = (
@@ -2512,8 +2538,18 @@ class internal_control_core:
                 return value.strip().lower() in {"true", "1", "yes", "on"}
             return bool(value)
 
+        def _coerce_optional_flag(value: Any) -> bool | None:
+            if value is None:
+                return None
+            return _is_flag_enabled(value)
+
         metadata_prefixes, base_uri, csv_path, parsed_root = (
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
+        )
+        metadata_node = (
+            parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
+            if parsed_root is not None
+            else None
         )
         prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
@@ -2540,8 +2576,38 @@ class internal_control_core:
             max_gap = float(config_args.get("max_gap", DEFAULT_MAX_GAP))
         except (TypeError, ValueError):
             max_gap = float(DEFAULT_MAX_GAP)
+        explicit_strip_html = "strip_html" in config_args
+        config_strip_html = config_args.get("strip_html", True)
+        metadata_strip_html: bool | None = None
+        if metadata_node is not None:
+            metadata_strip_html = _coerce_optional_flag(
+                metadata_node.attrib.get("stripHtml")
+            )
+            if metadata_strip_html is None:
+                settings_attr = metadata_node.attrib.get("rdfParserSettings")
+                if settings_attr:
+                    try:
+                        settings_payload = json.loads(unescape(settings_attr))
+                    except json.JSONDecodeError:
+                        settings_payload = {}
+                    if isinstance(settings_payload, dict):
+                        settings_section = settings_payload.get("settings")
+                        if isinstance(settings_section, dict):
+                            metadata_strip_html = _coerce_optional_flag(
+                                settings_section.get("stripHtml")
+                            )
+        if explicit_strip_html:
+            strip_html_enabled = _is_flag_enabled(config_strip_html)
+        elif metadata_strip_html is not None:
+            strip_html_enabled = metadata_strip_html
+        else:
+            strip_html_enabled = _is_flag_enabled(config_strip_html)
         classifier = DrawIOCellClassifier(
-            working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap
+            working_xml,
+            prefixes,
+            strict_mode=strict_mode,
+            max_gap=max_gap,
+            strip_html=strip_html_enabled,
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
@@ -2571,13 +2637,13 @@ class internal_control_core:
         )
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-        rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
-            parsed_root
-            and _is_flag_enabled(
-                parsed_root.find(".//UserObject[@id='0']").attrib.get("rmlEnabled")
-                if parsed_root.find(".//UserObject[@id='0']")
-                else False
-            )
+        metadata_rml_enabled = (
+            _is_flag_enabled(metadata_node.attrib.get("rmlEnabled"))
+            if metadata_node is not None
+            else False
+        )
+        rml_enabled = (
+            _is_flag_enabled(config_args.get("rml_enabled")) or metadata_rml_enabled
         )
         if rml_enabled:
             rr = Namespace("http://www.w3.org/ns/r2rml#")
@@ -2678,12 +2744,17 @@ class rdf_control_core:
             return bool(parsed.scheme and (parsed.netloc or parsed.path))
 
         namespace_map: dict[str, Namespace] = {}
+        fallback_namespace: Namespace | None = None
+        if prefix_iri and _is_absolute_iri(prefix_iri):
+            fallback_namespace = Namespace(prefix_iri)
         for prefix_key, uri in prefixes.items():
             if _is_absolute_iri(uri):
                 namespace = Namespace(uri)
-                graph.bind(prefix_key, namespace, replace=True)
+            elif fallback_namespace is not None:
+                namespace = fallback_namespace
             else:
                 raise ParseException(f"Prefix IRI '{uri}' looks invalid")
+            graph.bind(prefix_key, namespace, replace=True)
             namespace_map[prefix_key] = namespace
         if prefix:
             graph.bind(prefix, Namespace(prefix_iri), replace=True)

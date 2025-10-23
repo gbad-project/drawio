@@ -125,8 +125,12 @@ def test_outputs_are_isomorphic_across_sources():
         assert len(py_legacy_graph) > 0
         assert len(ts_pipeline_graph) == len(ts_plugin_graph) > 0
 
-        ts_plugin_matches_ts_pipeline = ts_pipeline_graph.isomorphic(ts_plugin_graph)
-        ts_plugin_matches_py_legacy = py_legacy_graph.isomorphic(ts_plugin_graph)
+        ts_plugin_matches_ts_pipeline = debugger._are_isomorphic(
+            ts_pipeline_graph, ts_plugin_graph
+        )
+        ts_plugin_matches_py_legacy = debugger._are_isomorphic(
+            py_legacy_graph, ts_plugin_graph
+        )
 
         map_data = json.loads(debugger.map_path.read_text(encoding="utf-8"))
         scenario_entry = map_data["scenarios"][slug]

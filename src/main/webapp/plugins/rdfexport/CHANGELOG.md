@@ -27,6 +27,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-23 – Restored malformed rdf:type validation so child cells that lack
+  prefixes once again raise `NotInKnownException`, while ignoring plain UML
+  labels by requiring HTML-backed styles before running CURIE checks in the
+  classifier.
 - 2025-10-22 – Ensured the debug CLI exits with a non-zero status whenever scenario runs record errors in `map.json`, wiring the behaviour into `__main__` and adding pytest coverage for both the runner and entrypoint. Report: `src/main/webapp/plugins/rdfexport/docs/aicode/codex-report-20251022T223455Z.md`.
 - 2025-10-22 – Updated `debug/debug_cli_regression.py` to add `_scenario_slug_from_command` helper and enhance the manual follow-up test so it re-runs scenarios, reloads `debug/map.json`, and inspects errors, allowing only `py_legacy` issues. Report: `src/main/webapp/plugins/rdfexport/docs/aicode/gpt-5-codex-report-20250219T000000Z.md`.
 - 2025-10-22 – Restored DrawIO arrow classification parity with the legacy parser so override generation now recognises non-strict edges exactly as the original implementation, refreshed debug fixtures, and tightened pytest coverage for strict-mode failures.
