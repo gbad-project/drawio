@@ -1,5 +1,5 @@
 slug: class-diagram-tweaked
-drawio: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio
+drawio: tests/fixtures/Class_Diagram_tweaked.drawio
 legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 format: turtle
 metadata:
@@ -7,7 +7,7 @@ metadata:
     csvPath: /mock/path/to/file.csv
     baseUri: ontology://generated-from-draw-io/mock#
   preamble:
-    - prefix: mock1
-      iri: http://mock-uri.com
+  - prefix: mock1
+    iri: http://mock-uri.com
 parser_config:
   ontology_iri: mock://debug-ontology

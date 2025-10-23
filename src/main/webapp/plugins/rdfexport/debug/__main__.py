@@ -331,7 +331,7 @@ class Debugger:
 
         scenario_data: dict[str, object] = {
             "slug": config.slug,
-            "drawio": str(self._relative_to_debug(config.drawio_path)),
+            "drawio": str(self._relative_to_plugin_dir(config.drawio_path)),
             "legacy_commit": config.legacy_commit,
             "format": config.serialization_format,
         }
@@ -601,7 +601,7 @@ class Debugger:
         if not graphs:
             self.console.print("[red]Error:[/red] All graph generation methods failed")
             scenario_entry = {
-                "drawio": str(self._relative_to_debug(config.drawio_path)),
+                "drawio": str(self._relative_to_plugin_dir(config.drawio_path)),
                 "legacy_commit": config.legacy_commit,
                 "format": config.serialization_format,
                 "metadata_attributes": self._prepare_metadata_payload(
@@ -902,7 +902,7 @@ class Debugger:
         classification_counts: dict | None = None,
     ) -> None:
         scenario_entry = {
-            "drawio": str(self._relative_to_debug(config.drawio_path)),
+            "drawio": str(self._relative_to_plugin_dir(config.drawio_path)),
             "legacy_commit": config.legacy_commit,
             "format": config.serialization_format,
             "metadata_attributes": self._prepare_metadata_payload(
@@ -945,9 +945,9 @@ class Debugger:
             return bool(errors)
         return bool(errors)
 
-    def _relative_to_debug(self, path: Path) -> Path:
+    def _relative_to_plugin_dir(self, path: Path) -> Path:
         try:
-            return path.relative_to(self.debug_dir)
+            return path.relative_to(self.debug_dir.parent)
         except ValueError:
             return path.resolve()
 
