@@ -1,19 +1,19 @@
-Script started on Thu Oct 23 04:00:09 2025
+Script started on Thu Oct 23 04:43:26 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1mpython -m debug.debug_cli_regression[0m
-[1m========================= test session starts ==========================[0m
+[1m=============================== test session starts ===============================[0m
 platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0 -- /Users/anonymous/miniconda3/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-[1mcollecting ... [0m[1mcollected 32 items                                                     [0m
+[1mcollecting ... [0m[1mcollected 32 items                                                                [0m
 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  3%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  6%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio] [32mPASSED[0m[32m [  9%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] [32mPASSED[0m[32m [ 12%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] [32mPASSED[0m[32m [ 15%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] [33mXFAIL[0m[32m [ 15%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] [33mXFAIL[0m[32m [ 18%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio] [33mXFAIL[0m[32m [ 21%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] [32mPASSED[0m[32m [ 25%][0m
@@ -40,127 +40,475 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 90%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 93%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 96%][0m
-debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [32mPASSED[0m[32m [100%][0m
+debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [31mFAILED[0m[31m [100%][0m
 
-================================ PASSES ================================
-[32m[1m________________ test_run_manual_scenarios_after_xfails ________________[0m
-------------------------- Captured stdout call -------------------------
+==================================== FAILURES =====================================
+[31m[1m_____________________ test_run_manual_scenarios_after_xfails ______________________[0m
 
-[Running follow-up scenario for AA37-with-metadata-even-more-severely-mocked.drawio]
-Reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).
-──────── Scenario: aa37-with-metadata-even-more-severely-mocked ────────
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_run_manual_scenarios_after_xfails[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m XFAlLED_FIXTURES:[90m[39;49;00m
+            pytest.skip([33m"[39;49;00m[33mNo expected xfails to rerun manually.[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m fname [95min[39;49;00m XFAlLED_FIXTURES:[90m[39;49;00m
+            entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+            reason = entry[[33m"[39;49;00m[33mreason[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+            command = entry.get([33m"[39;49;00m[33mcommand[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [96mprint[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33m\n[39;49;00m[33m[Running follow-up scenario for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m][39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            [96mprint[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mReason: [39;49;00m[33m{[39;49;00mreason[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m command:[90m[39;49;00m
+                pytest.fail([33m"[39;49;00m[33mNo command specified for this xfail scenario.[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            scenario_slug = _scenario_slug_from_command(command)[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m scenario_slug:[90m[39;49;00m
+                pytest.fail([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mUnable to determine scenario slug from follow-up command for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+    [90m[39;49;00m
+            result = subprocess.run([90m[39;49;00m
+                command, cwd=RDFEXPORT_DIR, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m result.stdout:[90m[39;49;00m
+                [96mprint[39;49;00m(result.stdout)[90m[39;49;00m
+            [94mif[39;49;00m result.stderr:[90m[39;49;00m
+                [96mprint[39;49;00m(result.stderr)[90m[39;49;00m
+    [90m[39;49;00m
+            map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+            scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(scenario_slug)[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m scenario_entry:[90m[39;49;00m
+                pytest.fail([90m[39;49;00m
+                    [33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m%s[39;49;00m[33m'[39;49;00m[33m not recorded after command. stdout:[39;49;00m[33m\n[39;49;00m[33m%s[39;49;00m[33m\n[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m%s[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    % (scenario_slug, result.stdout, result.stderr)[90m[39;49;00m
+                )[90m[39;49;00m
+    [90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {}) [95mor[39;49;00m {}[90m[39;49;00m
+            unexpected_errors = {[90m[39;49;00m
+                name: details[90m[39;49;00m
+                [94mfor[39;49;00m name, details [95min[39;49;00m errors.items()[90m[39;49;00m
+                [94mif[39;49;00m name != [33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m details[90m[39;49;00m
+            }[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m unexpected_errors:[90m[39;49;00m
+>               pytest.fail([90m[39;49;00m
+                    [33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m%s[39;49;00m[33m'[39;49;00m[33m still reports errors: [39;49;00m[33m%s[39;49;00m[33m\n[39;49;00m[33mstdout:[39;49;00m[33m\n[39;49;00m[33m%s[39;49;00m[33m\n[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m%s[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    % ([90m[39;49;00m
+                        scenario_slug,[90m[39;49;00m
+                        unexpected_errors,[90m[39;49;00m
+                        result.stdout,[90m[39;49;00m
+                        result.stderr,[90m[39;49;00m
+                    )[90m[39;49;00m
+                )[90m[39;49;00m
+[1m[31mE               Failed: Scenario 'aa37-with-metadata-even-more-severely-mocked-v2' still reports errors: {'py_stdout': 'Warning: Failed to extract cell classifications: Arrow \'lol:kek\' \n(CB3Hy5oH25n0dsjh8Ww2-5) has a literal (\'http://someuridemonstratingstandaolne\') as\nsource.\nTraceback (most recent call last):\n  File \n"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py\n", line 1013, in _extract_cell_classifications\n    classifier = classifier_cls(xml_text, prefixes)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa\nrser.py", line 137, in __init__\n    self._process_graph()\n  File \n"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa\nrser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa\nrser.py", line 558, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\nlegacy.draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: \nArrow \'lol:kek\' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal \n(\'http://someuridemonstratingstandaolne\') as source.', 'ts_pipeline': ['TypeScript pipeline graph is None', 'RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File "/app/legacy/draw_io_parser.py", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f"Arrow \'{arrow_label}\' ({arrow_id}) has a literal (\'{self._value_of(self._cell_with_id(source_id))}\') as source."\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'lol:kek\' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal (\'http://someuridemonstratingstandaolne\') as source.\n\n       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",\n __error_address: 23339112,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File "/app/legacy/draw_io_parser.py", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f"Arrow \'{arrow_label}\' ({arrow_id}) has a literal (\'{self._value_of(self._cell_with_id(source_id))}\') as source."\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'lol:kek\' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal (\'http://someuridemonstratingstandaolne\') as source.\n\n       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",\n __error_address: 23339112,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)'], 'ts_plugin': ['TypeScript plugin graph is None', 'RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File "/app/legacy/draw_io_parser.py", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f"Arrow \'{arrow_label}\' ({arrow_id}) has a literal (\'{self._value_of(self._cell_with_id(source_id))}\') as source."\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'lol:kek\' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal (\'http://someuridemonstratingstandaolne\') as source.\n\n       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",\n __error_address: 23339112,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != \'undefined\' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof process=="object"&&process.versions?.node&&process.type!="renderer";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!="undefined"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File "<exec>", line 3, in <module>\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap\n    )\n  File "/app/legacy/draw_io_parser.py", line 137, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f"Arrow \'{arrow_label}\' ({arrow_id}) has a literal (\'{self._value_of(self._cell_with_id(source_id))}\') as source."\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'lol:kek\' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal (\'http://someuridemonstratingstandaolne\') as source.\n\n       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",\n __error_address: 23339112,\n\n      at new PythonError (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:620533)\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.21 (macOS arm64)']}[0m
+[1m[31mE               stdout:[0m
+[1m[31mE               ──────────── Scenario: aa37-with-metadata-even-more-severely-mocked-v2 ────────────[0m
+[1m[31mE               Fixture: [0m
+[1m[31mE               /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA3[0m
+[1m[31mE               7-with-metadata-even-more-severely-mocked-v2.drawio[0m
+[1m[31mE               CSV path: /mock/path/to/file.csv[0m
+[1m[31mE               Base URI: http://mock23-base-uri.com[0m
+[1m[31mE               Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275[0m
+[1m[31mE               Format: turtle[0m
+[1m[31mE               ✓ Loaded 107 mxCells from XML[0m
+[1m[31mE               Starting cell classifications...[0m
+[1m[31mE               ✓ Classified 0 mxCells[0m
+[1m[31mE               Classifier stdout:[0m
+[1m[31mE               Warning: Failed to extract cell classifications: Arrow 'lol:kek' [0m
+[1m[31mE               (CB3Hy5oH25n0dsjh8Ww2-5) has a literal ('http://someuridemonstratingstandaolne') as[0m
+[1m[31mE               source.[0m
+[1m[31mE               Traceback (most recent call last):[0m
+[1m[31mE                 File [0m
+[1m[31mE               "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py[0m
+[1m[31mE               ", line 1013, in _extract_cell_classifications[0m
+[1m[31mE                   classifier = classifier_cls(xml_text, prefixes)[0m
+[1m[31mE                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[31mE                 File [0m
+[1m[31mE               "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa[0m
+[1m[31mE               rser.py", line 137, in __init__[0m
+[1m[31mE                   self._process_graph()[0m
+[1m[31mE                 File [0m
+[1m[31mE               "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa[0m
+[1m[31mE               rser.py", line 246, in _process_graph[0m
+[1m[31mE                   arrow = self._resolve_arrow(cell)[0m
+[1m[31mE                           ^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[31mE                 File [0m
+[1m[31mE               "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa[0m
+[1m[31mE               rser.py", line 558, in _resolve_arrow[0m
+[1m[31mE                   raise ArrowWithoutIndividualAsSourceException([0m
+[1m[31mE               legacy.draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: [0m
+[1m[31mE               Arrow 'lol:kek' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal [0m
+[1m[31mE               ('http://someuridemonstratingstandaolne') as source.[0m
+[1m[31mE               Injected 107 unclassified mxCells (using unprocessed values)[0m
+[1m[31mE               ✓ Extracted 107 cell classifications:[0m
+[1m[31mE                 UNCLASSIFIED: 107[0m
+[1m[31mE               Warning: Legacy Python parser failed to parse DrawIO file[0m
+[1m[31mE               ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', [0m
+[1m[31mE               but had tag 'UserObject'[0m
+[1m[31mE               Warning: TypeScript pipeline failed to generate graphs[0m
+[1m[31mE               RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser [0m
+[1m[31mE               invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? [0m
+[1m[31mE               document.currentScript?.src : undefined;[0m
+[1m[31mE               4 |   return ([0m
+[1m[31mE               5 | async function(moduleArg = {}) {[0m
+[1m[31mE               6 |   var moduleRtn;[0m
+[1m[31mE               7 | [0m
+[1m[31mE               8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var [0m
+[1m[31mE               readyPromise=new [0m
+[1m[31mE               Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});[0m
+[1m[31mE               var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof [0m
+[1m[31mE               WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof [0m
+[1m[31mE               process=="object"&&process.versions?.node&&process.type!="renderer";var [0m
+[1m[31mE               ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WOR[0m
+[1m[31mE               KER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var[0m
+[1m[31mE               quit_=(status,toThrow)=>{throw toThrow};if(typeof [0m
+[1m[31mE               __filename!="undefined"){_scriptName=__filename}else [0m
+[1m[31mE               if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var [0m
+[1m[31mE               scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return [0m
+[1m[31mE               Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var [0m
+[1m[31mE               readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var [0m
+[1m[31mE               nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filena[0m
+[1m[31mE               me=isF[0m
+[1m[31mE               [0m
+[1m[31mE               PythonError: Traceback (most recent call last):[0m
+[1m[31mE                 File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async[0m
+[1m[31mE                   await CodeRunner([0m
+[1m[31mE                   ...<9 lines>...[0m
+[1m[31mE                   .run_async(globals, locals)[0m
+[1m[31mE                 File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async[0m
+[1m[31mE                   coroutine = eval(self.code, globals, locals)[0m
+[1m[31mE                 File "<exec>", line 3, in <module>[0m
+[1m[31mE                 File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in [0m
+[1m[31mE               parse_drawio_xml_to_json[0m
+[1m[31mE                   graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)[0m
+[1m[31mE                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[31mE                 File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml[0m
+[1m[31mE                   graph = _build_graph_from_raw_xml(normalized_xml, config)[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml[0m
+[1m[31mE                   classifier = DrawIOCellClassifier([0m
+[1m[31mE                       working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap[0m
+[1m[31mE                   )[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 137, in __init__[0m
+[1m[31mE                   self._process_graph()[0m
+[1m[31mE                   ~~~~~~~~~~~~~~~~~~~^^[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 246, in _process_graph[0m
+[1m[31mE                   arrow = self._resolve_arrow(cell)[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow[0m
+[1m[31mE                   raise ArrowWithoutIndividualAsSourceException([0m
+[1m[31mE                       f"Arrow '{arrow_label}' ({arrow_id}) has a literal [0m
+[1m[31mE               ('{self._value_of(self._cell_with_id(source_id))}') as source."[0m
+[1m[31mE                   )[0m
+[1m[31mE               draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow [0m
+[1m[31mE               'lol:kek' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal [0m
+[1m[31mE               ('http://someuridemonstratingstandaolne') as source.[0m
+[1m[31mE               [0m
+[1m[31mE                      type: "internal_data_core.ArrowWithoutIndividualAsSourceException",[0m
+[1m[31mE                __error_address: 23339112,[0m
+[1m[31mE               [0m
+[1m[31mE                     at new PythonError [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:620533)[0m
+[1m[31mE                     at new_error [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:578922)[0m
+[1m[31mE                     at callPyObjectKwargs [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:632622)[0m
+[1m[31mE                     at <anonymous> [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:633781)[0m
+[1m[31mE                     at wrapper [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:596545)[0m
+[1m[31mE               [0m
+[1m[31mE               3 |   var _scriptName = typeof document != 'undefined' ? [0m
+[1m[31mE               document.currentScript?.src : undefined;[0m
+[1m[31mE               4 |   return ([0m
+[1m[31mE               5 | async function(moduleArg = {}) {[0m
+[1m[31mE               6 |   var moduleRtn;[0m
+[1m[31mE               7 | [0m
+[1m[31mE               8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var [0m
+[1m[31mE               readyPromise=new [0m
+[1m[31mE               Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});[0m
+[1m[31mE               var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof [0m
+[1m[31mE               WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof [0m
+[1m[31mE               process=="object"&&process.versions?.node&&process.type!="renderer";var [0m
+[1m[31mE               ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WOR[0m
+[1m[31mE               KER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var[0m
+[1m[31mE               quit_=(status,toThrow)=>{throw toThrow};if(typeof [0m
+[1m[31mE               __filename!="undefined"){_scriptName=__filename}else [0m
+[1m[31mE               if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var [0m
+[1m[31mE               scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return [0m
+[1m[31mE               Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var [0m
+[1m[31mE               readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var [0m
+[1m[31mE               nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filena[0m
+[1m[31mE               me=isF[0m
+[1m[31mE               [0m
+[1m[31mE               PythonError: Traceback (most recent call last):[0m
+[1m[31mE                 File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async[0m
+[1m[31mE                   await CodeRunner([0m
+[1m[31mE                   ...<9 lines>...[0m
+[1m[31mE                   .run_async(globals, locals)[0m
+[1m[31mE                 File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async[0m
+[1m[31mE                   coroutine = eval(self.code, globals, locals)[0m
+[1m[31mE                 File "<exec>", line 3, in <module>[0m
+[1m[31mE                 File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in [0m
+[1m[31mE               parse_drawio_xml_to_json[0m
+[1m[31mE                   graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)[0m
+[1m[31mE                                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[1m[31mE                 File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml[0m
+[1m[31mE                   graph = _build_graph_from_raw_xml(normalized_xml, config)[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml[0m
+[1m[31mE                   classifier = DrawIOCellClassifier([0m
+[1m[31mE                       working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap[0m
+[1m[31mE                   )[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 137, in __init__[0m
+[1m[31mE                   self._process_graph()[0m
+[1m[31mE                   ~~~~~~~~~~~~~~~~~~~^^[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 246, in _process_graph[0m
+[1m[31mE                   arrow = self._resolve_arrow(cell)[0m
+[1m[31mE                 File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow[0m
+[1m[31mE                   raise ArrowWithoutIndividualAsSourceException([0m
+[1m[31mE                       f"Arrow '{arrow_label}' ({arrow_id}) has a literal [0m
+[1m[31mE               ('{self._value_of(self._cell_with_id(source_id))}') as source."[0m
+[1m[31mE                   )[0m
+[1m[31mE               draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow [0m
+[1m[31mE               'lol:kek' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal [0m
+[1m[31mE               ('http://someuridemonstratingstandaolne') as source.[0m
+[1m[31mE               [0m
+[1m[31mE                      type: "internal_data_core.ArrowWithoutIndividualAsSourceException",[0m
+[1m[31mE                __error_address: 23339112,[0m
+[1m[31mE               [0m
+[1m[31mE                     at new PythonError [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:620533)[0m
+[1m[31mE                     at new_error [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:578922)[0m
+[1m[31mE                     at callPyObjectKwargs [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:632622)[0m
+[1m[31mE                     at <anonymous> [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:633781)[0m
+[1m[31mE                     at wrapper [0m
+[1m[31mE               (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod[0m
+[1m[31mE               ide/pyodide.asm.js:8:596545)[0m
+[1m[31mE               [0m
+[1m[31mE               Bun v1.2.21 (macOS arm64)[0m
+[1m[31mE               Error: All graph generation methods failed[0m
+[1m[31mE               [0m
+[1m[31mE               stderr:[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:312: Failed
+------------------------------ Captured stdout call -------------------------------
+
+[Running follow-up scenario for AA37-with-metadata-even-more-severely-mocked-v2.drawio]
+Reason: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.
+──────────── Scenario: aa37-with-metadata-even-more-severely-mocked-v2 ────────────
 Fixture: 
-/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/f
-ixtures/AA37-with-metadata-even-more-severely-mocked.drawio
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA3
+7-with-metadata-even-more-severely-mocked-v2.drawio
 CSV path: /mock/path/to/file.csv
 Base URI: http://mock23-base-uri.com
 Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 Format: turtle
-✓ Loaded 99 mxCells from XML
+✓ Loaded 107 mxCells from XML
 Starting cell classifications...
-✓ Classified 98 mxCells
-Injected 1 unclassified mxCells (using unprocessed values)
-✓ Extracted 99 cell classifications:
-  ARROW_LABEL: 48
-  DECORATION: 1
-  LITERAL: 9
-  STANDALONE_INDIVIDUAL: 19
-  TYPED_INDIVIDUAL: 21
-  UNCLASSIFIED: 1
+✓ Classified 0 mxCells
+Classifier stdout:
+Warning: Failed to extract cell classifications: Arrow 'lol:kek' 
+(CB3Hy5oH25n0dsjh8Ww2-5) has a literal ('http://someuridemonstratingstandaolne') as
+source.
+Traceback (most recent call last):
+  File 
+"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py
+", line 1013, in _extract_cell_classifications
+    classifier = classifier_cls(xml_text, prefixes)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa
+rser.py", line 137, in __init__
+    self._process_graph()
+  File 
+"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa
+rser.py", line 246, in _process_graph
+    arrow = self._resolve_arrow(cell)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File 
+"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_pa
+rser.py", line 558, in _resolve_arrow
+    raise ArrowWithoutIndividualAsSourceException(
+legacy.draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: 
+Arrow 'lol:kek' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal 
+('http://someuridemonstratingstandaolne') as source.
+Injected 107 unclassified mxCells (using unprocessed values)
+✓ Extracted 107 cell classifications:
+  UNCLASSIFIED: 107
 Warning: Legacy Python parser failed to parse DrawIO file
-ParseException: Could not parse XML tree: expecting an element with tag 
-'mxCell', but had tag 'UserObject'
-                         Debug scenario results                         
-┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Graph       ┃ Triples ┃ Output               ┃ N-Triples SHA256      ┃
-┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
-│ ts_pipeline │      92 │ results/aa37-with-m… │ 3ffb49923e7c7739c118… │
-│ ts_plugin   │      92 │ results/aa37-with-m… │ 3ffb49923e7c7739c118… │
-└─────────────┴─────────┴──────────────────────┴───────────────────────┘
-Isomorphism checks:
-  ✅ ts_pipeline_vs_ts_plugin
+ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', 
+but had tag 'UserObject'
+Warning: TypeScript pipeline failed to generate graphs
+RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser 
+invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? 
+document.currentScript?.src : undefined;
+4 |   return (
+5 | async function(moduleArg = {}) {
+6 |   var moduleRtn;
+7 | 
+8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var 
+readyPromise=new 
+Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});
+var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof 
+WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof 
+process=="object"&&process.versions?.node&&process.type!="renderer";var 
+ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WOR
+KER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var
+quit_=(status,toThrow)=>{throw toThrow};if(typeof 
+__filename!="undefined"){_scriptName=__filename}else 
+if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var 
+scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return 
+Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var 
+readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var 
+nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filena
+me=isF
 
-[OK] AA37-with-metadata-even-more-severely-mocked.drawio completed successfully.
+PythonError: Traceback (most recent call last):
+  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async
+    await CodeRunner(
+    ...<9 lines>...
+    .run_async(globals, locals)
+  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async
+    coroutine = eval(self.code, globals, locals)
+  File "<exec>", line 3, in <module>
+  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in 
+parse_drawio_xml_to_json
+    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)
+                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml
+    graph = _build_graph_from_raw_xml(normalized_xml, config)
+  File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml
+    classifier = DrawIOCellClassifier(
+        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap
+    )
+  File "/app/legacy/draw_io_parser.py", line 137, in __init__
+    self._process_graph()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph
+    arrow = self._resolve_arrow(cell)
+  File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow
+    raise ArrowWithoutIndividualAsSourceException(
+        f"Arrow '{arrow_label}' ({arrow_id}) has a literal 
+('{self._value_of(self._cell_with_id(source_id))}') as source."
+    )
+draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 
+'lol:kek' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal 
+('http://someuridemonstratingstandaolne') as source.
 
+       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",
+ __error_address: 23339112,
 
-[Running follow-up scenario for AA37-with-metadata-severely-mocked.drawio]
-Reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).
-───────────── Scenario: aa37-with-metadata-severely-mocked ─────────────
-Fixture: 
-/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/f
-ixtures/AA37-with-metadata-severely-mocked.drawio
-CSV path: /mock/path/to/file.csv
-Base URI: ontology://generated-from-draw-io/mock#
-Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
-Format: turtle
-✓ Loaded 88 mxCells from XML
-Starting cell classifications...
-✓ Classified 87 mxCells
-Injected 1 unclassified mxCells (using unprocessed values)
-✓ Extracted 88 cell classifications:
-  ARROW_LABEL: 42
-  DECORATION: 3
-  LITERAL: 6
-  STANDALONE_INDIVIDUAL: 20
-  TYPED_INDIVIDUAL: 16
-  UNCLASSIFIED: 1
-Warning: Legacy Python parser failed to parse DrawIO file
-ParseException: Could not parse XML tree: expecting an element with tag 
-'mxCell', but had tag 'UserObject'
-                         Debug scenario results                         
-┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Graph       ┃ Triples ┃ Output               ┃ N-Triples SHA256      ┃
-┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
-│ ts_pipeline │      83 │ results/aa37-with-m… │ 0217556e27d6cd30e3ed… │
-│ ts_plugin   │      83 │ results/aa37-with-m… │ 0217556e27d6cd30e3ed… │
-└─────────────┴─────────┴──────────────────────┴───────────────────────┘
-Isomorphism checks:
-  ✅ ts_pipeline_vs_ts_plugin
+      at new PythonError 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:620533)
+      at new_error 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:578922)
+      at callPyObjectKwargs 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:632622)
+      at <anonymous> 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:633781)
+      at wrapper 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:596545)
 
-[OK] AA37-with-metadata-severely-mocked.drawio completed successfully.
+3 |   var _scriptName = typeof document != 'undefined' ? 
+document.currentScript?.src : undefined;
+4 |   return (
+5 | async function(moduleArg = {}) {
+6 |   var moduleRtn;
+7 | 
+8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var 
+readyPromise=new 
+Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});
+var ENVIRONMENT_IS_WEB=typeof window=="object";var ENVIRONMENT_IS_WORKER=typeof 
+WorkerGlobalScope!="undefined";var ENVIRONMENT_IS_NODE=typeof 
+process=="object"&&process.versions?.node&&process.type!="renderer";var 
+ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WOR
+KER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram="./this.program";var
+quit_=(status,toThrow)=>{throw toThrow};if(typeof 
+__filename!="undefined"){_scriptName=__filename}else 
+if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var 
+scriptDirectory="";function locateFile(path){if(Module["locateFile"]){return 
+Module["locateFile"](path,scriptDirectory)}return scriptDirectory+path}var 
+readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require("fs");var 
+nodePath=require("path");scriptDirectory=__dirname+"/";readBinary=filename=>{filena
+me=isF
 
+PythonError: Traceback (most recent call last):
+  File "/lib/python313.zip/_pyodide/_base.py", line 597, in eval_code_async
+    await CodeRunner(
+    ...<9 lines>...
+    .run_async(globals, locals)
+  File "/lib/python313.zip/_pyodide/_base.py", line 411, in run_async
+    coroutine = eval(self.code, globals, locals)
+  File "<exec>", line 3, in <module>
+  File "/app/pyodide_pipeline/drawio_pipeline.py", line 312, in 
+parse_drawio_xml_to_json
+    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)
+                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/pyodide_pipeline/drawio_pipeline.py", line 303, in parse_drawio_xml
+    graph = _build_graph_from_raw_xml(normalized_xml, config)
+  File "/app/legacy/draw_io_parser.py", line 2543, in _build_graph_from_raw_xml
+    classifier = DrawIOCellClassifier(
+        working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap
+    )
+  File "/app/legacy/draw_io_parser.py", line 137, in __init__
+    self._process_graph()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/app/legacy/draw_io_parser.py", line 246, in _process_graph
+    arrow = self._resolve_arrow(cell)
+  File "/app/legacy/draw_io_parser.py", line 558, in _resolve_arrow
+    raise ArrowWithoutIndividualAsSourceException(
+        f"Arrow '{arrow_label}' ({arrow_id}) has a literal 
+('{self._value_of(self._cell_with_id(source_id))}') as source."
+    )
+draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 
+'lol:kek' (CB3Hy5oH25n0dsjh8Ww2-5) has a literal 
+('http://someuridemonstratingstandaolne') as source.
 
-[Running follow-up scenario for General_Authority_bleep_mock.drawio]
-Reason: ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.
-──────────────── Scenario: general-authority-bleep-mock ────────────────
-Fixture: 
-/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/f
-ixtures/General_Authority_bleep_mock.drawio
-CSV path: /mock/path/to/file.csv
-Base URI: ontology://generated-from-draw-io/mock#
-Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
-Format: turtle
-✓ Loaded 168 mxCells from XML
-Starting cell classifications...
-✓ Classified 167 mxCells
-Injected 1 unclassified mxCells (using unprocessed values)
-✓ Extracted 168 cell classifications:
-  ARROW_LABEL: 89
-  LITERAL: 18
-  STANDALONE_INDIVIDUAL: 30
-  TYPED_INDIVIDUAL: 30
-  UNCLASSIFIED: 1
-Warning: Legacy Python parser failed to parse DrawIO file
-ParseException: Could not parse XML tree: expecting an element with tag 
-'mxCell', but had tag 'UserObject'
-                         Debug scenario results                         
-┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Graph       ┃ Triples ┃ Output               ┃ N-Triples SHA256      ┃
-┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
-│ ts_pipeline │     140 │ results/general-aut… │ 667d9ea4343a02aa4385… │
-│ ts_plugin   │     140 │ results/general-aut… │ 667d9ea4343a02aa4385… │
-└─────────────┴─────────┴──────────────────────┴───────────────────────┘
-Isomorphism checks:
-  ✅ ts_pipeline_vs_ts_plugin
+       type: "internal_data_core.ArrowWithoutIndividualAsSourceException",
+ __error_address: 23339112,
 
-[OK] General_Authority_bleep_mock.drawio completed successfully.
+      at new PythonError 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:620533)
+      at new_error 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:578922)
+      at callPyObjectKwargs 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:632622)
+      at <anonymous> 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:633781)
+      at wrapper 
+(/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyod
+ide/pyodide.asm.js:8:596545)
 
-[36m[1m======================= short test summary info ========================[0m
+Bun v1.2.21 (macOS arm64)
+Error: All graph generation methods failed
+
+===================================== PASSES ======================================
+[36m[1m============================= short test summary info =============================[0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio][0m
@@ -184,11 +532,12 @@ Isomorphism checks:
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m
+[33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - reason: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - reason: ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - reason: ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
-[32m============== [32m[1m29 passed[0m, [33m3 xfailed[0m[32m in 143.27s (0:02:23)[0m[32m ===============[0m
+[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failed: Scenario 'aa37-with-metadata-even-more-severely-mocked-v2' still repor...
+[31m==================== [31m[1m1 failed[0m, [32m27 passed[0m, [33m4 xfailed[0m[31m in 54.72s[0m[31m =====================[0m
 
 Command exit status: 0
-Script done on Thu Oct 23 04:02:33 2025
+Script done on Thu Oct 23 04:44:21 2025
