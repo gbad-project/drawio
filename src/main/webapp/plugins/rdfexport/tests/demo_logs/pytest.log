@@ -1,117 +1,22 @@
-<<<<<<< HEAD
-Script started on 2025-10-23 16:41:27+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
-[0m[2m[35m$[0m [2m[1mpytest[0m
-[1m===================================================== test session starts ======================================================[0m
-platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
-rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
-configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 80 items                                                                                                             [0m
-
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 15%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 16%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 32%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 36%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                            [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                               [ 92%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                    [100%][0m
-
-=========================================================== FAILURES ===========================================================
-[31m[1m_________________________________________ test_generated_metadata_fixtures_round_trip __________________________________________[0m
-
-tmp_path = PosixPath('/tmp/pytest-of-root/pytest-8/test_generated_metadata_fixtur0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
-            path[90m[39;49;00m
-            [94mfor[39;49;00m path [95min[39;49;00m FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-            [94mif[39;49;00m [33m"[39;49;00m[33m-with-metadata[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m path.stem [95mand[39;49;00m [95mnot[39;49;00m _fixture_contains_metadata(path)[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m fixture_paths, [33m"[39;49;00m[33mExpected drawio fixtures to patch[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        [94mfor[39;49;00m index, fixture_path [95min[39;49;00m [96menumerate[39;49;00m(fixture_paths):[90m[39;49;00m
-            metadata_options = _build_metadata_options(index, fixture_path)[90m[39;49;00m
-            patched_path = tmp_path / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mfixture_path.stem[33m}[39;49;00m[33m-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-            _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
-    [90m[39;49;00m
->           original_graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-                [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-                metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-                prefix_iri=metadata_options[[33m"[39;49;00m[33mbaseUri[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-            )[90m[39;49;00m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:506: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-[1m[31mlegacy/draw_io_parser.py[0m:2961: in parse_drawio_to_graph
-    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2625: in _build_graph_from_raw_xml
-    [0mclassifier = DrawIOCellClassifier([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:141: in __init__
-    [0m[96mself[39;49;00m._process_graph()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:251: in _process_graph
-    [0marrow = [96mself[39;49;00m._resolve_arrow(cell)[90m[39;49;00m
-            ^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-
-self = <draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier object at 0x7fcd60cc4d10>
-arrow_cell = <Element 'mxCell' at 0x7fcd60719760>
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_resolve_arrow[39;49;00m([96mself[39;49;00m, arrow_cell: Element) -> Arrow | [94mNone[39;49;00m:[90m[39;49;00m
-        [94mtry[39;49;00m:[90m[39;49;00m
-            arrow_label = [96mself[39;49;00m._arrow_label(arrow_cell)[90m[39;49;00m
-        [94mexcept[39;49;00m _NoValueException:[90m[39;49;00m
-            [94mreturn[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
-        arrow_id = arrow_cell.attrib[[33m"[39;49;00m[33mid[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-        source_id = arrow_cell.attrib.get([33m"[39;49;00m[33msource[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        target_id = arrow_cell.attrib.get([33m"[39;49;00m[33mtarget[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        [94mtry[39;49;00m:[90m[39;49;00m
-            arrow_start = [96mself[39;49;00m._start_or_end(arrow_cell, [33m"[39;49;00m[33msourcePoint[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        [94mexcept[39;49;00m ParseException:[90m[39;49;00m
-            arrow_start = [94mNone[39;49;00m[90m[39;49;00m
-        [94mtry[39;49;00m:[90m[39;49;00m
-            arrow_end = [96mself[39;49;00m._start_or_end(arrow_cell, [33m"[39;49;00m[33mtargetPoint[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        [94mexcept[39;49;00m ParseException:[90m[39;49;00m
-            arrow_end = [94mNone[39;49;00m[90m[39;49;00m
-        [94mif[39;49;00m source_id [95mand[39;49;00m source_id [95min[39;49;00m [96mself[39;49;00m._nodes_by_id:[90m[39;49;00m
-            source_cell, source_individual = [96mself[39;49;00m._nodes_by_id[[90m[39;49;00m
-                source_id[90m[39;49;00m
-            ][90m[39;49;00m
-            source_identifier = source_individual.identifier[90m[39;49;00m
-        [94melif[39;49;00m source_id [95mand[39;49;00m source_id [95min[39;49;00m [96mself[39;49;00m._literals_by_id:[90m[39;49;00m
->           [94mraise[39;49;00m ArrowWithoutIndividualAsSourceException([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mArrow [39;49;00m[33m'[39;49;00m[33m{[39;49;00marrow_label[33m}[39;49;00m[33m'[39;49;00m[33m ([39;49;00m[33m{[39;49;00marrow_id[33m}[39;49;00m[33m) has a literal ([39;49;00m[33m'[39;49;00m[33m{[39;49;00m[96mself[39;49;00m._value_of([96mself[39;49;00m._cell_with_id(source_id))[33m}[39;49;00m[33m'[39;49;00m[33m) as source.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'http://example/schema#Yes' (WIyWlLk6GJQsqaUBKTNV-4) has a literal ('kb:Lamppluggedin') as source.[0m
-
-[1m[31mlegacy/draw_io_parser.py[0m:582: ArrowWithoutIndividualAsSourceException
-[36m[1m=================================================== short test summary info ====================================================[0m
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'http://example/schema#Yes' (WIyWlLk6GJQsq...
-[31m================================================ [31m[1m1 failed[0m, [32m79 passed[0m[31m in 27.78s[0m[31m =================================================[0m
-[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
-Script done on 2025-10-23 16:41:55+00:00 [COMMAND_EXIT_CODE="1"]
-=======
-Script started on Thu Oct 23 13:28:04 2025
+Script started on Thu Oct 23 15:25:43 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1mpytest[0m
-[1m==================================== test session starts =====================================[0m
+[1m===================================== test session starts =====================================[0m
 platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-[1mcollecting ... [0m[1mcollected 80 items                                                                           [0m
+[1mcollecting ... [0m[1mcollected 80 items                                                                            [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                             [ 15%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                   [ 16%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                     [ 32%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                               [ 36%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m          [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                             [ 92%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                  [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                              [ 15%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                    [ 16%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                      [ 32%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                [ 36%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m           [ 87%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                              [ 92%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                   [100%][0m
 
-[32m=============================== [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 6.81s[0m[32m ================================[0m
+[32m=============================== [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 14.34s[0m[32m ================================[0m
 
->>>>>>> feat/rml
 Command exit status: 0
-Script done on Thu Oct 23 13:28:11 2025
+Script done on Thu Oct 23 15:25:58 2025
