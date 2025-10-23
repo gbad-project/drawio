@@ -254,6 +254,13 @@ class DrawIOCellClassifier:
         value_tokens = self._tokenise(raw_value)
         tokens_are_valid = self._tokens_are_valid(value_tokens)
         tokens = list(value_tokens)
+        # AICODE-NOTE: I recognize that hardcoding a curie check here
+        # was not the best codex's idea, however this does do
+        # the trick that if ANY token among tokens has a chance
+        # of being valid, a typed individual is constructed
+        # and then these are checked there. However, it will be
+        # important to have all curie checks centralized.
+        # signed-off: human
         looks_like_curie = any(":" in token for token in tokens)
 
         if self._style_denotes_literal(cell, style, tokens_are_valid):
