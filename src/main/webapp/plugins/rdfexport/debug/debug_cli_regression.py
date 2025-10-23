@@ -239,9 +239,22 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
 
 
 # @pytest.mark.dependency(depends=["test_debug_cli_matches_expected_triple_counts"])
+def _scenario_slug_from_command(command: list[str]) -> str | None:
+    try:
+        index = command.index("--scenario")
+    except ValueError:
+        return None
+    try:
+        return command[index + 1]
+    except IndexError:
+        return None
+
+
 def test_run_manual_scenarios_after_xfails() -> None:
     if not XFAlLED_FIXTURES:
         pytest.skip("No expected xfails to rerun manually.")
+
+    map_path = DEBUG_DIR / "map.json"
 
     for fname in XFAlLED_FIXTURES:
         entry = EXPECTED_TS_PLUGIN[fname]
@@ -250,22 +263,54 @@ def test_run_manual_scenarios_after_xfails() -> None:
 
         print(f"\n[Running follow-up scenario for {fname}]")
         print(f"Reason: {reason}")
-        if command:
-            full_cmd = [sys.executable] + command
-            result = subprocess.run(
-                full_cmd, cwd=RDFEXPORT_DIR, capture_output=True, text=True
+
+        if not command:
+            pytest.fail("No command specified for this xfail scenario.")
+
+        scenario_slug = _scenario_slug_from_command(command)
+        if not scenario_slug:
+            pytest.fail(
+                f"Unable to determine scenario slug from follow-up command for {fname}."
             )
-            if result.returncode == 0:
-                print(f"[OK] {fname} completed successfully.\n")
-            else:
-                print(
-                    f"[FAIL] {fname} exited with {result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}\n"
+
+        full_cmd = [sys.executable] + command
+        result = subprocess.run(
+            full_cmd, cwd=RDFEXPORT_DIR, capture_output=True, text=True
+        )
+
+        if result.stdout:
+            print(result.stdout)
+        if result.stderr:
+            print(result.stderr)
+
+        map_data = json.loads(map_path.read_text(encoding="utf-8"))
+        scenario_entry = map_data["scenarios"].get(scenario_slug)
+        if not scenario_entry:
+            pytest.fail(
+                "Scenario '%s' not recorded after command. stdout:\n%s\nstderr:\n%s"
+                % (scenario_slug, result.stdout, result.stderr)
+            )
+
+        errors = scenario_entry.get("errors", {}) or {}
+        unexpected_errors = {
+            name: details
+            for name, details in errors.items()
+            if name != "py_legacy" and details
+        }
+
+        if unexpected_errors:
+            pytest.fail(
+                "Scenario '%s' still reports errors: %s\nstdout:\n%s\nstderr:\n%s"
+                % (
+                    scenario_slug,
+                    unexpected_errors,
+                    result.stdout,
+                    result.stderr,
                 )
-                pytest.fail(
-                    f"Follow-up command failed for {fname} (exit code {result.returncode})"
-                )
-        else:
-            print("No command specified for this xfail scenario.\n")
+            )
+
+        print(f"[OK] {fname} completed successfully.\n")
+
 
 
 if __name__ == "__main__":

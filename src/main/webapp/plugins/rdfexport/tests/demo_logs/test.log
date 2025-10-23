@@ -6,7 +6,7 @@ Script started on 2025-10-22 22:39:00+00:00 [COMMAND="bun run test" TERM="xterm"
 [0m[2m[35m$[0m [2m[1mruff check --fix .[0m
 Found 2 errors (2 fixed, 0 remaining).
 [0m[2m[35m$[0m [2m[1mruff format .[0m
-1 file reformatted, 24 files left unchanged
+2 files reformatted, 23 files left unchanged
 Attempting to regenerate baselines from 1 commit(s)...
 Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 
@@ -59,7 +59,8 @@ platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- /workspace/drawi
 cachedir: .pytest_cache
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 41 items                                                                                                             [0m
+[1mcollecting ... [0m[1m
+collected 41 items                                                                                                             [0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_tracks_datatype_properties [32mPASSED[0m[32m   [  4%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_preserves_literal_targets [31mFAILED[0m[31m         [  7%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_accepts_corrected_mock_types [31mFAILED[0m[31m      [ 21%][0m
@@ -654,7 +655,8 @@ subprocess.CalledProcessError: Command '['/workspace/drawio/src/main/webapp/plug
 [1m===================================================== test session starts ======================================================[0m
 platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
-[1mcollecting ... [0m[1mcollected 66 items                                                                                                             [0m
+[1mcollecting ... [0m[1m
+collected 66 items                                                                                                             [0m
 legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                                        [ 18%][0m
 legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[33m                                                                                 [ 22%][0m
 legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                            [ 84%][0m
@@ -714,7 +716,8 @@ subprocess.CalledProcessError: Command '['/Volumes/home/anonymous/drawio/src/mai
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 66 items                                                                              [0m
+[1mcollecting ... [0m[1m
+collected 66 items                                                                              [0m
 
 legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [ 18%][0m
 legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[33m                                                  [ 22%][0m
@@ -1526,10 +1529,7 @@ Bun v1.2.14 (Linux x64 baseline)
 [BLACKBOX] Parsed DrawIO graph graph-38 with 50 triples
 [BLACKBOX] Returning Turtle payload for graph graph-38 (3738 characters)
 [TEST] Number of triples in actual Turtle (plugin) vs expected Turtle (pipeline): 50 vs 50
-[TEST] Also, Actual Turtle (plugin) is isomorphic to expected Turtle (pipeline): true
 [TEST] Number of filtered triples in Turtle vs baseline N-Triples: 48 vs 48
-[TEST] Also, Turtle is isomorphic to baseline N-Triples
-[PIPELINE] exportRml action invoked
 [PIPELINE] Generated DrawIO XML payload (23564 characters) for RML export
 [BLACKBOX] Generating Turtle payload for serialized input (23564 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 23564)
