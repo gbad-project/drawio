@@ -34,7 +34,7 @@ EXPECTED_TS_PLUGIN = {
         ],
     },
     "AA37-with-metadata-even-more-severely-mocked.drawio": {
-        "reason": "ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).",
+        "reason": "ts_plugin expectedly fails because picoL: had invalid prefix IRI in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).",
         "command": [
             "python",
             "-m",
