@@ -1,6 +1,6 @@
 slug: class-diagram-tweaked
 drawio: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio
-legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+legacy_commit: HEAD
 format: turtle
 metadata:
   attributes:

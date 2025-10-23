@@ -25,15 +25,33 @@ DEBUG_DIR = RDFEXPORT_DIR / "debug"
 EXPECTED_TS_PLUGIN = {
     "AA37-with-metadata-severely-mocked.drawio": {
         "reason": "ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).",
-        "command": ["python", "-m", "debug", "--scenario", "aa37-with-metadata-severely-mocked"],
+        "command": [
+            "python",
+            "-m",
+            "debug",
+            "--scenario",
+            "aa37-with-metadata-severely-mocked",
+        ],
     },
     "AA37-with-metadata-even-more-severely-mocked.drawio": {
         "reason": "ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario).",
-        "command": ["python", "-m", "debug", "--scenario", "aa37-with-metadata-even-more-severely-mocked"],
+        "command": [
+            "python",
+            "-m",
+            "debug",
+            "--scenario",
+            "aa37-with-metadata-even-more-severely-mocked",
+        ],
     },
     "General_Authority_bleep_mock.drawio": {
         "reason": "ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.",
-        "command": ["python", "-m", "debug", "--scenario", "general-authority-bleep-mock"],
+        "command": [
+            "python",
+            "-m",
+            "debug",
+            "--scenario",
+            "general-authority-bleep-mock",
+        ],
     },
 }
 
@@ -199,7 +217,9 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
             reason = f"{entry['reason']}  |  Command: python {' '.join(entry.get('command', []))}"
             XFAlLED_FIXTURES.append(fname)
             pytest.xfail(reason)
-        pytest.fail(f"Unexpected skip: ts_plugin graph unavailable for {fname}. Errors: {errors.get('ts_plugin')}")
+        pytest.fail(
+            f"Unexpected skip: ts_plugin graph unavailable for {fname}. Errors: {errors.get('ts_plugin')}"
+        )
 
     ttl_path = DEBUG_DIR / results["ts_plugin"]["path"]
     assert ttl_path.exists(), f"Turtle output missing for {fixture_path.name}"
@@ -217,7 +237,8 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
 
     _ensure_graph_covers_classifications(graph, classifications, xml_text)
 
-#@pytest.mark.dependency(depends=["test_debug_cli_matches_expected_triple_counts"])
+
+# @pytest.mark.dependency(depends=["test_debug_cli_matches_expected_triple_counts"])
 def test_run_manual_scenarios_after_xfails() -> None:
     if not XFAlLED_FIXTURES:
         pytest.skip("No expected xfails to rerun manually.")
@@ -231,14 +252,21 @@ def test_run_manual_scenarios_after_xfails() -> None:
         print(f"Reason: {reason}")
         if command:
             full_cmd = [sys.executable] + command
-            result = subprocess.run(full_cmd, cwd=RDFEXPORT_DIR, capture_output=True, text=True)
+            result = subprocess.run(
+                full_cmd, cwd=RDFEXPORT_DIR, capture_output=True, text=True
+            )
             if result.returncode == 0:
                 print(f"[OK] {fname} completed successfully.\n")
             else:
-                print(f"[FAIL] {fname} exited with {result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}\n")
-                pytest.fail(f"Follow-up command failed for {fname} (exit code {result.returncode})")
+                print(
+                    f"[FAIL] {fname} exited with {result.returncode}\nstdout:\n{result.stdout}\nstderr:\n{result.stderr}\n"
+                )
+                pytest.fail(
+                    f"Follow-up command failed for {fname} (exit code {result.returncode})"
+                )
         else:
             print("No command specified for this xfail scenario.\n")
+
 
 if __name__ == "__main__":
     import pytest

@@ -419,7 +419,20 @@ class DrawIOCellClassifier:
     def _start_or_end(
         self, cell: Element, as_attribute: str | None
     ) -> tuple[float, float] | None:
-        geometry = self._geometry(cell)
+        try:
+            geometry = self._geometry(cell)
+        except ParseException as exc:
+            # Some DrawIO documents include intermediate container cells (e.g. the
+            # implicit layer root) that do not define their own geometry block.
+            # The legacy parser treated those as originating at the canvas origin,
+            # so we mirror that behaviour instead of bailing out with a hard
+            # failure.  Returning a zero offset keeps arrow coordinate
+            # calculations working while still allowing genuine geometry issues to
+            # bubble up.
+            if as_attribute is None:
+                return 0.0, 0.0
+            raise exc
+
         cell_id = cell.attrib.get("id", "")
         if as_attribute is None:
             return self._x_and_y_in_geometry(geometry, cell_id)
@@ -495,8 +508,15 @@ class DrawIOCellClassifier:
         arrow_id = arrow_cell.attrib["id"]
         source_id = arrow_cell.attrib.get("source")
         target_id = arrow_cell.attrib.get("target")
-        arrow_start = self._start_or_end(arrow_cell, "sourcePoint")
-        arrow_end = self._start_or_end(arrow_cell, "targetPoint")
+        try:
+            arrow_start = self._start_or_end(arrow_cell, "sourcePoint")
+        except ParseException:
+            arrow_start = None
+
+        try:
+            arrow_end = self._start_or_end(arrow_cell, "targetPoint")
+        except ParseException:
+            arrow_end = None
 
         # Resolve source
         if source_id and source_id in self._nodes_by_id:

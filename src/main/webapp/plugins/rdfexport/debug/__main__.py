@@ -440,7 +440,7 @@ class Debugger:
     def _needs_fail_on_pytest(self, errors: dict) -> None:
         benign_keys = {"py_legacy"}
         return any(k not in benign_keys for k in errors.keys())
-    
+
     def _run_scenario(self, config: ScenarioConfig, skip_ts: bool = False) -> None:
         self.console.rule(f"Scenario: {config.slug}")
         self.console.print(
@@ -1524,6 +1524,7 @@ def main() -> None:
     debugger.run(args)
 
     import sys
+
     sys.exit(1 if debugger.needs_fail_on_pytest else 0)
 
 
