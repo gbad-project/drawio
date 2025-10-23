@@ -138,6 +138,18 @@ def _apply_drawio_overrides(monkeypatch):
         raising=False,
     )
 
+    from legacy.overrides.cell_classifier import (
+        DrawIOCellClassifier as OverrideClassifier,
+    )
+
+    monkeypatch.setattr(
+        draw_io_parser.pipeline.core.xml.data,
+        "DrawIOCellClassifier",
+        OverrideClassifier,
+        raising=False,
+    )
+    globals()["DrawIOCellClassifier"] = OverrideClassifier
+
 
 def test_classifier_detects_typed_individuals_and_literals():
     xml = _drawio_xml(
@@ -200,6 +212,23 @@ def test_absolute_uri_node_uses_default_type():
         for _, individual, _ in tree.individual_cells
     }
     assert (uri_value, DEFAULT_STANDALONE_TYPE) in observed
+
+
+def test_rounded_style_literals_remain_literals():
+    uri_value = "http://example.com/literal"
+    xml = _drawio_xml(
+        _vertex_cell("source", "Source"),
+        _vertex_cell("source_type", "rico:Record", parent="source"),
+        _vertex_cell("literal", uri_value, style="html=1;rounded=1;"),
+    )
+
+    classifier = DrawIOCellClassifier(xml, draw_io_parser.get_prefixes())
+    classification = classifier.classifications.get("literal")
+    assert classification is not None
+    assert getattr(classification.kind, "name", "") == "LITERAL"
+
+    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+    assert any(cell.attrib.get("id") == "literal" for cell, _ in tree.literal_cells)
 
 
 def test_decorations_serialise_to_skos_note(tmp_path: Path):

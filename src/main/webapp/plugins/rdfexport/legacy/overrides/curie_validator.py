@@ -57,7 +57,14 @@ def _ensure_known_curie(
 
 @override(phase="core", type="xml", role="data")
 def _extract_individual_and_arrow_and_literal_cells(self, prefixes) -> None:
-    classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
+    try:
+        from legacy.overrides.cell_classifier import (
+            DrawIOCellClassifier as OverrideClassifier,
+        )
+
+        classifier_cls = OverrideClassifier
+    except Exception:
+        classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
     decorations_attr = getattr(
         classifier_cls,
         "DECORATION_REGISTRY_ATTR",

@@ -5,6 +5,11 @@ import typing
 from typing import Iterable
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
+from legacy.draw_io_parser import (  # type: ignore=attr-defined
+    _NoCellCloseEnoughException,
+    _NoValueException,
+    _verify_is_ric_class,
+)
 from meta_builder.drawio_meta_builder import override
 
 # ruff: noqa: F403, F405
@@ -219,6 +224,9 @@ class DrawIOCellClassifier:
             return CellClassification(kind.ARROW_LABEL, raw_value, cell)
 
         if not raw_value:
+            return CellClassification(kind.LITERAL, raw_value, cell)
+
+        if self._style_suggests_literal(cell, raw_value, style):
             return CellClassification(kind.LITERAL, raw_value, cell)
 
         parent_cell, parent_identifier = self._resolve_parent(cell)
@@ -672,6 +680,16 @@ class DrawIOCellClassifier:
         if not style:
             return False
         return "text;" in style or "shape=text" in style
+
+    def _style_suggests_literal(
+        self, cell: Element, raw_value: str, style: str
+    ) -> bool:
+        if not style or "rounded=1" not in style:
+            return False
+        if cell.attrib.get("parent") != "1":
+            return False
+        prefix_candidate = raw_value.split(":", 1)[0]
+        return prefix_candidate not in self._prefixes
 
     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
         if not raw_value:
