@@ -85,12 +85,11 @@ export function patchDrawioWithMetadata(
   const rootCell = rootChildren.find(
     (child) => child.tagName === "mxCell" && child.getAttribute("id") === "0",
   );
-  assertElement(
-    rootCell ?? null,
-    'Unable to locate root <mxCell id="0"> element to patch',
-  );
-
-  const outerWhitespace = rootCell.previousSibling?.nodeValue ?? "\n        ";
+  const anchorNode = rootCell ?? rootChildren[0] ?? null;
+  const outerWhitespace =
+    rootCell?.previousSibling?.nodeValue ??
+    anchorNode?.previousSibling?.nodeValue ??
+    "\n        ";
   const innerWhitespace = `${outerWhitespace}  `;
 
   const metadataNode = document.createElement("UserObject");
@@ -113,7 +112,13 @@ export function patchDrawioWithMetadata(
   metadataNode.appendChild(mxCellNode);
   metadataNode.appendChild(createWhitespaceNode(document, outerWhitespace));
 
-  rootElement.replaceChild(metadataNode, rootCell);
+  if (rootCell) {
+    rootElement.replaceChild(metadataNode, rootCell);
+  } else if (anchorNode) {
+    rootElement.insertBefore(metadataNode, anchorNode);
+  } else {
+    rootElement.appendChild(metadataNode);
+  }
 
   const serializer = new XMLSerializer();
   return serializer.serializeToString(document);

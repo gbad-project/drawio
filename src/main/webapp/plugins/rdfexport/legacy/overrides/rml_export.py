@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from html import unescape
+
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
 
@@ -21,9 +24,19 @@ def _build_graph_from_raw_xml(
             return value.strip().lower() in {"true", "1", "yes", "on"}
         return bool(value)
 
+    def _coerce_optional_flag(value: Any) -> bool | None:
+        if value is None:
+            return None
+        return _is_flag_enabled(value)
+
     # 1. Initial Setup and Configuration
     metadata_prefixes, base_uri, csv_path, parsed_root = (
         pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
+    )
+    metadata_node = (
+        parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
+        if parsed_root is not None
+        else None
     )
     prefixes = pipeline.pre.internal.metadata.get_prefixes()
     prefixes.update(metadata_prefixes)
@@ -54,11 +67,41 @@ def _build_graph_from_raw_xml(
     except (TypeError, ValueError):
         max_gap = float(DEFAULT_MAX_GAP)
 
+    explicit_strip_html = "strip_html" in config_args
+    config_strip_html = config_args.get("strip_html", True)
+
+    metadata_strip_html: bool | None = None
+    if metadata_node is not None:
+        metadata_strip_html = _coerce_optional_flag(
+            metadata_node.attrib.get("stripHtml")
+        )
+        if metadata_strip_html is None:
+            settings_attr = metadata_node.attrib.get("rdfParserSettings")
+            if settings_attr:
+                try:
+                    settings_payload = json.loads(unescape(settings_attr))
+                except json.JSONDecodeError:
+                    settings_payload = {}
+                if isinstance(settings_payload, dict):
+                    settings_section = settings_payload.get("settings")
+                    if isinstance(settings_section, dict):
+                        metadata_strip_html = _coerce_optional_flag(
+                            settings_section.get("stripHtml")
+                        )
+
+    if explicit_strip_html:
+        strip_html_enabled = _is_flag_enabled(config_strip_html)
+    elif metadata_strip_html is not None:
+        strip_html_enabled = metadata_strip_html
+    else:
+        strip_html_enabled = _is_flag_enabled(config_strip_html)
+
     classifier = DrawIOCellClassifier(
         working_xml,
         prefixes,
         strict_mode=strict_mode,
         max_gap=max_gap,
+        strip_html=strip_html_enabled,
     )
 
     # 3. Generate Intermediate Blocks from Classifier's results
@@ -96,13 +139,13 @@ def _build_graph_from_raw_xml(
     if base_uri:
         graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
 
-    rml_enabled = _is_flag_enabled(config_args.get("rml_enabled")) or (
-        parsed_root
-        and _is_flag_enabled(
-            parsed_root.find(".//UserObject[@id='0']").attrib.get("rmlEnabled")
-            if parsed_root.find(".//UserObject[@id='0']")
-            else False
-        )
+    metadata_rml_enabled = (
+        _is_flag_enabled(metadata_node.attrib.get("rmlEnabled"))
+        if metadata_node is not None
+        else False
+    )
+    rml_enabled = (
+        _is_flag_enabled(config_args.get("rml_enabled")) or metadata_rml_enabled
     )
     if rml_enabled:
         rr = Namespace("http://www.w3.org/ns/r2rml#")

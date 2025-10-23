@@ -47,6 +47,7 @@ class DrawIOCellClassifier:
         *,
         strict_mode: bool = False,
         max_gap: float | None = None,
+        strip_html: bool = True,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -73,6 +74,7 @@ class DrawIOCellClassifier:
             coerced_gap = float(default_gap)
         self._max_gap = coerced_gap
 
+        self._strip_html = bool(strip_html)
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_token_cache: dict[str, list[str]] = {}
@@ -133,7 +135,8 @@ class DrawIOCellClassifier:
             except _NoValueException:
                 continue
 
-            classification = self.classify(cell, cell_value)
+            raw_html = self._html_parser.raw_html()
+            classification = self.classify(cell, cell_value, raw_html)
 
             cell_id = cell.attrib.get("id")
             if cell_id:
@@ -203,23 +206,37 @@ class DrawIOCellClassifier:
                     raise
                 print(f"Warning: Skipping arrow due to error: {e}")
 
-    def classify(self, cell: Element, cell_value: str) -> CellClassification:
+    def classify(
+        self, cell: Element, cell_value: str, raw_html: str | None = None
+    ) -> CellClassification:
         """Determines the role of a given mxCell in the graph."""
         CellClassification = self.CellClassification
         CellKind = self.CellKind
 
-        kind = CellKind
         raw_value = cell_value.strip()
+        literal_value = raw_value
+        if raw_html is not None and not self._strip_html:
+            literal_value = raw_html
+
+        def build(
+            kind: CellKind,
+            value: str = raw_value,
+            **kwargs,
+        ) -> CellClassification:
+            selected_value: str = value.strip() if isinstance(value, str) else value
+            if kind == CellKind.LITERAL and isinstance(literal_value, str):
+                selected_value = literal_value
+            return CellClassification(kind, selected_value, cell, **kwargs)
 
         if cell.attrib.get("edge") == "1":
-            return CellClassification(kind.ARROW, raw_value, cell)
+            return build(CellKind.ARROW)
 
         style = cell.attrib.get("style", "")
         if "edgeLabel" in style:
-            return CellClassification(kind.ARROW_LABEL, raw_value, cell)
+            return build(CellKind.ARROW_LABEL)
 
         if not raw_value:
-            return CellClassification(kind.LITERAL, raw_value, cell)
+            return build(CellKind.LITERAL)
 
         parent_cell, parent_identifier = self._resolve_parent(cell)
 
@@ -228,20 +245,19 @@ class DrawIOCellClassifier:
             and parent_cell.attrib.get("edge") == "1"
             and raw_value
         ):
-            return CellClassification(
-                kind.ARROW_LABEL,
-                raw_value,
-                cell,
-                parent_cell,
-                parent_identifier,
+            return build(
+                CellKind.ARROW_LABEL,
+                parent_cell=parent_cell,
+                parent_identifier=parent_identifier,
             )
 
         value_tokens = self._tokenise(raw_value)
         tokens_are_valid = self._tokens_are_valid(value_tokens)
-        tokens = list(value_tokens) if tokens_are_valid else []
+        tokens = list(value_tokens)
+        looks_like_curie = any(":" in token for token in tokens)
 
         if self._style_denotes_literal(cell, style, tokens_are_valid):
-            return CellClassification(kind.LITERAL, raw_value, cell)
+            return build(CellKind.LITERAL)
 
         child_tokens = self._collect_child_tokens(cell)
         if child_tokens:
@@ -251,51 +267,50 @@ class DrawIOCellClassifier:
                 tokens = list(child_tokens)
                 tokens_are_valid = True
 
-        if (
-            parent_cell is not None
-            and parent_identifier
-            and tokens
-            and tokens_are_valid
-        ):
-            return CellClassification(
-                kind.TYPED_INDIVIDUAL,
-                raw_value,
-                cell,
-                parent_cell,
-                parent_identifier,
-                tokens=tokens,
-            )
+        if parent_cell is not None and parent_identifier and tokens:
+            if looks_like_curie:
+                return build(
+                    CellKind.TYPED_INDIVIDUAL,
+                    parent_cell=parent_cell,
+                    parent_identifier=parent_identifier,
+                    tokens=tokens,
+                )
+
+            if not tokens_are_valid and "html=1" in style:
+                for token in tokens:
+                    candidate = token.strip()
+                    if not candidate:
+                        continue
+                    _verify_is_ric_class(candidate, self._prefixes)
 
         if tokens and tokens_are_valid:
-            return CellClassification(
-                kind.STANDALONE_INDIVIDUAL,
-                raw_value,
-                cell,
+            return build(
+                CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
                 tokens=tokens,
             )
 
         if self._looks_like_absolute_uri(raw_value):
-            return CellClassification(
-                kind.STANDALONE_INDIVIDUAL,
-                raw_value,
-                cell,
+            return build(
+                CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
                 tokens=[],
             )
 
         if self._is_decoration(cell, raw_value):
-            return CellClassification(kind.DECORATION, raw_value, cell)
+            return build(CellKind.DECORATION)
 
-        return CellClassification(kind.LITERAL, raw_value, cell)
+        return build(CellKind.LITERAL)
 
     # region Helper Methods (Moved from DrawIOXMLTree)
-    def _value_of(self, cell: Element) -> str:
+    def _value_of(self, cell: Element, *, raw: bool = False) -> str:
         value = cell.attrib.get("value")
         if value is None:
             raise _NoValueException
         self._html_parser.clear()
         self._html_parser.feed(value)
+        if raw and not self._strip_html:
+            return self._html_parser.raw_html()
         return self._html_parser.content()
 
     def _cell_with_id(self, _id: str) -> Element:
@@ -409,7 +424,7 @@ class DrawIOCellClassifier:
             if not self._close_enough(arrow_point, literal_cell):
                 continue
             try:
-                literal_value = self._value_of(literal_cell)
+                literal_value = self._value_of(literal_cell, raw=not self._strip_html)
             except _NoValueException as exc:
                 raise _NoCellCloseEnoughException from exc
             return literal_cell, literal_value, True
@@ -552,7 +567,9 @@ class DrawIOCellClassifier:
                 target_identifier = target_individual.identifier
             elif target_id in self._literals_by_id:
                 target_cell = self._literals_by_id[target_id]
-                target_identifier = self._value_of(target_cell)
+                target_identifier = self._value_of(
+                    target_cell, raw=not self._strip_html
+                )
                 is_datatype = True
             else:
                 if self._strict_mode:
