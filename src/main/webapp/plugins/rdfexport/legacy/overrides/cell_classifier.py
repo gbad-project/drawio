@@ -600,7 +600,7 @@ class DrawIOCellClassifier:
                     f"Arrow '{arrow_label}' ({arrow_id}) has no target."
                 ) from exc
 
-        if target_cell and target_cell.attrib.get("id") in self.decorations:
+        if target_cell is not None and target_cell.attrib.get("id") in self.decorations:
             self.decorations[target_cell.attrib["id"]]["connected"] = True
 
         if not is_datatype and not self._defines_individual(target_identifier):

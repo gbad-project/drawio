@@ -642,7 +642,7 @@ class pipeline:
                                     f"Arrow '{arrow_label}' ({arrow_id}) has no target."
                                 ) from exc
                         if (
-                            target_cell
+                            target_cell is not None
                             and target_cell.attrib.get("id") in self.decorations
                         ):
                             self.decorations[target_cell.attrib["id"]]["connected"] = (
