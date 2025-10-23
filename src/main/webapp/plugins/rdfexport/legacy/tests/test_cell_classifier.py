@@ -119,43 +119,27 @@ def _clear_literal_registry():
         delattr(draw_io_parser.pipeline.core.internal.data, attr)
 
 
-@pytest.fixture(autouse=True)
-def _apply_drawio_overrides(monkeypatch):
-    override_extract = (
-        draw_io_parser.xml_data_core._extract_individual_and_arrow_and_literal_cells
-    )
-    override_literal = draw_io_parser.xml_data_core._cell_is_literal
-    monkeypatch.setattr(
-        draw_io_parser.DrawIOXMLTree,
-        "_extract_individual_and_arrow_and_literal_cells",
-        override_extract,
-        raising=False,
-    )
-    monkeypatch.setattr(
-        draw_io_parser.DrawIOXMLTree,
-        "_cell_is_literal",
-        override_literal,
-        raising=False,
-    )
-
-
 def test_classifier_detects_typed_individuals_and_literals():
     xml = _drawio_xml(
         _vertex_cell("parent", "My Individual", style="rounded=1"),
         _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("decor", "Decoration literal"),
     )
-    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+    )
 
     observed = {
         (individual.identifier, individual.ric_class)
-        for _, individual, _ in tree.individual_cells
+        for individual in classifier.individuals
     }
     assert ("My Individual", "owl:NamedIndividual") in observed
 
     registry = getattr(
         draw_io_parser.pipeline.core.internal.data,
-        DECORATION_REGISTRY_ATTR,
+        classifier.DECORATION_REGISTRY_ATTR,
         {},
     )
     assert registry["decor"]["value"] == "Decoration literal"
@@ -170,58 +154,68 @@ def test_top_level_rounded_text_treated_as_literal():
             style="text;rounded=1;whiteSpace=wrap;html=1;",
         )
     )
-    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
 
-    literal_ids = {cell.attrib["id"] for cell, _ in tree.literal_cells}
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+    )
+
+    literal_ids = set(classifier._literals_by_id.keys())
     assert "literal" in literal_ids
 
     registry = getattr(
         draw_io_parser.pipeline.core.internal.data,
-        DECORATION_REGISTRY_ATTR,
+        classifier.DECORATION_REGISTRY_ATTR,
         {},
     )
     assert registry["literal"]["value"] == "Custom:Value"
     assert registry["literal"]["connected"] is False
 
 
-def test_parent_cell_collects_child_type_tokens():
+def test_classifier_parent_cell_collects_child_type_tokens():
     xml = _drawio_xml(
         _vertex_cell("parent", "List pnnpni", style="swimlane"),
         _vertex_cell("type1", "owl:NamedIndividual", parent="parent"),
         _vertex_cell("type2", "rdf:Resource", parent="parent"),
     )
-    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+    )
 
     observed = {
         individual.ric_class
-        for _, individual, _ in tree.individual_cells
+        for individual in classifier.individuals
         if individual.identifier == "List pnnpni"
     }
 
     assert observed == {"owl:NamedIndividual", "rdf:Resource"}
 
 
-def test_standalone_curie_node_creates_individual_without_parent():
+def test_classifier_standalone_curie_node_creates_individual_without_parent():
     xml = _drawio_xml(_vertex_cell("solo", "owl:NamedIndividual"))
-    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
+
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+    )
 
     observed = {
         (individual.identifier, individual.ric_class)
-        for _, individual, _ in tree.individual_cells
+        for individual in classifier.individuals
     }
     assert ("owl:NamedIndividual", "owl:NamedIndividual") in observed
 
 
-def test_absolute_uri_node_uses_default_type():
+def test_absolute_uri_node_uses_default_type_with_classifier():
     uri_value = "http://example.com/resources/A"
     xml = _drawio_xml(_vertex_cell("abs", uri_value))
-    tree = draw_io_parser.DrawIOXMLTree(xml, draw_io_parser.get_prefixes())
-
-    observed = {
-        (individual.identifier, individual.ric_class)
-        for _, individual, _ in tree.individual_cells
-    }
-    assert (uri_value, DEFAULT_STANDALONE_TYPE) in observed
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml, draw_io_parser.pipeline.pre.internal.metadata.get_prefixes()
+    )
+    observed = {(ind.identifier, ind.ric_class) for ind in classifier.individuals}
+    assert (uri_value, classifier.DEFAULT_STANDALONE_TYPE) in observed
 
 
 def test_decorations_serialise_to_skos_note(tmp_path: Path):
@@ -348,7 +342,7 @@ def test_classifier_arrows_align_with_legacy_parser(fixture_name: str):
     raw_xml = xml_path.read_text(encoding="utf-8")
     prefixes = draw_io_parser.get_prefixes()
 
-    classifier = DrawIOCellClassifier(
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         raw_xml,
         prefixes,
         strict_mode=False,

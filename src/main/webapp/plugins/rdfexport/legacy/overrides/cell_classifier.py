@@ -13,6 +13,11 @@ from meta_builder.drawio_meta_builder import override
 
 
 @override(phase="core", type="xml", role="data")
+class DrawIOXMLTree:
+    pass
+
+
+@override(phase="core", type="xml", role="data")
 class DrawIOCellClassifier:
     """
     A self-contained class to parse Draw.io XML into graph elements.
