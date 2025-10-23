@@ -1705,15 +1705,6 @@ class internal_control_core:
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
-
-        def _looks_like_absolute_uri(value: str) -> bool:
-            if not value or any((ch.isspace() for ch in value)):
-                return False
-            if "://" in value:
-                return True
-            scheme, _, remainder = value.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
-
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
                 _add_individual_type(
@@ -1724,24 +1715,13 @@ class internal_control_core:
                     capitalisation_scheme,
                 )
                 continue
-            identifier = individual_or_arrow.identifier
-            normalized_identifier = identifier
-            allow_absolute_identifier = False
-            if _looks_like_absolute_uri(identifier):
-                for prefix_key, iri in prefixes.items():
-                    if identifier.startswith(iri) and identifier[len(iri) :]:
-                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
-                        break
-                else:
-                    allow_absolute_identifier = True
-            if not allow_absolute_identifier:
-                _ensure_known_curie(
-                    normalized_identifier,
-                    prefixes,
-                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
-                )
+            _ensure_known_curie(
+                individual_or_arrow.identifier,
+                prefixes,
+                f"An arrow has label '{individual_or_arrow.identifier}', which is not a known object property or datatype property",
+            )
             if individual_or_arrow.is_datatype:
-                datatype_properties.add(normalized_identifier)
+                datatype_properties.add(individual_or_arrow.identifier)
                 target_identifier = individual_or_arrow.target
                 literal_candidate = target_identifier.strip()
                 if (
@@ -1772,7 +1752,7 @@ class internal_control_core:
                             ) from exc
                 property_value = (target_identifier, True)
             else:
-                object_properties.add(normalized_identifier)
+                object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
                     individual_or_arrow.target,
                     metacharacter_substitutes,
@@ -1790,12 +1770,12 @@ class internal_control_core:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
                 blocks[source_identifier, individual_or_arrow.source] = {
-                    normalized_identifier: {property_value}
+                    individual_or_arrow.identifier: {property_value}
                 }
                 continue
-            values = block.get(normalized_identifier)
+            values = block.get(individual_or_arrow.identifier)
             if values is None:
-                block[normalized_identifier] = {property_value}
+                block[individual_or_arrow.identifier] = {property_value}
             else:
                 values.add(property_value)
         return (blocks, object_properties, datatype_properties)
@@ -2016,12 +1996,13 @@ class rdf_control_core:
         )
 
         def _is_absolute_iri(candidate: str) -> bool:
-            if not candidate or any((ch.isspace() for ch in candidate)):
+            if not candidate:
                 return False
-            if "://" in candidate:
-                return True
-            scheme, _, remainder = candidate.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+            try:
+                parsed = urllib.parse.urlparse(candidate)
+            except Exception:
+                return False
+            return bool(parsed.scheme and (parsed.netloc or parsed.path))
 
         namespace_map: dict[str, Namespace] = {}
         fallback_namespace: Namespace | None = None
@@ -2042,22 +2023,17 @@ class rdf_control_core:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
             graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
-
-        def _resolve_property_uri(prop: str) -> URIRef:
-            if _is_absolute_iri(prop):
-                return URIRef(prop)
-            prop_prefix, prop_name = prop.split(":", 1)
-            return namespace_map[prop_prefix][prop_name]
-
         for prop in sorted(
             (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
-            prop_uri = _resolve_property_uri(prop)
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
             (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
-            prop_uri = _resolve_property_uri(prop)
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
         absolute_overrides = {
             individual_id: individual_label
@@ -2086,7 +2062,8 @@ class rdf_control_core:
             for prop, values in types_and_facts.items():
                 if prop == "Types":
                     continue
-                prop_uri = _resolve_property_uri(prop)
+                prop_prefix, prop_name = prop.split(":")
+                prop_uri = namespace_map[prop_prefix][prop_name]
                 for raw_value in values:
                     if (
                         isinstance(raw_value, tuple)
