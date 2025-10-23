@@ -1,4 +1,4 @@
-Script started on Thu Oct 23 03:10:14 2025
+Script started on Thu Oct 23 04:44:39 2025
 Command: bun run test
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1mpython -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
@@ -34,12 +34,14 @@ Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
   overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio -> webapp/plugins/rdfexport/tests/baselines/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.nt
   overwrote: webapp/plugins/rdfexport/tests/fixtures/RG 18-210 Walkerton Inquiry in RiC-O (original).drawio -> webapp/plugins/rdfexport/tests/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt
 
-⚠️  Failed to generate baselines for 9 fixture(s):
+⚠️  Failed to generate baselines for 10 fixture(s):
   ❌ webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-preserve-html.drawio
      Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
   ❌ webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata-rml.drawio
      Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
   ❌ webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health-with-metadata.drawio
+     Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
+  ❌ webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked-v2.drawio
      Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
   ❌ webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio
      Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'UserObject'
@@ -55,12 +57,12 @@ Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
      An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
 
 🧪 Running tests: webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py
-[1m====================================== test session starts ======================================[0m
+[1m===================== test session starts ======================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 41 items                                                                              [0m
+[1mcollecting ... [0m[1mcollected 41 items                                             [0m
 
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_accepts_declared_prefix_curie [32mPASSED[0m[32m [  2%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_tracks_datatype_properties [32mPASSED[0m[32m [  4%][0m
@@ -104,8 +106,8 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_parse_drawio_
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_individual_blocks_rejects_unknown_prefix [32mPASSED[0m[31m [ 97%][0m
 webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip [31mFAILED[0m[31m [100%][0m
 
-=========================================== FAILURES ============================================
-[31m[1m__________________________ test_parse_drawio_preserves_literal_targets __________________________[0m
+=========================== FAILURES ===========================
+[31m[1m_________ test_parse_drawio_preserves_literal_targets __________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_preserves_literal_targets[39;49;00m():[90m[39;49;00m
 >       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
@@ -114,18 +116,18 @@ webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::test_generated_met
         )[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:140: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('A%20Ontario%20Government%20...e'}}, ('AA37', 'AA37'): {'Types': {'rico:Identifier'}, 'rico:hasIdentifierType': {('Agent%20Identifier', False)}}, ...}
 object_properties = {'hellow:there', 'rdf:type', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', ...}
 datatype_properties = {'hellow:there', 'rdf:some-predicate', 'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-14', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-40', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -164,8 +166,8 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m___________________ test_serialise_to_graph_falls_back_for_relative_prefixes ____________________[0m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m___ test_serialise_to_graph_falls_back_for_relative_prefixes ___[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_serialise_to_graph_falls_back_for_relative_prefixes[39;49;00m():[90m[39;49;00m
         prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
@@ -210,7 +212,7 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
         )[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:185: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('Source', 'Source'): {'Types': {'owl:NamedIndividual'}, 'bad:prop': {('literal value', True)}}}
 object_properties = set(), datatype_properties = {'bad:prop'}
@@ -252,10 +254,10 @@ graph_cls = <class 'rdflib.graph.Graph'>, graph_kwargs = {}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI 'relative-prefix' looks invalid[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _______________[0m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-472/test_parse_drawio_rejects_malf1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-474/test_parse_drawio_rejects_malf1')
 case_key = 'dangling_curie'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -272,18 +274,18 @@ case_key = 'dangling_curie'
             )[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:207: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-14', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-40', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -322,10 +324,10 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] _________________[0m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_ test_parse_drawio_rejects_malformed_type_variants[colon_only] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-472/test_parse_drawio_rejects_malf2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-474/test_parse_drawio_rejects_malf2')
 case_key = 'colon_only'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -342,18 +344,18 @@ case_key = 'colon_only'
             )[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:207: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-14', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-40', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -392,10 +394,10 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] __________________[0m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_ test_parse_drawio_rejects_malformed_type_variants[no_prefix] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-472/test_parse_drawio_rejects_malf3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-474/test_parse_drawio_rejects_malf3')
 case_key = 'no_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -412,18 +414,18 @@ case_key = 'no_prefix'
             )[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:207: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-14', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-40', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -462,10 +464,10 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m________________________ test_parse_drawio_accepts_corrected_mock_types _________________________[0m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m________ test_parse_drawio_accepts_corrected_mock_types ________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-472/test_parse_drawio_accepts_corr0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-474/test_parse_drawio_accepts_corr0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_corrected_mock_types[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_path = _mutate_fixture_for_case(tmp_path, [94mNone[39;49;00m)[90m[39;49;00m
@@ -475,18 +477,18 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
         )[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:215: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-14', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-40', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -525,8 +527,8 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_________________________ test_parse_drawio_respects_strip_html_config __________________________[0m
+[1m[31mwebapp/plugins/rdfexport/legacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_________ test_parse_drawio_respects_strip_html_config _________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_respects_strip_html_config[39;49;00m():[90m[39;49;00m
         fixture_path = ([90m[39;49;00m
@@ -548,7 +550,7 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 [1m[31mE       assert [][0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:361: AssertionError
-[31m[1m________________________ test_parse_drawio_metadata_strip_html_override _________________________[0m
+[31m[1m________ test_parse_drawio_metadata_strip_html_override ________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_metadata_strip_html_override[39;49;00m():[90m[39;49;00m
         fixture_path = ([90m[39;49;00m
@@ -569,9 +571,9 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 [1m[31mE       assert [][0m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:388: AssertionError
-[31m[1m__________________________ test_generated_metadata_fixtures_round_trip __________________________[0m
+[31m[1m_________ test_generated_metadata_fixtures_round_trip __________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-472/test_generated_metadata_fixtur0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-474/test_generated_metadata_fixtur0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
@@ -589,12 +591,13 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 >           _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:504: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 [1m[31mwebapp/plugins/rdfexport/legacy/tests/test_patched_parser.py[0m:442: in _run_drawio_metadata_patcher
     [0msubprocess.run([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-input = None, capture_output = False, timeout = None, check = True
+input = None, capture_output = False, timeout = None
+check = True
 popenargs = (['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'f...lass-diagram-tweaked/vocab#"}, {"rdfPrefix": "data5", "rdfIRI": "http://example.org/class-diagram-tweaked/data/"}]}'],)
 kwargs = {}
 process = <Popen: returncode: 1 args: ['bun', '--eval', "import { readFileSync, writeF...>
@@ -667,10 +670,10 @@ stdout = None, stderr = None, retcode = 1
             [94mif[39;49;00m check [95mand[39;49;00m retcode:[90m[39;49;00m
 >               [94mraise[39;49;00m CalledProcessError(retcode, process.args,[90m[39;49;00m
                                          output=stdout, stderr=stderr)[90m[39;49;00m
-[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-472/test_generated_metadata_fixtur0/Class_Diagram_tweaked-with-metadata.drawio', '{"csvPath": "/tmp/class-diagram-tweaked.csv", "baseUri": "http://example.org/class-diagram-tweaked/", "label": "Class_Diagram_tweaked metadata", "preamble": [{"rdfPrefix": "fx5", "rdfIRI": "http://example.org/class-diagram-tweaked/vocab#"}, {"rdfPrefix": "data5", "rdfIRI": "http://example.org/class-diagram-tweaked/data/"}]}']' returned non-zero exit status 1.[0m
+[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-474/test_generated_metadata_fixtur0/Class_Diagram_tweaked-with-metadata.drawio', '{"csvPath": "/tmp/class-diagram-tweaked.csv", "baseUri": "http://example.org/class-diagram-tweaked/", "label": "Class_Diagram_tweaked metadata", "preamble": [{"rdfPrefix": "fx5", "rdfIRI": "http://example.org/class-diagram-tweaked/vocab#"}, {"rdfPrefix": "data5", "rdfIRI": "http://example.org/class-diagram-tweaked/data/"}]}']' returned non-zero exit status 1.[0m
 
 [1m[31m/Users/anonymous/miniconda3/lib/python3.12/subprocess.py[0m:573: CalledProcessError
-------------------------------------- Captured stderr call --------------------------------------
+--------------------- Captured stderr call ---------------------
 15 | function assertElement<T extends Element | null>(
 16 |   element: T,
 17 |   message: string,
@@ -685,13 +688,13 @@ error: Unable to locate root <mxCell id="0"> element to patch
       at loadAndEvaluateModule (2:1)
 
 Bun v1.2.21 (macOS arm64)
-[33m======================================= warnings summary ========================================[0m
+[33m======================= warnings summary =======================[0m
 legacy/tests/test_patched_parser.py: 1227 warnings
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:617: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:619: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     target_cell
 
 legacy/tests/test_patched_parser.py: 38 warnings
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2563: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2575: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     parsed_root
 
 legacy/tests/test_patched_parser.py::test_parse_drawio_with_metadata_exposes_namespace_and_csv_path
@@ -703,21 +706,21 @@ legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
 legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
 legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
 legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2566: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2578: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     if parsed_root.find(".//UserObject[@id='0']")
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[36m[1m==================================== short test summary info ====================================[0m
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 'relative-prefix' looks invalid
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
+[36m[1m=================== short test summary info ====================[0m
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 'sd...
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 're...
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
 [31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_respects_strip_html_config[0m - assert []
 [31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_metadata_strip_html_override[0m - assert []
-[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileS...
-[31m========================== [31m[1m9 failed[0m, [32m32 passed[0m, [33m1274 warnings[0m[31m in 1.07s[0m[31m ==========================[0m
+[31mFAILED[0m webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "...
+[31m========= [31m[1m9 failed[0m, [32m32 passed[0m, [33m1274 warnings[0m[31m in 1.03s[0m[31m ==========[0m
 Traceback (most recent call last):
   File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 294, in <module>
     main()
@@ -728,20 +731,21 @@ Traceback (most recent call last):
   File "/Users/anonymous/miniconda3/lib/python3.12/subprocess.py", line 573, in run
     raise CalledProcessError(retcode, process.args,
 subprocess.CalledProcessError: Command '['/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python', '-m', 'pytest', 'webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py', '-v']' returned non-zero exit status 1.
-[1m====================================== test session starts ======================================[0m
+[1m===================== test session starts ======================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 66 items                                                                              [0m
+[1mcollecting ... [0m[1mcollected 67 items                                             [0m
 
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [ 18%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[33m                                                  [ 22%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m             [ 84%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                [ 90%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                     [100%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m       [ 19%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[33m                 [ 23%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m [ 53%]
+[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                    [ 85%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m               [ 91%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m    [100%][0m
 
-=========================================== FAILURES ============================================
-[31m[1m__________________________ test_parse_drawio_preserves_literal_targets __________________________[0m
+=========================== FAILURES ===========================
+[31m[1m_________ test_parse_drawio_preserves_literal_targets __________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_preserves_literal_targets[39;49;00m():[90m[39;49;00m
 >       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
@@ -750,18 +754,18 @@ meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[3
         )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:140: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mlegacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('A%20Ontario%20Government%20...e'}}, ('AA37', 'AA37'): {'Types': {'rico:Identifier'}, 'rico:hasIdentifierType': {('Agent%20Identifier', False)}}, ...}
 object_properties = {'hellow:there', 'rdf:type', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', ...}
 datatype_properties = {'hellow:there', 'rdf:some-predicate', 'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-15', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-41', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -800,8 +804,8 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m___________________ test_serialise_to_graph_falls_back_for_relative_prefixes ____________________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m___ test_serialise_to_graph_falls_back_for_relative_prefixes ___[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_serialise_to_graph_falls_back_for_relative_prefixes[39;49;00m():[90m[39;49;00m
         prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
@@ -846,7 +850,7 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
         )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:185: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('Source', 'Source'): {'Types': {'owl:NamedIndividual'}, 'bad:prop': {('literal value', True)}}}
 object_properties = set(), datatype_properties = {'bad:prop'}
@@ -888,10 +892,10 @@ graph_cls = <class 'rdflib.graph.Graph'>, graph_kwargs = {}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI 'relative-prefix' looks invalid[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _______________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-473/test_parse_drawio_rejects_malf1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-475/test_parse_drawio_rejects_malf1')
 case_key = 'dangling_curie'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -908,18 +912,18 @@ case_key = 'dangling_curie'
             )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:207: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mlegacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-15', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-41', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -958,10 +962,10 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] _________________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_ test_parse_drawio_rejects_malformed_type_variants[colon_only] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-473/test_parse_drawio_rejects_malf2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-475/test_parse_drawio_rejects_malf2')
 case_key = 'colon_only'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -978,18 +982,18 @@ case_key = 'colon_only'
             )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:207: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mlegacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-15', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-41', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -1028,10 +1032,10 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] __________________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_ test_parse_drawio_rejects_malformed_type_variants[no_prefix] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-473/test_parse_drawio_rejects_malf3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-475/test_parse_drawio_rejects_malf3')
 case_key = 'no_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -1048,18 +1052,18 @@ case_key = 'no_prefix'
             )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:207: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mlegacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-16', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-41', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -1098,10 +1102,10 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m________________________ test_parse_drawio_accepts_corrected_mock_types _________________________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m________ test_parse_drawio_accepts_corrected_mock_types ________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-473/test_parse_drawio_accepts_corr0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-475/test_parse_drawio_accepts_corr0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_corrected_mock_types[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_path = _mutate_fixture_for_case(tmp_path, [94mNone[39;49;00m)[90m[39;49;00m
@@ -1111,18 +1115,18 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
         )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:215: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:2855: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31mlegacy/draw_io_parser.py[0m:2867: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2551: in _build_graph_from_raw_xml
+[1m[31mlegacy/draw_io_parser.py[0m:2563: in _build_graph_from_raw_xml
     [0mgraph = serialise_to_graph([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
 blocks = {('1924', '1924'): {'Types': {'rico:Date'}}, ('1972', '1972'): {'Types': {'rico:Date'}}, ('AA37', 'AA37'): {'Types': {...tifier', False)}}, ('AOntarioGovernmentName', 'A Ontario Government Name'): {'Types': {'rico:CorporateBodyType'}}, ...}
 object_properties = {'hellow:there', 'rico:authorizedBy', 'rico:hasBeginningDate', 'rico:hasEndDate', 'rico:hasIdentifierType', 'rico:hasOrHadAgentName', ...}
 datatype_properties = {'rico:generalDescription', 'rico:history', 'rico:lastModificationDate', 'rico:normalizedValue'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T03-10-16', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...-draw-io/2025-10-23T04-44-41', prefix=None, prefix_iri='http://mock23-base-uri.com', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>
 graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
@@ -1161,8 +1165,8 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 >               [94mraise[39;49;00m ParseException([33mf[39;49;00m[33m"[39;49;00m[33mPrefix IRI [39;49;00m[33m'[39;49;00m[33m{[39;49;00muri[33m}[39;49;00m[33m'[39;49;00m[33m looks invalid[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 [1m[31mE               draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2674: ParseException
-[31m[1m_________________________ test_parse_drawio_respects_strip_html_config __________________________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2686: ParseException
+[31m[1m_________ test_parse_drawio_respects_strip_html_config _________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_respects_strip_html_config[39;49;00m():[90m[39;49;00m
         fixture_path = ([90m[39;49;00m
@@ -1184,7 +1188,7 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 [1m[31mE       assert [][0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:361: AssertionError
-[31m[1m________________________ test_parse_drawio_metadata_strip_html_override _________________________[0m
+[31m[1m________ test_parse_drawio_metadata_strip_html_override ________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_metadata_strip_html_override[39;49;00m():[90m[39;49;00m
         fixture_path = ([90m[39;49;00m
@@ -1205,9 +1209,9 @@ graph_kwargs = {'csv_path': '/mock22/path/to/file.csv'}
 [1m[31mE       assert [][0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:388: AssertionError
-[31m[1m__________________________ test_generated_metadata_fixtures_round_trip __________________________[0m
+[31m[1m_________ test_generated_metadata_fixtures_round_trip __________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-473/test_generated_metadata_fixtur0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-475/test_generated_metadata_fixtur0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
@@ -1225,12 +1229,13 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 >           _run_drawio_metadata_patcher(fixture_path, patched_path, metadata_options)[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:504: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:442: in _run_drawio_metadata_patcher
     [0msubprocess.run([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-input = None, capture_output = False, timeout = None, check = True
+input = None, capture_output = False, timeout = None
+check = True
 popenargs = (['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'f...lass-diagram-tweaked/vocab#"}, {"rdfPrefix": "data5", "rdfIRI": "http://example.org/class-diagram-tweaked/data/"}]}'],)
 kwargs = {}
 process = <Popen: returncode: 1 args: ['bun', '--eval', "import { readFileSync, writeF...>
@@ -1303,10 +1308,10 @@ stdout = None, stderr = None, retcode = 1
             [94mif[39;49;00m check [95mand[39;49;00m retcode:[90m[39;49;00m
 >               [94mraise[39;49;00m CalledProcessError(retcode, process.args,[90m[39;49;00m
                                          output=stdout, stderr=stderr)[90m[39;49;00m
-[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-473/test_generated_metadata_fixtur0/Class_Diagram_tweaked-with-metadata.drawio', '{"csvPath": "/tmp/class-diagram-tweaked.csv", "baseUri": "http://example.org/class-diagram-tweaked/", "label": "Class_Diagram_tweaked metadata", "preamble": [{"rdfPrefix": "fx5", "rdfIRI": "http://example.org/class-diagram-tweaked/vocab#"}, {"rdfPrefix": "data5", "rdfIRI": "http://example.org/class-diagram-tweaked/data/"}]}']' returned non-zero exit status 1.[0m
+[1m[31mE               subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileSync } from 'node:fs';\nimport { patchDrawioWithMetadata } from 'file:///Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/utils/patchDrawioWithMetadata.ts';\n\nconst [, inputPath, outputPath, optionsJson] = process.argv;\nconst options = JSON.parse(optionsJson);\n\nconst patched = patchDrawioWithMetadata(readFileSync(inputPath, 'utf8'), options);\nwriteFileSync(outputPath, patched);", '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/Class_Diagram_tweaked.drawio', '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-475/test_generated_metadata_fixtur0/Class_Diagram_tweaked-with-metadata.drawio', '{"csvPath": "/tmp/class-diagram-tweaked.csv", "baseUri": "http://example.org/class-diagram-tweaked/", "label": "Class_Diagram_tweaked metadata", "preamble": [{"rdfPrefix": "fx5", "rdfIRI": "http://example.org/class-diagram-tweaked/vocab#"}, {"rdfPrefix": "data5", "rdfIRI": "http://example.org/class-diagram-tweaked/data/"}]}']' returned non-zero exit status 1.[0m
 
 [1m[31m/Users/anonymous/miniconda3/lib/python3.12/subprocess.py[0m:573: CalledProcessError
-------------------------------------- Captured stderr call --------------------------------------
+--------------------- Captured stderr call ---------------------
 15 | function assertElement<T extends Element | null>(
 16 |   element: T,
 17 |   message: string,
@@ -1321,17 +1326,17 @@ error: Unable to locate root <mxCell id="0"> element to patch
       at loadAndEvaluateModule (2:1)
 
 Bun v1.2.21 (macOS arm64)
-[33m======================================= warnings summary ========================================[0m
+[33m======================= warnings summary =======================[0m
 legacy/tests/test_cell_classifier.py: 4 warnings
 legacy/tests/test_patched_parser.py: 38 warnings
 legacy/tests/test_pyodide_pipeline.py: 5 warnings
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2563: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2575: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     parsed_root
 
 legacy/tests/test_cell_classifier.py: 101 warnings
 legacy/tests/test_patched_parser.py: 1227 warnings
 legacy/tests/test_pyodide_pipeline.py: 105 warnings
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:617: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:619: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     target_cell
 
 legacy/tests/test_patched_parser.py::test_parse_drawio_with_metadata_exposes_namespace_and_csv_path
@@ -1343,21 +1348,21 @@ legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
 legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
 legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
 legacy/tests/test_patched_parser.py::test_generated_metadata_fixtures_round_trip
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2566: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py:2578: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
     if parsed_root.find(".//UserObject[@id='0']")
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[36m[1m==================================== short test summary info ====================================[0m
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 'sdfsdf' looks invalid
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 'relative-prefix' looks invalid
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI '://hello' looks invalid
+[36m[1m=================== short test summary info ====================[0m
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 'sd...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI 're...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m - draw_io_parser.xml_data_core.ParseException: Prefix IRI ':/...
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_respects_strip_html_config[0m - assert []
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_metadata_strip_html_override[0m - assert []
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "import { readFileSync, writeFileS...
-[31m========================== [31m[1m9 failed[0m, [32m57 passed[0m, [33m1489 warnings[0m[31m in 1.58s[0m[31m ==========================[0m
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - subprocess.CalledProcessError: Command '['bun', '--eval', "...
+[31m========= [31m[1m9 failed[0m, [32m58 passed[0m, [33m1489 warnings[0m[31m in 1.61s[0m[31m ==========[0m
 [0m[1mbun test [0m[2mv1.2.21 (7c45ed97)[0m
 [0m
 tests/rdfexport.test.ts:
@@ -1374,9 +1379,9 @@ tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1369.51ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.62ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m19.89ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1379.93ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.64ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m23.21ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
@@ -1407,7 +1412,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-3 (7106 characters)
 [PIPELINE] Saving RML export payload to F 4711 Orville Wood fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m235.04ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m234.56ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44261 characters)
@@ -1436,7 +1441,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-6 (5563 characters)
 [PIPELINE] Saving RML export payload to AA42 Ministry of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA42 Ministry of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m133.10ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m133.61ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23410 characters)
@@ -1465,7 +1470,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-9 (3068 characters)
 [PIPELINE] Saving RML export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl
 [PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m78.50ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m74.96ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23546 characters)
@@ -1494,7 +1499,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-12 (3804 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m74.52ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m76.71ms[0m[2m][0m
 [0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -1524,7 +1529,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-15 (4656 characters)
 [PIPELINE] Saving RML export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m111.89ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m108.85ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44795 characters)
@@ -1553,7 +1558,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-18 (5524 characters)
 [PIPELINE] Saving RML export payload to F 47-11 Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m127.42ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m121.72ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39329 characters)
@@ -1582,7 +1587,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-21 (5119 characters)
 [PIPELINE] Saving RML export payload to F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m122.44ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m118.48ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (73837 characters)
@@ -1611,11 +1616,12 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-24 (9152 characters)
 [PIPELINE] Saving RML export payload to General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m199.55ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m194.01ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
 [0m[33m»[2m[0m[2m Class_Diagram_tweaked.drawio: skipped (no matching baseline Class_Diagram_tweaked.nt)[0m
 [0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked-v2.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked-v2.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -1645,7 +1651,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-27 (11286 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m248.49ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m244.18ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37618 characters)
@@ -1674,7 +1680,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-30 (4411 characters)
 [PIPELINE] Saving RML export payload to F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m107.76ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m132.85ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (95213 characters)
@@ -1703,7 +1709,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-33 (9892 characters)
 [PIPELINE] Saving RML export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m237.37ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m226.48ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (54132 characters)
@@ -1732,7 +1738,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-36 (6261 characters)
 [PIPELINE] Saving RML export payload to CA1934 Division of Tuberculosis Prevention.rml.ttl
 [PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m141.74ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m139.84ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (58348 characters)
@@ -1761,7 +1767,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-39 (9273 characters)
 [PIPELINE] Saving RML export payload to F 47 Simcoe Family fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m193.66ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m164.11ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (34895 characters)
@@ -1790,7 +1796,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-42 (5827 characters)
 [PIPELINE] Saving RML export payload to AA37 Department of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA37 Department of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m98.21ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m96.69ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (49944 characters)
@@ -1819,7 +1825,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-45 (6509 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m136.85ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m133.92ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (32209 characters)
@@ -1848,7 +1854,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-48 (3997 characters)
 [PIPELINE] Saving RML export payload to RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m90.35ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m88.96ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (40866 characters)
@@ -1877,7 +1883,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-51 (5781 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1 (VDB test).rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1 (VDB test).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m116.12ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m113.05ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (48162 characters)
@@ -1906,7 +1912,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-54 (5787 characters)
 [PIPELINE] Saving RML export payload to RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m129.82ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m124.35ms[0m[2m][0m
 [0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -1936,7 +1942,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-57 (5018 characters)
 [PIPELINE] Saving RML export payload to BA619 Walkerton Inquiry.rml.ttl
 [PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m88.45ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m87.47ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37299 characters)
@@ -1965,7 +1971,7 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-60 (4435 characters)
 [PIPELINE] Saving RML export payload to CA1853 Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m121.76ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m118.67ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (42022 characters)
@@ -1994,19 +2000,19 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-63 (6373 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m109.40ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m108.67ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36617 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36617)
 [PIPELINE] DrawIO parser produced graph graph-64 with 73 triples
 [BLACKBOX] Parsed DrawIO graph graph-64 with 73 triples
 [BLACKBOX] Returning Turtle payload for graph graph-64 (5812 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m23.50ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m23.69ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36617 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36617)
 [PIPELINE] DrawIO parser produced graph graph-65 with 73 triples
 [BLACKBOX] Parsed DrawIO graph graph-65 with 73 triples
 [BLACKBOX] Returning Turtle payload for graph graph-65 (5812 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline strips literal HTML when stripHtml enabled[0m [0m[2m[[1m25.67ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline strips literal HTML when stripHtml enabled[0m [0m[2m[[1m25.03ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36617 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36617)
 [PIPELINE] DrawIO parser produced graph graph-66 with 73 triples
@@ -2025,13 +2031,13 @@ Expected: [32mtrue[0m
 Received: [31mfalse[0m
 [0m
 [0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1378[0m[2m:[33m39[0m[2m)[0m
-[0m[31m✗[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m24.45ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m23.45ms[0m[2m][0m
 [0m[BLACKBOX] Received serialized payload (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m23.99ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m22.99ms[0m[2m][0m
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36445 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -2041,10 +2047,10 @@ Received: [31mfalse[0m
 [BLACKBOX] Returning Turtle payload for graph graph-67 (5512 characters)
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
-[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m23.88ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.16ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m23.29ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.46ms[0m[2m][0m
 
-[0m[2m9 tests skipped:[0m
+[0m[2m10 tests skipped:[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
 [0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
@@ -2052,19 +2058,20 @@ Received: [31mfalse[0m
 [0m[33m»[2m[0m[2m Class_Diagram_tweaked.drawio: skipped (no matching baseline Class_Diagram_tweaked.nt)[0m
 [0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked-v2.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked-v2.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
 [0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 
 
 [0m[2m1 tests failed:[0m
-[0m[31m✗[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m24.45ms[0m[2m][0m
+[0m[31m✗[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m23.45ms[0m[2m][0m
 [0m
 [0m[32m 29 pass[0m
- [0m[33m9 skip[0m
+ [0m[33m10 skip[0m
 [0m[31m 1 fail[0m
  695 expect() calls
-Ran 39 tests across 1 file. [0m[2m[[1m4.44s[0m[2m][0m
+Ran 40 tests across 1 file. [0m[2m[[1m4.40s[0m[2m][0m
 [0m[31merror[0m[2m:[0m script [1m"test"[0m exited with code 1[0m
 
 Command exit status: 1
-Script done on Thu Oct 23 03:10:21 2025
+Script done on Thu Oct 23 04:44:47 2025

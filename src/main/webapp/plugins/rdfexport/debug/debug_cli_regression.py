@@ -53,6 +53,16 @@ EXPECTED_TS_PLUGIN = {
             "general-authority-bleep-mock",
         ],
     },
+    "AA37-with-metadata-even-more-severely-mocked-v2.drawio": {
+        "reason": "ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.",
+        "command": [
+            "python",
+            "-m",
+            "debug",
+            "--scenario",
+            "aa37-with-metadata-even-more-severely-mocked-v2",
+        ],
+    },
 }
 
 XFAlLED_FIXTURES: list[str] = []

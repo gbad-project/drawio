@@ -6,7 +6,7 @@
 
 rdfs:isDefinedBy a owl:DatatypeProperty .
 
-<mock://pytest-debug-ontology> a owl:Ontology ;
+<mock://debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
 :Arkivvesenet a owl:NamedIndividual,
