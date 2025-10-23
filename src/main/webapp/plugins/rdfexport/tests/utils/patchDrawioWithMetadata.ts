@@ -39,6 +39,44 @@ function createWhitespaceNode(document: Document, value: string): Text {
   return document.createTextNode(value);
 }
 
+function collectExistingPreambleElements(
+  rootElement: Element,
+): DrawioPreambleElement[] {
+  const entries = new Map<string, string>();
+
+  for (const child of collectChildElements(rootElement)) {
+    const tagName = child.tagName?.toLowerCase() ?? "";
+
+    if (tagName !== "userobject" && tagName !== "object") {
+      continue;
+    }
+
+    for (const preamble of collectChildElements(child)) {
+      const preambleTag = preamble.tagName?.toLowerCase() ?? "";
+
+      if (preambleTag !== "userobjectpreambleelement") {
+        continue;
+      }
+
+      const prefix = preamble.getAttribute("rdfPrefix")?.trim();
+      const iri = preamble.getAttribute("rdfIRI")?.trim();
+
+      if (!prefix || !iri) {
+        continue;
+      }
+
+      if (!entries.has(prefix)) {
+        entries.set(prefix, iri);
+      }
+    }
+  }
+
+  return Array.from(entries.entries()).map(([rdfPrefix, rdfIRI]) => ({
+    rdfPrefix,
+    rdfIRI,
+  }));
+}
+
 export function patchDrawioWithMetadata(
   source: string,
   options: DrawioMetadataPatchOptions,
@@ -100,10 +138,18 @@ export function patchDrawioWithMetadata(
 
   metadataNode.appendChild(createWhitespaceNode(document, innerWhitespace));
 
+  const mergedPreamble = new Map<string, string>();
+  for (const existing of collectExistingPreambleElements(rootElement)) {
+    mergedPreamble.set(existing.rdfPrefix, existing.rdfIRI);
+  }
   for (const preambleEntry of options.preamble) {
+    mergedPreamble.set(preambleEntry.rdfPrefix, preambleEntry.rdfIRI);
+  }
+
+  for (const [rdfPrefix, rdfIRI] of mergedPreamble) {
     const preambleNode = document.createElement("userObjectPreambleElement");
-    preambleNode.setAttribute("rdfPrefix", preambleEntry.rdfPrefix);
-    preambleNode.setAttribute("rdfIRI", preambleEntry.rdfIRI);
+    preambleNode.setAttribute("rdfPrefix", rdfPrefix);
+    preambleNode.setAttribute("rdfIRI", rdfIRI);
     metadataNode.appendChild(preambleNode);
     metadataNode.appendChild(createWhitespaceNode(document, innerWhitespace));
   }
