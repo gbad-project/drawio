@@ -84,26 +84,25 @@ class Debugger:
         self._refresh_fixture_inventory()
         self._pyodide_ready = False
 
-        self.needs_fail_on_pytest = False
-
     # ------------------------------------------------------------------
     # Public API
     # ------------------------------------------------------------------
-    def run(self, args: argparse.Namespace) -> None:
+    def run(self, args: argparse.Namespace) -> bool:
         skip_ts = getattr(args, "skip_ts", False)
         if args.scenario:
             config = self._load_scenario_file(Path(args.scenario), args.slug)
-            self._run_scenario(config, skip_ts=skip_ts)
-            return
+            had_errors = self._run_scenario(config, skip_ts=skip_ts)
+            return had_errors or self._scenario_has_errors(config.slug)
 
         config = self._config_from_args(args)
         if config is None:
             config = self._run_repl()
-        self._run_scenario(config, skip_ts=skip_ts)
+        had_errors = self._run_scenario(config, skip_ts=skip_ts)
+        return had_errors or self._scenario_has_errors(config.slug)
 
     # ------------------------------------------------------------------
     # Internal helpers: configuration loading
-    # False------------------------------------------------------------------
+    # ------------------------------------------------------------------
     def _load_map(self) -> dict[str, dict]:
         if self.map_path.exists():
             try:
@@ -437,10 +436,6 @@ class Debugger:
     # ------------------------------------------------------------------
     # Execution
     # ------------------------------------------------------------------
-    def _needs_fail_on_pytest(self, errors: dict) -> None:
-        benign_keys = {"py_legacy"}
-        return any(k not in benign_keys for k in errors.keys())
-    
     def _run_scenario(self, config: ScenarioConfig, skip_ts: bool = False) -> None:
         self.console.rule(f"Scenario: {config.slug}")
         self.console.print(
@@ -601,6 +596,8 @@ class Debugger:
         if ts_plugin_graph is not None:
             graphs["ts_plugin"] = ts_plugin_graph
 
+        had_errors = bool(errors)
+
         if not graphs:
             self.console.print("[red]Error:[/red] All graph generation methods failed")
             scenario_entry = {
@@ -621,8 +618,7 @@ class Debugger:
             }
             self._map_data.setdefault("scenarios", {})[config.slug] = scenario_entry
             self._write_map()
-            self.needs_fail_on_pytest = True  # definitely yes!
-            return
+            return True
 
         results_directory = self.results_dir / config.slug
         results_directory.mkdir(parents=True, exist_ok=True)
@@ -688,7 +684,7 @@ class Debugger:
             status = "✅" if value else "❌"
             self.console.print(f"  {status} {key}")
 
-        self.needs_fail_on_pytest = self._needs_fail_on_pytest(errors)
+        return had_errors
 
     # ------------------------------------------------------------------
     # Graph generation helpers
@@ -936,6 +932,18 @@ class Debugger:
 
         self._map_data.setdefault("scenarios", {})[config.slug] = scenario_entry
         self._write_map()
+
+    def _scenario_has_errors(self, slug: str) -> bool:
+        scenarios = self._map_data.get("scenarios")
+        if not isinstance(scenarios, dict):
+            return False
+        entry = scenarios.get(slug)
+        if not isinstance(entry, dict):
+            return False
+        errors = entry.get("errors")
+        if isinstance(errors, dict):
+            return bool(errors)
+        return bool(errors)
 
     def _relative_to_debug(self, path: Path) -> Path:
         try:
@@ -1521,10 +1529,9 @@ def main() -> None:
     )
 
     debugger = Debugger(fixtures_dir)
-    debugger.run(args)
-
-    import sys
-    sys.exit(1 if debugger.needs_fail_on_pytest else 0)
+    had_errors = debugger.run(args)
+    if had_errors:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
