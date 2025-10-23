@@ -1,0 +1,13 @@
+slug: flowchart-tweaked
+drawio: tests/fixtures/Flowchart_tweaked.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: /mock/path/to/file.csv
+    baseUri: ontology://generated-from-draw-io/mock#
+  preamble:
+  - prefix: kb
+    iri: mock://debug-knowledge-base/
+parser_config:
+  ontology_iri: mock://debug-ontology
