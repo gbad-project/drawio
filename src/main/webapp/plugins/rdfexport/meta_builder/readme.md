@@ -8,7 +8,10 @@ Metabuilder Python module: [drawio_meta_builder.py](drawio_meta_builder.py)
 
 ---
 
-Source chat for diagram: [Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture](docs/chats/Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture)
+Source chats for diagram:
+
+- initial: [2025-10-16_claude](../docs/chats/2025-10-16_claude)
+- revision: [2025-10-23_gemini](../docs/chats/2025-10-23_gemini)
 
 ## Override workflow
 
