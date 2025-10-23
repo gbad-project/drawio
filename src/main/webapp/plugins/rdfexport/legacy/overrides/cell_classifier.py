@@ -419,7 +419,20 @@ class DrawIOCellClassifier:
     def _start_or_end(
         self, cell: Element, as_attribute: str | None
     ) -> tuple[float, float] | None:
-        geometry = self._geometry(cell)
+        try:
+            geometry = self._geometry(cell)
+        except ParseException:
+            if as_attribute is None:
+                parent_id = cell.attrib.get("parent")
+                if parent_id in {None, "0", "1"}:
+                    return 0.0, 0.0
+                try:
+                    parent_cell = self._cell_with_id(parent_id)
+                except ValueError:
+                    return 0.0, 0.0
+                # If the parent also lacks geometry, bubble further up the tree.
+                return self._start_or_end(parent_cell, None)
+            raise
         cell_id = cell.attrib.get("id", "")
         if as_attribute is None:
             return self._x_and_y_in_geometry(geometry, cell_id)

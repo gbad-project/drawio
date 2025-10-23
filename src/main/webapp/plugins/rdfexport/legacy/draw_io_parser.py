@@ -462,7 +462,19 @@ class pipeline:
                     def _start_or_end(
                         self, cell: Element, as_attribute: str | None
                     ) -> tuple[float, float] | None:
-                        geometry = self._geometry(cell)
+                        try:
+                            geometry = self._geometry(cell)
+                        except ParseException:
+                            if as_attribute is None:
+                                parent_id = cell.attrib.get("parent")
+                                if parent_id in {None, "0", "1"}:
+                                    return (0.0, 0.0)
+                                try:
+                                    parent_cell = self._cell_with_id(parent_id)
+                                except ValueError:
+                                    return (0.0, 0.0)
+                                return self._start_or_end(parent_cell, None)
+                            raise
                         cell_id = cell.attrib.get("id", "")
                         if as_attribute is None:
                             return self._x_and_y_in_geometry(geometry, cell_id)
@@ -1780,27 +1792,38 @@ class xml_data_core:
 
     # END DrawIOXMLTree._is_locked
     # BEGIN DrawIOXMLTree._start_or_end
+    # override from geometry_fallback.py
     def _start_or_end(
         self, cell: Element, as_attribute: str | None
     ) -> tuple[XCoordinate, YCoordinate] | None:
-        """
-        The cell can be part of a group (have another 'parent' than that of the
-        top-level graph), in which case the immediate x and y coordinates will
-        be relative to the parent in the group rather than absolute; recursion
-        is used here to obtain absolute coordinates
-        """
-        geometry = DrawIOXMLTree._geometry(cell)
+        """Resolve the absolute start/end coordinates for a cell."""
+        try:
+            geometry = DrawIOXMLTree._geometry(cell)
+        except ParseException:
+            if as_attribute is None:
+                parent_id = cell.attrib.get("parent")
+                if parent_id in {None, "0", "1"}:
+                    return (0.0, 0.0)
+                try:
+                    parent_cell = self._parent_of(cell)
+                except ParseException:
+                    return (0.0, 0.0)
+                return self._start_or_end(parent_cell, None)
+            if self._is_locked(cell, as_attribute):
+                return None
+            raise
         if as_attribute is None:
-            return self._x_and_y_in_geometry(geometry, cell.attrib["id"])
+            return self._x_and_y_in_geometry(geometry, cell.attrib.get("id", ""))
         if len(geometry) == 0:
+            if self._is_locked(cell, as_attribute):
+                return None
             raise ParseException(
-                "Expecting the mxGeometry element of the cell with the "
-                "following id to have sub-elements, but has no sub-elements "
-                f"at all: {cell.attrib['id']}"
+                f"Expecting the mxGeometry element of the cell with the following id to have sub-elements, but has no sub-elements at all: {cell.attrib.get('id')}"
             )
+        cell_id = cell.attrib.get("id", "")
         for element in geometry:
             if element.tag != "mxPoint" or not self._has_correct_as_attribute(
-                element, as_attribute, cell.attrib["id"]
+                element, as_attribute, cell_id
             ):
                 continue
             try:
@@ -1809,9 +1832,7 @@ class xml_data_core:
                 if self._is_locked(cell, as_attribute):
                     return None
                 raise ParseException(
-                    "Encountered an mxPoint element of the cell with the "
-                    "following id without an 'x' attribute: "
-                    f"{cell.attrib['id']}"
+                    f"Encountered an mxPoint element of the cell with the following id without an 'x' attribute: {cell_id}"
                 ) from key_error
             try:
                 y = float(element.attrib["y"])
@@ -1819,33 +1840,43 @@ class xml_data_core:
                 if self._is_locked(cell, as_attribute):
                     return None
                 raise ParseException(
-                    "Encountered an mxPoint element of the cell with the "
-                    "following id without a 'y' attribute: "
-                    f"{cell.attrib['id']}"
+                    f"Encountered an mxPoint element of the cell with the following id without a 'y' attribute: {cell_id}"
                 ) from key_error
-            parent_id = cell.attrib["parent"]
-            if parent_id == "1":
-                return x, y
+            parent_id = cell.attrib.get("parent")
+            if parent_id in {None, "1"}:
+                return (x, y)
             parent_coordinates = self._start_or_end(self._parent_of(cell), None)
             if parent_coordinates is None:
                 raise ValueError
             parent_x, parent_y = parent_coordinates
-            return x + parent_x, y + parent_y
+            return (x + parent_x, y + parent_y)
+        if self._is_locked(cell, as_attribute):
+            return None
         raise ParseException(
-            "Expecting the mxGeometry element of the cell with the following "
-            "id to have an mxPoint sub-element with 'as' attribute having "
-            f"value 'sourcePoint', but it does not: {cell.attrib['id']}"
+            f"Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value '{as_attribute}', but it does not: {cell_id}"
         )
 
     # END DrawIOXMLTree._start_or_end
     # BEGIN DrawIOXMLTree._arrow_start
+    # override from geometry_fallback.py
     def _arrow_start(self, arrow_cell: Element) -> ArrowStart | None:
-        return self._start_or_end(arrow_cell, "sourcePoint")
+        try:
+            return self._start_or_end(arrow_cell, "sourcePoint")
+        except ParseException:
+            if "source" in arrow_cell.attrib:
+                return None
+            raise
 
     # END DrawIOXMLTree._arrow_start
     # BEGIN DrawIOXMLTree._arrow_end
+    # override from geometry_fallback.py
     def _arrow_end(self, arrow_cell: Element) -> ArrowEnd | None:
-        return self._start_or_end(arrow_cell, "targetPoint")
+        try:
+            return self._start_or_end(arrow_cell, "targetPoint")
+        except ParseException:
+            if "target" in arrow_cell.attrib:
+                return None
+            raise
 
     # END DrawIOXMLTree._arrow_end
     # BEGIN DrawIOXMLTree._dimensions
