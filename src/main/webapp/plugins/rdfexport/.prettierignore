@@ -7,3 +7,4 @@ dist/
 docs/
 debug/map.json
 debug/results/
+debug/scenarios/
