@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator, Optional, Dict, Any, Type
+from typing import Generator, Iterator, Optional, Any
 from copy import deepcopy
 from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
@@ -28,79 +28,7 @@ class pipeline:
     class pre:
         class xml:
             class metadata:
-                # BEGIN override metadata_extraction.py.MetadataNodeNotFoundError
-                class MetadataNodeNotFoundError(Exception):
-                    """Raised when no metadata node is found in the provided Draw.io XML."""
-
-                # END override metadata_extraction.py.MetadataNodeNotFoundError
-                # BEGIN override metadata_extraction.py._find_metadata_node
-                def _find_metadata_node(raw_xml: str) -> tuple[Element, Element]:
-                    """Find and return the metadata node and root element from a Draw.io XML document.
-
-                    Args:
-                        raw_xml (str): The raw XML string representing the Draw.io diagram.
-
-                    Returns:
-                        tuple[Element, Element]: A tuple containing:
-                            - The metadata node element found.
-                            - The root XML element parsed from the document.
-
-                    Raises:
-                        MetadataNodeNotFoundError: If no metadata node is found within the provided XML.
-                    """
-                    MetadataNodeNotFoundError = (
-                        pipeline.pre.xml.metadata.MetadataNodeNotFoundError
-                    )
-                    root = fromstring(raw_xml)
-                    metadata_node = root.find(
-                        ".//mxGraphModel/root/gbadMetadata[@id='0']"
-                    )
-                    if metadata_node is None:
-                        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
-                    if metadata_node is None:
-                        metadata_node = root.find(
-                            ".//mxGraphModel/root/UserObject[@id='0']"
-                        )
-                    if metadata_node is None:
-                        metadata_node = root.find(".//mxGraphModel/root/UserObject")
-                    if metadata_node is None:
-                        metadata_node = root.find(
-                            ".//mxGraphModel/root/object[@id='0']"
-                        )
-                    if metadata_node is None:
-                        graph_root = root.find(".//mxGraphModel/root")
-                        if graph_root is not None:
-                            for candidate in list(graph_root):
-                                tag_lower = candidate.tag.lower()
-                                if tag_lower not in {
-                                    "gbadmetadata",
-                                    "userobject",
-                                    "object",
-                                }:
-                                    continue
-                                has_metadata_payload = bool(
-                                    candidate.attrib.get("csvPath")
-                                    or candidate.attrib.get("baseUri")
-                                    or any(
-                                        (
-                                            child.tag
-                                            in {
-                                                "userObjectPreambleElement",
-                                                "UserObjectPreambleElement",
-                                            }
-                                            for child in list(candidate)
-                                        )
-                                    )
-                                )
-                                if has_metadata_payload:
-                                    metadata_node = candidate
-                                    return (metadata_node, root)
-                        raise MetadataNodeNotFoundError(
-                            "No metadata node found in this raw XML"
-                        )
-                    return (metadata_node, root)
-
-                # END override metadata_extraction.py._find_metadata_node
+                pass
 
             class data:
                 pass
@@ -158,7 +86,6 @@ class pipeline:
                         parent_identifier: Optional[str] = None
                         identifier: Optional[str] = None
                         tokens: list[str] = field(default_factory=list)
-                        declares_identifier: bool = False
 
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
@@ -307,10 +234,7 @@ class pipeline:
                                         )
                                     ):
                                         self.individuals.append(individual)
-                                    if (
-                                        classification.tokens
-                                        or classification.declares_identifier
-                                    ):
+                                    if classification.tokens:
                                         self._declared_individual_identifiers.add(
                                             identifier
                                         )
@@ -383,7 +307,6 @@ class pipeline:
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens)
-                        single_token = tokens[0] if len(tokens) == 1 else None
                         looks_like_curie = any((":" in token for token in tokens))
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
                             return build(CellKind.LITERAL)
@@ -410,28 +333,6 @@ class pipeline:
                                     if not candidate:
                                         continue
                                     _verify_is_ric_class(candidate, self._prefixes)
-                        if (
-                            parent_cell is None
-                            and single_token is not None
-                            and tokens_are_valid
-                        ):
-                            return build(
-                                CellKind.STANDALONE_INDIVIDUAL,
-                                identifier=single_token,
-                                tokens=[],
-                                declares_identifier=True,
-                            )
-                        if (
-                            parent_cell is None
-                            and single_token is not None
-                            and self._looks_like_curie_candidate(single_token)
-                            and (not tokens_are_valid)
-                        ):
-                            raise NotInKnownException(
-                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
-                                    single_token
-                                )
-                            )
                         if tokens and tokens_are_valid:
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
@@ -443,7 +344,6 @@ class pipeline:
                                 CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=[],
-                                declares_identifier=True,
                             )
                         if self._is_decoration(cell, raw_value):
                             return build(CellKind.DECORATION)
@@ -800,19 +700,6 @@ class pipeline:
                         return True
 
                     @staticmethod
-                    def _looks_like_curie_candidate(value: str) -> bool:
-                        if not value or ":" not in value or "://" in value:
-                            return False
-                        prefix, remainder = value.split(":", 1)
-                        if not prefix or not remainder:
-                            return False
-                        if not (prefix[0].isalpha() or prefix[0] == "_"):
-                            return False
-                        if not all((ch.isalnum() or ch in "._-" for ch in prefix[1:])):
-                            return False
-                        return not any((char.isspace() for char in remainder))
-
-                    @staticmethod
                     def _looks_like_absolute_uri(value: str) -> bool:
                         if not value or any((ch.isspace() for ch in value)):
                             return False
@@ -962,82 +849,57 @@ class pipeline:
 
 class xml_metadata_pre:
     # BEGIN _extract_drawio_metadata
-    # override from metadata_extraction.py
     def _extract_drawio_metadata(
         raw_xml: str,
-    ) -> tuple[dict[str, str], str | None, str | None, Element | None]:
-        """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
+    ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
         try:
-            metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
-        except Exception:
-            return ({}, None, None, None)
-        csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
-        base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None
+            root = fromstring(raw_xml)
+        except Exception:  # pragma: no cover - defensive guard around XML parsing
+            return {}, None, None, None
+
+        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+        if metadata_node is None:
+            return {}, None, None, root
+
+        csv_path_raw = metadata_node.attrib.get("csvPath", "")
+        base_uri_raw = metadata_node.attrib.get("baseUri", "")
+
+        csv_path = csv_path_raw.strip() or None
+        base_uri = base_uri_raw.strip() or None
+
         prefixes: dict[str, str] = {}
-        for tag in ("userObjectPreambleElement", "UserObjectPreambleElement"):
-            for preamble in metadata_node.findall(tag):
-                prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-                iri = (preamble.attrib.get("rdfIRI") or "").strip()
-                if prefix and iri:
-                    prefixes[prefix] = iri
-        return (prefixes, base_uri, csv_path, root)
+        for preamble in metadata_node.findall("userObjectPreambleElement"):
+            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
+            iri = (preamble.attrib.get("rdfIRI") or "").strip()
+            if prefix and iri:
+                prefixes[prefix] = iri
+
+        return prefixes, base_uri, csv_path, root
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
-    # override from metadata_cleanup.py
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
         if root is None:
             return raw_xml
+
         working_root = deepcopy(root)
         graph_root = working_root.find(".//mxGraphModel/root")
         if graph_root is None:
             return raw_xml
-        replacements: list[tuple[Element, Element]] = []
-        for child in list(graph_root):
-            tag = (child.tag or "").lower()
-            if tag == "userobject":
-                if child.attrib.get("id") != "0":
-                    continue
-                replacement_id = child.attrib.get("id", "0") or "0"
-                replacements.append((child, Element("mxCell", {"id": replacement_id})))
-                continue
-            if tag == "gbadmetadata":
-                replacement_id = child.attrib.get("id", "0") or "0"
-                replacements.append((child, Element("mxCell", {"id": replacement_id})))
-                continue
-            if tag == "object":
-                has_preamble = any(
-                    (
-                        child.find(candidate) is not None
-                        for candidate in (
-                            "userObjectPreambleElement",
-                            "UserObjectPreambleElement",
-                        )
-                    )
-                )
-                is_metadata_stub = has_preamble or child.attrib.get("id") == "0"
-                if not is_metadata_stub:
-                    continue
-                replacement_source = child.find("mxCell")
-                if replacement_source is not None:
-                    replacement = deepcopy(replacement_source)
-                else:
-                    replacement = Element("mxCell")
-                if "id" not in replacement.attrib:
-                    replacement.attrib["id"] = child.attrib.get("id", "0") or "0"
-                replacements.append((child, replacement))
-        if not replacements:
+
+        metadata_node = graph_root.find("UserObject[@id='0']")
+        if metadata_node is None:
             return raw_xml
-        snapshot = list(graph_root)
-        for original, replacement in replacements:
-            if original not in snapshot:
-                snapshot = list(graph_root)
-            try:
-                index = snapshot.index(original)
-            except ValueError:
-                continue
-            graph_root.remove(original)
-            graph_root.insert(index, replacement)
+
+        replacement = Element("mxCell", {"id": "0"})
+        children = list(graph_root)
+        for index, child in enumerate(children):
+            if child is metadata_node:
+                graph_root.remove(metadata_node)
+                graph_root.insert(index, replacement)
+                break
+
         return tostring(working_root, encoding="unicode")
 
     # END _strip_metadata_user_object
@@ -1843,15 +1705,6 @@ class internal_control_core:
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
-
-        def _looks_like_absolute_uri(value: str) -> bool:
-            if not value or any((ch.isspace() for ch in value)):
-                return False
-            if "://" in value:
-                return True
-            scheme, _, remainder = value.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
-
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
                 _add_individual_type(
@@ -1862,24 +1715,13 @@ class internal_control_core:
                     capitalisation_scheme,
                 )
                 continue
-            identifier = individual_or_arrow.identifier
-            normalized_identifier = identifier
-            allow_absolute_identifier = False
-            if _looks_like_absolute_uri(identifier):
-                for prefix_key, iri in prefixes.items():
-                    if identifier.startswith(iri) and identifier[len(iri) :]:
-                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
-                        break
-                else:
-                    allow_absolute_identifier = True
-            if not allow_absolute_identifier:
-                _ensure_known_curie(
-                    normalized_identifier,
-                    prefixes,
-                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
-                )
+            _ensure_known_curie(
+                individual_or_arrow.identifier,
+                prefixes,
+                f"An arrow has label '{individual_or_arrow.identifier}', which is not a known object property or datatype property",
+            )
             if individual_or_arrow.is_datatype:
-                datatype_properties.add(normalized_identifier)
+                datatype_properties.add(individual_or_arrow.identifier)
                 target_identifier = individual_or_arrow.target
                 literal_candidate = target_identifier.strip()
                 if (
@@ -1910,7 +1752,7 @@ class internal_control_core:
                             ) from exc
                 property_value = (target_identifier, True)
             else:
-                object_properties.add(normalized_identifier)
+                object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
                     individual_or_arrow.target,
                     metacharacter_substitutes,
@@ -1928,12 +1770,12 @@ class internal_control_core:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
                 blocks[source_identifier, individual_or_arrow.source] = {
-                    normalized_identifier: {property_value}
+                    individual_or_arrow.identifier: {property_value}
                 }
                 continue
-            values = block.get(normalized_identifier)
+            values = block.get(individual_or_arrow.identifier)
             if values is None:
-                block[normalized_identifier] = {property_value}
+                block[individual_or_arrow.identifier] = {property_value}
             else:
                 values.add(property_value)
         return (blocks, object_properties, datatype_properties)
@@ -1966,18 +1808,10 @@ class internal_control_core:
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
         metadata_node = (
-            parsed_root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
+            parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
             if parsed_root is not None
             else None
         )
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/gbadMetadata")
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject")
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/object[@id='0']")
         prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
         working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
@@ -2151,8 +1985,8 @@ class rdf_control_core:
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
         prefixes: dict,
-        graph_cls: Type[Graph] = Graph,
-        graph_kwargs: Optional[Dict[str, Any]] = None,
+        graph_cls: type[Graph] = Graph,
+        graph_kwargs: dict[str, Any] | None = None,
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
@@ -2162,12 +1996,13 @@ class rdf_control_core:
         )
 
         def _is_absolute_iri(candidate: str) -> bool:
-            if not candidate or any((ch.isspace() for ch in candidate)):
+            if not candidate:
                 return False
-            if "://" in candidate:
-                return True
-            scheme, _, remainder = candidate.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+            try:
+                parsed = urllib.parse.urlparse(candidate)
+            except Exception:
+                return False
+            return bool(parsed.scheme and (parsed.netloc or parsed.path))
 
         namespace_map: dict[str, Namespace] = {}
         fallback_namespace: Namespace | None = None
@@ -2188,51 +2023,26 @@ class rdf_control_core:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
             graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
-
-        def _resolve_property_uri(prop: str) -> URIRef:
-            if _is_absolute_iri(prop):
-                return URIRef(prop)
-            prop_prefix, prop_name = prop.split(":", 1)
-            return namespace_map[prop_prefix][prop_name]
-
         for prop in sorted(
             (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
-            prop_uri = _resolve_property_uri(prop)
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
             (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
-            prop_uri = _resolve_property_uri(prop)
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-        explicit_overrides: dict[str, URIRef] = {}
-        for individual_id, individual_label in blocks.keys():
-            trimmed_label = individual_label.strip()
-            if not trimmed_label:
-                continue
-            if _is_absolute_iri(trimmed_label):
-                explicit_overrides[individual_id] = URIRef(trimmed_label)
-                continue
-            if ":" not in trimmed_label or "://" in trimmed_label:
-                continue
-            try:
-                prefix, reference = _ensure_known_curie(
-                    trimmed_label,
-                    prefixes,
-                    "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
-                        trimmed_label
-                    ),
-                )
-            except NotInKnownException:
-                continue
-            namespace = namespace_map.get(prefix)
-            if namespace is None:
-                continue
-            explicit_overrides[individual_id] = namespace[reference]
+        absolute_overrides = {
+            individual_id: individual_label
+            for individual_id, individual_label in blocks.keys()
+            if "://" in individual_label
+        }
         for (individual_id, individual_label), types_and_facts in blocks.items():
-            override_uri = explicit_overrides.get(individual_id)
-            if override_uri is not None:
-                individual_uri = override_uri
+            if individual_id in absolute_overrides:
+                individual_uri = URIRef(absolute_overrides[individual_id])
             elif prefix and serialisation_config.prefix_iri:
                 individual_uri = Namespace(serialisation_config.prefix_iri)[
                     individual_id
@@ -2252,7 +2062,8 @@ class rdf_control_core:
             for prop, values in types_and_facts.items():
                 if prop == "Types":
                     continue
-                prop_uri = _resolve_property_uri(prop)
+                prop_prefix, prop_name = prop.split(":")
+                prop_uri = namespace_map[prop_prefix][prop_name]
                 for raw_value in values:
                     if (
                         isinstance(raw_value, tuple)
@@ -2267,9 +2078,8 @@ class rdf_control_core:
                             and prop not in object_properties
                         )
                     if not is_literal:
-                        override_target = explicit_overrides.get(value)
-                        if override_target is not None:
-                            target_uri = override_target
+                        if value in absolute_overrides:
+                            target_uri = URIRef(absolute_overrides[value])
                         elif prefix and serialisation_config.prefix_iri:
                             target_uri = Namespace(serialisation_config.prefix_iri)[
                                 value

@@ -1,6 +1,7 @@
-Work Plan
+# Work Plan
 
-Contributor Guidelines
+## Contributor Guidelines
+
 - If you bring your own task, please ignore the rest of this file except for these contributor guidelines. **You must honour the contributor guidelines regardless.** If you don't have a task yet, take the first unimplemented task from the list below (if no status is indicated, assume it has not been implemented yet).
 - Stick to your selected task. Going sideways to contribute to another task in passing is discouraged. If you desperately feel the urge to, you may leave a comment marking it as one of: AICODE-TODO (an unidentified task emerged), AICODE-ASK (stakeholder input is requested), AICODE-NOTE (important but no action requested).
 - Once the task is completed and all planned tests pass, document all your efforts extensively under `docs/aicode/{your-name}-report-{timestamp}.md`. If applicable, update the task status here in AGENTS.md and update the task status summary below.
@@ -10,9 +11,9 @@ Contributor Guidelines
 - When modifying the DrawIO parser, treat `legacy/draw_io_parser.py` as generated output. Compose Python overrides in `src/main/webapp/plugins/rdfexport/legacy/overrides/` (one module per concern) and decorate replacement symbols with `meta_builder.drawio_meta_builder.override` so the CLI can merge them during regeneration.
 - Create an appropriate changelog entry in `CHANGELOG.md` whenever you complete a task.
 
-⸻
+## Feature Description
 
-Feature Description — In-Browser RDF Transformation Pipeline for DrawIO Extension
+**In-Browser RDF Transformation Pipeline for DrawIO Extension**
 
 This feature introduces an in-browser data transformation pipeline to the DrawIO extension so serialized diagram XML can be round-tripped to Turtle without leaving the editor. The extension still serializes diagrams as XML, but that payload now flows through a TypeScript “black box” bridge (`src/main/webapp/plugins/rdfexport/src/mockBlackBox.ts`) that boots a Pyodide-backed Python runtime (`pyodidePipeline.ts`) before delegating to the patched DrawIO parser living in `legacy/draw_io_parser.py`.
 
@@ -22,104 +23,55 @@ Task 3 now targets RML emission through DrawIO parser overrides. `legacy/map_sch
 
 A Node-compatible Pyodide build (run under Bun + Volta) provides a fully local, testable environment for executing and debugging Python code within TypeScript. Robust logging, incremental integration, and fine-grained test coverage (via Bun and pytest) ensure a stable, transparent, and extensible foundation for RDF data transformation directly within the DrawIO extension.
 
-Meta builder now supports override discovery so the DrawIO parser can be extended safely without editing generated artifacts. Add new Python files under `src/main/webapp/plugins/rdfexport/legacy/overrides/`, decorate exported replacements with `@meta_builder.drawio_meta_builder.override`, and regenerate—the Mermaid pipeline diagram at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (with editable Mermaid source at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.mmd`, referenced in `meta_builder/readme.md`) shows how override modules weave into the build and where each namespace hook lands.
+Meta builder now supports override discovery so the DrawIO parser can be extended safely without editing generated artifacts. Add new Python files under `src/main/webapp/plugins/rdfexport/legacy/overrides/`, decorate exported replacements with `@meta_builder.drawio_meta_builder.override`, and regenerate—the Mermaid pipeline diagram at `src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-23-140512.mmd` (referenced in `meta_builder/readme.md`) shows how override modules weave into the build and where each namespace hook lands.
 
-Task Status Summary
+## Task Status Summary
+
+Progress: [██████████░░░░░░░░] 6/8 (75%)
+
 - Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ Completed on 2025-10-09 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 2b - Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph): ✅ Completed on 2025-10-09 by gpt-5-codex (recorded in CHANGELOG.md)
-- Task 3 – RML Generation via DrawIO Parser Overrides: ⏳ Not started
-- Task 4 – Browser Execution Pipeline (Pyodide Integration): 🚧 Phase 1 completed 2025-10-09 by gpt-5-codex (Phase 2 pending; recorded in CHANGELOG.md)
-- Task 5 – RML export alignment: ⏳ Not started (defer until DrawIO parser override surface stabilizes)
+- Task 3 – Initial RML Generation via DrawIO Parser Overrides: ✅ Completed 2025-10-20 by gpt-5-codex (recorded in CHANGELOG.md)
+- Task 4 Phase 1 – Initial Browser Execution Pipeline (Pyodide Integration): ✅ Completed 2025-10-09 by gpt-5-codex (recorded in CHANGELOG.md)
+- Task 4 Phase 2 – Full Browser Execution Pipeline (Pyodide Integration): ✅ Completed 2025-10-23 by gpt-5-codex (recorded in CHANGELOG.md)
+- Task 5a – Full RML Generation via DrawIO Parser Overrides: ⏳ Not started
+- Task 5b – RML export alignment: ⏳ Not started
 
-Completed Tasks (documented in CHANGELOG.md)
-- ✅ Task 1 – DrawIO Black Box Integration — Completed 2025-10-08 by gpt-5-codex; see CHANGELOG.md for implementation details.
-- ✅ Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser — Completed 2025-10-09 by gpt-5-codex; see CHANGELOG.md for implementation details.
-- ✅ Task 2b – Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph) — Completed 2025-10-09 by gpt-5-codex; see CHANGELOG.md for implementation details.
-- ✅ Task 4 – Phase 1 – Pyodide Integration & Debug Infrastructure — Completed 2025-10-09 by gpt-5-codex; see CHANGELOG.md for implementation details.
+## Task Stubs
 
-⸻
-
-:::task-stub{title="Task 3 – RML Generation via DrawIO Parser Overrides"}
-Status: ⏳ Not started
+:::task-stub{title="Task 5a – RML Generation via DrawIO Parser Overrides"}
 
 Goal
 Enable RML output alongside Turtle by extending the DrawIO parser through meta builder overrides only. Generated artifacts such as `legacy/draw_io_parser.py` must remain untouched; new functionality should come from purpose-built modules in `src/main/webapp/plugins/rdfexport/legacy/overrides/`.
 
 Guidance
-- Compose one override module per concern. Expect to add files such as `rml_curie_validator.py`, `rml_triplesmap_builder.py`, and `rml_node_detector.py` so CURIE expansion, TriplesMap construction, and diagram metadata live in focused, swappable units. Use the existing `curie_validator.py` override as the canonical injection point for namespace logic until it is replaced.
-- Consult `meta_builder/readme.md` plus the Mermaid pipeline diagram at `meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg` (and `.mmd` source) to understand how overrides are discovered, ordered, and composed before writing code.
-- Propagate RML-specific metadata through `_extract_drawio_metadata`, `_build_graph_from_raw_xml`, and `DrawIOParserGraph` via overrides. The metadata contract must surface an `rmlEnabled` flag that gates RML graph construction and can be toggled from the TypeScript UI.
-- Inject RML graph assembly near `individual_blocks` so DrawIO-specific state is available. Reuse battle-tested patterns from `legacy/map_schema.py` (URI encoding, mnemonic handling, namespace resolution) rather than reimplementing them, and keep new helpers inside overrides.
-- Use the authoritative DrawIO inputs for regression: the General Authority and General ADD diagrams already live under `src/main/webapp/plugins/rdfexport/tests/fixtures/`. Pair them with the retired RML baselines and CSVs under `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` to understand how `map_schema.py` shaped the canonical output before overrides existed.
-- Extend the existing baseline generator instead of hand-authoring RML samples. You may call into `legacy/map_schema.py` to regenerate `.rml` from the authority/ADD CSVs after preprocessing them with a small helper (factor this helper into a dedicated module so the DrawIO pipeline can reuse it). Those regenerated artifacts become the golden references for validating the override-powered pipeline.
-- Coordinate with the Pyodide harness: the TypeScript plugin should probe `rmlEnabled` before enabling UI affordances (for example an “Export RML” action) and pass a flag into the pipeline runner when RML should be emitted.
-- Keep overrides narrowly scoped—one module per concern—to maintain predictable regeneration diffs and simplify review. Document any new override in `docs/aicode/{your-name}-report-{timestamp}.md` and note updates in this task list.
+- Compose one override module per concern. Start working from `rml_export.py` but feel free to add more files as necessary for the functionality to live in focused, swappable units. Use the existing overrides as the canonical injection points for namespace logic.
+- Consult `meta_builder/readme.md` plus the Mermaid pipeline diagram at `meta_builder/assets/mermaid-diagram-2025-10-23-140512.mmd` to understand how overrides are discovered, ordered, and composed before writing code.
+- Propagate RML-specific metadata via overrides. The metadata contract must use an `rmlEnabled` flag that gates RML graph construction and can be toggled from the TypeScript UI (see `legacy/overrides/rml_export.py` and `tests/rdfexport.test.ts`).
+- Engineer a new `serialise_to_rml` override that will copycat `serialise_to_graph` from `legacy/overrides/curie_validator.py` but will surgically replace statements added to the graph with appropriate RML triples. Refer to `legacy/map_schema.py` (in particular its `for i, subject_row in subjects_df.drop_duplicates().iterrows()` loop) for examples of valid RML construction.
+- BEWARE that map_schema comes from a very different code base and has LOTS of logic absolutely not applicable here! So the only canonical thing you might want to get from there is how it builds rr:TriplesMap -> rr:predicateObjectMap etc. graphs. HOWEVER, note that while map_schema deduced which predicate to use (e.g., rml:reference vs rr:template) by splitting values from nodes, **this is not what we are doing here.** Here, we must map such that whenever in our graph there is a predicate/arrow, we construct an rr:predicate/rr:predicateObjectMap there; when there is a literal object in our graph, we construct a rml:reference or rr:constant as appropriate, etc. So the RML serialiser we are building *actually* mirrors what is present in the original Turtle graph – just by utilizing RML syntax.
+- This is exactly why we have a sophisticated and robust `DrawIOCellClassifier` (from `legacy/cell_classifier.py` override) that allows for the precise determination of the mxCell kind -> accurate further graph construction be it Turtle or RML. It's already been implemented for Turtle - your task is just to get RML syntax right. And map_schema is great at getting RML syntax exactly right (that's about the only thing in which map_schema is great at).
+- Integrate the new RML serializer into `_build_graph_from_raw_xml` (overriden from `rml_export`) to make sure this function switches to the correct serializer based on flag.
+- Coordinate with the Pyodide harness: the TypeScript plugin should now return the new RML graph to the user instead of the previous proof-of-concept solution where Turtle was returned with a few mock RML triples added.
 
-Testing (Python / pytest)
-- Unit – CURIE syntax + namespace validation, triples map assembly, metadata propagation. Cross-check behavior against the `map_schema.py` helpers that previously produced the retired plugin’s RML.
-- Integration – XML fixture → `DrawIOParserGraph` → RML graph equivalence against baselines (store baselines under `tests/baselines/rml/`). Generate baselines from the General Authority/General ADD diagrams and their canonical CSV companions by invoking the extended baseline generator so the override flow and legacy `map_schema` stay lockstep.
-- Regression – ensure Turtle exports remain unchanged when RML is disabled and that overrides do not leak into unrelated tasks.
-- Capture Bun + pytest logs for review.
+Tests (pytest / bun)
+- Unit – sanity checks for the validity of generated RML and to ensure that the new RML behavior doesn't break our existing Turtle serialisation logic that should function just the same as it does now when the RML flag is not passed.
+- Integration – ensure that the pipeline and plugin debugs still work and return valid Turtle when initiated without RML flag; add new checks for running everything with RML flag.
+- Run `bun run test:all:log:show` to see the status quo from last (successful!) run. Capture `bun run test:all:log:linux` for review and compare what changed. **Note** that this master test command **used to completely pass/xfail as appropriate** before your changes, so you can be 100% sure that if there are errors/failures, that's your changes that introduced them!
 :::
 
-:::task-stub{title="Task 4 – Browser Execution Pipeline (Pyodide Integration)"}
-Goal
-Integrate the Python runtime (Pyodide) into the DrawIO extension for in-browser execution of the XML → rdflib → DataFrame → Turtle pipeline. Implementation proceeds in two phases.
-
-:::task-stub{title="Task 4 – Phase 2 – Incremental Functional Integration"}
-1. Progressive Function Port-In
-   - Sequentially integrate:
-   - DrawIO Parser (stdin → rdflib Graph)
-   - graph_to_dataframe (Function A)
-   - dataframe_to_turtle (Function B)
-2. Incremental Debug & Verification
-   - After each integration:
-   - run in isolation inside Pyodide,
-   - verify I/O equivalence vs. stand-alone Python.
-   - Add fine-grained debug logs for XML, Graph stats, DataFrame preview, Turtle output.
-3. End-to-End Assembly
-   - Chain all three functions inside Pyodide: XML → Graph → DataFrame → Turtle.
-   - Return Turtle string to TypeScript and save via existing RDF/XML logic.
-4. Testing & Regression
-   - Bun tests: async integration + E2E pipeline.
-   - pytest: unit + integration for Python functions.
-   - Cross-layer regression: compare browser vs. local Python outputs.
-:::
-:::
-
-:::task-stub{title="Task 5 – RML Export Alignment"}
-Status: ⏳ Not started
+:::task-stub{title="Task 5b – RML Export Alignment"}
 
 Goal
-Ensure every consumer of DrawIO-derived RDF (Pyodide UI, Bun CLI, pytest harness, downstream exporters) can flip between Turtle and RML without divergence once overrides land. This task activates after the override surface stabilizes so alignment work is not wasted on moving targets.
+Ensure every consumer of DrawIO-derived RDF (Pyodide UI, Bun CLI, pytest harness, downstream exporters) can flip between Turtle and RML without divergence once overrides land. Further, this must also confirm no regression vs pre-existing battle-tested (yet fairly distinct) `legacy/map_schema.py`.
 
 Guidance
-- Track a single source of truth for golden data: the regenerated RML baselines from Task 3 should drive Bun fixtures, pytest assertions, and any Pyodide smoke tests.
-- Extend the export orchestrations (`runDrawioPipeline`, Pyodide worker handlers, and any CLI glue) so they surface both Turtle and RML artifacts while honoring the `rmlEnabled` metadata flag.
-- Keep map-schema-backed helpers reusable: the CSV preprocessing module introduced for Task 3 should be callable from alignment tests to ensure parity with the retired `map_schema.py` module outputs.
-- Document the alignment contract in `docs/aicode/{your-name}-report-{timestamp}.md`, describing how to refresh baselines and validate both export formats end-to-end.
+- Use the authoritative DrawIO inputs for regression: the General Authority and General ADD diagrams already live under `src/main/webapp/plugins/rdfexport/tests/fixtures/`. Pair them with the retired RML baselines and CSVs under `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` to understand how `map_schema.py` shaped the canonical output before overrides existed.
+- Extend the existing baseline generator instead of hand-authoring RML samples. You may call into `legacy/map_schema.py` to regenerate `.rml` from the authority/ADD CSVs after preprocessing them with a small helper (factor this helper into a dedicated module so the DrawIO pipeline can reuse it). The preprocessing will include applying `SourceCSVPreprocessor` to break down cluttered columns, and then applying **an additional preprocessor** to convert the resulting dataframe into 1NF normal form. This will allow you to use current rdfexport pipeline logic that does not support (nor should it support) node disaggregation by increment nor by any other factor. Those regenerated artifacts become the golden references for validating the override-powered pipeline. In summary, you will have to keep two version of CSV for each fixture: original and preprocessed+normalized using your custom helper utility (note: the helper utility is bespoke for these two fixtures and does not need to generalize).
+- Note that differences will be in place due to the differences in how map_schema approached parsing (i.e., rr:/rml: prefixes were indicated directly in the node whereas *we* will deduce them from our `blocks`, `object_properties`, and `datatype_properties`), but you must work around these differences to still be able to extract value from the legacy fixtures for regression. One approach could be keeping two drawio graphs for each existing golden standard fixture: original drawio (with RR/RML terms in nodes) and drawio compatible with current pipeline while ensuring the final RML outputs are identical.
+- There should also be a deterministic check in place that will compare Turtle to RML in a logical way, much like `debug/debug_cli_regression.py` currently provides sanity checks for XML -> Turtle alignment.
 
-Testing
-- Bun – simulate UI-triggered Turtle vs. RML downloads for the authority/ADD diagrams.
-- pytest – assert the DrawIO pipeline reproduces the regenerated map_schema RML baselines and maintains Turtle isomorphism.
-- Optional smoke – run the existing map_schema CLI against the same CSV inputs to prove regenerated fixtures remain faithful to the legacy flow.
+Testing (pytest / bun)
+- Regression – Run `bun run test:all:log:show` to see the status quo from last run. Run your tests together with ALL preexisting tests (i.e., `bun run test:all:log:linux` command) to compare what changed and make sure everything passes.
 :::
-
-⸻
-
-Testing Summary
-Task    Language        Existing Tests  New Coverage    Framework
-1       TypeScript      Yes     Black box + arbitrary string save       Bun
-2       Python  Yes     IRI prefix + CSV metadata       pytest
-3       Python  Partial Function extraction + optional params + regression      pytest
-4       TS + Python     Yes     Pyodide (Node-build) + debug + E2E      Bun + pytest
-
-⸻
-
-Final Deliverables
-1. DrawIO extension with black-box routing and arbitrary string save via existing RDF/XML code.
-2. DrawIO parser (stdin input) extended for IRI prefix and CSV metadata.
-3. map_schema module unchanged in behavior but now exporting graph_to_dataframe and dataframe_to_turtle (with optional params); ADD/Auth/CSV preprocessing excluded from these functions only.
-4. Browser-based Pyodide pipeline with robust debug tooling, incremental integration, and Node-compatible test support (Bun + Volta).
-5. Unified Bun + pytest test suite providing full unit, integration, and regression coverage across all components.

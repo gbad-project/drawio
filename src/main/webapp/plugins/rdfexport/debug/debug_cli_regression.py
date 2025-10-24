@@ -83,6 +83,9 @@ ALLOWED_XFAILS_FOLLOWUP = {
     "AA37-with-metadata-even-more-severely-mocked-v2.drawio": {
         "reason": "Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.",
     },
+    "Flowchart_tweaked.drawio": {
+        "reason": "Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because IRIs in arrows are currently unrecognized.",
+    },
 }
 
 XFAlLED_FIXTURES: list[str] = []

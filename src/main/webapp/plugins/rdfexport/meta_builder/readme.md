@@ -1,14 +1,17 @@
 # Metabuilder diagram for Records in Contexts parser for draw.io
 
-[Online Mermaid Diagram on Kroki](https://kroki.io/mermaid/svg/eNqlV1tvq0YQfudXrFKpL7VzelSlSvpQiWDioOPYCHCaFFWrNSz2thjQArkc-cef2V2wudmJVR5WmJ3ZuX3z7XjNSbZB3q2G4MnL1Vr-th3Tv4BlbDsLw3Rdaz5F9r3umhf_SEHxhIzToGBpUmuL5-lhhq2575BXNOHk9ZKl4tNBaf-yNyU0pLm3bXy5pQUJSUEuM04bpsRjPnmObng-pm8FJ0GBQzifpbhWaUu7nmPZPs4LzrK9CC5zynG6-hf8PojTJDzhnjX38IPp6cpHlhSUJ-SkoxPzTl_OPNc30iQvSFLk6Gc0oREp4yJvi05NzzMd11_TAqdJkcbp-h0zzkZIfIGjI_Y2QrQILtt63rNtur73nlGkx4zkND8nHMNzZp1wArDO03ggGt2Z2rrjmj4mfF1uKYSDM8IhkZ816Uzu8ESvM8jD6PJI4kSajXvd8R8gucGGiCpTjjYkCWOWrNvChm67xr35YPoGyVhBYvadSDDmwYZuP58Q4d0hIcK747l41GcWRAK5kBnAQWU5l5axsvyBYdUgaDz-s0a01kG43Nup4tN8hFZQX1wKUAT5C1guNjsFb60FdqUWxJQkNBRmdmIxFhCWlyIj5Q3PaohKHZF2UR-ZdlEaZKdpfBCWYGtJah38Dm_WyFGOidZDkNqIrXd92br0wyfVee_v1ilus5cM-kKs6Fz-GuYnCV91qmApid8g7eHDc0zTF7RnLUDL45R2230B3jvP_pSmQCD8HQUkDspYwqdDDYY5mwGF0DhGLISuYxELpFy3PZ3FX66vc56-IoHKXqNY84n1iEHOZ0nIXlhYkjjH0FPQ0KCUI_Bkk4bnEEgjHXsGOZYTad639qZREJM87wVRRTCwaSwdC5pcrEeo4NF0rLtnH79QziLgzxxzFuAhO5OJADNQWRjiQzZwAUR6NoF24q9ZYyAFt0trNvHxqmRxiOUpOOLpFgNQMMCpE-5iac8g3rTMYooaJftSlesXNHzjyV6TV1VNT3lGAljLVV6woizoCFUb2ya_NgTyIeTczhbGN7cBHryK0-C__Gz6Vwnb8_9AooSo-WSYtufD65hT6AzgMvoW0KzTIp8k9YPNE_WZOrp9b0C3qda15e02lQcNgMgFtAEf_W36IMUE-1NcpKquH3O_JCVBY4IrtCZxyK81Q_R3JB_0P6v-19p0IHf2fa_1mEAx8qEnv6jmY3JcCWi-q1DYomdRQ6l4AJrWx57yta2tfjacUpDShnCmXFMIGyEY1WAKSjN4lfObfN8dSqD1iqL0-4WsY9upai-WnrgV7TSvBsHhi8ReuB7MwbCO__9Fchi95Kn92Quc6SDTnXzzVctWw24faDLBM8vHvExGaEtYcv7kI_1pjT4DrpjGYj7R4fJyKYiFBG6vqgG-D91fD_rcspczMS2pCmxJwrLqrvvAxbpEspiQg-ENiFprJEp-gz0bSnvHILFoURZZ2Rj0QaEh1NPdR6j1YlaDxz4irR9k9-A2nop34HIYMFHE4viPn-jX6CqKGluSFdReFEU39GtTDapT611HV_SmsVf9d6q2V7_RqyhobDf_u1QywTX9PbjpyNTz7zGZ5gRfu3m9WoW_dmQ65_RkWqPUKae7Qse9PiXUunk-9PuUUKt1T5nrCqmTfgA61zkJ)
+[Online Mermaid Diagram on Kroki](https://kroki.io/mermaid/svg/eNqdV1tvozgUfu-vsDrSaFdqu3NRRtM-rMQQN0VDGwRMt120sgiYxDsERwbaZtQfv8c2EG5J200klOBzP9-5eCnCzQr5344QfPJysVT_HRcHx_A4ddy5iT3Pupkh58rw8PE_ilB-YiZoVDCe1dzyc3dtE-smcMNHNBXh4xnj8tWOqfnRqJIcSt3TOj1b0yKMwyI82wjaUiU_-M53DdMPCH0qRBgVJAb5jJOapUvt-a7lBCQvBNs0JKTMqSB88S_YvSOnWXzAPOvGJ9fYN7SNLCuoyMKDhk7xpfHD9r3A5FlehFmRo_doSpOwTIu8SzrDvo9dL1jSgvCs4ClfbgkT7ATJNyA6YU8niBbRWZfPv3ewF_jbDUVGysKc5m9xx_Rdu-dOBNoFT0e8MdyZY7geDkgoluWagjtkEwoI5GtVutNLMjXqCIo4OdsTOBlm88pwg2sIbrQKZZapQKswi1OWLbvEpuF45hW-xoEZblgRpuxXqMCYRyu6fn1ApHW7gEjr9sfi1rAt8ARioSJAokpzrjQTrfkFxbpA0OnpnzWij3oIV2fPOvk0P0ELyC8pJSii_AE0F6tnDe-jDtg1W5TSMKOxVPMsH-Yc3PI5MrmgI1VYY1Uxy_jLRKn4yxwhh_N0x6VQ16E86gF5_LCGkLZQ1iCCGCds-TykrTEwLqlOwPC0jnW3jSnvj-UTvbaRHSgZLW1QMxEfAGXuAjQhK4Y_dwOyKFkaEyWMJIKvCTQuAt2uy2PdTK1b8s2em9-9gGUxe2BxGaZkkfLo56vhLOGlik0bK3uqqrYRI3du227noBFm45lh3gfHNl2G0RbZfMki9JtXbiigP6bx7z2JirnYprTiRAlL04t3yUR-T6AX85_04t05ld_q7-kji4vVxafNU_0iDnMofRFuL9AETQbyfRfjQI4Waw6--oLSoQ0zPAdwuPfBjHJo1GKLojCNylSVaT6kN7FtQ7umaYpYDB2OJSxStENSw3Xnf3mBIQR_RLILDBrTLpdA20pkTqCPQRMFxhyBVSsedxnbie0kt9uv8K3l4Wlw7NIHBlnQWdmbiIq8ygT9nHxK4iYTHydfJtGHQSaGopp6sg0ooUsLu1UKZMzMNMxzCFl7IozjrLUn9MNPlGidg1rgvhxUKYaOPb_bpfg9cgR_YmtWbMdZVOqIi-vsuTTnablfBbZhukDtz_BNMFPu45TKAYhmNKNij3H9LLb_vzyaW6Xb9Jl99atAFlgNwFAk49af3m7l7cjhLXaty_uAPFDBEtg7ciJYRMakTKey98MKEMek1ZoKWEDevAVo75o1YMQxSYrvTOz4Afw8FRQKF4BOnyK66VXwK2f7TueBpj1zDefKhEagoe2oJUcnfiQmHgQPptHfOAAqJpcASgquu_zLK4AaSXKItSdFZwjKWO2nOBqbNHq-Mr10MohZjh5ZsWqG7a56G_bdK828Q9MfGjZaWkTz5zcbsoGYgQmNBKjQ2pL2rBuKap9qUXoGniBY3WEr5hv4qfZ59ft_W6altsxqcjoU0hxpCUOI1G4-axzNf_hy7XJ4Xt00xhcUZ-75cNGC55tvWod2eyV1uNyDMT3Me9Pvgd5lq9vUEMIaJlZARJmdoHXIshfgXfuvIgUKxg9A5FHLCg31H74DcbtkYDWal8WmbF3TgKFFNBJTNe9gi69n3UfYOpLWkaq5aiNJknP6sc0GEav5viYTet46qy6o1fHiM50kUeu4fUGsaKKv9Et03qOpLxn7aNrXpNrMr4tF_KFH05MzoOlsgIeM7hPtt_oQUaevv2j3IaIOfDvq_gM-gYi4)
 
-![SVG](assets/mermaid-diagram-2025-10-16-100316.svg)
+![SVG](assets/mermaid-diagram-2025-10-23-140512.svg)
 
 Metabuilder Python module: [drawio_meta_builder.py](drawio_meta_builder.py)
 
 ---
 
-Source chat for diagram: [Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture](docs/chats/Claude_Export_2025-10-16_09-57-57_DrawIO_XML_parsing_pipeline_architecture)
+Source chats for diagram:
+
+- initial: [2025-10-16_claude](../docs/chats/2025-10-16_claude)
+- revision: [2025-10-23_gemini](../docs/chats/2025-10-23_gemini)
 
 ## Override workflow
 
@@ -19,3 +22,9 @@ their data type, role, and phase. Matching entries in the builder mapping are
 replaced, while new symbols are injected directly into the generated pipeline
 namespace. Overrides are discovered by default when running
 `python -m meta_builder`, and the CLI now reports which modules were loaded.
+
+## Managing pipeline imports
+
+When writing code that interacts with the metabuilder pipeline, import patterns depend on context. For **override modules** placed in `legacy/overrides/`, import the compiled pipeline using `from legacy.draw_io_parser import pipeline`, then reference pipeline symbols via their nested namespace path (e.g., `pipeline.pre.xml.metadata.MetadataNodeNotFoundError`). Within override functions, assign any needed pipeline annotations to local variables at the top of the function for cleaner code. For **external code** such as tests or utility modules, use the same import: `from legacy.draw_io_parser import pipeline`. While original functions are technically accessible through their source classes (e.g., `xml_metadata_pre._find_metadata_node`), the intended access pattern is always through the `pipeline` namespace. When circular import issues arise during function overrides, either access pattern will work—prioritize whatever resolves the circular dependency.
+
+For **external code** that imports the pipeline, ensure Python can locate the necessary modules by setting up `sys.path` before importing. Use `Path(__file__).resolve().parents[N]` to locate package roots relative to your script, then insert these paths into `sys.path` if not already present. Place these path manipulations before any `from legacy.draw_io_parser import pipeline` statements (which should be marked with `# noqa: E402` to suppress linting warnings about non-top-level imports). This setup is essential because the metabuilder generates code in locations that may not be in Python's default import path.
