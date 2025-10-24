@@ -28,79 +28,7 @@ class pipeline:
     class pre:
         class xml:
             class metadata:
-                # BEGIN override metadata_extraction.py.MetadataNodeNotFoundError
-                class MetadataNodeNotFoundError(Exception):
-                    """Raised when no metadata node is found in the provided Draw.io XML."""
-
-                # END override metadata_extraction.py.MetadataNodeNotFoundError
-                # BEGIN override metadata_extraction.py._find_metadata_node
-                def _find_metadata_node(raw_xml: str) -> tuple[Element, Element]:
-                    """Find and return the metadata node and root element from a Draw.io XML document.
-
-                    Args:
-                        raw_xml (str): The raw XML string representing the Draw.io diagram.
-
-                    Returns:
-                        tuple[Element, Element]: A tuple containing:
-                            - The metadata node element found.
-                            - The root XML element parsed from the document.
-
-                    Raises:
-                        MetadataNodeNotFoundError: If no metadata node is found within the provided XML.
-                    """
-                    MetadataNodeNotFoundError = (
-                        pipeline.pre.xml.metadata.MetadataNodeNotFoundError
-                    )
-                    root = fromstring(raw_xml)
-                    metadata_node = root.find(
-                        ".//mxGraphModel/root/gbadMetadata[@id='0']"
-                    )
-                    if metadata_node is None:
-                        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
-                    if metadata_node is None:
-                        metadata_node = root.find(
-                            ".//mxGraphModel/root/UserObject[@id='0']"
-                        )
-                    if metadata_node is None:
-                        metadata_node = root.find(".//mxGraphModel/root/UserObject")
-                    if metadata_node is None:
-                        metadata_node = root.find(
-                            ".//mxGraphModel/root/object[@id='0']"
-                        )
-                    if metadata_node is None:
-                        graph_root = root.find(".//mxGraphModel/root")
-                        if graph_root is not None:
-                            for candidate in list(graph_root):
-                                tag_lower = candidate.tag.lower()
-                                if tag_lower not in {
-                                    "gbadmetadata",
-                                    "userobject",
-                                    "object",
-                                }:
-                                    continue
-                                has_metadata_payload = bool(
-                                    candidate.attrib.get("csvPath")
-                                    or candidate.attrib.get("baseUri")
-                                    or any(
-                                        (
-                                            child.tag
-                                            in {
-                                                "userObjectPreambleElement",
-                                                "UserObjectPreambleElement",
-                                            }
-                                            for child in list(candidate)
-                                        )
-                                    )
-                                )
-                                if has_metadata_payload:
-                                    metadata_node = candidate
-                                    return (metadata_node, root)
-                        raise MetadataNodeNotFoundError(
-                            "No metadata node found in this raw XML"
-                        )
-                    return (metadata_node, root)
-
-                # END override metadata_extraction.py._find_metadata_node
+                pass
 
             class data:
                 pass
@@ -921,46 +849,49 @@ class pipeline:
 
 class xml_metadata_pre:
     # BEGIN _extract_drawio_metadata
-    # override from metadata_extraction.py
     def _extract_drawio_metadata(
         raw_xml: str,
     ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-        """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
+        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
         try:
-            metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
-        except Exception:
-            return ({}, None, None, None)
-        csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
-        base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None
+            root = fromstring(raw_xml)
+        except Exception:  # pragma: no cover - defensive guard around XML parsing
+            return {}, None, None, None
+
+        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+        if metadata_node is None:
+            return {}, None, None, root
+
+        csv_path_raw = metadata_node.attrib.get("csvPath", "")
+        base_uri_raw = metadata_node.attrib.get("baseUri", "")
+
+        csv_path = csv_path_raw.strip() or None
+        base_uri = base_uri_raw.strip() or None
+
         prefixes: dict[str, str] = {}
-        for tag in ("userObjectPreambleElement", "UserObjectPreambleElement"):
-            for preamble in metadata_node.findall(tag):
-                prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-                iri = (preamble.attrib.get("rdfIRI") or "").strip()
-                if prefix and iri:
-                    prefixes[prefix] = iri
-        return (prefixes, base_uri, csv_path, root)
+        for preamble in metadata_node.findall("userObjectPreambleElement"):
+            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
+            iri = (preamble.attrib.get("rdfIRI") or "").strip()
+            if prefix and iri:
+                prefixes[prefix] = iri
+
+        return prefixes, base_uri, csv_path, root
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
-    # override from metadata_cleanup.py
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
         if root is None:
             return raw_xml
+
         working_root = deepcopy(root)
         graph_root = working_root.find(".//mxGraphModel/root")
         if graph_root is None:
             return raw_xml
-        metadata_node: Optional[Element] = None
-        for tag in ("gbadMetadata", "UserObject", "object"):
-            metadata_node = graph_root.find(f"{tag}[@id='0']")
-            if metadata_node is not None:
-                break
-            metadata_node = graph_root.find(tag)
-            if metadata_node is not None:
-                break
+
+        metadata_node = graph_root.find("UserObject[@id='0']")
         if metadata_node is None:
             return raw_xml
+
         replacement = Element("mxCell", {"id": "0"})
         children = list(graph_root)
         for index, child in enumerate(children):
@@ -968,6 +899,7 @@ class xml_metadata_pre:
                 graph_root.remove(metadata_node)
                 graph_root.insert(index, replacement)
                 break
+
         return tostring(working_root, encoding="unicode")
 
     # END _strip_metadata_user_object
@@ -1773,15 +1705,6 @@ class internal_control_core:
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
-
-        def _looks_like_absolute_uri(value: str) -> bool:
-            if not value or any((ch.isspace() for ch in value)):
-                return False
-            if "://" in value:
-                return True
-            scheme, _, remainder = value.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
-
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
                 _add_individual_type(
@@ -1792,24 +1715,13 @@ class internal_control_core:
                     capitalisation_scheme,
                 )
                 continue
-            identifier = individual_or_arrow.identifier
-            normalized_identifier = identifier
-            allow_absolute_identifier = False
-            if _looks_like_absolute_uri(identifier):
-                for prefix_key, iri in prefixes.items():
-                    if identifier.startswith(iri) and identifier[len(iri) :]:
-                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
-                        break
-                else:
-                    allow_absolute_identifier = True
-            if not allow_absolute_identifier:
-                _ensure_known_curie(
-                    normalized_identifier,
-                    prefixes,
-                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
-                )
+            _ensure_known_curie(
+                individual_or_arrow.identifier,
+                prefixes,
+                f"An arrow has label '{individual_or_arrow.identifier}', which is not a known object property or datatype property",
+            )
             if individual_or_arrow.is_datatype:
-                datatype_properties.add(normalized_identifier)
+                datatype_properties.add(individual_or_arrow.identifier)
                 target_identifier = individual_or_arrow.target
                 literal_candidate = target_identifier.strip()
                 if (
@@ -1840,7 +1752,7 @@ class internal_control_core:
                             ) from exc
                 property_value = (target_identifier, True)
             else:
-                object_properties.add(normalized_identifier)
+                object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
                     individual_or_arrow.target,
                     metacharacter_substitutes,
@@ -1858,12 +1770,12 @@ class internal_control_core:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
                 blocks[source_identifier, individual_or_arrow.source] = {
-                    normalized_identifier: {property_value}
+                    individual_or_arrow.identifier: {property_value}
                 }
                 continue
-            values = block.get(normalized_identifier)
+            values = block.get(individual_or_arrow.identifier)
             if values is None:
-                block[normalized_identifier] = {property_value}
+                block[individual_or_arrow.identifier] = {property_value}
             else:
                 values.add(property_value)
         return (blocks, object_properties, datatype_properties)
@@ -1896,18 +1808,10 @@ class internal_control_core:
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
         metadata_node = (
-            parsed_root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
+            parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
             if parsed_root is not None
             else None
         )
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/gbadMetadata")
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject")
-        if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/object[@id='0']")
         prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
         working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
@@ -2092,12 +1996,13 @@ class rdf_control_core:
         )
 
         def _is_absolute_iri(candidate: str) -> bool:
-            if not candidate or any((ch.isspace() for ch in candidate)):
+            if not candidate:
                 return False
-            if "://" in candidate:
-                return True
-            scheme, _, remainder = candidate.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+            try:
+                parsed = urllib.parse.urlparse(candidate)
+            except Exception:
+                return False
+            return bool(parsed.scheme and (parsed.netloc or parsed.path))
 
         namespace_map: dict[str, Namespace] = {}
         fallback_namespace: Namespace | None = None
@@ -2118,22 +2023,17 @@ class rdf_control_core:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
             graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
-
-        def _resolve_property_uri(prop: str) -> URIRef:
-            if _is_absolute_iri(prop):
-                return URIRef(prop)
-            prop_prefix, prop_name = prop.split(":", 1)
-            return namespace_map[prop_prefix][prop_name]
-
         for prop in sorted(
             (prop for prop in object_properties if not prop.startswith("rico:"))
         ):
-            prop_uri = _resolve_property_uri(prop)
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
         for prop in sorted(
             (prop for prop in datatype_properties if not prop.startswith("rico:"))
         ):
-            prop_uri = _resolve_property_uri(prop)
+            prop_prefix, prop_name = prop.split(":")
+            prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
         absolute_overrides = {
             individual_id: individual_label
@@ -2162,7 +2062,8 @@ class rdf_control_core:
             for prop, values in types_and_facts.items():
                 if prop == "Types":
                     continue
-                prop_uri = _resolve_property_uri(prop)
+                prop_prefix, prop_name = prop.split(":")
+                prop_uri = namespace_map[prop_prefix][prop_name]
                 for raw_value in values:
                     if (
                         isinstance(raw_value, tuple)

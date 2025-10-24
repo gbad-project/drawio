@@ -1,8 +1,3 @@
-23-OCT-2025: Unreleased
-
-- [rdfexport] Recognises bare-IRI arrow labels by normalising against known namespaces and
-  emitting absolute IRIs when necessary to preserve literal connections.
-
 25-JUL-2024: 24.7.5
 
 - [conf cloud] Applies link adjustment configuration to diagram editor [DID-12118]
