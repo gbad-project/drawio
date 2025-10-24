@@ -34,7 +34,7 @@
     "test:pytest:all:log:macos": "LOGFILE=\"tests/demo_logs/pytest.log\" && script \"$LOGFILE\" bun run test:pytest:all",
     "test:pytest:all:log:linux": "LOGFILE=\"tests/demo_logs/pytest.log\" && script -c \"bun run test:pytest:all\" \"$LOGFILE\"",
     "test:pytest:all:log:show": "LOGFILE=\"tests/demo_logs/pytest.log\" && cat \"$LOGFILE\"",
-    "test:bun:all": "bun test",
+    "test:bun:all": "bun run scripts/dotReporter.ts",
     "test:bun:all:log:macos": "LOGFILE=\"tests/demo_logs/bun.log\" && script \"$LOGFILE\" bun run test:bun:all",
     "test:bun:all:log:linux": "LOGFILE=\"tests/demo_logs/bun.log\" && script -c \"bun run test:bun:all\" \"$LOGFILE\"",
     "test:bun:all:log:show": "LOGFILE=\"tests/demo_logs/bun.log\" && cat \"$LOGFILE\"",
