@@ -972,6 +972,410 @@
       ],
       "results": {}
     },
+    "class-diagram-tweaked": {
+      "cell_classifications": {
+        "WIyWlLk6GJQsqaUBKTNV-0": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": null,
+          "raw_value": null,
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-1": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--0": {
+          "identifier": "rdf:Person",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rdf:Person",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--1": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Name",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--10": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Is Eligible To Enroll",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--11": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Get Seminars Taken",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--12": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--13": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Professor",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--14": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Salary",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--15": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--17": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Address",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--18": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Street",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--19": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "City",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--2": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Phone Number",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--20": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "State",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--21": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Postal Code",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--22": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Country",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--23": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--24": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Validate",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--25": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Output As Label",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--26": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--29": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--3": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Email Address",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--4": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--5": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Purchase Parking Pass",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--6": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Student",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--7": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Student Number",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--8": {
+          "identifier": null,
+          "kind": "DECORATION",
+          "parent_identifier": null,
+          "raw_value": "Average Mark",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--9": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 4,
+          "DECORATION": 16,
+          "LITERAL": 7,
+          "STANDALONE_INDIVIDUAL": 1,
+          "UNCLASSIFIED": 2
+        },
+        "classified": 28,
+        "total_cells": 30,
+        "unclassified": 2
+      },
+      "drawio": "tests/fixtures/Class_Diagram_tweaked.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value 'sourcePoint', but it does not: zkfFHV4jXpPFQw0GAbJ--0"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "8ed9ccc65e6a60516a96cfeb9b8eea881a12d7def5b6786950886039af0dae3b",
+          "path": "results/class-diagram-tweaked/ts_pipeline.ttl",
+          "triples": 24
+        },
+        "ts_plugin": {
+          "nt_sha256": "8ed9ccc65e6a60516a96cfeb9b8eea881a12d7def5b6786950886039af0dae3b",
+          "path": "results/class-diagram-tweaked/ts_plugin.ttl",
+          "triples": 24
+        }
+      }
+    },
+    "flowchart-tweaked": {
+      "cell_classifications": {
+        "WIyWlLk6GJQsqaUBKTNV-1": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-10": {
+          "identifier": "kb:Bulbburnedout",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "kb:Bulbburnedout",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-11": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Repair Lamp",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-12": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Replace Bulb",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-2": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-3": {
+          "identifier": "kb:Lampdoesntwork",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "kb:Lampdoesntwork",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-4": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "http://example/schema#Yes",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-5": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "http://example/schema#No",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-6": {
+          "identifier": "kb:Lamppluggedin",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "kb:Lamppluggedin",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-7": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Plug in lamp",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-8": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "http://example/schema#No",
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-9": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "http://example/schema#Yes",
+          "tokens": []
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 5,
+          "LITERAL": 3,
+          "STANDALONE_INDIVIDUAL": 3,
+          "UNCLASSIFIED": 1
+        },
+        "classified": 11,
+        "total_cells": 12,
+        "unclassified": 1
+      },
+      "drawio": "tests/fixtures/Flowchart_tweaked.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "include_label": false,
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "mock://debug-knowledge-base/",
+          "prefix": "kb"
+        },
+        {
+          "iri": "http://example/schema#",
+          "prefix": "ex"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "05af9fe4fd5f95d8a241e2d2df4db4c5d7baf4f0f107f1be3d534bab990fe011",
+          "path": "results/flowchart-tweaked/ts_pipeline.ttl",
+          "triples": 15
+        },
+        "ts_plugin": {
+          "nt_sha256": "05af9fe4fd5f95d8a241e2d2df4db4c5d7baf4f0f107f1be3d534bab990fe011",
+          "path": "results/flowchart-tweaked/ts_plugin.ttl",
+          "triples": 15
+        }
+      }
+    },
     "pytest-aa37-department-of-health": {
       "cell_classifications": {
         "0": {

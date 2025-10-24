@@ -19,3 +19,4 @@ metadata:
     iri: http://example/schema#
 parser_config:
   ontology_iri: mock://debug-ontology
+  include_label: false
