@@ -4,7 +4,6 @@ from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-b
 from meta_builder.drawio_meta_builder import override
 from rdflib import BNode
 from rdflib.namespace import SKOS
-import urllib.parse
 
 # ruff: noqa: F403, F405
 
@@ -82,6 +81,14 @@ def individual_blocks(
     object_properties: set[str] = set()
     datatype_properties: set[str] = set()
 
+    def _looks_like_absolute_uri(value: str) -> bool:
+        if not value or any(ch.isspace() for ch in value):
+            return False
+        if "://" in value:
+            return True
+        scheme, _, remainder = value.partition(":")
+        return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+
     for individual_or_arrow in individuals_and_arrows:
         if isinstance(individual_or_arrow, Individual):
             _add_individual_type(
@@ -93,17 +100,29 @@ def individual_blocks(
             )
             continue
 
-        _ensure_known_curie(
-            individual_or_arrow.identifier,
-            prefixes,
-            (
-                f"An arrow has label '{individual_or_arrow.identifier}', "
-                "which is not a known object property or datatype property"
-            ),
-        )
+        identifier = individual_or_arrow.identifier
+        normalized_identifier = identifier
+        allow_absolute_identifier = False
+        if _looks_like_absolute_uri(identifier):
+            for prefix_key, iri in prefixes.items():
+                if identifier.startswith(iri) and identifier[len(iri) :]:
+                    normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
+                    break
+            else:
+                allow_absolute_identifier = True
+
+        if not allow_absolute_identifier:
+            _ensure_known_curie(
+                normalized_identifier,
+                prefixes,
+                (
+                    f"An arrow has label '{normalized_identifier}', "
+                    "which is not a known object property or datatype property"
+                ),
+            )
 
         if individual_or_arrow.is_datatype:
-            datatype_properties.add(individual_or_arrow.identifier)
+            datatype_properties.add(normalized_identifier)
             target_identifier = individual_or_arrow.target
             literal_candidate = target_identifier.strip()
             if (
@@ -132,7 +151,7 @@ def individual_blocks(
                         ) from exc
             property_value = (target_identifier, True)
         else:
-            object_properties.add(individual_or_arrow.identifier)
+            object_properties.add(normalized_identifier)
             target_identifier = _replace_metacharacters(
                 individual_or_arrow.target,
                 metacharacter_substitutes,
@@ -152,13 +171,13 @@ def individual_blocks(
             block = blocks[(source_identifier, individual_or_arrow.source)]
         except KeyError:
             blocks[(source_identifier, individual_or_arrow.source)] = {
-                individual_or_arrow.identifier: {property_value}
+                normalized_identifier: {property_value}
             }
             continue
 
-        values = block.get(individual_or_arrow.identifier)
+        values = block.get(normalized_identifier)
         if values is None:
-            block[individual_or_arrow.identifier] = {property_value}
+            block[normalized_identifier] = {property_value}
         else:
             values.add(property_value)
 
@@ -184,13 +203,12 @@ def serialise_to_graph(
     )
 
     def _is_absolute_iri(candidate: str) -> bool:
-        if not candidate:
+        if not candidate or any(ch.isspace() for ch in candidate):
             return False
-        try:
-            parsed = urllib.parse.urlparse(candidate)
-        except Exception:
-            return False
-        return bool(parsed.scheme and (parsed.netloc or parsed.path))
+        if "://" in candidate:
+            return True
+        scheme, _, remainder = candidate.partition(":")
+        return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
 
     namespace_map: dict[str, Namespace] = {}
     fallback_namespace: Namespace | None = None
@@ -216,18 +234,22 @@ def serialise_to_graph(
         graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
         graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
 
+    def _resolve_property_uri(prop: str) -> URIRef:
+        if _is_absolute_iri(prop):
+            return URIRef(prop)
+        prop_prefix, prop_name = prop.split(":", 1)
+        return namespace_map[prop_prefix][prop_name]
+
     for prop in sorted(
         prop for prop in object_properties if not prop.startswith("rico:")
     ):
-        prop_prefix, prop_name = prop.split(":")
-        prop_uri = namespace_map[prop_prefix][prop_name]
+        prop_uri = _resolve_property_uri(prop)
         graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
 
     for prop in sorted(
         prop for prop in datatype_properties if not prop.startswith("rico:")
     ):
-        prop_prefix, prop_name = prop.split(":")
-        prop_uri = namespace_map[prop_prefix][prop_name]
+        prop_uri = _resolve_property_uri(prop)
         graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
     absolute_overrides = {
@@ -259,8 +281,7 @@ def serialise_to_graph(
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":")
-            prop_uri = namespace_map[prop_prefix][prop_name]
+            prop_uri = _resolve_property_uri(prop)
 
             for raw_value in values:
                 if (

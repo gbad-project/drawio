@@ -2,9 +2,9 @@
   <diagram name="Page-1" id="JNRxnBV9_3tvGunqLC9R">
     <mxGraphModel dx="2494" dy="1528" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
       <root>
-        <UserObject label="" rdfParserSettings="{&quot;version&quot;:1,&quot;settings&quot;:{&quot;includePreamble&quot;:false,&quot;inferTypeOfLiterals&quot;:true,&quot;includeLabel&quot;:true,&quot;strictMode&quot;:false,&quot;indentation&quot;:2,&quot;maxGap&quot;:10,&quot;ontologyIri&quot;:&quot;https://data.archives.gov.on.test.gbad.ca/Schema/Mapping&quot;,&quot;prefix&quot;:null,&quot;prefixIri&quot;:null,&quot;capitalisationScheme&quot;:&quot;none&quot;,&quot;metacharacterStrategy&quot;:&quot;url&quot;,&quot;metacharacterEntries&quot;:[]}}" baseUri="https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#" csvPath="/mock/path" id="0">
+        <gbadMetadata label="" rdfParserSettings="{&quot;version&quot;:1,&quot;settings&quot;:{&quot;includePreamble&quot;:false,&quot;inferTypeOfLiterals&quot;:true,&quot;includeLabel&quot;:true,&quot;strictMode&quot;:false,&quot;indentation&quot;:2,&quot;maxGap&quot;:10,&quot;ontologyIri&quot;:&quot;https://data.archives.gov.on.test.gbad.ca/Schema/Mapping&quot;,&quot;prefix&quot;:null,&quot;prefixIri&quot;:null,&quot;capitalisationScheme&quot;:&quot;none&quot;,&quot;metacharacterStrategy&quot;:&quot;url&quot;,&quot;metacharacterEntries&quot;:[]}}" baseUri="https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#" csvPath="/mock/path" id="0">
           <mxCell />
-        </UserObject>
+        </gbadMetadata>
         <mxCell id="1" parent="0" />
         <mxCell id="gmwnegnUR_CNORKRYM6Y-1" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;rr:template&lt;br&gt;&quot;/KB/{RICO_AUTHTP}/&lt;/span&gt;{HEADING}&quot;&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="240" y="370" width="280" height="52" as="geometry" />
