@@ -1,46 +1,22 @@
-<<<<<<< HEAD
-Script started on Thu Oct 23 15:25:43 2025
+Script started on Fri Oct 24 11:51:08 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1mpytest[0m
-[1m===================================== test session starts =====================================[0m
-=======
-Script started on Fri Oct 24 11:26:28 2025
-Command: bun run test:pytest:all
-[0m[2m[35m$[0m [2m[1mpytest[0m
-[1m==================================== test session starts ====================================[0m
->>>>>>> codex/investigate-and-fix-arrowwithoutindividualassourceexception-zmjwbg
+[1m============================================== test session starts ===============================================[0m
 platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-<<<<<<< HEAD
-[1mcollecting ... [0m[1mcollected 80 items                                                                            [0m
+[1mcollecting ... [0m[1mcollected 80 items                                                                                               [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                              [ 15%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                    [ 16%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                      [ 32%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                [ 36%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m           [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                              [ 92%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                   [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 15%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                       [ 16%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 32%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 36%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                              [ 87%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 92%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [100%][0m
 
-[32m=============================== [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 14.34s[0m[32m ================================[0m
-
-Command exit status: 0
-Script done on Thu Oct 23 15:25:58 2025
-=======
-[1mcollecting ... [0m[1mcollected 80 items                                                                          [0m
-
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                            [ 15%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                  [ 16%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                    [ 32%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                              [ 36%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m         [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                            [ 92%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                 [100%][0m
-
-[32m==================================== [32m[1m80 passed[0m[32m in 11.13s[0m[32m ====================================[0m
+[32m============================================== [32m[1m80 passed[0m[32m in 12.74s[0m[32m ===============================================[0m
 
 Command exit status: 0
-Script done on Fri Oct 24 11:26:39 2025
->>>>>>> codex/investigate-and-fix-arrowwithoutindividualassourceexception-zmjwbg
+Script done on Fri Oct 24 11:51:21 2025
