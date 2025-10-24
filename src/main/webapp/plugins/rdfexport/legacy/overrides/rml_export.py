@@ -34,10 +34,18 @@ def _build_graph_from_raw_xml(
         pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
     )
     metadata_node = (
-        parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
+        parsed_root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
         if parsed_root is not None
         else None
     )
+    if metadata_node is None and parsed_root is not None:
+        metadata_node = parsed_root.find(".//mxGraphModel/root/gbadMetadata")
+    if metadata_node is None and parsed_root is not None:
+        metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
+    if metadata_node is None and parsed_root is not None:
+        metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject")
+    if metadata_node is None and parsed_root is not None:
+        metadata_node = parsed_root.find(".//mxGraphModel/root/object[@id='0']")
     prefixes = pipeline.pre.internal.metadata.get_prefixes()
     prefixes.update(metadata_prefixes)
     working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(

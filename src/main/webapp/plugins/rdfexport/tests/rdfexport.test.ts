@@ -891,17 +891,34 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     const rootEl = graphModel.getElementsByTagName("root").item(0);
     if (!rootEl) throw new Error("Failed to locate root element in fixture");
     let metadataNode: Element | null = null;
-    // Find existing <UserObject id="0">
-    for (const node of Array.from(rootEl.getElementsByTagName("UserObject"))) {
+    // Find existing <gbadMetadata id="0"> (fall back to legacy tags)
+    for (const node of Array.from(
+      rootEl.getElementsByTagName("gbadMetadata"),
+    )) {
       if (node.getAttribute("id") === "0") {
         metadataNode = node;
         break;
       }
     }
+    if (!metadataNode) {
+      for (const legacyTag of ["UserObject", "object"]) {
+        for (const node of Array.from(rootEl.getElementsByTagName(legacyTag))) {
+          if (node.getAttribute("id") === "0") {
+            metadataNode = node;
+            break;
+          }
+        }
+        if (metadataNode) {
+          break;
+        }
+      }
+    }
     // Create if missing
     if (!metadataNode) {
-      metadataNode = xmlDoc.createElement("UserObject");
+      metadataNode = xmlDoc.createElement("gbadMetadata");
       metadataNode.setAttribute("id", "0");
+      const mxCellElement = xmlDoc.createElement("mxCell");
+      metadataNode.appendChild(mxCellElement);
       rootEl.insertBefore(metadataNode, rootEl.firstChild);
     }
     // Read or patch attributes
@@ -2056,9 +2073,12 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
     }
 
     const metadata = Array.from(root.childNodes).find((node) => {
-      return (
-        node.nodeType === node.ELEMENT_NODE && node.nodeName === "UserObject"
-      );
+      if (node.nodeType !== node.ELEMENT_NODE) {
+        return false;
+      }
+      const element = node as Element;
+      const tagName = element.tagName?.toLowerCase() ?? "";
+      return ["gbadmetadata", "userobject", "object"].includes(tagName);
     });
 
     const metadataSnapshot = metadata
@@ -2067,7 +2087,7 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
           const entries = Array.from(element.childNodes).filter((node) => {
             return (
               node.nodeType === node.ELEMENT_NODE &&
-              node.nodeName === "userObjectPreambleElement"
+              node.nodeName.toLowerCase() === "userobjectpreambleelement"
             );
           });
 

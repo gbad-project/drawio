@@ -1049,11 +1049,37 @@ class Debugger:
         if graph_root is None:
             return xml_text
 
-        metadata = graph_root.find("UserObject[@id='0']")
+        metadata: ET.Element | None = None
+        search_tags = ("gbadMetadata", "UserObject", "object")
+
+        for tag in search_tags:
+            metadata = graph_root.find(f"{tag}[@id='0']")
+            if metadata is not None:
+                break
+            metadata = graph_root.find(tag)
+            if metadata is not None:
+                break
+
         if metadata is None:
-            metadata = ET.Element("UserObject", {"id": "0", "label": ""})
+            metadata = ET.Element("gbadMetadata", {"id": "0", "label": ""})
             metadata.append(ET.Element("mxCell"))
             graph_root.insert(0, metadata)
+        else:
+            if metadata.tag != "gbadMetadata":
+                canonical = ET.Element("gbadMetadata", dict(metadata.attrib))
+                for child in list(metadata):
+                    canonical.append(child)
+                metadata_index = list(graph_root).index(metadata)
+                graph_root.remove(metadata)
+                graph_root.insert(metadata_index, canonical)
+                metadata = canonical
+
+            if not metadata.get("id"):
+                metadata.set("id", "0")
+
+            has_mxcell = any(child.tag == "mxCell" for child in list(metadata))
+            if not has_mxcell:
+                metadata.append(ET.Element("mxCell"))
 
         for attribute, raw_value in config.metadata_attributes.items():
             if raw_value is None:
@@ -1062,12 +1088,17 @@ class Debugger:
                 metadata.set(attribute, self._stringify_metadata_value(raw_value))
 
         if config.prefixes:
-            for child in list(metadata.findall("userObjectPreambleElement")):
-                metadata.remove(child)
+            for tag_name in ("userObjectPreambleElement", "UserObjectPreambleElement"):
+                for child in list(metadata.findall(tag_name)):
+                    metadata.remove(child)
+
             insertion_index = 0
             existing_children = list(metadata)
             for index, child in enumerate(existing_children):
-                if child.tag != "userObjectPreambleElement":
+                if child.tag not in {
+                    "userObjectPreambleElement",
+                    "UserObjectPreambleElement",
+                }:
                     insertion_index = index
                     break
             else:
