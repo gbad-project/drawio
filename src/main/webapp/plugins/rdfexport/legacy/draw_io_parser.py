@@ -28,7 +28,79 @@ class pipeline:
     class pre:
         class xml:
             class metadata:
-                pass
+                # BEGIN override metadata_extraction.py.MetadataNodeNotFoundError
+                class MetadataNodeNotFoundError(Exception):
+                    """Raised when no metadata node is found in the provided Draw.io XML."""
+
+                # END override metadata_extraction.py.MetadataNodeNotFoundError
+                # BEGIN override metadata_extraction.py._find_metadata_node
+                def _find_metadata_node(raw_xml: str) -> tuple[Element, Element]:
+                    """Find and return the metadata node and root element from a Draw.io XML document.
+
+                    Args:
+                        raw_xml (str): The raw XML string representing the Draw.io diagram.
+
+                    Returns:
+                        tuple[Element, Element]: A tuple containing:
+                            - The metadata node element found.
+                            - The root XML element parsed from the document.
+
+                    Raises:
+                        MetadataNodeNotFoundError: If no metadata node is found within the provided XML.
+                    """
+                    MetadataNodeNotFoundError = (
+                        pipeline.pre.xml.metadata.MetadataNodeNotFoundError
+                    )
+                    root = fromstring(raw_xml)
+                    metadata_node = root.find(
+                        ".//mxGraphModel/root/gbadMetadata[@id='0']"
+                    )
+                    if metadata_node is None:
+                        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
+                    if metadata_node is None:
+                        metadata_node = root.find(
+                            ".//mxGraphModel/root/UserObject[@id='0']"
+                        )
+                    if metadata_node is None:
+                        metadata_node = root.find(".//mxGraphModel/root/UserObject")
+                    if metadata_node is None:
+                        metadata_node = root.find(
+                            ".//mxGraphModel/root/object[@id='0']"
+                        )
+                    if metadata_node is None:
+                        graph_root = root.find(".//mxGraphModel/root")
+                        if graph_root is not None:
+                            for candidate in list(graph_root):
+                                tag_lower = candidate.tag.lower()
+                                if tag_lower not in {
+                                    "gbadmetadata",
+                                    "userobject",
+                                    "object",
+                                }:
+                                    continue
+                                has_metadata_payload = bool(
+                                    candidate.attrib.get("csvPath")
+                                    or candidate.attrib.get("baseUri")
+                                    or any(
+                                        (
+                                            child.tag
+                                            in {
+                                                "userObjectPreambleElement",
+                                                "UserObjectPreambleElement",
+                                            }
+                                            for child in list(candidate)
+                                        )
+                                    )
+                                )
+                                if has_metadata_payload:
+                                    metadata_node = candidate
+                                    return (metadata_node, root)
+                        raise MetadataNodeNotFoundError(
+                            "No metadata node found in this raw XML"
+                        )
+                    return (metadata_node, root)
+
+                # END override metadata_extraction.py._find_metadata_node
 
             class data:
                 pass
@@ -835,44 +907,9 @@ class xml_metadata_pre:
     ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
         """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
         try:
-            root = fromstring(raw_xml)
+            metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
         except Exception:
             return ({}, None, None, None)
-        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
-        if metadata_node is None:
-            metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
-        if metadata_node is None:
-            metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
-        if metadata_node is None:
-            metadata_node = root.find(".//mxGraphModel/root/UserObject")
-        if metadata_node is None:
-            metadata_node = root.find(".//mxGraphModel/root/object[@id='0']")
-        if metadata_node is None:
-            graph_root = root.find(".//mxGraphModel/root")
-            if graph_root is not None:
-                for candidate in list(graph_root):
-                    tag_lower = candidate.tag.lower()
-                    if tag_lower not in {"gbadmetadata", "userobject", "object"}:
-                        continue
-                    has_metadata_payload = bool(
-                        candidate.attrib.get("csvPath")
-                        or candidate.attrib.get("baseUri")
-                        or any(
-                            (
-                                child.tag
-                                in {
-                                    "userObjectPreambleElement",
-                                    "UserObjectPreambleElement",
-                                }
-                                for child in list(candidate)
-                            )
-                        )
-                    )
-                    if has_metadata_payload:
-                        metadata_node = candidate
-                        break
-        if metadata_node is None:
-            return ({}, None, None, root)
         csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
         base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None
         prefixes: dict[str, str] = {}
@@ -888,7 +925,6 @@ class xml_metadata_pre:
     # BEGIN _strip_metadata_user_object
     # override from metadata_cleanup.py
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
-        """Remove metadata wrapper regardless of tag choice."""
         if root is None:
             return raw_xml
         working_root = deepcopy(root)
