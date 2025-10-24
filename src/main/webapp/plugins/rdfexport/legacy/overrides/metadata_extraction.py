@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
 
@@ -11,7 +9,7 @@ from meta_builder.drawio_meta_builder import override
 @override(phase="pre", type="xml", role="metadata")
 def _extract_drawio_metadata(
     raw_xml: str,
-) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+) -> tuple[dict[str, str], str | None, str | None, Element | None]:
     """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
     try:
         root = fromstring(raw_xml)

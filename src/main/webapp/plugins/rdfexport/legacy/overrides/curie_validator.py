@@ -326,8 +326,8 @@ def serialise_to_graph(
     datatype_properties: set[str],
     serialisation_config: SerialisationConfig,
     prefixes: dict,
-    graph_cls: type[Graph] = Graph,
-    graph_kwargs: dict[str, Any] | None = None,
+    graph_cls: Type[Graph] = Graph,
+    graph_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Graph:
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
@@ -387,15 +387,36 @@ def serialise_to_graph(
         prop_uri = _resolve_property_uri(prop)
         graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-    absolute_overrides = {
-        individual_id: individual_label
-        for individual_id, individual_label in blocks.keys()
-        if "://" in individual_label
-    }
+    explicit_overrides: dict[str, URIRef] = {}
+    for individual_id, individual_label in blocks.keys():
+        trimmed_label = individual_label.strip()
+        if not trimmed_label:
+            continue
+        if _is_absolute_iri(trimmed_label):
+            explicit_overrides[individual_id] = URIRef(trimmed_label)
+            continue
+        if ":" not in trimmed_label or "://" in trimmed_label:
+            continue
+        try:
+            prefix, reference = _ensure_known_curie(
+                trimmed_label,
+                prefixes,
+                (
+                    "The standalone node '{0}' references a CURIE, "
+                    "which is not defined by the available prefixes."
+                ).format(trimmed_label),
+            )
+        except NotInKnownException:
+            continue
+        namespace = namespace_map.get(prefix)
+        if namespace is None:
+            continue
+        explicit_overrides[individual_id] = namespace[reference]
 
     for (individual_id, individual_label), types_and_facts in blocks.items():
-        if individual_id in absolute_overrides:
-            individual_uri = URIRef(absolute_overrides[individual_id])
+        override_uri = explicit_overrides.get(individual_id)
+        if override_uri is not None:
+            individual_uri = override_uri
         elif prefix and serialisation_config.prefix_iri:
             individual_uri = Namespace(serialisation_config.prefix_iri)[individual_id]
         elif prefix_iri:
@@ -432,8 +453,9 @@ def serialise_to_graph(
                     )
 
                 if not is_literal:
-                    if value in absolute_overrides:
-                        target_uri = URIRef(absolute_overrides[value])
+                    override_target = explicit_overrides.get(value)
+                    if override_target is not None:
+                        target_uri = override_target
                     elif prefix and serialisation_config.prefix_iri:
                         target_uri = Namespace(serialisation_config.prefix_iri)[value]
                     elif prefix_iri:

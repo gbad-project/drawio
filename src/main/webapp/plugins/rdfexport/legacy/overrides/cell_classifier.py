@@ -36,6 +36,7 @@ class DrawIOCellClassifier:
         parent_identifier: Optional[str] = None
         identifier: Optional[str] = None
         tokens: list[str] = field(default_factory=list)
+        declares_identifier: bool = False
 
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
@@ -181,7 +182,7 @@ class DrawIOCellClassifier:
                         if ind.identifier == identifier
                     ):
                         self.individuals.append(individual)
-                    if classification.tokens:
+                    if classification.tokens or classification.declares_identifier:
                         self._declared_individual_identifiers.add(identifier)
                     self._nodes_by_id[cell_id] = (cell, individual)
 
@@ -254,6 +255,7 @@ class DrawIOCellClassifier:
         value_tokens = self._tokenise(raw_value)
         tokens_are_valid = self._tokens_are_valid(value_tokens)
         tokens = list(value_tokens)
+        single_token = tokens[0] if len(tokens) == 1 else None
         # AICODE-NOTE: I recognize that hardcoding a curie check here
         # was not the best codex's idea, however this does do
         # the trick that if ANY token among tokens has a chance
@@ -290,6 +292,27 @@ class DrawIOCellClassifier:
                         continue
                     _verify_is_ric_class(candidate, self._prefixes)
 
+        if parent_cell is None and single_token is not None and tokens_are_valid:
+            return build(
+                CellKind.STANDALONE_INDIVIDUAL,
+                identifier=single_token,
+                tokens=[],
+                declares_identifier=True,
+            )
+
+        if (
+            parent_cell is None
+            and single_token is not None
+            and self._looks_like_curie_candidate(single_token)
+            and not tokens_are_valid
+        ):
+            raise NotInKnownException(
+                (
+                    "The standalone node '{0}' references a CURIE, "
+                    "which is not defined by the available prefixes."
+                ).format(single_token)
+            )
+
         if tokens and tokens_are_valid:
             return build(
                 CellKind.STANDALONE_INDIVIDUAL,
@@ -302,6 +325,7 @@ class DrawIOCellClassifier:
                 CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
                 tokens=[],
+                declares_identifier=True,
             )
 
         if self._is_decoration(cell, raw_value):
@@ -653,6 +677,19 @@ class DrawIOCellClassifier:
             except Exception:
                 return False
         return True
+
+    @staticmethod
+    def _looks_like_curie_candidate(value: str) -> bool:
+        if not value or ":" not in value or "://" in value:
+            return False
+        prefix, remainder = value.split(":", 1)
+        if not prefix or not remainder:
+            return False
+        if not (prefix[0].isalpha() or prefix[0] == "_"):
+            return False
+        if not all(ch.isalnum() or ch in "._-" for ch in prefix[1:]):
+            return False
+        return not any(char.isspace() for char in remainder)
 
     @staticmethod
     def _looks_like_absolute_uri(value: str) -> bool:

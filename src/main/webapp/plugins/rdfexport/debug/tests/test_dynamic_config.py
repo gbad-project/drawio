@@ -72,7 +72,9 @@ def test_dynamic_metadata_and_parser_payloads(monkeypatch: pytest.MonkeyPatch):
     patched_xml = debugger._apply_metadata_overrides(original_xml, config)
 
     root = ET.fromstring(patched_xml)
-    metadata_element = root.find(".//UserObject[@id='0']")
+    metadata_element = root.find(".//gbadMetadata[@id='0']")
+    if metadata_element is None:
+        metadata_element = root.find(".//UserObject[@id='0']")
     assert metadata_element is not None
     assert metadata_element.get("stripHtml") == "false"
     assert metadata_element.get("customAttribute") == "example"

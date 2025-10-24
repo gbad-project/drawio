@@ -1,9 +1,5 @@
 from __future__ import annotations
 
-from copy import deepcopy
-from typing import Optional
-from xml.etree.ElementTree import Element, fromstring, tostring
-
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
 
@@ -11,44 +7,7 @@ from meta_builder.drawio_meta_builder import override
 
 
 @override(phase="pre", type="xml", role="metadata")
-def _extract_drawio_metadata(
-    raw_xml: str,
-) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-    """Extract metadata preamble while tolerating legacy <object> wrappers."""
-
-    try:
-        root = fromstring(raw_xml)
-    except Exception:  # pragma: no cover - defensive guard around XML parsing
-        return {}, None, None, None
-
-    metadata_nodes: list[Element] = []
-    user_object = root.find(".//mxGraphModel/root/UserObject[@id='0']")
-    if user_object is not None:
-        metadata_nodes.append(user_object)
-    for candidate in root.findall(".//mxGraphModel/root/object"):
-        if candidate.find("userObjectPreambleElement") is not None:
-            metadata_nodes.append(candidate)
-
-    if not metadata_nodes:
-        return {}, None, None, root
-
-    primary = metadata_nodes[0]
-    csv_path = (primary.attrib.get("csvPath", "") or "").strip() or None
-    base_uri = (primary.attrib.get("baseUri", "") or "").strip() or None
-
-    prefixes: dict[str, str] = {}
-    for node in metadata_nodes:
-        for preamble in node.findall("userObjectPreambleElement"):
-            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-            iri = (preamble.attrib.get("rdfIRI") or "").strip()
-            if prefix and iri:
-                prefixes[prefix] = iri
-
-    return prefixes, base_uri, csv_path, root
-
-
-@override(phase="pre", type="xml", role="metadata")
-def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
+def _strip_metadata_user_object(raw_xml: str, root: Element | None) -> str:
     """Remove metadata wrapper regardless of tag choice."""
 
     if root is None:
@@ -61,13 +20,32 @@ def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
 
     replacements: list[tuple[Element, Element]] = []
     for child in list(graph_root):
-        if child.tag == "UserObject" and child.attrib.get("id") == "0":
+        tag = (child.tag or "").lower()
+
+        if tag == "userobject":
+            if child.attrib.get("id") != "0":
+                continue
             replacement_id = child.attrib.get("id", "0") or "0"
             replacements.append((child, Element("mxCell", {"id": replacement_id})))
-        elif (
-            child.tag.lower() == "object"
-            and child.find("userObjectPreambleElement") is not None
-        ):
+            continue
+
+        if tag == "gbadmetadata":
+            replacement_id = child.attrib.get("id", "0") or "0"
+            replacements.append((child, Element("mxCell", {"id": replacement_id})))
+            continue
+
+        if tag == "object":
+            has_preamble = any(
+                child.find(candidate) is not None
+                for candidate in (
+                    "userObjectPreambleElement",
+                    "UserObjectPreambleElement",
+                )
+            )
+            is_metadata_stub = has_preamble or child.attrib.get("id") == "0"
+            if not is_metadata_stub:
+                continue
+
             replacement_source = child.find("mxCell")
             if replacement_source is not None:
                 replacement = deepcopy(replacement_source)
