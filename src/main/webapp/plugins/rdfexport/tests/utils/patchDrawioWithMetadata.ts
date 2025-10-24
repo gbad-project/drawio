@@ -1,5 +1,11 @@
 import { DOMParser, XMLSerializer } from "@xmldom/xmldom";
 
+const METADATA_ROOT_TAG = "gbadMetadata";
+const LEGACY_METADATA_TAGS = ["UserObject", "object"] as const;
+const LOWERCASE_LEGACY_METADATA_TAGS = LEGACY_METADATA_TAGS.map((tag) =>
+  tag.toLowerCase(),
+);
+
 export interface DrawioPreambleElement {
   rdfPrefix: string;
   rdfIRI: string;
@@ -44,10 +50,15 @@ function collectExistingPreambleElements(
 ): DrawioPreambleElement[] {
   const entries = new Map<string, string>();
 
+  const metadataTagNames = [
+    METADATA_ROOT_TAG.toLowerCase(),
+    ...LOWERCASE_LEGACY_METADATA_TAGS,
+  ];
+
   for (const child of collectChildElements(rootElement)) {
     const tagName = child.tagName?.toLowerCase() ?? "";
 
-    if (tagName !== "userobject" && tagName !== "object") {
+    if (!metadataTagNames.includes(tagName)) {
       continue;
     }
 
@@ -110,13 +121,14 @@ export function patchDrawioWithMetadata(
   );
 
   const rootChildren = collectChildElements(rootElement);
-  const existingUserObject = rootChildren.find(
-    (child) => child.tagName === "UserObject",
-  );
+  const existingCanonicalMetadata = rootChildren.find((child) => {
+    const tagName = child.tagName?.toLowerCase() ?? "";
+    return tagName === METADATA_ROOT_TAG.toLowerCase();
+  });
 
-  if (existingUserObject) {
+  if (existingCanonicalMetadata) {
     throw new Error(
-      "Drawio document already contains a <UserObject> root metadata node",
+      "Drawio document already contains a <gbadMetadata> root metadata node",
     );
   }
 
@@ -130,7 +142,7 @@ export function patchDrawioWithMetadata(
     "\n        ";
   const innerWhitespace = `${outerWhitespace}  `;
 
-  const metadataNode = document.createElement("UserObject");
+  const metadataNode = document.createElement(METADATA_ROOT_TAG);
   metadataNode.setAttribute("label", options.label ?? "");
   metadataNode.setAttribute("csvPath", options.csvPath);
   metadataNode.setAttribute("baseUri", options.baseUri);

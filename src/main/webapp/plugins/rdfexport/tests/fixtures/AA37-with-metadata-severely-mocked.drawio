@@ -2,7 +2,7 @@
   <diagram name="Page-1" id="JNRxnBV9_3tvGunqLC9R">
     <mxGraphModel dx="1644" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
       <root>
-        <UserObject label="" csvPath="/mock22/path/to/file.csv" baseUri="http://mock23-base-uri.com" id="0">
+        <gbadMetadata label="" csvPath="/mock22/path/to/file.csv" baseUri="http://mock23-base-uri.com" id="0">
           <userObjectPreambleElement rdfPrefix="mock1" rdfIRI="http://mock-iri-ns.org" />
           <userObjectPreambleElement rdfPrefix="mock2" rdfIRI="http://prefix.com" />
           <userObjectPreambleElement rdfPrefix="rico" rdfIRI="rico://mock-rico" />
@@ -11,7 +11,7 @@
           <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="://hello" />
           <userObjectPreambleElement rdfPrefix="unknown" rdfIRI="unknown://link" />
           <mxCell />
-        </UserObject>
+        </gbadMetadata>
         <mxCell id="1" parent="0" />
         <mxCell id="gmwnegnUR_CNORKRYM6Y-10" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.456;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.359;exitY=-0.038;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="iiJ8OJKaNMLrSCaLO3TT-1" target="gmwnegnUR_CNORKRYM6Y-12" edge="1">
           <mxGeometry relative="1" as="geometry">

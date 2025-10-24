@@ -1,0 +1,31 @@
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix kb: <mock://knowledge-base/> .
+@prefix ns1: <http://example/schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+ns1:No a owl:DatatypeProperty .
+
+ns1:Yes a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+:kb%3ALampdoesntwork a owl:NamedIndividual,
+        kb:Lampdoesntwork ;
+    rdfs:label "kb:Lampdoesntwork" .
+
+:kb%3ALamppluggedin a owl:NamedIndividual,
+        kb:Lamppluggedin ;
+    rdfs:label "kb:Lamppluggedin" ;
+    ns1:No "Plug in lamp" ;
+    ns1:Yes :kb%3ABulbburnedout .
+
+:kb%3ABulbburnedout a owl:NamedIndividual,
+        kb:Bulbburnedout ;
+    rdfs:label "kb:Bulbburnedout" ;
+    ns1:No "Repair Lamp" ;
+    ns1:Yes "Replace Bulb" .
+

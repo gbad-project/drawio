@@ -9,23 +9,44 @@ from meta_builder.drawio_meta_builder import override
 
 
 @override(phase="pre", type="xml", role="metadata")
-def _extract_drawio_metadata(
-    raw_xml: str,
-) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-    """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
-    try:
-        root = fromstring(raw_xml)
-    except Exception:  # pragma: no cover - defensive guard around XML parsing
-        return {}, None, None, None
+class MetadataNodeNotFoundError(Exception):
+    """Raised when no metadata node is found in the provided Draw.io XML."""
 
-    metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+
+@override(phase="pre", type="xml", role="metadata")
+def _find_metadata_node(raw_xml: str) -> tuple[Element, Element]:
+    """Find and return the metadata node and root element from a Draw.io XML document.
+
+    Args:
+        raw_xml (str): The raw XML string representing the Draw.io diagram.
+
+    Returns:
+        tuple[Element, Element]: A tuple containing:
+            - The metadata node element found.
+            - The root XML element parsed from the document.
+
+    Raises:
+        MetadataNodeNotFoundError: If no metadata node is found within the provided XML.
+    """
+    MetadataNodeNotFoundError = pipeline.pre.xml.metadata.MetadataNodeNotFoundError
+
+    root = fromstring(raw_xml)
+    metadata_node = root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
+    if metadata_node is None:
+        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
+    if metadata_node is None:
+        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
+    if metadata_node is None:
+        metadata_node = root.find(".//mxGraphModel/root/UserObject")
+    if metadata_node is None:
+        metadata_node = root.find(".//mxGraphModel/root/object[@id='0']")
 
     if metadata_node is None:
         graph_root = root.find(".//mxGraphModel/root")
         if graph_root is not None:
             for candidate in list(graph_root):
                 tag_lower = candidate.tag.lower()
-                if tag_lower not in {"userobject", "object"}:
+                if tag_lower not in {"gbadmetadata", "userobject", "object"}:
                     continue
                 has_metadata_payload = bool(
                     candidate.attrib.get("csvPath")
@@ -38,10 +59,21 @@ def _extract_drawio_metadata(
                 )
                 if has_metadata_payload:
                     metadata_node = candidate
-                    break
+                    return metadata_node, root
+        raise MetadataNodeNotFoundError("No metadata node found in this raw XML")
 
-    if metadata_node is None:
-        return {}, None, None, root
+    return metadata_node, root
+
+
+@override(phase="pre", type="xml", role="metadata")
+def _extract_drawio_metadata(
+    raw_xml: str,
+) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+    """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
+    try:
+        metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
+    except Exception:  # pragma: no cover - defensive guard around XML parsing
+        return {}, None, None, None
 
     csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
     base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None

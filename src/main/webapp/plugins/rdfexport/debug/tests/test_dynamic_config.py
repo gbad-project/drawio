@@ -2,7 +2,7 @@ import json
 import sys
 from pathlib import Path
 from uuid import uuid4
-import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element
 
 import pytest
 
@@ -20,6 +20,8 @@ from debug.__main__ import (  # noqa: E402
     Debugger,
     ScenarioConfig,
 )
+
+from legacy.draw_io_parser import pipeline  # noqa: E402
 
 FIXTURES_DIR = PLUGIN_DIR / "tests" / "fixtures"
 
@@ -71,11 +73,13 @@ def test_dynamic_metadata_and_parser_payloads(monkeypatch: pytest.MonkeyPatch):
     original_xml = drawio_path.read_text(encoding="utf-8")
     patched_xml = debugger._apply_metadata_overrides(original_xml, config)
 
-    root = ET.fromstring(patched_xml)
-    metadata_element = root.find(".//UserObject[@id='0']")
-    assert metadata_element is not None
-    assert metadata_element.get("stripHtml") == "false"
-    assert metadata_element.get("customAttribute") == "example"
+    try:
+        metadata_element, _ = pipeline.pre.xml.metadata._find_metadata_node(patched_xml)
+        assert isinstance(metadata_element, Element)
+        assert metadata_element.get("stripHtml") == "false"
+        assert metadata_element.get("customAttribute") == "example"
+    except pipeline.pre.xml.metadata.MetadataNodeNotFoundError as e:
+        pytest.fail(e)
 
     captured: dict[str, object] = {}
 
