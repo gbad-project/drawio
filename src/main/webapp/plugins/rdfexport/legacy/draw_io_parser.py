@@ -888,6 +888,7 @@ class xml_metadata_pre:
     # BEGIN _strip_metadata_user_object
     # override from metadata_cleanup.py
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
+        """Remove metadata wrapper regardless of tag choice."""
         if root is None:
             return raw_xml
         working_root = deepcopy(root)
