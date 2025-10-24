@@ -34,6 +34,10 @@ class DotReporter {
   private dotsPerLine = 80;
   private dotCount = 0;
   private allOutput = "";
+  private currentFile = "";
+  private testsInCurrentFile = 0;
+  private totalTests = 0;
+  private bunSummaryLine = "";
 
   constructor() {}
 
@@ -94,13 +98,44 @@ class DotReporter {
     return null;
   }
 
+  private extractFilePath(line: string): string | null {
+    // Match patterns like "test/myfile.test.ts:" or "path/to/test.ts:"
+    const match = line.match(/^([^\s]+\.test\.[tj]sx?):?\s*$/);
+    return match && match[1] ? match[1] : null;
+  }
+
+  private printFileHeader(filePath: string) {
+    if (this.dotCount % this.dotsPerLine !== 0 && this.dotCount > 0) {
+      process.stdout.write("\n");
+    }
+    process.stdout.write(`${filePath} `);
+  }
+
+  private printProgress() {
+    const percentage = Math.floor((this.totalTests / this.testResults.length) * 100);
+    process.stdout.write(` ${colors.gray}[${percentage.toString().padStart(3)}%]${colors.reset}\n`);
+  }
+
   private processLines(lines: string[]) {
     for (const line of lines) {
       if (!line.trim()) continue;
       
+      // Check if this is a file header
+      const filePath = this.extractFilePath(line);
+      if (filePath && filePath !== this.currentFile) {
+        if (this.currentFile && this.testsInCurrentFile > 0) {
+          this.printProgress();
+        }
+        this.currentFile = filePath;
+        this.testsInCurrentFile = 0;
+        this.printFileHeader(filePath);
+        this.dotCount = 0; // Reset for alignment
+      }
+      
       const testResult = this.parseTestLine(line);
       if (testResult) {
         this.testResults.push(testResult);
+        this.testsInCurrentFile++;
         
         switch (testResult.status) {
           case "pass":
@@ -114,10 +149,19 @@ class DotReporter {
             break;
         }
       }
+      const bunSummaryMatch = line.match(/^Ran\s+\d+\s+tests\s+across\s+\d+\s+files?\.\s*\[[^\]]+\]/);
+      if (bunSummaryMatch) {
+        this.bunSummaryLine = bunSummaryMatch[0];
+      }
     }
   }
 
   private printSummary() {
+    // Print progress for last file
+    if (this.currentFile && this.testsInCurrentFile > 0) {
+      this.printProgress();
+    }
+
     // Ensure we end the dots line
     if (this.dotCount % this.dotsPerLine !== 0) {
       process.stdout.write("\n");
@@ -189,7 +233,9 @@ class DotReporter {
     const total = passed + failed + skipped;
     
     if (total > 0) {
-      console.log(`${parts.join(", ")} in ${total} tests`);
+      console.log(
+        `${parts.join(", ")}\n${colors.cyan}${this.bunSummaryLine || ""}${colors.reset}`
+      );
     } else {
       console.log(`${colors.gray}No tests found${colors.reset}`);
     }
@@ -199,7 +245,7 @@ class DotReporter {
   }
 
   async run(args: string[]) {
-    console.log(`${colors.cyan}Running tests...${colors.reset}\n`);
+    console.log(`${colors.cyan}Running Bun tests...${colors.reset}\n`);
     
     // Run bun test with all passed arguments
     const bunArgs = ["test", ...args];
@@ -240,6 +286,8 @@ class DotReporter {
         this.processLines([this.stderrBuffer]);
       }
 
+      this.totalTests = this.testResults.length;
+      
       this.printSummary();
     });
   }
