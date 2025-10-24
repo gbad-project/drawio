@@ -965,7 +965,7 @@ class xml_metadata_pre:
     # override from metadata_extraction.py
     def _extract_drawio_metadata(
         raw_xml: str,
-    ) -> tuple[dict[str, str], str | None, str | None, Element | None]:
+    ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
         """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
         try:
             metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
@@ -984,60 +984,27 @@ class xml_metadata_pre:
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
-    # override from metadata_cleanup.py
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
         if root is None:
             return raw_xml
+
         working_root = deepcopy(root)
         graph_root = working_root.find(".//mxGraphModel/root")
         if graph_root is None:
             return raw_xml
-        replacements: list[tuple[Element, Element]] = []
-        for child in list(graph_root):
-            tag = (child.tag or "").lower()
-            if tag == "userobject":
-                if child.attrib.get("id") != "0":
-                    continue
-                replacement_id = child.attrib.get("id", "0") or "0"
-                replacements.append((child, Element("mxCell", {"id": replacement_id})))
-                continue
-            if tag == "gbadmetadata":
-                replacement_id = child.attrib.get("id", "0") or "0"
-                replacements.append((child, Element("mxCell", {"id": replacement_id})))
-                continue
-            if tag == "object":
-                has_preamble = any(
-                    (
-                        child.find(candidate) is not None
-                        for candidate in (
-                            "userObjectPreambleElement",
-                            "UserObjectPreambleElement",
-                        )
-                    )
-                )
-                is_metadata_stub = has_preamble or child.attrib.get("id") == "0"
-                if not is_metadata_stub:
-                    continue
-                replacement_source = child.find("mxCell")
-                if replacement_source is not None:
-                    replacement = deepcopy(replacement_source)
-                else:
-                    replacement = Element("mxCell")
-                if "id" not in replacement.attrib:
-                    replacement.attrib["id"] = child.attrib.get("id", "0") or "0"
-                replacements.append((child, replacement))
-        if not replacements:
+
+        metadata_node = graph_root.find("UserObject[@id='0']")
+        if metadata_node is None:
             return raw_xml
-        snapshot = list(graph_root)
-        for original, replacement in replacements:
-            if original not in snapshot:
-                snapshot = list(graph_root)
-            try:
-                index = snapshot.index(original)
-            except ValueError:
-                continue
-            graph_root.remove(original)
-            graph_root.insert(index, replacement)
+
+        replacement = Element("mxCell", {"id": "0"})
+        children = list(graph_root)
+        for index, child in enumerate(children):
+            if child is metadata_node:
+                graph_root.remove(metadata_node)
+                graph_root.insert(index, replacement)
+                break
+
         return tostring(working_root, encoding="unicode")
 
     # END _strip_metadata_user_object
