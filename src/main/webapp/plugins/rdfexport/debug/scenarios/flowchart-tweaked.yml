@@ -6,6 +6,8 @@ format: turtle
 #prefixes:
 #  ex: http://example/schema#
 #  kb: mock://debug-knowledge-base/
+# UPD: Nope, not anymore: apparently prefixes
+# must be supplied only via preamble now. OK.
 metadata:
   attributes:
     csvPath: /mock/path/to/file.csv
@@ -13,5 +15,7 @@ metadata:
   preamble:
   - prefix: kb
     iri: mock://debug-knowledge-base/
+  - prefix: ex
+    iri: http://example/schema#
 parser_config:
   ontology_iri: mock://debug-ontology

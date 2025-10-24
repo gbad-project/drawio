@@ -2213,6 +2213,10 @@
         {
           "iri": "mock://debug-knowledge-base/",
           "prefix": "kb"
+        },
+        {
+          "iri": "http://example/schema#",
+          "prefix": "ex"
         }
       ],
       "results": {
