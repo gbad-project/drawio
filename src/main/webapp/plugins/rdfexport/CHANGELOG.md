@@ -19,6 +19,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-23 – Standardised DrawIO metadata storage on a canonical
+  `<gbadMetadata>` container across the plugin, fixtures, and debugger so
+  parser settings and prefixes propagate consistently through the TypeScript
+  and Python pipelines.
 - 2025-10-21 – Refined DrawIO cell classification to aggregate child type tokens, detect decorative text nodes, deduplicate individual records, and introduced a `--skip-ts` debugger flag for Python-only regression runs.
 - 2025-10-20 – Moved fixtures for RML regression testing from `src/main/webapp/plugins/rmlexport/` (deprecated and removed) to `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` for easier availability
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`
@@ -27,6 +31,11 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2023-10-23 – Extracts metadata prefixes from legacy `<object>` wrappers so flowchart fixtures no longer emit arrows sourced from literals.
+- 2025-10-23 – Restored the Flowchart_tweaked regression scenario by updating
+  the debugger metadata patcher and fixtures to surface the legacy `kb`
+  prefix, allowing the TypeScript plugin to build graphs without literal
+  source errors.
 - 2025-10-23 – Restored malformed rdf:type validation so child cells that lack
   prefixes once again raise `NotInKnownException`, while ignoring plain UML
   labels by requiring HTML-backed styles before running CURIE checks in the

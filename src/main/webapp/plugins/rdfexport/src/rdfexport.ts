@@ -135,6 +135,7 @@ const DEFAULT_IRI_PLACEHOLDER = "Enter IRI";
 const DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
 
 const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
+const PREAMBLE_ENTRY_TAG_LEGACY = "UserObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
@@ -183,6 +184,10 @@ const PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 
 const RML_ENABLED_ATTRIBUTE = "rmlEnabled";
 const STRIP_HTML_METADATA_ATTRIBUTE = "stripHtml";
+
+const METADATA_TAG_NAME = "gbadMetadata";
+const LEGACY_METADATA_TAG_NAMES = ["UserObject", "object"] as const;
+const MXCELL_TAG_NAME = "mxCell";
 
 const DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 const DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
@@ -572,6 +577,12 @@ function writeParserSettingsToGraphInstance(
   const valueToStore =
     serialized === DEFAULT_SERIALIZED_PARSER_SETTINGS ? null : serialized;
 
+  try {
+    ensureRootCellMetadataElement(model, rootCell);
+  } catch (error) {
+    // ignore failures while normalising metadata storage before persisting settings
+  }
+
   model.beginUpdate?.();
   try {
     if (typeof graph.setAttributeForCell === "function") {
@@ -664,21 +675,7 @@ interface SerializeDiagramOptions {
 }
 
 function findRootMetadataNode(graphXml: Element): Element | null {
-  if (typeof graphXml.getElementsByTagName !== "function") {
-    return null;
-  }
-
-  const metadataNodes = graphXml.getElementsByTagName("UserObject");
-
-  for (let index = 0; index < metadataNodes.length; index += 1) {
-    const node = metadataNodes.item(index);
-
-    if (node?.getAttribute("id") === "0") {
-      return node;
-    }
-  }
-
-  return null;
+  return ensureGraphXmlMetadataNode(graphXml);
 }
 
 function applyRmlEnabledMetadata(graphXml: Element, enabled: boolean): void {
@@ -763,6 +760,15 @@ function installCsvPathProperty(): void {
       typeof (graph as any).setAttributeForCell !== "function"
     ) {
       return result;
+    }
+
+    try {
+      const rootCell = model.getRoot();
+      if (rootCell) {
+        ensureRootCellMetadataElement(model, rootCell);
+      }
+    } catch (error) {
+      // ignore failures when normalising the metadata container
     }
 
     typedContainer[PREAMBLE_SECTION_FLAG] = true;
@@ -1048,6 +1054,12 @@ function installCsvPathProperty(): void {
 
       if (!rootCell) {
         return;
+      }
+
+      try {
+        ensureRootCellMetadataElement(model, rootCell);
+      } catch (error) {
+        // ignore failures when normalising the metadata container before writes
       }
 
       const normalizedRaw = field.input.value.trim();
@@ -1388,6 +1400,190 @@ function normalizeNodeName(node: Element): string {
   return rawName;
 }
 
+function nodeNameEquals(node: Element, expected: string): boolean {
+  return normalizeNodeName(node).toLowerCase() === expected.toLowerCase();
+}
+
+function ensureCanonicalMetadataElementInPlace(element: Element): void {
+  const existingId = element.getAttribute("id");
+  if (!existingId || existingId.length === 0) {
+    element.setAttribute("id", "0");
+  }
+
+  let hasMxCellChild = false;
+  let child: ChildNode | null = element.firstChild;
+  while (child != null) {
+    if (
+      child.nodeType === mxConstants.NODETYPE_ELEMENT &&
+      nodeNameEquals(child as Element, MXCELL_TAG_NAME)
+    ) {
+      hasMxCellChild = true;
+      break;
+    }
+    child = child.nextSibling;
+  }
+
+  if (!hasMxCellChild) {
+    const ownerDoc = element.ownerDocument ?? mxUtils.createXmlDocument();
+    element.appendChild(ownerDoc.createElement(MXCELL_TAG_NAME));
+  }
+}
+
+function cloneAsCanonicalMetadataElement(
+  source: Element | null,
+  fallbackLabel: string | null,
+): Element {
+  const ownerDoc = source?.ownerDocument ?? mxUtils.createXmlDocument();
+  const canonical = ownerDoc.createElement(METADATA_TAG_NAME);
+
+  if (source) {
+    if (source.attributes) {
+      for (let index = 0; index < source.attributes.length; index += 1) {
+        const attribute = source.attributes.item(index);
+        if (attribute) {
+          canonical.setAttribute(attribute.name, attribute.value);
+        }
+      }
+    }
+
+    let child: ChildNode | null = source.firstChild;
+    while (child != null) {
+      canonical.appendChild(child.cloneNode(true));
+      child = child.nextSibling;
+    }
+  } else if (fallbackLabel && fallbackLabel.length > 0) {
+    canonical.setAttribute("label", fallbackLabel);
+  }
+
+  ensureCanonicalMetadataElementInPlace(canonical);
+  return canonical;
+}
+
+function ensureRootCellMetadataElement(
+  model: MxGraphModel,
+  rootCell: any,
+): Element | null {
+  const existing = extractValueElement(model, rootCell);
+  if (existing && nodeNameEquals(existing, METADATA_TAG_NAME)) {
+    ensureCanonicalMetadataElementInPlace(existing);
+    return existing;
+  }
+
+  let fallbackLabel: string | null = null;
+  if (typeof model.getValue === "function") {
+    try {
+      const rawValue = model.getValue(rootCell);
+      if (typeof rawValue === "string" && rawValue.length > 0) {
+        fallbackLabel = rawValue;
+      }
+    } catch (error) {
+      // ignore failures to read the label and fall back to metadata defaults
+    }
+  }
+
+  const canonical = cloneAsCanonicalMetadataElement(existing, fallbackLabel);
+
+  model.beginUpdate?.();
+  try {
+    if (typeof model.setValue === "function") {
+      model.setValue(rootCell, canonical);
+    } else {
+      (rootCell as { value?: any }).value = canonical;
+      (model as { markDirty?: () => void }).markDirty?.();
+    }
+  } finally {
+    model.endUpdate?.();
+  }
+
+  return canonical;
+}
+
+function metadataCandidateHasPayload(node: Element): boolean {
+  const csvPath = node.getAttribute(CSV_PATH_ATTRIBUTE) ?? "";
+  const baseUri = node.getAttribute(BASE_URI_ATTRIBUTE) ?? "";
+  const parserSettings =
+    node.getAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME) ?? "";
+
+  if (csvPath.length > 0 || baseUri.length > 0 || parserSettings.length > 0) {
+    return true;
+  }
+
+  for (const tag of [PREAMBLE_ENTRY_TAG, PREAMBLE_ENTRY_TAG_LEGACY]) {
+    if (node.getElementsByTagName(tag).length > 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function ensureGraphXmlMetadataNode(graphXml: Element): Element | null {
+  if (typeof graphXml.getElementsByTagName !== "function") {
+    return null;
+  }
+
+  const canonicalNodes = graphXml.getElementsByTagName(METADATA_TAG_NAME);
+  for (let index = 0; index < canonicalNodes.length; index += 1) {
+    const node = canonicalNodes.item(index);
+    if (!node || node.getAttribute("id") !== "0") {
+      continue;
+    }
+    ensureCanonicalMetadataElementInPlace(node);
+    return node;
+  }
+
+  const rootNodes = graphXml.getElementsByTagName("root");
+  const graphRoot = rootNodes.item(0);
+
+  if (!graphRoot) {
+    return null;
+  }
+
+  let fallback: Element | null = null;
+  for (let index = 0; index < graphRoot.childNodes.length; index += 1) {
+    const child = graphRoot.childNodes.item(index);
+    if (child?.nodeType !== mxConstants.NODETYPE_ELEMENT) {
+      continue;
+    }
+
+    const element = child as Element;
+    const normalized = normalizeNodeName(element).toLowerCase();
+
+    if (normalized === METADATA_TAG_NAME.toLowerCase()) {
+      ensureCanonicalMetadataElementInPlace(element);
+      return element;
+    }
+
+    if (
+      LEGACY_METADATA_TAG_NAMES.some(
+        (name) => name.toLowerCase() === normalized,
+      )
+    ) {
+      if (element.getAttribute("id") === "0") {
+        fallback = element;
+        break;
+      }
+
+      if (!fallback && metadataCandidateHasPayload(element)) {
+        fallback = element;
+      }
+    }
+  }
+
+  if (!fallback) {
+    return null;
+  }
+
+  const canonical = cloneAsCanonicalMetadataElement(fallback, null);
+  const parent = fallback.parentNode;
+
+  if (parent) {
+    parent.replaceChild(canonical, fallback);
+  }
+
+  return canonical;
+}
+
 function extractPreambleEntries(value: any): PreambleEntry[] {
   const entries: PreambleEntry[] = [];
 
@@ -1400,7 +1596,8 @@ function extractPreambleEntries(value: any): PreambleEntry[] {
   while (child != null) {
     if (
       child.nodeType === mxConstants.NODETYPE_ELEMENT &&
-      normalizeNodeName(child as Element) === PREAMBLE_ENTRY_TAG
+      (nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG) ||
+        nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG_LEGACY))
     ) {
       const element = child as Element;
       const prefix = element.getAttribute(PREAMBLE_PREFIX_ATTRIBUTE) ?? "";
@@ -1418,18 +1615,18 @@ function buildValueWithPreamble(
   baseValue: any,
   entries: PreambleEntry[],
 ): Element {
-  let valueElement: Element;
+  const baseElement = isElementNode(baseValue) ? (baseValue as Element) : null;
+  const fallbackLabel =
+    !isElementNode(baseValue) &&
+    typeof baseValue === "string" &&
+    baseValue.length > 0
+      ? baseValue
+      : null;
 
-  if (isElementNode(baseValue)) {
-    valueElement = (baseValue.cloneNode(true) as Element) ?? baseValue;
-  } else {
-    const doc = mxUtils.createXmlDocument();
-    valueElement = doc.createElement("object");
-    if (typeof baseValue === "string" && baseValue.length > 0) {
-      valueElement.setAttribute("label", baseValue);
-    }
-    doc.appendChild(valueElement);
-  }
+  const valueElement = cloneAsCanonicalMetadataElement(
+    baseElement,
+    fallbackLabel,
+  );
 
   const ownerDoc = valueElement.ownerDocument ?? mxUtils.createXmlDocument();
 
@@ -1442,7 +1639,8 @@ function buildValueWithPreamble(
     const next = child.nextSibling;
     if (
       child.nodeType === mxConstants.NODETYPE_ELEMENT &&
-      normalizeNodeName(child as Element) === PREAMBLE_ENTRY_TAG
+      (nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG) ||
+        nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG_LEGACY))
     ) {
       valueElement.removeChild(child);
     }
@@ -1476,6 +1674,21 @@ function createParserSettingsDialog(
   if (typeof document === "undefined") {
     return null;
   }
+
+  const resolveMetadataElement = (): Element | null => {
+    try {
+      return ensureRootCellMetadataElement(model, rootCell);
+    } catch (error) {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        ensureCanonicalMetadataElementInPlace(valueElement);
+        return valueElement;
+      }
+      return null;
+    }
+  };
+
+  const initialMetadataElement = resolveMetadataElement();
 
   const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
 
@@ -1995,6 +2208,21 @@ function createPreambleDialog(
     return null;
   }
 
+  const resolveMetadataElement = (): Element | null => {
+    try {
+      return ensureRootCellMetadataElement(model, rootCell);
+    } catch (error) {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        ensureCanonicalMetadataElementInPlace(valueElement);
+        return valueElement;
+      }
+      return null;
+    }
+  };
+
+  const initialMetadataElement = resolveMetadataElement();
+
   const container = document.createElement("div");
   container.setAttribute("data-rdfexport-preamble-dialog", "true");
   container.style.position = "relative";
@@ -2112,7 +2340,8 @@ function createPreambleDialog(
   };
 
   const baseValue =
-    typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+    initialMetadataElement ??
+    (typeof model.getValue === "function" ? model.getValue(rootCell) : null);
   for (const entry of extractPreambleEntries(baseValue)) {
     addEntry(entry.prefix, entry.iri);
   }
@@ -2202,8 +2431,10 @@ function createPreambleDialog(
       }))
       .filter((entry) => entry.prefix.length > 0 && entry.iri.length > 0);
 
+    const metadataElement = resolveMetadataElement();
     const baseValue =
-      typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+      metadataElement ??
+      (typeof model.getValue === "function" ? model.getValue(rootCell) : null);
 
     const newValue = buildValueWithPreamble(baseValue, normalizedEntries);
 
@@ -2309,6 +2540,8 @@ Draw.loadPlugin(function (editorUi: any): void {
   ): string {
     const graphXml = ui.editor.getGraphXml();
     const workingGraphXml = cloneGraphXml(graphXml);
+
+    ensureGraphXmlMetadataNode(workingGraphXml);
 
     const rmlEnabled = options?.rmlEnabled === true;
     applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
