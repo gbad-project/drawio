@@ -151,7 +151,7 @@ class DotReporter {
       }
       const bunSummaryMatch = line.match(/^Ran\s+\d+\s+tests\s+across\s+\d+\s+files?\.\s*\[[^\]]+\]/);
       if (bunSummaryMatch) {
-        this.bunSummaryLine = bunSummaryMatch[0];
+        this.bunSummaryLine = line;
       }
     }
   }
@@ -233,9 +233,7 @@ class DotReporter {
     const total = passed + failed + skipped;
     
     if (total > 0) {
-      console.log(
-        `${parts.join(", ")}\n${colors.cyan}${this.bunSummaryLine || ""}${colors.reset}`
-      );
+      console.log(`${parts.join(", ")}\n${this.bunSummaryLine || ""}`);
     } else {
       console.log(`${colors.gray}No tests found${colors.reset}`);
     }
