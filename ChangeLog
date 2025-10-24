@@ -2,8 +2,6 @@
 
 - [rdfexport] Recognises bare-IRI arrow labels by normalising against known namespaces and
   emitting absolute IRIs when necessary to preserve literal connections.
-- [rdfexport] Extracts metadata prefixes from legacy `<object>` wrappers so flowchart fixtures
-  no longer emit arrows sourced from literals.
 
 25-JUL-2024: 24.7.5
 
