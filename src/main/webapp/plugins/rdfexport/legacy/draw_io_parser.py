@@ -821,64 +821,180 @@ class pipeline:
                     graph_kwargs: dict[str, Any] | None = None,
                 ) -> Graph:
                     graph_kwargs = graph_kwargs or {}
-                    graph = graph_cls(**graph_kwargs)
+                    toolkit_attr = "__drawio_serialisation_toolkit"
+                    factory_attr = "__drawio_serialisation_toolkit_factory"
+                    toolkit = getattr(pipeline.core.rdf.control, toolkit_attr, None)
+                    if toolkit is None:
+                        factory = getattr(pipeline.core.rdf.control, factory_attr, None)
+                        if factory is None:
 
-                    def _is_absolute_iri(candidate: str) -> bool:
-                        if not candidate:
-                            return False
-                        try:
-                            parsed = urllib.parse.urlparse(candidate)
-                        except Exception:
-                            return False
-                        return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                            class DrawIOSerialisationToolkit:
+                                @staticmethod
+                                def _is_absolute_iri(candidate: str) -> bool:
+                                    if not candidate:
+                                        return False
+                                    try:
+                                        parsed = urllib.parse.urlparse(candidate)
+                                    except Exception:
+                                        return False
+                                    return bool(
+                                        parsed.scheme and (parsed.netloc or parsed.path)
+                                    )
 
-                    def _coerce_literal_term(value: Any) -> Literal:
-                        if isinstance(value, Literal):
-                            return value
-                        literal_candidate = value
-                        if isinstance(literal_candidate, int) or (
-                            isinstance(literal_candidate, str)
-                            and literal_candidate.isnumeric()
-                        ):
-                            return Literal(literal_candidate, datatype=XSD.integer)
-                        if isinstance(literal_candidate, float):
-                            return Literal(literal_candidate, datatype=XSD.float)
-                        if isinstance(literal_candidate, str):
-                            try:
-                                datetime.strptime(literal_candidate, "%Y-%m-%d")
-                            except (ValueError, TypeError):
-                                return Literal(literal_candidate)
-                            else:
-                                return Literal(literal_candidate, datatype=XSD.date)
-                        return Literal(literal_candidate)
+                                def create_workspace(
+                                    self,
+                                    serialisation_config: SerialisationConfig,
+                                    prefixes: dict[str, str],
+                                    graph_cls: type[Graph],
+                                    graph_kwargs: dict[str, Any],
+                                ) -> tuple[
+                                    Graph, dict[str, Namespace], str | None, str | None
+                                ]:
+                                    graph = graph_cls(**graph_kwargs)
+                                    prefix = serialisation_config.prefix
+                                    prefix_iri = (
+                                        serialisation_config.prefix_iri
+                                        or get_prefix_iri(
+                                            serialisation_config.ontology_iri
+                                        )
+                                    )
+                                    namespace_map: dict[str, Namespace] = {}
+                                    fallback_namespace: Namespace | None = None
+                                    if prefix_iri and self._is_absolute_iri(prefix_iri):
+                                        fallback_namespace = Namespace(prefix_iri)
+                                    for prefix_key, uri in prefixes.items():
+                                        if self._is_absolute_iri(uri):
+                                            namespace = Namespace(uri)
+                                        elif fallback_namespace is not None:
+                                            namespace = fallback_namespace
+                                        else:
+                                            raise ParseException(
+                                                f"Prefix IRI '{uri}' looks invalid"
+                                            )
+                                        graph.bind(prefix_key, namespace, replace=True)
+                                        namespace_map[prefix_key] = namespace
+                                    if prefix and prefix_iri:
+                                        graph.bind(
+                                            prefix, Namespace(prefix_iri), replace=True
+                                        )
+                                    return (graph, namespace_map, prefix, prefix_iri)
 
-                    def _value_sort_key(value: Any) -> tuple[int, str]:
-                        if isinstance(value, tuple):
-                            return (0, f"{value[0]}")
-                        return (1, f"{value}")
+                                @staticmethod
+                                def extract_absolute_overrides(
+                                    blocks: Blocks,
+                                ) -> dict[str, str]:
+                                    return {
+                                        individual_id: individual_label
+                                        for individual_id, individual_label in blocks.keys()
+                                        if "://" in individual_label
+                                    }
 
+                                def resolve_entity_uri(
+                                    self,
+                                    identifier: str,
+                                    prefix: str | None,
+                                    prefix_iri: str | None,
+                                    absolute_overrides: dict[str, str],
+                                ) -> URIRef:
+                                    if identifier in absolute_overrides:
+                                        return URIRef(absolute_overrides[identifier])
+                                    if prefix and prefix_iri:
+                                        return Namespace(prefix_iri)[identifier]
+                                    if prefix_iri:
+                                        return URIRef(f"{prefix_iri}{identifier}")
+                                    return URIRef(identifier)
+
+                                @staticmethod
+                                def coerce_literal(value: Any) -> Literal:
+                                    if isinstance(value, Literal):
+                                        return value
+                                    literal_candidate = value
+                                    if isinstance(literal_candidate, int) or (
+                                        isinstance(literal_candidate, str)
+                                        and literal_candidate.isnumeric()
+                                    ):
+                                        return Literal(
+                                            literal_candidate, datatype=XSD.integer
+                                        )
+                                    if isinstance(literal_candidate, float):
+                                        return Literal(
+                                            literal_candidate, datatype=XSD.float
+                                        )
+                                    if isinstance(literal_candidate, str):
+                                        try:
+                                            datetime.strptime(
+                                                literal_candidate, "%Y-%m-%d"
+                                            )
+                                        except (ValueError, TypeError):
+                                            return Literal(literal_candidate)
+                                        else:
+                                            return Literal(
+                                                literal_candidate, datatype=XSD.date
+                                            )
+                                    return Literal(literal_candidate)
+
+                                @staticmethod
+                                def value_sort_key(value: Any) -> tuple[int, str]:
+                                    if isinstance(value, tuple):
+                                        return (0, f"{value[0]}")
+                                    return (1, f"{value}")
+
+                                @staticmethod
+                                def unpack_value(
+                                    prop: str,
+                                    raw_value: Any,
+                                    object_properties: set[str],
+                                    datatype_properties: set[str],
+                                ) -> tuple[Any, bool]:
+                                    if (
+                                        isinstance(raw_value, tuple)
+                                        and len(raw_value) == 2
+                                        and isinstance(raw_value[1], bool)
+                                    ):
+                                        return raw_value
+                                    is_literal = (
+                                        prop in datatype_properties
+                                        and prop not in object_properties
+                                    )
+                                    return (raw_value, is_literal)
+
+                                def iter_subjects(
+                                    self,
+                                    blocks: Blocks,
+                                    prefix: str | None,
+                                    prefix_iri: str | None,
+                                    absolute_overrides: dict[str, str],
+                                ) -> Iterator[
+                                    tuple[str, str, URIRef, dict[str, set[Any]]]
+                                ]:
+                                    for (
+                                        individual_id,
+                                        individual_label,
+                                    ), types_and_facts in blocks.items():
+                                        yield (
+                                            individual_id,
+                                            individual_label,
+                                            self.resolve_entity_uri(
+                                                individual_id,
+                                                prefix,
+                                                prefix_iri,
+                                                absolute_overrides,
+                                            ),
+                                            types_and_facts,
+                                        )
+
+                            def factory() -> DrawIOSerialisationToolkit:
+                                return DrawIOSerialisationToolkit()
+
+                            setattr(pipeline.core.rdf.control, factory_attr, factory)
+                        toolkit = factory()
+                        setattr(pipeline.core.rdf.control, toolkit_attr, toolkit)
+                    graph, namespace_map, prefix, prefix_iri = toolkit.create_workspace(
+                        serialisation_config, prefixes, graph_cls, graph_kwargs
+                    )
                     csv_path = graph_kwargs.get("csv_path")
                     if csv_path is None and hasattr(graph, "csv_path"):
                         csv_path = getattr(graph, "csv_path")
-                    prefix = serialisation_config.prefix
-                    prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-                        serialisation_config.ontology_iri
-                    )
-                    namespace_map: dict[str, Namespace] = {}
-                    fallback_namespace: Namespace | None = None
-                    if prefix_iri and _is_absolute_iri(prefix_iri):
-                        fallback_namespace = Namespace(prefix_iri)
-                    for prefix_key, uri in prefixes.items():
-                        if _is_absolute_iri(uri):
-                            namespace = Namespace(uri)
-                        elif fallback_namespace is not None:
-                            namespace = fallback_namespace
-                        else:
-                            raise ParseException(f"Prefix IRI '{uri}' looks invalid")
-                        graph.bind(prefix_key, namespace, replace=True)
-                        namespace_map[prefix_key] = namespace
-                    if prefix and prefix_iri:
-                        graph.bind(prefix, Namespace(prefix_iri), replace=True)
                     rr = Namespace("http://www.w3.org/ns/r2rml#")
                     rml_ns = Namespace("http://semweb.mmlab.be/ns/rml#")
                     ql = Namespace("http://semweb.mmlab.be/ns/ql#")
@@ -917,23 +1033,7 @@ class pipeline:
                                     )
                                 )
 
-                    absolute_overrides = {
-                        individual_id: individual_label
-                        for individual_id, individual_label in blocks.keys()
-                        if "://" in individual_label
-                    }
-
-                    def _resolve_entity_uri(identifier: str) -> URIRef:
-                        if identifier in absolute_overrides:
-                            return URIRef(absolute_overrides[identifier])
-                        if prefix and serialisation_config.prefix_iri:
-                            return Namespace(serialisation_config.prefix_iri)[
-                                identifier
-                            ]
-                        if prefix_iri:
-                            return URIRef(f"{prefix_iri}{identifier}")
-                        return URIRef(identifier)
-
+                    absolute_overrides = toolkit.extract_absolute_overrides(blocks)
                     logical_source_default = Literal("drawio")
                     if csv_path:
                         logical_source_value = Literal(csv_path)
@@ -946,8 +1046,11 @@ class pipeline:
                     for (
                         individual_id,
                         individual_label,
-                    ), types_and_facts in blocks.items():
-                        subject_uri = _resolve_entity_uri(individual_id)
+                        subject_uri,
+                        types_and_facts,
+                    ) in toolkit.iter_subjects(
+                        blocks, prefix, prefix_iri, absolute_overrides
+                    ):
                         triples_map = BNode()
                         graph.add((triples_map, RDF.type, rr.TriplesMap))
                         logical_source = BNode()
@@ -971,26 +1074,25 @@ class pipeline:
                                 continue
                             prop_prefix, prop_name = prop.split(":", 1)
                             predicate_uri = namespace_map[prop_prefix][prop_name]
-                            for raw_value in sorted(values, key=_value_sort_key):
-                                if (
-                                    isinstance(raw_value, tuple)
-                                    and len(raw_value) == 2
-                                    and isinstance(raw_value[1], bool)
-                                ):
-                                    value, is_literal = raw_value
-                                else:
-                                    value = raw_value
-                                    is_literal = (
-                                        prop in datatype_properties
-                                        and prop not in object_properties
-                                    )
+                            for raw_value in sorted(values, key=toolkit.value_sort_key):
+                                value, is_literal = toolkit.unpack_value(
+                                    prop,
+                                    raw_value,
+                                    object_properties,
+                                    datatype_properties,
+                                )
                                 if not is_literal:
-                                    target_uri = _resolve_entity_uri(str(value))
+                                    target_uri = toolkit.resolve_entity_uri(
+                                        str(value),
+                                        prefix,
+                                        prefix_iri,
+                                        absolute_overrides,
+                                    )
                                     _add_constant_object_map(
                                         triples_map, predicate_uri, target_uri
                                     )
                                 else:
-                                    literal_value = _coerce_literal_term(value)
+                                    literal_value = toolkit.coerce_literal(value)
                                     _add_constant_object_map(
                                         triples_map, predicate_uri, literal_value
                                     )
@@ -2176,36 +2278,156 @@ class rdf_control_core:
         graph_kwargs: dict[str, Any] | None = None,
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
-        graph = graph_cls(**graph_kwargs)
-        prefix = serialisation_config.prefix
-        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-            serialisation_config.ontology_iri
+        toolkit_attr = "__drawio_serialisation_toolkit"
+        factory_attr = "__drawio_serialisation_toolkit_factory"
+        toolkit = getattr(pipeline.core.rdf.control, toolkit_attr, None)
+        if toolkit is None:
+            factory = getattr(pipeline.core.rdf.control, factory_attr, None)
+            if factory is None:
+
+                class DrawIOSerialisationToolkit:
+                    @staticmethod
+                    def _is_absolute_iri(candidate: str) -> bool:
+                        if not candidate:
+                            return False
+                        try:
+                            parsed = urllib.parse.urlparse(candidate)
+                        except Exception:
+                            return False
+                        return bool(parsed.scheme and (parsed.netloc or parsed.path))
+
+                    def create_workspace(
+                        self,
+                        serialisation_config: SerialisationConfig,
+                        prefixes: dict[str, str],
+                        graph_cls: type[Graph],
+                        graph_kwargs: dict[str, Any],
+                    ) -> tuple[Graph, dict[str, Namespace], str | None, str | None]:
+                        graph = graph_cls(**graph_kwargs)
+                        prefix = serialisation_config.prefix
+                        prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
+                            serialisation_config.ontology_iri
+                        )
+                        namespace_map: dict[str, Namespace] = {}
+                        fallback_namespace: Namespace | None = None
+                        if prefix_iri and self._is_absolute_iri(prefix_iri):
+                            fallback_namespace = Namespace(prefix_iri)
+                        for prefix_key, uri in prefixes.items():
+                            if self._is_absolute_iri(uri):
+                                namespace = Namespace(uri)
+                            elif fallback_namespace is not None:
+                                namespace = fallback_namespace
+                            else:
+                                raise ParseException(
+                                    f"Prefix IRI '{uri}' looks invalid"
+                                )
+                            graph.bind(prefix_key, namespace, replace=True)
+                            namespace_map[prefix_key] = namespace
+                        if prefix and prefix_iri:
+                            graph.bind(prefix, Namespace(prefix_iri), replace=True)
+                        return (graph, namespace_map, prefix, prefix_iri)
+
+                    @staticmethod
+                    def extract_absolute_overrides(blocks: Blocks) -> dict[str, str]:
+                        return {
+                            individual_id: individual_label
+                            for individual_id, individual_label in blocks.keys()
+                            if "://" in individual_label
+                        }
+
+                    def resolve_entity_uri(
+                        self,
+                        identifier: str,
+                        prefix: str | None,
+                        prefix_iri: str | None,
+                        absolute_overrides: dict[str, str],
+                    ) -> URIRef:
+                        if identifier in absolute_overrides:
+                            return URIRef(absolute_overrides[identifier])
+                        if prefix and prefix_iri:
+                            return Namespace(prefix_iri)[identifier]
+                        if prefix_iri:
+                            return URIRef(f"{prefix_iri}{identifier}")
+                        return URIRef(identifier)
+
+                    @staticmethod
+                    def coerce_literal(value: Any) -> Literal:
+                        if isinstance(value, Literal):
+                            return value
+                        literal_candidate = value
+                        if isinstance(literal_candidate, int) or (
+                            isinstance(literal_candidate, str)
+                            and literal_candidate.isnumeric()
+                        ):
+                            return Literal(literal_candidate, datatype=XSD.integer)
+                        if isinstance(literal_candidate, float):
+                            return Literal(literal_candidate, datatype=XSD.float)
+                        if isinstance(literal_candidate, str):
+                            try:
+                                datetime.strptime(literal_candidate, "%Y-%m-%d")
+                            except (ValueError, TypeError):
+                                return Literal(literal_candidate)
+                            else:
+                                return Literal(literal_candidate, datatype=XSD.date)
+                        return Literal(literal_candidate)
+
+                    @staticmethod
+                    def value_sort_key(value: Any) -> tuple[int, str]:
+                        if isinstance(value, tuple):
+                            return (0, f"{value[0]}")
+                        return (1, f"{value}")
+
+                    @staticmethod
+                    def unpack_value(
+                        prop: str,
+                        raw_value: Any,
+                        object_properties: set[str],
+                        datatype_properties: set[str],
+                    ) -> tuple[Any, bool]:
+                        if (
+                            isinstance(raw_value, tuple)
+                            and len(raw_value) == 2
+                            and isinstance(raw_value[1], bool)
+                        ):
+                            return raw_value
+                        is_literal = (
+                            prop in datatype_properties
+                            and prop not in object_properties
+                        )
+                        return (raw_value, is_literal)
+
+                    def iter_subjects(
+                        self,
+                        blocks: Blocks,
+                        prefix: str | None,
+                        prefix_iri: str | None,
+                        absolute_overrides: dict[str, str],
+                    ) -> Iterator[tuple[str, str, URIRef, dict[str, set[Any]]]]:
+                        for (
+                            individual_id,
+                            individual_label,
+                        ), types_and_facts in blocks.items():
+                            yield (
+                                individual_id,
+                                individual_label,
+                                self.resolve_entity_uri(
+                                    individual_id,
+                                    prefix,
+                                    prefix_iri,
+                                    absolute_overrides,
+                                ),
+                                types_and_facts,
+                            )
+
+                def factory() -> DrawIOSerialisationToolkit:
+                    return DrawIOSerialisationToolkit()
+
+                setattr(pipeline.core.rdf.control, factory_attr, factory)
+            toolkit = factory()
+            setattr(pipeline.core.rdf.control, toolkit_attr, toolkit)
+        graph, namespace_map, prefix, prefix_iri = toolkit.create_workspace(
+            serialisation_config, prefixes, graph_cls, graph_kwargs
         )
-
-        def _is_absolute_iri(candidate: str) -> bool:
-            if not candidate:
-                return False
-            try:
-                parsed = urllib.parse.urlparse(candidate)
-            except Exception:
-                return False
-            return bool(parsed.scheme and (parsed.netloc or parsed.path))
-
-        namespace_map: dict[str, Namespace] = {}
-        fallback_namespace: Namespace | None = None
-        if prefix_iri and _is_absolute_iri(prefix_iri):
-            fallback_namespace = Namespace(prefix_iri)
-        for prefix_key, uri in prefixes.items():
-            if _is_absolute_iri(uri):
-                namespace = Namespace(uri)
-            elif fallback_namespace is not None:
-                namespace = fallback_namespace
-            else:
-                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
-            graph.bind(prefix_key, namespace, replace=True)
-            namespace_map[prefix_key] = namespace
-        if prefix:
-            graph.bind(prefix, Namespace(prefix_iri), replace=True)
         if serialisation_config.include_preamble:
             ontology_iri = serialisation_config.ontology_iri or get_ontology_iri()
             graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
@@ -2222,25 +2444,16 @@ class rdf_control_core:
             prop_prefix, prop_name = prop.split(":")
             prop_uri = namespace_map[prop_prefix][prop_name]
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-        absolute_overrides = {
-            individual_id: individual_label
-            for individual_id, individual_label in blocks.keys()
-            if "://" in individual_label
-        }
-        for (individual_id, individual_label), types_and_facts in blocks.items():
-            if individual_id in absolute_overrides:
-                individual_uri = URIRef(absolute_overrides[individual_id])
-            elif prefix and serialisation_config.prefix_iri:
-                individual_uri = Namespace(serialisation_config.prefix_iri)[
-                    individual_id
-                ]
-            elif prefix_iri:
-                individual_uri = URIRef(f"{prefix_iri}{individual_id}")
-            else:
-                individual_uri = URIRef(individual_id)
+        absolute_overrides = toolkit.extract_absolute_overrides(blocks)
+        for (
+            individual_id,
+            individual_label,
+            individual_uri,
+            types_and_facts,
+        ) in toolkit.iter_subjects(blocks, prefix, prefix_iri, absolute_overrides):
             graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
             for rdf_type in types_and_facts.get("Types", set()):
-                type_prefix, type_name = rdf_type.split(":")
+                type_prefix, type_name = rdf_type.split(":", 1)
                 graph.add(
                     (individual_uri, RDF.type, namespace_map[type_prefix][type_name])
                 )
@@ -2249,54 +2462,19 @@ class rdf_control_core:
             for prop, values in types_and_facts.items():
                 if prop == "Types":
                     continue
-                prop_prefix, prop_name = prop.split(":")
+                prop_prefix, prop_name = prop.split(":", 1)
                 prop_uri = namespace_map[prop_prefix][prop_name]
                 for raw_value in values:
-                    if (
-                        isinstance(raw_value, tuple)
-                        and len(raw_value) == 2
-                        and isinstance(raw_value[1], bool)
-                    ):
-                        value, is_literal = raw_value
-                    else:
-                        value = raw_value
-                        is_literal = (
-                            prop in datatype_properties
-                            and prop not in object_properties
-                        )
+                    value, is_literal = toolkit.unpack_value(
+                        prop, raw_value, object_properties, datatype_properties
+                    )
                     if not is_literal:
-                        if value in absolute_overrides:
-                            target_uri = URIRef(absolute_overrides[value])
-                        elif prefix and serialisation_config.prefix_iri:
-                            target_uri = Namespace(serialisation_config.prefix_iri)[
-                                value
-                            ]
-                        elif prefix_iri:
-                            target_uri = URIRef(f"{prefix_iri}{value}")
-                        else:
-                            target_uri = URIRef(value)
+                        target_uri = toolkit.resolve_entity_uri(
+                            str(value), prefix, prefix_iri, absolute_overrides
+                        )
                         graph.add((individual_uri, prop_uri, target_uri))
                     else:
-                        literal_candidate = value
-                        if isinstance(literal_candidate, int) or (
-                            isinstance(literal_candidate, str)
-                            and literal_candidate.isnumeric()
-                        ):
-                            literal_value = Literal(
-                                literal_candidate, datatype=XSD.integer
-                            )
-                        elif isinstance(literal_candidate, float):
-                            literal_value = Literal(
-                                literal_candidate, datatype=XSD.float
-                            )
-                        else:
-                            try:
-                                datetime.strptime(literal_candidate, "%Y-%m-%d")
-                                literal_value = Literal(
-                                    literal_candidate, datatype=XSD.date
-                                )
-                            except (ValueError, TypeError):
-                                literal_value = Literal(literal_candidate)
+                        literal_value = toolkit.coerce_literal(value)
                         graph.add((individual_uri, prop_uri, literal_value))
         decorations_attr = "__drawio_literal_registry"
         decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
