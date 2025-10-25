@@ -91,6 +91,35 @@ import {
   type DrawioParserResult,
 } from "../src/mockBlackBox";
 
+const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
+  infer_type_of_literals: true,
+  include_preamble: true,
+  ontology_iri: null,
+  prefix: null,
+  prefix_iri: null,
+  indentation: 2,
+  include_label: true,
+  max_gap: 10,
+  strict_mode: false,
+  strip_html: true,
+  metacharacter_substitute: ["url"],
+  capitalisation_scheme: "upper-camel",
+  rml_enabled: false,
+};
+
+function createParserConfig(
+  overrides: Partial<DrawioParserConfigPayload> = {},
+): DrawioParserConfigPayload {
+  return {
+    ...DEFAULT_PARSER_CONFIG,
+    ...overrides,
+    metacharacter_substitute: [
+      ...(overrides.metacharacter_substitute ??
+        DEFAULT_PARSER_CONFIG.metacharacter_substitute),
+    ],
+  };
+}
+
 type EventHandler = (event: any) => void;
 
 class ElementStub {
@@ -1393,6 +1422,136 @@ json.dumps({
 
     expect(preservedSummary.values.length).toBeGreaterThan(0);
     expect(preservedSummary.has_html).toBe(true);
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline omits rdfs:label triples when includeLabel disabled",
+  async () => {
+    await loadPluginModule();
+
+    const xml = await Bun.file(
+      join(fixturesDir, "AA37 Department of Health.drawio"),
+    ).text();
+
+    const config = createParserConfig({ include_label: false });
+    const turtle = await runDrawioPipeline(xml, config);
+
+    const summary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import RDFS
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+label_count = sum(1 for _ in graph.triples((None, RDFS.label, None)))
+json.dumps({"label_count": label_count})
+      `)) as string,
+    ) as { label_count: number };
+
+    expect(summary.label_count).toBe(0);
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline omits ontology declaration when includePreamble disabled",
+  async () => {
+    await loadPluginModule();
+
+    const xml = await Bun.file(
+      join(fixturesDir, "AA37 Department of Health.drawio"),
+    ).text();
+
+    const config = createParserConfig({ include_preamble: false });
+    const turtle = await runDrawioPipeline(xml, config);
+
+    const summary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import OWL
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+ontology_triples = sum(1 for _ in graph.triples((None, OWL.Ontology, None)))
+json.dumps({"ontology_triples": ontology_triples})
+      `)) as string,
+    ) as { ontology_triples: number };
+
+    expect(summary.ontology_triples).toBe(0);
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline keeps literals untyped when inference disabled",
+  async () => {
+    await loadPluginModule();
+
+    const xml = await Bun.file(
+      join(fixturesDir, "AA37 Department of Health.drawio"),
+    ).text();
+
+    const config = createParserConfig({ infer_type_of_literals: false });
+    const turtle = await runDrawioPipeline(xml, config);
+
+    const summary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import XSD
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+typed_literals = sum(
+    1
+    for _, _, obj in graph
+    if getattr(obj, "datatype", None) in {XSD.integer, XSD.float, XSD.date}
+)
+json.dumps({"typed_literals": typed_literals})
+      `)) as string,
+    ) as { typed_literals: number };
+
+    expect(summary.typed_literals).toBe(0);
+  },
+  { timeout: 60000 },
+);
+
+test(
+  "runDrawioPipeline forwards strictMode flag to parser configuration",
+  async () => {
+    await loadPluginModule();
+
+    const xml = await Bun.file(
+      join(fixturesDir, "AA37 Department of Health.drawio"),
+    ).text();
+
+    await runDrawioPipeline(xml, createParserConfig({ strict_mode: true }));
+    const strictSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from pyodide_pipeline.drawio_pipeline import get_last_parser_config
+
+json.dumps(get_last_parser_config())
+      `)) as string,
+    ) as { strict_mode: boolean | null };
+
+    expect(strictSummary.strict_mode).toBe(true);
+
+    await runDrawioPipeline(xml, createParserConfig({ strict_mode: false }));
+    const relaxedSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from pyodide_pipeline.drawio_pipeline import get_last_parser_config
+
+json.dumps(get_last_parser_config())
+      `)) as string,
+    ) as { strict_mode: boolean | null };
+
+    expect(relaxedSummary.strict_mode).toBe(false);
   },
   { timeout: 60000 },
 );
