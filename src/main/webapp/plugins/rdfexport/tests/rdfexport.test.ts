@@ -1397,6 +1397,75 @@ json.dumps({
   { timeout: 60000 },
 );
 
+test(
+  "runDrawioPipeline omits rdfs:label when includeLabel disabled",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata.drawio",
+    );
+    const xml = await Bun.file(fixturePath).text();
+
+    const baseConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: false,
+    };
+
+    const turtleWithLabels = await runDrawioPipeline(xml, baseConfig);
+    const labelsPresent = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import RDFS
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtleWithLabels)}, format="turtle")
+json.dumps({
+    "label_count": sum(1 for _ in graph.triples((None, RDFS.label, None))),
+})
+      `)) as string,
+    ) as { label_count: number };
+
+    expect(labelsPresent.label_count).toBeGreaterThan(0);
+
+    const noLabelConfig: DrawioParserConfigPayload = {
+      ...baseConfig,
+      include_label: false,
+    };
+
+    const turtleWithoutLabels = await runDrawioPipeline(xml, noLabelConfig);
+    const labelsOmitted = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import RDFS
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtleWithoutLabels)}, format="turtle")
+json.dumps({
+    "label_count": sum(1 for _ in graph.triples((None, RDFS.label, None))),
+})
+      `)) as string,
+    ) as { label_count: number };
+
+    expect(labelsOmitted.label_count).toBe(0);
+  },
+  { timeout: 60000 },
+);
+
 test("rdfexport plugin exposes preamble controls and diagram properties", async () => {
   const pluginModule = await loadPluginModule();
 

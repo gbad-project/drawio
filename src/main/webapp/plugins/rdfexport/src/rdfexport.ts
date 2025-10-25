@@ -505,16 +505,19 @@ function buildParserConfigPayloadFromSettings(
   return {
     infer_type_of_literals: normalized.inferTypeOfLiterals,
     include_preamble: normalized.includePreamble,
+    preamble_disable: !normalized.includePreamble,
     ontology_iri: normalizeNullableString(normalized.ontologyIri),
     prefix: normalizeNullableString(normalized.prefix),
     prefix_iri: normalizeNullableString(normalized.prefixIri),
     indentation: normalized.indentation,
     include_label: normalized.includeLabel,
+    label_disable: !normalized.includeLabel,
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
+    infer_types_disable: !normalized.inferTypeOfLiterals,
     rml_enabled: false,
   };
 }

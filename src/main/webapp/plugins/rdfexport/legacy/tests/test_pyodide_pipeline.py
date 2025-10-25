@@ -5,12 +5,22 @@ import sys
 from pathlib import Path
 from xml.etree import ElementTree
 
+import pytest
+from rdflib import Graph
+from rdflib.namespace import RDFS
+
 LEGACY_TESTS_DIR = Path(__file__).resolve().parent
 RDFEXPORT_DIR = LEGACY_TESTS_DIR.parents[1]
+
+LEGACY_DIR = RDFEXPORT_DIR / "legacy"
+
+if str(LEGACY_DIR) not in sys.path:
+    sys.path.insert(0, str(LEGACY_DIR))
 
 if str(RDFEXPORT_DIR) not in sys.path:
     sys.path.insert(0, str(RDFEXPORT_DIR))
 
+import draw_io_parser  # noqa: E402  # pylint: disable=wrong-import-position
 from pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
     get_graph_summary,
     list_graph_ids,
@@ -23,6 +33,18 @@ FIXTURES_DIR = RDFEXPORT_DIR / "tests" / "fixtures"
 
 def _load_fixture(name: str) -> str:
     return (FIXTURES_DIR / name).read_text(encoding="utf-8")
+
+
+def _decode_raw_turtle(summary: dict[str, object]) -> str:
+    raw = summary.get("raw_turtle")
+
+    if isinstance(raw, str):
+        try:
+            return json.loads(raw)
+        except json.JSONDecodeError:
+            return raw
+
+    return ""
 
 
 def test_parse_drawio_xml_to_json_produces_summary() -> None:
@@ -76,3 +98,47 @@ def test_duplicate_payloads_reuse_graph_identifier() -> None:
 
     assert first_summary["graph_id"] == second_summary["graph_id"]
     assert list_graph_ids() == [first_summary["graph_id"]]
+
+
+def test_parse_drawio_respects_include_label_flag() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture("AA37 Department of Health.drawio")
+
+    summary_with_labels = json.loads(
+        parse_drawio_xml_to_json(xml_payload, {"include_label": True})
+    )
+    turtle_with_labels = _decode_raw_turtle(summary_with_labels)
+    graph_with_labels = Graph()
+    graph_with_labels.parse(data=turtle_with_labels, format="turtle")
+    label_triples_with = list(graph_with_labels.triples((None, RDFS.label, None)))
+
+    assert label_triples_with, "Expected labels when include_label is True"
+
+    summary_without_labels = json.loads(
+        parse_drawio_xml_to_json(xml_payload, {"include_label": False})
+    )
+    turtle_without_labels = _decode_raw_turtle(summary_without_labels)
+    graph_without_labels = Graph()
+    graph_without_labels.parse(data=turtle_without_labels, format="turtle")
+    label_triples_without = list(graph_without_labels.triples((None, RDFS.label, None)))
+
+    assert len(label_triples_without) < len(label_triples_with)
+
+
+def test_parse_drawio_strict_mode_enforced() -> None:
+    reset_graph_store()
+    xml_payload = _load_fixture(
+        "RG 18-210 Walkerton Inquiry in RiC-O (original).drawio"
+    )
+
+    # Non-strict parsing should succeed
+    json.loads(parse_drawio_xml_to_json(xml_payload, {"strict_mode": False}))
+
+    with pytest.raises(
+        (
+            draw_io_parser.NoSourceException,
+            draw_io_parser.NoTargetException,
+            draw_io_parser.ArrowWithoutIndividualAsSourceException,
+        )
+    ):
+        parse_drawio_xml_to_json(xml_payload, {"strict_mode": True})

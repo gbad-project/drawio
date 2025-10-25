@@ -29,6 +29,9 @@ export interface DrawioParserConfigPayload {
   metacharacter_substitute: string[];
   capitalisation_scheme: string;
   rml_enabled: boolean;
+  preamble_disable?: boolean;
+  label_disable?: boolean;
+  infer_types_disable?: boolean;
 }
 
 type RawGraphSummary = {

@@ -1918,14 +1918,30 @@ class internal_control_core:
         prefix_iri = (
             config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
         )
+        if "include_preamble" in config_args:
+            include_preamble = _is_flag_enabled(config_args["include_preamble"])
+        else:
+            include_preamble = not _is_flag_enabled(config_args.get("preamble_disable"))
+        if "include_label" in config_args:
+            include_label = _is_flag_enabled(config_args["include_label"])
+        else:
+            include_label = not _is_flag_enabled(config_args.get("label_disable"))
+        if "infer_type_of_literals" in config_args:
+            infer_type_of_literals = _is_flag_enabled(
+                config_args["infer_type_of_literals"]
+            )
+        else:
+            infer_type_of_literals = not _is_flag_enabled(
+                config_args.get("infer_types_disable")
+            )
         serialisation_config = SerialisationConfig(
-            infer_type_of_literals=not config_args.get("infer_types_disable", False),
-            include_preamble=not config_args.get("preamble_disable", False),
+            infer_type_of_literals=infer_type_of_literals,
+            include_preamble=include_preamble,
             ontology_iri=ontology_iri,
             prefix=prefix,
             prefix_iri=prefix_iri,
             indentation=config_args["indentation"],
-            include_label=not config_args.get("label_disable", False),
+            include_label=include_label,
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
         strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
