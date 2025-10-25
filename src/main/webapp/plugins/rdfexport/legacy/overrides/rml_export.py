@@ -29,6 +29,13 @@ def _build_graph_from_raw_xml(
             return None
         return _is_flag_enabled(value)
 
+    def _resolve_feature_flag(enable_key: str, disable_key: str, default: bool) -> bool:
+        if enable_key in config_args:
+            return _is_flag_enabled(config_args[enable_key])
+        if disable_key in config_args:
+            return not _is_flag_enabled(config_args[disable_key])
+        return default
+
     # 1. Initial Setup and Configuration
     metadata_prefixes, base_uri, csv_path, parsed_root = (
         pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
@@ -57,13 +64,17 @@ def _build_graph_from_raw_xml(
     prefix_iri = config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
 
     serialisation_config = SerialisationConfig(
-        infer_type_of_literals=not config_args.get("infer_types_disable", False),
-        include_preamble=not config_args.get("preamble_disable", False),
+        infer_type_of_literals=_resolve_feature_flag(
+            "infer_type_of_literals", "infer_types_disable", True
+        ),
+        include_preamble=_resolve_feature_flag(
+            "include_preamble", "preamble_disable", True
+        ),
         ontology_iri=ontology_iri,
         prefix=prefix,
         prefix_iri=prefix_iri,
         indentation=config_args["indentation"],
-        include_label=not config_args.get("label_disable", False),
+        include_label=_resolve_feature_flag("include_label", "label_disable", True),
     )
     _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
 

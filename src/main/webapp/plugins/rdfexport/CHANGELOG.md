@@ -32,6 +32,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-24 – Ensured parser flag propagation from the TypeScript UI honours
+  strict mode and label toggles inside the Pyodide pipeline, updating the
+  override logic and extending Bun/pytest coverage so regressions surface in
+  future runs.
 - 2023-10-23 – Extracts metadata prefixes from legacy `<object>` wrappers so flowchart fixtures no longer emit arrows sourced from literals.
 - 2025-10-23 – Restored the Flowchart_tweaked regression scenario by updating
   the debugger metadata patcher and fixtures to surface the legacy `kb`

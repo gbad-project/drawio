@@ -1,21 +1,124 @@
-Script started on Fri Oct 24 11:51:08 2025
-Command: bun run test:pytest:all
+Script started on 2025-10-24 16:31:48+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1mpytest[0m
-[1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-8.3.5, pluggy-1.5.0
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.1, pluggy-1.6.0
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-plugins: langsmith-0.3.41, docker-3.1.2, anyio-4.9.0
-[1mcollecting ... [0m[1mcollected 80 items                                                                                               [0m
-
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 15%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                       [ 16%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 32%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 36%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                              [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 92%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [100%][0m
-
+[1mcollecting ... [0m[1mcollecting 0 items / 7 errors                                                                                                  [0m[1mcollected 0 items / 7 errors                                                                                                   [0m
+============================================================ ERRORS ============================================================
+[31m[1m________________________________________ ERROR collecting debug/tests/test_debug_cli.py ________________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/debug/tests/test_debug_cli.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+debug/tests/test_debug_cli.py:11: in <module>
+    from rdflib import Graph
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m_____________________________________ ERROR collecting debug/tests/test_dynamic_config.py ______________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/debug/tests/test_dynamic_config.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+debug/tests/test_dynamic_config.py:16: in <module>
+    from debug.__main__ import (  # noqa: E402
+debug/__main__.py:16: in <module>
+    import yaml
+E   ModuleNotFoundError: No module named 'yaml'[0m
+[31m[1m____________________________________ ERROR collecting legacy/tests/test_cell_classifier.py _____________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_cell_classifier.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_cell_classifier.py:8: in <module>
+    from rdflib import BNode, Literal, URIRef
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m____________________________________ ERROR collecting legacy/tests/test_curie_validator.py _____________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_curie_validator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_curie_validator.py:7: in <module>
+    from rdflib.namespace import NamespaceManager
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m_____________________________________ ERROR collecting legacy/tests/test_patched_parser.py _____________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_patched_parser.py:10: in <module>
+    from rdflib import Graph, Namespace, Literal, URIRef
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m____________________________________ ERROR collecting legacy/tests/test_pyodide_pipeline.py ____________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_pyodide_pipeline.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_pyodide_pipeline.py:11: in <module>
+    from rdflib import Graph
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m_______________________________ ERROR collecting meta_builder/tests/test_drawio_meta_builder.py ________________________________[0m
+[31mImportError while importing test module '/workspace/drawio/src/main/webapp/plugins/rdfexport/meta_builder/tests/test_drawio_meta_builder.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+meta_builder/drawio_meta_builder.py:101: in load_legacy
+    return importlib.import_module("legacy.original.draw_io_parser")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:999: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+legacy/original/draw_io_parser.py:50: in <module>
+    from rdflib import Graph, URIRef, Literal, Namespace
+E   ModuleNotFoundError: No module named 'rdflib'
+During handling of the above exception, another exception occurred:
+/root/.pyenv/versions/3.12.10/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+meta_builder/__init__.py:3: in <module>
+    from .drawio_meta_builder import (  # noqa: F401
+meta_builder/drawio_meta_builder.py:119: in <module>
+    draw = load_legacy()
+           ^^^^^^^^^^^^^
+meta_builder/drawio_meta_builder.py:114: in load_legacy
+    spec.loader.exec_module(mod)  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/original/draw_io_parser.py:50: in <module>
+    from rdflib import Graph, URIRef, Literal, Namespace
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[36m[1m=================================================== short test summary info ====================================================[0m
+[31mERROR[0m debug/tests/test_debug_cli.py
+[31mERROR[0m debug/tests/test_dynamic_config.py
+[31mERROR[0m legacy/tests/test_cell_classifier.py
+[31mERROR[0m legacy/tests/test_curie_validator.py
+[31mERROR[0m legacy/tests/test_patched_parser.py
+[31mERROR[0m legacy/tests/test_pyodide_pipeline.py
+[31mERROR[0m meta_builder/tests/test_drawio_meta_builder.py
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 7 errors during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[31m====================================================== [31m[1m7 errors[0m[31m in 0.73s[0m[31m =======================================================[0m
+Script done on 2025-10-24 16:31:50+00:00 [COMMAND_EXIT_CODE="2"]
 [32m============================================== [32m[1m80 passed[0m[32m in 12.74s[0m[32m ===============================================[0m
 
 Command exit status: 0

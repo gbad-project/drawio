@@ -1397,6 +1397,71 @@ json.dumps({
   { timeout: 60000 },
 );
 
+test(
+  "runDrawioPipeline toggles rdfs:label triples based on includeLabel flag",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata-preserve-html.drawio",
+    );
+    const xml = await Bun.file(fixturePath).text();
+
+    const baseConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: false,
+    };
+
+    const turtleWithLabels = await runDrawioPipeline(xml, baseConfig);
+    const turtleWithoutLabels = await runDrawioPipeline(xml, {
+      ...baseConfig,
+      include_label: false,
+    });
+
+    const withLabelsSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import RDFS
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtleWithLabels)}, format="turtle")
+label_count = len(list(graph.triples((None, RDFS.label, None))))
+json.dumps({"label_count": label_count})
+      `)) as string,
+    ) as { label_count: number };
+
+    const withoutLabelsSummary = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph
+from rdflib.namespace import RDFS
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtleWithoutLabels)}, format="turtle")
+label_count = len(list(graph.triples((None, RDFS.label, None))))
+json.dumps({"label_count": label_count})
+      `)) as string,
+    ) as { label_count: number };
+
+    expect(withLabelsSummary.label_count).toBeGreaterThan(0);
+    expect(withoutLabelsSummary.label_count).toBe(0);
+  },
+  { timeout: 60000 },
+);
+
 test("rdfexport plugin exposes preamble controls and diagram properties", async () => {
   const pluginModule = await loadPluginModule();
 
