@@ -23,6 +23,11 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-24 – Canonicalised the RML regeneration workflow so regenerated
+  baselines use deterministic ontology metadata, normalised CSV fixtures, and
+  canonical blank-node ordering, refreshed the Bun/Pyodide regression logs, and
+  ensured the scripted Python entry points rely on the project virtual
+  environment.
 - 2025-10-21 – Refined DrawIO cell classification to aggregate child type tokens, detect decorative text nodes, deduplicate individual records, and introduced a `--skip-ts` debugger flag for Python-only regression runs.
 - 2025-10-20 – Moved fixtures for RML regression testing from `src/main/webapp/plugins/rmlexport/` (deprecated and removed) to `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` for easier availability
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`

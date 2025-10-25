@@ -9,6 +9,53 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant :The%20Health%20Department%20Act%2C%20Statutes%20Of%20Ontario%201924%2C%20Chap.%2069 ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:authorizedBy ],
+        [ rr:objectMap [ rr:constant "Established in 1924, the Department of Health replaced the Provincial Board of Health.  Since its establishment, the Department's functions have both expanded and shrunk.  In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.  In 1956,  the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).  The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.  In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972." ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:history ],
+        [ rr:objectMap [ rr:constant "Function Note: The Department of Health was responsible for the  management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.  The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services." ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:generalDescription ],
+        [ rr:objectMap [ rr:constant :A%20Ontario%20Government%20Name ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadCorporateBodyType ],
+        [ rr:objectMap [ rr:constant :AA37 ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadIdentifier ],
+        [ rr:objectMap [ rr:constant :Ontario.%20Dept.%20Of%20Health%20Authority%20Record ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasDescribedBy ],
+        [ rr:objectMap [ rr:constant :1972 ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ],
+        [ rr:objectMap [ rr:constant :1924 ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:constant "Ontario. Dept. of Health" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant :Ontario.%20Dept.%20Of%20Health ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:constant "Department of Health" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ],
+        [ rr:objectMap [ rr:constant :Ontario.%20Ministry%20Of%20Health ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasSuccessor ],
+        [ rr:objectMap [ rr:constant :Provincial%20Board%20Of%20Health%20Of%20Ontario ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isSuccessorOf ] ;
+    rr:subjectMap [ rr:class rico:AgentName,
+                rico:CorporateBody ;
+            rr:constant :Ontario.%20Dept.%20Of%20Health ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant "Ontario. Ministry of Health" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ] ;
@@ -19,24 +66,96 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Web Ready: Y" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "1972" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:RecordState ;
-            rr:constant :Web%20Ready%3A%20Y ;
+    rr:subjectMap [ rr:class rico:Date ;
+            rr:constant :1972 ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "AA37" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "R. Anger" ;
                     rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant :Agent%20Identifier ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:Person ;
+            rr:constant :R.%20Anger ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant :Agent%20Identifier ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:hasIdentifierType ] ;
+            rr:predicate rico:hasIdentifierType ],
+        [ rr:objectMap [ rr:constant "AA37" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
     rr:subjectMap [ rr:class rico:Identifier ;
             rr:constant :AA37 ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Agent Identifier" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:IdentifierType ;
+            rr:constant :Agent%20Identifier ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Authority Record" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:DocumentaryFormType ;
+            rr:constant :Authority%20Record ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Status: Approved" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:RecordState ;
+            rr:constant :Status%3A%20Approved ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Ontario. Dept. of Health Authority Record" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant :Web%20Ready%3A%20Y ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:constant "2007-06-16"^^xsd:date ;
+                    rr:datatype xsd:date ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:lastModificationDate ],
+        [ rr:objectMap [ rr:constant :Authority%20Record ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasDocumentaryFormType ],
+        [ rr:objectMap [ rr:constant :Authority%20Record%20Creation ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:resultsOrResultedFrom ],
+        [ rr:objectMap [ rr:constant :Rules%20For%20Archival%20Description ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasRegulatedBy ],
+        [ rr:objectMap [ rr:constant "Source Note: MacTaggart, Hazel I.  Publications of the Government of Ontario, 1901-1955 (1964). Publications of the Government of Ontario, 1956-1971 (1975). Canadiana Name Authorities, 1996-12-24" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:generalDescription ],
+        [ rr:objectMap [ rr:constant :Status%3A%20Approved ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ] ;
+    rr:subjectMap [ rr:class rico:Record ;
+            rr:constant :Ontario.%20Dept.%20Of%20Health%20Authority%20Record ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -52,11 +171,44 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "R. Anger" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant :R.%20Anger ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasPerformedBy ],
+        [ rr:objectMap [ rr:constant "Authority Record Creation" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:Person ;
-            rr:constant :R.%20Anger ;
+    rr:subjectMap [ rr:class rico:Activity ;
+            rr:constant :Authority%20Record%20Creation ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "A Ontario Government Name" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:CorporateBodyType ;
+            rr:constant :A%20Ontario%20Government%20Name ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Provincial Board of Health of Ontario" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:CorporateBody ;
+            rr:constant :Provincial%20Board%20Of%20Health%20Of%20Ontario ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Web Ready: Y" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class rico:RecordState ;
+            rr:constant :Web%20Ready%3A%20Y ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -77,157 +229,5 @@
             rr:predicate rdfs:label ] ;
     rr:subjectMap [ rr:class rico:Rule ;
             rr:constant :Rules%20For%20Archival%20Description ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Source Note: MacTaggart, Hazel I.  Publications of the Government of Ontario, 1901-1955 (1964). Publications of the Government of Ontario, 1956-1971 (1975). Canadiana Name Authorities, 1996-12-24" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:generalDescription ],
-        [ rr:objectMap [ rr:constant :Authority%20Record%20Creation ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:resultsOrResultedFrom ],
-        [ rr:objectMap [ rr:constant :Authority%20Record ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasDocumentaryFormType ],
-        [ rr:objectMap [ rr:constant :Status%3A%20Approved ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:constant :Rules%20For%20Archival%20Description ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isOrWasRegulatedBy ],
-        [ rr:objectMap [ rr:constant "Ontario. Dept. of Health Authority Record" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant :Web%20Ready%3A%20Y ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:constant "2007-06-16"^^xsd:date ;
-                    rr:datatype xsd:date ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:lastModificationDate ] ;
-    rr:subjectMap [ rr:class rico:Record ;
-            rr:constant :Ontario.%20Dept.%20Of%20Health%20Authority%20Record ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Authority Record" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:DocumentaryFormType ;
-            rr:constant :Authority%20Record ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "1972" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:Date ;
-            rr:constant :1972 ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Status: Approved" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:RecordState ;
-            rr:constant :Status%3A%20Approved ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Agent Identifier" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:IdentifierType ;
-            rr:constant :Agent%20Identifier ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "A Ontario Government Name" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:CorporateBodyType ;
-            rr:constant :A%20Ontario%20Government%20Name ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Function Note: The Department of Health was responsible for the  management and operation of programmes relating to health insurance, care for the mentally ill, home care services, drug services, and the regulation of hospitals and nursing homes.  The Department also operates laboratories, psychiatric hospitals, and provides funding and leadership for local public health services." ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:generalDescription ],
-        [ rr:objectMap [ rr:constant :1924 ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasBeginningDate ],
-        [ rr:objectMap [ rr:constant "Department of Health" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:normalizedValue ],
-        [ rr:objectMap [ rr:constant :Ontario.%20Ministry%20Of%20Health ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasSuccessor ],
-        [ rr:objectMap [ rr:constant :The%20Health%20Department%20Act%2C%20Statutes%20Of%20Ontario%201924%2C%20Chap.%2069 ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:authorizedBy ],
-        [ rr:objectMap [ rr:constant :AA37 ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadIdentifier ],
-        [ rr:objectMap [ rr:constant :Ontario.%20Dept.%20Of%20Health ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:constant :Ontario.%20Dept.%20Of%20Health%20Authority%20Record ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isOrWasDescribedBy ],
-        [ rr:objectMap [ rr:constant :Provincial%20Board%20Of%20Health%20Of%20Ontario ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isSuccessorOf ],
-        [ rr:objectMap [ rr:constant "Established in 1924, the Department of Health replaced the Provincial Board of Health.  Since its establishment, the Department's functions have both expanded and shrunk.  In 1930, the Hospitals Branch of the Department of the Provincial Secretary - responsible for administering Ontario's psychiatric hospitals and inspecting the province's public and private hospitals - was transferred to the Department of Health. In 1952, cancer research and the operation of cancer clinics was added to the Department's responsibilities. At the same time, other functions have been shifted out of the Ministry to other agencies.  In 1956,  the Public and Private Hospitals Division was transferred to the Ontario Hospitals Services Commission (although this Commission still reported to the Minister of Health).  The water and sewage functions of the old Sanitary Engineering Division were moved to the Ontario Water Resources Commission in 1957. The Ministry of Community and Social Services took responsibility for mental retardation facilities and children's services in 1974, and the Ministry of Labour took charge of the occupational health function in 1976. The Department was organised primarily by divisions until 1959, when they became known as branches.  In 1962 a Royal Commission on Health Services was appointed which served as a catalyst for a major overhaul of the Department. This occurred in 1966 when the various branches and programmes of the Department were organized into divisions once again. These divisions included the Public Health Division, Mental Health Division, Medical Services Insurance Division, and the Financial and Administrative Services Division. The Department of Health was replaced by the new Ministry of Health in 1972." ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:history ],
-        [ rr:objectMap [ rr:constant "Ontario. Dept. of Health" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant :1972 ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasEndDate ],
-        [ rr:objectMap [ rr:constant :A%20Ontario%20Government%20Name ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadCorporateBodyType ] ;
-    rr:subjectMap [ rr:class rico:AgentName,
-                rico:CorporateBody ;
-            rr:constant :Ontario.%20Dept.%20Of%20Health ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant :R.%20Anger ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isOrWasPerformedBy ],
-        [ rr:objectMap [ rr:constant "Authority Record Creation" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:Activity ;
-            rr:constant :Authority%20Record%20Creation ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Provincial Board of Health of Ontario" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:class rico:CorporateBody ;
-            rr:constant :Provincial%20Board%20Of%20Health%20Of%20Ontario ;
             rr:termType rr:IRI ] .
 

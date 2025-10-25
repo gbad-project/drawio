@@ -12,6 +12,12 @@ const rdfexportUrl = fileURLToPath(
 );
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 const baselinesDir = fileURLToPath(new URL("./baselines", import.meta.url));
+const rmlFixturesDir = fileURLToPath(
+  new URL("./fixtures/rml", import.meta.url),
+);
+
+const MOCK_ONTOLOGY_IRI = "ontology://generated-from-draw-io/mock" as const;
+const MOCK_PREFIX_IRI = `${MOCK_ONTOLOGY_IRI}#` as const;
 
 const pyodideIndexPath = fileURLToPath(
   new URL("../node_modules/pyodide/", import.meta.url),
@@ -1338,9 +1344,9 @@ test(
     const baseConfig: DrawioParserConfigPayload = {
       infer_type_of_literals: true,
       include_preamble: true,
-      ontology_iri: null,
+      ontology_iri: MOCK_ONTOLOGY_IRI,
       prefix: null,
-      prefix_iri: null,
+      prefix_iri: MOCK_PREFIX_IRI,
       indentation: 2,
       include_label: true,
       max_gap: 10,
@@ -1430,6 +1436,183 @@ json.dumps({
 
     expect(preservedSummary.values.length).toBeGreaterThan(0);
     expect(preservedSummary.has_html).toBe(true);
+  },
+  { timeout: 60000 },
+);
+
+type RmlRegressionFixture = {
+  readonly drawio: string;
+  readonly baseline: string;
+  readonly normalizedCsv: string;
+};
+
+const rmlRegressionFixtures: readonly RmlRegressionFixture[] = [
+  {
+    drawio: "General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+    baseline: "General Authority to RiC-O Model_2025-06-25_PZ.rml",
+    normalizedCsv:
+      "General Authority to RiC-O Model_2025-06-25_PZ-normalized.csv",
+  },
+  {
+    drawio:
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+    baseline:
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
+    normalizedCsv:
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ-normalized.csv",
+  },
+];
+
+const requestedRmlFixture = process.env.RML_FIXTURE_FILTER?.trim();
+
+const filteredRmlRegressionFixtures =
+  requestedRmlFixture && requestedRmlFixture.length > 0
+    ? rmlRegressionFixtures.filter((fixture) => {
+        return [fixture.drawio, fixture.baseline, fixture.normalizedCsv].some(
+          (value) => value.includes(requestedRmlFixture),
+        );
+      })
+    : rmlRegressionFixtures;
+
+const fixturesForRmlRegression =
+  filteredRmlRegressionFixtures.length > 0
+    ? filteredRmlRegressionFixtures
+    : rmlRegressionFixtures;
+
+test.each(fixturesForRmlRegression)(
+  "RML baseline alignment for %s",
+  async ({ drawio, baseline, normalizedCsv }) => {
+    await loadPluginModule();
+
+    const fixturePath = join(fixturesDir, drawio);
+    const baselinePath = join(rmlFixturesDir, baseline);
+    const normalizedCsvPath = join(rmlFixturesDir, normalizedCsv);
+
+    expect(existsSync(fixturePath)).toBe(true);
+    expect(existsSync(baselinePath)).toBe(true);
+    expect(existsSync(normalizedCsvPath)).toBe(true);
+
+    const xml = await Bun.file(fixturePath).text();
+    const baselineRml = await Bun.file(baselinePath).text();
+
+    const baseConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: MOCK_ONTOLOGY_IRI,
+      prefix: null,
+      prefix_iri: MOCK_PREFIX_IRI,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: false,
+    };
+
+    const turtleOutput = await runDrawioPipeline(xml, baseConfig);
+    const rmlOutput = await runDrawioPipeline(xml, {
+      ...baseConfig,
+      rml_enabled: true,
+    });
+
+    expect(rmlOutput.length).toBeGreaterThan(0);
+    expect(rmlOutput.includes("rr:TriplesMap")).toBe(true);
+
+    const comparison = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace, URIRef
+from rdflib.compare import to_canonical_graph, to_isomorphic
+
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+target_prefix = ${JSON.stringify(MOCK_ONTOLOGY_IRI)}
+
+baseline_graph = Graph()
+baseline_graph.parse(data=${JSON.stringify(baselineRml)}, format="nt")
+
+pipeline_graph = Graph()
+pipeline_graph.parse(data=${JSON.stringify(rmlOutput)}, format="turtle")
+
+turtle_graph = Graph()
+turtle_graph.parse(data=${JSON.stringify(turtleOutput)}, format="turtle")
+
+def _canonical_lines(graph: Graph) -> list[str]:
+    canonical_graph = to_canonical_graph(graph)
+    raw = canonical_graph.serialize(format="nt")
+    if isinstance(raw, bytes):
+        raw = raw.decode("utf-8")
+    return sorted(line for line in raw.splitlines() if line.strip())
+
+
+subject_map_nodes = {
+    subject_map
+    for _, _, subject_map in pipeline_graph.triples((None, rr.subjectMap, None))
+}
+
+subject_constants = sorted(
+    str(constant)
+    for subject_map in subject_map_nodes
+    for _, _, constant in pipeline_graph.triples((subject_map, rr.constant, None))
+    if isinstance(constant, URIRef) and str(constant).startswith(target_prefix)
+)
+
+turtle_subjects = sorted(
+    str(subject)
+    for subject in turtle_graph.subjects()
+    if isinstance(subject, URIRef) and str(subject).startswith(target_prefix)
+)
+
+turtle_subjects = [value for value in turtle_subjects if value != target_prefix]
+
+baseline_lines = _canonical_lines(baseline_graph)
+pipeline_lines = _canonical_lines(pipeline_graph)
+
+json.dumps({
+    "isomorphic": to_isomorphic(baseline_graph) == to_isomorphic(pipeline_graph),
+    "exact_match": baseline_lines == pipeline_lines,
+    "baseline_triples": len(baseline_graph),
+    "pipeline_triples": len(pipeline_graph),
+    "subject_constant_count": len(set(subject_constants)),
+    "turtle_subject_count": len(set(turtle_subjects)),
+    "missing_subjects": sorted(set(turtle_subjects) - set(subject_constants)),
+    "extra_subjects": sorted(set(subject_constants) - set(turtle_subjects)),
+    "baseline_only": [
+        line for line in sorted(set(baseline_lines) - set(pipeline_lines))[:10]
+    ],
+    "pipeline_only": [
+        line for line in sorted(set(pipeline_lines) - set(baseline_lines))[:10]
+    ],
+})
+      `)) as string,
+    ) as {
+      isomorphic: boolean;
+      exact_match: boolean;
+      baseline_triples: number;
+      pipeline_triples: number;
+      subject_constant_count: number;
+      turtle_subject_count: number;
+      missing_subjects: string[];
+      extra_subjects: string[];
+      baseline_only: string[];
+      pipeline_only: string[];
+    };
+
+    if (!comparison.isomorphic) {
+      console.error(
+        "[RML alignment] baseline vs pipeline mismatch",
+        comparison,
+      );
+    }
+
+    expect(comparison.exact_match).toBe(true);
+    expect(comparison.baseline_triples).toBe(comparison.pipeline_triples);
+    expect(comparison.subject_constant_count).toBe(
+      comparison.turtle_subject_count,
+    );
+    expect(comparison.missing_subjects).toEqual([]);
+    expect(comparison.extra_subjects).toEqual([]);
   },
   { timeout: 60000 },
 );
