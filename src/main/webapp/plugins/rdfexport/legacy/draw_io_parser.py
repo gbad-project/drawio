@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator, Optional, Any
+from typing import Generator, Iterator, Optional, Dict, Any, Type
 from copy import deepcopy
 from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
@@ -158,6 +158,7 @@ class pipeline:
                         parent_identifier: Optional[str] = None
                         identifier: Optional[str] = None
                         tokens: list[str] = field(default_factory=list)
+                        declares_identifier: bool = False
 
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
@@ -306,7 +307,10 @@ class pipeline:
                                         )
                                     ):
                                         self.individuals.append(individual)
-                                    if classification.tokens:
+                                    if (
+                                        classification.tokens
+                                        or classification.declares_identifier
+                                    ):
                                         self._declared_individual_identifiers.add(
                                             identifier
                                         )
@@ -379,6 +383,7 @@ class pipeline:
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens)
+                        single_token = tokens[0] if len(tokens) == 1 else None
                         looks_like_curie = any((":" in token for token in tokens))
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
                             return build(CellKind.LITERAL)
@@ -405,6 +410,28 @@ class pipeline:
                                     if not candidate:
                                         continue
                                     _verify_is_ric_class(candidate, self._prefixes)
+                        if (
+                            parent_cell is None
+                            and single_token is not None
+                            and tokens_are_valid
+                        ):
+                            return build(
+                                CellKind.STANDALONE_INDIVIDUAL,
+                                identifier=single_token,
+                                tokens=[],
+                                declares_identifier=True,
+                            )
+                        if (
+                            parent_cell is None
+                            and single_token is not None
+                            and self._looks_like_curie_candidate(single_token)
+                            and (not tokens_are_valid)
+                        ):
+                            raise NotInKnownException(
+                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                                    single_token
+                                )
+                            )
                         if tokens and tokens_are_valid:
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
@@ -416,6 +443,7 @@ class pipeline:
                                 CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=[],
+                                declares_identifier=True,
                             )
                         if self._is_decoration(cell, raw_value):
                             return build(CellKind.DECORATION)
@@ -772,6 +800,19 @@ class pipeline:
                         return True
 
                     @staticmethod
+                    def _looks_like_curie_candidate(value: str) -> bool:
+                        if not value or ":" not in value or "://" in value:
+                            return False
+                        prefix, remainder = value.split(":", 1)
+                        if not prefix or not remainder:
+                            return False
+                        if not (prefix[0].isalpha() or prefix[0] == "_"):
+                            return False
+                        if not all((ch.isalnum() or ch in "._-" for ch in prefix[1:])):
+                            return False
+                        return not any((char.isspace() for char in remainder))
+
+                    @staticmethod
                     def _looks_like_absolute_uri(value: str) -> bool:
                         if not value or any((ch.isspace() for ch in value)):
                             return False
@@ -943,24 +984,19 @@ class xml_metadata_pre:
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
-    # override from metadata_cleanup.py
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
         if root is None:
             return raw_xml
+
         working_root = deepcopy(root)
         graph_root = working_root.find(".//mxGraphModel/root")
         if graph_root is None:
             return raw_xml
-        metadata_node: Optional[Element] = None
-        for tag in ("gbadMetadata", "UserObject", "object"):
-            metadata_node = graph_root.find(f"{tag}[@id='0']")
-            if metadata_node is not None:
-                break
-            metadata_node = graph_root.find(tag)
-            if metadata_node is not None:
-                break
+
+        metadata_node = graph_root.find("UserObject[@id='0']")
         if metadata_node is None:
             return raw_xml
+
         replacement = Element("mxCell", {"id": "0"})
         children = list(graph_root)
         for index, child in enumerate(children):
@@ -968,6 +1004,7 @@ class xml_metadata_pre:
                 graph_root.remove(metadata_node)
                 graph_root.insert(index, replacement)
                 break
+
         return tostring(working_root, encoding="unicode")
 
     # END _strip_metadata_user_object
@@ -2105,8 +2142,8 @@ class rdf_control_core:
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
         prefixes: dict,
-        graph_cls: type[Graph] = Graph,
-        graph_kwargs: dict[str, Any] | None = None,
+        graph_cls: Type[Graph] = Graph,
+        graph_kwargs: Optional[Dict[str, Any]] = None,
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
@@ -2159,14 +2196,34 @@ class rdf_control_core:
         ):
             prop_uri = _resolve_property_uri(prop)
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-        absolute_overrides = {
-            individual_id: individual_label
-            for individual_id, individual_label in blocks.keys()
-            if "://" in individual_label
-        }
+        explicit_overrides: dict[str, URIRef] = {}
+        for individual_id, individual_label in blocks.keys():
+            trimmed_label = individual_label.strip()
+            if not trimmed_label:
+                continue
+            if _is_absolute_iri(trimmed_label):
+                explicit_overrides[individual_id] = URIRef(trimmed_label)
+                continue
+            if ":" not in trimmed_label or "://" in trimmed_label:
+                continue
+            try:
+                prefix, reference = _ensure_known_curie(
+                    trimmed_label,
+                    prefixes,
+                    "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                        trimmed_label
+                    ),
+                )
+            except NotInKnownException:
+                continue
+            namespace = namespace_map.get(prefix)
+            if namespace is None:
+                continue
+            explicit_overrides[individual_id] = namespace[reference]
         for (individual_id, individual_label), types_and_facts in blocks.items():
-            if individual_id in absolute_overrides:
-                individual_uri = URIRef(absolute_overrides[individual_id])
+            override_uri = explicit_overrides.get(individual_id)
+            if override_uri is not None:
+                individual_uri = override_uri
             elif prefix and serialisation_config.prefix_iri:
                 individual_uri = Namespace(serialisation_config.prefix_iri)[
                     individual_id
@@ -2201,8 +2258,9 @@ class rdf_control_core:
                             and prop not in object_properties
                         )
                     if not is_literal:
-                        if value in absolute_overrides:
-                            target_uri = URIRef(absolute_overrides[value])
+                        override_target = explicit_overrides.get(value)
+                        if override_target is not None:
+                            target_uri = override_target
                         elif prefix and serialisation_config.prefix_iri:
                             target_uri = Namespace(serialisation_config.prefix_iri)[
                                 value
