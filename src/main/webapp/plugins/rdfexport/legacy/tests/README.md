@@ -19,7 +19,7 @@
 >
 > ### Layer 1 – Low-level Python SDK
 >
-> These provide patches and a bundling mechanism for the modified, frozen version of `legacy/original/draw_io_parser.py` and are amply described here: [meta_builder/readme.md](../../meta_builder/readme.md)
+> `legacy/overrides/` and `meta_builder/__main__.py` provide patches and a bundling mechanism,respectively, for the modified, frozen version of `legacy/original/draw_io_parser.py` and are amply described here: [meta_builder/readme.md](../../meta_builder/readme.md)
 >
 > Tests that access `legacy/draw_io_parser.py` _after_ it has been successfully built by metabuilder (e.g., through `bun run build:py`) can be found and written under `legacy/tests/`.  It is a low-level SDK.
 >
