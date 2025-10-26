@@ -23,6 +23,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-25 – Normalised legacy CSV preprocessing by teaching
+  `SourceCSVPreprocessor` to expand numbered columns into first-normal-form
+  rows, derive RiC-O authority classes, regenerate the RML CSV fixtures, and
+  cover the behaviour with pytest.
 - 2025-10-24 – Canonicalised the RML regeneration workflow so regenerated
   baselines use deterministic ontology metadata, normalised CSV fixtures, and
   canonical blank-node ordering, refreshed the Bun/Pyodide regression logs, and

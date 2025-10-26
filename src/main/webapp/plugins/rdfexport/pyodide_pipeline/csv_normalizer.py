@@ -11,7 +11,9 @@ columns, but it still leaves a considerable amount of denormalised state –
 columns suffixed with ``_2``/``_3``
 and so on encode repeating groups that the DrawIO pipeline neither produces nor
 consumes.  The helpers below keep the original semantics while coercing the
-dataframes into a strict first normal form representation.
+dataframes into a strict first normal form representation, introducing an
+``INCREMENT_NUMBER`` column and one row per numbered entry so downstream
+consumers can treat the CSVs like DrawIO-native data.
 
 The resulting CSVs are stored under
 ``tests/fixtures/rml/*-normalized.csv`` and feed both the Bun test harness and
@@ -23,7 +25,6 @@ same normalisation step inside Pyodide.
 from __future__ import annotations
 
 import logging
-import re
 from pathlib import Path
 from typing import Callable
 
@@ -50,55 +51,10 @@ def _drop_denormalised_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.loc[:, [column for column in df.columns if ":" not in column]]
 
 
-_REPEATING_GROUP_RE = re.compile(
-    r"^(?P<prefix>.+?)(?:_(?P<index>\d+))(?:_(?P<suffix>.*))?$"
-)
-
-
-def _normalise_repeating_groups(df: pd.DataFrame) -> pd.DataFrame:
-    """Collapse numbered columns so only the first entry for each group remains.
-
-    Legacy CSV exports frequently encode lists by appending an incrementing
-    suffix (``INDEXGEO_1`` … ``INDEXGEO_20``).  The DrawIO pipeline represents
-    the very same information through separate mxCell nodes, so the CSV inputs
-    we rely on for regression must not contain numbered fields.  Retaining the
-    ``*_1`` columns preserves the canonical value while discarding ``*_2`` and
-    above eliminates the repeating group entirely.
-    """
-
-    columns_to_keep: list[str] = []
-    seen_prefixes: set[tuple[str, str | None]] = set()
-
-    for column in df.columns:
-        match = _REPEATING_GROUP_RE.match(column)
-        if match is None:
-            columns_to_keep.append(column)
-            continue
-
-        prefix = match.group("prefix")
-        index = match.group("index")
-        suffix = match.group("suffix") or ""
-
-        key = (prefix, suffix)
-        if index != "1":
-            # Only the first entry for any repeating group survives.
-            if key in seen_prefixes:
-                continue
-            # If we never encountered ``*_1`` we still drop the current column.
-            # The helper prioritises deterministic output over silent fallbacks.
-            continue
-
-        seen_prefixes.add(key)
-        columns_to_keep.append(column)
-
-    return df.loc[:, columns_to_keep]
-
-
 def _normalise_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """Apply all normalisation rules while preserving column order."""
 
     working = _drop_denormalised_columns(df)
-    working = _normalise_repeating_groups(working)
     return working
 
 
