@@ -23,6 +23,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-25 – Finalised the CSV preprocessing helper by extending the legacy
+  `SourceCSVPreprocessor` with 1NF increment disaggregation and RiC-O
+  authority-type mapping, regenerated the normalized authority/ADD fixtures,
+  and expanded pytest coverage for the new preprocessing steps.
 - 2025-10-24 – Canonicalised the RML regeneration workflow so regenerated
   baselines use deterministic ontology metadata, normalised CSV fixtures, and
   canonical blank-node ordering, refreshed the Bun/Pyodide regression logs, and

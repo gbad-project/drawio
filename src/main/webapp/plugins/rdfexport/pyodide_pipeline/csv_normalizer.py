@@ -25,7 +25,7 @@ from __future__ import annotations
 import logging
 import re
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Iterable, Sequence
 
 import pandas as pd
 
@@ -36,77 +36,22 @@ NORMALISED_SUFFIX = "-normalized"
 
 logger = logging.getLogger(__name__)
 
+AUTHTP_COLUMN_RE = re.compile(r"^AUTHTP_\d+$")
 
-def _drop_denormalised_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Return a dataframe without columns that encode compound values.
-
-    ``SourceCSVPreprocessor`` keeps the source column around after expanding it
-    into individual parts.  The original column name always contains ``:``
-    separators and retaining it would reintroduce the very same repeating group
-    that the expansion resolved.  Dropping these columns keeps the output
-    aligned with the DrawIO parser which never emits them in the first place.
-    """
-
-    return df.loc[:, [column for column in df.columns if ":" not in column]]
-
-
-_REPEATING_GROUP_RE = re.compile(
-    r"^(?P<prefix>.+?)(?:_(?P<index>\d+))(?:_(?P<suffix>.*))?$"
-)
-
-
-def _normalise_repeating_groups(df: pd.DataFrame) -> pd.DataFrame:
-    """Collapse numbered columns so only the first entry for each group remains.
-
-    Legacy CSV exports frequently encode lists by appending an incrementing
-    suffix (``INDEXGEO_1`` … ``INDEXGEO_20``).  The DrawIO pipeline represents
-    the very same information through separate mxCell nodes, so the CSV inputs
-    we rely on for regression must not contain numbered fields.  Retaining the
-    ``*_1`` columns preserves the canonical value while discarding ``*_2`` and
-    above eliminates the repeating group entirely.
-    """
-
-    columns_to_keep: list[str] = []
-    seen_prefixes: set[tuple[str, str | None]] = set()
-
-    for column in df.columns:
-        match = _REPEATING_GROUP_RE.match(column)
-        if match is None:
-            columns_to_keep.append(column)
-            continue
-
-        prefix = match.group("prefix")
-        index = match.group("index")
-        suffix = match.group("suffix") or ""
-
-        key = (prefix, suffix)
-        if index != "1":
-            # Only the first entry for any repeating group survives.
-            if key in seen_prefixes:
-                continue
-            # If we never encountered ``*_1`` we still drop the current column.
-            # The helper prioritises deterministic output over silent fallbacks.
-            continue
-
-        seen_prefixes.add(key)
-        columns_to_keep.append(column)
-
-    return df.loc[:, columns_to_keep]
-
-
-def _normalise_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Apply all normalisation rules while preserving column order."""
-
-    working = _drop_denormalised_columns(df)
-    working = _normalise_repeating_groups(working)
-    return working
-
-
-def _write_dataframe(
-    df: pd.DataFrame, destination: Path, *, include_index: bool
-) -> None:
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(destination, index=include_index)
+KNOWN_INCREMENT_PATTERNS = [
+    re.compile(r"^INDEXPROV_\d+$"),
+    re.compile(r"^INDEXNAME_\d+$"),
+    re.compile(r"^INDEXSUB_\d+$"),
+    re.compile(r"^DATEOFF_\d+(?:_(BEGINNING|END))?$"),
+    re.compile(r"^OFFICEAB_\d+$"),
+    re.compile(r"^OFFICEC_\d+$"),
+    re.compile(r"^AB_REFA_\d+$"),
+    re.compile(r"^C_REFA_\d+$"),
+    re.compile(r"^ABC_REFA_\d+$"),
+    re.compile(r"^OFFICE_TYPE_\d+$"),
+    re.compile(r"^OFFICEABC_\d+$"),
+    re.compile(r"^RICO_AUTHTP_[A-Z]+_\d+$"),
+]
 
 
 def _with_suffix(path: Path, suffix: str) -> Path:
@@ -126,15 +71,60 @@ def _load_dataframe(csv_path: Path, *, index_col: str | None) -> pd.DataFrame:
     return pd.read_csv(csv_path, **kwargs)  # type: ignore[arg-type]
 
 
+def _identify_generated_columns(
+    *,
+    dataframe_columns: Sequence[str],
+    source_columns: Sequence[str],
+) -> Iterable[str]:
+    source_column_set = set(source_columns)
+    for column in dataframe_columns:
+        if column not in source_column_set:
+            yield column
+
+
 def _normalise_preprocessed_csv(
     *,
+    source_columns: Sequence[str],
     preprocessed_path: Path,
     destination: Path,
     index_col: str | None,
 ) -> Path:
-    dataframe = _load_dataframe(preprocessed_path, index_col=index_col)
-    normalised = _normalise_dataframe(dataframe)
-    _write_dataframe(normalised, destination, include_index=index_col is not None)
+    preprocessor = SourceCSVPreprocessor(
+        str(preprocessed_path),
+        str(destination),
+        index_col=index_col or False,
+    )
+
+    generated_columns = list(
+        _identify_generated_columns(
+            dataframe_columns=preprocessor.source_df.columns,
+            source_columns=source_columns,
+        )
+    )
+    preprocessor.register_increment_columns(generated_columns)
+
+    authtp_columns = [
+        column
+        for column in preprocessor.source_df.columns
+        if AUTHTP_COLUMN_RE.match(str(column))
+    ]
+    preprocessor.register_increment_columns(authtp_columns)
+
+    known_columns = [
+        column
+        for column in preprocessor.source_df.columns
+        if any(pattern.match(str(column)) for pattern in KNOWN_INCREMENT_PATTERNS)
+    ]
+    preprocessor.register_increment_columns(known_columns)
+
+    preprocessor.drop_compound_columns()
+    preprocessor.normalise_incremented_columns()
+    preprocessor.apply_rico_authtp_mapping()
+    preprocessor.drop_columns(
+        lambda column: column.startswith("RICO_AUTHTP_") and column != "RICO_AUTHTP"
+    )
+
+    preprocessor.dump()
     return destination
 
 
@@ -170,6 +160,7 @@ def preprocess_add_csv(
     """
 
     destination = _prepare_destination(source, destination)
+    original_columns = list(_load_dataframe(source, index_col="SISN").columns)
     preprocessed = destination.with_suffix(destination.suffix + ".pre.csv")
 
     try:
@@ -180,7 +171,10 @@ def preprocess_add_csv(
             index_col="SISN",
         )
         return _normalise_preprocessed_csv(
-            preprocessed_path=preprocessed, destination=destination, index_col="SISN"
+            source_columns=original_columns,
+            preprocessed_path=preprocessed,
+            destination=destination,
+            index_col="SISN",
         )
     finally:
         if preprocessed.exists():
@@ -194,6 +188,7 @@ def preprocess_authority_csv(
     """Return the path to a normalised Authority CSV copy."""
 
     destination = _prepare_destination(source, destination)
+    original_columns = list(_load_dataframe(source, index_col="SISN").columns)
     preprocessed = destination.with_suffix(destination.suffix + ".pre.csv")
 
     try:
@@ -204,7 +199,10 @@ def preprocess_authority_csv(
             index_col="SISN",
         )
         return _normalise_preprocessed_csv(
-            preprocessed_path=preprocessed, destination=destination, index_col="SISN"
+            source_columns=original_columns,
+            preprocessed_path=preprocessed,
+            destination=destination,
+            index_col="SISN",
         )
     finally:
         if preprocessed.exists():
