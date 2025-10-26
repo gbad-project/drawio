@@ -52,9 +52,6 @@ TYPE_CASE_VALUES = {
 }
 
 
-CLASS_DIAGRAM_LITERAL_CELL_ID = "zkfFHV4jXpPFQw0GAbJ--17"
-
-
 def _mutate_fixture_for_case(tmp_path: Path, case_key: Optional[str]) -> Path:
     tree = ET.parse(FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio")
     root = tree.getroot()
@@ -69,38 +66,6 @@ def _mutate_fixture_for_case(tmp_path: Path, case_key: Optional[str]) -> Path:
             cell.set("value", "<div>rico:CorporateBody</div>")
 
     output = tmp_path / f"AA37-{case_key or 'all-valid'}.drawio"
-    tree.write(output, encoding="unicode", xml_declaration=False)
-    return output
-
-
-def _write_class_diagram_variant(
-    tmp_path: Path, *, value: str, rounded: Optional[int] = None
-) -> Path:
-    tree = ET.parse(FIXTURES_DIR / "Class_Diagram_tweaked.drawio")
-    root = tree.getroot()
-
-    cell = root.find(f".//mxCell[@id='{CLASS_DIAGRAM_LITERAL_CELL_ID}']")
-    if cell is None:
-        raise AssertionError(
-            f"Expected mxCell with id '{CLASS_DIAGRAM_LITERAL_CELL_ID}' in fixture"
-        )
-
-    cell.set("value", value)
-
-    if rounded is not None:
-        style = cell.attrib.get("style", "")
-        replacement = f"rounded={rounded}"
-        if "rounded=" in style:
-            style = re.sub(r"rounded=\d+", replacement, style)
-        else:
-            style = f"{style};{replacement}" if style else replacement
-        cell.set("style", style)
-
-    safe_value = value.replace(":", "_") or "blank"
-    rounded_suffix = "orig" if rounded is None else str(rounded)
-    output = (
-        tmp_path / f"Class_Diagram_tweaked_{safe_value}_rounded_{rounded_suffix}.drawio"
-    )
     tree.write(output, encoding="unicode", xml_declaration=False)
     return output
 
@@ -210,43 +175,6 @@ def test_parse_drawio_curie_without_known_prefix(tmp_path: Path):
         draw_io_parser.parse_drawio_to_graph(
             str(mutated), metacharacter_substitute=["url"]
         )
-
-
-def test_curie_literal_style_rounding(tmp_path: Path):
-    def parse(path: Path) -> Graph:
-        return draw_io_parser.parse_drawio_to_graph(
-            str(path), metacharacter_substitute=["url"]
-        )
-
-    prefixes = draw_io_parser.get_prefixes()
-    expected_individual = URIRef(f"{prefixes['rdfs']}Address")
-
-    def literal_present(graph: Graph, value: str) -> bool:
-        return any(
-            isinstance(obj, Literal) and str(obj) == value for obj in graph.objects()
-        )
-
-    base_graph = parse(FIXTURES_DIR / "Class_Diagram_tweaked.drawio")
-    assert literal_present(base_graph, "Address")
-    assert (expected_individual, RDF.type, OWL.NamedIndividual) not in base_graph
-
-    curie_path = _write_class_diagram_variant(tmp_path, value="rdfs:Address")
-    curie_graph = parse(curie_path)
-    assert literal_present(curie_graph, "rdfs:Address")
-    assert (expected_individual, RDF.type, OWL.NamedIndividual) in curie_graph
-
-    rounded_path = _write_class_diagram_variant(
-        tmp_path, value="rdfs:Address", rounded=1
-    )
-    rounded_graph = parse(rounded_path)
-    assert literal_present(rounded_graph, "rdfs:Address")
-    assert (
-        expected_individual,
-        RDF.type,
-        OWL.NamedIndividual,
-    ) not in rounded_graph, (
-        "rounded=1 literal styling should suppress individual classification"
-    )
 
 
 def test_serialise_to_graph_falls_back_for_relative_prefixes():

@@ -2,7 +2,6 @@
 
 ## Contributor Guidelines
 
-- **Reviewing `<repo-root>/src/main/webapp/plugins/rdfexport/legacy/tests/README.md` is a MUST!**
 - If you bring your own task, please ignore the rest of this file except for these contributor guidelines. **You must honour the contributor guidelines regardless.** If you don't have a task yet, take the first unimplemented task from the list below (if no status is indicated, assume it has not been implemented yet).
 - Stick to your selected task. Going sideways to contribute to another task in passing is discouraged. If you desperately feel the urge to, you may leave a comment marking it as one of: AICODE-TODO (an unidentified task emerged), AICODE-ASK (stakeholder input is requested), AICODE-NOTE (important but no action requested).
 - Once the task is completed and all planned tests pass, document all your efforts extensively under `docs/aicode/{your-name}-report-{timestamp}.md`. If applicable, update the task status here in AGENTS.md and update the task status summary below.
