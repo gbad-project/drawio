@@ -93,7 +93,7 @@
 > 
 > _Layer 2:_ TypeScript/Pyodide wrapper exposing `mockBlackBoxModule.runDrawioPipeline` from `src/mockBlackBox.ts`.
 > 
-> _Layer 3:_ The outermost layer – plugin export hooks defined in `rdfexport.ts` itself.
+> _Layer 3:_ The outermost layer – plugin export hooks defined in `src/rdfexport.ts` itself (which gets bundled into `dist/rdfexport.js` by `scripts/build.ts`, run conveniently via `bun run build:ts` which also copies the distributable one level higher to ultimately become available to drawio for import).
 > 
 > `debug/` triggers both layers using a custom `run_scenario.ts` harness. For the plugin layer, it effectively simulates Draw\.io logic (or, at least I hope it does).
 > 
