@@ -21,6 +21,51 @@
 >
 > These provide patches and a bundling mechanism for the modified, frozen version of `legacy/original/draw_io_parser.py` and are amply described here: [meta_builder/readme.md](../../meta_builder/readme.md)
 >
+> Tests that access `legacy/draw_io_parser.py` _after_ it has been successfully built by metabuilder (e.g., through `bun run build:py`) can be found and written under `legacy/tests/`, for instance:
+>
+> ```python
+> # legacy/tests/test_patched_parser.py
+> LEGACY_DIR = Path(__file__).resolve().parents[1]
+> if str(LEGACY_DIR) not in sys.path:
+>     sys.path.insert(0, str(LEGACY_DIR))
+> import draw_io_parser
+> def test_curie_literal_style_rounding(tmp_path: Path):
+>     def parse(path: Path) -> Graph:
+>         return draw_io_parser.parse_drawio_to_graph(
+>             str(path), metacharacter_substitute=["url"]
+>         )
+> 
+>     prefixes = draw_io_parser.get_prefixes()
+>     expected_individual = URIRef(f"{prefixes['rdfs']}Address")
+> 
+>     def literal_present(graph: Graph, value: str) -> bool:
+>         return any(
+>             isinstance(obj, Literal) and str(obj) == value for obj in graph.objects()
+>         )
+> 
+>     base_graph = parse(FIXTURES_DIR / "Class_Diagram_tweaked.drawio")
+>     assert literal_present(base_graph, "Address")
+>     assert (expected_individual, RDF.type, OWL.NamedIndividual) not in base_graph
+> 
+>     curie_path = _write_class_diagram_variant(tmp_path, value="rdfs:Address")
+>     curie_graph = parse(curie_path)
+>     assert literal_present(curie_graph, "rdfs:Address")
+>     assert (expected_individual, RDF.type, OWL.NamedIndividual) in curie_graph
+> 
+>     rounded_path = _write_class_diagram_variant(
+>         tmp_path, value="rdfs:Address", rounded=1
+>     )
+>     rounded_graph = parse(rounded_path)
+>     assert literal_present(rounded_graph, "rdfs:Address")
+>     assert (
+>         expected_individual,
+>         RDF.type,
+>         OWL.NamedIndividual,
+>     ) not in rounded_graph, (
+>         "rounded=1 literal styling should suppress individual classification"
+>     )
+> ```
+>
 > ### Layer 2 – Python testing SDK
 > 
 > `legacy/tests/` features a neat workflow that allows roundtrip testing of the full Python cycle with just a few lines of code and without leaving Python – and could, thus, effectively be considered its SDK.
@@ -28,6 +73,7 @@
 > Consider this example:
 > 
 > ```python
+> # legacy/tests/test_pyodide_pipeline.py
 > def test_parse_drawio_respects_include_label_toggle() -> None:
 >     reset_graph_store()
 >     xml_payload = _load_fixture("AA37 Department of Health.drawio")
