@@ -148,6 +148,35 @@ def test_parse_drawio_preserves_literal_targets():
     assert Literal("lolabout") in literal_values
 
 
+def test_parse_drawio_curie_cell_without_parent():
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "Flowchart_tweaked.drawio"),
+        metacharacter_substitute=["url"],
+    )
+
+    kb = Namespace("mock://knowledge-base/")
+    individual = kb["Lampdoesntwork"]
+
+    assert (individual, RDF.type, OWL.NamedIndividual) in graph
+    assert (individual, RDF.type, kb["Lampdoesntwork"]) not in graph
+
+
+def test_parse_drawio_curie_without_known_prefix(tmp_path: Path):
+    tree = ET.parse(FIXTURES_DIR / "Flowchart_tweaked.drawio")
+    root = tree.getroot()
+    cell = root.find(".//mxCell[@id='WIyWlLk6GJQsqaUBKTNV-3']")
+    assert cell is not None
+    cell.set("value", "zz:MissingPrefix")
+
+    mutated = tmp_path / "Flowchart_bad.drawio"
+    tree.write(mutated, encoding="unicode", xml_declaration=False)
+
+    with pytest.raises(draw_io_parser.NotInKnownException):
+        draw_io_parser.parse_drawio_to_graph(
+            str(mutated), metacharacter_substitute=["url"]
+        )
+
+
 def test_serialise_to_graph_falls_back_for_relative_prefixes():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["bad"] = "relative-prefix"
