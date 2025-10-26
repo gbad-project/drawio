@@ -20,4 +20,5 @@ dev = [
 exclude = [
     "legacy/map_schema.py",
     "docs/",
+    "legacy/original/draw_io_parser_5d85cf0.py",
 ]
