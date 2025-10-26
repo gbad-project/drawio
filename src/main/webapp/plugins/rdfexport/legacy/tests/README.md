@@ -99,4 +99,4 @@
 > 
 > As a pleasant compliment, `debug/` also offers a within-Python round trip for regression testing that runs the given fixture through an older `draw_io_parser.py` extracted from an arbitrary historical commit (_Layer 0?_). The commit it defaults to is not the original version from Richard Williamson’s release, but the core there is still largely intact.
 > 
-> Of note, `bun run test` includes a Bun test suite (from `tests/rdfexport.test.ts`) that runs its own implementation of Layer 0–2–3 roundtrips for all-fixture regression tests. `debug/` specializes on manual/injections but also has a runner (slow) that does all fixtures at once (`debug/debug_cli_regression.py`).
+> Of note, `bun run test` includes a Bun test suite (from `tests/rdfexport.test.ts`) that runs its own implementation of Layer 0–2–3 roundtrips for all-fixture regression tests. `debug/` specializes in manual/injections but also has a runner (slow) that does all fixtures at once (`debug/debug_cli_regression.py`).
