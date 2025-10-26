@@ -95,7 +95,7 @@
 > 
 > _Layer 3:_ The outermost layer – plugin export hooks defined in `src/rdfexport.ts` itself (which gets bundled into `dist/rdfexport.js` by `scripts/build.ts`, run conveniently via `bun run build:ts` which also copies the distributable one level higher to ultimately become available to drawio for import).
 > 
-> `debug/` triggers both layers using a custom `run_scenario.ts` harness. For the plugin layer, it effectively simulates Draw\.io logic (or, at least I hope it does).
+> `debug/` triggers both layers using a custom `debug/run_scenario.ts` harness. For the plugin layer, it effectively simulates Draw\.io logic (or, at least I hope it does).
 > 
 > As a pleasant compliment, `debug/` also offers a within-Python round trip for regression testing that runs the given fixture through an older `draw_io_parser.py` extracted from an arbitrary historical commit (_Layer 0?_). The commit it defaults to is not the original version from Richard Williamson’s release, but the core there is still largely intact.
 > 
