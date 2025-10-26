@@ -1,21 +1,24 @@
-Script started on Sun Oct 26 09:46:45 2025
-Command: bun run test:pytest:all
-[0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+Script started on 2025-10-26 21:15:12+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
+[0m[2m[35m$[0m [2m[1m./.venv/bin/pytest[0m
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 86 items                                                                                               [0m
+[1mcollecting ... [0m[1m
+collecting 12 items                                                                                                            [0m[1m
+collected 82 items                                                                                                             [0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 14%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 15%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 31%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 35%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m                                            [ 85%][0m
+legacy/tests/test_preprocessors.py [32m.[0m[32m.[0m[32m                                                                                    [ 87%][0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 13%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                       [ 15%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 30%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 33%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                           [ 84%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                              [ 93%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [100%][0m
-
-[32m=============================================== [32m[1m86 passed[0m[32m in 7.58s[0m[32m ===============================================[0m
+[32m================================================ [32m[1m81 passed[0m, [33m1 xfailed[0m[32m in 42.30s[0m[32m ================================================[0m
+Script done on 2025-10-26 21:15:55+00:00 [COMMAND_EXIT_CODE="0"]
+[32m================================================ [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 47.94s[0m[32m ================================================[0m
+Script done on 2025-10-23 19:50:55+00:00 [COMMAND_EXIT_CODE="0"]
+[32m=============================== [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 6.81s[0m[32m ================================[0m
 
 Command exit status: 0
 Script done on Sun Oct 26 09:46:53 2025

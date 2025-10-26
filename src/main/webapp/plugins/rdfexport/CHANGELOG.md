@@ -12,6 +12,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-23 – Completed the RML pipeline by routing the parser override
+  through `serialise_to_rml`, emitting full TriplesMaps with logical
+  sources, predicate/object maps, refreshed Bun/Pyodide tests, and
+  regenerated demo logs for the new exporter.
 - 2025-10-23 – Recognises bare-IRI arrow labels by normalising against known namespaces and emitting absolute IRIs when necessary to preserve literal connections.
 - 2025-10-21 – Expanded the debug scenario harness to accept arbitrary parser and metadata configuration overrides, updated the Bun runner for automatic discovery, and added pytest coverage for dynamic option propagation.
 - 2025-10-21 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
@@ -20,6 +24,15 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-25 – Normalised legacy CSV preprocessing by teaching
+  `SourceCSVPreprocessor` to expand numbered columns into first-normal-form
+  rows, derive RiC-O authority classes, regenerate the RML CSV fixtures, and
+  cover the behaviour with pytest.
+- 2025-10-24 – Canonicalised the RML regeneration workflow so regenerated
+  baselines use deterministic ontology metadata, normalised CSV fixtures, and
+  canonical blank-node ordering, refreshed the Bun/Pyodide regression logs, and
+  ensured the scripted Python entry points rely on the project virtual
+  environment.
 - 2025-10-23 – Standardised DrawIO metadata storage on a canonical
   `<gbadMetadata>` container across the plugin, fixtures, and debugger so
   parser settings and prefixes propagate consistently through the TypeScript
@@ -469,4 +482,5 @@ This is reviewed by a human maintainer from time to time.
 - **Task 1 – DrawIO Black Box Integration (completed 2025-10-08 by gpt-5-codex)** — Routed the DrawIO export workflow through the new `runMockBlackBox` helper so serialized XML is annotated with deterministic `[BLACKBOX] len=<n>` wrappers before invoking the existing save routine, restored the checksum-guarded regression harness, and expanded Bun tests to cover the annotated payload end-to-end (commits 56fe128, 1fa6390; report `docs/aicode/gpt-5-codex-report-20251008T180943Z.md`).
 - **Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser (completed 2025-10-09 by gpt-5-codex)** — Replaced static RiC-O property allowlists with prefix-driven CURIE validation via `_split_curie`/`_ensure_known_curie`, reworked edge classification so literal/object detection comes from parsed nodes, and produced deterministic `.nt` baselines with new pytest suites and regeneration tooling to prove graph isomorphism (commits 3087ac1, dbc1f14, da3ee356; report `docs/aicode/gpt-5-codex-report-20251009T045342Z.md`).
 - **Task 2b – Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph) (completed 2025-10-09 by gpt-5-codex)** — Introduced the `DrawIOParserGraph` subclass that persists CSV paths, base URIs, and namespace bindings, centralized parsing via `_build_graph_from_raw_xml`, and added metadata-patched fixture regressions plus pytest coverage to verify rdflib integration and metadata propagation (commits f1b812c, da3ee356, a28a81a; report `docs/aicode/gpt-5-codex-report-20250214T120000Z.md`).
+- [`HEAD`] Centralize shared DrawIO serialization helpers into a reusable toolkit so both Turtle and RML overrides reuse the same namespace binding, URI resolution, and literal coercion logic. (Touchpoints: src/main/webapp/plugins/rdfexport/legacy/overrides/curie_validator.py, src/main/webapp/plugins/rdfexport/legacy/overrides/rml_export.py.)
 - **Task 4 – Phase 1 – Pyodide Integration & Debug Infrastructure (completed 2025-10-09 by gpt-5-codex)** — Bootstrapped a Node-compatible Pyodide runtime with structured logging, an async mock pipeline that prefixes outputs with `mock:`, Bun tests that exercise the Pyodide bridge, and dependency management via `uv`/`bun.lock` updates to satisfy the in-browser execution harness (commit b46b82f; report `docs/aicode/gpt-5-codex-report-20251009T123258Z.md`).

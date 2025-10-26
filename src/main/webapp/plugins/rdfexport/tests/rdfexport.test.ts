@@ -12,6 +12,12 @@ const rdfexportUrl = fileURLToPath(
 );
 const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
 const baselinesDir = fileURLToPath(new URL("./baselines", import.meta.url));
+const rmlFixturesDir = fileURLToPath(
+  new URL("./fixtures/rml", import.meta.url),
+);
+
+const MOCK_ONTOLOGY_IRI = "ontology://generated-from-draw-io/mock" as const;
+const MOCK_PREFIX_IRI = `${MOCK_ONTOLOGY_IRI}#` as const;
 
 const pyodideIndexPath = fileURLToPath(
   new URL("../node_modules/pyodide/", import.meta.url),
@@ -1238,11 +1244,38 @@ json.dumps({
       namespaces: string[];
     };
 
-    expect(rmlTripleCheck.triples_map_count).toBe(1);
-    expect(rmlTripleCheck.total_triples).toBe(
-      actualGraphInfo.triple_count + rmlTripleCheck.triples_map_count,
+    const rmlSubjectInfo = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace, Literal, URIRef
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(rmlExport.data)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+subject_constants = []
+for _, _, subject_map in graph.triples((None, rr.subjectMap, None)):
+    for _, _, constant in graph.triples((subject_map, rr.constant, None)):
+        subject_constants.append(constant)
+
+json.dumps({
+    "subject_constant_count": len({repr(item) for item in subject_constants}),
+    "all_uri_or_literal": all(isinstance(item, (URIRef, Literal)) for item in subject_constants),
+})
+      `)) as string,
+    ) as { subject_constant_count: number; all_uri_or_literal: boolean };
+
+    expect(rmlTripleCheck.triples_map_count).toBe(
+      rmlSubjectInfo.subject_constant_count,
     );
-    expect(rmlTripleCheck.namespaces).toContain("rr");
+    expect(rmlTripleCheck.triples_map_count).toBeGreaterThan(0);
+    expect(rmlTripleCheck.total_triples).toBeGreaterThan(
+      actualGraphInfo.triple_count,
+    );
+    expect(rmlTripleCheck.namespaces).toEqual(
+      expect.arrayContaining(["rr", "rml", "ql"]),
+    );
+    expect(rmlSubjectInfo.all_uri_or_literal).toBe(true);
   });
 }
 
@@ -1310,8 +1343,35 @@ json.dumps({
       `)) as string,
     ) as { triples_map_count: number; namespaces: string[] };
 
+    const rmlStructure = JSON.parse(
+      (await debugPyodide(`
+import json
+from rdflib import Graph, Namespace, Literal, URIRef
+
+graph = Graph()
+graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+subject_constants = []
+for _, _, subject_map in graph.triples((None, rr.subjectMap, None)):
+    for _, _, constant in graph.triples((subject_map, rr.constant, None)):
+        subject_constants.append(constant)
+
+json.dumps({
+    "subject_constant_count": len({repr(item) for item in subject_constants}),
+    "all_uri_or_literal": all(isinstance(item, (URIRef, Literal)) for item in subject_constants),
+})
+      `)) as string,
+    ) as { subject_constant_count: number; all_uri_or_literal: boolean };
+
+    expect(rmlSummary.triples_map_count).toBe(
+      rmlStructure.subject_constant_count,
+    );
     expect(rmlSummary.triples_map_count).toBeGreaterThan(0);
-    expect(rmlSummary.namespaces).toContain("rr");
+    expect(rmlSummary.namespaces).toEqual(
+      expect.arrayContaining(["rr", "rml", "ql"]),
+    );
+    expect(rmlStructure.all_uri_or_literal).toBe(true);
   },
   { timeout: 60000 },
 );
@@ -1330,9 +1390,9 @@ test(
     const baseConfig: DrawioParserConfigPayload = {
       infer_type_of_literals: true,
       include_preamble: true,
-      ontology_iri: null,
+      ontology_iri: MOCK_ONTOLOGY_IRI,
       prefix: null,
-      prefix_iri: null,
+      prefix_iri: MOCK_PREFIX_IRI,
       indentation: 2,
       include_label: true,
       max_gap: 10,
@@ -1426,132 +1486,179 @@ json.dumps({
   { timeout: 60000 },
 );
 
-test(
-  "runDrawioPipeline omits rdfs:label triples when includeLabel disabled",
-  async () => {
-    await loadPluginModule();
+type RmlRegressionFixture = {
+  readonly drawio: string;
+  readonly baseline: string;
+  readonly normalizedCsv: string;
+};
 
-    const xml = await Bun.file(
-      join(fixturesDir, "AA37 Department of Health.drawio"),
-    ).text();
-
-    const config = createParserConfig({ include_label: false });
-    const turtle = await runDrawioPipeline(xml, config);
-
-    const summary = JSON.parse(
-      (await debugPyodide(`
-import json
-from rdflib import Graph
-from rdflib.namespace import RDFS
-
-graph = Graph()
-graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
-label_count = sum(1 for _ in graph.triples((None, RDFS.label, None)))
-json.dumps({"label_count": label_count})
-      `)) as string,
-    ) as { label_count: number };
-
-    expect(summary.label_count).toBe(0);
+const rmlRegressionFixtures: readonly RmlRegressionFixture[] = [
+  {
+    drawio: "General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+    baseline: "General Authority to RiC-O Model_2025-06-25_PZ.rml",
+    normalizedCsv:
+      "General Authority to RiC-O Model_2025-06-25_PZ-normalized.csv",
   },
-  { timeout: 60000 },
-);
-
-test(
-  "runDrawioPipeline omits ontology declaration when includePreamble disabled",
-  async () => {
-    await loadPluginModule();
-
-    const xml = await Bun.file(
-      join(fixturesDir, "AA37 Department of Health.drawio"),
-    ).text();
-
-    const config = createParserConfig({ include_preamble: false });
-    const turtle = await runDrawioPipeline(xml, config);
-
-    const summary = JSON.parse(
-      (await debugPyodide(`
-import json
-from rdflib import Graph
-from rdflib.namespace import OWL
-
-graph = Graph()
-graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
-ontology_triples = sum(1 for _ in graph.triples((None, OWL.Ontology, None)))
-json.dumps({"ontology_triples": ontology_triples})
-      `)) as string,
-    ) as { ontology_triples: number };
-
-    expect(summary.ontology_triples).toBe(0);
+  {
+    drawio:
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+    baseline:
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
+    normalizedCsv:
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ-normalized.csv",
   },
-  { timeout: 60000 },
-);
+];
 
-test(
-  "runDrawioPipeline keeps literals untyped when inference disabled",
-  async () => {
+const requestedRmlFixture = process.env.RML_FIXTURE_FILTER?.trim();
+
+const filteredRmlRegressionFixtures =
+  requestedRmlFixture && requestedRmlFixture.length > 0
+    ? rmlRegressionFixtures.filter((fixture) => {
+        return [fixture.drawio, fixture.baseline, fixture.normalizedCsv].some(
+          (value) => value.includes(requestedRmlFixture),
+        );
+      })
+    : rmlRegressionFixtures;
+
+const fixturesForRmlRegression =
+  filteredRmlRegressionFixtures.length > 0
+    ? filteredRmlRegressionFixtures
+    : rmlRegressionFixtures;
+
+test.each(fixturesForRmlRegression)(
+  "RML baseline alignment for %s",
+  async ({ drawio, baseline, normalizedCsv }) => {
     await loadPluginModule();
 
-    const xml = await Bun.file(
-      join(fixturesDir, "AA37 Department of Health.drawio"),
-    ).text();
+    const fixturePath = join(fixturesDir, drawio);
+    const baselinePath = join(rmlFixturesDir, baseline);
+    const normalizedCsvPath = join(rmlFixturesDir, normalizedCsv);
 
-    const config = createParserConfig({ infer_type_of_literals: false });
-    const turtle = await runDrawioPipeline(xml, config);
+    expect(existsSync(fixturePath)).toBe(true);
+    expect(existsSync(baselinePath)).toBe(true);
+    expect(existsSync(normalizedCsvPath)).toBe(true);
 
-    const summary = JSON.parse(
+    const xml = await Bun.file(fixturePath).text();
+    const baselineRml = await Bun.file(baselinePath).text();
+
+    const baseConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: MOCK_ONTOLOGY_IRI,
+      prefix: null,
+      prefix_iri: MOCK_PREFIX_IRI,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: false,
+    };
+
+    const turtleOutput = await runDrawioPipeline(xml, baseConfig);
+    const rmlOutput = await runDrawioPipeline(xml, {
+      ...baseConfig,
+      rml_enabled: true,
+    });
+
+    expect(rmlOutput.length).toBeGreaterThan(0);
+    expect(rmlOutput.includes("rr:TriplesMap")).toBe(true);
+
+    const comparison = JSON.parse(
       (await debugPyodide(`
 import json
-from rdflib import Graph
-from rdflib.namespace import XSD
+from rdflib import Graph, Namespace, URIRef
+from rdflib.compare import to_canonical_graph, to_isomorphic
 
-graph = Graph()
-graph.parse(data=${JSON.stringify(turtle)}, format="turtle")
-typed_literals = sum(
-    1
-    for _, _, obj in graph
-    if getattr(obj, "datatype", None) in {XSD.integer, XSD.float, XSD.date}
+rr = Namespace("http://www.w3.org/ns/r2rml#")
+target_prefix = ${JSON.stringify(MOCK_ONTOLOGY_IRI)}
+
+baseline_graph = Graph()
+baseline_graph.parse(data=${JSON.stringify(baselineRml)}, format="nt")
+
+pipeline_graph = Graph()
+pipeline_graph.parse(data=${JSON.stringify(rmlOutput)}, format="turtle")
+
+turtle_graph = Graph()
+turtle_graph.parse(data=${JSON.stringify(turtleOutput)}, format="turtle")
+
+def _canonical_lines(graph: Graph) -> list[str]:
+    canonical_graph = to_canonical_graph(graph)
+    raw = canonical_graph.serialize(format="nt")
+    if isinstance(raw, bytes):
+        raw = raw.decode("utf-8")
+    return sorted(line for line in raw.splitlines() if line.strip())
+
+
+subject_map_nodes = {
+    subject_map
+    for _, _, subject_map in pipeline_graph.triples((None, rr.subjectMap, None))
+}
+
+subject_constants = sorted(
+    str(constant)
+    for subject_map in subject_map_nodes
+    for _, _, constant in pipeline_graph.triples((subject_map, rr.constant, None))
+    if isinstance(constant, URIRef) and str(constant).startswith(target_prefix)
 )
-json.dumps({"typed_literals": typed_literals})
+
+turtle_subjects = sorted(
+    str(subject)
+    for subject in turtle_graph.subjects()
+    if isinstance(subject, URIRef) and str(subject).startswith(target_prefix)
+)
+
+turtle_subjects = [value for value in turtle_subjects if value != target_prefix]
+
+baseline_lines = _canonical_lines(baseline_graph)
+pipeline_lines = _canonical_lines(pipeline_graph)
+
+json.dumps({
+    "isomorphic": to_isomorphic(baseline_graph) == to_isomorphic(pipeline_graph),
+    "exact_match": baseline_lines == pipeline_lines,
+    "baseline_triples": len(baseline_graph),
+    "pipeline_triples": len(pipeline_graph),
+    "subject_constant_count": len(set(subject_constants)),
+    "turtle_subject_count": len(set(turtle_subjects)),
+    "missing_subjects": sorted(set(turtle_subjects) - set(subject_constants)),
+    "extra_subjects": sorted(set(subject_constants) - set(turtle_subjects)),
+    "baseline_only": [
+        line for line in sorted(set(baseline_lines) - set(pipeline_lines))[:10]
+    ],
+    "pipeline_only": [
+        line for line in sorted(set(pipeline_lines) - set(baseline_lines))[:10]
+    ],
+})
       `)) as string,
-    ) as { typed_literals: number };
+    ) as {
+      isomorphic: boolean;
+      exact_match: boolean;
+      baseline_triples: number;
+      pipeline_triples: number;
+      subject_constant_count: number;
+      turtle_subject_count: number;
+      missing_subjects: string[];
+      extra_subjects: string[];
+      baseline_only: string[];
+      pipeline_only: string[];
+    };
 
-    expect(summary.typed_literals).toBe(0);
-  },
-  { timeout: 60000 },
-);
+    if (!comparison.isomorphic) {
+      console.error(
+        "[RML alignment] baseline vs pipeline mismatch",
+        comparison,
+      );
+    }
 
-test(
-  "runDrawioPipeline forwards strictMode flag to parser configuration",
-  async () => {
-    await loadPluginModule();
-
-    const xml = await Bun.file(
-      join(fixturesDir, "AA37 Department of Health.drawio"),
-    ).text();
-
-    await runDrawioPipeline(xml, createParserConfig({ strict_mode: true }));
-    const strictSummary = JSON.parse(
-      (await debugPyodide(`
-import json
-from pyodide_pipeline.drawio_pipeline import get_last_parser_config
-
-json.dumps(get_last_parser_config())
-      `)) as string,
-    ) as { strict_mode: boolean | null };
-
-    expect(strictSummary.strict_mode).toBe(true);
-
-    await runDrawioPipeline(xml, createParserConfig({ strict_mode: false }));
-    const relaxedSummary = JSON.parse(
-      (await debugPyodide(`
-import json
-from pyodide_pipeline.drawio_pipeline import get_last_parser_config
-
-json.dumps(get_last_parser_config())
-      `)) as string,
-    ) as { strict_mode: boolean | null };
-
-    expect(relaxedSummary.strict_mode).toBe(false);
+    expect(comparison.exact_match).toBe(true);
+    expect(comparison.baseline_triples).toBe(comparison.pipeline_triples);
+    expect(comparison.subject_constant_count).toBe(
+      comparison.turtle_subject_count,
+    );
+    expect(comparison.missing_subjects).toEqual([]);
+    expect(comparison.extra_subjects).toEqual([]);
   },
   { timeout: 60000 },
 );

@@ -12,15 +12,40 @@ from pathlib import Path
 from typing import Iterable, List, Sequence, Tuple
 
 from rdflib import Graph
+from rdflib.compare import to_canonical_graph
+
+from pyodide_pipeline import drawio_pipeline
+from pyodide_pipeline.csv_normalizer import preprocess_csv_for_schema
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
 BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
+RML_FIXTURES_DIR = FIXTURES_DIR / "rml"
 TEST_PATH = LEGACY_DIR / "tests" / "test_patched_parser.py"
 PARSER_RELATIVE_PATH = Path(
     "src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py"
 )
+
+RML_FIXTURES: list[dict[str, Path | str]] = [
+    {
+        "schema": "authority",
+        "csv": RML_FIXTURES_DIR / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
+        "normalized": RML_FIXTURES_DIR
+        / "General Authority to RiC-O Model_2025-06-25_PZ-normalized.csv",
+        "baseline": RML_FIXTURES_DIR
+        / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
+    },
+    {
+        "schema": "description",
+        "csv": RML_FIXTURES_DIR
+        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
+        "normalized": RML_FIXTURES_DIR
+        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ-normalized.csv",
+        "baseline": RML_FIXTURES_DIR
+        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
+    },
+]
 
 
 class PreviousParserLoader:
@@ -90,11 +115,52 @@ def _discover_pristine_fixtures() -> Iterable[Path]:
 
 def _serialise_graph(graph: Graph) -> str:
     """Serialize a graph to N-Triples deterministically (sorted lexicographically)."""
-    raw = graph.serialize(format="nt")
+    canonical = to_canonical_graph(graph)
+    raw = canonical.serialize(format="nt")
     if isinstance(raw, bytes):
         raw = raw.decode("utf-8")
     lines = sorted(line for line in raw.splitlines() if line.strip())
     return "\n".join(lines) + "\n"
+
+
+def regenerate_rml_artifacts(overwrite: bool) -> list[tuple[str, Path, Path]]:
+    """Normalise CSV fixtures and canonicalise existing RML baselines."""
+
+    generated: list[tuple[str, Path, Path]] = []
+
+    for fixture in RML_FIXTURES:
+        schema = str(fixture["schema"])
+        csv_path = Path(fixture["csv"])
+        normalized_path = Path(fixture["normalized"])
+        baseline_path = Path(fixture["baseline"])
+        drawio_path = FIXTURES_DIR / f"{csv_path.stem}.drawio"
+
+        normalised_csv = preprocess_csv_for_schema(
+            schema=schema,
+            source=csv_path,
+            destination=normalized_path,
+        )
+        generated.append(("normalise", csv_path, normalised_csv))
+
+        if drawio_path.exists():
+            xml = drawio_path.read_text(encoding="utf-8")
+            config = drawio_pipeline._default_parser_config()
+            config["ontology_iri"] = "ontology://generated-from-draw-io/mock"
+            config["prefix_iri"] = "ontology://generated-from-draw-io/mock#"
+            config["rml_enabled"] = True
+            _, graph = drawio_pipeline.parse_drawio_xml(xml, config)
+            canonical = _serialise_graph(graph)
+
+            if overwrite or not baseline_path.exists():
+                baseline_path.write_text(canonical, encoding="utf-8")
+                generated.append(("canonicalise", baseline_path, baseline_path))
+            else:
+                existing = baseline_path.read_text(encoding="utf-8")
+                if existing != canonical:
+                    baseline_path.write_text(canonical, encoding="utf-8")
+                    generated.append(("canonicalise", baseline_path, baseline_path))
+
+    return generated
 
 
 def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
@@ -245,6 +311,11 @@ def main() -> None:
         action="store_true",
         help="Rewrite existing baselines instead of leaving them unchanged",
     )
+    parser.add_argument(
+        "--generate-rml",
+        action="store_true",
+        help="Also regenerate normalized CSV fixtures and canonical RML baselines",
+    )
     args = parser.parse_args()
 
     commit_candidates = _candidate_commits(args.commit, args.max_commits)
@@ -284,6 +355,17 @@ def main() -> None:
             relative_fixture = fixture.relative_to(REPO_ROOT)
             print(f"  ❌ {relative_fixture}")
             print(f"     {exc}")
+
+    if args.generate_rml:
+        print("\n🔁 Regenerating RML alignment artifacts...")
+        rml_generated = regenerate_rml_artifacts(overwrite=args.force_overwrite)
+        for action, source, output in rml_generated:
+            relative_source = source.relative_to(REPO_ROOT)
+            relative_output = output.relative_to(REPO_ROOT)
+            if action == "normalise":
+                print(f"  normalized: {relative_source} -> {relative_output}")
+            else:
+                print(f"  canonicalised: {relative_output}")
 
     if not args.skip_tests:
         print(f"\n🧪 Running tests: {TEST_PATH.relative_to(REPO_ROOT)}")

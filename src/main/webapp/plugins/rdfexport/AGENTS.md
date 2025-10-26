@@ -28,7 +28,7 @@ Meta builder now supports override discovery so the DrawIO parser can be extende
 
 ## Task Status Summary
 
-Progress: [██████████░░░░░░░░] 6/8 (75%)
+Progress: [███████████░░░░░░] 7/8 (87.5%)
 
 - Task 1 – DrawIO Black Box Integration: ✅ Completed on 2025-10-08 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 2a - Remove Hardcoded Classes and Property CURIEs from DrawIO Parser: ✅ Completed on 2025-10-09 by gpt-5-codex (recorded in CHANGELOG.md)
@@ -36,7 +36,7 @@ Progress: [██████████░░░░░░░░] 6/8 (75%)
 - Task 3 – Initial RML Generation via DrawIO Parser Overrides: ✅ Completed 2025-10-20 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 4 Phase 1 – Initial Browser Execution Pipeline (Pyodide Integration): ✅ Completed 2025-10-09 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 4 Phase 2 – Full Browser Execution Pipeline (Pyodide Integration): ✅ Completed 2025-10-23 by gpt-5-codex (recorded in CHANGELOG.md)
-- Task 5a – Full RML Generation via DrawIO Parser Overrides: ⏳ Not started
+- Task 5a – Full RML Generation via DrawIO Parser Overrides: ✅ Completed on 2025-10-23 by gpt-5-codex (recorded in CHANGELOG.md)
 - Task 5b – RML export alignment: ⏳ Not started
 
 ## Task Stubs

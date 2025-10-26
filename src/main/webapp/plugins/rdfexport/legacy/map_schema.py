@@ -92,6 +92,18 @@ def add_suppl_triples(source_graph: Graph, root_folder, format="turtle"):
 def add_preprocess(source_csv_path, preprocessed_csv_path):
     preprocessor = SourceCSVPreprocessor(source_csv_path, preprocessed_csv_path, index_col=SISN)
 
+    preprocessor.register_existing_numbered_columns(
+        [
+            "VAR",
+            "SUC",
+            "DATECONT",
+            "CONTAG",
+            "AUTHTP",
+            "PAR",
+            "PRED",
+        ]
+    )
+
     def split_by_colon(value: str, expect_num_cols: int):
         SEP = ' : '
         def fix_colon_spacing(value: str) -> str:
@@ -194,16 +206,29 @@ def auth_preprocess(source_csv_path, preprocessed_csv_path, **kwargs):
     preprocessor = SourceCSVPreprocessor(source_csv_path, preprocessed_csv_path, index_col=SISN)
     correct_dateex_path = kwargs.get('correct_dateex_path', None)
 
+    preprocessor.register_existing_numbered_columns([
+        "GMD",
+        "INDEXGEO",
+        "DATEOFF",
+        "OFFICEABC",
+    ])
+
     def generate_rico_authtp():
         """Originally generated with Claude Sonnet 4 on 2025-06-25, modified"""
         # Get the authtp columns
-        authtp_df = preprocessor.get(['AUTHTP_1', 'AUTHTP_2'])
+        authtp_cols = [col for col in ['AUTHTP_1', 'AUTHTP_2'] if col in preprocessor.source_df.columns]
+        if not authtp_cols:
+            return
+
+        authtp_df = preprocessor.get(authtp_cols)
 
         added_cols = []
         
         # Process AUTHTP_1 and AUTHTP_2 separately
         for authtp_num in [1, 2]:
             authtp_col = f'AUTHTP_{authtp_num}'
+            if authtp_col not in authtp_df.columns:
+                continue
             
             # Initialize result columns for this authtp
             rico_authtp_series = pd.Series(None, index=authtp_df.index, dtype='object')
@@ -272,9 +297,9 @@ def auth_preprocess(source_csv_path, preprocessed_csv_path, **kwargs):
 
     def pull_correct_dateex():
         nonlocal correct_dateex_path
-        correct_dateex_name = os.path.basename(correct_dateex_path)
         if correct_dateex_path is None:
             return
+        correct_dateex_name = os.path.basename(correct_dateex_path)
         try:
             correct_dateex_df = pd.read_csv(correct_dateex_path, index_col=SISN, dtype='object')
             preprocessor.update(correct_dateex_df[DATEEX_COLS])

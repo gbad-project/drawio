@@ -316,8 +316,17 @@ def test_run_manual_scenarios_after_xfails() -> None:
                 f"Unable to determine scenario slug from follow-up command for {fname}."
             )
 
+        resolved_command = list(command)
+        venv_python = RDFEXPORT_DIR / ".venv" / "bin" / "python"
+        if (
+            resolved_command
+            and resolved_command[0] == "python"
+            and venv_python.exists()
+        ):
+            resolved_command[0] = str(venv_python)
+
         result = subprocess.run(
-            command, cwd=RDFEXPORT_DIR, capture_output=True, text=True
+            resolved_command, cwd=RDFEXPORT_DIR, capture_output=True, text=True
         )
 
         if result.stdout:
