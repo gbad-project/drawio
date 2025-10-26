@@ -19576,11 +19576,18 @@ class pipeline:
                     def _style_denotes_literal(
                         cell: Element, style: str, tokens_are_valid: bool
                     ) -> bool:
-                        if tokens_are_valid:
+                        if not style:
                             return False
+                        if "rounded=1" in style:
+                            parent_is_root = cell.attrib.get("parent") == "1"
+                            has_swimlane_style = "swimlane" in style
+                            if parent_is_root or has_swimlane_style:
+                                return True
                         if cell.attrib.get("parent") != "1":
                             return False
-                        return "rounded=1" in style if style else False
+                        if tokens_are_valid:
+                            return False
+                        return False
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:
