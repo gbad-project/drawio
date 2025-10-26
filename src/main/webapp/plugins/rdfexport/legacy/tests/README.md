@@ -31,11 +31,9 @@
 >     assert with_count > 0
 > ```
 > 
-> As a bit of context, this snippet relies on functions from `pyodide_pipeline/drawio_pipeline.py` module, which is a wrapper for the core `legacy/draw_io_parser.py` that ultimately gets invoked by TypeScript runtime. In particular, `src/pyodideRuntime.ts` module does the job:
+> As a bit of context, functions in this snippet (except `_load_fixture`, which is a test-specific method that simply reads a file from `tests/fixtures/` dir) come from `pyodide_pipeline/drawio_pipeline.py` module, which is a wrapper for the core `legacy/draw_io_parser.py` that ultimately gets invoked by TypeScript runtime. In particular, `src/pyodideRuntime.ts` module does the job:
 > 
 > After setting up paths, it invokes `from pyodide_pipeline import reset_graph_store; reset_graph_store()`, which unsets global graph vars, and then does this: `from pyodide_pipeline.drawio_pipeline import parse_drawio_xml_to_json; import json; parse_drawio_xml_to_json(${JSON.stringify(serializedXml)}, json.loads(${JSON.stringify(configJson)})` – and "the returned promise will resolve to the value of this expression" (quote from Pyodide docs).
-> 
-> `_load_fixture`, by the way, is a test-specific method that simply reads a file from `tests/fixtures/` dir.
 > 
 > ### Layers 2 & 3 – Python/TypeScript CLI and REPL
 > 
