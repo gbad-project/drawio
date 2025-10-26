@@ -1,27 +1,21 @@
-Script started on Sun Oct 26 00:25:51 2025
+Script started on Sun Oct 26 00:50:02 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m============================================= test session starts ==============================================[0m
+[1m============================================== test session starts ===============================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 12 items                                                                                            [0m[1mcollected 78 items / 1 error                                                                                   [0m
+[1mcollecting ... [0m[1mcollected 85 items                                                                                               [0m
 
-==================================================== ERRORS ====================================================
-[31m[1m____________________________ ERROR collecting legacy/tests/test_pyodide_pipeline.py ____________________________[0m
-[31mImportError while importing test module '/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_pyodide_pipeline.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-/Users/anonymous/miniconda3/lib/python3.12/importlib/__init__.py:90: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-legacy/tests/test_pyodide_pipeline.py:14: in <module>
-    from pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
-E   ImportError: cannot import name 'parse_drawio_xml' from 'pyodide_pipeline' (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/pyodide_pipeline/__init__.py)[0m
-[36m[1m=========================================== short test summary info ============================================[0m
-[31mERROR[0m legacy/tests/test_pyodide_pipeline.py
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-[31m=============================================== [31m[1m1 error[0m[31m in 0.94s[0m[31m ===============================================[0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 14%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                       [ 15%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 30%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 34%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                            [ 84%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                              [ 92%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [100%][0m
 
-Command exit status: 2
-Script done on Sun Oct 26 00:25:53 2025
+[32m============================================== [32m[1m85 passed[0m[32m in 19.06s[0m[32m ===============================================[0m
+
+Command exit status: 0
+Script done on Sun Oct 26 00:50:22 2025
