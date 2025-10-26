@@ -23,6 +23,11 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-26 – Finalised the Source CSV preprocessing helper so schema-specific
+  splits mirror the legacy routines, automatic increment columns are
+  normalised into 1NF with an `INCREMENT_NUMBER`, RICO AUTHTP classes are
+  derived from the legacy regex map, and the RML fixtures were regenerated to
+  reflect the new layout.
 - 2025-10-24 – Canonicalised the RML regeneration workflow so regenerated
   baselines use deterministic ontology metadata, normalised CSV fixtures, and
   canonical blank-node ordering, refreshed the Bun/Pyodide regression logs, and

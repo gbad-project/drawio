@@ -1,18 +1,20 @@
-Script started on 2025-10-25 05:49:47+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
+Script started on 2025-10-26 22:06:55+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1m./.venv/bin/pytest[0m
 [1m===================================================== test session starts ======================================================[0m
 platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 12 items                                                                                                            [0m[1mcollected 80 items                                                                                                             [0m
-
-
-[32m================================================ [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 52.04s[0m[32m ================================================[0m
-Script done on 2025-10-25 05:50:40+00:00 [COMMAND_EXIT_CODE="0"]
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m                                            [ 87%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 92%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                    [100%][0m
-[32m================================================ [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 47.94s[0m[32m ================================================[0m
+[1mcollecting ... [0m[1mcollecting 12 items                                                                                                            [0m[1mcollected 81 items                                                                                                             [0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 14%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 16%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 32%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 35%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[32m                                            [ 86%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 91%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                    [ 98%][0m
+tests/test_source_csv_preprocessor.py [32m.[0m[32m                                                                                  [100%][0m
+[32m================================================ [32m[1m80 passed[0m, [33m1 xfailed[0m[32m in 26.23s[0m[32m ================================================[0m
+Script done on 2025-10-26 22:07:22+00:00 [COMMAND_EXIT_CODE="0"]
 Script done on 2025-10-23 19:50:55+00:00 [COMMAND_EXIT_CODE="0"]
 [32m=============================== [32m[1m79 passed[0m, [33m1 xfailed[0m[32m in 6.81s[0m[32m ================================[0m
 

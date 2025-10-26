@@ -23,83 +23,40 @@ same normalisation step inside Pyodide.
 from __future__ import annotations
 
 import logging
-import re
 from pathlib import Path
 from typing import Callable
 
 import pandas as pd
 
 from legacy import map_schema
-from legacy.gbad.converter.preprocessors import SourceCSVPreprocessor
-
-NORMALISED_SUFFIX = "-normalized"
-
-logger = logging.getLogger(__name__)
-
-
-def _drop_denormalised_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Return a dataframe without columns that encode compound values.
-
-    ``SourceCSVPreprocessor`` keeps the source column around after expanding it
-    into individual parts.  The original column name always contains ``:``
-    separators and retaining it would reintroduce the very same repeating group
-    that the expansion resolved.  Dropping these columns keeps the output
-    aligned with the DrawIO parser which never emits them in the first place.
-    """
-
-    return df.loc[:, [column for column in df.columns if ":" not in column]]
-
-
-_REPEATING_GROUP_RE = re.compile(
-    r"^(?P<prefix>.+?)(?:_(?P<index>\d+))(?:_(?P<suffix>.*))?$"
+from legacy.gbad.converter.preprocessors import (
+    PreprocessorOptions,
+    SourceCSVPreprocessor,
 )
 
+NORMALISED_SUFFIX = "-normalized"
+AUTHORITY_INCREMENT_PREFIXES: list[str] = [
+    "GMD",
+    "INDEXGEO",
+    "DATEOFF",
+    "OFFICEABC",
+    "ABC_REFA",
+    "OFFICE_TYPE",
+]
+ADD_INCREMENT_PREFIXES: list[str] = [
+    "VAR",
+    "SUC",
+    "DATECONT",
+    "CONTAG",
+    "AUTHTP",
+    "PAR",
+    "PRED",
+    "ABC_REFA",
+    "OFFICE_TYPE",
+    "OFFICEABC",
+]
 
-def _normalise_repeating_groups(df: pd.DataFrame) -> pd.DataFrame:
-    """Collapse numbered columns so only the first entry for each group remains.
-
-    Legacy CSV exports frequently encode lists by appending an incrementing
-    suffix (``INDEXGEO_1`` … ``INDEXGEO_20``).  The DrawIO pipeline represents
-    the very same information through separate mxCell nodes, so the CSV inputs
-    we rely on for regression must not contain numbered fields.  Retaining the
-    ``*_1`` columns preserves the canonical value while discarding ``*_2`` and
-    above eliminates the repeating group entirely.
-    """
-
-    columns_to_keep: list[str] = []
-    seen_prefixes: set[tuple[str, str | None]] = set()
-
-    for column in df.columns:
-        match = _REPEATING_GROUP_RE.match(column)
-        if match is None:
-            columns_to_keep.append(column)
-            continue
-
-        prefix = match.group("prefix")
-        index = match.group("index")
-        suffix = match.group("suffix") or ""
-
-        key = (prefix, suffix)
-        if index != "1":
-            # Only the first entry for any repeating group survives.
-            if key in seen_prefixes:
-                continue
-            # If we never encountered ``*_1`` we still drop the current column.
-            # The helper prioritises deterministic output over silent fallbacks.
-            continue
-
-        seen_prefixes.add(key)
-        columns_to_keep.append(column)
-
-    return df.loc[:, columns_to_keep]
-
-
-def _normalise_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """Apply all normalisation rules while preserving column order."""
-
-    working = _drop_denormalised_columns(df)
-    working = _normalise_repeating_groups(working)
-    return working
+logger = logging.getLogger(__name__)
 
 
 def _write_dataframe(
@@ -133,8 +90,7 @@ def _normalise_preprocessed_csv(
     index_col: str | None,
 ) -> Path:
     dataframe = _load_dataframe(preprocessed_path, index_col=index_col)
-    normalised = _normalise_dataframe(dataframe)
-    _write_dataframe(normalised, destination, include_index=index_col is not None)
+    _write_dataframe(dataframe, destination, include_index=index_col is not None)
     return destination
 
 
@@ -144,9 +100,26 @@ def _run_preprocessor(
     source: Path,
     preprocessed: Path,
     index_col: str | None,
+    authtp_columns: list[str] | None,
+    increment_prefixes: list[str] | None,
 ) -> None:
+    options = PreprocessorOptions(
+        normalise_increments=True,
+        drop_denormalised_columns=True,
+        authtp_mapping=map_schema.rico_authtp_dict,
+        authtp_columns=authtp_columns,
+        auto_register_increment_prefixes=increment_prefixes,
+    )
     try:
-        processor(str(source), str(preprocessed))
+        with SourceCSVPreprocessor.use_default_options(options):
+            processor(str(source), str(preprocessed))
+        postprocessor = SourceCSVPreprocessor(
+            str(preprocessed),
+            str(preprocessed),
+            index_col=index_col or False,
+            config=options,
+        )
+        postprocessor.dump()
     except Exception as exc:  # pragma: no cover - defensive logging path
         logger.warning(
             "Falling back to legacy SourceCSVPreprocessor for %s due to %s",
@@ -154,7 +127,10 @@ def _run_preprocessor(
             exc,
         )
         fallback = SourceCSVPreprocessor(
-            str(source), str(preprocessed), index_col=index_col or False
+            str(source),
+            str(preprocessed),
+            index_col=index_col or False,
+            config=options,
         )
         fallback.dump()
 
@@ -178,6 +154,8 @@ def preprocess_add_csv(
             source=source,
             preprocessed=preprocessed,
             index_col="SISN",
+            authtp_columns=["AUTHTP_1", "AUTHTP_2"],
+            increment_prefixes=ADD_INCREMENT_PREFIXES,
         )
         return _normalise_preprocessed_csv(
             preprocessed_path=preprocessed, destination=destination, index_col="SISN"
@@ -202,6 +180,8 @@ def preprocess_authority_csv(
             source=source,
             preprocessed=preprocessed,
             index_col="SISN",
+            authtp_columns=["AUTHTP_1", "AUTHTP_2"],
+            increment_prefixes=AUTHORITY_INCREMENT_PREFIXES,
         )
         return _normalise_preprocessed_csv(
             preprocessed_path=preprocessed, destination=destination, index_col="SISN"

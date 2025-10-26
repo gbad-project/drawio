@@ -196,6 +196,10 @@ def auth_preprocess(source_csv_path, preprocessed_csv_path, **kwargs):
 
     def generate_rico_authtp():
         """Originally generated with Claude Sonnet 4 on 2025-06-25, modified"""
+        config = getattr(preprocessor, "config", None)
+        if config is not None and getattr(config, "authtp_mapping", None):
+            print("Skipping legacy RICO_AUTHTP expansion in favour of preprocessor config\n")
+            return
         # Get the authtp columns
         authtp_df = preprocessor.get(['AUTHTP_1', 'AUTHTP_2'])
 
@@ -272,9 +276,9 @@ def auth_preprocess(source_csv_path, preprocessed_csv_path, **kwargs):
 
     def pull_correct_dateex():
         nonlocal correct_dateex_path
-        correct_dateex_name = os.path.basename(correct_dateex_path)
         if correct_dateex_path is None:
             return
+        correct_dateex_name = os.path.basename(correct_dateex_path)
         try:
             correct_dateex_df = pd.read_csv(correct_dateex_path, index_col=SISN, dtype='object')
             preprocessor.update(correct_dateex_df[DATEEX_COLS])
