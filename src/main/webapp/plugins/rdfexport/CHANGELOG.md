@@ -12,6 +12,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-25 – Added a DrawIO fixture sanitizer that strips rr:/rml:
+  syntax from the General Authority and General ADD diagrams, persisted the
+  sanitized fixtures, and introduced pytest coverage to guarantee the
+  transformation preserves the remaining XML verbatim.
 - 2025-10-23 – Completed the RML pipeline by routing the parser override
   through `serialise_to_rml`, emitting full TriplesMaps with logical
   sources, predicate/object maps, refreshed Bun/Pyodide tests, and

@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 Script started on 2025-10-26 21:06:16+00:00 [COMMAND="bun run debug:all" TERM="xterm" COLUMNS="128" LINES="-1"]
+=======
+Script started on 2025-10-26 20:44:54+00:00 [COMMAND="bun run debug:all" TERM="xterm" COLUMNS="128" LINES="-1"]
+>>>>>>> codex/implement-drawio-fixtures-utility
 [0m[2m[35m$[0m [2m[1m./.venv/bin/python -m debug.debug_cli_regression[0m
 [1m===================================================== test session starts ======================================================[0m
 platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- /workspace/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
+<<<<<<< HEAD
 [1mcollecting ... [0m[1m
 collected 33 items                                                                                                             [0m
 
@@ -42,6 +47,48 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knu
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m            [ 96%][0m
 debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure of manual command mirrors the o...)[32m [100%][0m
 
+=======
+[1mcollecting ... [0m[1mcollected 35 items                                                                                                             [0m
+
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  2%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  5%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio] [32mPASSED[0m[32m [  8%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] [32mPASSED[0m[32m    [ 11%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] [33mXFAIL[0m[32m [ 14%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] [33mXFAIL[0m[32m [ 17%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio] [33mXFAIL[0m[32m [ 20%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] [32mPASSED[0m[32m      [ 22%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] [32mPASSED[0m[32m      [ 25%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio] [32mPASSED[0m[32m [ 28%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio] [32mPASSED[0m[32m [ 31%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] [32mPASSED[0m[32m        [ 34%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio] [32mPASSED[0m[32m     [ 37%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 40%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] [32mPASSED[0m[32m [ 42%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] [32mPASSED[0m[32m     [ 45%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] [32mPASSED[0m[32m                [ 48%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] [32mPASSED[0m[32m [ 51%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] [32mPASSED[0m[32m [ 54%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 57%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] [32mPASSED[0m[32m    [ 60%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] [33mXFAIL[0m (ts_plu...)[32m [ 62%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[32m [ 65%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] [32mPASSED[0m[32m [ 68%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[32m [ 71%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] [32mPASSED[0m[32m [ 74%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[32m  [ 77%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[32m [ 80%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[32m [ 82%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[32m [ 85%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[32m [ 88%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 91%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 94%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m            [ 97%][0m
+debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure of manual command mirrors the o...)[32m [100%][0m
+
+============================================================ PASSES ============================================================
+[36m[1m=================================================== short test summary info ====================================================[0m
+>>>>>>> codex/implement-drawio-fixtures-utility
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
@@ -62,7 +109,9 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m
+[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio][0m
+[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio][0m
@@ -73,11 +122,21 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - Graph/classification mismatch in AA37-with-metadata-even-more-severely-mocked.drawio: Missing rdf:type 'picoL:j' for 'https://example.com'
 assert False
+<<<<<<< HEAD
  +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x7f0c12c8e2f0>)
+=======
+ +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x7fa8e85cbc40>)
+>>>>>>> codex/implement-drawio-fixtures-utility
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m - ts_plugin expectedly fails (for now) because IRIs in arrows are currently unrecognized.  |  Command: python python -m debug --scenario flowchart-tweaked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
+<<<<<<< HEAD
 [32m========================================== [32m[1m27 passed[0m, [33m6 xfailed[0m[32m in 533.60s (0:08:53)[0m[32m ===========================================[0m
 
 Script done on 2025-10-26 21:15:12+00:00 [COMMAND_EXIT_CODE="0"]
+=======
+[32m========================================== [32m[1m29 passed[0m, [33m6 xfailed[0m[32m in 257.42s (0:04:17)[0m[32m ===========================================[0m
+
+Script done on 2025-10-26 20:49:15+00:00 [COMMAND_EXIT_CODE="0"]
+>>>>>>> codex/implement-drawio-fixtures-utility
