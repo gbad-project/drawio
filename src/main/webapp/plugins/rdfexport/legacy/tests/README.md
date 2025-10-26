@@ -1,8 +1,7 @@
 # pytest coverage of Python source
 
-> [!NOTE]
-> **[pvzhelnov](https://github.com/pvzhelnov)** commented on Oct 26, 2025
-> 
+**[pvzhelnov](https://github.com/pvzhelnov)** commented on Oct 26, 2025
+
 > This directory only contains pytest tests for the main `legacy/draw_io_parser.py <-> pyodide_pipeline/drawio_pipeline.py` Python source that actually gets embedded in `dist/rdfexport.js` to be used as a Draw\.io plugin under Pyodide runtime. The Bun script `bun run test` relies on exactly these tests, running them through `scripts/test_legacy.sh` entrypoint.
 > 
 > pytest tests for dev modules like `meta_builder/` and `debug/` are located under `meta_builder/tests/` and `debug/tests/`, respectively. Tests for `meta_builder/` are also included in `bun run test` (again, through `scripts/test_legacy.sh` entrypoint) because building of `legacy/draw_io_parser.py` depends on metabuilder logic (executed using `bun run build:py`, also performed by the entrypoint). Tests for `debug/`, however, are not included in that script – instead, `bun run test:pytest:all` was designed to run _all_ and any pytest tests found across the repo.
