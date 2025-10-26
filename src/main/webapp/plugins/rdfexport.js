@@ -19576,18 +19576,11 @@ class pipeline:
                     def _style_denotes_literal(
                         cell: Element, style: str, tokens_are_valid: bool
                     ) -> bool:
-                        if not style:
-                            return False
-                        if "rounded=1" in style:
-                            parent_is_root = cell.attrib.get("parent") == "1"
-                            has_swimlane_style = "swimlane" in style
-                            if parent_is_root or has_swimlane_style:
-                                return True
-                        if cell.attrib.get("parent") != "1":
-                            return False
                         if tokens_are_valid:
                             return False
-                        return False
+                        if cell.attrib.get("parent") != "1":
+                            return False
+                        return "rounded=1" in style if style else False
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:
@@ -20649,15 +20642,6 @@ class internal_control_core:
                 return None
             return _is_flag_enabled(value)
 
-        def _resolve_enabled_flag(
-            config: dict[str, Any], enable_key: str, disable_key: str, default: bool
-        ) -> bool:
-            if disable_key in config:
-                return not _is_flag_enabled(config[disable_key])
-            if enable_key in config:
-                return _is_flag_enabled(config[enable_key])
-            return default
-
         metadata_prefixes, base_uri, csv_path, parsed_root = (
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
@@ -20684,29 +20668,14 @@ class internal_control_core:
         prefix_iri = (
             config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
         )
-        include_label = _resolve_enabled_flag(
-            config_args, "include_label", "label_disable", True
-        )
-        include_preamble = _resolve_enabled_flag(
-            config_args, "include_preamble", "preamble_disable", True
-        )
-        infer_type_of_literals = _resolve_enabled_flag(
-            config_args, "infer_type_of_literals", "infer_types_disable", True
-        )
-        config_args["include_label"] = include_label
-        config_args["label_disable"] = not include_label
-        config_args["include_preamble"] = include_preamble
-        config_args["preamble_disable"] = not include_preamble
-        config_args["infer_type_of_literals"] = infer_type_of_literals
-        config_args["infer_types_disable"] = not infer_type_of_literals
         serialisation_config = SerialisationConfig(
-            infer_type_of_literals=infer_type_of_literals,
-            include_preamble=include_preamble,
+            infer_type_of_literals=not config_args.get("infer_types_disable", False),
+            include_preamble=not config_args.get("preamble_disable", False),
             ontology_iri=ontology_iri,
             prefix=prefix,
             prefix_iri=prefix_iri,
             indentation=config_args["indentation"],
-            include_label=include_label,
+            include_label=not config_args.get("label_disable", False),
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
         strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
@@ -20992,28 +20961,25 @@ class rdf_control_core:
                         graph.add((individual_uri, prop_uri, target_uri))
                     else:
                         literal_candidate = value
-                        if serialisation_config.infer_type_of_literals:
-                            if isinstance(literal_candidate, int) or (
-                                isinstance(literal_candidate, str)
-                                and literal_candidate.isnumeric()
-                            ):
-                                literal_value = Literal(
-                                    literal_candidate, datatype=XSD.integer
-                                )
-                            elif isinstance(literal_candidate, float):
-                                literal_value = Literal(
-                                    literal_candidate, datatype=XSD.float
-                                )
-                            else:
-                                try:
-                                    datetime.strptime(literal_candidate, "%Y-%m-%d")
-                                    literal_value = Literal(
-                                        literal_candidate, datatype=XSD.date
-                                    )
-                                except (ValueError, TypeError):
-                                    literal_value = Literal(literal_candidate)
+                        if isinstance(literal_candidate, int) or (
+                            isinstance(literal_candidate, str)
+                            and literal_candidate.isnumeric()
+                        ):
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.integer
+                            )
+                        elif isinstance(literal_candidate, float):
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.float
+                            )
                         else:
-                            literal_value = Literal(literal_candidate)
+                            try:
+                                datetime.strptime(literal_candidate, "%Y-%m-%d")
+                                literal_value = Literal(
+                                    literal_candidate, datatype=XSD.date
+                                )
+                            except (ValueError, TypeError):
+                                literal_value = Literal(literal_candidate)
                         graph.add((individual_uri, prop_uri, literal_value))
         decorations_attr = "__drawio_literal_registry"
         decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
@@ -21484,7 +21450,6 @@ from .drawio_pipeline import (
     reset_graph_store,
     list_graph_ids,
     get_graph_summary,
-    parse_drawio_xml,
 )
 
 __all__ = [
@@ -21492,7 +21457,6 @@ __all__ = [
     "reset_graph_store",
     "list_graph_ids",
     "get_graph_summary",
-    "parse_drawio_xml",
 ]
 `;
 
