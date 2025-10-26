@@ -17,11 +17,13 @@
 >
 > `debug/` offers a within-Python round trip for regression testing that runs a given fixture through an older `draw_io_parser.py` extracted from an arbitrary historical commit. The commit it defaults to is not the original version from Richard Williamson’s release, but the core there is still [largely intact](https://github.com/gbad-project/drawio/compare/6834538341f6defde4ed72b6927949e05c41cf8f..0599a6483a54cb6c78429eca52e59058469f5204).
 >
-> ### Layer 1 – Metabuilder overrides
+> ### Layer 1 – Low-level Python SDK
 >
 > These provide patches and a bundling mechanism for the modified, frozen version of `legacy/original/draw_io_parser.py` and are amply described here: [meta_builder/readme.md](../../meta_builder/readme.md)
 >
-> Tests that access `legacy/draw_io_parser.py` _after_ it has been successfully built by metabuilder (e.g., through `bun run build:py`) can be found and written under `legacy/tests/`, for instance:
+> Tests that access `legacy/draw_io_parser.py` _after_ it has been successfully built by metabuilder (e.g., through `bun run build:py`) can be found and written under `legacy/tests/`.  It is a low-level SDK.
+>
+> For instance:
 >
 > ```python
 > # legacy/tests/test_patched_parser.py
@@ -66,9 +68,9 @@
 >     )
 > ```
 >
-> ### Layer 2 – Python testing SDK
+> ### Layer 2 – High-level Python SDK
 > 
-> `legacy/tests/` features a neat workflow that allows roundtrip testing of the full Python cycle with just a few lines of code and without leaving Python – and could, thus, effectively be considered its SDK.
+> `legacy/tests/` features a neat workflow that allows roundtrip testing of the full Python cycle with just a few lines of code and without leaving Python – and could, thus, effectively be considered its higher-level SDK.
 > 
 > Consider this example:
 > 
