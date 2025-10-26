@@ -77,16 +77,6 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
             "aa37-with-metadata-even-more-severely-mocked-v2",
         ],
     },
-    "Flowchart_tweaked.drawio": {
-        "reason": "ts_plugin expectedly fails (for now) because IRIs in arrows are currently unrecognized.",
-        "command": [
-            "python",
-            "-m",
-            "debug",
-            "--scenario",
-            "flowchart-tweaked",
-        ],
-    },
 }
 
 ALLOWED_XFAILS_FOLLOWUP = {

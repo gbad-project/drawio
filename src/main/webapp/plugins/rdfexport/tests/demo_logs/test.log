@@ -15,7 +15,9 @@ ModuleNotFoundError: No module named 'pyodide_pipeline'
 platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 59 items                                                                                                            [0m[1mcollected 69 items                                                                                                             [0m
+[1mcollecting ... [0m[1m
+collecting 59 items                                                                                                            [0m[1m
+collected 69 items                                                                                                             [0m
 
 legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 18%][0m
 legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 23%][0m
@@ -24,16 +26,6 @@ legacy/tests/test_preprocessors.py [32m.[0m[32m.[0m[32m                    
 legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 91%][0m
 meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                    [100%][0m
 
-============================================================ PASSES ============================================================
-[32m[1m___________________________________ test_source_csv_preprocessor_normalises_numbered_columns ___________________________________[0m
------------------------------------------------------ Captured stdout call -----------------------------------------------------
-Saving preprocessed to: '/tmp/pytest-of-root/pytest-5/test_source_csv_preprocessor_n0/preprocessed.csv'
-
-[32m[1m_______________________________________ test_source_csv_preprocessor_derives_rico_authtp _______________________________________[0m
------------------------------------------------------ Captured stdout call -----------------------------------------------------
-Saving preprocessed to: '/tmp/pytest-of-root/pytest-5/test_source_csv_preprocessor_d0/preprocessed.csv'
-
-[36m[1m=================================================== short test summary info ====================================================[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_top_level_rounded_text_treated_as_literal[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_parent_cell_collects_child_type_tokens[0m
@@ -53,6 +45,9 @@ Saving preprocessed to: '/tmp/pytest-of-root/pytest-5/test_source_csv_preprocess
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_individual_blocks_accepts_declared_prefix_curie[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_individual_blocks_tracks_datatype_properties[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_without_known_prefix[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[unknown_prefix][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m
@@ -96,6 +91,9 @@ Saving preprocessed to: '/tmp/pytest-of-root/pytest-5/test_source_csv_preprocess
 [32mPASSED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_graph_store_tracks_parsed_graphs[0m
 [32mPASSED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_parse_drawio_accepts_graph_model_payload[0m
 [32mPASSED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_duplicate_payloads_reuse_graph_identifier[0m
+[32mPASSED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_parse_drawio_respects_include_label_toggle[0m
+[32mPASSED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_parse_drawio_respects_include_preamble_toggle[0m
+[32mPASSED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_parse_drawio_respects_infer_literal_toggle[0m
 [32mPASSED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_override_decorator_validation[0m
 [32mPASSED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_collect_overrides_replacement_and_addition[0m
 [32mPASSED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_main_prints_summary[0m
@@ -126,16 +124,16 @@ tests/rdfexport.test.ts:
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (61829 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (61829 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61829)
+[PIPELINE] Generated DrawIO XML payload (61866 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (61866 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61866)
 [PIPELINE] DrawIO parser produced graph graph-1 with 126 triples
 [BLACKBOX] Parsed DrawIO graph graph-1 with 126 triples
 [BLACKBOX] Returning Turtle payload for graph graph-1 (7040 characters)
 [PIPELINE] Saving export payload to F 4711 Orville Wood fonds.ttl
 [PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (61812 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61812)
+[BLACKBOX] Generating Turtle payload for serialized input (61849 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 61849)
 [PIPELINE] DrawIO parser produced graph graph-2 with 126 triples
 [BLACKBOX] Parsed DrawIO graph graph-2 with 126 triples
 [BLACKBOX] Returning Turtle payload for graph graph-2 (7040 characters)
@@ -155,16 +153,16 @@ tests/rdfexport.test.ts:
 [0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m4731.11ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
-[PIPELINE] Generated DrawIO XML payload (44261 characters)
-[BLACKBOX] Generating Turtle payload for serialized input (44261 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44261)
+[PIPELINE] Generated DrawIO XML payload (44298 characters)
+[BLACKBOX] Generating Turtle payload for serialized input (44298 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44298)
 [PIPELINE] DrawIO parser produced graph graph-4 with 93 triples
 [BLACKBOX] Parsed DrawIO graph graph-4 with 93 triples
 [BLACKBOX] Returning Turtle payload for graph graph-4 (5497 characters)
 [PIPELINE] Saving export payload to AA42 Ministry of Health.ttl
 [PIPELINE] Export pipeline completed for AA42 Ministry of Health.ttl
-[BLACKBOX] Generating Turtle payload for serialized input (44244 characters)
-[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44244)
+[BLACKBOX] Generating Turtle payload for serialized input (44281 characters)
+[PIPELINE] Invoking DrawIO parser via Pyodide (input length 44281)
 [PIPELINE] DrawIO parser produced graph graph-5 with 93 triples
 [BLACKBOX] Parsed DrawIO graph graph-5 with 93 triples
 [BLACKBOX] Returning Turtle payload for graph graph-5 (5497 characters)

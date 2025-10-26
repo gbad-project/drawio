@@ -5,7 +5,8 @@ platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- /workspace/drawi
 cachedir: .pytest_cache
 rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 33 items                                                                                                             [0m
+[1mcollecting ... [0m[1m
+collected 33 items                                                                                                             [0m
 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  3%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  6%][0m
@@ -41,8 +42,6 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knu
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m            [ 96%][0m
 debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure of manual command mirrors the o...)[32m [100%][0m
 
-============================================================ PASSES ============================================================
-[36m[1m=================================================== short test summary info ====================================================[0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
@@ -61,6 +60,7 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio][0m
+[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio][0m

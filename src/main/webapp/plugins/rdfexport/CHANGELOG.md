@@ -16,6 +16,7 @@ This is reviewed by a human maintainer from time to time.
   through `serialise_to_rml`, emitting full TriplesMaps with logical
   sources, predicate/object maps, refreshed Bun/Pyodide tests, and
   regenerated demo logs for the new exporter.
+- 2025-10-23 – Recognises bare-IRI arrow labels by normalising against known namespaces and emitting absolute IRIs when necessary to preserve literal connections.
 - 2025-10-21 – Expanded the debug scenario harness to accept arbitrary parser and metadata configuration overrides, updated the Bun runner for automatic discovery, and added pytest coverage for dynamic option propagation.
 - 2025-10-21 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
 - 2025-10-20 – Introduced an experimental "Export RML" action that mirrors the Turtle export workflow, toggles the new `rmlEnabled` metadata flag, and injects a mock `rr:TriplesMap` triple through parser overrides with full Bun and pytest coverage.
@@ -32,6 +33,14 @@ This is reviewed by a human maintainer from time to time.
   canonical blank-node ordering, refreshed the Bun/Pyodide regression logs, and
   ensured the scripted Python entry points rely on the project virtual
   environment.
+- 2025-10-23 – Standardised DrawIO metadata storage on a canonical
+  `<gbadMetadata>` container across the plugin, fixtures, and debugger so
+  parser settings and prefixes propagate consistently through the TypeScript
+  and Python pipelines.
+- 2025-10-23 – Treated standalone CURIE/IRI cells as `owl:NamedIndividual`
+  instances (mirroring arrow handling), updated the classifier override to
+  reject unknown prefixes, refreshed Flowchart debug baselines, and extended
+  pytest coverage for CURIE-only nodes.
 - 2025-10-21 – Refined DrawIO cell classification to aggregate child type tokens, detect decorative text nodes, deduplicate individual records, and introduced a `--skip-ts` debugger flag for Python-only regression runs.
 - 2025-10-20 – Moved fixtures for RML regression testing from `src/main/webapp/plugins/rmlexport/` (deprecated and removed) to `src/main/webapp/plugins/rdfexport/tests/fixtures/rml/` for easier availability
 - 2025-10-20 – Retired dummy RDF/XML fixtures used as a proof of concept in an early version of the plugin, moving them to `src/main/webapp/plugins/rdfexport/tests/retired_fixtures/`
@@ -40,6 +49,15 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-24 – Ensured parser configuration flags from the UI and tests
+  (strict mode, label inclusion, preamble output, and literal inference)
+  are honoured by syncing the override conversion logic and expanding
+  pytest/Bun coverage so regressions are caught immediately.
+- 2023-10-23 – Extracts metadata prefixes from legacy `<object>` wrappers so flowchart fixtures no longer emit arrows sourced from literals.
+- 2025-10-23 – Restored the Flowchart_tweaked regression scenario by updating
+  the debugger metadata patcher and fixtures to surface the legacy `kb`
+  prefix, allowing the TypeScript plugin to build graphs without literal
+  source errors.
 - 2025-10-23 – Restored malformed rdf:type validation so child cells that lack
   prefixes once again raise `NotInKnownException`, while ignoring plain UML
   labels by requiring HTML-backed styles before running CURIE checks in the

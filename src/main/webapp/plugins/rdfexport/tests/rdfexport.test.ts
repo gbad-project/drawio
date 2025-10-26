@@ -97,6 +97,35 @@ import {
   type DrawioParserResult,
 } from "../src/mockBlackBox";
 
+const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
+  infer_type_of_literals: true,
+  include_preamble: true,
+  ontology_iri: null,
+  prefix: null,
+  prefix_iri: null,
+  indentation: 2,
+  include_label: true,
+  max_gap: 10,
+  strict_mode: false,
+  strip_html: true,
+  metacharacter_substitute: ["url"],
+  capitalisation_scheme: "upper-camel",
+  rml_enabled: false,
+};
+
+function createParserConfig(
+  overrides: Partial<DrawioParserConfigPayload> = {},
+): DrawioParserConfigPayload {
+  return {
+    ...DEFAULT_PARSER_CONFIG,
+    ...overrides,
+    metacharacter_substitute: [
+      ...(overrides.metacharacter_substitute ??
+        DEFAULT_PARSER_CONFIG.metacharacter_substitute),
+    ],
+  };
+}
+
 type EventHandler = (event: any) => void;
 
 class ElementStub {
@@ -897,17 +926,34 @@ function runRdfExportTest(fixtureFile: string, baselineFile: string) {
     const rootEl = graphModel.getElementsByTagName("root").item(0);
     if (!rootEl) throw new Error("Failed to locate root element in fixture");
     let metadataNode: Element | null = null;
-    // Find existing <UserObject id="0">
-    for (const node of Array.from(rootEl.getElementsByTagName("UserObject"))) {
+    // Find existing <gbadMetadata id="0"> (fall back to legacy tags)
+    for (const node of Array.from(
+      rootEl.getElementsByTagName("gbadMetadata"),
+    )) {
       if (node.getAttribute("id") === "0") {
         metadataNode = node;
         break;
       }
     }
+    if (!metadataNode) {
+      for (const legacyTag of ["UserObject", "object"]) {
+        for (const node of Array.from(rootEl.getElementsByTagName(legacyTag))) {
+          if (node.getAttribute("id") === "0") {
+            metadataNode = node;
+            break;
+          }
+        }
+        if (metadataNode) {
+          break;
+        }
+      }
+    }
     // Create if missing
     if (!metadataNode) {
-      metadataNode = xmlDoc.createElement("UserObject");
+      metadataNode = xmlDoc.createElement("gbadMetadata");
       metadataNode.setAttribute("id", "0");
+      const mxCellElement = xmlDoc.createElement("mxCell");
+      metadataNode.appendChild(mxCellElement);
       rootEl.insertBefore(metadataNode, rootEl.firstChild);
     }
     // Read or patch attributes
@@ -2293,9 +2339,12 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
     }
 
     const metadata = Array.from(root.childNodes).find((node) => {
-      return (
-        node.nodeType === node.ELEMENT_NODE && node.nodeName === "UserObject"
-      );
+      if (node.nodeType !== node.ELEMENT_NODE) {
+        return false;
+      }
+      const element = node as Element;
+      const tagName = element.tagName?.toLowerCase() ?? "";
+      return ["gbadmetadata", "userobject", "object"].includes(tagName);
     });
 
     const metadataSnapshot = metadata
@@ -2304,7 +2353,7 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
           const entries = Array.from(element.childNodes).filter((node) => {
             return (
               node.nodeType === node.ELEMENT_NODE &&
-              node.nodeName === "userObjectPreambleElement"
+              node.nodeName.toLowerCase() === "userobjectpreambleelement"
             );
           });
 
