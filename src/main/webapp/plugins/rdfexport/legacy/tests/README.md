@@ -1,5 +1,8 @@
 # pytest coverage of Python source
 
+> [!NOTE]
+> All paths are relative to repo root.
+
 **[pvzhelnov](https://github.com/pvzhelnov)** commented on Oct 26, 2025
 
 > This directory only contains pytest tests for the main `legacy/draw_io_parser.py <-> pyodide_pipeline/drawio_pipeline.py` Python source that actually gets embedded in `dist/rdfexport.js` to be used as a Draw\.io plugin under Pyodide runtime. The Bun script `bun run test` relies on exactly these tests, running them through `scripts/test_legacy.sh` entrypoint.
