@@ -1,7 +1,7 @@
 # pytest coverage of Python source
 
 > [!NOTE]
-> All paths are relative to `src/main/webapp/plugins/rdfexport/`
+> All paths are relative to `<repo-root>/src/main/webapp/plugins/rdfexport/`
 
 **[pvzhelnov](https://github.com/pvzhelnov)** commented on Oct 26, 2025
 
