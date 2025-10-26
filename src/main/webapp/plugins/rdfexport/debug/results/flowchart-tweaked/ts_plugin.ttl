@@ -1,7 +1,6 @@
 @prefix ex: <http://example/schema#> .
 @prefix kb: <mock://debug-knowledge-base/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
 ex:No a owl:DatatypeProperty .
@@ -9,11 +8,9 @@ ex:No a owl:DatatypeProperty .
 ex:Yes a owl:DatatypeProperty,
         owl:ObjectProperty .
 
-kb:Lampdoesntwork a owl:NamedIndividual ;
-    rdfs:label "kb:Lampdoesntwork" .
+kb:Lampdoesntwork a owl:NamedIndividual .
 
 kb:Lamppluggedin a owl:NamedIndividual ;
-    rdfs:label "kb:Lamppluggedin" ;
     ex:No "Plug in lamp" ;
     ex:Yes kb:Bulbburnedout .
 
@@ -21,7 +18,6 @@ kb:Lamppluggedin a owl:NamedIndividual ;
     owl:imports rico: .
 
 kb:Bulbburnedout a owl:NamedIndividual ;
-    rdfs:label "kb:Bulbburnedout" ;
     ex:No "Repair Lamp" ;
     ex:Yes "Replace Bulb" .
 

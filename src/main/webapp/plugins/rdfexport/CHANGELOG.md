@@ -36,6 +36,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-24 – Ensured parser configuration flags from the UI and tests
+  (strict mode, label inclusion, preamble output, and literal inference)
+  are honoured by syncing the override conversion logic and expanding
+  pytest/Bun coverage so regressions are caught immediately.
 - 2023-10-23 – Extracts metadata prefixes from legacy `<object>` wrappers so flowchart fixtures no longer emit arrows sourced from literals.
 - 2025-10-23 – Restored the Flowchart_tweaked regression scenario by updating
   the debugger metadata patcher and fixtures to surface the legacy `kb`
