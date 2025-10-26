@@ -109,7 +109,9 @@ def test_parse_drawio_respects_include_preamble_toggle() -> None:
 
     reset_graph_store()
     _, graph_with_preamble = parse_drawio_xml(xml_payload, {"include_preamble": True})
-    assert sum(1 for _ in graph_with_preamble.triples((None, RDF.type, OWL.Ontology))) > 0
+    assert (
+        sum(1 for _ in graph_with_preamble.triples((None, RDF.type, OWL.Ontology))) > 0
+    )
 
 
 def test_parse_drawio_respects_infer_literal_toggle() -> None:
