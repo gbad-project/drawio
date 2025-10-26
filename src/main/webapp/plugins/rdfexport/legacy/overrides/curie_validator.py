@@ -330,21 +330,28 @@ def serialise_to_graph(
                     graph.add((individual_uri, prop_uri, target_uri))
                 else:
                     literal_candidate = value
-                    if isinstance(literal_candidate, int) or (
-                        isinstance(literal_candidate, str)
-                        and literal_candidate.isnumeric()
-                    ):
-                        literal_value = Literal(literal_candidate, datatype=XSD.integer)
-                    elif isinstance(literal_candidate, float):
-                        literal_value = Literal(literal_candidate, datatype=XSD.float)
-                    else:
-                        try:
-                            datetime.strptime(literal_candidate, "%Y-%m-%d")
+                    if serialisation_config.infer_type_of_literals:
+                        if isinstance(literal_candidate, int) or (
+                            isinstance(literal_candidate, str)
+                            and literal_candidate.isnumeric()
+                        ):
                             literal_value = Literal(
-                                literal_candidate, datatype=XSD.date
+                                literal_candidate, datatype=XSD.integer
                             )
-                        except (ValueError, TypeError):
-                            literal_value = Literal(literal_candidate)
+                        elif isinstance(literal_candidate, float):
+                            literal_value = Literal(
+                                literal_candidate, datatype=XSD.float
+                            )
+                        else:
+                            try:
+                                datetime.strptime(literal_candidate, "%Y-%m-%d")
+                                literal_value = Literal(
+                                    literal_candidate, datatype=XSD.date
+                                )
+                            except (ValueError, TypeError):
+                                literal_value = Literal(literal_candidate)
+                    else:
+                        literal_value = Literal(literal_candidate)
                     graph.add((individual_uri, prop_uri, literal_value))
 
     decorations_attr = "__drawio_literal_registry"
