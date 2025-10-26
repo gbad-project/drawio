@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Script started on 2025-10-24 17:34:17+00:00 [COMMAND="bun run test:bun:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1mbun test[0m
 [0m[1mbun test [0m[2mv1.2.14 (6a363a38)[0m
@@ -724,3 +725,16 @@ tests/rdfexport.test.ts:
 Ran 45 tests across 1 files. [0m[2m[[1m24.03s[0m[2m][0m
 
 Script done on 2025-10-24 17:34:41+00:00 [COMMAND_EXIT_CODE="0"]
+=======
+Script started on Fri Oct 24 13:39:21 2025
+Command: bun run test:bun:all
+[0m[2m[35m$[0m [2m[1mbun run scripts/dotReporter.ts[0m
+[36mRunning tests...[0m
+
+[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m
+
+[32m30 passed[0m, [33m22 skipped[0m in 52 tests
+
+Command exit status: 0
+Script done on Fri Oct 24 13:39:25 2025
+>>>>>>> feat/rml

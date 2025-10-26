@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
 

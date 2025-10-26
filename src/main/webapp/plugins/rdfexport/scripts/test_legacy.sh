@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 #set -euo pipefail
 
+# ────────────────────────────────────────────────
+# 🚀 Entry Point for Master Test/Debug Pipeline
+# This script runs first under `bun run:test:all`
+# ────────────────────────────────────────────────
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 VENV_ACTIVATE="${ROOT_DIR}/.venv/bin/activate"
 

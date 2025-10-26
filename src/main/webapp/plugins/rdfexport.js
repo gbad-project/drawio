@@ -18720,7 +18720,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
-from typing import Generator, Iterator, Optional, Any
+from typing import Generator, Iterator, Optional, Dict, Any, Type
 from copy import deepcopy
 from xml.etree.ElementTree import Element, fromstring, tostring
 import urllib.parse
@@ -18741,7 +18741,79 @@ class pipeline:
     class pre:
         class xml:
             class metadata:
-                pass
+                # BEGIN override metadata_extraction.py.MetadataNodeNotFoundError
+                class MetadataNodeNotFoundError(Exception):
+                    """Raised when no metadata node is found in the provided Draw.io XML."""
+
+                # END override metadata_extraction.py.MetadataNodeNotFoundError
+                # BEGIN override metadata_extraction.py._find_metadata_node
+                def _find_metadata_node(raw_xml: str) -> tuple[Element, Element]:
+                    """Find and return the metadata node and root element from a Draw.io XML document.
+
+                    Args:
+                        raw_xml (str): The raw XML string representing the Draw.io diagram.
+
+                    Returns:
+                        tuple[Element, Element]: A tuple containing:
+                            - The metadata node element found.
+                            - The root XML element parsed from the document.
+
+                    Raises:
+                        MetadataNodeNotFoundError: If no metadata node is found within the provided XML.
+                    """
+                    MetadataNodeNotFoundError = (
+                        pipeline.pre.xml.metadata.MetadataNodeNotFoundError
+                    )
+                    root = fromstring(raw_xml)
+                    metadata_node = root.find(
+                        ".//mxGraphModel/root/gbadMetadata[@id='0']"
+                    )
+                    if metadata_node is None:
+                        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
+                    if metadata_node is None:
+                        metadata_node = root.find(
+                            ".//mxGraphModel/root/UserObject[@id='0']"
+                        )
+                    if metadata_node is None:
+                        metadata_node = root.find(".//mxGraphModel/root/UserObject")
+                    if metadata_node is None:
+                        metadata_node = root.find(
+                            ".//mxGraphModel/root/object[@id='0']"
+                        )
+                    if metadata_node is None:
+                        graph_root = root.find(".//mxGraphModel/root")
+                        if graph_root is not None:
+                            for candidate in list(graph_root):
+                                tag_lower = candidate.tag.lower()
+                                if tag_lower not in {
+                                    "gbadmetadata",
+                                    "userobject",
+                                    "object",
+                                }:
+                                    continue
+                                has_metadata_payload = bool(
+                                    candidate.attrib.get("csvPath")
+                                    or candidate.attrib.get("baseUri")
+                                    or any(
+                                        (
+                                            child.tag
+                                            in {
+                                                "userObjectPreambleElement",
+                                                "UserObjectPreambleElement",
+                                            }
+                                            for child in list(candidate)
+                                        )
+                                    )
+                                )
+                                if has_metadata_payload:
+                                    metadata_node = candidate
+                                    return (metadata_node, root)
+                        raise MetadataNodeNotFoundError(
+                            "No metadata node found in this raw XML"
+                        )
+                    return (metadata_node, root)
+
+                # END override metadata_extraction.py._find_metadata_node
 
             class data:
                 pass
@@ -18799,6 +18871,7 @@ class pipeline:
                         parent_identifier: Optional[str] = None
                         identifier: Optional[str] = None
                         tokens: list[str] = field(default_factory=list)
+                        declares_identifier: bool = False
 
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
@@ -18947,7 +19020,10 @@ class pipeline:
                                         )
                                     ):
                                         self.individuals.append(individual)
-                                    if classification.tokens:
+                                    if (
+                                        classification.tokens
+                                        or classification.declares_identifier
+                                    ):
                                         self._declared_individual_identifiers.add(
                                             identifier
                                         )
@@ -19020,6 +19096,7 @@ class pipeline:
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens)
+                        single_token = tokens[0] if len(tokens) == 1 else None
                         looks_like_curie = any((":" in token for token in tokens))
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
                             return build(CellKind.LITERAL)
@@ -19046,6 +19123,28 @@ class pipeline:
                                     if not candidate:
                                         continue
                                     _verify_is_ric_class(candidate, self._prefixes)
+                        if (
+                            parent_cell is None
+                            and single_token is not None
+                            and tokens_are_valid
+                        ):
+                            return build(
+                                CellKind.STANDALONE_INDIVIDUAL,
+                                identifier=single_token,
+                                tokens=[],
+                                declares_identifier=True,
+                            )
+                        if (
+                            parent_cell is None
+                            and single_token is not None
+                            and self._looks_like_curie_candidate(single_token)
+                            and (not tokens_are_valid)
+                        ):
+                            raise NotInKnownException(
+                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                                    single_token
+                                )
+                            )
                         if tokens and tokens_are_valid:
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
@@ -19057,6 +19156,7 @@ class pipeline:
                                 CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=[],
+                                declares_identifier=True,
                             )
                         if self._is_decoration(cell, raw_value):
                             return build(CellKind.DECORATION)
@@ -19413,6 +19513,19 @@ class pipeline:
                         return True
 
                     @staticmethod
+                    def _looks_like_curie_candidate(value: str) -> bool:
+                        if not value or ":" not in value or "://" in value:
+                            return False
+                        prefix, remainder = value.split(":", 1)
+                        if not prefix or not remainder:
+                            return False
+                        if not (prefix[0].isalpha() or prefix[0] == "_"):
+                            return False
+                        if not all((ch.isalnum() or ch in "._-" for ch in prefix[1:])):
+                            return False
+                        return not any((char.isspace() for char in remainder))
+
+                    @staticmethod
                     def _looks_like_absolute_uri(value: str) -> bool:
                         if not value or any((ch.isspace() for ch in value)):
                             return False
@@ -19562,33 +19675,25 @@ class pipeline:
 
 class xml_metadata_pre:
     # BEGIN _extract_drawio_metadata
+    # override from metadata_extraction.py
     def _extract_drawio_metadata(
         raw_xml: str,
     ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
-        """Extracts CSV path, base URI, prefixes, and returns parsed XML root."""
+        """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
         try:
-            root = fromstring(raw_xml)
-        except Exception:  # pragma: no cover - defensive guard around XML parsing
-            return {}, None, None, None
-
-        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
-        if metadata_node is None:
-            return {}, None, None, root
-
-        csv_path_raw = metadata_node.attrib.get("csvPath", "")
-        base_uri_raw = metadata_node.attrib.get("baseUri", "")
-
-        csv_path = csv_path_raw.strip() or None
-        base_uri = base_uri_raw.strip() or None
-
+            metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
+        except Exception:
+            return ({}, None, None, None)
+        csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
+        base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None
         prefixes: dict[str, str] = {}
-        for preamble in metadata_node.findall("userObjectPreambleElement"):
-            prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-            iri = (preamble.attrib.get("rdfIRI") or "").strip()
-            if prefix and iri:
-                prefixes[prefix] = iri
-
-        return prefixes, base_uri, csv_path, root
+        for tag in ("userObjectPreambleElement", "UserObjectPreambleElement"):
+            for preamble in metadata_node.findall(tag):
+                prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
+                iri = (preamble.attrib.get("rdfIRI") or "").strip()
+                if prefix and iri:
+                    prefixes[prefix] = iri
+        return (prefixes, base_uri, csv_path, root)
 
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
@@ -20541,10 +20646,18 @@ class internal_control_core:
             pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
         )
         metadata_node = (
-            parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
+            parsed_root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
             if parsed_root is not None
             else None
         )
+        if metadata_node is None and parsed_root is not None:
+            metadata_node = parsed_root.find(".//mxGraphModel/root/gbadMetadata")
+        if metadata_node is None and parsed_root is not None:
+            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
+        if metadata_node is None and parsed_root is not None:
+            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject")
+        if metadata_node is None and parsed_root is not None:
+            metadata_node = parsed_root.find(".//mxGraphModel/root/object[@id='0']")
         prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
         working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
@@ -20718,8 +20831,8 @@ class rdf_control_core:
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
         prefixes: dict,
-        graph_cls: type[Graph] = Graph,
-        graph_kwargs: dict[str, Any] | None = None,
+        graph_cls: Type[Graph] = Graph,
+        graph_kwargs: Optional[Dict[str, Any]] = None,
     ) -> Graph:
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
@@ -20772,14 +20885,34 @@ class rdf_control_core:
         ):
             prop_uri = _resolve_property_uri(prop)
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-        absolute_overrides = {
-            individual_id: individual_label
-            for individual_id, individual_label in blocks.keys()
-            if "://" in individual_label
-        }
+        explicit_overrides: dict[str, URIRef] = {}
+        for individual_id, individual_label in blocks.keys():
+            trimmed_label = individual_label.strip()
+            if not trimmed_label:
+                continue
+            if _is_absolute_iri(trimmed_label):
+                explicit_overrides[individual_id] = URIRef(trimmed_label)
+                continue
+            if ":" not in trimmed_label or "://" in trimmed_label:
+                continue
+            try:
+                prefix, reference = _ensure_known_curie(
+                    trimmed_label,
+                    prefixes,
+                    "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                        trimmed_label
+                    ),
+                )
+            except NotInKnownException:
+                continue
+            namespace = namespace_map.get(prefix)
+            if namespace is None:
+                continue
+            explicit_overrides[individual_id] = namespace[reference]
         for (individual_id, individual_label), types_and_facts in blocks.items():
-            if individual_id in absolute_overrides:
-                individual_uri = URIRef(absolute_overrides[individual_id])
+            override_uri = explicit_overrides.get(individual_id)
+            if override_uri is not None:
+                individual_uri = override_uri
             elif prefix and serialisation_config.prefix_iri:
                 individual_uri = Namespace(serialisation_config.prefix_iri)[
                     individual_id
@@ -20814,8 +20947,9 @@ class rdf_control_core:
                             and prop not in object_properties
                         )
                     if not is_literal:
-                        if value in absolute_overrides:
-                            target_uri = URIRef(absolute_overrides[value])
+                        override_target = explicit_overrides.get(value)
+                        if override_target is not None:
+                            target_uri = override_target
                         elif prefix and serialisation_config.prefix_iri:
                             target_uri = Namespace(serialisation_config.prefix_iri)[
                                 value
@@ -21939,6 +22073,7 @@ var DEFAULT_PREFIX_PLACEHOLDER = "Enter Prefix";
 var DEFAULT_IRI_PLACEHOLDER = "Enter IRI";
 var DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
 var PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
+var PREAMBLE_ENTRY_TAG_LEGACY = "UserObjectPreambleElement";
 var PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 var PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 var PARSER_SETTINGS_ATTRIBUTE_NAME = "rdfParserSettings";
@@ -21969,6 +22104,9 @@ var PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 var PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 var RML_ENABLED_ATTRIBUTE = "rmlEnabled";
 var STRIP_HTML_METADATA_ATTRIBUTE = "stripHtml";
+var METADATA_TAG_NAME = "gbadMetadata";
+var LEGACY_METADATA_TAG_NAMES = ["UserObject", "object"];
+var MXCELL_TAG_NAME = "mxCell";
 var DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 var DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
 var DRAWIO_PARSER_DEFAULT_CAPITALISATION = "upper-camel";
@@ -22205,6 +22343,9 @@ function readParserSettingsFromGraphInstance(graph, model, rootCell) {
 function writeParserSettingsToGraphInstance(graph, model, rootCell, settings) {
   const serialized = serializeParserSettings(settings);
   const valueToStore = serialized === DEFAULT_SERIALIZED_PARSER_SETTINGS ? null : serialized;
+  try {
+    ensureRootCellMetadataElement(model, rootCell);
+  } catch (error) {}
   model.beginUpdate?.();
   try {
     if (typeof graph.setAttributeForCell === "function") {
@@ -22262,17 +22403,7 @@ function resolveLabel(key, fallback) {
   return fallback;
 }
 function findRootMetadataNode(graphXml) {
-  if (typeof graphXml.getElementsByTagName !== "function") {
-    return null;
-  }
-  const metadataNodes = graphXml.getElementsByTagName("UserObject");
-  for (let index = 0;index < metadataNodes.length; index += 1) {
-    const node = metadataNodes.item(index);
-    if (node?.getAttribute("id") === "0") {
-      return node;
-    }
-  }
-  return null;
+  return ensureGraphXmlMetadataNode(graphXml);
 }
 function applyRmlEnabledMetadata(graphXml, enabled) {
   const metadataNode = findRootMetadataNode(graphXml);
@@ -22325,6 +22456,12 @@ function installCsvPathProperty() {
     if (!graph || !model || typeof model.getRoot !== "function" || typeof graph.getAttributeForCell !== "function" || typeof graph.setAttributeForCell !== "function") {
       return result;
     }
+    try {
+      const rootCell = model.getRoot();
+      if (rootCell) {
+        ensureRootCellMetadataElement(model, rootCell);
+      }
+    } catch (error) {}
     typedContainer[PREAMBLE_SECTION_FLAG] = true;
     const sectionLabel = resolveLabel(CSV_SECTION_RESOURCE_KEY, DEFAULT_CSV_SECTION_LABEL);
     const createTitle = typeof this.createTitle === "function" ? this.createTitle.bind(this) : (title) => {
@@ -22508,6 +22645,9 @@ function installCsvPathProperty() {
       if (!rootCell) {
         return;
       }
+      try {
+        ensureRootCellMetadataElement(model, rootCell);
+      } catch (error) {}
       const normalizedRaw = field.input.value.trim();
       const newValue = normalizedRaw.length > 0 ? normalizedRaw : null;
       const currentValue = graph.getAttributeForCell(rootCell, field.attributeName, "") || null;
@@ -22707,6 +22847,144 @@ function normalizeNodeName(node) {
   }
   return rawName;
 }
+function nodeNameEquals(node, expected) {
+  return normalizeNodeName(node).toLowerCase() === expected.toLowerCase();
+}
+function ensureCanonicalMetadataElementInPlace(element) {
+  const existingId = element.getAttribute("id");
+  if (!existingId || existingId.length === 0) {
+    element.setAttribute("id", "0");
+  }
+  let hasMxCellChild = false;
+  let child = element.firstChild;
+  while (child != null) {
+    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && nodeNameEquals(child, MXCELL_TAG_NAME)) {
+      hasMxCellChild = true;
+      break;
+    }
+    child = child.nextSibling;
+  }
+  if (!hasMxCellChild) {
+    const ownerDoc = element.ownerDocument ?? mxUtils.createXmlDocument();
+    element.appendChild(ownerDoc.createElement(MXCELL_TAG_NAME));
+  }
+}
+function cloneAsCanonicalMetadataElement(source, fallbackLabel) {
+  const ownerDoc = source?.ownerDocument ?? mxUtils.createXmlDocument();
+  const canonical = ownerDoc.createElement(METADATA_TAG_NAME);
+  if (source) {
+    if (source.attributes) {
+      for (let index = 0;index < source.attributes.length; index += 1) {
+        const attribute = source.attributes.item(index);
+        if (attribute) {
+          canonical.setAttribute(attribute.name, attribute.value);
+        }
+      }
+    }
+    let child = source.firstChild;
+    while (child != null) {
+      canonical.appendChild(child.cloneNode(true));
+      child = child.nextSibling;
+    }
+  } else if (fallbackLabel && fallbackLabel.length > 0) {
+    canonical.setAttribute("label", fallbackLabel);
+  }
+  ensureCanonicalMetadataElementInPlace(canonical);
+  return canonical;
+}
+function ensureRootCellMetadataElement(model, rootCell) {
+  const existing = extractValueElement(model, rootCell);
+  if (existing && nodeNameEquals(existing, METADATA_TAG_NAME)) {
+    ensureCanonicalMetadataElementInPlace(existing);
+    return existing;
+  }
+  let fallbackLabel = null;
+  if (typeof model.getValue === "function") {
+    try {
+      const rawValue = model.getValue(rootCell);
+      if (typeof rawValue === "string" && rawValue.length > 0) {
+        fallbackLabel = rawValue;
+      }
+    } catch (error) {}
+  }
+  const canonical = cloneAsCanonicalMetadataElement(existing, fallbackLabel);
+  model.beginUpdate?.();
+  try {
+    if (typeof model.setValue === "function") {
+      model.setValue(rootCell, canonical);
+    } else {
+      rootCell.value = canonical;
+      model.markDirty?.();
+    }
+  } finally {
+    model.endUpdate?.();
+  }
+  return canonical;
+}
+function metadataCandidateHasPayload(node) {
+  const csvPath = node.getAttribute(CSV_PATH_ATTRIBUTE) ?? "";
+  const baseUri = node.getAttribute(BASE_URI_ATTRIBUTE) ?? "";
+  const parserSettings = node.getAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME) ?? "";
+  if (csvPath.length > 0 || baseUri.length > 0 || parserSettings.length > 0) {
+    return true;
+  }
+  for (const tag of [PREAMBLE_ENTRY_TAG, PREAMBLE_ENTRY_TAG_LEGACY]) {
+    if (node.getElementsByTagName(tag).length > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+function ensureGraphXmlMetadataNode(graphXml) {
+  if (typeof graphXml.getElementsByTagName !== "function") {
+    return null;
+  }
+  const canonicalNodes = graphXml.getElementsByTagName(METADATA_TAG_NAME);
+  for (let index = 0;index < canonicalNodes.length; index += 1) {
+    const node = canonicalNodes.item(index);
+    if (!node || node.getAttribute("id") !== "0") {
+      continue;
+    }
+    ensureCanonicalMetadataElementInPlace(node);
+    return node;
+  }
+  const rootNodes = graphXml.getElementsByTagName("root");
+  const graphRoot = rootNodes.item(0);
+  if (!graphRoot) {
+    return null;
+  }
+  let fallback = null;
+  for (let index = 0;index < graphRoot.childNodes.length; index += 1) {
+    const child = graphRoot.childNodes.item(index);
+    if (child?.nodeType !== mxConstants.NODETYPE_ELEMENT) {
+      continue;
+    }
+    const element = child;
+    const normalized = normalizeNodeName(element).toLowerCase();
+    if (normalized === METADATA_TAG_NAME.toLowerCase()) {
+      ensureCanonicalMetadataElementInPlace(element);
+      return element;
+    }
+    if (LEGACY_METADATA_TAG_NAMES.some((name) => name.toLowerCase() === normalized)) {
+      if (element.getAttribute("id") === "0") {
+        fallback = element;
+        break;
+      }
+      if (!fallback && metadataCandidateHasPayload(element)) {
+        fallback = element;
+      }
+    }
+  }
+  if (!fallback) {
+    return null;
+  }
+  const canonical = cloneAsCanonicalMetadataElement(fallback, null);
+  const parent = fallback.parentNode;
+  if (parent) {
+    parent.replaceChild(canonical, fallback);
+  }
+  return canonical;
+}
 function extractPreambleEntries(value) {
   const entries = [];
   if (!isElementNode(value)) {
@@ -22714,7 +22992,7 @@ function extractPreambleEntries(value) {
   }
   let child = value.firstChild;
   while (child != null) {
-    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && normalizeNodeName(child) === PREAMBLE_ENTRY_TAG) {
+    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && (nodeNameEquals(child, PREAMBLE_ENTRY_TAG) || nodeNameEquals(child, PREAMBLE_ENTRY_TAG_LEGACY))) {
       const element = child;
       const prefix = element.getAttribute(PREAMBLE_PREFIX_ATTRIBUTE) ?? "";
       const iri = element.getAttribute(PREAMBLE_IRI_ATTRIBUTE) ?? "";
@@ -22725,17 +23003,9 @@ function extractPreambleEntries(value) {
   return entries;
 }
 function buildValueWithPreamble(baseValue, entries) {
-  let valueElement;
-  if (isElementNode(baseValue)) {
-    valueElement = baseValue.cloneNode(true) ?? baseValue;
-  } else {
-    const doc = mxUtils.createXmlDocument();
-    valueElement = doc.createElement("object");
-    if (typeof baseValue === "string" && baseValue.length > 0) {
-      valueElement.setAttribute("label", baseValue);
-    }
-    doc.appendChild(valueElement);
-  }
+  const baseElement = isElementNode(baseValue) ? baseValue : null;
+  const fallbackLabel = !isElementNode(baseValue) && typeof baseValue === "string" && baseValue.length > 0 ? baseValue : null;
+  const valueElement = cloneAsCanonicalMetadataElement(baseElement, fallbackLabel);
   const ownerDoc = valueElement.ownerDocument ?? mxUtils.createXmlDocument();
   if (valueElement.ownerDocument == null) {
     ownerDoc.appendChild(valueElement);
@@ -22743,7 +23013,7 @@ function buildValueWithPreamble(baseValue, entries) {
   let child = valueElement.firstChild;
   while (child != null) {
     const next = child.nextSibling;
-    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && normalizeNodeName(child) === PREAMBLE_ENTRY_TAG) {
+    if (child.nodeType === mxConstants.NODETYPE_ELEMENT && (nodeNameEquals(child, PREAMBLE_ENTRY_TAG) || nodeNameEquals(child, PREAMBLE_ENTRY_TAG_LEGACY))) {
       valueElement.removeChild(child);
     }
     child = next;
@@ -22766,6 +23036,19 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
   if (typeof document === "undefined") {
     return null;
   }
+  const resolveMetadataElement = () => {
+    try {
+      return ensureRootCellMetadataElement(model, rootCell);
+    } catch (error) {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        ensureCanonicalMetadataElementInPlace(valueElement);
+        return valueElement;
+      }
+      return null;
+    }
+  };
+  const initialMetadataElement = resolveMetadataElement();
   const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
   const container = document.createElement("div");
   container.setAttribute(PARSER_SETTINGS_DIALOG_ATTRIBUTE, "true");
@@ -23110,6 +23393,19 @@ function createPreambleDialog(editorUi, model, rootCell, labels) {
   if (typeof document === "undefined") {
     return null;
   }
+  const resolveMetadataElement = () => {
+    try {
+      return ensureRootCellMetadataElement(model, rootCell);
+    } catch (error) {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        ensureCanonicalMetadataElementInPlace(valueElement);
+        return valueElement;
+      }
+      return null;
+    }
+  };
+  const initialMetadataElement = resolveMetadataElement();
   const container = document.createElement("div");
   container.setAttribute("data-rdfexport-preamble-dialog", "true");
   container.style.position = "relative";
@@ -23204,7 +23500,7 @@ function createPreambleDialog(editorUi, model, rootCell, labels) {
     entries.push(entryState);
     entriesList.appendChild(entryContainer);
   };
-  const baseValue = typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+  const baseValue = initialMetadataElement ?? (typeof model.getValue === "function" ? model.getValue(rootCell) : null);
   for (const entry of extractPreambleEntries(baseValue)) {
     addEntry(entry.prefix, entry.iri);
   }
@@ -23277,7 +23573,8 @@ function createPreambleDialog(editorUi, model, rootCell, labels) {
       prefix: entry.prefixInput.value.trim(),
       iri: entry.iriInput.value.trim()
     })).filter((entry) => entry.prefix.length > 0 && entry.iri.length > 0);
-    const baseValue2 = typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+    const metadataElement = resolveMetadataElement();
+    const baseValue2 = metadataElement ?? (typeof model.getValue === "function" ? model.getValue(rootCell) : null);
     const newValue = buildValueWithPreamble(baseValue2, normalizedEntries);
     model.beginUpdate?.();
     try {
@@ -23363,6 +23660,7 @@ Draw.loadPlugin(function(editorUi) {
   function serializeDiagramXml(ui, options) {
     const graphXml = ui.editor.getGraphXml();
     const workingGraphXml = cloneGraphXml(graphXml);
+    ensureGraphXmlMetadataNode(workingGraphXml);
     const rmlEnabled = options?.rmlEnabled === true;
     applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
     const stripHtml = options?.stripHtml ?? true;
