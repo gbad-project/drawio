@@ -3,51 +3,57 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TOOLS_DIR="${ROOT_DIR}/tools/rmlmapper"
-DOWNLOADS_DIR="${TOOLS_DIR}/downloads"
-JAVA_DIR="${TOOLS_DIR}/java"
 JAR_DIR="${TOOLS_DIR}/lib"
 MANIFEST_PATH="${TOOLS_DIR}/manifest.json"
-
-JDK_VERSION="17.0.13+11"
-JDK_ARCHIVE="OpenJDK17U-jdk_x64_linux_hotspot_17.0.13_11.tar.gz"
-JDK_URL="https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.13+11/${JDK_ARCHIVE}"
-JDK_SHA256="8682892fc02965930b9022c066fa164dd6f458ef4a5dc262016aa28333b30f49"
 
 RMLMAPPER_VERSION="7.0.0-r374"
 RMLMAPPER_JAR="rmlmapper-${RMLMAPPER_VERSION}-all.jar"
 RMLMAPPER_URL="https://github.com/RMLio/rmlmapper-java/releases/download/v7.0.0/${RMLMAPPER_JAR}"
 RMLMAPPER_SHA256="925f83c4d029f56b18b81427484163f634edede6e0d620d572e04a9014de922f"
 
-mkdir -p "${DOWNLOADS_DIR}" "${JAVA_DIR}" "${JAR_DIR}"
+# SDKMAN configuration
+SDKMAN_DIR="${TOOLS_DIR}/sdkman"
+JDK_VERSION="17.0.13-tem"
 
-jdk_archive_path="${DOWNLOADS_DIR}/${JDK_ARCHIVE}"
-if [[ ! -f "${jdk_archive_path}" ]]; then
-  echo "[setup-rmlmapper] Downloading Temurin JDK ${JDK_VERSION}..."
-  curl -fL "${JDK_URL}" -o "${jdk_archive_path}"
+mkdir -p "${JAR_DIR}"
+
+# Install SDKMAN! if not present
+if [[ ! -d "${SDKMAN_DIR}" ]]; then
+  echo "[setup-rmlmapper] Installing SDKMAN!..."
+  # Temporarily disable strict mode for SDKMAN install
+  set +u
+  export SDKMAN_DIR
+  curl -s "https://get.sdkman.io?rcupdate=false" | bash
+  set -u
 fi
 
-jdk_actual_sha="$(sha256sum "${jdk_archive_path}" | awk '{print $1}')"
-if [[ "${jdk_actual_sha}" != "${JDK_SHA256}" ]]; then
-  echo "[setup-rmlmapper] Checksum mismatch for ${JDK_ARCHIVE}:" >&2
-  echo "  expected ${JDK_SHA256}" >&2
-  echo "  actual   ${jdk_actual_sha}" >&2
-  exit 1
+# Source SDKMAN with proper error handling
+set +u  # Temporarily disable unbound variable check
+source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+set -u  # Re-enable strict mode
+
+# Install Java via SDKMAN (automatically handles OS detection)
+echo "[setup-rmlmapper] Checking for Java ${JDK_VERSION}..."
+set +u
+if ! sdk list java 2>/dev/null | grep -q "installed.*${JDK_VERSION}"; then
+  echo "[setup-rmlmapper] Installing Temurin JDK 17 via SDKMAN!..."
+  sdk install java "${JDK_VERSION}" < /dev/null
+else
+  echo "[setup-rmlmapper] Java ${JDK_VERSION} already installed."
 fi
 
-jdk_extract_dir="${JAVA_DIR}/temurin-${JDK_VERSION}"
-if [[ ! -d "${jdk_extract_dir}" ]]; then
-  echo "[setup-rmlmapper] Extracting JDK to ${jdk_extract_dir}..."
-  mkdir -p "${jdk_extract_dir}"
-  tar -xzf "${jdk_archive_path}" -C "${jdk_extract_dir}" --strip-components=1
-fi
+# Use the installed Java
+sdk use java "${JDK_VERSION}"
+set -u
 
-rmlmapper_path="${JAR_DIR}/${RMLMAPPER_JAR}"
-if [[ ! -f "${rmlmapper_path}" ]]; then
+# Download RMLMapper
+if [[ ! -f "${JAR_DIR}/${RMLMAPPER_JAR}" ]]; then
   echo "[setup-rmlmapper] Downloading RMLMapper ${RMLMAPPER_VERSION}..."
-  curl -fL "${RMLMAPPER_URL}" -o "${rmlmapper_path}"
+  curl -fL "${RMLMAPPER_URL}" -o "${JAR_DIR}/${RMLMAPPER_JAR}"
 fi
 
-rmlmapper_actual_sha="$(sha256sum "${rmlmapper_path}" | awk '{print $1}')"
+# Verify checksum
+rmlmapper_actual_sha="$(sha256sum "${JAR_DIR}/${RMLMAPPER_JAR}" | awk '{print $1}')"
 if [[ "${rmlmapper_actual_sha}" != "${RMLMAPPER_SHA256}" ]]; then
   echo "[setup-rmlmapper] Checksum mismatch for ${RMLMAPPER_JAR}:" >&2
   echo "  expected ${RMLMAPPER_SHA256}" >&2
@@ -55,20 +61,21 @@ if [[ "${rmlmapper_actual_sha}" != "${RMLMAPPER_SHA256}" ]]; then
   exit 1
 fi
 
-java_bin="${jdk_extract_dir}/bin/java"
-if [[ ! -x "${java_bin}" ]]; then
-  echo "[setup-rmlmapper] java binary not found at ${java_bin}" >&2
-  exit 1
-fi
+# Get Java paths from SDKMAN
+JAVA_HOME_PATH="${SDKMAN_DIR}/candidates/java/${JDK_VERSION}"
+JAVA_BIN="${JAVA_HOME_PATH}/bin/java"
 
+# Write manifest
 cat > "${MANIFEST_PATH}" <<MANIFEST
 {
   "java_version": "${JDK_VERSION}",
-  "java_home": "${jdk_extract_dir}",
-  "java_bin": "${java_bin}",
+  "java_home": "${JAVA_HOME_PATH}",
+  "java_bin": "${JAVA_BIN}",
   "rmlmapper_version": "${RMLMAPPER_VERSION}",
-  "rmlmapper_jar": "${rmlmapper_path}"
+  "rmlmapper_jar": "${JAR_DIR}/${RMLMAPPER_JAR}",
+  "sdkman_dir": "${SDKMAN_DIR}"
 }
 MANIFEST
 
-echo "[setup-rmlmapper] Environment ready. Manifest written to ${MANIFEST_PATH}."
+echo "[setup-rmlmapper] ✓ Environment ready. Manifest written to ${MANIFEST_PATH}."
+echo "[setup-rmlmapper] Java location: ${JAVA_BIN}"
