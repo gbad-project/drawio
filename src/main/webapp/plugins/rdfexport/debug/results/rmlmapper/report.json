@@ -1,0 +1,68 @@
+{
+  "general-authority-to-ric-o-model-2025-06-25-pz": {
+    "map_schema": {
+      "csv_path": {
+        "rml": "debug/results/rmlmapper/general-authority-to-ric-o-model-2025-06-25-pz/map-schema/csv_path/map-schema-General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl",
+        "turtle": "debug/results/rmlmapper/general-authority-to-ric-o-model-2025-06-25-pz/map-schema/csv_path/map-schema-General Authority to RiC-O Model_2025-06-25_PZ.output.ttl",
+        "triples": 50,
+        "source": "map-schema:General Authority to RiC-O Model_2025-06-25_PZ.csv"
+      },
+      "normalized_csv_path": {
+        "rml": "debug/results/rmlmapper/general-authority-to-ric-o-model-2025-06-25-pz/map-schema/normalized_csv_path/map-schema-General Authority to RiC-O Model_2025-06-25_PZ-normalized.rml.ttl",
+        "turtle": "debug/results/rmlmapper/general-authority-to-ric-o-model-2025-06-25-pz/map-schema/normalized_csv_path/map-schema-General Authority to RiC-O Model_2025-06-25_PZ-normalized.output.ttl",
+        "triples": 50,
+        "source": "map-schema:General Authority to RiC-O Model_2025-06-25_PZ-normalized.csv"
+      }
+    },
+    "pipeline": {
+      "rml": "debug/results/rmlmapper/general-authority-to-ric-o-model-2025-06-25-pz/pipeline/pipeline.rml.ttl",
+      "turtle": "debug/results/rmlmapper/general-authority-to-ric-o-model-2025-06-25-pz/pipeline/pipeline.output.ttl",
+      "triples": 130,
+      "source": "pipeline:py_legacy(head)"
+    },
+    "isomorphism": {
+      "normalized_csv_path": {
+        "isomorphic": false,
+        "shared_triples": 28,
+        "map_only": 8,
+        "pipeline_only": 1,
+        "map_triples": 36,
+        "pipeline_triples": 29
+      },
+      "csv_path": false
+    }
+  },
+  "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz": {
+    "map_schema": {
+      "csv_path": {
+        "rml": "debug/results/rmlmapper/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/map-schema/csv_path/map-schema-General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl",
+        "turtle": "debug/results/rmlmapper/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/map-schema/csv_path/map-schema-General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.output.ttl",
+        "triples": 44,
+        "source": "map-schema:General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv"
+      },
+      "normalized_csv_path": {
+        "rml": "debug/results/rmlmapper/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/map-schema/normalized_csv_path/map-schema-General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ-normalized.rml.ttl",
+        "turtle": "debug/results/rmlmapper/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/map-schema/normalized_csv_path/map-schema-General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ-normalized.output.ttl",
+        "triples": 44,
+        "source": "map-schema:General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ-normalized.csv"
+      }
+    },
+    "pipeline": {
+      "rml": "debug/results/rmlmapper/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/pipeline/pipeline.rml.ttl",
+      "turtle": "debug/results/rmlmapper/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz/pipeline/pipeline.output.ttl",
+      "triples": 130,
+      "source": "pipeline:py_legacy(head)"
+    },
+    "isomorphism": {
+      "normalized_csv_path": {
+        "isomorphic": false,
+        "shared_triples": 20,
+        "map_only": 10,
+        "pipeline_only": 5,
+        "map_triples": 30,
+        "pipeline_triples": 25
+      },
+      "csv_path": false
+    }
+  }
+}
