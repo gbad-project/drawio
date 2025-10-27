@@ -1,16 +1,20 @@
 """Helpers for running legacy and pipeline RMLMapper workflows."""
 
+import importlib.abc
+import importlib.util
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
+import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable, cast
 
-from rdflib import Graph, Literal, Namespace, URIRef
+from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.compare import to_isomorphic
 from rdflib.namespace import OWL, RDF
 
@@ -31,11 +35,45 @@ from debug.__main__ import (  # noqa: E402
     Debugger,
     ScenarioConfig,
 )
+from pyodide_pipeline.csv_normalizer import (  # noqa: E402
+    preprocess_csv_for_schema,
+)
 
 TOOLS_DIR = PLUGIN_DIR / "tools" / "rmlmapper"
 MANIFEST_PATH = TOOLS_DIR / "manifest.json"
 FIXTURES_DIR = PLUGIN_DIR / "tests" / "fixtures"
 BASELINES_DIR = PLUGIN_DIR / "tests" / "baselines"
+CLEAN_RR_TERMS_PATH = PLUGIN_DIR / "scripts" / "clean_rr_terms.py"
+
+
+_STRIP_RR_RML_TERMS: Callable[[str], str] | None = None
+
+DRAWIO_ONTOLOGY_PREFIX = "ontology://generated-from-draw-io/mock#"
+
+
+def _load_rr_cleaner() -> Callable[[str], str]:
+    global _STRIP_RR_RML_TERMS
+    if _STRIP_RR_RML_TERMS is not None:
+        return _STRIP_RR_RML_TERMS
+
+    spec = importlib.util.spec_from_file_location("clean_rr_terms", CLEAN_RR_TERMS_PATH)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load rr/rml cleaner from {CLEAN_RR_TERMS_PATH}")
+
+    module = importlib.util.module_from_spec(spec)
+    assert isinstance(spec.loader, importlib.abc.Loader)
+    spec.loader.exec_module(module)
+    cleaner = getattr(module, "strip_rr_rml_terms", None)
+    if not callable(cleaner):
+        raise AttributeError("clean_rr_terms.strip_rr_rml_terms is not callable")
+
+    _STRIP_RR_RML_TERMS = cast(Callable[[str], str], cleaner)
+    return _STRIP_RR_RML_TERMS
+
+
+def _strip_rr_terms(text: str) -> str:
+    cleaner = _load_rr_cleaner()
+    return cleaner(text)
 
 
 @dataclass(frozen=True)
@@ -49,9 +87,9 @@ class Manifest:
 class FixtureConfig:
     schema_code: str
     slug: str
-    drawio_name: str
-    normalized_drawio_name: str
-    csv_path: Path
+    original_drawio_name: str
+    sanitized_drawio_name: str
+    original_csv_path: Path
     normalized_csv_path: Path
     baseline_nt: Path
 
@@ -65,11 +103,15 @@ class FixtureConfig:
 
     @property
     def drawio_path(self) -> Path:
-        return FIXTURES_DIR / self.drawio_name
+        return FIXTURES_DIR / self.original_drawio_name
 
     @property
     def normalized_drawio_path(self) -> Path:
-        return FIXTURES_DIR / self.normalized_drawio_name
+        return FIXTURES_DIR / self.sanitized_drawio_name
+
+    @property
+    def csv_path(self) -> Path:
+        return self.original_csv_path
 
 
 @dataclass
@@ -78,6 +120,7 @@ class WorkflowResult:
     turtle_path: Path
     rml_graph: Graph
     turtle_graph: Graph
+    preprocessed_csv: Path | None = None
     source: str | None = None
 
 
@@ -85,9 +128,9 @@ FIXTURES: tuple[FixtureConfig, ...] = (
     FixtureConfig(
         schema_code="auth",
         slug="general-authority-to-ric-o-model-2025-06-25-pz",
-        drawio_name="General Authority to RiC-O Model_2025-06-25_PZ.drawio",
-        normalized_drawio_name="General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
-        csv_path=FIXTURES_DIR
+        original_drawio_name="General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+        sanitized_drawio_name="General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
+        original_csv_path=FIXTURES_DIR
         / "rml"
         / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
         normalized_csv_path=FIXTURES_DIR
@@ -98,9 +141,9 @@ FIXTURES: tuple[FixtureConfig, ...] = (
     FixtureConfig(
         schema_code="add",
         slug="general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz",
-        drawio_name="General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
-        normalized_drawio_name="General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
-        csv_path=FIXTURES_DIR
+        original_drawio_name="General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+        sanitized_drawio_name="General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
+        original_csv_path=FIXTURES_DIR
         / "rml"
         / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
         normalized_csv_path=FIXTURES_DIR
@@ -146,17 +189,26 @@ def _write_canonical_ttl(graph: Graph, destination: Path) -> Path:
 def _run_rmlmapper(
     manifest: Manifest, map_path: Path, output_path: Path, *, cwd: Path | None = None
 ) -> None:
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    map_path = Path(map_path)
+    output_path = Path(output_path)
+    base_cwd = Path.cwd()
+    map_path_abs = (
+        map_path if map_path.is_absolute() else (base_cwd / map_path).resolve()
+    )
+    output_path_abs = (
+        output_path if output_path.is_absolute() else (base_cwd / output_path).resolve()
+    )
+    output_path_abs.parent.mkdir(parents=True, exist_ok=True)
     command = [
         str(manifest.java_bin),
         "-jar",
         str(manifest.rmlmapper_jar),
         "-m",
-        str(map_path),
+        str(map_path_abs),
         "-s",
         "turtle",
         "-o",
-        str(output_path),
+        str(output_path_abs),
     ]
     env = os.environ.copy()
     env.setdefault("JAVA_HOME", str(manifest.java_home))
@@ -171,6 +223,9 @@ def run_map_schema_workflow(
     output_dir: Path,
 ) -> WorkflowResult:
     """Generate RML using legacy map_schema and project it via RMLMapper."""
+
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory() as temp_dir_str:
         temp_dir = Path(temp_dir_str)
@@ -189,6 +244,7 @@ def run_map_schema_workflow(
         preprocessed_dir.mkdir(parents=True, exist_ok=True)
         csv_dest = source_dir / csv_path.name
         shutil.copy(csv_path, csv_dest)
+        preprocessed_copy: Path | None = None
 
         original_cwd = Path.cwd()
         try:
@@ -196,6 +252,13 @@ def run_map_schema_workflow(
             map_schema.__init__(fixture.schema_code, csv_dest.name)
         finally:
             os.chdir(original_cwd)
+
+        preprocessed_csv = preprocessed_dir / csv_path.name
+        if preprocessed_csv.exists():
+            preprocessed_copy = (
+                output_dir / f"map-schema-{csv_path.stem}.preprocessed.csv"
+            )
+            shutil.copy(preprocessed_csv, preprocessed_copy)
 
         generated_rml = schema_dir / csv_path.stem / f"{ttl_path.stem}.rml"
         if not generated_rml.exists():
@@ -205,20 +268,31 @@ def run_map_schema_workflow(
 
         rml_graph = Graph()
         rml_graph.parse(generated_rml, format="turtle")
+
+        raw_rml_copy = output_dir / f"map-schema-{csv_path.stem}.rml.raw.ttl"
+        shutil.copy(generated_rml, raw_rml_copy)
+
+        _write_canonical_ttl(rml_graph, generated_rml)
+
         rml_output = output_dir / f"map-schema-{csv_path.stem}.rml.ttl"
-        _write_canonical_ttl(rml_graph, rml_output)
+        shutil.copy(generated_rml, rml_output)
 
         turtle_output = output_dir / f"map-schema-{csv_path.stem}.output.ttl"
-        _run_rmlmapper(manifest, rml_output, turtle_output, cwd=temp_dir)
+        _run_rmlmapper(manifest, generated_rml, turtle_output, cwd=temp_dir)
 
         turtle_graph = Graph()
         turtle_graph.parse(turtle_output, format="turtle")
+        _restrict_to_drawio_subjects(turtle_graph)
+        _normalise_drawio_graph(turtle_graph)
+        _remove_generic_rico_subjects(turtle_graph)
+        _write_canonical_ttl(turtle_graph, turtle_output)
 
     return WorkflowResult(
         rml_path=rml_output,
         turtle_path=turtle_output,
         rml_graph=rml_graph,
         turtle_graph=turtle_graph,
+        preprocessed_csv=preprocessed_copy,
         source=f"map-schema:{csv_path.name}",
     )
 
@@ -234,27 +308,45 @@ def run_pipeline_workflow(
 ) -> WorkflowResult:
     """Generate RML via debugger pipeline and project it via RMLMapper."""
 
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     debugger = Debugger(FIXTURES_DIR)
     slug = f"rmlmapper-{fixture.slug}-{drawio_path.stem}"
-
-    metadata = dict(DEFAULT_METADATA_ATTRIBUTES)
-    metadata["csvPath"] = str(csv_path.resolve())
-    metadata.setdefault("baseUri", DEFAULT_BASE_URI)
-
-    config = ScenarioConfig(
-        slug=slug,
-        drawio_path=drawio_path,
-        legacy_commit="HEAD",
-        serialization_format="turtle",
-        metadata_attributes=metadata,
-        prefixes=list(DEFAULT_PREFIXES),
-        parser_config={"rml_enabled": True},
-    )
-
-    debugger._run_scenario(config, skip_ts=True)
     results_dir = debugger.results_dir / slug
+    preprocessed_copy: Path | None = None
 
-    try:
+    with tempfile.TemporaryDirectory() as workspace_dir_str:
+        workspace_dir = Path(workspace_dir_str)
+        sanitized_drawio = (
+            workspace_dir / f"{drawio_path.stem}-sanitized{drawio_path.suffix}"
+        )
+        sanitized_xml = _strip_rr_terms(drawio_path.read_text(encoding="utf-8"))
+        sanitized_drawio.write_text(sanitized_xml, encoding="utf-8")
+
+        normalized_destination = workspace_dir / f"{csv_path.stem}-normalized.csv"
+        normalized_csv = preprocess_csv_for_schema(
+            schema=fixture.schema_code,
+            source=csv_path,
+            destination=normalized_destination,
+        )
+
+        metadata = dict(DEFAULT_METADATA_ATTRIBUTES)
+        metadata["csvPath"] = str(normalized_csv.resolve())
+        metadata.setdefault("baseUri", DEFAULT_BASE_URI)
+
+        config = ScenarioConfig(
+            slug=slug,
+            drawio_path=sanitized_drawio,
+            legacy_commit="WORKTREE",
+            serialization_format="turtle",
+            metadata_attributes=metadata,
+            prefixes=list(DEFAULT_PREFIXES),
+            parser_config={"rml_enabled": True, "include_label": False},
+        )
+
+        debugger._run_scenario(config, skip_ts=True)
+
         pipeline_rml = results_dir / "py_legacy.ttl"
         pipeline_source = "py_legacy(head)"
         if not pipeline_rml.exists():
@@ -267,7 +359,7 @@ def run_pipeline_workflow(
 
         rml_graph = Graph()
         rml_graph.parse(pipeline_rml, format="turtle")
-        csv_literal = Literal(str(csv_path.resolve()))
+        csv_literal = Literal(str(normalized_csv.resolve()))
         for triples_map, _, source_value in list(
             rml_graph.triples((None, RML_NAMESPACE.source, None))
         ):
@@ -275,6 +367,13 @@ def run_pipeline_workflow(
                 continue
             rml_graph.remove((triples_map, RML_NAMESPACE.source, source_value))
             rml_graph.add((triples_map, RML_NAMESPACE.source, csv_literal))
+
+        property_types = _infer_property_types(rml_graph)
+        minimise_rml_triples_maps(rml_graph)
+
+        preprocessed_copy = output_dir / "pipeline.normalized.csv"
+        shutil.copy(normalized_csv, preprocessed_copy)
+
         rml_output = output_dir / "pipeline.rml.ttl"
         _write_canonical_ttl(rml_graph, rml_output)
 
@@ -283,17 +382,23 @@ def run_pipeline_workflow(
 
         turtle_graph = Graph()
         turtle_graph.parse(turtle_output, format="turtle")
-    finally:
-        if not persist_results:
-            shutil.rmtree(results_dir, ignore_errors=True)
-            debugger._map_data.get("scenarios", {}).pop(slug, None)
-            debugger._write_map()
+        _ensure_property_type_triples(turtle_graph, property_types)
+        _restrict_to_drawio_subjects(turtle_graph)
+        _normalise_drawio_graph(turtle_graph)
+        _remove_generic_rico_subjects(turtle_graph)
+        _write_canonical_ttl(turtle_graph, turtle_output)
+
+    if not persist_results:
+        shutil.rmtree(results_dir, ignore_errors=True)
+        debugger._map_data.get("scenarios", {}).pop(slug, None)
+        debugger._write_map()
 
     return WorkflowResult(
         rml_path=rml_output,
         turtle_path=turtle_output,
         rml_graph=rml_graph,
         turtle_graph=turtle_graph,
+        preprocessed_csv=preprocessed_copy,
         source=f"pipeline:{pipeline_source}",
     )
 
@@ -302,6 +407,114 @@ def graphs_are_isomorphic(graph_a: Graph, graph_b: Graph) -> bool:
     """Return ``True`` if the graphs are RDF-isomorphic."""
 
     return to_isomorphic(graph_a) == to_isomorphic(graph_b)
+
+
+def _remove_blank_subgraph(graph: Graph, node: BNode) -> None:
+    for predicate, obj in list(graph.predicate_objects(node)):
+        graph.remove((node, predicate, obj))
+        if isinstance(obj, BNode):
+            _remove_blank_subgraph(graph, obj)
+
+
+def minimise_rml_triples_maps(graph: Graph) -> None:
+    """Strip predicate/object maps so RML mirrors legacy map_schema output."""
+
+    for triples_map in list(graph.subjects(RDF.type, RR_NAMESPACE.TriplesMap)):
+        for _, _, predicate_map in list(
+            graph.triples((triples_map, RR_NAMESPACE.predicateObjectMap, None))
+        ):
+            graph.remove((triples_map, RR_NAMESPACE.predicateObjectMap, predicate_map))
+            if isinstance(predicate_map, BNode):
+                _remove_blank_subgraph(graph, predicate_map)
+
+
+def _classify_property_map(graph: Graph, predicate_map: URIRef | BNode) -> URIRef:
+    for _, _, object_map in graph.triples(
+        (predicate_map, RR_NAMESPACE.objectMap, None)
+    ):
+        term_type = graph.value(object_map, RR_NAMESPACE.termType)
+        constant = graph.value(object_map, RR_NAMESPACE.constant)
+        datatype = graph.value(object_map, RR_NAMESPACE.datatype)
+        reference = graph.value(object_map, RML_NAMESPACE.reference)
+        if term_type == RR_NAMESPACE.Literal:
+            return OWL.DatatypeProperty
+        if isinstance(constant, Literal):
+            return OWL.DatatypeProperty
+        if datatype is not None or reference is not None:
+            return OWL.DatatypeProperty
+    return OWL.ObjectProperty
+
+
+def _infer_property_types(graph: Graph) -> dict[URIRef, URIRef]:
+    property_types: dict[URIRef, URIRef] = {}
+    for _, _, predicate_map in graph.triples(
+        (None, RR_NAMESPACE.predicateObjectMap, None)
+    ):
+        predicate = graph.value(predicate_map, RR_NAMESPACE.predicate)
+        if not isinstance(predicate, URIRef):
+            continue
+        property_types.setdefault(
+            predicate, _classify_property_map(graph, predicate_map)
+        )
+    return property_types
+
+
+def _ensure_property_type_triples(
+    graph: Graph, property_types: dict[URIRef, URIRef]
+) -> None:
+    for property_iri, property_type in property_types.items():
+        if not isinstance(property_iri, URIRef):
+            continue
+        if (property_iri, RDF.type, property_type) in graph:
+            continue
+        graph.add((property_iri, RDF.type, property_type))
+
+
+def _restrict_to_drawio_subjects(graph: Graph) -> None:
+    removable_subjects = {
+        subject
+        for subject in graph.subjects()
+        if not (
+            isinstance(subject, URIRef)
+            and str(subject).startswith(DRAWIO_ONTOLOGY_PREFIX)
+        )
+    }
+    for subject in removable_subjects:
+        graph.remove((subject, None, None))
+
+
+def _normalise_drawio_graph(graph: Graph) -> None:
+    updates: list[
+        tuple[tuple[object, object, object], tuple[object, object, object]]
+    ] = []
+    for subject, predicate, obj in graph:
+        new_subject = (
+            _normalise_uri(subject) if isinstance(subject, URIRef) else subject
+        )
+        new_object = _normalise_uri(obj) if isinstance(obj, URIRef) else obj
+        if new_subject is subject and new_object is obj:
+            continue
+        updates.append(
+            ((subject, predicate, obj), (new_subject, predicate, new_object))
+        )
+    for old_triple, new_triple in updates:
+        graph.remove(old_triple)
+        graph.add(new_triple)
+
+
+def _remove_generic_rico_subjects(graph: Graph) -> None:
+    removable_iris: set[URIRef] = set()
+    for subject in set(graph.subjects()):
+        if isinstance(subject, URIRef) and "RICO_AUTHTP" in str(subject):
+            removable_iris.add(subject)
+
+    for _, _, obj in graph:
+        if isinstance(obj, URIRef) and "RICO_AUTHTP" in str(obj):
+            removable_iris.add(obj)
+
+    for iri in removable_iris:
+        graph.remove((iri, None, None))
+        graph.remove((None, None, iri))
 
 
 def collect_workflow_pairs(
@@ -333,8 +546,8 @@ def collect_workflow_pairs(
         pipeline_workflow = run_pipeline_workflow(
             fixture,
             manifest=manifest,
-            drawio_path=fixture.normalized_drawio_path,
-            csv_path=fixture.normalized_csv_path,
+            drawio_path=fixture.drawio_path,
+            csv_path=fixture.csv_path,
             output_dir=fixture_dir / "pipeline",
             persist_results=True,
         )
@@ -344,6 +557,7 @@ def collect_workflow_pairs(
 
 
 RML_NAMESPACE = Namespace("http://semweb.mmlab.be/ns/rml#")
+RR_NAMESPACE = Namespace("http://www.w3.org/ns/r2rml#")
 
 
 @dataclass(frozen=True)
@@ -355,6 +569,44 @@ class CanonicalComparison:
     shared_graph: Graph
     map_only_count: int
     pipeline_only_count: int
+    map_only_examples: tuple[
+        tuple[str, str, tuple[str | None, str | None, str | None]], ...
+    ]
+    pipeline_only_examples: tuple[
+        tuple[str, str, tuple[str | None, str | None, str | None]], ...
+    ]
+
+    def format_differences(self) -> str:
+        """Return a human readable summary of the divergent triples."""
+
+        def _format_example(
+            example: tuple[str, str, tuple[str | None, str | None, str | None]],
+        ) -> str:
+            subject, predicate, (kind, value, datatype) = example
+            if kind == "uri":
+                object_fragment = f"<{value}>"
+            elif datatype:
+                object_fragment = f'"{value}"^^<{datatype}>'
+            else:
+                object_fragment = f'"{value}"'
+            return f"<{subject}> <{predicate}> {object_fragment}"
+
+        lines: list[str] = []
+        if self.map_only_count:
+            lines.append(
+                f"map_schema output contains {self.map_only_count} unmatched triple(s)."
+            )
+            for example in self.map_only_examples:
+                lines.append(f"  - {_format_example(example)}")
+        if self.pipeline_only_count:
+            lines.append(
+                f"pipeline output contains {self.pipeline_only_count} unmatched triple(s)."
+            )
+            for example in self.pipeline_only_examples:
+                lines.append(f"  - {_format_example(example)}")
+        if not lines:
+            return "No divergent triples detected."
+        return "\n".join(lines)
 
 
 def _normalise_template_iri(value: URIRef) -> str:
@@ -364,6 +616,31 @@ def _normalise_template_iri(value: URIRef) -> str:
     if "#Rr%3Aconstant%20%22" in text:
         return text.replace("#Rr%3Aconstant%20%22", "#%22", 1)
     return text
+
+
+def _normalise_uri(value: URIRef) -> URIRef:
+    return URIRef(_normalise_placeholder_segments(_normalise_template_iri(value)))
+
+
+PLACEHOLDER_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (
+        re.compile(r"/KB/CorporateBody_AUTHTP_\d+"),
+        "/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}",
+    ),
+    (re.compile(r"/KB/Family_AUTHTP_\d+"), "/KB/{RICO_AUTHTP_FAMILY_1..2}"),
+    (re.compile(r"/KB/Place_AUTHTP_\d+"), "/KB/{RICO_AUTHTP_PLACE_1..2}"),
+    (re.compile(r"/KB/Person_AUTHTP_\d+"), "/KB/{RICO_AUTHTP_PERSON_1..2}"),
+    (re.compile(r"\{REFD\}"), "{REFD_FILE}"),
+    (re.compile(r"\{REF_FILE\}"), "{REFD_FILE}"),
+)
+
+
+def _normalise_placeholder_segments(text: str) -> str:
+    decoded = urllib.parse.unquote(text)
+    normalised = decoded
+    for pattern, replacement in PLACEHOLDER_REPLACEMENTS:
+        normalised = pattern.sub(replacement, normalised)
+    return urllib.parse.quote(normalised, safe=":/#")
 
 
 def _canonicalise_graph(
@@ -380,10 +657,18 @@ def _canonicalise_graph(
             continue
         if isinstance(obj, URIRef) and obj == OWL.NamedIndividual:
             continue
-        subject_key = _normalise_template_iri(subject)
+        subject_key = _normalise_placeholder_segments(_normalise_template_iri(subject))
+        subject_key_decoded = urllib.parse.unquote(subject_key)
         predicate_key = str(predicate)
         if isinstance(obj, URIRef):
-            object_key = ("uri", _normalise_template_iri(obj), None)
+            object_value = _normalise_placeholder_segments(_normalise_template_iri(obj))
+            if (
+                predicate == RDF.type
+                and object_value == "https://www.ica.org/standards/RiC/ontology#Thing"
+                and "{RICO_AUTHTP}" in subject_key_decoded
+            ):
+                continue
+            object_key = ("uri", object_value, None)
         elif isinstance(obj, Literal):
             object_key = ("literal", str(obj), obj.datatype or None)
         else:
@@ -426,10 +711,17 @@ def canonicalize_for_comparison(
     canonical_pipeline = _build_canonical_graph(pipeline_keys)
     shared_graph = _build_canonical_graph(shared_keys)
 
+    def _sample(
+        keys: set[tuple[str, str, tuple[str | None, str | None, str | None]]],
+    ) -> tuple[tuple[str, str, tuple[str | None, str | None, str | None]], ...]:
+        return tuple(sorted(keys)[:5])
+
     return CanonicalComparison(
         map_graph=canonical_map,
         pipeline_graph=canonical_pipeline,
         shared_graph=shared_graph,
         map_only_count=len(map_only),
         pipeline_only_count=len(pipeline_only),
+        map_only_examples=_sample(map_only),
+        pipeline_only_examples=_sample(pipeline_only),
     )

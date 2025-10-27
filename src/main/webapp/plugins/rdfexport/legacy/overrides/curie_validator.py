@@ -366,7 +366,7 @@ def serialise_to_graph(
         graph.add((URIRef(ontology_iri), OWL.imports, URIRef(prefixes["rico"])))
 
     def _resolve_property_uri(prop: str) -> URIRef:
-        if _is_absolute_iri(prop):
+        if toolkit._is_absolute_iri(prop):
             return URIRef(prop)
         prop_prefix, prop_name = prop.split(":", 1)
         return namespace_map[prop_prefix][prop_name]

@@ -14,8 +14,24 @@ from typing import Iterable, List, Sequence, Tuple
 from rdflib import Graph
 from rdflib.compare import to_canonical_graph
 
-from pyodide_pipeline import drawio_pipeline
-from pyodide_pipeline.csv_normalizer import preprocess_csv_for_schema
+
+PLUGIN_DIR = Path(__file__).resolve().parents[2]
+
+
+def _load_pyodide_pipeline():
+    plugin_dir = str(PLUGIN_DIR)
+    if plugin_dir not in sys.path:
+        sys.path.insert(0, plugin_dir)
+
+    from pyodide_pipeline import drawio_pipeline as pipeline
+    from pyodide_pipeline.csv_normalizer import (
+        preprocess_csv_for_schema as preprocess,
+    )
+
+    return pipeline, preprocess
+
+
+drawio_pipeline, preprocess_csv_for_schema = _load_pyodide_pipeline()
 
 REPO_ROOT = Path(__file__).resolve().parents[5]
 LEGACY_DIR = Path(__file__).resolve().parents[1]
@@ -80,6 +96,10 @@ class PreviousParserLoader:
             sys.modules.pop(self.module.__name__, None)
 
     def _read_parser_from_commit(self) -> str:
+        if self.commit.upper() == "WORKTREE":
+            parser_path = Path(__file__).resolve().parents[1] / "draw_io_parser.py"
+            return parser_path.read_text(encoding="utf-8")
+
         commit_path = f"{self.commit}:{PARSER_RELATIVE_PATH.as_posix()}"
         try:
             result = subprocess.run(

@@ -13,8 +13,8 @@ from legacy.tests import rmlmapper_workflows as workflows  # noqa: E402
 
 
 EXPECTED_DIFFERENCES: dict[str, tuple[int, int]] = {
-    "general-authority-to-ric-o-model-2025-06-25-pz": (8, 1),
-    "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz": (10, 5),
+    "general-authority-to-ric-o-model-2025-06-25-pz": (0, 0),
+    "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz": (0, 0),
 }
 
 
@@ -30,19 +30,21 @@ def test_rmlmapper_workflows_are_isomorphic(
     map_schema_result = workflows.run_map_schema_workflow(
         fixture,
         manifest=manifest,
-        csv_path=fixture.normalized_csv_path,
+        csv_path=fixture.csv_path,
         output_dir=tmp_path / "map-schema",
     )
 
     pipeline_result = workflows.run_pipeline_workflow(
         fixture,
         manifest=manifest,
-        drawio_path=fixture.normalized_drawio_path,
-        csv_path=fixture.normalized_csv_path,
+        drawio_path=fixture.drawio_path,
+        csv_path=fixture.csv_path,
         output_dir=tmp_path / "pipeline",
         persist_results=False,
     )
 
+    assert map_schema_result.turtle_path.exists()
+    assert pipeline_result.turtle_path.exists()
     assert len(map_schema_result.turtle_graph) > 0
     assert len(pipeline_result.turtle_graph) > 0
 
@@ -52,19 +54,27 @@ def test_rmlmapper_workflows_are_isomorphic(
 
     expected_map_only, expected_pipeline_only = EXPECTED_DIFFERENCES[fixture.slug]
 
-    assert canonical.map_only_count == expected_map_only
-    assert canonical.pipeline_only_count == expected_pipeline_only
+    if (
+        canonical.map_only_count != expected_map_only
+        or canonical.pipeline_only_count != expected_pipeline_only
+    ):
+        diagnostics = canonical.format_differences()
+        pytest.fail(
+            "Canonicalised workflow projections diverged:\n"
+            f"Expected map_schema-only count {expected_map_only}, observed {canonical.map_only_count}.\n"
+            f"Expected pipeline-only count {expected_pipeline_only}, observed {canonical.pipeline_only_count}.\n"
+            f"{diagnostics}"
+        )
 
-    assert len(canonical.map_graph) == len(canonical.shared_graph) + expected_map_only
-    assert (
-        len(canonical.pipeline_graph)
-        == len(canonical.shared_graph) + expected_pipeline_only
+    if not workflows.graphs_are_isomorphic(
+        map_schema_result.turtle_graph, pipeline_result.turtle_graph
+    ):
+        diagnostics = canonical.format_differences()
+        pytest.fail(
+            "RMLMapper Turtle outputs are not isomorphic despite canonical agreement:\n"
+            f"{diagnostics}"
+        )
+
+    assert workflows.graphs_are_isomorphic(
+        canonical.map_graph, canonical.pipeline_graph
     )
-
-    expected_isomorphic = expected_map_only == 0 and expected_pipeline_only == 0
-    assert (
-        workflows.graphs_are_isomorphic(canonical.map_graph, canonical.pipeline_graph)
-        == expected_isomorphic
-    )
-
-    assert len(canonical.shared_graph) > 0
