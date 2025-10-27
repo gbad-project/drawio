@@ -13,6 +13,8 @@ import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Iterable, cast
+import io
+import contextlib
 
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.compare import to_isomorphic
@@ -227,7 +229,7 @@ def run_map_schema_workflow(
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory() as temp_dir_str:
+    with tempfile.TemporaryDirectory(dir='tmp', delete=False) as temp_dir_str:
         temp_dir = Path(temp_dir_str)
         schema_dir = temp_dir / "gbad" / "schema" / fixture.schema_subdir
         schema_dir.mkdir(parents=True, exist_ok=True)
@@ -247,11 +249,19 @@ def run_map_schema_workflow(
         preprocessed_copy: Path | None = None
 
         original_cwd = Path.cwd()
+        stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
         try:
             os.chdir(temp_dir)
-            map_schema.__init__(fixture.schema_code, csv_dest.name)
+            with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
+                map_schema.__init__(fixture.schema_code, csv_dest.name)
         finally:
             os.chdir(original_cwd)
+        stdout_output = stdout_buf.getvalue()
+        stderr_output = stderr_buf.getvalue()
+        print("map_schema stdout:",
+              stdout_output[:50] + "...\n",
+              "map_schema stderr:",
+              stderr_output[:50] + "...\n",)
 
         preprocessed_csv = preprocessed_dir / csv_path.name
         if preprocessed_csv.exists():
@@ -316,7 +326,7 @@ def run_pipeline_workflow(
     results_dir = debugger.results_dir / slug
     preprocessed_copy: Path | None = None
 
-    with tempfile.TemporaryDirectory() as workspace_dir_str:
+    with tempfile.TemporaryDirectory(dir='tmp', delete=False) as workspace_dir_str:
         workspace_dir = Path(workspace_dir_str)
         sanitized_drawio = (
             workspace_dir / f"{drawio_path.stem}-sanitized{drawio_path.suffix}"
@@ -325,11 +335,19 @@ def run_pipeline_workflow(
         sanitized_drawio.write_text(sanitized_xml, encoding="utf-8")
 
         normalized_destination = workspace_dir / f"{csv_path.stem}-normalized.csv"
-        normalized_csv = preprocess_csv_for_schema(
-            schema=fixture.schema_code,
-            source=csv_path,
-            destination=normalized_destination,
-        )
+        stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
+        with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
+            normalized_csv = preprocess_csv_for_schema(
+                schema=fixture.schema_code,
+                source=csv_path,
+                destination=normalized_destination,
+            )
+        stdout_output = stdout_buf.getvalue()
+        stderr_output = stderr_buf.getvalue()
+        print("CSV preprocessor stdout:",
+              stdout_output[:50] + "...\n",
+              "CSV preprocessor stderr:",
+              stderr_output[:50] + "...\n",)
 
         metadata = dict(DEFAULT_METADATA_ATTRIBUTES)
         metadata["csvPath"] = str(normalized_csv.resolve())

@@ -1,26 +1,27 @@
-Script started on 2025-10-27 15:19:40+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
+Script started on Mon Oct 27 14:18:41 2025
+Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m===================================================== test session starts ======================================================[0m
-platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
-rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
+[1m=========================================== test session starts ===========================================[0m
+platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
+rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 12 items                                                                                                            [0m[1mcollected 99 items                                                                                                             [0m
+[1mcollecting ... [0m[1mcollecting 12 items                                                                                       [0m[1mcollecting 97 items                                                                                       [0m[1mcollected 97 items                                                                                        [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 12%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 13%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                       [ 26%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[31m                                                                                 [ 29%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                       [ 75%][0m
-legacy/tests/test_preprocessors.py [32m.[0m[32m.[0m[31m                                                                                    [ 77%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                                                            [ 84%][0m
-legacy/tests/test_rmlmapper_alignment.py [32m.[0m[32m.[0m[31m                                                                              [ 86%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                    [ 92%][0m
-tests/test_fixture_sanitizer.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                                                  [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                          [ 12%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                [ 13%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                  [ 26%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[31m                                                            [ 29%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                    [ 75%][0m
+legacy/tests/test_preprocessors.py [32m.[0m[32m.[0m[31m                                                               [ 77%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31m                                                       [ 84%][0m
+legacy/tests/test_rmlmapper_alignment.py [31mF[0m[31mF[0m[31m                                                         [ 86%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                               [ 92%][0m
+tests/test_fixture_sanitizer.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                             [100%][0m
 
-=========================================================== FAILURES ===========================================================
-[31m[1m____________________________________ test_arrow_label_without_edge_style_is_not_individual _____________________________________[0m
+================================================ FAILURES =================================================
+[31m[1m__________________________ test_arrow_label_without_edge_style_is_not_individual __________________________[0m
 
-tmp_path = PosixPath('/tmp/pytest-of-root/pytest-19/test_arrow_label_without_edge_0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-558/test_arrow_label_without_edge_0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_arrow_label_without_edge_style_is_not_individual[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -45,12 +46,12 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-19/test_arrow_label_without_edg
         [94massert[39;49;00m [95mnot[39;49;00m [96mlist[39;49;00m(graph.triples((property_uri, RDF.type, OWL.NamedIndividual)))[90m[39;49;00m
 >       [94massert[39;49;00m [96mlist[39;49;00m(graph.triples((property_uri, RDF.type, OWL.DatatypeProperty)))[90m[39;49;00m
 [1m[31mE       AssertionError: assert [][0m
-[1m[31mE        +  where [] = list(<generator object Graph.triples at 0x7f574c72ef00>)[0m
-[1m[31mE        +    where <generator object Graph.triples at 0x7f574c72ef00> = triples((rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#mock'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#DatatypeProperty')))[0m
-[1m[31mE        +      where triples = <Graph identifier=Nede89a3508c14ccba147d37d1f269e6a (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.triples[0m
+[1m[31mE        +  where [] = list(<generator object Graph.triples at 0x1041a4260>)[0m
+[1m[31mE        +    where <generator object Graph.triples at 0x1041a4260> = triples((rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#mock'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#DatatypeProperty')))[0m
+[1m[31mE        +      where triples = <Graph identifier=N16bacf63142e48bbbf1879a690cd16b0 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.triples[0m
 
 [1m[31mlegacy/tests/test_cell_classifier.py[0m:301: AssertionError
-[31m[1m_________________________________________ test_parse_drawio_curie_cell_without_parent __________________________________________[0m
+[31m[1m_______________________________ test_parse_drawio_curie_cell_without_parent _______________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_cell_without_parent[39;49;00m():[90m[39;49;00m
 >       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
@@ -59,19 +60,19 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-19/test_arrow_label_without_edg
         )[90m[39;49;00m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:187: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-[1m[31mlegacy/draw_io_parser.py[0m:2162: in parse_drawio_to_graph
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mlegacy/draw_io_parser.py[0m:2136: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1889: in _build_graph_from_raw_xml
+[1m[31mlegacy/draw_io_parser.py[0m:1863: in _build_graph_from_raw_xml
     [0mgraph = serializer(blocks, object_properties, datatype_properties, serialisation_config, prefixes, graph_cls=DrawIOParserGraph, graph_kwargs={[33m'[39;49;00m[33mcsv_path[39;49;00m[33m'[39;49;00m: csv_path})[90m[39;49;00m
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 blocks = {('kb%3ABulbburnedout', 'kb:Bulbburnedout'): {'Types': {'owl:NamedIndividual'}, 'http://example/schema#No': {('Repair ...}, 'http://example/schema#No': {('Plug in lamp', True)}, 'http://example/schema#Yes': {('kb%3ABulbburnedout', False)}}}
 object_properties = {'http://example/schema#Yes'}
 datatype_properties = {'http://example/schema#No', 'http://example/schema#Yes'}
-serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...', prefix=None, prefix_iri='ontology://generated-from-draw-io/2025-10-27T15-20-15#', indentation=2, include_label=True)
+serialisation_config = internal_metadata_pre.SerialisationConfig(infer_type_of_literals=True, include_preamble=True, ontology_iri='ontology:/...', prefix=None, prefix_iri='ontology://generated-from-draw-io/2025-10-27T14-19-01#', indentation=2, include_label=True)
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...a/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'kb': 'mock://knowledge-base/', ...}
 graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>, graph_kwargs = {'csv_path': None}
 
@@ -203,10 +204,10 @@ graph_cls = <class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>, graph_k
                            ^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 [1m[31mE               KeyError: 'http'[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2081: KeyError
-[31m[1m______________________________________________ test_curie_literal_style_rounding _______________________________________________[0m
+[1m[31mlegacy/draw_io_parser.py[0m:2055: KeyError
+[31m[1m____________________________________ test_curie_literal_style_rounding ____________________________________[0m
 
-tmp_path = PosixPath('/tmp/pytest-of-root/pytest-19/test_curie_literal_style_round0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-558/test_curie_literal_style_round0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_curie_literal_style_rounding[39;49;00m(tmp_path: Path):[90m[39;49;00m
         [94mdef[39;49;00m[90m [39;49;00m[92mparse[39;49;00m(path: Path) -> Graph:[90m[39;49;00m
@@ -230,10 +231,10 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-19/test_curie_literal_style_rou
         curie_graph = parse(curie_path)[90m[39;49;00m
         [94massert[39;49;00m literal_present(curie_graph, [33m"[39;49;00m[33mrdfs:Address[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
 >       [94massert[39;49;00m (expected_individual, RDF.type, OWL.NamedIndividual) [95min[39;49;00m curie_graph[90m[39;49;00m
-[1m[31mE       AssertionError: assert (rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Address'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N7e49aa8afe084d2ba42b48a939d101ec (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
+[1m[31mE       AssertionError: assert (rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Address'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N734728403b7848669d1fafd65365d0ac (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
 
 [1m[31mlegacy/tests/test_patched_parser.py[0m:236: AssertionError
-[31m[1m_______________________________________ test_parse_drawio_respects_infer_literal_toggle ________________________________________[0m
+[31m[1m_____________________________ test_parse_drawio_respects_infer_literal_toggle _____________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_respects_infer_literal_toggle[39;49;00m() -> [94mNone[39;49;00m:[90m[39;49;00m
         reset_graph_store()[90m[39;49;00m
@@ -251,24 +252,222 @@ tmp_path = PosixPath('/tmp/pytest-of-root/pytest-19/test_curie_literal_style_rou
 [1m[31mE       assert 1 == 0[0m
 
 [1m[31mlegacy/tests/test_pyodide_pipeline.py[0m:129: AssertionError
-[33m======================================================= warnings summary =======================================================[0m
+[31m[1m____________________________ test_rmlmapper_workflows_are_isomorphic[fixture0] ____________________________[0m
+
+manifest = Manifest(java_bin=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tools/rmlmapper/sdkman/c...h('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tools/rmlmapper/lib/rmlmapper-7.0.0-r374-all.jar'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-558/test_rmlmapper_workflows_are_i0')
+fixture = FixtureConfig(schema_code='auth', slug='general-authority-to-ric-o-model-2025-06-25-pz', original_drawio_name='General...anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt'))
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mfixture[39;49;00m[33m"[39;49;00m, workflows.FIXTURES)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_rmlmapper_workflows_are_isomorphic[39;49;00m([90m[39;49;00m
+        manifest: workflows.Manifest, tmp_path: Path, fixture: workflows.FixtureConfig[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        map_schema_result = workflows.run_map_schema_workflow([90m[39;49;00m
+            fixture,[90m[39;49;00m
+            manifest=manifest,[90m[39;49;00m
+            csv_path=fixture.csv_path,[90m[39;49;00m
+            output_dir=tmp_path / [33m"[39;49;00m[33mmap-schema[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        pipeline_result = workflows.run_pipeline_workflow([90m[39;49;00m
+            fixture,[90m[39;49;00m
+            manifest=manifest,[90m[39;49;00m
+            drawio_path=fixture.drawio_path,[90m[39;49;00m
+            csv_path=fixture.csv_path,[90m[39;49;00m
+            output_dir=tmp_path / [33m"[39;49;00m[33mpipeline[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            persist_results=[94mTrue[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94massert[39;49;00m map_schema_result.turtle_path.exists()[90m[39;49;00m
+        [94massert[39;49;00m pipeline_result.turtle_path.exists()[90m[39;49;00m
+        [94massert[39;49;00m [96mlen[39;49;00m(map_schema_result.turtle_graph) > [94m0[39;49;00m[90m[39;49;00m
+        [94massert[39;49;00m [96mlen[39;49;00m(pipeline_result.turtle_graph) > [94m0[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        canonical = workflows.canonicalize_for_comparison([90m[39;49;00m
+            map_schema_result.turtle_graph, pipeline_result.turtle_graph[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_map_only, expected_pipeline_only = EXPECTED_DIFFERENCES[fixture.slug][90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m ([90m[39;49;00m
+            canonical.map_only_count != expected_map_only[90m[39;49;00m
+            [95mor[39;49;00m canonical.pipeline_only_count != expected_pipeline_only[90m[39;49;00m
+        ):[90m[39;49;00m
+            diagnostics = canonical.format_differences()[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33m"[39;49;00m[33mCanonicalised workflow projections diverged:[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mExpected map_schema-only count [39;49;00m[33m{[39;49;00mexpected_map_only[33m}[39;49;00m[33m, observed [39;49;00m[33m{[39;49;00mcanonical.map_only_count[33m}[39;49;00m[33m.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mExpected pipeline-only count [39;49;00m[33m{[39;49;00mexpected_pipeline_only[33m}[39;49;00m[33m, observed [39;49;00m[33m{[39;49;00mcanonical.pipeline_only_count[33m}[39;49;00m[33m.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mdiagnostics[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m workflows.graphs_are_isomorphic([90m[39;49;00m
+            map_schema_result.turtle_graph, pipeline_result.turtle_graph[90m[39;49;00m
+        ):[90m[39;49;00m
+            diagnostics = canonical.format_differences()[90m[39;49;00m
+>           pytest.fail([90m[39;49;00m
+                [33m"[39;49;00m[33mRMLMapper Turtle outputs are not isomorphic despite canonical agreement:[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mdiagnostics[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           Failed: RMLMapper Turtle outputs are not isomorphic despite canonical agreement:[0m
+[1m[31mE           No divergent triples detected.[0m
+
+[1m[31mlegacy/tests/test_rmlmapper_alignment.py[0m:73: Failed
+------------------------------------------ Captured stdout call -------------------------------------------
+map_schema stdout: Using source file: 'gbad/mapping/source/General Au...
+ map_schema stderr: ...
+
+CSV preprocessor stdout: Saving preprocessed to: '/Volumes/home/anonymous/d...
+ CSV preprocessor stderr: ...
+
+─ Scenario: rmlmapper-general-authority-to-ric-o-model-2025-06-25-pz-General … ─
+Fixture: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tmp/tmpvjnh8p2f
+/General Authority to RiC-O Model_2025-06-25_PZ-sanitized.drawio
+CSV path: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tmp/tmpvjnh8p2f
+/General Authority to RiC-O Model_2025-06-25_PZ-normalized.csv
+Base URI: ontology://generated-from-draw-io/mock#
+Legacy commit: WORKTREE
+Format: turtle
+✓ Loaded 164 mxCells from XML
+Starting cell classifications...
+✓ Classified 162 mxCells
+Injected 2 unclassified mxCells (using unprocessed values)
+✓ Extracted 164 cell classifications:
+  ARROW_LABEL: 86
+  LITERAL: 18
+  STANDALONE_INDIVIDUAL: 29
+  TYPED_INDIVIDUAL: 29
+  UNCLASSIFIED: 2
+                             Debug scenario results                             
+┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Graph     ┃ Triples ┃ Output                     ┃ N-Triples SHA256          ┃
+┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ py_legacy │     476 │ results/rmlmapper-general… │ 9d93dae6800bcd3a4a0d58aa… │
+│           │         │ Authority to RiC-O         │                           │
+│           │         │ Model_2025-06-25_PZ/py_le… │                           │
+└───────────┴─────────┴────────────────────────────┴───────────────────────────┘
+Isomorphism checks:
+[31m[1m____________________________ test_rmlmapper_workflows_are_isomorphic[fixture1] ____________________________[0m
+
+manifest = Manifest(java_bin=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tools/rmlmapper/sdkman/c...h('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tools/rmlmapper/lib/rmlmapper-7.0.0-r374-all.jar'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-558/test_rmlmapper_workflows_are_i1')
+fixture = FixtureConfig(schema_code='add', slug='general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz', original_d...ain/webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.nt'))
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mfixture[39;49;00m[33m"[39;49;00m, workflows.FIXTURES)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_rmlmapper_workflows_are_isomorphic[39;49;00m([90m[39;49;00m
+        manifest: workflows.Manifest, tmp_path: Path, fixture: workflows.FixtureConfig[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        map_schema_result = workflows.run_map_schema_workflow([90m[39;49;00m
+            fixture,[90m[39;49;00m
+            manifest=manifest,[90m[39;49;00m
+            csv_path=fixture.csv_path,[90m[39;49;00m
+            output_dir=tmp_path / [33m"[39;49;00m[33mmap-schema[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        pipeline_result = workflows.run_pipeline_workflow([90m[39;49;00m
+            fixture,[90m[39;49;00m
+            manifest=manifest,[90m[39;49;00m
+            drawio_path=fixture.drawio_path,[90m[39;49;00m
+            csv_path=fixture.csv_path,[90m[39;49;00m
+            output_dir=tmp_path / [33m"[39;49;00m[33mpipeline[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            persist_results=[94mTrue[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94massert[39;49;00m map_schema_result.turtle_path.exists()[90m[39;49;00m
+        [94massert[39;49;00m pipeline_result.turtle_path.exists()[90m[39;49;00m
+        [94massert[39;49;00m [96mlen[39;49;00m(map_schema_result.turtle_graph) > [94m0[39;49;00m[90m[39;49;00m
+        [94massert[39;49;00m [96mlen[39;49;00m(pipeline_result.turtle_graph) > [94m0[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        canonical = workflows.canonicalize_for_comparison([90m[39;49;00m
+            map_schema_result.turtle_graph, pipeline_result.turtle_graph[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_map_only, expected_pipeline_only = EXPECTED_DIFFERENCES[fixture.slug][90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m ([90m[39;49;00m
+            canonical.map_only_count != expected_map_only[90m[39;49;00m
+            [95mor[39;49;00m canonical.pipeline_only_count != expected_pipeline_only[90m[39;49;00m
+        ):[90m[39;49;00m
+            diagnostics = canonical.format_differences()[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33m"[39;49;00m[33mCanonicalised workflow projections diverged:[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mExpected map_schema-only count [39;49;00m[33m{[39;49;00mexpected_map_only[33m}[39;49;00m[33m, observed [39;49;00m[33m{[39;49;00mcanonical.map_only_count[33m}[39;49;00m[33m.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mExpected pipeline-only count [39;49;00m[33m{[39;49;00mexpected_pipeline_only[33m}[39;49;00m[33m, observed [39;49;00m[33m{[39;49;00mcanonical.pipeline_only_count[33m}[39;49;00m[33m.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mdiagnostics[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m workflows.graphs_are_isomorphic([90m[39;49;00m
+            map_schema_result.turtle_graph, pipeline_result.turtle_graph[90m[39;49;00m
+        ):[90m[39;49;00m
+            diagnostics = canonical.format_differences()[90m[39;49;00m
+>           pytest.fail([90m[39;49;00m
+                [33m"[39;49;00m[33mRMLMapper Turtle outputs are not isomorphic despite canonical agreement:[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mdiagnostics[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           Failed: RMLMapper Turtle outputs are not isomorphic despite canonical agreement:[0m
+[1m[31mE           No divergent triples detected.[0m
+
+[1m[31mlegacy/tests/test_rmlmapper_alignment.py[0m:73: Failed
+------------------------------------------ Captured stdout call -------------------------------------------
+map_schema stdout: Using source file: 'gbad/mapping/source/General AD...
+ map_schema stderr: ...
+
+CSV preprocessor stdout: Skipping split for missing column 'FINDAID:FINDAID...
+ CSV preprocessor stderr: ...
+
+─ Scenario: rmlmapper-general-add-descriptions-and-listings-to-ric-o-model-20… ─
+Fixture: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tmp/tmp52pbk8pa
+/General ADD (Descriptions and Listings) to RiC-O 
+Model_2025-06-20_PZ-sanitized.drawio
+CSV path: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tmp/tmp52pbk8pa
+/General ADD (Descriptions and Listings) to RiC-O 
+Model_2025-06-20_PZ-normalized.csv
+Base URI: ontology://generated-from-draw-io/mock#
+Legacy commit: WORKTREE
+Format: turtle
+✓ Loaded 208 mxCells from XML
+Starting cell classifications...
+✓ Classified 206 mxCells
+Injected 2 unclassified mxCells (using unprocessed values)
+✓ Extracted 208 cell classifications:
+  ARROW_LABEL: 116
+  LITERAL: 32
+  STANDALONE_INDIVIDUAL: 29
+  TYPED_INDIVIDUAL: 29
+  UNCLASSIFIED: 2
+                             Debug scenario results                             
+┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Graph     ┃ Triples ┃ Output                     ┃ N-Triples SHA256          ┃
+┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ py_legacy │     500 │ results/rmlmapper-general… │ ac111b6ca58f17f1c5092ce8… │
+│           │         │ ADD (Descriptions and      │                           │
+│           │         │ Listings) to RiC-O         │                           │
+│           │         │ Model_2025-06-20_PZ/py_le… │                           │
+└───────────┴─────────┴────────────────────────────┴───────────────────────────┘
+Isomorphism checks:
+[33m============================================ warnings summary =============================================[0m
 legacy/tests/test_rmlmapper_alignment.py: 46 warnings
-  /workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/gbad/converter/preprocessors.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/gbad/converter/preprocessors.py:39: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
     self.source_df[col] = pd.Series(
 
 legacy/tests/test_rmlmapper_alignment.py: 36 warnings
-  /workspace/drawio/src/main/webapp/plugins/rdfexport/legacy/gbad/converter/preprocessors.py:46: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/gbad/converter/preprocessors.py:46: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
     self.source_df[colname] = series
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[36m[1m=================================================== short test summary info ====================================================[0m
+[36m[1m========================================= short test summary info =========================================[0m
 [31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_arrow_label_without_edge_style_is_not_individual[0m - AssertionError: assert []
 [31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - KeyError: 'http'
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - AssertionError: assert (rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Address'), rdflib.term.URIRef('http://www....
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - AssertionError: assert (rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Address'), rdflib.ter...
 [31mFAILED[0m legacy/tests/test_pyodide_pipeline.py::[1mtest_parse_drawio_respects_infer_literal_toggle[0m - assert 1 == 0
-[31m===================================== [31m[1m4 failed[0m, [32m95 passed[0m, [33m82 warnings[0m[31m in 66.14s (0:01:06)[0m[31m =====================================[0m
+[31mFAILED[0m legacy/tests/test_rmlmapper_alignment.py::[1mtest_rmlmapper_workflows_are_isomorphic[fixture0][0m - Failed: RMLMapper Turtle outputs are not isomorphic despite canonical agreement:
+[31mFAILED[0m legacy/tests/test_rmlmapper_alignment.py::[1mtest_rmlmapper_workflows_are_isomorphic[fixture1][0m - Failed: RMLMapper Turtle outputs are not isomorphic despite canonical agreement:
+[31m=============================== [31m[1m6 failed[0m, [32m91 passed[0m, [33m82 warnings[0m[31m in 33.14s[0m[31m ================================[0m
 [0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
 
-Script done on 2025-10-27 15:20:47+00:00 [COMMAND_EXIT_CODE="1"]
-Command exit status: 0
-Script done on Sun Oct 26 09:46:53 2025
+Command exit status: 1
+Script done on Mon Oct 27 14:19:15 2025

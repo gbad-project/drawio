@@ -40,7 +40,7 @@ def test_rmlmapper_workflows_are_isomorphic(
         drawio_path=fixture.drawio_path,
         csv_path=fixture.csv_path,
         output_dir=tmp_path / "pipeline",
-        persist_results=False,
+        persist_results=True,
     )
 
     assert map_schema_result.turtle_path.exists()
