@@ -12,7 +12,7 @@ import tempfile
 import urllib.parse
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Iterable, cast
+from typing import Callable, Iterable, Iterator, cast
 import io
 import contextlib
 
@@ -51,6 +51,7 @@ CLEAN_RR_TERMS_PATH = PLUGIN_DIR / "scripts" / "clean_rr_terms.py"
 _STRIP_RR_RML_TERMS: Callable[[str], str] | None = None
 
 DRAWIO_ONTOLOGY_PREFIX = "ontology://generated-from-draw-io/mock#"
+TMP_WORKSPACE_ROOT = PLUGIN_DIR / "tmp"
 
 
 def _load_rr_cleaner() -> Callable[[str], str]:
@@ -76,6 +77,20 @@ def _load_rr_cleaner() -> Callable[[str], str]:
 def _strip_rr_terms(text: str) -> str:
     cleaner = _load_rr_cleaner()
     return cleaner(text)
+
+
+def _ensure_tmp_root() -> Path:
+    TMP_WORKSPACE_ROOT.mkdir(parents=True, exist_ok=True)
+    return TMP_WORKSPACE_ROOT
+
+
+@contextlib.contextmanager
+def _temporary_workspace(prefix: str) -> Iterator[Path]:
+    base_dir = _ensure_tmp_root()
+    with tempfile.TemporaryDirectory(
+        dir=str(base_dir), prefix=prefix, delete=False
+    ) as temp_dir_str:
+        yield Path(temp_dir_str)
 
 
 @dataclass(frozen=True)
@@ -229,8 +244,7 @@ def run_map_schema_workflow(
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(dir='tmp', delete=False) as temp_dir_str:
-        temp_dir = Path(temp_dir_str)
+    with _temporary_workspace("map-schema-") as temp_dir:
         schema_dir = temp_dir / "gbad" / "schema" / fixture.schema_subdir
         schema_dir.mkdir(parents=True, exist_ok=True)
 
@@ -252,16 +266,21 @@ def run_map_schema_workflow(
         stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
         try:
             os.chdir(temp_dir)
-            with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
+            with (
+                contextlib.redirect_stdout(stdout_buf),
+                contextlib.redirect_stderr(stderr_buf),
+            ):
                 map_schema.__init__(fixture.schema_code, csv_dest.name)
         finally:
             os.chdir(original_cwd)
         stdout_output = stdout_buf.getvalue()
         stderr_output = stderr_buf.getvalue()
-        print("map_schema stdout:",
-              stdout_output[:50] + "...\n",
-              "map_schema stderr:",
-              stderr_output[:50] + "...\n",)
+        print(
+            "map_schema stdout:",
+            stdout_output[:50] + "...\n",
+            "map_schema stderr:",
+            stderr_output[:50] + "...\n",
+        )
 
         preprocessed_csv = preprocessed_dir / csv_path.name
         if preprocessed_csv.exists():
@@ -295,6 +314,7 @@ def run_map_schema_workflow(
         _restrict_to_drawio_subjects(turtle_graph)
         _normalise_drawio_graph(turtle_graph)
         _remove_generic_rico_subjects(turtle_graph)
+        _remove_named_individual_typing(turtle_graph)
         _write_canonical_ttl(turtle_graph, turtle_output)
 
     return WorkflowResult(
@@ -326,8 +346,7 @@ def run_pipeline_workflow(
     results_dir = debugger.results_dir / slug
     preprocessed_copy: Path | None = None
 
-    with tempfile.TemporaryDirectory(dir='tmp', delete=False) as workspace_dir_str:
-        workspace_dir = Path(workspace_dir_str)
+    with _temporary_workspace("pipeline-") as workspace_dir:
         sanitized_drawio = (
             workspace_dir / f"{drawio_path.stem}-sanitized{drawio_path.suffix}"
         )
@@ -336,7 +355,10 @@ def run_pipeline_workflow(
 
         normalized_destination = workspace_dir / f"{csv_path.stem}-normalized.csv"
         stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
-        with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
+        with (
+            contextlib.redirect_stdout(stdout_buf),
+            contextlib.redirect_stderr(stderr_buf),
+        ):
             normalized_csv = preprocess_csv_for_schema(
                 schema=fixture.schema_code,
                 source=csv_path,
@@ -344,10 +366,12 @@ def run_pipeline_workflow(
             )
         stdout_output = stdout_buf.getvalue()
         stderr_output = stderr_buf.getvalue()
-        print("CSV preprocessor stdout:",
-              stdout_output[:50] + "...\n",
-              "CSV preprocessor stderr:",
-              stderr_output[:50] + "...\n",)
+        print(
+            "CSV preprocessor stdout:",
+            stdout_output[:50] + "...\n",
+            "CSV preprocessor stderr:",
+            stderr_output[:50] + "...\n",
+        )
 
         metadata = dict(DEFAULT_METADATA_ATTRIBUTES)
         metadata["csvPath"] = str(normalized_csv.resolve())
@@ -404,6 +428,7 @@ def run_pipeline_workflow(
         _restrict_to_drawio_subjects(turtle_graph)
         _normalise_drawio_graph(turtle_graph)
         _remove_generic_rico_subjects(turtle_graph)
+        _remove_named_individual_typing(turtle_graph)
         _write_canonical_ttl(turtle_graph, turtle_output)
 
     if not persist_results:
@@ -533,6 +558,11 @@ def _remove_generic_rico_subjects(graph: Graph) -> None:
     for iri in removable_iris:
         graph.remove((iri, None, None))
         graph.remove((None, None, iri))
+
+
+def _remove_named_individual_typing(graph: Graph) -> None:
+    for subject in list(graph.subjects(RDF.type, OWL.NamedIndividual)):
+        graph.remove((subject, RDF.type, OWL.NamedIndividual))
 
 
 def collect_workflow_pairs(

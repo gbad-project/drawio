@@ -230,11 +230,11 @@ def serialise_to_rml(
                 def _is_absolute_iri(candidate: str) -> bool:
                     if not candidate:
                         return False
-                    try:
-                        parsed = urllib.parse.urlparse(candidate)
-                    except Exception:
-                        return False
-                    return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                    candidate = candidate.strip()
+                    if "://" in candidate:
+                        return True
+                    scheme, _, remainder = candidate.partition(":")
+                    return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
 
                 def create_workspace(
                     self,
@@ -268,6 +268,8 @@ def serialise_to_rml(
 
                     if prefix and prefix_iri:
                         graph.bind(prefix, Namespace(prefix_iri), replace=True)
+
+                    self._namespace_map = namespace_map
 
                     return graph, namespace_map, prefix, prefix_iri
 
@@ -335,9 +337,21 @@ def serialise_to_rml(
                     label: str | None = None,
                 ) -> URIRef:
                     identifier_text = str(identifier)
+                    original_identifier = identifier_text
+                    namespace_map = getattr(self, "_namespace_map", {})
+                    if namespace_map:
+                        for prefix_key in namespace_map:
+                            encoded = f"{prefix_key}%3A"
+                            if identifier_text.startswith(encoded):
+                                identifier_text = identifier_text.replace(
+                                    encoded, f"{prefix_key}:", 1
+                                )
+                                break
                     label_text = str(label) if label is not None else None
                     if identifier_text in absolute_overrides:
                         return URIRef(absolute_overrides[identifier_text])
+                    if original_identifier in absolute_overrides:
+                        return URIRef(absolute_overrides[original_identifier])
                     has_placeholder = self._has_placeholder(identifier_text)
                     if not has_placeholder and label_text is not None:
                         has_placeholder = self._has_placeholder(label_text)
@@ -347,6 +361,18 @@ def serialise_to_rml(
                         identifier_text = self._ensure_quoted_identifier(
                             identifier_text
                         )
+                    if (
+                        ":" in identifier_text
+                        and not self._is_absolute_iri(identifier_text)
+                        and namespace_map
+                    ):
+                        prefix_key, local_name = identifier_text.split(":", 1)
+                        namespace = namespace_map.get(prefix_key)
+                        if namespace is not None and local_name:
+                            resolved = namespace[local_name]
+                            if has_placeholder:
+                                resolved = self._encode_template_uri(resolved)
+                            return resolved
                     if prefix and prefix_iri:
                         resolved = Namespace(prefix_iri)[identifier_text]
                         if has_placeholder:
@@ -457,6 +483,18 @@ def serialise_to_rml(
     graph.bind("ql", ql, replace=False)
     graph.bind("rdfs", RDFS, replace=False)
 
+    def _resolve_property_uri(prop: str) -> URIRef:
+        candidate = prop
+        for prefix_key in namespace_map:
+            encoded = f"{prefix_key}%3A"
+            if candidate.startswith(encoded):
+                candidate = candidate.replace(encoded, f"{prefix_key}:", 1)
+                break
+        if toolkit._is_absolute_iri(candidate):
+            return URIRef(candidate)
+        prop_prefix, prop_name = candidate.split(":", 1)
+        return namespace_map[prop_prefix][prop_name]
+
     def _add_constant_object_map(
         predicate_map_owner: Any, predicate_uri: URIRef, constant: Any
     ) -> None:
@@ -518,8 +556,7 @@ def serialise_to_rml(
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":", 1)
-            predicate_uri = namespace_map[prop_prefix][prop_name]
+            predicate_uri = _resolve_property_uri(prop)
 
             for raw_value in sorted(values, key=toolkit.value_sort_key):
                 value, is_literal = toolkit.unpack_value(
@@ -532,7 +569,12 @@ def serialise_to_rml(
                     )
                     _add_constant_object_map(triples_map, predicate_uri, target_uri)
                 else:
-                    literal_value = toolkit.coerce_literal(value)
+                    if serialisation_config.infer_type_of_literals:
+                        literal_value = toolkit.coerce_literal(value)
+                    elif isinstance(value, Literal):
+                        literal_value = value
+                    else:
+                        literal_value = Literal(value)
                     _add_constant_object_map(triples_map, predicate_uri, literal_value)
 
     return graph

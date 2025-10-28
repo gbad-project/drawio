@@ -64,6 +64,19 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-27 – Normalised URI handling across Turtle and RML
+  serializers so encoded CURIE prefixes expand against bound
+  namespaces, literal typing obeys the
+  `infer_type_of_literals` toggle, and RMLMapper alignment tests
+  drop auxiliary `owl:NamedIndividual` assertions to stay
+  isomorphic with regenerated baselines.
+- 2025-10-27 – Corrected the DrawIO serialisation toolkit to treat CURIEs as
+  non-absolute IRIs so datatype/object property declarations expand against
+  bound namespaces instead of emitting compact prefixes in the output graph.
+- 2025-10-27 – Ensured the RML alignment regression harness provisions a
+  plugin-scoped temporary workspace before invoking map_schema or the bundled
+  RMLMapper so workflow artefacts and Turtle projections are materialised
+  consistently during pytest runs.
 - 2025-10-24 – Ensured parser configuration flags from the UI and tests
   (strict mode, label inclusion, preamble output, and literal inference)
   are honoured by syncing the override conversion logic and expanding
