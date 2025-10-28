@@ -212,11 +212,15 @@ def serialise_to_graph(
                 def _is_absolute_iri(candidate: str) -> bool:
                     if not candidate:
                         return False
-                    try:
-                        parsed = urllib.parse.urlparse(candidate)
-                    except Exception:
+                    text = candidate.strip()
+                    if not text:
                         return False
-                    return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                    if "://" in text:
+                        return True
+                    scheme, _, remainder = text.partition(":")
+                    if scheme.lower() in {"urn", "tag"} and remainder.strip():
+                        return True
+                    return False
 
                 def create_workspace(
                     self,
@@ -251,6 +255,8 @@ def serialise_to_graph(
                     if prefix and prefix_iri:
                         graph.bind(prefix, Namespace(prefix_iri), replace=True)
 
+                    self._namespace_map = namespace_map
+                    self._infer_types = serialisation_config.infer_type_of_literals
                     return graph, namespace_map, prefix, prefix_iri
 
                 @staticmethod
@@ -270,16 +276,26 @@ def serialise_to_graph(
                 ) -> URIRef:
                     if identifier in absolute_overrides:
                         return URIRef(absolute_overrides[identifier])
+
+                    namespace_map = getattr(self, "_namespace_map", {})
+                    for candidate in (identifier, urllib.parse.unquote(identifier)):
+                        if ":" in candidate:
+                            prefix_key, local = candidate.split(":", 1)
+                            namespace = namespace_map.get(prefix_key)
+                            if namespace is not None and local:
+                                return namespace[local]
+
                     if prefix and prefix_iri:
                         return Namespace(prefix_iri)[identifier]
                     if prefix_iri:
                         return URIRef(f"{prefix_iri}{identifier}")
                     return URIRef(identifier)
 
-                @staticmethod
-                def coerce_literal(value: Any) -> Literal:
+                def coerce_literal(self, value: Any) -> Literal:
                     if isinstance(value, Literal):
                         return value
+                    if not getattr(self, "_infer_types", True):
+                        return Literal(value)
 
                     literal_candidate = value
                     if isinstance(literal_candidate, int) or (
@@ -404,8 +420,7 @@ def serialise_to_graph(
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":", 1)
-            prop_uri = namespace_map[prop_prefix][prop_name]
+            prop_uri = _resolve_property_uri(prop)
 
             for raw_value in values:
                 value, is_literal = toolkit.unpack_value(
