@@ -676,11 +676,12 @@ class pipeline:
                                 def _is_absolute_iri(candidate: str) -> bool:
                                     if not candidate:
                                         return False
-                                    try:
-                                        parsed = urllib.parse.urlparse(candidate)
-                                    except Exception:
+                                    if '://' in candidate:
+                                        return True
+                                    scheme, _, remainder = candidate.partition(':')
+                                    if not scheme or not remainder:
                                         return False
-                                    return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                                    return scheme.lower() in {'urn', 'tag'} and bool(remainder.strip())
 
                                 def create_workspace(self, serialisation_config: SerialisationConfig, prefixes: dict[str, str], graph_cls: type[Graph], graph_kwargs: dict[str, Any]) -> tuple[Graph, dict[str, Namespace], str | None, str | None]:
                                     graph = graph_cls(**graph_kwargs)
@@ -701,11 +702,22 @@ class pipeline:
                                         namespace_map[prefix_key] = namespace
                                     if prefix and prefix_iri:
                                         graph.bind(prefix, Namespace(prefix_iri), replace=True)
+                                    self._namespace_map = namespace_map
                                     return (graph, namespace_map, prefix, prefix_iri)
 
                                 @staticmethod
-                                def extract_absolute_overrides(blocks: Blocks) -> dict[str, str]:
-                                    return {individual_id: individual_label for individual_id, individual_label in blocks.keys() if '://' in individual_label}
+                                def extract_absolute_overrides(blocks: Blocks, namespace_map: dict[str, Namespace]) -> dict[str, str]:
+                                    overrides = {individual_id: individual_label for individual_id, individual_label in blocks.keys() if '://' in individual_label}
+                                    for individual_id, _ in blocks.keys():
+                                        decoded = urllib.parse.unquote(individual_id)
+                                        if ':' not in decoded:
+                                            continue
+                                        prefix, reference = decoded.split(':', 1)
+                                        namespace = namespace_map.get(prefix)
+                                        if namespace is None:
+                                            continue
+                                        overrides.setdefault(individual_id, str(namespace[reference]))
+                                    return overrides
 
                                 @staticmethod
                                 def _has_placeholder(identifier: str) -> bool:
@@ -772,6 +784,12 @@ class pipeline:
                                             resolved = self._encode_template_uri(resolved)
                                         return resolved
                                     return URIRef(identifier_text)
+
+                                def _resolve_property_uri(self, prop: str, namespace_map: dict[str, Namespace]) -> URIRef:
+                                    if self._is_absolute_iri(prop):
+                                        return URIRef(prop)
+                                    prefix, name = prop.split(':', 1)
+                                    return namespace_map[prefix][name]
 
                                 @staticmethod
                                 def coerce_literal(value: Any) -> Literal:
@@ -840,7 +858,13 @@ class pipeline:
                                 graph.add((object_map, rr.datatype, constant.datatype))
                             if constant.language:
                                 graph.add((object_map, rr.language, Literal(constant.language)))
-                    absolute_overrides = toolkit.extract_absolute_overrides(blocks)
+
+                    def _resolve_property_uri(prop: str) -> URIRef:
+                        if toolkit._is_absolute_iri(prop):
+                            return URIRef(prop)
+                        prefix, name = prop.split(':', 1)
+                        return namespace_map[prefix][name]
+                    absolute_overrides = toolkit.extract_absolute_overrides(blocks, namespace_map)
                     logical_source_default = Literal('drawio')
                     if csv_path:
                         logical_source_value = Literal(csv_path)
@@ -868,15 +892,19 @@ class pipeline:
                         for prop, values in sorted(types_and_facts.items()):
                             if prop == 'Types':
                                 continue
-                            prop_prefix, prop_name = prop.split(':', 1)
-                            predicate_uri = namespace_map[prop_prefix][prop_name]
+                            predicate_uri = _resolve_property_uri(prop)
                             for raw_value in sorted(values, key=toolkit.value_sort_key):
                                 value, is_literal = toolkit.unpack_value(prop, raw_value, object_properties, datatype_properties)
                                 if not is_literal:
                                     target_uri = toolkit.resolve_entity_uri(str(value), prefix, prefix_iri, absolute_overrides)
                                     _add_constant_object_map(triples_map, predicate_uri, target_uri)
                                 else:
-                                    literal_value = toolkit.coerce_literal(value)
+                                    if serialisation_config.infer_type_of_literals:
+                                        literal_value = toolkit.coerce_literal(value)
+                                    elif isinstance(value, Literal):
+                                        literal_value = value
+                                    else:
+                                        literal_value = Literal(value)
                                     _add_constant_object_map(triples_map, predicate_uri, literal_value)
                     return graph
                 # END override rml_export.py.serialise_to_rml
@@ -1943,11 +1971,12 @@ class rdf_control_core:
                     def _is_absolute_iri(candidate: str) -> bool:
                         if not candidate:
                             return False
-                        try:
-                            parsed = urllib.parse.urlparse(candidate)
-                        except Exception:
+                        if '://' in candidate:
+                            return True
+                        scheme, _, remainder = candidate.partition(':')
+                        if not scheme or not remainder:
                             return False
-                        return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                        return scheme.lower() in {'urn', 'tag'} and bool(remainder.strip())
 
                     def create_workspace(self, serialisation_config: SerialisationConfig, prefixes: dict[str, str], graph_cls: type[Graph], graph_kwargs: dict[str, Any]) -> tuple[Graph, dict[str, Namespace], str | None, str | None]:
                         graph = graph_cls(**graph_kwargs)
@@ -1968,11 +1997,22 @@ class rdf_control_core:
                             namespace_map[prefix_key] = namespace
                         if prefix and prefix_iri:
                             graph.bind(prefix, Namespace(prefix_iri), replace=True)
+                        self._namespace_map = namespace_map
                         return (graph, namespace_map, prefix, prefix_iri)
 
                     @staticmethod
-                    def extract_absolute_overrides(blocks: Blocks) -> dict[str, str]:
-                        return {individual_id: individual_label for individual_id, individual_label in blocks.keys() if '://' in individual_label}
+                    def extract_absolute_overrides(blocks: Blocks, namespace_map: dict[str, Namespace]) -> dict[str, str]:
+                        overrides = {individual_id: individual_label for individual_id, individual_label in blocks.keys() if '://' in individual_label}
+                        for individual_id, _ in blocks.keys():
+                            decoded = urllib.parse.unquote(individual_id)
+                            if ':' not in decoded:
+                                continue
+                            prefix, reference = decoded.split(':', 1)
+                            namespace = namespace_map.get(prefix)
+                            if namespace is None:
+                                continue
+                            overrides.setdefault(individual_id, str(namespace[reference]))
+                        return overrides
 
                     def resolve_entity_uri(self, identifier: str, prefix: str | None, prefix_iri: str | None, absolute_overrides: dict[str, str]) -> URIRef:
                         if identifier in absolute_overrides:
@@ -2040,7 +2080,7 @@ class rdf_control_core:
         for prop in sorted((prop for prop in datatype_properties if not prop.startswith('rico:'))):
             prop_uri = _resolve_property_uri(prop)
             graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
-        absolute_overrides = toolkit.extract_absolute_overrides(blocks)
+        absolute_overrides = toolkit.extract_absolute_overrides(blocks, namespace_map)
         for individual_id, individual_label, individual_uri, types_and_facts in toolkit.iter_subjects(blocks, prefix, prefix_iri, absolute_overrides):
             graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
             for rdf_type in types_and_facts.get('Types', set()):
@@ -2051,15 +2091,19 @@ class rdf_control_core:
             for prop, values in types_and_facts.items():
                 if prop == 'Types':
                     continue
-                prop_prefix, prop_name = prop.split(':', 1)
-                prop_uri = namespace_map[prop_prefix][prop_name]
+                prop_uri = _resolve_property_uri(prop)
                 for raw_value in values:
                     value, is_literal = toolkit.unpack_value(prop, raw_value, object_properties, datatype_properties)
                     if not is_literal:
                         target_uri = toolkit.resolve_entity_uri(str(value), prefix, prefix_iri, absolute_overrides)
                         graph.add((individual_uri, prop_uri, target_uri))
                     else:
-                        literal_value = toolkit.coerce_literal(value)
+                        if serialisation_config.infer_type_of_literals:
+                            literal_value = toolkit.coerce_literal(value)
+                        elif isinstance(value, Literal):
+                            literal_value = value
+                        else:
+                            literal_value = Literal(value)
                         graph.add((individual_uri, prop_uri, literal_value))
         decorations_attr = '__drawio_literal_registry'
         decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})

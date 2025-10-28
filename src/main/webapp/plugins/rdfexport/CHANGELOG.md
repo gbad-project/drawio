@@ -28,6 +28,12 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-27 – Hardened CURIE handling across Turtle and RML
+  serializers so percent-encoded identifiers resolve through
+  namespace maps, absolute IRI detection no longer mislabels
+  prefixed terms, literal datatype inference honours the parser
+  toggle, and the RML alignment harness reuses a persistent tmp
+  workspace while comparing canonicalised Turtle outputs.
 - 2025-10-27 – Removed generic RiC-O authority placeholders from the pipeline RMLMapper workflow so its Turtle output matches `map_schema`, and tightened the regression harness diagnostics to fail on any residual divergence.
 - 2025-10-27 – Tightened the RML workflow regression so both the
   legacy `map_schema` and debugger pipelines invoke the bundled

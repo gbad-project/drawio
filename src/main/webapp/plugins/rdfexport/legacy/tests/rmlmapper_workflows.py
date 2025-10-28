@@ -46,6 +46,8 @@ MANIFEST_PATH = TOOLS_DIR / "manifest.json"
 FIXTURES_DIR = PLUGIN_DIR / "tests" / "fixtures"
 BASELINES_DIR = PLUGIN_DIR / "tests" / "baselines"
 CLEAN_RR_TERMS_PATH = PLUGIN_DIR / "scripts" / "clean_rr_terms.py"
+TMP_WORKSPACE_ROOT = PLUGIN_DIR / "tmp"
+TMP_WORKSPACE_ROOT.mkdir(parents=True, exist_ok=True)
 
 
 _STRIP_RR_RML_TERMS: Callable[[str], str] | None = None
@@ -229,7 +231,9 @@ def run_map_schema_workflow(
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(dir='tmp', delete=False) as temp_dir_str:
+    with tempfile.TemporaryDirectory(
+        dir=str(TMP_WORKSPACE_ROOT), delete=False
+    ) as temp_dir_str:
         temp_dir = Path(temp_dir_str)
         schema_dir = temp_dir / "gbad" / "schema" / fixture.schema_subdir
         schema_dir.mkdir(parents=True, exist_ok=True)
@@ -252,16 +256,21 @@ def run_map_schema_workflow(
         stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
         try:
             os.chdir(temp_dir)
-            with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
+            with (
+                contextlib.redirect_stdout(stdout_buf),
+                contextlib.redirect_stderr(stderr_buf),
+            ):
                 map_schema.__init__(fixture.schema_code, csv_dest.name)
         finally:
             os.chdir(original_cwd)
         stdout_output = stdout_buf.getvalue()
         stderr_output = stderr_buf.getvalue()
-        print("map_schema stdout:",
-              stdout_output[:50] + "...\n",
-              "map_schema stderr:",
-              stderr_output[:50] + "...\n",)
+        print(
+            "map_schema stdout:",
+            stdout_output[:50] + "...\n",
+            "map_schema stderr:",
+            stderr_output[:50] + "...\n",
+        )
 
         preprocessed_csv = preprocessed_dir / csv_path.name
         if preprocessed_csv.exists():
@@ -326,7 +335,9 @@ def run_pipeline_workflow(
     results_dir = debugger.results_dir / slug
     preprocessed_copy: Path | None = None
 
-    with tempfile.TemporaryDirectory(dir='tmp', delete=False) as workspace_dir_str:
+    with tempfile.TemporaryDirectory(
+        dir=str(TMP_WORKSPACE_ROOT), delete=False
+    ) as workspace_dir_str:
         workspace_dir = Path(workspace_dir_str)
         sanitized_drawio = (
             workspace_dir / f"{drawio_path.stem}-sanitized{drawio_path.suffix}"
@@ -336,7 +347,10 @@ def run_pipeline_workflow(
 
         normalized_destination = workspace_dir / f"{csv_path.stem}-normalized.csv"
         stdout_buf, stderr_buf = io.StringIO(), io.StringIO()
-        with contextlib.redirect_stdout(stdout_buf), contextlib.redirect_stderr(stderr_buf):
+        with (
+            contextlib.redirect_stdout(stdout_buf),
+            contextlib.redirect_stderr(stderr_buf),
+        ):
             normalized_csv = preprocess_csv_for_schema(
                 schema=fixture.schema_code,
                 source=csv_path,
@@ -344,10 +358,12 @@ def run_pipeline_workflow(
             )
         stdout_output = stdout_buf.getvalue()
         stderr_output = stderr_buf.getvalue()
-        print("CSV preprocessor stdout:",
-              stdout_output[:50] + "...\n",
-              "CSV preprocessor stderr:",
-              stderr_output[:50] + "...\n",)
+        print(
+            "CSV preprocessor stdout:",
+            stdout_output[:50] + "...\n",
+            "CSV preprocessor stderr:",
+            stderr_output[:50] + "...\n",
+        )
 
         metadata = dict(DEFAULT_METADATA_ATTRIBUTES)
         metadata["csvPath"] = str(normalized_csv.resolve())
@@ -424,7 +440,10 @@ def run_pipeline_workflow(
 def graphs_are_isomorphic(graph_a: Graph, graph_b: Graph) -> bool:
     """Return ``True`` if the graphs are RDF-isomorphic."""
 
-    return to_isomorphic(graph_a) == to_isomorphic(graph_b)
+    comparison = canonicalize_for_comparison(graph_a, graph_b)
+    return to_isomorphic(comparison.map_graph) == to_isomorphic(
+        comparison.pipeline_graph
+    )
 
 
 def _remove_blank_subgraph(graph: Graph, node: BNode) -> None:

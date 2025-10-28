@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any, Iterator
+import urllib.parse
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
 from meta_builder.drawio_meta_builder import override
@@ -212,11 +213,12 @@ def serialise_to_graph(
                 def _is_absolute_iri(candidate: str) -> bool:
                     if not candidate:
                         return False
-                    try:
-                        parsed = urllib.parse.urlparse(candidate)
-                    except Exception:
+                    if "://" in candidate:
+                        return True
+                    scheme, _, remainder = candidate.partition(":")
+                    if not scheme or not remainder:
                         return False
-                    return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                    return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
 
                 def create_workspace(
                     self,
@@ -251,15 +253,31 @@ def serialise_to_graph(
                     if prefix and prefix_iri:
                         graph.bind(prefix, Namespace(prefix_iri), replace=True)
 
+                    self._namespace_map = namespace_map
+
                     return graph, namespace_map, prefix, prefix_iri
 
                 @staticmethod
-                def extract_absolute_overrides(blocks: Blocks) -> dict[str, str]:
-                    return {
+                def extract_absolute_overrides(
+                    blocks: Blocks, namespace_map: dict[str, Namespace]
+                ) -> dict[str, str]:
+                    overrides = {
                         individual_id: individual_label
                         for individual_id, individual_label in blocks.keys()
                         if "://" in individual_label
                     }
+
+                    for individual_id, _ in blocks.keys():
+                        decoded = urllib.parse.unquote(individual_id)
+                        if ":" not in decoded:
+                            continue
+                        prefix, reference = decoded.split(":", 1)
+                        namespace = namespace_map.get(prefix)
+                        if namespace is None:
+                            continue
+                        overrides.setdefault(individual_id, str(namespace[reference]))
+
+                    return overrides
 
                 def resolve_entity_uri(
                     self,
@@ -383,7 +401,7 @@ def serialise_to_graph(
         prop_uri = _resolve_property_uri(prop)
         graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-    absolute_overrides = toolkit.extract_absolute_overrides(blocks)
+    absolute_overrides = toolkit.extract_absolute_overrides(blocks, namespace_map)
 
     for (
         individual_id,
@@ -404,8 +422,7 @@ def serialise_to_graph(
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":", 1)
-            prop_uri = namespace_map[prop_prefix][prop_name]
+            prop_uri = _resolve_property_uri(prop)
 
             for raw_value in values:
                 value, is_literal = toolkit.unpack_value(
@@ -418,7 +435,12 @@ def serialise_to_graph(
                     )
                     graph.add((individual_uri, prop_uri, target_uri))
                 else:
-                    literal_value = toolkit.coerce_literal(value)
+                    if serialisation_config.infer_type_of_literals:
+                        literal_value = toolkit.coerce_literal(value)
+                    elif isinstance(value, Literal):
+                        literal_value = value
+                    else:
+                        literal_value = Literal(value)
                     graph.add((individual_uri, prop_uri, literal_value))
 
     decorations_attr = "__drawio_literal_registry"
