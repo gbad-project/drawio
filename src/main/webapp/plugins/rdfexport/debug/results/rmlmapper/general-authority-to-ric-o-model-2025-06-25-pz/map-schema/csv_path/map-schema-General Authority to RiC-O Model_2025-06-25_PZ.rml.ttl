@@ -1,0 +1,304 @@
+@prefix ns1: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ns2: <http://www.w3.org/ns/r2rml#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_constant___KB_Rule_RulesForArchivalDescription__> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Rule> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_constant___Schema_Authority_AgencyReferenceCode__> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#IdentifierType> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_constant___Schema_Authority_AuthorityRecord__> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#DocumentaryFormType> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_constant___Schema_Authority_NaturalAgentName__> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Type> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_constant___Schema_Authority_ParallelAgentName__> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Type> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_constant___Schema_Authority_VariantAgentName__> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Type> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_AgencyReferenceCode__REFA___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Identifier> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_AgentControlRelation__CONTAG_1__14___HEADING__urn_uuid__UUID___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#AgentControlRelation> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Agent__CONTAG_1__14___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Agent__PRED_1__5___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Agent__REFA___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Agent__SUC_1__4___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_AuthorityRecord__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Record> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_CorporateBody_AUTHTP_1__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FCorporateBody_AUTHTP_1%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_CorporateBody_AUTHTP_2__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FCorporateBody_AUTHTP_2%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Date__DATECONT_1__14_BEGINNING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Date> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Date__DATECONT_1__14_END___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Date> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Date__DATEEX_BEGINNING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Date> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Date__DATEEX_END___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Date> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Family_AUTHTP_1__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Family> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FFamily_AUTHTP_1%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Family_AUTHTP_2__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Family> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FFamily_AUTHTP_2%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Mandate__AA___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Mandate> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_NaturalAgentName__NAME___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#AgentName> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_ParallelAgentName__PAR_1__4___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#AgentName> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Person_AUTHTP_1__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Person> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FPerson_AUTHTP_1%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Person_AUTHTP_2__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Person> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FPerson_AUTHTP_2%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Place_AUTHTP_1__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Place> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FPlace_AUTHTP_1%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_Place_AUTHTP_2__HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Place> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FPlace_AUTHTP_2%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB_VariantAgentName__VAR_1__11___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#AgentName> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB__RICO_AUTHTP_CORPORATEBODY_1__2___HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBody> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB__RICO_AUTHTP_FAMILY_1__2___HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Family> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB__RICO_AUTHTP_PERSON_1__2___HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Person> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___KB__RICO_AUTHTP_PLACE_1__2___HEADING___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#Place> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___Schema_Authority_AuthorityType__AUTHTP_1__2___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#CorporateBodyType> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___Schema_Authority_Status__STATUSA___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#RecordState> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#_ontology___generated-from-draw-io_mock_Rr_template___Schema_Authority_WebReady__WEBA___> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class <https://www.ica.org/standards/RiC/ontology#RecordState> ;
+            ns2:constant "ontology://generated-from-draw-io/mock#Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_accumulationDate> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/accumulationDate" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_associatedMaterial> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/associatedMaterial" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_availabilityOfOtherFormats> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/availabilityOfOtherFormats" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_custodialHistory> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/custodialHistory" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_findingAidNote> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/findingAidNote" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_howToOrder> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/howToOrder" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_immediateSourceOfAcquisition> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/immediateSourceOfAcquisition" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_notes> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/notes" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_privateNote> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/privateNote" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#add_relatedMaterial> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/relatedMaterial" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#auth_functionNote> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Authority/functionNote" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#auth_privateNote> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Authority/privateNote" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#auth_sourceNote> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Authority/sourceNote" ] .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rdfs_label> a ns2:TriplesMap ;
+    ns1:logicalSource [ ns1:referenceFormulation <http://semweb.mmlab.be/ns/ql#CSV> ;
+            ns1:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    ns2:subjectMap [ ns2:class owl:DatatypeProperty ;
+            ns2:constant "http://www.w3.org/2000/01/rdf-schema#label" ] .
+

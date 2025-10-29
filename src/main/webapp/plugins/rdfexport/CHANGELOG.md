@@ -28,6 +28,17 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-27 – Removed generic RiC-O authority placeholders from the pipeline RMLMapper workflow so its Turtle output matches `map_schema`, and tightened the regression harness diagnostics to fail on any residual divergence.
+- 2025-10-27 – Tightened the RML workflow regression so both the
+  legacy `map_schema` and debugger pipelines invoke the bundled
+  RMLMapper jar, assert the generated Turtle outputs are
+  isomorphic, and surface canonicalised triple differences for
+  debugging when they diverge.
+- 2025-10-27 – Ensured the RML alignment harness sanitises DrawIO fixtures
+  and normalises CSV inputs at runtime so both the legacy `map_schema`
+  workflow and the debugger-powered pipeline originate from the same
+  sources, persisting the helper outputs for inspection and updating the
+  pytest comparison to exercise the new paths.
 - 2025-10-25 – Normalised legacy CSV preprocessing by teaching
   `SourceCSVPreprocessor` to expand numbered columns into first-normal-form
   rows, derive RiC-O authority classes, regenerate the RML CSV fixtures, and

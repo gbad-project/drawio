@@ -16,11 +16,13 @@ dev = [
     "ruff>=0.14.0",
     "pyyaml>=6.0.2",
     "rich>=13.9.4",
+    "pandas>=2.3.3",
 ]
 
 [tool.ruff]
 exclude = [
     "legacy/map_schema.py",
+    "legacy/draw_io_parser.py",
     "docs/",
     "legacy/original/draw_io_parser_5d85cf0.py",
 ]

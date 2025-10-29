@@ -279,20 +279,85 @@ def serialise_to_rml(
                         if "://" in individual_label
                     }
 
+                @staticmethod
+                def _has_placeholder(identifier: str) -> bool:
+                    if not identifier:
+                        return False
+                    if "{" in identifier or "}" in identifier:
+                        return True
+                    # Identifiers reaching this point may already be percent-encoded.
+                    return "%7B" in identifier or "%7D" in identifier
+
+                @staticmethod
+                def _ensure_quoted_identifier(identifier: str) -> str:
+                    trimmed = identifier.strip()
+                    if not trimmed:
+                        return trimmed
+                    if (trimmed.startswith("%22") and trimmed.endswith("%22")) or (
+                        trimmed.startswith('"%22') and trimmed.endswith('%22"')
+                    ):
+                        return trimmed
+                    if not trimmed.startswith('"'):
+                        trimmed = f'"{trimmed}'
+                    if not trimmed.endswith('"'):
+                        trimmed = f'{trimmed}"'
+                    return trimmed
+
+                @staticmethod
+                def _encode_template_uri(uri: URIRef) -> URIRef:
+                    text = str(uri)
+                    if "Rr%3Atemplate%20%22" in text or "Rr%3Aconstant%20%22" in text:
+                        return uri
+                    if "#" in text:
+                        base, local = text.split("#", 1)
+                    else:
+                        base, local = text, ""
+                    if not local:
+                        return uri
+                    if local.startswith("%22"):
+                        encoded_local = local
+                    elif local.startswith('"'):
+                        encoded_local = urllib.parse.quote(local, safe="")
+                    else:
+                        quoted = urllib.parse.quote(
+                            f'"{urllib.parse.unquote(local)}"', safe=""
+                        )
+                        encoded_local = quoted
+                    separator = "#" if base and not base.endswith(("#", "/")) else ""
+                    return URIRef(f"{base}{separator}Rr%3Atemplate%20{encoded_local}")
+
                 def resolve_entity_uri(
                     self,
                     identifier: str,
                     prefix: str | None,
                     prefix_iri: str | None,
                     absolute_overrides: dict[str, str],
+                    label: str | None = None,
                 ) -> URIRef:
-                    if identifier in absolute_overrides:
-                        return URIRef(absolute_overrides[identifier])
+                    identifier_text = str(identifier)
+                    label_text = str(label) if label is not None else None
+                    if identifier_text in absolute_overrides:
+                        return URIRef(absolute_overrides[identifier_text])
+                    has_placeholder = self._has_placeholder(identifier_text)
+                    if not has_placeholder and label_text is not None:
+                        has_placeholder = self._has_placeholder(label_text)
+                        if has_placeholder:
+                            identifier_text = label_text
+                    if has_placeholder:
+                        identifier_text = self._ensure_quoted_identifier(
+                            identifier_text
+                        )
                     if prefix and prefix_iri:
-                        return Namespace(prefix_iri)[identifier]
+                        resolved = Namespace(prefix_iri)[identifier_text]
+                        if has_placeholder:
+                            resolved = self._encode_template_uri(resolved)
+                        return resolved
                     if prefix_iri:
-                        return URIRef(f"{prefix_iri}{identifier}")
-                    return URIRef(identifier)
+                        resolved = URIRef(f"{prefix_iri}{identifier_text}")
+                        if has_placeholder:
+                            resolved = self._encode_template_uri(resolved)
+                        return resolved
+                    return URIRef(identifier_text)
 
                 @staticmethod
                 def coerce_literal(value: Any) -> Literal:
@@ -362,6 +427,7 @@ def serialise_to_rml(
                                 prefix,
                                 prefix_iri,
                                 absolute_overrides,
+                                individual_label,
                             ),
                             types_and_facts,
                         )
