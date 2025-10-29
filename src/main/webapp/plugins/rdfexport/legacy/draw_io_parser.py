@@ -676,11 +676,15 @@ class pipeline:
                                 def _is_absolute_iri(candidate: str) -> bool:
                                     if not candidate:
                                         return False
-                                    try:
-                                        parsed = urllib.parse.urlparse(candidate)
-                                    except Exception:
+                                    text = candidate.strip()
+                                    if not text:
                                         return False
-                                    return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                                    if '://' in text:
+                                        return True
+                                    scheme, _, remainder = text.partition(':')
+                                    if scheme.lower() in {'urn', 'tag'} and remainder.strip():
+                                        return True
+                                    return False
 
                                 def create_workspace(self, serialisation_config: SerialisationConfig, prefixes: dict[str, str], graph_cls: type[Graph], graph_kwargs: dict[str, Any]) -> tuple[Graph, dict[str, Namespace], str | None, str | None]:
                                     graph = graph_cls(**graph_kwargs)
@@ -701,6 +705,8 @@ class pipeline:
                                         namespace_map[prefix_key] = namespace
                                     if prefix and prefix_iri:
                                         graph.bind(prefix, Namespace(prefix_iri), replace=True)
+                                    self._namespace_map = namespace_map
+                                    self._infer_types = serialisation_config.infer_type_of_literals
                                     return (graph, namespace_map, prefix, prefix_iri)
 
                                 @staticmethod
@@ -761,6 +767,13 @@ class pipeline:
                                             identifier_text = label_text
                                     if has_placeholder:
                                         identifier_text = self._ensure_quoted_identifier(identifier_text)
+                                    namespace_map = getattr(self, '_namespace_map', {})
+                                    for candidate in (identifier_text, urllib.parse.unquote(identifier_text)):
+                                        if ':' in candidate:
+                                            prefix_key, local = candidate.split(':', 1)
+                                            namespace = namespace_map.get(prefix_key)
+                                            if namespace is not None and local:
+                                                return namespace[local]
                                     if prefix and prefix_iri:
                                         resolved = Namespace(prefix_iri)[identifier_text]
                                         if has_placeholder:
@@ -773,10 +786,11 @@ class pipeline:
                                         return resolved
                                     return URIRef(identifier_text)
 
-                                @staticmethod
-                                def coerce_literal(value: Any) -> Literal:
+                                def coerce_literal(self, value: Any) -> Literal:
                                     if isinstance(value, Literal):
                                         return value
+                                    if not getattr(self, '_infer_types', True):
+                                        return Literal(value)
                                     literal_candidate = value
                                     if isinstance(literal_candidate, int) or (isinstance(literal_candidate, str) and literal_candidate.isnumeric()):
                                         return Literal(literal_candidate, datatype=XSD.integer)
@@ -841,6 +855,12 @@ class pipeline:
                             if constant.language:
                                 graph.add((object_map, rr.language, Literal(constant.language)))
                     absolute_overrides = toolkit.extract_absolute_overrides(blocks)
+
+                    def _resolve_predicate_uri(prop: str) -> URIRef:
+                        if toolkit._is_absolute_iri(prop):
+                            return URIRef(prop)
+                        prefix_key, local = prop.split(':', 1)
+                        return namespace_map[prefix_key][local]
                     logical_source_default = Literal('drawio')
                     if csv_path:
                         logical_source_value = Literal(csv_path)
@@ -862,14 +882,15 @@ class pipeline:
                         for rdf_type in sorted(types_and_facts.get('Types', set())):
                             type_prefix, type_name = rdf_type.split(':', 1)
                             class_uri = namespace_map[type_prefix][type_name]
+                            if class_uri == OWL.NamedIndividual:
+                                continue
                             graph.add((subject_map, rr['class'], class_uri))
                         if serialisation_config.include_label:
                             _add_constant_object_map(triples_map, RDFS.label, Literal(individual_label))
                         for prop, values in sorted(types_and_facts.items()):
                             if prop == 'Types':
                                 continue
-                            prop_prefix, prop_name = prop.split(':', 1)
-                            predicate_uri = namespace_map[prop_prefix][prop_name]
+                            predicate_uri = _resolve_predicate_uri(prop)
                             for raw_value in sorted(values, key=toolkit.value_sort_key):
                                 value, is_literal = toolkit.unpack_value(prop, raw_value, object_properties, datatype_properties)
                                 if not is_literal:
@@ -1943,11 +1964,15 @@ class rdf_control_core:
                     def _is_absolute_iri(candidate: str) -> bool:
                         if not candidate:
                             return False
-                        try:
-                            parsed = urllib.parse.urlparse(candidate)
-                        except Exception:
+                        text = candidate.strip()
+                        if not text:
                             return False
-                        return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                        if '://' in text:
+                            return True
+                        scheme, _, remainder = text.partition(':')
+                        if scheme.lower() in {'urn', 'tag'} and remainder.strip():
+                            return True
+                        return False
 
                     def create_workspace(self, serialisation_config: SerialisationConfig, prefixes: dict[str, str], graph_cls: type[Graph], graph_kwargs: dict[str, Any]) -> tuple[Graph, dict[str, Namespace], str | None, str | None]:
                         graph = graph_cls(**graph_kwargs)
@@ -1968,6 +1993,8 @@ class rdf_control_core:
                             namespace_map[prefix_key] = namespace
                         if prefix and prefix_iri:
                             graph.bind(prefix, Namespace(prefix_iri), replace=True)
+                        self._namespace_map = namespace_map
+                        self._infer_types = serialisation_config.infer_type_of_literals
                         return (graph, namespace_map, prefix, prefix_iri)
 
                     @staticmethod
@@ -1977,16 +2004,24 @@ class rdf_control_core:
                     def resolve_entity_uri(self, identifier: str, prefix: str | None, prefix_iri: str | None, absolute_overrides: dict[str, str]) -> URIRef:
                         if identifier in absolute_overrides:
                             return URIRef(absolute_overrides[identifier])
+                        namespace_map = getattr(self, '_namespace_map', {})
+                        for candidate in (identifier, urllib.parse.unquote(identifier)):
+                            if ':' in candidate:
+                                prefix_key, local = candidate.split(':', 1)
+                                namespace = namespace_map.get(prefix_key)
+                                if namespace is not None and local:
+                                    return namespace[local]
                         if prefix and prefix_iri:
                             return Namespace(prefix_iri)[identifier]
                         if prefix_iri:
                             return URIRef(f'{prefix_iri}{identifier}')
                         return URIRef(identifier)
 
-                    @staticmethod
-                    def coerce_literal(value: Any) -> Literal:
+                    def coerce_literal(self, value: Any) -> Literal:
                         if isinstance(value, Literal):
                             return value
+                        if not getattr(self, '_infer_types', True):
+                            return Literal(value)
                         literal_candidate = value
                         if isinstance(literal_candidate, int) or (isinstance(literal_candidate, str) and literal_candidate.isnumeric()):
                             return Literal(literal_candidate, datatype=XSD.integer)
@@ -2051,8 +2086,7 @@ class rdf_control_core:
             for prop, values in types_and_facts.items():
                 if prop == 'Types':
                     continue
-                prop_prefix, prop_name = prop.split(':', 1)
-                prop_uri = namespace_map[prop_prefix][prop_name]
+                prop_uri = _resolve_property_uri(prop)
                 for raw_value in values:
                     value, is_literal = toolkit.unpack_value(prop, raw_value, object_properties, datatype_properties)
                     if not is_literal:

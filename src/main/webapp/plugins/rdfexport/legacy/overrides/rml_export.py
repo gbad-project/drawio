@@ -230,11 +230,15 @@ def serialise_to_rml(
                 def _is_absolute_iri(candidate: str) -> bool:
                     if not candidate:
                         return False
-                    try:
-                        parsed = urllib.parse.urlparse(candidate)
-                    except Exception:
+                    text = candidate.strip()
+                    if not text:
                         return False
-                    return bool(parsed.scheme and (parsed.netloc or parsed.path))
+                    if "://" in text:
+                        return True
+                    scheme, _, remainder = text.partition(":")
+                    if scheme.lower() in {"urn", "tag"} and remainder.strip():
+                        return True
+                    return False
 
                 def create_workspace(
                     self,
@@ -269,6 +273,8 @@ def serialise_to_rml(
                     if prefix and prefix_iri:
                         graph.bind(prefix, Namespace(prefix_iri), replace=True)
 
+                    self._namespace_map = namespace_map
+                    self._infer_types = serialisation_config.infer_type_of_literals
                     return graph, namespace_map, prefix, prefix_iri
 
                 @staticmethod
@@ -347,6 +353,16 @@ def serialise_to_rml(
                         identifier_text = self._ensure_quoted_identifier(
                             identifier_text
                         )
+                    namespace_map = getattr(self, "_namespace_map", {})
+                    for candidate in (
+                        identifier_text,
+                        urllib.parse.unquote(identifier_text),
+                    ):
+                        if ":" in candidate:
+                            prefix_key, local = candidate.split(":", 1)
+                            namespace = namespace_map.get(prefix_key)
+                            if namespace is not None and local:
+                                return namespace[local]
                     if prefix and prefix_iri:
                         resolved = Namespace(prefix_iri)[identifier_text]
                         if has_placeholder:
@@ -359,10 +375,11 @@ def serialise_to_rml(
                         return resolved
                     return URIRef(identifier_text)
 
-                @staticmethod
-                def coerce_literal(value: Any) -> Literal:
+                def coerce_literal(self, value: Any) -> Literal:
                     if isinstance(value, Literal):
                         return value
+                    if not getattr(self, "_infer_types", True):
+                        return Literal(value)
 
                     literal_candidate = value
                     if isinstance(literal_candidate, int) or (
@@ -479,6 +496,12 @@ def serialise_to_rml(
 
     absolute_overrides = toolkit.extract_absolute_overrides(blocks)
 
+    def _resolve_predicate_uri(prop: str) -> URIRef:
+        if toolkit._is_absolute_iri(prop):
+            return URIRef(prop)
+        prefix_key, local = prop.split(":", 1)
+        return namespace_map[prefix_key][local]
+
     logical_source_default = Literal("drawio")
     if csv_path:
         logical_source_value = Literal(csv_path)
@@ -509,6 +532,8 @@ def serialise_to_rml(
         for rdf_type in sorted(types_and_facts.get("Types", set())):
             type_prefix, type_name = rdf_type.split(":", 1)
             class_uri = namespace_map[type_prefix][type_name]
+            if class_uri == OWL.NamedIndividual:
+                continue
             graph.add((subject_map, rr["class"], class_uri))
 
         if serialisation_config.include_label:
@@ -518,8 +543,7 @@ def serialise_to_rml(
             if prop == "Types":
                 continue
 
-            prop_prefix, prop_name = prop.split(":", 1)
-            predicate_uri = namespace_map[prop_prefix][prop_name]
+            predicate_uri = _resolve_predicate_uri(prop)
 
             for raw_value in sorted(values, key=toolkit.value_sort_key):
                 value, is_literal = toolkit.unpack_value(

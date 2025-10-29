@@ -40,13 +40,24 @@ def test_rmlmapper_workflows_are_isomorphic(
         drawio_path=fixture.drawio_path,
         csv_path=fixture.csv_path,
         output_dir=tmp_path / "pipeline",
-        persist_results=True,
+        persist_results=False,
     )
 
     assert map_schema_result.turtle_path.exists()
     assert pipeline_result.turtle_path.exists()
     assert len(map_schema_result.turtle_graph) > 0
     assert len(pipeline_result.turtle_graph) > 0
+
+    for workflow in (map_schema_result, pipeline_result):
+        assert workflow.workspace_dir is not None
+        artifacts_dir = workflow.workspace_dir / "artifacts"
+        assert artifacts_dir.exists(), "workspace artifacts directory missing"
+        assert (artifacts_dir / workflow.rml_path.name).exists(), (
+            "canonical RML not copied to workspace"
+        )
+        assert (artifacts_dir / workflow.turtle_path.name).exists(), (
+            "RMLMapper Turtle output not copied to workspace"
+        )
 
     canonical = workflows.canonicalize_for_comparison(
         map_schema_result.turtle_graph, pipeline_result.turtle_graph
