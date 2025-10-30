@@ -13,6 +13,8 @@ import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Iterator
+from io import StringIO
+from contextlib import redirect_stdout
 
 from rdflib import Graph
 
@@ -216,11 +218,14 @@ def _execute_map_schema(
     source_dir = workspace / "gbad" / "mapping" / "source"
     source_dir.mkdir(parents=True, exist_ok=True)
     source_csv_path = source_dir / config.csv_fixture.name
-    SourceCSVPreprocessor(
-        str(config.csv_fixture),
-        str(source_csv_path),
-        index_col=config.index_column,
-    ).dump()
+    buf = StringIO()
+    with redirect_stdout(buf):
+        SourceCSVPreprocessor(
+            str(config.csv_fixture),
+            str(source_csv_path),
+            index_col=config.index_column,
+        ).dump()
+    output = buf.getvalue()
 
     with _patched_preprocessors(index_column=config.index_column):
         generated_rml = _run_map_schema_cli(
@@ -289,8 +294,10 @@ def _run_map_schema_cli(
 ) -> Path:
     with _temporary_cwd(workspace):
         import legacy.map_schema as map_schema  # type: ignore
-
-        map_schema.__init__(schema_code, source_filename)
+        buf = StringIO()
+        with redirect_stdout(buf):    
+            map_schema.__init__(schema_code, source_filename)
+        output = buf.getvalue()
 
     generated_rmls = list((workspace / "gbad" / "schema").rglob("*.rml"))
     if not generated_rmls:
@@ -314,7 +321,10 @@ def _ensure_required_columns(
         additions = {column: "" for column in missing}
         df = df.assign(**additions)
         preprocessor.source_df = df
-    preprocessor.dump()
+    buf = StringIO()
+    with redirect_stdout(buf):
+        preprocessor.dump()
+    output = buf.getvalue()
 
 
 def _extract_required_columns(rml_paths: Iterable[Path]) -> set[str]:
@@ -445,7 +455,10 @@ def _patched_preprocessors(index_column: str) -> Iterator[None]:
             preprocessed_csv_path,
             index_col=index_column,
         )
-        preprocessor.dump()
+        buf = StringIO()
+        with redirect_stdout(buf):
+            preprocessor.dump()
+        output = buf.getvalue()
 
     map_schema.add_preprocess = _passthrough
     map_schema.auth_preprocess = _passthrough
