@@ -138,7 +138,8 @@ def test_pipeline_workflow_general_authority(
     pipeline_config = MapSchemaFixtureConfig(
         name="general-authority",
         schema_code="auth",
-        scenario=SCENARIO_DIR / "general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml",
+        scenario=SCENARIO_DIR
+        / "general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml",
         csv_fixture=RML_FIXTURES_DIR
         / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
         rml_fixture=RML_FIXTURES_DIR

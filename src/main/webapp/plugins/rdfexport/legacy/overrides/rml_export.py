@@ -170,8 +170,22 @@ def _build_graph_from_raw_xml(
         )
     )
 
+    metadata_rml_enabled = (
+        _is_flag_enabled(metadata_node.attrib.get("rmlEnabled"))
+        if metadata_node is not None
+        else False
+    )
+    rml_enabled = (
+        _is_flag_enabled(config_args.get("rml_enabled")) or metadata_rml_enabled
+    )
+
     # 4. Serialize to Final Graph
-    graph = serialise_to_graph(
+    serializer = (
+        pipeline.core.rdf.control.serialise_to_rml
+        if rml_enabled
+        else serialise_to_graph
+    )
+    graph = serializer(
         blocks,
         object_properties,
         datatype_properties,
@@ -181,21 +195,8 @@ def _build_graph_from_raw_xml(
         graph_kwargs={"csv_path": csv_path},
     )
 
-    # 5. Final post-processing (e.g., RML, base URI)
+    # 5. Final post-processing (e.g., base URI binding)
     if base_uri:
         graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
-
-    metadata_rml_enabled = (
-        _is_flag_enabled(metadata_node.attrib.get("rmlEnabled"))
-        if metadata_node is not None
-        else False
-    )
-    rml_enabled = (
-        _is_flag_enabled(config_args.get("rml_enabled")) or metadata_rml_enabled
-    )
-    if rml_enabled:
-        rr = Namespace("http://www.w3.org/ns/r2rml#")
-        graph.namespace_manager.bind("rr", rr, replace=False)
-        graph.add((BNode(), RDF.type, rr.TriplesMap))
 
     return graph

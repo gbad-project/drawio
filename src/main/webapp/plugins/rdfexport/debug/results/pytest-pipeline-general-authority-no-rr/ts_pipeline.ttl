@@ -1,0 +1,369 @@
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "MOD_DATE" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:lastModificationDate ],
+        [ rr:objectMap [ rr:constant "SOURCE" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:sourceNote ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FAuthorityRecord> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasDocumentaryFormType ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FRule%2FRulesForArchivalDescription> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasRegulatedBy ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Record ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAuthorityRecord%2F%7BHEADING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FVariantAgentName> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadType ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:AgentName ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:CorporateBodyType ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:CorporateBody ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BREFA%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadIdentifier ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BCONTAG_1..14%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadController ],
+        [ rr:objectMap [ rr:constant "" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FNaturalAgentName%2F%7BNAME%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BSUC_1..4%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasSuccessor ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BPRED_1..5%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isSuccessorOf ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FMandate%2F%7BAA%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:authorizedBy ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAuthorityRecord%2F%7BHEADING%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasDescribedBy ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BREFA%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isEquivalentTo ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATEEX_END%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ],
+        [ rr:objectMap [ rr:constant "ADM" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:history ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:constant "FUN" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:functionNote ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:constant "CMTAU" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:privateNote ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Thing ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FAgencyReferenceCode> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasIdentifierType ],
+        [ rr:objectMap [ rr:constant "REFA" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Identifier ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{HEADING} (Family)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Family ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:DocumentaryFormType ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FAuthorityRecord> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Date ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FParallelAgentName> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadType ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:AgentName ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{HEADING} (Person)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Person ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Date ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Type ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FNaturalAgentName> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "RULES" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:title ],
+        [ rr:objectMap [ rr:constant "Rules for Archival Description" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Rule ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FRule%2FRulesForArchivalDescription> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:IdentifierType ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FAgencyReferenceCode> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Type ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FVariantAgentName> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context:" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:relationHasTarget ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:AgentControlRelation ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:RecordState ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FNaturalAgentName> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadType ],
+        [ rr:objectMap [ rr:constant "NAME" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:AgentName ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FNaturalAgentName%2F%7BNAME%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Date ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadCorporateBodyType ],
+        [ rr:objectMap [ rr:constant "{HEADING} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:CorporateBody ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{HEADING} (Place)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Place ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{CONTAG_1..14} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:thingIsSourceOfRelation ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:CorporateBody ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BCONTAG_1..14%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:RecordState ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Mandate ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FMandate%2F%7BAA%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{PRED_1..5} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:CorporateBody ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BPRED_1..5%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "{SUC_1..4} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:CorporateBody ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgent%2F%7BSUC_1..4%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Date ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FDate%2F%7BDATEEX_END%7D> ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:class owl:NamedIndividual,
+                rico:Type ;
+            rr:constant <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FSchema%2FAuthority%2FParallelAgentName> ;
+            rr:termType rr:IRI ] .
+

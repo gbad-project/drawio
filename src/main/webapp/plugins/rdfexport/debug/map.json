@@ -117,8 +117,8 @@
     },
     "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio": {
       "path": "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
-      "sha256": "aeacb1e14df14d7af1ca7315270d216ea61e2789345b73c1b5a33b8119fa9e0e",
-      "size_bytes": 81431
+      "sha256": "a99a76f721dee48882e5b9a61e0255a51299a700bb41d98e82ec6746c0c46373",
+      "size_bytes": 81490
     },
     "General Authority to RiC-O Model_2025-06-25_PZ.drawio": {
       "path": "General Authority to RiC-O Model_2025-06-25_PZ.drawio",
@@ -127,8 +127,8 @@
     },
     "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio": {
       "path": "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
-      "sha256": "d868ad62303ab28bcf686e84227c0a0411ba5ed3b7971ad61cda6b73d3ab387a",
-      "size_bytes": 64585
+      "sha256": "fe36c4e5c0c187c1b7790456aa383e8c5ef5ede478afbf8ca1eaab4d592b59c4",
+      "size_bytes": 64644
     },
     "General_Authority_bleep_mock.drawio": {
       "path": "General_Authority_bleep_mock.drawio",
@@ -3028,13 +3028,6 @@
     },
     "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr": {
       "cell_classifications": {
-        "0": {
-          "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": null,
-          "raw_value": null,
-          "tokens": []
-        },
         "1": {
           "identifier": null,
           "kind": "UNCLASSIFIED",
@@ -4549,17 +4542,21 @@
           "LITERAL": 32,
           "STANDALONE_INDIVIDUAL": 29,
           "TYPED_INDIVIDUAL": 29,
-          "UNCLASSIFIED": 2
+          "UNCLASSIFIED": 1
         },
         "classified": 206,
-        "total_cells": 208,
-        "unclassified": 2
+        "total_cells": 207,
+        "unclassified": 1
       },
       "drawio": "tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
       "format": "turtle",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
-        "py_legacy_vs_ts_plugin": true,
         "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
@@ -4591,15 +4588,10 @@
         }
       ],
       "results": {
-        "py_legacy": {
-          "nt_sha256": "3a53d1f57f5c2434e3b89fe8360295fcabe63875aa98e4796bdd8567c1d315c6",
-          "path": "results/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr/py_legacy.ttl",
-          "triples": 120
-        },
         "ts_pipeline": {
-          "nt_sha256": "7c6197861dbbcf3c405ced55795ab446c60b34f4dcd8af5bb3056e6506a66829",
+          "nt_sha256": "9200903ee1cdb1cb4912189a82a4ffc04c522a2ff35374f08f5eea837ba2eb17",
           "path": "results/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr/ts_pipeline.ttl",
-          "triples": 117
+          "triples": 500
         },
         "ts_plugin": {
           "nt_sha256": "2e59e79b7cdb814b0f7f2e9df9f9c72ba4a091573dae2d4113f18186685c2c8e",
@@ -7162,6 +7154,9 @@
         "unclassified": 2
       },
       "drawio": "tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
+      "errors": {
+        "ts_stderr": "[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FMandate%2F%7BAA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FNaturalAgentName%2F%7BNAME%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BCONTAG_1..14%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BSUC_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAuthorityRecord%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BPRED_1..5%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FNaturalAgentName%2F%7BNAME%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FMandate%2F%7BAA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAuthorityRecord%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BCONTAG_1..14%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BPRED_1..5%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BSUC_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break."
+      },
       "format": "turtle",
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": false,
@@ -7203,9 +7198,9 @@
           "triples": 116
         },
         "ts_pipeline": {
-          "nt_sha256": "8d1b4a54d9592d708f24364b0dfc26c2c45a1afc16bf9f4ff647bc927d62f60b",
+          "nt_sha256": "cfdee41434d6f6e8a5402c36f89d2956259b02e2acd99ac70abbd3a5e70f3744",
           "path": "results/general-authority-to-ric-o-model-2025-06-25-pz-no-rr/ts_pipeline.ttl",
-          "triples": 106
+          "triples": 447
         },
         "ts_plugin": {
           "nt_sha256": "341152d9edc84c2587c4b60251d7fe976e4898be28486e11297663e44332f2c0",
@@ -30848,7 +30843,7 @@
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
         "prefix_iri": null,
-        "rml_enabled": true,
+        "rml_enabled": false,
         "strict_mode": false,
         "strip_html": true
       },
@@ -32166,7 +32161,7 @@
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
         "prefix_iri": null,
-        "rml_enabled": true,
+        "rml_enabled": false,
         "strict_mode": false,
         "strip_html": true
       },
@@ -33812,13 +33807,6 @@
     },
     "pytest-pipeline-general-add-no-rr": {
       "cell_classifications": {
-        "0": {
-          "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": null,
-          "raw_value": null,
-          "tokens": []
-        },
         "1": {
           "identifier": null,
           "kind": "UNCLASSIFIED",
@@ -35333,17 +35321,21 @@
           "LITERAL": 32,
           "STANDALONE_INDIVIDUAL": 29,
           "TYPED_INDIVIDUAL": 29,
-          "UNCLASSIFIED": 2
+          "UNCLASSIFIED": 1
         },
         "classified": 206,
-        "total_cells": 208,
-        "unclassified": 2
+        "total_cells": 207,
+        "unclassified": 1
       },
       "drawio": "tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
       "format": "turtle",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
-        "py_legacy_vs_ts_plugin": true,
         "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
@@ -35375,15 +35367,10 @@
         }
       ],
       "results": {
-        "py_legacy": {
-          "nt_sha256": "3a53d1f57f5c2434e3b89fe8360295fcabe63875aa98e4796bdd8567c1d315c6",
-          "path": "results/pytest-pipeline-general-add-no-rr/py_legacy.ttl",
-          "triples": 120
-        },
         "ts_pipeline": {
-          "nt_sha256": "87c398b5182e6fdc1b3bdd4a02f49bd9646fe8b32c9404c897f370207b154899",
+          "nt_sha256": "0888189ed5bdf2f370e260c25f3e209a6c9df6f373ddcd2c5c7140bb18f82dd1",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
-          "triples": 117
+          "triples": 500
         },
         "ts_plugin": {
           "nt_sha256": "2e59e79b7cdb814b0f7f2e9df9f9c72ba4a091573dae2d4113f18186685c2c8e",
@@ -36712,13 +36699,6 @@
     },
     "pytest-pipeline-general-authority-no-rr": {
       "cell_classifications": {
-        "0": {
-          "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": null,
-          "raw_value": null,
-          "tokens": []
-        },
         "1": {
           "identifier": null,
           "kind": "UNCLASSIFIED",
@@ -37925,17 +37905,21 @@
           "LITERAL": 18,
           "STANDALONE_INDIVIDUAL": 29,
           "TYPED_INDIVIDUAL": 29,
-          "UNCLASSIFIED": 2
+          "UNCLASSIFIED": 1
         },
         "classified": 162,
-        "total_cells": 164,
-        "unclassified": 2
+        "total_cells": 163,
+        "unclassified": 1
       },
       "drawio": "tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
       "format": "turtle",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
-        "py_legacy_vs_ts_plugin": true,
         "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
@@ -37967,15 +37951,10 @@
         }
       ],
       "results": {
-        "py_legacy": {
-          "nt_sha256": "45889884aa72217e4e3aa4bbdcce8bb33e8595da88b4acb89d563928b02a7cbd",
-          "path": "results/pytest-pipeline-general-authority-no-rr/py_legacy.ttl",
-          "triples": 116
-        },
         "ts_pipeline": {
-          "nt_sha256": "47de3403d767900d8c86ab64be7fd797671f9da74345539beb9145781e545154",
+          "nt_sha256": "f17715a522eb78d54a3e169f7d52cb286af7fbddb9a1dadeafcb526eca175e26",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
-          "triples": 106
+          "triples": 476
         },
         "ts_plugin": {
           "nt_sha256": "341152d9edc84c2587c4b60251d7fe976e4898be28486e11297663e44332f2c0",
