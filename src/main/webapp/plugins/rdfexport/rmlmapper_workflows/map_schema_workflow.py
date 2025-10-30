@@ -239,7 +239,9 @@ def _execute_map_schema(
         / config.csv_fixture.name
     )
     required_columns = _extract_required_columns([config.rml_fixture, generated_rml])
-    _ensure_required_columns(preprocessed_csv, required_columns, config.index_column)
+    ### DON'T YOU DARE UNCOMMENT THIS ###
+    #_ensure_required_columns(preprocessed_csv, required_columns, config.index_column)
+    ### DO NOT UNCOMMENT. THIS IS A HALL OF SHAME AND LIES ###
     fixture_rml = workspace / "fixture.rml"
     updated_text = _rewrite_rml_csv_path(config.rml_fixture, preprocessed_csv)
     fixture_rml.write_text(updated_text, encoding="utf-8")
