@@ -12,6 +12,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Added a pipeline-based RML workflow helper, bespoke CSV
+  normalisation routines, and pytest coverage that contrasts its Turtle
+  output against the legacy map-schema workflow for the General ADD and
+  General Authority fixtures.
 - 2025-10-26 – Added an SDKMAN-backed RML map-schema workflow helper with
   pytest coverage to validate the regenerated Turtle output against legacy
   fixtures for the General ADD and General Authority diagrams.
@@ -23,6 +27,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-11-02 – Enhanced the pipeline RML workflow to emit runnable
+  rr:TriplesMap definitions backed by the normalised CSV exports, updated
+  fixture mappings for the General ADD and General Authority diagrams, and
+  captured minimal Turtle parity checks via pytest.
 - 2025-10-23 – Standardised DrawIO metadata storage on a canonical
   `<gbadMetadata>` container across the plugin, fixtures, and debugger so
   parser settings and prefixes propagate consistently through the TypeScript
