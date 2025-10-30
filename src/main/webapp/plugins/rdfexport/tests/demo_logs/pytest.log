@@ -1,28 +1,29 @@
-Script started on Thu Oct 30 01:39:20 2025
-Command: bun run test:pytest:all
+Script started on 2025-10-30 14:18:21+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 88 items                                                                                              [0m[1mcollected 88 items                                                                                               [0m
-
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 13%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                       [ 14%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 29%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 32%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                           [ 82%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                              [ 90%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [ 97%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[31mF[0m[31m                                                   [100%][0m
-
-==================================================== FAILURES ====================================================
-[31m[1m___________________________________ test_map_schema_workflow_general_authority ___________________________________[0m
-
-rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-600/test_map_schema_workflow_gener1')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_authority[39;49;00m([90m[39;49;00m
+[1mcollecting ... [0m[1mcollecting 86 items                                                                                                            [0m[1mcollecting 88 items                                                                                                            [0m[1mcollected 90 items                                                                                                             [0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 13%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 14%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 28%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 32%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                         [ 81%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                            [ 88%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                    [ 95%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[31mF[0m[31m                                                                 [ 97%][0m
+rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[31m                                                                   [100%][0m
+=========================================================== FAILURES ===========================================================
+[31m[1m__________________________________________ test_map_schema_workflow_general_authority __________________________________________[0m
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-1/test_map_schema_workflow_gener1')
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+lhs = PosixPath('/tmp/pytest-of-root/pytest-1/test_map_schema_workflow_gener1/map-schema-general-authority-vowii9bc/workflow.ttl')
+rhs = PosixPath('/tmp/pytest-of-root/pytest-1/test_map_schema_workflow_gener1/map-schema-general-authority-vowii9bc/fixture.ttl')
+[36m[1m=================================================== short test summary info ====================================================[0m
+[31m===================================== [31m[1m1 failed[0m, [32m87 passed[0m, [33m2 xfailed[0m[31m in 178.62s (0:02:58)[0m[31m ======================================[0m
+Script done on 2025-10-30 14:21:20+00:00 [COMMAND_EXIT_CODE="1"]
         rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
     ) -> [94mNone[39;49;00m:[90m[39;49;00m
         config = MapSchemaFixtureConfig([90m[39;49;00m

@@ -1,66 +1,23 @@
-Script started on Thu Oct 30 01:37:50 2025
-Command: bun run debug:all
+Script started on 2025-10-30 14:16:25+00:00 [COMMAND="bun run debug:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1m.venv/bin/python -m debug.debug_cli_regression[0m
-[1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- /workspace/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 33 items                                                                                               [0m
-
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  3%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  6%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio] [32mPASSED[0m[32m [  9%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] [32mPASSED[0m[32m [ 12%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] [33mXFAIL[0m[32m [ 15%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] [33mXFAIL[0m[32m [ 18%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio] [33mXFAIL[0m[32m [ 21%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] [32mPASSED[0m[32m [ 24%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] [32mPASSED[0m[32m [ 27%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio] [32mPASSED[0m[32m [ 30%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio] [32mPASSED[0m[32m [ 33%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] [32mPASSED[0m[32m [ 36%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio] [32mPASSED[0m[32m [ 39%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 42%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] [32mPASSED[0m[32m [ 45%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] [32mPASSED[0m[32m [ 48%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] [32mPASSED[0m[32m  [ 51%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] [32mPASSED[0m[32m [ 54%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] [32mPASSED[0m[32m [ 57%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 60%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] [32mPASSED[0m[32m [ 63%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] [32mPASSED[0m[32m [ 66%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[32m [ 69%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[32m [ 72%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[32m [ 75%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[32m [ 78%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[32m [ 81%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[32m [ 84%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[32m [ 87%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 90%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 93%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 96%][0m
-debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure of manual command...)[32m [100%][0m
-
-===================================================== PASSES =====================================================
-[36m[1m============================================ short test summary info =============================================[0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio][0m
+[1mcollecting ... [0m[1mcollected 33 items                                                                                                             [0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] [32mPASSED[0m[32m    [ 12%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] [32mPASSED[0m[32m      [ 24%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] [32mPASSED[0m[32m      [ 27%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio] ^C
+============================================================ PASSES ============================================================
+[36m[1m=================================================== short test summary info ====================================================[0m
+ +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x7f2f2ebd0400>)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[1m[31m/root/.pyenv/versions/3.12.10/lib/python3.12/subprocess.py[0m:2047: KeyboardInterrupt
+[33m(to show a full traceback on KeyboardInterrupt use --full-trace)[0m
+[32m=========================================== [32m[1m7 passed[0m, [33m3 xfailed[0m[32m in 114.90s (0:01:54)[0m[32m ===========================================[0m
+Script done on 2025-10-30 14:18:21+00:00 [COMMAND_EXIT_CODE="130"]
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m

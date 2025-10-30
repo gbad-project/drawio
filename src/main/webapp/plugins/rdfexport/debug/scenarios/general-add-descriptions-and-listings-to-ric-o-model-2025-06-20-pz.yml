@@ -23,4 +23,4 @@ parser_config:
   metacharacter_substitute:
     - "url"
   capitalisation_scheme: lower-camel
-  rml_enabled: false
+  rml_enabled: true
