@@ -47,15 +47,15 @@ def _save_comparison_artifacts(result: MapSchemaWorkflowResult, test_name: str) 
 
     import shutil
 
-    shutil.copy2(result.workflow_turtle, artifacts_dir / "workflow_mapped.ttl")
+    shutil.copy2(result.workflow_turtle, artifacts_dir / "map_schema_mapped.ttl")
     shutil.copy2(result.fixture_turtle, artifacts_dir / "fixture_mapped.ttl")
-    shutil.copy2(result.preprocessed_csv, artifacts_dir / "workflow_preprocessed.csv")
-    shutil.copy2(result.generated_rml, artifacts_dir / "workflow_map.rml")
+    shutil.copy2(result.preprocessed_csv, artifacts_dir / "map_schema_preprocessed.csv")
+    shutil.copy2(result.generated_rml, artifacts_dir / "map_schema_map.rml")
 
     # Copy the schema.ttl from the workspace
     schema_files = list(result.workspace.glob("gbad/schema/*/schema.ttl"))
     if schema_files:
-        shutil.copy2(schema_files[0], artifacts_dir / "workflow_schema.ttl")
+        shutil.copy2(schema_files[0], artifacts_dir / "pipeline_schema.ttl")
 
 
 def test_map_schema_workflow_general_add(

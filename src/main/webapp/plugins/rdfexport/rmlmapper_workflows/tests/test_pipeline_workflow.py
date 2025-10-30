@@ -41,11 +41,11 @@ def _save_pipeline_artifacts(
     map_result: MapSchemaWorkflowResult,
     test_name: str,
 ) -> None:
-    target_dir = ARTIFACTS_DIR / f"pipeline_{test_name}"
+    target_dir = ARTIFACTS_DIR / test_name
     target_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy2(pipeline_result.pipeline_turtle, target_dir / "pipeline_mapped.ttl")
-    shutil.copy2(pipeline_result.pipeline_rml, target_dir / "pipeline_map.ttl")
+    shutil.copy2(pipeline_result.pipeline_rml, target_dir / "pipeline_map.rml")
     shutil.copy2(
         pipeline_result.preprocessed_csv, target_dir / "pipeline_preprocessed.csv"
     )
