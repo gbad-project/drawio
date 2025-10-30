@@ -1,28 +1,65 @@
-Script started on Wed Oct 29 23:27:03 2025
+Script started on Thu Oct 30 01:31:54 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m============================================= test session starts ==============================================[0m
+[1m============================================== test session starts ===============================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 88 items                                                                                             [0m
+[1mcollecting ... [0m[1mcollecting 88 items                                                                                              [0m[1mcollected 88 items                                                                                               [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                               [ 13%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                     [ 14%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                       [ 29%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 32%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                         [ 82%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                            [ 90%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                    [ 97%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m                                                 [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 13%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                       [ 14%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 29%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 32%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                           [ 82%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                              [ 90%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [ 97%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[31mF[0m[31m                                                   [100%][0m
 
-[33m=============================================== warnings summary ===============================================[0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py: 120 warnings
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper_workflows/map_schema_workflow.py:318: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
-    df = df.assign(**additions)
+==================================================== FAILURES ====================================================
+[31m[1m___________________________________ test_map_schema_workflow_general_authority ___________________________________[0m
 
--- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m====================================== [32m88 passed[0m, [33m[1m120 warnings[0m[33m in 14.14s[0m[33m =======================================[0m
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-598/test_map_schema_workflow_gener1')
 
-Command exit status: 0
-Script done on Wed Oct 29 23:27:17 2025
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_authority[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-map-schema-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+        result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)[90m[39;49;00m
+        [94massert[39;49;00m result.workflow_turtle.exists()[90m[39;49;00m
+        [94massert[39;49;00m result.fixture_turtle.exists()[90m[39;49;00m
+        _save_comparison_artifacts(result, [33m"[39;49;00m[33mgeneral_authority[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+>       _assert_isomorphic(result.workflow_turtle, result.fixture_turtle)[90m[39;49;00m
+
+[1m[31mrmlmapper_workflows/tests/test_map_schema_workflow.py[0m:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+lhs = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-598/test_map_schema_workflow_gener1/map-schema-general-authority-lz4qmclu/workflow.ttl')
+rhs = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-598/test_map_schema_workflow_gener1/map-schema-general-authority-lz4qmclu/fixture.ttl')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_assert_isomorphic[39;49;00m(lhs: Path, rhs: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        left_graph = _load_graph(lhs)[90m[39;49;00m
+        right_graph = _load_graph(rhs)[90m[39;49;00m
+>       [94massert[39;49;00m to_isomorphic(left_graph) == to_isomorphic(right_graph)[90m[39;49;00m
+[1m[31mE       AssertionError: assert <Graph identi...rphicGraph'>)> == <Graph identi...rphicGraph'>)>[0m
+[1m[31mE         [0m
+[1m[31mE         Use -v to get more diff[0m
+
+[1m[31mrmlmapper_workflows/tests/test_map_schema_workflow.py[0m:40: AssertionError
+[36m[1m============================================ short test summary info =============================================[0m
+[31mFAILED[0m rmlmapper_workflows/tests/test_map_schema_workflow.py::[1mtest_map_schema_workflow_general_authority[0m - AssertionError: assert <Graph identi...rphicGraph'>)> == <Graph identi...rphicGraph'>)>
+[31m========================================= [31m[1m1 failed[0m, [32m87 passed[0m[31m in 22.23s[0m[31m ==========================================[0m
+[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
+
+Command exit status: 1
+Script done on Thu Oct 30 01:32:17 2025

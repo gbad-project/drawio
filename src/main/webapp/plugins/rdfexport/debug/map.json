@@ -24994,11 +24994,25 @@
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "ontology://generated-from-draw-io/mock#",
-        "csvPath": "/mock/path/to/file.csv"
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "csvPath": "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv"
       },
       "parser_config": {
-        "ontology_iri": "mock://debug-ontology"
+        "capitalisation_scheme": "lower-camel",
+        "include_label": false,
+        "include_preamble": false,
+        "indentation": 2,
+        "infer_type_of_literals": true,
+        "max_gap": 10,
+        "metacharacter_substitute": [
+          "url"
+        ],
+        "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
+        "prefix": null,
+        "prefix_iri": null,
+        "rml_enabled": false,
+        "strict_mode": false,
+        "strip_html": true
       },
       "preamble": [
         {
@@ -25008,9 +25022,9 @@
       ],
       "results": {
         "py_legacy": {
-          "nt_sha256": "f289044225903f3659a58771e7a4c6133ca304f2289d18bbc06145ef8c13a373",
+          "nt_sha256": "5b75152b93a6bea24f12ee048edc06a68c232f47a24a7413b6d78f4724606d25",
           "path": "results/pytest-map-schema-general-add/py_legacy.ttl",
-          "triples": 147
+          "triples": 120
         }
       }
     },
@@ -26298,11 +26312,25 @@
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "ontology://generated-from-draw-io/mock#",
-        "csvPath": "/mock/path/to/file.csv"
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "csvPath": "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv"
       },
       "parser_config": {
-        "ontology_iri": "mock://debug-ontology"
+        "capitalisation_scheme": "lower-camel",
+        "include_label": false,
+        "include_preamble": false,
+        "indentation": 2,
+        "infer_type_of_literals": true,
+        "max_gap": 10,
+        "metacharacter_substitute": [
+          "url"
+        ],
+        "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
+        "prefix": null,
+        "prefix_iri": null,
+        "rml_enabled": false,
+        "strict_mode": false,
+        "strip_html": true
       },
       "preamble": [
         {
@@ -26312,9 +26340,9 @@
       ],
       "results": {
         "py_legacy": {
-          "nt_sha256": "a00cf8a446c92ca60c6ca9fbd2f6a21b31b0211b057b865aa3caee0691d8cdb2",
+          "nt_sha256": "39a982fcbe70a98c60604609ab13633a5c64039940201532ec92d767334c3da5",
           "path": "results/pytest-map-schema-general-authority/py_legacy.ttl",
-          "triples": 147
+          "triples": 116
         }
       }
     },
