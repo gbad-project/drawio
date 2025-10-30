@@ -29,7 +29,7 @@ if str(PLUGIN_ROOT) not in sys.path:
 if str(LEGACY_DIR) not in sys.path:
     sys.path.insert(0, str(LEGACY_DIR))
 
-from gbad.converter.preprocessors import SourceCSVPreprocessor  # type: ignore  # noqa: E402
+from legacy.gbad.converter.preprocessors import SourceCSVPreprocessor  # type: ignore  # noqa: E402
 
 _SCHEMA_TO_DIR = {
     "add": "description-listings",
@@ -68,41 +68,56 @@ class MapSchemaWorkflowResult:
     scenario_slug: str
 
 
+@dataclass
 class RMLMapperEnvironment:
-    """Managed SDKMAN-based environment for running RMLMapper."""
+    """Managed environment for running RMLMapper via manifest configuration."""
 
-    def __init__(self, base_dir: Path, java_version: str = "21.0.4-tem") -> None:
-        self.base_dir = base_dir
-        self.java_version = java_version
-        self.sdkman_dir = self.base_dir / "sdkman"
-        self.jar_path = self.base_dir / "rmlmapper-7.0.0-r374-all.jar"
+    manifest_path: Path
+
+    @classmethod
+    def from_manifest(cls, manifest_path: Path | None = None) -> RMLMapperEnvironment:
+        """Create environment from manifest, running setup script if needed."""
+        if manifest_path is None:
+            manifest_path = PLUGIN_ROOT / "rmlmapper" / "manifest.json"
+
+        env = cls(manifest_path=manifest_path)
+        env.ensure_ready()
+        return env
 
     def ensure_ready(self) -> None:
-        self._ensure_sdkman()
-        self._ensure_java()
-        self._ensure_jar()
+        """Ensure the RMLMapper environment is set up by running the setup script."""
+        if not self.manifest_path.exists():
+            self._run_setup_script()
+
+        if not self.manifest_path.exists():
+            raise RuntimeError(
+                f"Setup script completed but manifest not found at {self.manifest_path}"
+            )
 
     def run_mapper(self, rml_path: Path, output_path: Path, cwd: Path) -> None:
         """Run RMLMapper against ``rml_path`` and write Turtle output to ``output_path``."""
+        import json
 
-        self.ensure_ready()
+        manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
 
-        java_home = self.sdkman_dir / "candidates" / "java" / self.java_version
-        if not (java_home / "bin" / "java").exists():
-            raise RuntimeError(
-                f"Java runtime not available at expected location: {java_home}"  # pragma: no cover - defensive
-            )
+        java_bin = Path(manifest["java_bin"])
+        if not java_bin.exists():
+            raise RuntimeError(f"Java binary not found at: {java_bin}")
 
-        env = os.environ.copy()
-        env["SDKMAN_DIR"] = str(self.sdkman_dir)
-        env["JAVA_HOME"] = str(java_home)
-        env["PATH"] = f"{java_home / 'bin'}:{env.get('PATH', '')}"
+        jar_path = Path(manifest["rmlmapper_jar"])
+        if not jar_path.exists():
+            raise RuntimeError(f"RMLMapper JAR not found at: {jar_path}")
 
         output_path.parent.mkdir(parents=True, exist_ok=True)
+
+        env = os.environ.copy()
+        env["JAVA_HOME"] = manifest["java_home"]
+        env["PATH"] = f"{Path(manifest['java_home']) / 'bin'}:{env.get('PATH', '')}"
+
         command = [
-            "java",
+            str(java_bin),
             "-jar",
-            str(self.jar_path),
+            str(jar_path),
             "-m",
             str(rml_path),
             "-o",
@@ -110,6 +125,7 @@ class RMLMapperEnvironment:
             "-s",
             "turtle",
         ]
+
         process = subprocess.run(
             command,
             cwd=str(cwd),
@@ -117,63 +133,42 @@ class RMLMapperEnvironment:
             capture_output=True,
             text=True,
         )
+
         if process.returncode != 0:
             raise RuntimeError(
                 "RMLMapper failed with exit code "
                 f"{process.returncode}: {process.stderr.strip() or process.stdout.strip()}"
             )
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
-    def _ensure_sdkman(self) -> None:
-        init_script = self.sdkman_dir / "bin" / "sdkman-init.sh"
-        if init_script.exists():
-            return
+    def _run_setup_script(self) -> None:
+        """Execute the setup-rmlmapper.sh script."""
+        setup_script = PLUGIN_ROOT / "scripts" / "setup_rmlmapper.sh"
 
-        if self.sdkman_dir.exists():
-            shutil.rmtree(self.sdkman_dir)
+        if not setup_script.exists():
+            raise FileNotFoundError(f"Setup script not found at: {setup_script}")
 
-        installer = self.base_dir / "sdkman-install.sh"
-        with urllib.request.urlopen("https://get.sdkman.io") as response:
-            installer.write_bytes(response.read())
-
-        env = os.environ.copy()
-        env["SDKMAN_DIR"] = str(self.sdkman_dir)
-        subprocess.run(["bash", str(installer)], env=env, check=True)
-
-    def _ensure_java(self) -> None:
-        java_home = self.sdkman_dir / "candidates" / "java" / self.java_version
-        if (java_home / "bin" / "java").exists():
-            return
-
-        command = (
-            f'source "{self.sdkman_dir}/bin/sdkman-init.sh" && '
-            f"yes | sdk install java {self.java_version}"
+        process = subprocess.run(
+            ["bash", str(setup_script)],
+            capture_output=True,
+            text=True,
+            cwd=str(PLUGIN_ROOT),
         )
-        env = os.environ.copy()
-        env["SDKMAN_DIR"] = str(self.sdkman_dir)
-        subprocess.run(["bash", "-lc", command], env=env, check=True)
 
-    def _ensure_jar(self) -> None:
-        if self.jar_path.exists():
-            return
-
-        self.jar_path.parent.mkdir(parents=True, exist_ok=True)
-        url = (
-            "https://github.com/RMLio/rmlmapper-java/releases/download/"
-            "v7.0.0/rmlmapper-7.0.0-r374-all.jar"
-        )
-        with urllib.request.urlopen(url) as response:
-            self.jar_path.write_bytes(response.read())
+        if process.returncode != 0:
+            raise RuntimeError(
+                f"RMLMapper setup script failed: {process.stderr.strip() or process.stdout.strip()}"
+            )
 
 
 def run_map_schema_workflow(
     config: MapSchemaFixtureConfig,
-    env: RMLMapperEnvironment,
+    env: RMLMapperEnvironment | None = None,
     workspace_base: Path | None = None,
 ) -> MapSchemaWorkflowResult:
     """Run the map_schema workflow end-to-end for the provided fixture."""
+
+    if env is None:
+        env = RMLMapperEnvironment.from_manifest()
 
     scenario_slug = config.slug or _generate_slug(config.name)
     results_dir = _run_debug_scenario(config.scenario, scenario_slug)
@@ -294,8 +289,9 @@ def _run_map_schema_cli(
 ) -> Path:
     with _temporary_cwd(workspace):
         import legacy.map_schema as map_schema  # type: ignore
+
         buf = StringIO()
-        with redirect_stdout(buf):    
+        with redirect_stdout(buf):
             map_schema.__init__(schema_code, source_filename)
         output = buf.getvalue()
 

@@ -22,11 +22,9 @@ RML_FIXTURES_DIR = PLUGIN_ROOT / "tests" / "fixtures" / "rml"
 
 
 @pytest.fixture(scope="session")
-def rmlmapper_env(tmp_path_factory: pytest.TempPathFactory) -> RMLMapperEnvironment:
-    base_dir = tmp_path_factory.mktemp("rmlmapper-env")
-    environment = RMLMapperEnvironment(base_dir)
-    environment.ensure_ready()
-    return environment
+def rmlmapper_env() -> RMLMapperEnvironment:
+    """Provide a session-scoped RMLMapper environment using the manifest."""
+    return RMLMapperEnvironment.from_manifest()
 
 
 def _load_graph(path: Path) -> Graph:

@@ -1,30 +1,28 @@
-Script started on 2025-10-30 02:48:14+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
+Script started on Wed Oct 29 23:27:03 2025
+Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m===================================================== test session starts ======================================================[0m
-platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
-rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
+[1m============================================= test session starts ==============================================[0m
+platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
+rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 31 items                                                                                                            [0m[1mcollected 88 items                                                                                                             [0m
-  /workspace/drawio/src/main/webapp/plugins/rdfexport/rmlmapper_workflows/map_schema_workflow.py:315: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
-[33m========================================= [32m88 passed[0m, [33m[1m120 warnings[0m[33m in 115.03s (0:01:55)[0m[33m =========================================[0m
-Script done on 2025-10-30 02:50:11+00:00 [COMMAND_EXIT_CODE="0"]
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 13%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 14%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 29%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 32%][0m
-legacy/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m                                                                              [ 35%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                         [ 85%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                                            [ 93%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                                                                    [100%][0m
-[33m======================================================= warnings summary =======================================================[0m
-legacy/tests/test_map_schema_workflow.py: 120 warnings
-  /workspace/drawio/src/main/webapp/plugins/rdfexport/rmlmapper_workflows/map_schema_workflow.py:310: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+[1mcollecting ... [0m[1mcollected 88 items                                                                                             [0m
+
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                               [ 13%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                     [ 14%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                       [ 29%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                 [ 32%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                         [ 82%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                            [ 90%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                    [ 97%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m                                                 [100%][0m
+
+[33m=============================================== warnings summary ===============================================[0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py: 120 warnings
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper_workflows/map_schema_workflow.py:318: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
     df = df.assign(**additions)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m========================================= [32m88 passed[0m, [33m[1m120 warnings[0m[33m in 147.43s (0:02:27)[0m[33m =========================================[0m
-Script done on 2025-10-30 01:32:18+00:00 [COMMAND_EXIT_CODE="0"]
-[32m=============================================== [32m[1m86 passed[0m[32m in 7.58s[0m[32m ===============================================[0m
+[33m====================================== [32m88 passed[0m, [33m[1m120 warnings[0m[33m in 14.14s[0m[33m =======================================[0m
 
 Command exit status: 0
-Script done on Sun Oct 26 09:46:53 2025
+Script done on Wed Oct 29 23:27:17 2025
