@@ -11,10 +11,10 @@
             rr:predicate rico:scopeAndContent ],
         [ rr:objectMap [ rml:reference "REFD" ] ;
             rr:predicate rico:identifier ],
-        [ rr:objectMap [ rml:reference "DATECR" ] ;
-            rr:predicate rico:creationDate ],
         [ rr:objectMap [ rml:reference "TITLE" ] ;
-            rr:predicate rdfs:label ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rml:reference "DATECR" ] ;
+            rr:predicate rico:creationDate ] ;
     rr:subjectMap [ rr:class rico:RecordSet ;
             rr:template "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping/record-set/{SISN}" ;
             rr:termType rr:IRI ] .

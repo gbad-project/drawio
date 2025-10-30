@@ -8,14 +8,14 @@
 <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping/triples-map/general-authority> a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rml:reference "FUN" ] ;
-            rr:predicate auth:functionNote ],
-        [ rr:objectMap [ rml:reference "NAME" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rml:reference "NAME" ] ;
             rr:predicate rdfs:label ],
-        [ rr:objectMap [ rml:reference "REFA" ] ;
-            rr:predicate rico:identifier ],
         [ rr:objectMap [ rml:reference "ADM" ] ;
-            rr:predicate rico:history ] ;
+            rr:predicate rico:history ],
+        [ rr:objectMap [ rml:reference "FUN" ] ;
+            rr:predicate auth:functionNote ],
+        [ rr:objectMap [ rml:reference "REFA" ] ;
+            rr:predicate rico:identifier ] ;
     rr:subjectMap [ rr:class rico:Agent ;
             rr:template "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping/agent/{SISN}" ;
             rr:termType rr:IRI ] .
