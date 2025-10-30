@@ -6,10 +6,20 @@ from .map_schema_workflow import (
     RMLMapperEnvironment,
     run_map_schema_workflow,
 )
+from .pipeline_workflow import (
+    NormalisedCSVPreprocessor,
+    PipelineFixtureConfig,
+    PipelineWorkflowResult,
+    run_pipeline_workflow,
+)
 
 __all__ = [
     "MapSchemaFixtureConfig",
     "MapSchemaWorkflowResult",
+    "NormalisedCSVPreprocessor",
+    "PipelineFixtureConfig",
+    "PipelineWorkflowResult",
     "RMLMapperEnvironment",
     "run_map_schema_workflow",
+    "run_pipeline_workflow",
 ]

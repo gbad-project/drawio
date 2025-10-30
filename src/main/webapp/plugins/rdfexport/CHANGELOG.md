@@ -12,6 +12,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Introduced a pipeline-driven RML workflow harness with
+  normalised CSV preprocessing, pytest coverage for General ADD and
+  General Authority fixtures, and artifact capture for comparing output
+  against the legacy map-schema workflow.
 - 2025-10-26 – Added an SDKMAN-backed RML map-schema workflow helper with
   pytest coverage to validate the regenerated Turtle output against legacy
   fixtures for the General ADD and General Authority diagrams.
