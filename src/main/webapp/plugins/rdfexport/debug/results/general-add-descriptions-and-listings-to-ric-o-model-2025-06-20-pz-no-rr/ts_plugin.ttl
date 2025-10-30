@@ -2,7 +2,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix rr: <http://www.w3.org/ns/r2rml#> .
 
 rdfs:label a owl:DatatypeProperty .
 
@@ -155,6 +154,4 @@ add:relatedMaterial a owl:DatatypeProperty .
 
 <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FTitle%2F%7BTITLE%7D> a owl:NamedIndividual,
         rico:Title .
-
-[] a rr:TriplesMap .
 

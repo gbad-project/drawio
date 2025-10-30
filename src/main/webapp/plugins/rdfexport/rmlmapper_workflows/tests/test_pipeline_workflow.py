@@ -78,7 +78,7 @@ def _compare_or_xfail(pipeline_path: Path, map_schema_path: Path) -> None:
 def test_pipeline_workflow_general_add(
     rmlmapper_env: RMLMapperEnvironment, tmp_path: Path
 ) -> None:
-    config = MapSchemaFixtureConfig(
+    map_schema_config = MapSchemaFixtureConfig(
         name="general-add",
         schema_code="add",
         scenario=SCENARIO_DIR
@@ -90,10 +90,24 @@ def test_pipeline_workflow_general_add(
         slug="pytest-pipeline-general-add",
     )
 
-    pipeline_result = run_pipeline_workflow(
-        config, rmlmapper_env, workspace_base=tmp_path
+    pipeline_config = MapSchemaFixtureConfig(
+        name="general-add",
+        schema_code="add",
+        scenario=SCENARIO_DIR
+        / "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml",
+        csv_fixture=RML_FIXTURES_DIR
+        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
+        rml_fixture=RML_FIXTURES_DIR
+        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
+        slug="pytest-pipeline-general-add-no-rr",
     )
-    map_result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)
+
+    pipeline_result = run_pipeline_workflow(
+        pipeline_config, rmlmapper_env, workspace_base=tmp_path
+    )
+    map_result = run_map_schema_workflow(
+        map_schema_config, rmlmapper_env, workspace_base=tmp_path
+    )
 
     assert pipeline_result.pipeline_turtle.exists()
     assert map_result.workflow_turtle.exists()
@@ -111,7 +125,7 @@ def test_pipeline_workflow_general_add(
 def test_pipeline_workflow_general_authority(
     rmlmapper_env: RMLMapperEnvironment, tmp_path: Path
 ) -> None:
-    config = MapSchemaFixtureConfig(
+    map_schema_config = MapSchemaFixtureConfig(
         name="general-authority",
         schema_code="auth",
         scenario=SCENARIO_DIR / "general-authority-to-ric-o-model-2025-06-25-pz.yml",
@@ -121,11 +135,23 @@ def test_pipeline_workflow_general_authority(
         / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
         slug="pytest-pipeline-general-authority",
     )
+    pipeline_config = MapSchemaFixtureConfig(
+        name="general-authority",
+        schema_code="auth",
+        scenario=SCENARIO_DIR / "general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml",
+        csv_fixture=RML_FIXTURES_DIR
+        / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
+        rml_fixture=RML_FIXTURES_DIR
+        / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
+        slug="pytest-pipeline-general-authority-no-rr",
+    )
 
     pipeline_result = run_pipeline_workflow(
-        config, rmlmapper_env, workspace_base=tmp_path
+        pipeline_config, rmlmapper_env, workspace_base=tmp_path
     )
-    map_result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)
+    map_result = run_map_schema_workflow(
+        map_schema_config, rmlmapper_env, workspace_base=tmp_path
+    )
 
     assert pipeline_result.pipeline_turtle.exists()
     assert map_result.workflow_turtle.exists()

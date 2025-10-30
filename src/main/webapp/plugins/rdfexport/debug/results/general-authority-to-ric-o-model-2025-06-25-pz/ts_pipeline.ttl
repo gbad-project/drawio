@@ -1,8 +1,9 @@
-@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix : <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#> .
 @prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
 
 rdfs:label a owl:DatatypeProperty .
 
@@ -12,165 +13,135 @@ auth:privateNote a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
-<mock://debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
-
-:Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:CorporateBody ;
-    rdfs:label "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}\"",
-        "rr:template \"{HEADING} (Corporate Body)\"" ;
-    rico:hasOrHadCorporateBodyType :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 .
+    rdfs:label "rr:template \"{HEADING} (Corporate Body)\"" ;
+    rico:hasOrHadCorporateBodyType :rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 .
 
-:Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:Family ;
-    rdfs:label "rr:template \"/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}\"",
-        "rr:template \"{HEADING} (Family)\"" .
+    rdfs:label "rr:template \"{HEADING} (Family)\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:Person ;
-    rdfs:label "rr:template \"/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}\"",
-        "rr:template \"{HEADING} (Person)\"" .
+    rdfs:label "rr:template \"{HEADING} (Person)\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:Place ;
-    rdfs:label "rr:template \"/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}\"",
-        "rr:template \"{HEADING} (Place)\"" .
+    rdfs:label "rr:template \"{HEADING} (Place)\"" .
 
-:Rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 a owl:NamedIndividual,
+:rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 a owl:NamedIndividual,
         rico:Rule ;
-    rdfs:label "Rules for Archival Description",
-        "rr:constant \"/KB/Rule/RulesForArchivalDescription\"" ;
+    rdfs:label "Rules for Archival Description" ;
     rico:title "rml:reference \"RULES\"" .
 
-:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 a owl:NamedIndividual,
-        rico:IdentifierType ;
-    rdfs:label "rr:constant \"/Schema/Authority/AgencyReferenceCode\"" .
+:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 a owl:NamedIndividual,
+        rico:IdentifierType .
 
-:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22 a owl:NamedIndividual,
-        rico:DocumentaryFormType ;
-    rdfs:label "rr:constant \"/Schema/Authority/AuthorityRecord\"" .
+:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22 a owl:NamedIndividual,
+        rico:DocumentaryFormType .
 
-:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 a owl:NamedIndividual,
-        rico:Type ;
-    rdfs:label "rr:constant \"/Schema/Authority/NaturalAgentName\"" .
+:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 a owl:NamedIndividual,
+        rico:Type .
 
-:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22 a owl:NamedIndividual,
-        rico:Type ;
-    rdfs:label "rr:constant \"/Schema/Authority/ParallelAgentName\"" .
+:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22 a owl:NamedIndividual,
+        rico:Type .
 
-:Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22 a owl:NamedIndividual,
-        rico:Type ;
-    rdfs:label "rr:constant \"/Schema/Authority/VariantAgentName\"" .
+:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22 a owl:NamedIndividual,
+        rico:Type .
 
-:Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:Thing ;
-    rdfs:label "",
-        "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"" ;
+    rdfs:label "" ;
     auth:functionNote "rml:reference \"FUN\"" ;
     auth:privateNote "rml:reference \"CMTAU\"" ;
-    rico:authorizedBy :Rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 ;
-    rico:hasBeginningDate :Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22 ;
-    rico:hasEndDate :Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22 ;
-    rico:hasOrHadAgentName :Rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22,
-        :Rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22,
-        :Rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22 ;
-    rico:hasOrHadController :Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22 ;
-    rico:hasOrHadIdentifier :Rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22 ;
-    rico:hasSuccessor :Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22 ;
+    rico:authorizedBy :rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 ;
+    rico:hasBeginningDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22 ;
+    rico:hasEndDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22 ;
+    rico:hasOrHadAgentName :rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22,
+        :rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22,
+        :rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22 ;
+    rico:hasOrHadController :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22 ;
+    rico:hasOrHadIdentifier :rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22 ;
+    rico:hasSuccessor :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22 ;
     rico:history "rml:reference \"ADM\"" ;
-    rico:isEquivalentTo :Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22 ;
-    rico:isOrWasDescribedBy :Rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22 ;
-    rico:isSuccessorOf :Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22 .
+    rico:isEquivalentTo :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22 ;
+    rico:isOrWasDescribedBy :rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22 ;
+    rico:isSuccessorOf :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22 .
 
-:Rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22 a owl:NamedIndividual,
         rico:Identifier ;
-    rdfs:label "rr:template \"/KB/AgencyReferenceCode/{REFA}\"" ;
-    rico:hasIdentifierType :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 ;
+    rico:hasIdentifierType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 ;
     rico:normalizedValue "rml:reference \"REFA\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22 a owl:NamedIndividual,
         rico:CorporateBody ;
-    rdfs:label "rr:template \"/KB/Agent/{CONTAG_1..14}\"",
-        "rr:template \"{CONTAG_1..14} (Corporate Body)\"" ;
-    rico:thingIsSourceOfRelation :Rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22 .
+    rdfs:label "rr:template \"{CONTAG_1..14} (Corporate Body)\"" ;
+    rico:thingIsSourceOfRelation :rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22 .
 
-:Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22 a owl:NamedIndividual,
         rico:CorporateBody ;
-    rdfs:label "rr:template \"/KB/Agent/{PRED_1..5}\"",
-        "rr:template \"{PRED_1..5} (Corporate Body)\"" .
+    rdfs:label "rr:template \"{PRED_1..5} (Corporate Body)\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22 a owl:NamedIndividual,
+        rico:CorporateBody .
+
+:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22 a owl:NamedIndividual,
         rico:CorporateBody ;
-    rdfs:label "rr:template \"/KB/Agent/{REFA}\"" .
+    rdfs:label "rr:template \"{SUC_1..4} (Corporate Body)\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22 a owl:NamedIndividual,
-        rico:CorporateBody ;
-    rdfs:label "rr:template  \"/KB/Agent/{SUC_1..4}\"",
-        "rr:template \"{SUC_1..4} (Corporate Body)\"" .
-
-:Rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22 a owl:NamedIndividual,
         rico:AgentControlRelation ;
-    rdfs:label "rr:template \"/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}\"",
-        "rr:template \"{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"" ;
-    rico:hasBeginningDate :Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22 ;
-    rico:hasEndDate :Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22 ;
-    rico:relationHasTarget :Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 .
+    rdfs:label "rr:template \"{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"" ;
+    rico:hasBeginningDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22 ;
+    rico:hasEndDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22 ;
+    rico:relationHasTarget :rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 .
 
-:Rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:Record ;
-    rdfs:label "rr:template \"/KB/AuthorityRecord/{HEADING}\"" ;
     auth:sourceNote "rml:reference \"SOURCE\"" ;
-    rico:hasDocumentaryFormType :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22 ;
-    rico:hasRecordState :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22,
-        :Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 ;
-    rico:isOrWasRegulatedBy :Rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 ;
+    rico:hasDocumentaryFormType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22 ;
+    rico:hasRecordState :rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22,
+        :rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 ;
+    rico:isOrWasRegulatedBy :rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 ;
     rico:lastModificationDate "rml:reference \"MOD_DATE\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "rr:template  \"/KB/Date/{DATECONT_1..14_BEGINNING}\"" .
+:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22 a owl:NamedIndividual,
+        rico:Date .
 
-:Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "rr:template \"/KB/Date/{DATECONT_1..14_END}\"" .
+:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22 a owl:NamedIndividual,
+        rico:Date .
 
-:Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "rr:template  \"/KB/Date/{DATEEX_BEGINNING}\"" .
+:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22 a owl:NamedIndividual,
+        rico:Date .
 
-:Rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22 a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "rr:template  \"/KB/Date/{DATEEX_END}\"" .
+:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22 a owl:NamedIndividual,
+        rico:Date .
 
-:Rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 a owl:NamedIndividual,
-        rico:Mandate ;
-    rdfs:label "rr:template \"/KB/Mandate/{AA}\"" .
+:rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 a owl:NamedIndividual,
+        rico:Mandate .
 
-:Rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22 a owl:NamedIndividual,
         rico:AgentName ;
-    rdfs:label "rr:template \"/KB/NaturalAgentName/{NAME}\"" ;
-    rico:hasOrHadType :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 ;
+    rico:hasOrHadType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 ;
     rico:normalizedValue "rml:reference \"NAME\"" .
 
-:Rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22 a owl:NamedIndividual,
         rico:AgentName ;
-    rdfs:label "rr:template \"/KB/ParallelAgentName/{PAR_1..4}\"" ;
-    rico:hasOrHadType :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22 .
+    rico:hasOrHadType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22 .
 
-:Rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22 a owl:NamedIndividual,
+:rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22 a owl:NamedIndividual,
         rico:AgentName ;
-    rdfs:label "rr:template \"/KB/VariantAgentName/{VAR_1..11}\"" ;
-    rico:hasOrHadType :Rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22 .
+    rico:hasOrHadType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22 .
 
-:Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 a owl:NamedIndividual,
-        rico:CorporateBodyType ;
-    rdfs:label "rr:template \"/Schema/Authority/AuthorityType#{AUTHTP_1..2}\"" .
+:rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 a owl:NamedIndividual,
+        rico:CorporateBodyType .
 
-:Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22 a owl:NamedIndividual,
-        rico:RecordState ;
-    rdfs:label "rr:template  \"/Schema/Authority/Status#{STATUSA}\"" .
+:rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22 a owl:NamedIndividual,
+        rico:RecordState .
 
-:Rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 a owl:NamedIndividual,
-        rico:RecordState ;
-    rdfs:label "rr:template  \"/Schema/Authority/WebReady#{WEBA}\"" .
+:rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 a owl:NamedIndividual,
+        rico:RecordState .
+
+[] a rr:TriplesMap .
 
