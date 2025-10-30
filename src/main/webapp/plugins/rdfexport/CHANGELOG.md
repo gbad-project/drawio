@@ -12,6 +12,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - 2025-10-26 – Added an SDKMAN-backed RML map-schema workflow helper with
   pytest coverage to validate the regenerated Turtle output against legacy
   fixtures for the General ADD and General Authority diagrams.
@@ -71,6 +74,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`1d1037d`] Feat: support drawio meta builder overrides, updating legacy pipeline code, the preserved original parser snapshot, meta builder overrides and meta builder package init. (Touchpoints: src/main/webapp/plugins/rdfexport/legacy/{legacy => original}/draw_io_parser.py, src/main/webapp/plugins/rdfexport/legacy/overrides/README.md, src/main/webapp/plugins/rdfexport/meta_builder/**init**.py, src/main/webapp/plugins/rdfexport/meta_builder/drawio_meta_builder.py, src/main/webapp/plugins/rdfexport/meta_builder/readme.md, src/main/webapp/plugins/rdfexport/meta_builder/tests/**init**.py, src/main/webapp/plugins/rdfexport/meta_builder/tests/test_drawio_meta_builder.py, src/main/webapp/plugins/rdfexport/scripts/test_legacy.sh, src/main/webapp/plugins/rdfexport/tests/demo_logs/test.log).
 - [`78a54ee`] Add metabuilder mermaid diagram source from chats, updating meta builder diagrams. (Touchpoints: .../plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.mmd).
 
@@ -112,6 +118,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`7ade965`] Add drawio meta builder, updating the legacy DrawIO parser, legacy pipeline code, the meta builder CLI entry point and meta builder core logic. (Touchpoints: src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py, src/main/webapp/plugins/rdfexport/legacy/legacy/draw_io_parser.py, src/main/webapp/plugins/rdfexport/meta_builder/**main**.py, src/main/webapp/plugins/rdfexport/meta_builder/drawio_meta_builder.py, src/main/webapp/plugins/rdfexport/tests/demo_logs/test.log).
 - [`e50f278`] Add mermaid diagram for metabuilder, updating meta builder diagrams and the meta builder README. (Touchpoints: src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.pdf, src/main/webapp/plugins/rdfexport/meta_builder/assets/mermaid-diagram-2025-10-16-100316.svg, src/main/webapp/plugins/rdfexport/meta_builder/readme.md).
 
@@ -168,6 +177,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`0c55f63`] Add skip of OWL triples in debug cli, updating the debug CLI toolkit. (Touchpoints: src/main/webapp/plugins/rdfexport/debug/**main**.py).
 - [`1f17821`] Add debug help package.json, updating plugin package scripts. (Touchpoints: src/main/webapp/plugins/rdfexport/package.json).
 
@@ -231,6 +243,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`989ed94`] Add year to comment in AA37, updating fixture diagrams and RDF samples. (Touchpoints: src/main/webapp/plugins/rdfexport/tests/fixtures/AA37-with-metadata-severely-mocked-README.md).
 
 ### Changed
@@ -274,6 +289,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`f1b812c`] Add DrawIO parser metadata graph support, updating the task guidance notes, AI code activity reports, the legacy DrawIO parser and CURIE validation tests. (Touchpoints: AGENTS.md, docs/aicode/gpt-5-codex-report-20250214T120000Z.md, src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py, src/main/webapp/plugins/rdfexport/legacy/tests/test_curie_validation.py).
 - [`8312b45`] Add uv script and lock for python deps, updating plugin package scripts, Python project configuration and the Python dependency lockfile. (Touchpoints: src/main/webapp/plugins/rdfexport/package.json, src/main/webapp/plugins/rdfexport/pyproject.toml, src/main/webapp/plugins/rdfexport/uv.lock).
 - [`137deb3`] Add ruff dev dep for python lint and format, updating Python project configuration and the Python dependency lockfile. (Touchpoints: src/main/webapp/plugins/rdfexport/pyproject.toml, src/main/webapp/plugins/rdfexport/uv.lock).
@@ -393,6 +411,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`1ba6e28`] Add CSV path option to diagram format panel, updating AI code activity reports, the built RDF export plugin bundle, the TypeScript RDF export implementation and the Bun regression tests. (Touchpoints: docs/aicode/codex-report-20250921T191031Z.md, src/main/webapp/plugins/rdfexport.js, src/main/webapp/plugins/rdfexport/src/rdfexport.ts, src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts).
 
 ### Fixed
@@ -426,6 +447,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - [`2453b3e`] Add RDF/XML export plugin, updating AI code activity reports, RDF export plugin documentation, the minified draw.io application bundle and the draw.io UI bootstrap script. (Touchpoints: docs/aicode/codex-report-20250915T173416Z.md, docs/plugins/rdfexport/README.md, src/main/webapp/js/app.min.js, src/main/webapp/js/diagramly/App.js, src/main/webapp/plugins/rdfexport.js).
 - [`d65a616`] Add macOS gitignore, updating .gitignore. (Touchpoints: .gitignore).
 
@@ -473,6 +497,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
+  debug scenario integration, and pytest scaffolding to compare outputs
+  against the legacy map_schema run for General ADD and General Authority fixtures.
 - **Task 1 – DrawIO Black Box Integration (completed 2025-10-08 by gpt-5-codex)** — Routed the DrawIO export workflow through the new `runMockBlackBox` helper so serialized XML is annotated with deterministic `[BLACKBOX] len=<n>` wrappers before invoking the existing save routine, restored the checksum-guarded regression harness, and expanded Bun tests to cover the annotated payload end-to-end (commits 56fe128, 1fa6390; report `docs/aicode/gpt-5-codex-report-20251008T180943Z.md`).
 - **Task 2a – Remove Hardcoded Classes and Property CURIEs from DrawIO Parser (completed 2025-10-09 by gpt-5-codex)** — Replaced static RiC-O property allowlists with prefix-driven CURIE validation via `_split_curie`/`_ensure_known_curie`, reworked edge classification so literal/object detection comes from parsed nodes, and produced deterministic `.nt` baselines with new pytest suites and regeneration tooling to prove graph isomorphism (commits 3087ac1, dbc1f14, da3ee356; report `docs/aicode/gpt-5-codex-report-20251009T045342Z.md`).
 - **Task 2b – Extend DrawIO Parser to Support Embedded Metadata (stdin → DrawIOParserGraph) (completed 2025-10-09 by gpt-5-codex)** — Introduced the `DrawIOParserGraph` subclass that persists CSV paths, base URIs, and namespace bindings, centralized parsing via `_build_graph_from_raw_xml`, and added metadata-patched fixture regressions plus pytest coverage to verify rdflib integration and metadata propagation (commits f1b812c, da3ee356, a28a81a; report `docs/aicode/gpt-5-codex-report-20250214T120000Z.md`).

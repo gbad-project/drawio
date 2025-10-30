@@ -1,4 +1,4 @@
-Script started on Thu Oct 30 01:37:50 2025
+Script started on Thu Oct 30 13:37:44 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/python -m debug.debug_cli_regression[0m
 [1m============================================== test session starts ===============================================[0m
@@ -75,11 +75,11 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - Graph/classification mismatch in AA37-with-metadata-even-more-severely-mocked.drawio: Missing rdf:type 'picoL:j' for 'https://example.com'
 assert False
- +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x106889a80>)
+ +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10311e890>)
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m==================================== [32m[1m28 passed[0m, [33m5 xfailed[0m[32m in 89.76s (0:01:29)[0m[32m ====================================[0m
+[32m========================================= [32m[1m28 passed[0m, [33m5 xfailed[0m[32m in 53.65s[0m[32m =========================================[0m
 
 Command exit status: 0
-Script done on Thu Oct 30 01:39:20 2025
+Script done on Thu Oct 30 13:38:38 2025
