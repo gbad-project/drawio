@@ -8,7 +8,7 @@
       "unchanged": 117,
       "changes": [
         {
-          "before": "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/KB/{RICO_AUTHTP}/</span>{HEADING}\"</div>",
           "after": "/KB/{RICO_AUTHTP}/{HEADING}"
         },
         {
@@ -16,55 +16,55 @@
           "after": "NAME"
         },
         {
-          "before": "rr:template \"/KB/AgencyReferenceCode/{REFA}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br>\"/</span>KB<span style=\"background-color: initial;\">/</span>AgencyReferenceCode/{REFA}\"",
           "after": "/KB/AgencyReferenceCode/{REFA}"
         },
         {
-          "before": "rr:template \"/KB/NaturalAgentName/{NAME}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/</span>KB<span style=\"background-color: initial;\">/</span>NaturalAgentName/{<span style=\"background-color: initial;\">NAME}</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/NaturalAgentName/{NAME}"
         },
         {
-          "before": "rr:template  \"/KB/Date/{DATEEX_BEGINNING}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br></span><div><span style=\"background-color: initial;\">\"/KB/Date</span><span style=\"background-color: initial;\">/{</span>DATEEX_BEGINNING}\"</div>",
           "after": "/KB/Date/{DATEEX_BEGINNING}"
         },
         {
-          "before": "rr:template  \"/KB/Date/{DATEEX_END}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br></span><div><span style=\"background-color: initial;\">\"/KB/Date</span><span style=\"background-color: initial;\">/{</span>DATEEX_END}\"</div>",
           "after": "/KB/Date/{DATEEX_END}"
         },
         {
-          "before": "rr:template \"/KB/Mandate/{AA}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br>\"/</span>KB<span style=\"background-color: initial;\">/</span>Mandate/{AA}\"",
           "after": "/KB/Mandate/{AA}"
         },
         {
-          "before": "rml:reference \"ADM\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>ADM<span style=\"background-color: initial;\">\"</span></div>",
           "after": "ADM"
         },
         {
-          "before": "rml:reference \"SOURCE\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>SOURCE<span style=\"background-color: initial;\">\"</span></div>",
           "after": "SOURCE"
         },
         {
-          "before": "rr:template \"/KB/AuthorityRecord/{HEADING}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br>\"/</span>KB<span style=\"background-color: initial;\">/</span>AuthorityRecord/{HEADING}\"",
           "after": "/KB/AuthorityRecord/{HEADING}"
         },
         {
-          "before": "rr:constant \"/Schema/Authority/AuthorityRecord\"",
+          "before": "<span style=\"background-color: initial;\">rr:constant<br></span><span style=\"background-color: initial;\">\"</span><span style=\"background-color: initial;\">/Schema/Authority/</span>AuthorityRecord<span style=\"background-color: initial;\">\"</span>",
           "after": "/Schema/Authority/AuthorityRecord"
         },
         {
-          "before": "rr:template  \"/Schema/Authority/WebReady#{WEBA}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br></span><div><span style=\"background-color: initial;\">\"/</span>Schema/Authority/WebReady#<span style=\"background-color: initial;\">{</span><span style=\"background-color: initial;\">WEBA</span><span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/Schema/Authority/WebReady#{WEBA}"
         },
         {
-          "before": "rr:template  \"/Schema/Authority/Status#{STATUSA}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br></span><div><span style=\"background-color: initial;\">\"/</span>Schema/Authority/<span style=\"background-color: initial;\">Status#</span><span style=\"background-color: initial;\">{</span><span style=\"background-color: initial;\">STATUSA</span><span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/Schema/Authority/Status#{STATUSA}"
         },
         {
-          "before": "rml:reference \"FUN\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>FUN<span style=\"background-color: initial;\">\"</span></div>",
           "after": "FUN"
         },
         {
-          "before": "rr:constant \"/Schema/Authority/AgencyReferenceCode\"",
+          "before": "rr:constant<br>\"/Schema/Authority/AgencyReferenceCode\"",
           "after": "/Schema/Authority/AgencyReferenceCode"
         },
         {
@@ -72,119 +72,119 @@
           "after": "REFA"
         },
         {
-          "before": "rr:template \"/KB/Agent/{CONTAG_1..14}\"",
+          "before": "rr:template<div>\"/KB/Agent/{CONTAG_1..14}\"</div>",
           "after": "/KB/Agent/{CONTAG_1..14}"
         },
         {
-          "before": "rr:template \"/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}\"",
+          "before": "rr:template<div>\"/<span style=\"background-color: initial;\">KB/</span>AgentControlRelation<span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">{CONTAG_1..14}</span><span style=\"background-color: initial;\">/</span>{HEADING}/urn:uuid:{UUID}<span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}"
         },
         {
-          "before": "rr:template  \"/KB/Date/{DATECONT_1..14_BEGINNING}\"",
+          "before": "<div>rr:template</div><div>\"/KB/Date/{DATECONT_1..14_BEGINNING}\"<br></div>",
           "after": "/KB/Date/{DATECONT_1..14_BEGINNING}"
         },
         {
-          "before": "rr:template \"/KB/Date/{DATECONT_1..14_END}\"",
+          "before": "rr:template<div>\"/KB/Date/{DATECONT_1..14_END}\"</div>",
           "after": "/KB/Date/{DATECONT_1..14_END}"
         },
         {
-          "before": "rr:template \"/KB/VariantAgentName/{VAR_1..11}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/</span>KB<span style=\"background-color: initial;\">/</span>VariantAgentName/<span style=\"background-color: initial;\">{</span>VAR_1..11<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/VariantAgentName/{VAR_1..11}"
         },
         {
-          "before": "rr:template \"/KB/Agent/{PRED_1..5}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br></span><span style=\"background-color: initial;\">\"/</span>KB<span style=\"background-color: initial;\">/Agent/</span><span style=\"background-color: initial;\">{</span>PRED_1..5<span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/KB/Agent/{PRED_1..5}"
         },
         {
-          "before": "rr:template  \"/KB/Agent/{SUC_1..4}\"",
+          "before": "<span style=\"background-color: initial;\">rr:template<br></span><div><span style=\"background-color: initial;\">\"/KB/Agent/</span><span style=\"background-color: initial;\">{</span>SUC_1..4<span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/KB/Agent/{SUC_1..4}"
         },
         {
-          "before": "rr:template \"/KB/ParallelAgentName/{PAR_1..4}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/</span>KB<span style=\"background-color: initial;\">/ParallelAgent</span>Name/<span style=\"background-color: initial;\">{</span>PAR_1..4<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/ParallelAgentName/{PAR_1..4}"
         },
         {
-          "before": "rr:constant \"/Schema/Authority/ParallelAgentName\"",
+          "before": "rr:constant<br>\"/Schema/Authority/ParallelAgentName\"",
           "after": "/Schema/Authority/ParallelAgentName"
         },
         {
-          "before": "rr:template \"/Schema/Authority/AuthorityType#{AUTHTP_1..2}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/</span><span style=\"background-color: initial;\">Schema/Authority/</span>AuthorityType<span style=\"background-color: initial;\">#</span><span style=\"background-color: initial;\">{AUTHTP_1..2}\"</span></div>",
           "after": "/Schema/Authority/AuthorityType#{AUTHTP_1..2}"
         },
         {
-          "before": "rr:constant \"/Schema/Authority/VariantAgentName\"",
+          "before": "rr:constant<br>\"/Schema/Authority/VariantAgentName\"",
           "after": "/Schema/Authority/VariantAgentName"
         },
         {
-          "before": "rr:constant \"/Schema/Authority/NaturalAgentName\"",
+          "before": "rr:constant<br>\"/Schema/Authority/NaturalAgentName\"",
           "after": "/Schema/Authority/NaturalAgentName"
         },
         {
-          "before": "rml:reference \"CMTAU\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>CMTAU<span style=\"background-color: initial;\">\"</span></div>",
           "after": "CMTAU"
         },
         {
-          "before": "rml:reference \"MOD_DATE\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>MOD_DATE<span style=\"background-color: initial;\">\"</span></div>",
           "after": "MOD_DATE"
         },
         {
-          "before": "rr:template \"/KB/Agent/{REFA}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/KB/</span>Agent<span style=\"background-color: initial;\">/</span>{REFA}\"</div>",
           "after": "/KB/Agent/{REFA}"
         },
         {
-          "before": "rr:constant \"/KB/Rule/RulesForArchivalDescription\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:constant<br></span><span style=\"background-color: initial;\">\"</span><span style=\"background-color: initial;\">/KB/Rule/</span><span style=\"background-color: transparent;\">RulesForArchivalDescription</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "/KB/Rule/RulesForArchivalDescription"
         },
         {
-          "before": "rml:reference \"RULES\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>RULES<span style=\"background-color: initial;\">\"</span></div>",
           "after": "RULES"
         },
         {
-          "before": "rr:template \"{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">{CONTAG_1..14} -&nbsp;</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">{HEADING} (</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">Agent Control Relation). Context: &lt;urn:uuid:{</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">UUID}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>"
         },
         {
-          "before": "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/</span>{HEADING}\"</div>",
           "after": "/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}"
         },
         {
-          "before": "rr:template \"{HEADING} (Corporate Body)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span>{HEADING}<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Corporate Body)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{HEADING} (Corporate Body)"
         },
         {
-          "before": "rr:template \"/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/KB/{</span>RICO_AUTHTP_FAMILY_1<span style=\"background-color: initial;\">..2}/</span>{HEADING}\"</div>",
           "after": "/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}"
         },
         {
-          "before": "rr:template \"/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/KB/{</span>RICO_AUTHTP_PLACE_1<span style=\"background-color: initial;\">..2}/</span>{HEADING}\"</div>",
           "after": "/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}"
         },
         {
-          "before": "rr:template \"/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br>\"/KB/{</span>RICO_AUTHTP_PERSON_1<span style=\"background-color: initial;\">..2}/</span>{HEADING}\"</div>",
           "after": "/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}"
         },
         {
-          "before": "rr:template \"{HEADING} (Family)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span>{HEADING}<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Family)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{HEADING} (Family)"
         },
         {
-          "before": "rr:template \"{HEADING} (Person)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span>{HEADING}<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Person)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{HEADING} (Person)"
         },
         {
-          "before": "rr:template \"{HEADING} (Place)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span>{HEADING}<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Place)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{HEADING} (Place)"
         },
         {
-          "before": "rr:template \"{SUC_1..4} (Corporate Body)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span><span style=\"background-color: initial;\">{</span>SUC_1..4<span style=\"background-color: initial;\">}</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Corporate Body)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{SUC_1..4} (Corporate Body)"
         },
         {
-          "before": "rr:template \"{PRED_1..5} (Corporate Body)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span><span style=\"background-color: initial;\">{PRED</span>_1..5<span style=\"background-color: initial;\">}</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Corporate Body)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{PRED_1..5} (Corporate Body)"
         },
         {
-          "before": "rr:template \"{CONTAG_1..14} (Corporate Body)\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template \"</span>{CONTAG_1..14}<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">&nbsp;(Corporate Body)</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{CONTAG_1..14} (Corporate Body)"
         }
       ]
@@ -197,247 +197,247 @@
       "unchanged": 145,
       "changes": [
         {
-          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB</span><span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">RecordSet/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}\"</span></div>",
           "after": "/KB/RecordSet/{REFD_FILE}"
         },
         {
-          "before": "rr:template  \"/Schema/Description-Listings/Level#{LEVELDES}\"",
+          "before": "<div><div><span style=\"background-color: initial;\">rr:template</span></div><div><span style=\"background-color: initial;\">\"/Schema</span><span style=\"background-color: initial;\">/Description-Listings/Level#</span><span style=\"background-color: initial;\">{</span>LEVELDES<span style=\"background-color: initial;\">}\"</span></div></div>",
           "after": "/Schema/Description-Listings/Level#{LEVELDES}"
         },
         {
-          "before": "rml:reference   \"SCOPE\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br></div><div><span style=\"background-color: initial;\">\"</span>SCOPE<span style=\"background-color: initial;\">\"</span></div>",
           "after": "SCOPE"
         },
         {
-          "before": "rr:template \"/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}\"",
+          "before": "rr:template<br><span style=\"background-color: initial;\">\"/</span>KB/Instantiation<span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">{REFD_FILE}/urn:uuid:{</span>UUID_INSTANTIATION_1<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span>",
           "after": "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}"
         },
         {
-          "before": "rml:reference  \"CUSTOD\"",
+          "before": "<div><div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>CUSTOD<span style=\"background-color: initial;\">\"</span></div>",
           "after": "CUSTOD"
         },
         {
-          "before": "rml:reference  \"ISA\"",
+          "before": "<div><div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>ISA<span style=\"background-color: initial;\">\"</span></div>",
           "after": "ISA"
         },
         {
-          "before": "rml:reference \"PHDESC\"",
+          "before": "<span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>PHDESC<span style=\"background-color: initial;\">\"</span>",
           "after": "PHDESC"
         },
         {
-          "before": "rml:reference  \"RESTRTX\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>RESTRTX<span style=\"background-color: initial;\">\"</span>",
           "after": "RESTRTX"
         },
         {
-          "before": "rml:reference \"TGU\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>TGU<span style=\"background-color: initial;\">\"</span></div>",
           "after": "TGU"
         },
         {
-          "before": "rml:reference \"FINDAID\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>FINDAID<span style=\"background-color: initial;\">\"</span></div>",
           "after": "FINDAID"
         },
         {
-          "before": "rml:reference \"ACCRUAL\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>ACCRUAL<span style=\"background-color: initial;\">\"</span></div>",
           "after": "ACCRUAL"
         },
         {
-          "before": "rml:reference  \"NOTES\"",
+          "before": "rml:reference<br><div><span style=\"background-color: initial;\">\"</span>NOTES<span style=\"background-color: initial;\">\"</span></div>",
           "after": "NOTES"
         },
         {
-          "before": "rml:reference \"PHYSCO\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>PHYSCO<span style=\"background-color: initial;\">\"</span></div>",
           "after": "PHYSCO"
         },
         {
-          "before": "rml:reference \"HOWTO\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>HOWTO<span style=\"background-color: initial;\">\"</span></div>",
           "after": "HOWTO"
         },
         {
-          "before": "rr:template \"/KB/CurrentReferenceCode/{REFD_FILE}\"",
+          "before": "rr:template<br><span style=\"background-color: initial;\">\"/KB/</span>CurrentReferenceCode/<span style=\"background-color: initial;\">{</span>REFD_FILE<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span>",
           "after": "/KB/CurrentReferenceCode/{REFD_FILE}"
         },
         {
-          "before": "rr:template \"/KB/FormerCode/{FCODES}\"",
+          "before": "rr:template<br><span style=\"background-color: initial;\">\"/</span>KB/FormerCode<span style=\"background-color: initial;\">/{</span>FCODES<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span>",
           "after": "/KB/FormerCode/{FCODES}"
         },
         {
-          "before": "rr:constant \"/Schema/Description-Listings/CurrentReferenceCode\"",
+          "before": "rr:constant<br><span style=\"background-color: initial;\">\"/Schema/Description-Listings/</span>CurrentReferenceCode<span style=\"background-color: initial;\">\"</span>",
           "after": "/Schema/Description-Listings/CurrentReferenceCode"
         },
         {
-          "before": "rr:constant \"/Schema/Description-Listings/FormerCode\"",
+          "before": "rr:constant<br><span style=\"background-color: initial;\">\"/Schema/Description-Listings/</span>FormerCode<span style=\"background-color: initial;\">\"</span>",
           "after": "/Schema/Description-Listings/FormerCode"
         },
         {
-          "before": "rr:template \"/KB/ArchivalDescriptionRecord/{REFD_FILE}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span>KB/<span style=\"background-color: initial;\">Archival</span><span style=\"background-color: initial;\">DescriptionRecord</span><span style=\"background-color: initial;\">/{</span><span style=\"background-color: initial;\">REFD_FILE}\"</span></div>",
           "after": "/KB/ArchivalDescriptionRecord/{REFD_FILE}"
         },
         {
-          "before": "rr:template \"/KB/Agent/{INDEXPROV_1..20}\"",
+          "before": "rr:template<div>\"/KB/Agent/{INDEXPROV_1..20}<span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/Agent/{INDEXPROV_1..20}"
         },
         {
-          "before": "rr:template \"/KB/Title/{TITLE}\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB/Title/</span><span style=\"background-color: initial;\">{</span>TITLE<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/Title/{TITLE}"
         },
         {
-          "before": "rr:template \"/KB/Agent/{INDEXSUB_1..20}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template<br></span><span style=\"background-color: initial;\">\"/</span>KB/Agent<span style=\"background-color: initial;\">/{INDEXSUB_1..20}\"</span></div>",
           "after": "/KB/Agent/{INDEXSUB_1..20}"
         },
         {
-          "before": "rr:template \"/KB/Place/{INDEXGEO_1..20}\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"/KB/Place</span><span style=\"background-color: initial;\">/{</span><span style=\"background-color: initial;\">INDEXGEO_1..20}</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/Place/{INDEXGEO_1..20}"
         },
         {
-          "before": "rr:constant \"/Schema/Description-Listings/ArchivalDescriptionRecord\"",
+          "before": "rr:constant<div><span style=\"background-color: initial;\">\"/Schema/Description-Listings/</span><span style=\"background-color: initial;\">Archival</span><span style=\"background-color: initial;\">DescriptionRecord</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/Schema/Description-Listings/ArchivalDescriptionRecord"
         },
         {
-          "before": "rr:template \"/Schema/Description-Listings/Status#{STATUSD}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/Schema</span><span style=\"background-color: initial;\">/Description-Listings/Status#{</span>STATUSD<span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/Schema/Description-Listings/Status#{STATUSD}"
         },
         {
-          "before": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBD}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/Schema</span><span style=\"background-color: initial;\">/Description-Listings/WebEnabled#{</span>WEBD<span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/Schema/Description-Listings/WebEnabled#{WEBD}"
         },
         {
-          "before": "rr:template  \"/Schema/Description-Listings/ContentType#{GMD_1..8}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template</span></div><div><span style=\"background-color: initial;\">\"/Schema</span><span style=\"background-color: initial;\">/Description-Listings/</span>ContentType#<span style=\"background-color: initial;\">{</span>GMD_1..8<span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/Schema/Description-Listings/ContentType#{GMD_1..8}"
         },
         {
-          "before": "rml:reference  \"AVAIL\"",
+          "before": "<div><div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span><span style=\"background-color: initial;\">A</span>VAIL<span style=\"background-color: initial;\">\"</span></div>",
           "after": "AVAIL"
         },
         {
-          "before": "rml:reference \"RELMAT\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>RELMAT<span style=\"background-color: initial;\">\"</span></div>",
           "after": "RELMAT"
         },
         {
-          "before": "rml:reference \"ASSMAT\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>ASSMAT<span style=\"background-color: initial;\">\"</span></div>",
           "after": "ASSMAT"
         },
         {
-          "before": "rml:reference \"DATECR\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>DATECR<span style=\"background-color: initial;\">\"</span></div>",
           "after": "DATECR"
         },
         {
-          "before": "rml:reference \"ADMBIO\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>ADMBIO<span style=\"background-color: initial;\">\"</span></div>",
           "after": "ADMBIO"
         },
         {
-          "before": "rr:template  \"/KB/RecordSet/{REFD_HIGHER}\"",
+          "before": "<div>rr:template</div><div>\"/KB/RecordSet/{REFD_HIGHER}\"</div>",
           "after": "/KB/RecordSet/{REFD_HIGHER}"
         },
         {
-          "before": "rml:reference \"CMTD\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>CMTD<span style=\"background-color: initial;\">\"</span></div>",
           "after": "CMTD"
         },
         {
-          "before": "rr:template \"/KB/Date/{MODDATE}\"",
+          "before": "<div>rr:template<div><span style=\"background-color: initial;\">\"/KB/Date/{MODDATE}</span><span style=\"background-color: initial;\">\"</span></div></div>",
           "after": "/KB/Date/{MODDATE}"
         },
         {
-          "before": "rml:reference \"MODDATE\"",
+          "before": "rml:reference<div><span style=\"background-color: initial;\">\"</span><span style=\"background-color: initial;\">MODDATE</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "MODDATE"
         },
         {
-          "before": "rml:reference \"HIDDENNOTES\"",
+          "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>HIDDENNOTES<span style=\"background-color: initial;\">\"</span>&nbsp;</div>",
           "after": "HIDDENNOTES"
         },
         {
-          "before": "rml:reference  \"REST\"",
+          "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>REST<span style=\"background-color: initial;\">\"</span>",
           "after": "REST"
         },
         {
-          "before": "rml:reference \"FCODES\"",
+          "before": "rml:reference<div>\"FCODES\"</div>",
           "after": "FCODES"
         },
         {
-          "before": "rr:template  \"/KB/RecordSet/{REF_ADD}\"",
+          "before": "<div>rr:template</div><div>\"/KB/RecordSet/{REF_ADD}\"</div>",
           "after": "/KB/RecordSet/{REF_ADD}"
         },
         {
-          "before": "rr:template \"/KB/Title/{TITLE}\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"/KB/Title/</span><span style=\"background-color: initial;\">{TITLE}</span><span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/Title/{TITLE}"
         },
         {
-          "before": "rml:reference \"DATEACM\"",
+          "before": "rml:reference<div><span style=\"background-color: initial;\">\"</span>DATEACM<span style=\"background-color: initial;\">\"</span></div>",
           "after": "DATEACM"
         },
         {
-          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB</span><span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">RecordSet/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}\"</span></div>",
           "after": "/KB/RecordSet/{REFD_FILE}"
         },
         {
-          "before": "rr:template \"/KB/CreationRelation/{REFD_FILE}/{OFFICEABC_1..20}/urn:uuid:{UUID_OFFICEABC}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB/</span><span style=\"background-color: initial;\">CreationRelation/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}/</span><span style=\"background-color: initial;\">{</span>OFFICEABC<span style=\"background-color: initial;\">_1..20</span><span style=\"background-color: initial;\">}/urn:uuid:{UUID_OFFICEABC}\"</span></div>",
           "after": "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC_1..20}/urn:uuid:{UUID_OFFICEABC}"
         },
         {
-          "before": "rr:template    \"/KB/Date/{DATEOFF_1..20_BEGINNING}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template</span><br></div><div><div><span style=\"background-color: initial;\">\"/KB/Date/{</span><span style=\"background-color: initial;\">DATEOFF_1..20_BEGINNING}\"</span></div></div>",
           "after": "/KB/Date/{DATEOFF_1..20_BEGINNING}"
         },
         {
-          "before": "rr:template    \"/KB/Date/{DATEOFF_1..20_END}\"",
+          "before": "<div><span style=\"background-color: initial;\">rr:template</span><br></div><div><div><span style=\"background-color: initial;\">\"/KB/Date/{</span><span style=\"background-color: initial;\">DATEOFF_1..20_END}\"</span></div></div>",
           "after": "/KB/Date/{DATEOFF_1..20_END}"
         },
         {
-          "before": "rr:template \"/KB/Agent/{ABC_REFA_1..20}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB/</span><span style=\"background-color: initial;\">Agent/</span><span style=\"background-color: initial;\">{</span><span style=\"background-color: initial;\">ABC_REFA_1..20</span><span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/KB/Agent/{ABC_REFA_1..20}"
         },
         {
-          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB</span><span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">RecordSet/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}\"</span></div>",
           "after": "/KB/RecordSet/{REFD_FILE}"
         },
         {
-          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB</span><span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">RecordSet/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}\"</span></div>",
           "after": "/KB/RecordSet/{REFD_FILE}"
         },
         {
-          "before": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBL}\"",
+          "before": "rr:template<div><span style=\"background-color: initial;\">\"/Schema</span><span style=\"background-color: initial;\">/Description-Listings/WebEnabled#{</span>WEBL<span style=\"background-color: initial;\">}\"</span></div>",
           "after": "/Schema/Description-Listings/WebEnabled#{WEBL}"
         },
         {
-          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Record Set)<span style=\"background-color: initial;\">\"</span></div>",
           "after": "{REFD_FILE} - {TITLE} (Record Set)"
         },
         {
-          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Record Set)<span style=\"background-color: initial;\">\"</span></div>",
           "after": "{REFD_FILE} - {TITLE} (Record Set)"
         },
         {
-          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Record Set)<span style=\"background-color: initial;\">\"</span></div>",
           "after": "{REFD_FILE} - {TITLE} (Record Set)"
         },
         {
-          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Record Set)<span style=\"background-color: initial;\">\"</span></div>",
           "after": "{REFD_FILE} - {TITLE} (Record Set)"
         },
         {
-          "before": "rr:template \"{REFD_FILE} - {TITLE} (Archival Description Record)\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Archival Description Record)<span style=\"background-color: initial;\">\"</span></div>",
           "after": "{REFD_FILE} - {TITLE} (Archival Description Record)"
         },
         {
-          "before": "rml:reference  \"LEVELDES\"",
+          "before": "<div>rml<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">:reference</span></div><div><span style=\"background-color: initial;\">\"</span>LEVELDES<span style=\"background-color: initial;\">\"</span></div>",
           "after": "LEVELDES"
         },
         {
-          "before": "rr:template \"{DATEOFF_1..20}\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">DATEOFF_1..20}</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{DATEOFF_1..20}"
         },
         {
-          "before": "rr:template \"{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Instantiation). Context: &lt;urn:uuid:{<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">UUID_INSTANTIATION_1}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>"
         },
         {
-          "before": "rr:template \"{TITLE} - {OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
+          "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"</span>{TITLE} -&nbsp;{OFFICEABC_1..20} (Creation Relation). Context: &lt;urn:uuid:{UUID_OFFICEABC<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
           "after": "{TITLE} - {OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>"
         },
         {
-          "before": "rr:template  \"{GMD_1..8}\"",
+          "before": "<div>rr<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">:template</span></div><div><span style=\"background-color: initial;\">\"{</span>GMD_1..8}<span style=\"background-color: initial;\">\"</span></div>",
           "after": "{GMD_1..8}"
         },
         {
-          "before": "rr:template \"/KB/Agent/{INDEXNAME_1..20}\"",
+          "before": "rr:template<div>\"/KB/Agent/{INDEXNAME_1..20}<span style=\"background-color: initial;\">\"</span></div>",
           "after": "/KB/Agent/{INDEXNAME_1..20}"
         }
       ]

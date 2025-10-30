@@ -22,7 +22,9 @@ RR_RML_QUOTED_PATTERN = re.compile(
     r'(?:rr|rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'
 )
 
-def color(text, code): return f"\033[{code}m{text}\033[0m"
+
+def color(text, code):
+    return f"\033[{code}m{text}\033[0m"
 
 
 def strip_html(text: str) -> str:
@@ -34,10 +36,12 @@ def strip_html(text: str) -> str:
 
 def sanitize_drawio_text(text: str) -> str:
     """Remove rr:/rml: prefixed tokens, following quoted content."""
-    text = RR_RML_QUOTED_PATTERN.sub(r'\1', text)
+    text = RR_RML_QUOTED_PATTERN.sub(r"\1", text)
     return text.strip()
 
+
 # --- core processing ---
+
 
 def sanitize_fixture(input_path: Path, output_path: Path) -> dict:
     """Parse the DrawIO XML, clean mxCell 'value' attributes, and collect stats + before/after pairs."""
@@ -63,11 +67,11 @@ def sanitize_fixture(input_path: Path, output_path: Path) -> dict:
 
         if cleaned != stripped:
             changed += 1
-            changes.append({"before": stripped, "after": cleaned})
+            changes.append({"before": value, "after": encoded})
             print(
-                f"{color('BEFORE:', '1;33')} {color(stripped, '0;37')}\n"
-                f"{color('AFTER: ', '1;32')} {color(cleaned or '(removed)', '0;36')}\n"
-                f"{color('-'*60, '2;37')}",
+                f"{color('BEFORE:', '1;33')} {color(value, '0;37')}\n"
+                f"{color('AFTER: ', '1;32')} {color(encoded or '(removed)', '0;36')}\n"
+                f"{color('-' * 60, '2;37')}",
                 file=stdout,
             )
 
@@ -104,7 +108,7 @@ def sanitize_fixtures(fixtures: Iterable[tuple[Path, Path]]) -> None:
             f"  {color('With value:', '1;33')} {result['with_value']}\n"
             f"  {color('Changed:', '1;32')} {result['changed']}\n"
             f"  {color('Unchanged:', '1;37')} {result['unchanged']}\n"
-            f"{color('-'*60, '2;37')}",
+            f"{color('-' * 60, '2;37')}",
             file=stdout,
         )
     print(f"{color('DONE ✅', '1;32')}\n", file=stdout)
@@ -121,7 +125,9 @@ def sanitize_fixtures(fixtures: Iterable[tuple[Path, Path]]) -> None:
             "total_unchanged": sum(s["unchanged"] for s in stats),
         },
     }
-    dump_path.write_text(json.dumps(dump_payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    dump_path.write_text(
+        json.dumps(dump_payload, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     print(f"{color('JSON report written to:', '1;35')} {dump_path}\n", file=stdout)
 
 
@@ -132,11 +138,14 @@ if __name__ == "__main__":
     pairs = [
         (
             fixtures_dir / "General Authority to RiC-O Model_2025-06-25_PZ.drawio",
-            fixtures_dir / "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
+            fixtures_dir
+            / "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
         ),
         (
-            fixtures_dir / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
-            fixtures_dir / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
+            fixtures_dir
+            / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+            fixtures_dir
+            / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
         ),
     ]
 
