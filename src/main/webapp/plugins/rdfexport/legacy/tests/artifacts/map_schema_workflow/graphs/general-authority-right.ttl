@@ -1,0 +1,51 @@
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> a rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+auth:AgencyReferenceCode a rico:IdentifierType ;
+    rdfs:label "Agency Reference Code" .
+
+auth:AuthorityRecord a rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+auth:NaturalAgentName a rico:Type ;
+    rdfs:label "Natural Agent Name" .
+
+auth:ParallelAgentName a rico:Type ;
+    rdfs:label "Parallel Agent Name" .
+
+auth:VariantAgentName a rico:Type ;
+    rdfs:label "Variant Agent Name" .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/accumulationDate> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/associatedMaterial> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/availabilityOfOtherFormats> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/custodialHistory> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/findingAidNote> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/howToOrder> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/immediateSourceOfAcquisition> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/notes> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/privateNote> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/relatedMaterial> a owl:DatatypeProperty .
+
