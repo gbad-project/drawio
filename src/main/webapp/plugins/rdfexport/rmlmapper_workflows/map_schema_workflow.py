@@ -7,16 +7,12 @@ import shutil
 import subprocess
 import sys
 import tempfile
-import urllib.parse
-import urllib.request
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Iterator
+from typing import Iterator
 from io import StringIO
 from contextlib import redirect_stdout
-
-from rdflib import Graph
 
 PLUGIN_ROOT = Path(__file__).resolve().parent.parent
 DEBUG_DIR = PLUGIN_ROOT / "debug"
@@ -208,7 +204,6 @@ def _execute_map_schema(
     graph_dir.mkdir(parents=True, exist_ok=True)
     graph_ttl = graph_dir / "schema.ttl"
     shutil.copy2(ttl_path, graph_ttl)
-    _retarget_schema_base(graph_ttl)
 
     source_dir = workspace / "gbad" / "mapping" / "source"
     source_dir.mkdir(parents=True, exist_ok=True)
@@ -220,15 +215,13 @@ def _execute_map_schema(
             str(source_csv_path),
             index_col=config.index_column,
         ).dump()
-    output = buf.getvalue()
+    # output = buf.getvalue()
 
-    with _patched_preprocessors(index_column=config.index_column):
-        generated_rml = _run_map_schema_cli(
-            config.schema_code,
-            config.csv_fixture.name,
-            workspace,
-        )
-    _rewrite_rml_labels(generated_rml)
+    generated_rml = _run_map_schema_cli(
+        config.schema_code,
+        config.csv_fixture.name,
+        workspace,
+    )
 
     preprocessed_csv = (
         workspace
@@ -238,10 +231,6 @@ def _execute_map_schema(
         / "preprocessed"
         / config.csv_fixture.name
     )
-    required_columns = _extract_required_columns([config.rml_fixture, generated_rml])
-    ### DON'T YOU DARE UNCOMMENT THIS ###
-    #_ensure_required_columns(preprocessed_csv, required_columns, config.index_column)
-    ### DO NOT UNCOMMENT. THIS IS A HALL OF SHAME AND LIES ###
     fixture_rml = workspace / "fixture.rml"
     updated_text = _rewrite_rml_csv_path(config.rml_fixture, preprocessed_csv)
     fixture_rml.write_text(updated_text, encoding="utf-8")
@@ -251,8 +240,6 @@ def _execute_map_schema(
 
     fixture_ttl = workspace / "fixture.ttl"
     env.run_mapper(fixture_rml, fixture_ttl, workspace)
-
-    _canonicalise_turtle_outputs(workflow_ttl, fixture_ttl)
 
     return MapSchemaWorkflowResult(
         workspace=workspace,
@@ -273,8 +260,6 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
         str(scenario_path),
         "--slug",
         slug,
-        "--parser-option",
-        "rml_enabled=false",
         "--skip-ts",
     ]
     process = subprocess.run(command, capture_output=True, text=True)
@@ -295,47 +280,12 @@ def _run_map_schema_cli(
         buf = StringIO()
         with redirect_stdout(buf):
             map_schema.__init__(schema_code, source_filename)
-        output = buf.getvalue()
+        # output = buf.getvalue()
 
     generated_rmls = list((workspace / "gbad" / "schema").rglob("*.rml"))
     if not generated_rmls:
         raise FileNotFoundError("map_schema did not produce an RML file")
     return generated_rmls[0]
-
-
-def _ensure_required_columns(
-    csv_path: Path,
-    required_columns: Iterable[str],
-    index_column: str,
-) -> None:
-    preprocessor = SourceCSVPreprocessor(
-        str(csv_path),
-        str(csv_path),
-        index_col=index_column,
-    )
-    df = preprocessor.source_df
-    missing = [column for column in required_columns if column not in df.columns]
-    if missing:
-        additions = {column: "" for column in missing}
-        df = df.assign(**additions)
-        preprocessor.source_df = df
-    buf = StringIO()
-    with redirect_stdout(buf):
-        preprocessor.dump()
-    output = buf.getvalue()
-
-
-def _extract_required_columns(rml_paths: Iterable[Path]) -> set[str]:
-    required: set[str] = set()
-    for path in rml_paths:
-        text = path.read_text(encoding="utf-8")
-        required.update(
-            match.group(1) for match in _RML_REFERENCE_PATTERN.finditer(text)
-        )
-        required.update(
-            match.group(1) for match in _TEMPLATE_PLACEHOLDER_PATTERN.finditer(text)
-        )
-    return required
 
 
 def _rewrite_rml_csv_path(rml_path: Path, csv_path: Path) -> str:
@@ -351,83 +301,6 @@ def _generate_slug(name: str) -> str:
     return f"map-schema-{safe}-{uuid.uuid4().hex[:8]}"
 
 
-def _canonicalise_turtle_outputs(*paths: Path) -> None:
-    for path in paths:
-        graph = Graph()
-        graph.parse(path, format="turtle")
-        if len(graph) == 0:
-            raise RuntimeError(
-                f"Turtle graph produced at {path} is empty"  # pragma: no cover - defensive
-            )
-        graph.serialize(destination=str(path), format="turtle")
-
-
-def _retarget_schema_base(path: Path) -> None:
-    text = path.read_text(encoding="utf-8")
-    if _PLACEHOLDER_BASE not in text:
-        return
-
-    updated = text.replace(_PLACEHOLDER_BASE, _MAPPING_BASE)
-    updated = updated.replace("Rr%3A", "rr%3A").replace("Rml%3A", "rml%3A")
-
-    if "@prefix maps:" not in updated:
-        lines = updated.splitlines()
-        insertion_index = 0
-        for index, line in enumerate(lines):
-            if line.startswith("@prefix"):
-                insertion_index = index + 1
-        prefix_line = f"@prefix maps: <{_MAPPING_BASE}> ."
-        lines.insert(insertion_index, prefix_line)
-        updated = "\n".join(lines)
-
-    path.write_text(updated, encoding="utf-8")
-
-
-def _rewrite_rml_labels(path: Path) -> None:
-    text = path.read_text(encoding="utf-8")
-
-    def _replace(match: re.Match[str]) -> str:
-        iri = match.group(2)
-        humanised = _humanise_label_from_iri(iri)
-        if humanised is None:
-            return match.group(0)
-        return f"{match.group(1)}{humanised}{match.group(3)}"
-
-    pattern = re.compile(
-        r'(rr:constant\s+")(https://data\.archives\.gov\.on\.test\.gbad\.ca/[^"\s]+)(")'
-    )
-    updated = pattern.sub(_replace, text)
-    path.write_text(updated, encoding="utf-8")
-
-
-def _humanise_label_from_iri(iri: str) -> str | None:
-    parsed = urllib.parse.urlparse(iri)
-    if not parsed.scheme:
-        return None
-
-    candidate = urllib.parse.unquote(parsed.fragment or parsed.path.rsplit("/", 1)[-1])
-    if not candidate:
-        return None
-
-    if candidate[0].islower():
-        return None
-
-    cleaned = candidate.replace("_", " ").replace("-", " ")
-    humanised = re.sub(r"(?<!^)(?=[A-Z])", " ", cleaned).strip()
-    if not humanised:
-        return None
-
-    words = humanised.split()
-    if len(words) > 1:
-        lower_words = {"and", "or", "for", "of", "in", "on", "to", "the", "a", "an"}
-        adjusted = [words[0]]
-        for word in words[1:]:
-            adjusted.append(word.lower() if word.lower() in lower_words else word)
-        humanised = " ".join(adjusted)
-
-    return humanised
-
-
 @contextlib.contextmanager
 def _temporary_cwd(path: Path) -> Iterator[None]:
     previous = Path.cwd()
@@ -436,32 +309,3 @@ def _temporary_cwd(path: Path) -> Iterator[None]:
         yield
     finally:
         os.chdir(previous)
-
-
-@contextlib.contextmanager
-def _patched_preprocessors(index_column: str) -> Iterator[None]:
-    import legacy.map_schema as map_schema  # type: ignore
-
-    original_add = map_schema.add_preprocess
-    original_auth = map_schema.auth_preprocess
-
-    def _passthrough(
-        source_csv_path: str, preprocessed_csv_path: str, **_: object
-    ) -> None:
-        preprocessor = SourceCSVPreprocessor(
-            source_csv_path,
-            preprocessed_csv_path,
-            index_col=index_column,
-        )
-        buf = StringIO()
-        with redirect_stdout(buf):
-            preprocessor.dump()
-        output = buf.getvalue()
-
-    map_schema.add_preprocess = _passthrough
-    map_schema.auth_preprocess = _passthrough
-    try:
-        yield
-    finally:
-        map_schema.add_preprocess = original_add
-        map_schema.auth_preprocess = original_auth
