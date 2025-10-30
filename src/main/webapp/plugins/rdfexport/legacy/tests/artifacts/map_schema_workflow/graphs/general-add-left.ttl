@@ -11,11 +11,14 @@ rdfs:label a owl:DatatypeProperty .
 
 <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/sourceNote> a owl:DatatypeProperty .
 
-add:ArchivalDescriptionRecord a rico:DocumentaryFormType .
+add:ArchivalDescriptionRecord a rico:DocumentaryFormType ;
+    rdfs:label "Archival Description Record" .
 
-add:CurrentReferenceCode a rico:IdentifierType .
+add:CurrentReferenceCode a rico:IdentifierType ;
+    rdfs:label "Current Reference Code" .
 
-add:FormerCode a rico:IdentifierType .
+add:FormerCode a rico:IdentifierType ;
+    rdfs:label "Former Code" .
 
 add:accumulationDate a owl:DatatypeProperty .
 

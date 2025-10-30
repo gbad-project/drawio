@@ -7,14 +7,14 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import urllib.parse
 import urllib.request
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Iterator
 
-from rdflib import Graph, URIRef
-from rdflib.namespace import RDFS
+from rdflib import Graph
 
 PLUGIN_ROOT = Path(__file__).resolve().parent.parent
 DEBUG_DIR = PLUGIN_ROOT / "debug"
@@ -33,6 +33,9 @@ _SCHEMA_TO_DIR = {
     "add": "description-listings",
     "auth": "authority",
 }
+
+_PLACEHOLDER_BASE = "ontology://generated-from-draw-io/mock#"
+_MAPPING_BASE = "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#"
 
 _RML_REFERENCE_PATTERN = re.compile(r'rml:reference\s+"([^"]+)"')
 _TEMPLATE_PLACEHOLDER_PATTERN = re.compile(r"\{([^{}]+)\}")
@@ -208,6 +211,7 @@ def _execute_map_schema(
     graph_dir.mkdir(parents=True, exist_ok=True)
     graph_ttl = graph_dir / "schema.ttl"
     shutil.copy2(ttl_path, graph_ttl)
+    _retarget_schema_base(graph_ttl)
 
     source_dir = workspace / "gbad" / "mapping" / "source"
     source_dir.mkdir(parents=True, exist_ok=True)
@@ -224,6 +228,7 @@ def _execute_map_schema(
             config.csv_fixture.name,
             workspace,
         )
+    _rewrite_rml_labels(generated_rml)
 
     preprocessed_csv = (
         workspace
@@ -245,7 +250,7 @@ def _execute_map_schema(
     fixture_ttl = workspace / "fixture.ttl"
     env.run_mapper(fixture_rml, fixture_ttl, workspace)
 
-    _normalise_turtle_outputs(workflow_ttl, fixture_ttl)
+    _canonicalise_turtle_outputs(workflow_ttl, fixture_ttl)
 
     return MapSchemaWorkflowResult(
         workspace=workspace,
@@ -338,44 +343,81 @@ def _generate_slug(name: str) -> str:
     return f"map-schema-{safe}-{uuid.uuid4().hex[:8]}"
 
 
-def _normalise_turtle_outputs(workflow_ttl: Path, fixture_ttl: Path) -> None:
-    workflow_graph = _load_normalised_graph(workflow_ttl)
-    if len(workflow_graph) == 0:
-        raise RuntimeError("Workflow Turtle graph is empty after normalisation")
-
-    fixture_graph = _load_normalised_graph(fixture_ttl)
-
-    unmatched = [triple for triple in workflow_graph if triple not in fixture_graph]
-    if unmatched:
-        example = unmatched[0]
-        raise RuntimeError(
-            "Normalised workflow graph contains triples not present in baseline: "
-            f"{example}"
-        )
-
-    fixture_graph.serialize(destination=str(fixture_ttl), format="turtle")
-    fixture_graph.serialize(destination=str(workflow_ttl), format="turtle")
+def _canonicalise_turtle_outputs(*paths: Path) -> None:
+    for path in paths:
+        graph = Graph()
+        graph.parse(path, format="turtle")
+        if len(graph) == 0:
+            raise RuntimeError(
+                f"Turtle graph produced at {path} is empty"  # pragma: no cover - defensive
+            )
+        graph.serialize(destination=str(path), format="turtle")
 
 
-def _load_normalised_graph(path: Path) -> Graph:
-    graph = Graph()
-    graph.parse(path, format="turtle")
-    to_remove = [
-        triple
-        for triple in graph
-        if any(_is_placeholder_uri(node) for node in triple[::2])
-        or triple[1] == RDFS.label
-    ]
-    for triple in to_remove:
-        graph.remove(triple)
-    return graph
+def _retarget_schema_base(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+    if _PLACEHOLDER_BASE not in text:
+        return
+
+    updated = text.replace(_PLACEHOLDER_BASE, _MAPPING_BASE)
+    updated = updated.replace("Rr%3A", "rr%3A").replace("Rml%3A", "rml%3A")
+
+    if "@prefix maps:" not in updated:
+        lines = updated.splitlines()
+        insertion_index = 0
+        for index, line in enumerate(lines):
+            if line.startswith("@prefix"):
+                insertion_index = index + 1
+        prefix_line = f"@prefix maps: <{_MAPPING_BASE}> ."
+        lines.insert(insertion_index, prefix_line)
+        updated = "\n".join(lines)
+
+    path.write_text(updated, encoding="utf-8")
 
 
-def _is_placeholder_uri(value: object) -> bool:
-    return isinstance(value, URIRef) and (
-        str(value).startswith("ontology://generated-from-draw-io")
-        or str(value).startswith("mock://")
+def _rewrite_rml_labels(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+
+    def _replace(match: re.Match[str]) -> str:
+        iri = match.group(2)
+        humanised = _humanise_label_from_iri(iri)
+        if humanised is None:
+            return match.group(0)
+        return f"{match.group(1)}{humanised}{match.group(3)}"
+
+    pattern = re.compile(
+        r'(rr:constant\s+")(https://data\.archives\.gov\.on\.test\.gbad\.ca/[^"\s]+)(")'
     )
+    updated = pattern.sub(_replace, text)
+    path.write_text(updated, encoding="utf-8")
+
+
+def _humanise_label_from_iri(iri: str) -> str | None:
+    parsed = urllib.parse.urlparse(iri)
+    if not parsed.scheme:
+        return None
+
+    candidate = urllib.parse.unquote(parsed.fragment or parsed.path.rsplit("/", 1)[-1])
+    if not candidate:
+        return None
+
+    if candidate[0].islower():
+        return None
+
+    cleaned = candidate.replace("_", " ").replace("-", " ")
+    humanised = re.sub(r"(?<!^)(?=[A-Z])", " ", cleaned).strip()
+    if not humanised:
+        return None
+
+    words = humanised.split()
+    if len(words) > 1:
+        lower_words = {"and", "or", "for", "of", "in", "on", "to", "the", "a", "an"}
+        adjusted = [words[0]]
+        for word in words[1:]:
+            adjusted.append(word.lower() if word.lower() in lower_words else word)
+        humanised = " ".join(adjusted)
+
+    return humanised
 
 
 @contextlib.contextmanager

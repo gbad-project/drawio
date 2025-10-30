@@ -5,17 +5,23 @@
 
 rdfs:label a owl:DatatypeProperty .
 
-<https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> a rico:Rule .
+<https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> a rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
 
-auth:AgencyReferenceCode a rico:IdentifierType .
+auth:AgencyReferenceCode a rico:IdentifierType ;
+    rdfs:label "Agency Reference Code" .
 
-auth:AuthorityRecord a rico:DocumentaryFormType .
+auth:AuthorityRecord a rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
 
-auth:NaturalAgentName a rico:Type .
+auth:NaturalAgentName a rico:Type ;
+    rdfs:label "Natural Agent Name" .
 
-auth:ParallelAgentName a rico:Type .
+auth:ParallelAgentName a rico:Type ;
+    rdfs:label "Parallel Agent Name" .
 
-auth:VariantAgentName a rico:Type .
+auth:VariantAgentName a rico:Type ;
+    rdfs:label "Variant Agent Name" .
 
 auth:functionNote a owl:DatatypeProperty .
 

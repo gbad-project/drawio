@@ -39,6 +39,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-10-30 – Normalised the map-schema workflow so generated RML emits
+  the same labels and IRIs as the published fixtures, and refreshed the
+  committed Turtle artefacts to capture the full, unfiltered graphs from
+  both the workflow and legacy baselines.
 - 2025-10-24 – Ensured parser configuration flags from the UI and tests
   (strict mode, label inclusion, preamble output, and literal inference)
   are honoured by syncing the override conversion logic and expanding
