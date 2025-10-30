@@ -12,6 +12,9 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-10-26 – Added an SDKMAN-backed RML map-schema workflow helper with
+  pytest coverage to validate the regenerated Turtle output against legacy
+  fixtures for the General ADD and General Authority diagrams.
 - 2025-10-23 – Recognises bare-IRI arrow labels by normalising against known namespaces and emitting absolute IRIs when necessary to preserve literal connections.
 - 2025-10-21 – Expanded the debug scenario harness to accept arbitrary parser and metadata configuration overrides, updated the Bun runner for automatic discovery, and added pytest coverage for dynamic option propagation.
 - 2025-10-21 – Added a debugger-driven regression test that walks every DrawIO fixture, predicts triple counts from cell classifications, and confirms each cell value is represented in the exported graph.
