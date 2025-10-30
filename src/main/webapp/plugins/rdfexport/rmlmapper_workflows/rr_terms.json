@@ -1,0 +1,453 @@
+{
+  "summary": [
+    {
+      "file": "General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+      "total_cells": 164,
+      "with_value": 162,
+      "changed": 45,
+      "unchanged": 117,
+      "changes": [
+        {
+          "before": "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"",
+          "after": "/KB/{RICO_AUTHTP}/{HEADING}"
+        },
+        {
+          "before": "rml:reference \"NAME\"",
+          "after": "NAME"
+        },
+        {
+          "before": "rr:template \"/KB/AgencyReferenceCode/{REFA}\"",
+          "after": "/KB/AgencyReferenceCode/{REFA}"
+        },
+        {
+          "before": "rr:template \"/KB/NaturalAgentName/{NAME}\"",
+          "after": "/KB/NaturalAgentName/{NAME}"
+        },
+        {
+          "before": "rr:template  \"/KB/Date/{DATEEX_BEGINNING}\"",
+          "after": "/KB/Date/{DATEEX_BEGINNING}"
+        },
+        {
+          "before": "rr:template  \"/KB/Date/{DATEEX_END}\"",
+          "after": "/KB/Date/{DATEEX_END}"
+        },
+        {
+          "before": "rr:template \"/KB/Mandate/{AA}\"",
+          "after": "/KB/Mandate/{AA}"
+        },
+        {
+          "before": "rml:reference \"ADM\"",
+          "after": "ADM"
+        },
+        {
+          "before": "rml:reference \"SOURCE\"",
+          "after": "SOURCE"
+        },
+        {
+          "before": "rr:template \"/KB/AuthorityRecord/{HEADING}\"",
+          "after": "/KB/AuthorityRecord/{HEADING}"
+        },
+        {
+          "before": "rr:constant \"/Schema/Authority/AuthorityRecord\"",
+          "after": "/Schema/Authority/AuthorityRecord"
+        },
+        {
+          "before": "rr:template  \"/Schema/Authority/WebReady#{WEBA}\"",
+          "after": "/Schema/Authority/WebReady#{WEBA}"
+        },
+        {
+          "before": "rr:template  \"/Schema/Authority/Status#{STATUSA}\"",
+          "after": "/Schema/Authority/Status#{STATUSA}"
+        },
+        {
+          "before": "rml:reference \"FUN\"",
+          "after": "FUN"
+        },
+        {
+          "before": "rr:constant \"/Schema/Authority/AgencyReferenceCode\"",
+          "after": "/Schema/Authority/AgencyReferenceCode"
+        },
+        {
+          "before": "rml:reference \"REFA\"",
+          "after": "REFA"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{CONTAG_1..14}\"",
+          "after": "/KB/Agent/{CONTAG_1..14}"
+        },
+        {
+          "before": "rr:template \"/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}\"",
+          "after": "/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}"
+        },
+        {
+          "before": "rr:template  \"/KB/Date/{DATECONT_1..14_BEGINNING}\"",
+          "after": "/KB/Date/{DATECONT_1..14_BEGINNING}"
+        },
+        {
+          "before": "rr:template \"/KB/Date/{DATECONT_1..14_END}\"",
+          "after": "/KB/Date/{DATECONT_1..14_END}"
+        },
+        {
+          "before": "rr:template \"/KB/VariantAgentName/{VAR_1..11}\"",
+          "after": "/KB/VariantAgentName/{VAR_1..11}"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{PRED_1..5}\"",
+          "after": "/KB/Agent/{PRED_1..5}"
+        },
+        {
+          "before": "rr:template  \"/KB/Agent/{SUC_1..4}\"",
+          "after": "/KB/Agent/{SUC_1..4}"
+        },
+        {
+          "before": "rr:template \"/KB/ParallelAgentName/{PAR_1..4}\"",
+          "after": "/KB/ParallelAgentName/{PAR_1..4}"
+        },
+        {
+          "before": "rr:constant \"/Schema/Authority/ParallelAgentName\"",
+          "after": "/Schema/Authority/ParallelAgentName"
+        },
+        {
+          "before": "rr:template \"/Schema/Authority/AuthorityType#{AUTHTP_1..2}\"",
+          "after": "/Schema/Authority/AuthorityType#{AUTHTP_1..2}"
+        },
+        {
+          "before": "rr:constant \"/Schema/Authority/VariantAgentName\"",
+          "after": "/Schema/Authority/VariantAgentName"
+        },
+        {
+          "before": "rr:constant \"/Schema/Authority/NaturalAgentName\"",
+          "after": "/Schema/Authority/NaturalAgentName"
+        },
+        {
+          "before": "rml:reference \"CMTAU\"",
+          "after": "CMTAU"
+        },
+        {
+          "before": "rml:reference \"MOD_DATE\"",
+          "after": "MOD_DATE"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{REFA}\"",
+          "after": "/KB/Agent/{REFA}"
+        },
+        {
+          "before": "rr:constant \"/KB/Rule/RulesForArchivalDescription\"",
+          "after": "/KB/Rule/RulesForArchivalDescription"
+        },
+        {
+          "before": "rml:reference \"RULES\"",
+          "after": "RULES"
+        },
+        {
+          "before": "rr:template \"{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
+          "after": "{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>"
+        },
+        {
+          "before": "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}\"",
+          "after": "/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}"
+        },
+        {
+          "before": "rr:template \"{HEADING} (Corporate Body)\"",
+          "after": "{HEADING} (Corporate Body)"
+        },
+        {
+          "before": "rr:template \"/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}\"",
+          "after": "/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}"
+        },
+        {
+          "before": "rr:template \"/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}\"",
+          "after": "/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}"
+        },
+        {
+          "before": "rr:template \"/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}\"",
+          "after": "/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}"
+        },
+        {
+          "before": "rr:template \"{HEADING} (Family)\"",
+          "after": "{HEADING} (Family)"
+        },
+        {
+          "before": "rr:template \"{HEADING} (Person)\"",
+          "after": "{HEADING} (Person)"
+        },
+        {
+          "before": "rr:template \"{HEADING} (Place)\"",
+          "after": "{HEADING} (Place)"
+        },
+        {
+          "before": "rr:template \"{SUC_1..4} (Corporate Body)\"",
+          "after": "{SUC_1..4} (Corporate Body)"
+        },
+        {
+          "before": "rr:template \"{PRED_1..5} (Corporate Body)\"",
+          "after": "{PRED_1..5} (Corporate Body)"
+        },
+        {
+          "before": "rr:template \"{CONTAG_1..14} (Corporate Body)\"",
+          "after": "{CONTAG_1..14} (Corporate Body)"
+        }
+      ]
+    },
+    {
+      "file": "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio",
+      "total_cells": 208,
+      "with_value": 206,
+      "changed": 61,
+      "unchanged": 145,
+      "changes": [
+        {
+          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "after": "/KB/RecordSet/{REFD_FILE}"
+        },
+        {
+          "before": "rr:template  \"/Schema/Description-Listings/Level#{LEVELDES}\"",
+          "after": "/Schema/Description-Listings/Level#{LEVELDES}"
+        },
+        {
+          "before": "rml:reference   \"SCOPE\"",
+          "after": "SCOPE"
+        },
+        {
+          "before": "rr:template \"/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}\"",
+          "after": "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}"
+        },
+        {
+          "before": "rml:reference  \"CUSTOD\"",
+          "after": "CUSTOD"
+        },
+        {
+          "before": "rml:reference  \"ISA\"",
+          "after": "ISA"
+        },
+        {
+          "before": "rml:reference \"PHDESC\"",
+          "after": "PHDESC"
+        },
+        {
+          "before": "rml:reference  \"RESTRTX\"",
+          "after": "RESTRTX"
+        },
+        {
+          "before": "rml:reference \"TGU\"",
+          "after": "TGU"
+        },
+        {
+          "before": "rml:reference \"FINDAID\"",
+          "after": "FINDAID"
+        },
+        {
+          "before": "rml:reference \"ACCRUAL\"",
+          "after": "ACCRUAL"
+        },
+        {
+          "before": "rml:reference  \"NOTES\"",
+          "after": "NOTES"
+        },
+        {
+          "before": "rml:reference \"PHYSCO\"",
+          "after": "PHYSCO"
+        },
+        {
+          "before": "rml:reference \"HOWTO\"",
+          "after": "HOWTO"
+        },
+        {
+          "before": "rr:template \"/KB/CurrentReferenceCode/{REFD_FILE}\"",
+          "after": "/KB/CurrentReferenceCode/{REFD_FILE}"
+        },
+        {
+          "before": "rr:template \"/KB/FormerCode/{FCODES}\"",
+          "after": "/KB/FormerCode/{FCODES}"
+        },
+        {
+          "before": "rr:constant \"/Schema/Description-Listings/CurrentReferenceCode\"",
+          "after": "/Schema/Description-Listings/CurrentReferenceCode"
+        },
+        {
+          "before": "rr:constant \"/Schema/Description-Listings/FormerCode\"",
+          "after": "/Schema/Description-Listings/FormerCode"
+        },
+        {
+          "before": "rr:template \"/KB/ArchivalDescriptionRecord/{REFD_FILE}\"",
+          "after": "/KB/ArchivalDescriptionRecord/{REFD_FILE}"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{INDEXPROV_1..20}\"",
+          "after": "/KB/Agent/{INDEXPROV_1..20}"
+        },
+        {
+          "before": "rr:template \"/KB/Title/{TITLE}\"",
+          "after": "/KB/Title/{TITLE}"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{INDEXSUB_1..20}\"",
+          "after": "/KB/Agent/{INDEXSUB_1..20}"
+        },
+        {
+          "before": "rr:template \"/KB/Place/{INDEXGEO_1..20}\"",
+          "after": "/KB/Place/{INDEXGEO_1..20}"
+        },
+        {
+          "before": "rr:constant \"/Schema/Description-Listings/ArchivalDescriptionRecord\"",
+          "after": "/Schema/Description-Listings/ArchivalDescriptionRecord"
+        },
+        {
+          "before": "rr:template \"/Schema/Description-Listings/Status#{STATUSD}\"",
+          "after": "/Schema/Description-Listings/Status#{STATUSD}"
+        },
+        {
+          "before": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBD}\"",
+          "after": "/Schema/Description-Listings/WebEnabled#{WEBD}"
+        },
+        {
+          "before": "rr:template  \"/Schema/Description-Listings/ContentType#{GMD_1..8}\"",
+          "after": "/Schema/Description-Listings/ContentType#{GMD_1..8}"
+        },
+        {
+          "before": "rml:reference  \"AVAIL\"",
+          "after": "AVAIL"
+        },
+        {
+          "before": "rml:reference \"RELMAT\"",
+          "after": "RELMAT"
+        },
+        {
+          "before": "rml:reference \"ASSMAT\"",
+          "after": "ASSMAT"
+        },
+        {
+          "before": "rml:reference \"DATECR\"",
+          "after": "DATECR"
+        },
+        {
+          "before": "rml:reference \"ADMBIO\"",
+          "after": "ADMBIO"
+        },
+        {
+          "before": "rr:template  \"/KB/RecordSet/{REFD_HIGHER}\"",
+          "after": "/KB/RecordSet/{REFD_HIGHER}"
+        },
+        {
+          "before": "rml:reference \"CMTD\"",
+          "after": "CMTD"
+        },
+        {
+          "before": "rr:template \"/KB/Date/{MODDATE}\"",
+          "after": "/KB/Date/{MODDATE}"
+        },
+        {
+          "before": "rml:reference \"MODDATE\"",
+          "after": "MODDATE"
+        },
+        {
+          "before": "rml:reference \"HIDDENNOTES\"",
+          "after": "HIDDENNOTES"
+        },
+        {
+          "before": "rml:reference  \"REST\"",
+          "after": "REST"
+        },
+        {
+          "before": "rml:reference \"FCODES\"",
+          "after": "FCODES"
+        },
+        {
+          "before": "rr:template  \"/KB/RecordSet/{REF_ADD}\"",
+          "after": "/KB/RecordSet/{REF_ADD}"
+        },
+        {
+          "before": "rr:template \"/KB/Title/{TITLE}\"",
+          "after": "/KB/Title/{TITLE}"
+        },
+        {
+          "before": "rml:reference \"DATEACM\"",
+          "after": "DATEACM"
+        },
+        {
+          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "after": "/KB/RecordSet/{REFD_FILE}"
+        },
+        {
+          "before": "rr:template \"/KB/CreationRelation/{REFD_FILE}/{OFFICEABC_1..20}/urn:uuid:{UUID_OFFICEABC}\"",
+          "after": "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC_1..20}/urn:uuid:{UUID_OFFICEABC}"
+        },
+        {
+          "before": "rr:template    \"/KB/Date/{DATEOFF_1..20_BEGINNING}\"",
+          "after": "/KB/Date/{DATEOFF_1..20_BEGINNING}"
+        },
+        {
+          "before": "rr:template    \"/KB/Date/{DATEOFF_1..20_END}\"",
+          "after": "/KB/Date/{DATEOFF_1..20_END}"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{ABC_REFA_1..20}\"",
+          "after": "/KB/Agent/{ABC_REFA_1..20}"
+        },
+        {
+          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "after": "/KB/RecordSet/{REFD_FILE}"
+        },
+        {
+          "before": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
+          "after": "/KB/RecordSet/{REFD_FILE}"
+        },
+        {
+          "before": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBL}\"",
+          "after": "/Schema/Description-Listings/WebEnabled#{WEBL}"
+        },
+        {
+          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "after": "{REFD_FILE} - {TITLE} (Record Set)"
+        },
+        {
+          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "after": "{REFD_FILE} - {TITLE} (Record Set)"
+        },
+        {
+          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "after": "{REFD_FILE} - {TITLE} (Record Set)"
+        },
+        {
+          "before": "rr:template \"{REFD_FILE} - {TITLE} (Record Set)\"",
+          "after": "{REFD_FILE} - {TITLE} (Record Set)"
+        },
+        {
+          "before": "rr:template \"{REFD_FILE} - {TITLE} (Archival Description Record)\"",
+          "after": "{REFD_FILE} - {TITLE} (Archival Description Record)"
+        },
+        {
+          "before": "rml:reference  \"LEVELDES\"",
+          "after": "LEVELDES"
+        },
+        {
+          "before": "rr:template \"{DATEOFF_1..20}\"",
+          "after": "{DATEOFF_1..20}"
+        },
+        {
+          "before": "rr:template \"{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
+          "after": "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>"
+        },
+        {
+          "before": "rr:template \"{TITLE} - {OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
+          "after": "{TITLE} - {OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>"
+        },
+        {
+          "before": "rr:template  \"{GMD_1..8}\"",
+          "after": "{GMD_1..8}"
+        },
+        {
+          "before": "rr:template \"/KB/Agent/{INDEXNAME_1..20}\"",
+          "after": "/KB/Agent/{INDEXNAME_1..20}"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "files": 2,
+    "total_cells": 372,
+    "total_with_value": 368,
+    "total_changed": 106,
+    "total_unchanged": 262
+  }
+}

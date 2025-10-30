@@ -1,5 +1,5 @@
-slug: general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz
-drawio: tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio
+slug: general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr
+drawio: tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio
 legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 format: turtle
 metadata:
@@ -23,4 +23,4 @@ parser_config:
   metacharacter_substitute:
     - "url"
   capitalisation_scheme: lower-camel
-  rml_enabled: false
+  rml_enabled: true
