@@ -147,19 +147,25 @@ class DotReporter {
 
       const testResult = this.parseTestLine(line);
       if (testResult) {
-        this.testResults.push(testResult);
-        this.testsInCurrentFile++;
+        const isDuplicate = this.testResults.some(
+          (t) => t.name === testResult.name && t.status === testResult.status
+        );
+        
+        if (!isDuplicate) {
+          this.testResults.push(testResult);
+          this.testsInCurrentFile++;
 
-        switch (testResult.status) {
-          case "pass":
-            this.printDot(".", colors.green);
-            break;
-          case "fail":
-            this.printDot("F", colors.red);
-            break;
-          case "skip":
-            this.printDot("s", colors.yellow);
-            break;
+          switch (testResult.status) {
+            case "pass":
+              this.printDot(".", colors.green);
+              break;
+            case "fail":
+              this.printDot("F", colors.red);
+              break;
+            case "skip":
+              this.printDot("s", colors.yellow);
+              break;
+          }
         }
       }
       const bunSummaryMatch = line.match(
