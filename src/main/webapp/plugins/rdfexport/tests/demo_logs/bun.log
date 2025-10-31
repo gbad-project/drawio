@@ -1,4 +1,4 @@
-Script started on Fri Oct 31 14:56:25 2025
+Script started on Fri Oct 31 16:22:39 2025
 Command: bun run test:bun:all
 [0m[2m[35m$[0m [2m[1mbun run scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
@@ -7,7 +7,7 @@ tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.
 
 
 [32m34 passed[0m, [33m13 skipped[0m
-Ran 47 tests across 1 file. [6.57s]
+Ran 47 tests across 1 file. [8.65s]
 
 Command exit status: 0
-Script done on Fri Oct 31 14:56:32 2025
+Script done on Fri Oct 31 16:22:47 2025
