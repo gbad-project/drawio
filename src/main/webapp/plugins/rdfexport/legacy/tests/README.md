@@ -104,7 +104,7 @@
 > 
 > _Layer 4:_ The outermost source layer – plugin export hooks defined in `src/rdfexport.ts`, main plugin source file.
 > 
-> `debug/` triggers both layers using a custom `debug/run_scenario.ts` harness. For the plugin layer, it effectively simulates Draw\.io logic (or, at least I hope it does).
+> `debug/` triggers both layers using a custom `debug/run_scenario.ts` harness. For the plugin layer, it effectively simulates Draw\.io logic by invoking `exportRdfXml` or `exportRml` plugin action directly.
 > 
 > Of note, `bun run test` includes a Bun test suite (from `tests/rdfexport.test.ts`) that runs its own implementation of Layer 0–3–4 roundtrips for all-fixture regression tests. `debug/` specializes in manual/injections but also has a runner (slow) that does all fixtures at once (`debug/debug_cli_regression.py`).
 >

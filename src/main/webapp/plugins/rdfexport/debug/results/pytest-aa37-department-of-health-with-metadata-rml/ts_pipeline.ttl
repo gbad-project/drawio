@@ -2,7 +2,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix rr: <http://www.w3.org/ns/r2rml#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
@@ -93,6 +92,4 @@
 :Web%20Ready%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Web Ready: Y" .
-
-[] a rr:TriplesMap .
 

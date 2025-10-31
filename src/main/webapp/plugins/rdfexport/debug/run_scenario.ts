@@ -1029,9 +1029,14 @@ async function runPluginExport(
 
   menuStub.funct([], null);
 
-  const exportAction = actions.exportRdfXml;
+  const exportAction =
+    options.parserConfig?.rml_enabled === true
+      ? actions.exportRml
+      : actions.exportRdfXml;
+  
   if (!exportAction) {
-    throw new Error("exportRdfXml action was not registered by plugin");
+    const missing = options.parserConfig?.rml_enabled ? "exportRml" : "exportRdfXml";
+    throw new Error(`${missing} action was not registered by plugin`);
   }
 
   await exportAction();

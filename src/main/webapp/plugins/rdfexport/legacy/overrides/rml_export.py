@@ -86,6 +86,12 @@ def _build_graph_from_raw_xml(
         "infer_types_disable",
         True,
     )
+    rml_enabled = _resolve_enabled_flag(
+        config_args,
+        "rml_enabled",
+        None,
+        True,
+    )
 
     config_args["include_label"] = include_label
     config_args["label_disable"] = not include_label
@@ -93,6 +99,7 @@ def _build_graph_from_raw_xml(
     config_args["preamble_disable"] = not include_preamble
     config_args["infer_type_of_literals"] = infer_type_of_literals
     config_args["infer_types_disable"] = not infer_type_of_literals
+    config_args["rml_enabled"] = rml_enabled
 
     serialisation_config = SerialisationConfig(
         infer_type_of_literals=infer_type_of_literals,
@@ -168,15 +175,6 @@ def _build_graph_from_raw_xml(
             config_args["capitalisation_scheme"],
             prefixes,
         )
-    )
-
-    metadata_rml_enabled = (
-        _is_flag_enabled(metadata_node.attrib.get("rmlEnabled"))
-        if metadata_node is not None
-        else False
-    )
-    rml_enabled = (
-        _is_flag_enabled(config_args.get("rml_enabled")) or metadata_rml_enabled
     )
 
     # 4. Serialize to Final Graph
