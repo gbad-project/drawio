@@ -1,13 +1,59 @@
-Script started on Thu Oct 30 13:39:05 2025
+Script started on Fri Oct 31 10:48:04 2025
 Command: bun run test:bun:all
 [0m[2m[35m$[0m [2m[1mbun run scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
 
-tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m [90m[100%][0m
+tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[31mF[0m[31mF[0m[33ms[0m[31mF[0m[31mF[0m[33ms[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[31mF[0m[31mF[0m[31mF[0m[33ms[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[33ms[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
 
 
-[32m34 passed[0m, [33m22 skipped[0m
-Ran 45 tests across 1 file. [4.60s]
+[31m[1mFAILURES[0m
+================================================================================
+[31mFAILED[0m F 4711 Orville Wood fonds.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m AA42 Ministry of Health.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11-1-0-1.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11 Elizabeth Simcoe sketches.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m CA1934 Division of Tuberculosis Prevention.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47 Simcoe Family fonds.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m AA37 Department of Health.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11-1-0-1 (VDB test).drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m BA619 Walkerton Inquiry.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m CA1853 Chest Disease Service.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression
+================================================================================
 
-Command exit status: 0
-Script done on Thu Oct 30 13:39:09 2025
+[32m13 passed[0m, [31m21 failed[0m, [33m13 skipped[0m
+Ran 47 tests across 1 file. [4.72s]
+[0m[31merror[0m[2m:[0m script [1m"test:bun:all"[0m exited with code 1[0m
+
+Command exit status: 1
+Script done on Fri Oct 31 10:48:09 2025

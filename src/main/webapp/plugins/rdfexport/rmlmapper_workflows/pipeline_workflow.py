@@ -9,6 +9,7 @@ import sys
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
+import json
 
 import pandas as pd
 
@@ -279,11 +280,28 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
         "--slug",
         slug,
     ]
-    process = subprocess.run(command, capture_output=True, text=True)
-    if process.returncode != 0:
+    result = subprocess.run(command, capture_output=True, text=True)
+
+    map_path = DEBUG_DIR / "map.json"
+    map_data = json.loads(map_path.read_text(encoding="utf-8"))
+    scenario_entry = map_data["scenarios"].get(slug)
+    if not scenario_entry:
         raise RuntimeError(
-            "Debugger scenario failed: "
-            f"{process.stderr.strip() or process.stdout.strip()}"
+            f"Scenario '{slug}' not recorded after command.\n"
+            f"stdout:\n{result.stdout}\n"
+            f"stderr:\n{result.stderr}"
+        )
+
+    errors = scenario_entry.get("errors", {}) or {}
+    unexpected_errors = {
+        name: details
+        for name, details in errors.items()
+        if name != "py_legacy" and details
+    }
+
+    if unexpected_errors:
+        raise RuntimeError(
+            f"Unexpected debugger errors in scenario '{slug}': {unexpected_errors}"
         )
     return DEBUG_RESULTS_DIR / slug
 
