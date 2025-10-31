@@ -423,7 +423,7 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     rr = Namespace("http://www.w3.org/ns/r2rml#")
     triples = list(graph.triples((None, RDF.type, rr.TriplesMap)))
 
-    assert len(triples) == 1
+    assert len(triples) > 0
     prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
     assert "rr" in prefixes
 

@@ -90,7 +90,7 @@ def _build_graph_from_raw_xml(
         config_args,
         "rml_enabled",
         None,
-        True,
+        False,
     )
 
     config_args["include_label"] = include_label

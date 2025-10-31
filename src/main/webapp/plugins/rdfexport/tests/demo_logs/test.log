@@ -1,4 +1,4 @@
-Script started on Fri Oct 31 10:46:28 2025
+Script started on Fri Oct 31 14:54:09 2025
 Command: bun run test
 [0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1m.venv/bin/python -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
@@ -61,866 +61,30 @@ Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
      An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
   ❌ webapp/plugins/rdfexport/tests/fixtures/koronakommisjonen.drawio
      An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
-[1m===================== test session starts ======================[0m
+[1m============================================== test session starts ===============================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 73 items                                             [0m
-
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31m       [ 17%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[31m                 [ 21%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31m [ 49%]
-[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                 [ 82%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m            [ 91%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m    [100%][0m
-
-=========================== FAILURES ===========================
-[31m[1m___________ test_decorations_serialise_to_skos_note ____________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-620/test_decorations_serialise_to_0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_decorations_serialise_to_skos_note[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mSubject[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mdecor[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mLoose literal[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-        )[90m[39;49;00m
-        path = tmp_path / [33m"[39;49;00m[33mdecorations.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://test[39;49;00m[33m"[39;49;00m,  [90m# ensure deterministic attachment[39;49;00m[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        notes = [96mlist[39;49;00m(graph.objects(URIRef([33m"[39;49;00m[33montology://test[39;49;00m[33m"[39;49;00m), SKOS.note))[90m[39;49;00m
->       [94massert[39;49;00m Literal([33m"[39;49;00m[33mLoose literal[39;49;00m[33m"[39;49;00m) [95min[39;49;00m notes[90m[39;49;00m
-[1m[31mE       AssertionError: assert rdflib.term.Literal('Loose literal') in [][0m
-[1m[31mE        +  where rdflib.term.Literal('Loose literal') = Literal('Loose literal')[0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:237: AssertionError
-[31m[1m_______ test_connected_literal_not_treated_as_decoration _______[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-620/test_connected_literal_not_tre0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_connected_literal_not_treated_as_decoration[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mNode A[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mSome literal[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _edge_cell([33m"[39;49;00m[33marrow[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m"[39;49;00m, source=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, target=[33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _edge_label([33m"[39;49;00m[33mlabel[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33marrow[39;49;00m[33m"[39;49;00m, value=[33m"[39;49;00m[33mrdfs:label[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-        )[90m[39;49;00m
-        path = tmp_path / [33m"[39;49;00m[33mconnected.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://connected[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m [95mnot[39;49;00m [96mlist[39;49;00m(graph.triples(([94mNone[39;49;00m, SKOS.note, Literal([33m"[39;49;00m[33mSome literal[39;49;00m[33m"[39;49;00m))))[90m[39;49;00m
-    [90m[39;49;00m
-        labels = [96mlist[39;49;00m(graph.triples(([94mNone[39;49;00m, RDFS.label, Literal([33m"[39;49;00m[33mNode A[39;49;00m[33m"[39;49;00m))))[90m[39;49;00m
->       [94massert[39;49;00m labels  [90m# the individual should still exist[39;49;00m[90m[39;49;00m
-        ^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mE       assert [][0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:260: AssertionError
-[31m[1m____ test_arrow_label_without_edge_style_is_not_individual _____[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-620/test_arrow_label_without_edge_0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_arrow_label_without_edge_style_is_not_individual[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33msource[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mSource[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33msource_type[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mrico:Record[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33msource[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mAddress[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _edge_cell([33m"[39;49;00m[33marrow[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m"[39;49;00m, source=[33m"[39;49;00m[33msource[39;49;00m[33m"[39;49;00m, target=[33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _edge_label_without_edge_style([33m"[39;49;00m[33mlabel[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33marrow[39;49;00m[33m"[39;49;00m, value=[33m"[39;49;00m[33mrdfs:mock[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-        )[90m[39;49;00m
-        path = tmp_path / [33m"[39;49;00m[33mclass-diagram-property.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://test[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            prefix=[33m"[39;49;00m[33mmock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            prefix_iri=[33m"[39;49;00m[33mhttp://example.com/mock#[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        property_uri = URIRef([33m"[39;49;00m[33mhttp://www.w3.org/2000/01/rdf-schema#mock[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        [94massert[39;49;00m [95mnot[39;49;00m [96mlist[39;49;00m(graph.triples((property_uri, RDF.type, OWL.NamedIndividual)))[90m[39;49;00m
->       [94massert[39;49;00m [96mlist[39;49;00m(graph.triples((property_uri, RDF.type, OWL.DatatypeProperty)))[90m[39;49;00m
-[1m[31mE       AssertionError: assert [][0m
-[1m[31mE        +  where [] = list(<generator object Graph.triples at 0x10209f9a0>)[0m
-[1m[31mE        +    where <generator object Graph.triples at 0x10209f9a0> = triples((rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#mock'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#DatatypeProperty')))[0m
-[1m[31mE        +      where triples = <Graph identifier=N34078dd578a7490484d43e9063b27e19 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.triples[0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:301: AssertionError
-[31m[1m____ test_blank_node_used_for_decorations_without_ontology _____[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-620/test_blank_node_used_for_decor0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_blank_node_used_for_decorations_without_ontology[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mSubject[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mdecor[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mDetached[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-        )[90m[39;49;00m
-        path = tmp_path / [33m"[39;49;00m[33mblank.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(path), metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        triples = [96mlist[39;49;00m(graph.triples(([94mNone[39;49;00m, SKOS.note, Literal([33m"[39;49;00m[33mDetached[39;49;00m[33m"[39;49;00m))))[90m[39;49;00m
->       [94massert[39;49;00m triples[90m[39;49;00m
-[1m[31mE       assert [][0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:318: AssertionError
-[31m[1m_________ test_parse_drawio_preserves_literal_targets __________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_preserves_literal_targets[39;49;00m():[90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(FIXTURES_DIR / [33m"[39;49;00m[33mAA37-with-metadata-even-more-severely-mocked.drawio[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        hellow = Namespace([33m"[39;49;00m[33msome://helloworld[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        literal_values = [96mlist[39;49;00m(graph.objects(predicate=hellow.there))[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m Literal([33m"[39;49;00m[33mlolabout[39;49;00m[33m"[39;49;00m) [95min[39;49;00m literal_values[90m[39;49;00m
-[1m[31mE       AssertionError: assert rdflib.term.Literal('lolabout') in [][0m
-[1m[31mE        +  where rdflib.term.Literal('lolabout') = Literal('lolabout')[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:183: AssertionError
-[31m[1m_________ test_parse_drawio_curie_cell_without_parent __________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_cell_without_parent[39;49;00m():[90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(FIXTURES_DIR / [33m"[39;49;00m[33mFlowchart_tweaked.drawio[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        kb = Namespace([33m"[39;49;00m[33mmock://knowledge-base/[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        individual = kb[[33m"[39;49;00m[33mLampdoesntwork[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m (individual, RDF.type, OWL.NamedIndividual) [95min[39;49;00m graph[90m[39;49;00m
-[1m[31mE       AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N83fca091d43f4cf2880947db1c6e5790 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:195: AssertionError
-[31m[1m______________ test_curie_literal_style_rounding _______________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-620/test_curie_literal_style_round0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_curie_literal_style_rounding[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        [94mdef[39;49;00m[90m [39;49;00m[92mparse[39;49;00m(path: Path) -> Graph:[90m[39;49;00m
-            [94mreturn[39;49;00m draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-                [96mstr[39;49;00m(path), metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m][90m[39;49;00m
-            )[90m[39;49;00m
-    [90m[39;49;00m
-        prefixes = draw_io_parser.get_prefixes()[90m[39;49;00m
-        expected_individual = URIRef([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprefixes[[33m'[39;49;00m[33mrdfs[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33mAddress[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        [94mdef[39;49;00m[90m [39;49;00m[92mliteral_present[39;49;00m(graph: Graph, value: [96mstr[39;49;00m) -> [96mbool[39;49;00m:[90m[39;49;00m
-            [94mreturn[39;49;00m [96many[39;49;00m([90m[39;49;00m
-                [96misinstance[39;49;00m(obj, Literal) [95mand[39;49;00m [96mstr[39;49;00m(obj) == value [94mfor[39;49;00m obj [95min[39;49;00m graph.objects()[90m[39;49;00m
-            )[90m[39;49;00m
-    [90m[39;49;00m
-        base_graph = parse(FIXTURES_DIR / [33m"[39;49;00m[33mClass_Diagram_tweaked.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        [94massert[39;49;00m literal_present(base_graph, [33m"[39;49;00m[33mAddress[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        [94massert[39;49;00m (expected_individual, RDF.type, OWL.NamedIndividual) [95mnot[39;49;00m [95min[39;49;00m base_graph[90m[39;49;00m
-    [90m[39;49;00m
-        curie_path = _write_class_diagram_variant(tmp_path, value=[33m"[39;49;00m[33mrdfs:Address[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        curie_graph = parse(curie_path)[90m[39;49;00m
-        [94massert[39;49;00m literal_present(curie_graph, [33m"[39;49;00m[33mrdfs:Address[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
->       [94massert[39;49;00m (expected_individual, RDF.type, OWL.NamedIndividual) [95min[39;49;00m curie_graph[90m[39;49;00m
-[1m[31mE       AssertionError: assert (rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Address'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=Nddc8a1ef07c047b087bbe1d17bf53873 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:236: AssertionError
-[31m[1m________ test_parse_drawio_accepts_corrected_mock_types ________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-620/test_parse_drawio_accepts_corr0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_corrected_mock_types[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        fixture_path = _mutate_fixture_for_case(tmp_path, [94mNone[39;49;00m)[90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m [96misinstance[39;49;00m(graph, draw_io_parser.DrawIOParserGraph)[90m[39;49;00m
-    [90m[39;49;00m
-        expected_subjects = {[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com/dangling-curie[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com/colon-only[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com/no-prefix[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        }[90m[39;49;00m
-    [90m[39;49;00m
-        observed = {[90m[39;49;00m
-            [96mstr[39;49;00m(subject)[90m[39;49;00m
-            [94mfor[39;49;00m subject [95min[39;49;00m graph.subjects(RDF.type, [94mNone[39;49;00m)[90m[39;49;00m
-            [94mif[39;49;00m [96misinstance[39;49;00m(subject, URIRef)[90m[39;49;00m
-        }[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m expected_subjects.issubset(observed)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = <built-in method issubset of set object at 0x10186a260>(set())[0m
-[1m[31mE        +    where <built-in method issubset of set object at 0x10186a260> = {'https://example.com', 'https://example.com/colon-only', 'https://example.com/dangling-curie', 'https://example.com/no-prefix'}.issubset[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:336: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path0] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/AA37 Department of Health.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N4924a9e9534145229e0cb1f8f010a587 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nb043691ccd9245548ebe3dd94f0d64b4 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path1] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/AA42 Ministry of Health.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N256cad81f28d4a51b01da036c653ad3e (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N41ef55af500345bd82d92903c0180c12 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path2] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/BA619 Walkerton Inquiry.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N5802fd5ebe40452e99e73345c4a3109a (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N7fa324a45c044ef591fdcc3a58045ca1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path3] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/CA1853 Chest Disease Service.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nd2ab35ba3ea344c0b9adc41fe0cf5572 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nbbb55151c9eb4b3c9cd1059b9b5ff729 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path4] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/CA1934 Division of Tuberculosis Prevention.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N12f15ce180c84649a62e4b47f0b3be96 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N01239013dceb4651b491ad14d74c673b (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path5] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47 Simcoe Family fonds.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nbf800d2f94cc4e4cbf27d081358a6f1e (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nbf32be9ecf9a4e88a780ba379a7a3490 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path6] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11 Elizabeth Simcoe sketches.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Na6a53c2992ab4d88903d564c24da5631 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nb668c9ae1b6e4d65be84abffa9120b3d (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path7] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-1 Elizabeth Simcoe loose sketches.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nce182d68e7bb427a93d132c207c0d037 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N135bdf260e3b4f849a8498d92cab54e5 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path8] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-1-0-1 (VDB test).nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ne1e327164ce8466abe4c538d37be823f (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N5dd9524c0a2745b9a6c42583619f8c4d (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path9] ___[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-1-0-1.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N5ce06348624b4a6e8979cc616ca1d6aa (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N528ad6c6efe645eea389b00e325636a8 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path10] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-2 Elizabeth Simcoe sketchbook.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ne12c48c3890a4893b68e29ce9484b781 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nce0a2e34a0a644108f139a30b865154a (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path11] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N9bde892ad31343d8aa94aa39b713f076 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N9161e22cc4cf46a184d8e4e8fee80b87 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path12] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 47-11-4 Notes on Elizabeth Simcoe sketches.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb4d9924ffee648d492cedd6652a9ebe9 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N99888b448c384e1c99dc3b966ca90c79 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path13] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 4711 Orville Wood fonds.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N6e8e11acf17147458f109d3c16f49ab9 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N75dcab971f2345ee809652934c7236fa (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path14] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Ncf3a7b21151b4038a425f594a1620b6b (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nff43fb54cad34d58a645c9540e1e3557 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path15] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N0290c696d7904c028f1dc5a24e0be9b2 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N076a0efea86941fc8dae2d7e0792e60e (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path16] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc9866f25c827429d99f8374f6eb92241 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nf393e385e5b14cfbaa5a4be19784b1da (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path17] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 10-142 Correspondence of the Chief of the Chest Disease Service.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nd7ce4d5a0688465d92110fd863d1d1a4 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Neecfcf25f5ed460189fcfb200318554c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path18] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 10-145 Mobile Tuberculosis Testing Clinic photographs.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N62ea1059d8a44ef19056d718d0fee854 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N932ee9992b8b41f29b06ec16400f3d6c (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path19] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N907ad468bcd94c9e9014f88679165c6e (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N01feb2711d8f4969ba520dcc97daabe1 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[baseline_path20] __[0m
-
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt')
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
-        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
-    )[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        expected = Graph()[90m[39;49;00m
-        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
-        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=N816df0c130e0482aa7459f358f470b87 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=Nbba5188192134ed1a1fd8e06d2f92ef4 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:373: AssertionError
-[31m[1m_____ test_parse_drawio_with_rml_metadata_adds_triples_map _____[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_with_rml_metadata_adds_triples_map[39;49;00m():[90m[39;49;00m
-        fixture_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37 Department of Health-with-metadata-rml.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-            rml_enabled=[94mTrue[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m [96misinstance[39;49;00m(graph, draw_io_parser.DrawIOParserGraph)[90m[39;49;00m
-    [90m[39;49;00m
-        rr = Namespace([33m"[39;49;00m[33mhttp://www.w3.org/ns/r2rml#[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-        triples = [96mlist[39;49;00m(graph.triples(([94mNone[39;49;00m, RDF.type, rr.TriplesMap)))[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m [96mlen[39;49;00m(triples) == [94m1[39;49;00m[90m[39;49;00m
-[1m[31mE       AssertionError: assert 16 == 1[0m
-[1m[31mE        +  where 16 = len([(rdflib.term.BNode('N8dba5142f6564a0e83f3e410aded5cbf'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-...('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/ns/r2rml#TriplesMap')), ...])[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:426: AssertionError
-[31m[1m_________ test_parse_drawio_respects_strip_html_config _________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_respects_strip_html_config[39;49;00m():[90m[39;49;00m
-        fixture_path = ([90m[39;49;00m
-            FIXTURES_DIR / [33m"[39;49;00m[33mAA37 Department of Health-with-metadata-preserve-html.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        )[90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-            strip_html=[94mFalse[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m [96misinstance[39;49;00m(graph, draw_io_parser.DrawIOParserGraph)[90m[39;49;00m
-    [90m[39;49;00m
-        literal_values = [[96mstr[39;49;00m(obj) [94mfor[39;49;00m obj [95min[39;49;00m graph.objects() [94mif[39;49;00m [96misinstance[39;49;00m(obj, Literal)][90m[39;49;00m
-    [90m[39;49;00m
-        html_literals = [value [94mfor[39;49;00m value [95min[39;49;00m literal_values [94mif[39;49;00m [33m"[39;49;00m[33m<blockquote[39;49;00m[33m"[39;49;00m [95min[39;49;00m value][90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m html_literals[90m[39;49;00m
-    [90m[39;49;00m
-        labels = [[90m[39;49;00m
-            [96mstr[39;49;00m(label)[90m[39;49;00m
-            [94mfor[39;49;00m label [95min[39;49;00m graph.objects(predicate=RDFS.label)[90m[39;49;00m
-            [94mif[39;49;00m [96misinstance[39;49;00m(label, Literal)[90m[39;49;00m
-        ][90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m labels[90m[39;49;00m
-[1m[31mE       assert [][0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:470: AssertionError
-============================ PASSES ============================
-[36m[1m=================== short test summary info ====================[0m
+[1mcollecting ... [0m[1mcollected 73 items                                                                                               [0m
+
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [ 17%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                   [ 21%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                           [ 82%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                              [ 91%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [100%][0m
+
+===================================================== PASSES =====================================================
+[36m[1m============================================ short test summary info =============================================[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_top_level_rounded_text_treated_as_literal[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_parent_cell_collects_child_type_tokens[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_standalone_curie_node_creates_individual_without_parent[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_absolute_uri_node_uses_default_type_with_classifier[0m
+[32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_decorations_serialise_to_skos_note[0m
+[32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_connected_literal_not_treated_as_decoration[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_literal_as_arrow_source_raises[0m
+[32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_arrow_label_without_edge_style_is_not_individual[0m
+[32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_blank_node_used_for_decorations_without_ontology[0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_arrows_align_with_legacy_parser[knut_olborgs_forskningsnotater.drawio][0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_arrows_align_with_legacy_parser[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio][0m
 [32mPASSED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_strict_mode_raises_for_invalid_arrows[0m
@@ -929,16 +93,43 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
 [32mPASSED[0m legacy/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_empty_reference[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_individual_blocks_accepts_declared_prefix_curie[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_individual_blocks_tracks_datatype_properties[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_without_known_prefix[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[unknown_prefix][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path0][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path1][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path2][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path3][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path4][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path5][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path6][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path7][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path8][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path9][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path10][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path11][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path12][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path13][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path14][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path15][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path16][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path17][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path18][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path19][0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path20][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio][0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_with_metadata_exposes_namespace_and_csv_path[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_with_rml_metadata_adds_triples_map[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_default_strips_html_literals[0m
+[32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_respects_strip_html_config[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_metadata_strip_html_override[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_without_metadata_sets_empty_metadata[0m
 [32mPASSED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_unknown_literal_curie[0m
@@ -957,38 +148,7 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
 [32mPASSED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_pipeline_symbols_and_overrides_exposed[False][0m
 [32mPASSED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_pipeline_symbols_and_overrides_exposed[True][0m
 [32mPASSED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_existing_override_external_imports_included[0m
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_decorations_serialise_to_skos_note[0m - AssertionError: assert rdflib.term.Literal('Loose literal')...
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_connected_literal_not_treated_as_decoration[0m - assert []
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_arrow_label_without_edge_style_is_not_individual[0m - AssertionError: assert []
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_blank_node_used_for_decorations_without_ontology[0m - assert []
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - AssertionError: assert rdflib.term.Literal('lolabout') in []
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - AssertionError: assert (rdflib.term.URIRef('mock://knowledg...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - AssertionError: assert (rdflib.term.URIRef('http://www.w3.o...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path0][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path1][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path2][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path3][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path4][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path5][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path6][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path7][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path8][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path9][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path10][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path11][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path12][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path13][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path14][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path15][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path16][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path17][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path18][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path19][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path20][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_with_rml_metadata_adds_triples_map[0m - AssertionError: assert 16 == 1
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_respects_strip_html_config[0m - assert []
-[31m================ [31m[1m31 failed[0m, [32m42 passed[0m[31m in 2.67s[0m[31m =================[0m
+[32m=============================================== [32m[1m73 passed[0m[32m in 2.79s[0m[32m ===============================================[0m
 [0m[1mbun test [0m[2mv1.2.21 (7c45ed97)[0m
 [0m
 tests/rdfexport.test.ts:
@@ -1005,9 +165,9 @@ tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1358.49ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.64ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m21.26ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1668.99ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.28ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m136.87ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
@@ -1038,21 +198,8 @@ tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-3 (21430 characters)
 [PIPELINE] Saving RML export payload to F 4711 Orville Wood fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m27[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m257.46ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m439.80ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44298 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (44298 characters)
@@ -1080,21 +227,8 @@ Received: [31m27[0m
 [BLACKBOX] Returning Turtle payload for graph graph-6 (15986 characters)
 [PIPELINE] Saving RML export payload to AA42 Ministry of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA42 Ministry of Health.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m21[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m141.65ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio: skipped (no matching baseline General Authority to RiC-O Model_2025-06-25_PZ_no_rr.nt)[0m
+[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m172.78ms[0m[2m][0m
+[0m[33m»[2m[0m[2m General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio: skipped (no matching baseline General Authority to RiC-O Model_2025-06-25_PZ_no_rr.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23447 characters)
@@ -1123,21 +257,8 @@ Received: [31m21[0m
 [BLACKBOX] Returning Turtle payload for graph graph-9 (8833 characters)
 [PIPELINE] Saving RML export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl
 [PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m12[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m82.89ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m103.93ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (23583 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (23583 characters)
@@ -1165,21 +286,8 @@ Received: [31m12[0m
 [BLACKBOX] Returning Turtle payload for graph graph-12 (9119 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m11[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m77.97ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m93.67ms[0m[2m][0m
+[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39436 characters)
@@ -1208,21 +316,8 @@ Received: [31m11[0m
 [BLACKBOX] Returning Turtle payload for graph graph-15 (13140 characters)
 [PIPELINE] Saving RML export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m16[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m121.13ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m141.77ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (44832 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (44832 characters)
@@ -1250,21 +345,8 @@ Received: [31m16[0m
 [BLACKBOX] Returning Turtle payload for graph graph-18 (15060 characters)
 [PIPELINE] Saving RML export payload to F 47-11 Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m18[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m132.17ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m168.24ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39366 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (39366 characters)
@@ -1292,21 +374,8 @@ Received: [31m18[0m
 [BLACKBOX] Returning Turtle payload for graph graph-21 (13261 characters)
 [PIPELINE] Saving RML export payload to F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m15[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m129.96ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m168.95ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (73874 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (73874 characters)
@@ -1334,21 +403,8 @@ Received: [31m15[0m
 [BLACKBOX] Returning Turtle payload for graph graph-24 (23685 characters)
 [PIPELINE] Saving RML export payload to General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m29[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m214.94ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m Flowchart_tweaked.drawio: skipped (no matching baseline Flowchart_tweaked.nt)[0m
+[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m263.68ms[0m[2m][0m
+[0m[33m»[2m[0m[2m Flowchart_tweaked.drawio: skipped (no matching baseline Flowchart_tweaked.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
 [0m[33m»[2m[0m[2m Class_Diagram_tweaked.drawio: skipped (no matching baseline Class_Diagram_tweaked.nt)[0m
 [0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
@@ -1383,21 +439,8 @@ Received: [31m29[0m
 [BLACKBOX] Returning Turtle payload for graph graph-27 (30700 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m37[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m261.63ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m317.96ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37655 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (37655 characters)
@@ -1425,21 +468,8 @@ Received: [31m37[0m
 [BLACKBOX] Returning Turtle payload for graph graph-30 (12424 characters)
 [PIPELINE] Saving RML export payload to F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m15[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m110.99ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m148.66ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (95250 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (95250 characters)
@@ -1467,21 +497,8 @@ Received: [31m15[0m
 [BLACKBOX] Returning Turtle payload for graph graph-33 (24021 characters)
 [PIPELINE] Saving RML export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m25[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m267.20ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: skipped (no matching baseline General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.nt)[0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m323.50ms[0m[2m][0m
+[0m[33m»[2m[0m[2m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: skipped (no matching baseline General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (54169 characters)
@@ -1510,21 +527,8 @@ Received: [31m25[0m
 [BLACKBOX] Returning Turtle payload for graph graph-36 (17129 characters)
 [PIPELINE] Saving RML export payload to CA1934 Division of Tuberculosis Prevention.rml.ttl
 [PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m21[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m175.46ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m185.73ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (58385 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (58385 characters)
@@ -1552,21 +556,8 @@ Received: [31m21[0m
 [BLACKBOX] Returning Turtle payload for graph graph-39 (20879 characters)
 [PIPELINE] Saving RML export payload to F 47 Simcoe Family fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m21[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m157.36ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m201.01ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (34932 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (34932 characters)
@@ -1594,21 +585,8 @@ Received: [31m21[0m
 [BLACKBOX] Returning Turtle payload for graph graph-42 (13752 characters)
 [PIPELINE] Saving RML export payload to AA37 Department of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA37 Department of Health.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m16[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m105.15ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m132.16ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (49981 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (49981 characters)
@@ -1636,21 +614,8 @@ Received: [31m16[0m
 [BLACKBOX] Returning Turtle payload for graph graph-45 (17474 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m21[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m147.92ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m181.79ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (32246 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (32246 characters)
@@ -1678,21 +643,8 @@ Received: [31m21[0m
 [BLACKBOX] Returning Turtle payload for graph graph-48 (10853 characters)
 [PIPELINE] Saving RML export payload to RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m13[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m95.60ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m122.36ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (40903 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (40903 characters)
@@ -1720,21 +672,8 @@ Received: [31m13[0m
 [BLACKBOX] Returning Turtle payload for graph graph-51 (15342 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1 (VDB test).rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1 (VDB test).rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m19[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m124.64ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m156.82ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (48199 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (48199 characters)
@@ -1762,21 +701,8 @@ Received: [31m19[0m
 [BLACKBOX] Returning Turtle payload for graph graph-54 (15607 characters)
 [PIPELINE] Saving RML export payload to RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m18[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m161.06ms[0m[2m][0m
-[0m[0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
+[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m203.32ms[0m[2m][0m
+[0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (30860 characters)
@@ -1805,21 +731,8 @@ Received: [31m18[0m
 [BLACKBOX] Returning Turtle payload for graph graph-57 (12076 characters)
 [PIPELINE] Saving RML export payload to BA619 Walkerton Inquiry.rml.ttl
 [PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m14[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m94.29ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m121.80ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (37336 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (37336 characters)
@@ -1847,21 +760,8 @@ Received: [31m14[0m
 [BLACKBOX] Returning Turtle payload for graph graph-60 (12709 characters)
 [PIPELINE] Saving RML export payload to CA1853 Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m16[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m111.17ms[0m[2m][0m
-[0m[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
+[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m144.40ms[0m[2m][0m
+[TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (42059 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (42059 characters)
@@ -1889,56 +789,43 @@ Received: [31m16[0m
 [BLACKBOX] Returning Turtle payload for graph graph-63 (14644 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl (RML mode)
-[0m[1m1236 |[0m       triples_map_count: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1237 |[0m       total_triples: [0m[34mnumber[0m[0m[2m;[0m
-[0m[1m1238 |[0m       namespaces: [0m[34mstring[0m[][0m[2m;[0m
-[0m[1m1239 |[0m     }[0m[2m;[0m
-[0m[1m1240 |[0m 
-[0m[1m1241 |[0m     expect(rmlTripleCheck.triples_map_count)[0m[3m[1m.toBe[0m([0m[33m1[0m)[0m[2m;[0m
-                                                    [31m[1m^[0m
-[0m[31merror[0m[2m:[0m [1m[2mexpect([0m[31mreceived[0m[2m).[0mtoBe[2m([0m[32mexpected[0m[2m)[0m
-
-Expected: [32m1[0m
-Received: [31m15[0m
-[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts[0m[2m:[0m[33m1241[0m[2m:[33m46[0m[2m)[0m
-[0m[31m✗[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m114.19ms[0m[2m][0m
-[0m[BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
+[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m148.83ms[0m[2m][0m
+[BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36621)
 [PIPELINE] DrawIO parser produced graph graph-64 with 318 triples
 [BLACKBOX] Parsed DrawIO graph graph-64 with 318 triples
 [BLACKBOX] Returning Turtle payload for graph graph-64 (13241 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m34.69ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m43.74ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36621)
 [PIPELINE] DrawIO parser produced graph graph-65 with 318 triples
 [BLACKBOX] Parsed DrawIO graph graph-65 with 318 triples
 [BLACKBOX] Returning Turtle payload for graph graph-65 (13241 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline strips literal HTML when stripHtml enabled[0m [0m[2m[[1m33.36ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline strips literal HTML when stripHtml enabled[0m [0m[2m[[1m41.91ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36621)
 [PIPELINE] DrawIO parser produced graph graph-66 with 318 triples
 [BLACKBOX] Parsed DrawIO graph graph-66 with 318 triples
 [BLACKBOX] Returning Turtle payload for graph graph-66 (13573 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m34.14ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m46.10ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-67 with 56 triples
 [BLACKBOX] Parsed DrawIO graph graph-67 with 56 triples
 [BLACKBOX] Returning Turtle payload for graph graph-67 (6741 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline omits rdfs:label triples when includeLabel disabled[0m [0m[2m[[1m21.15ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline omits rdfs:label triples when includeLabel disabled[0m [0m[2m[[1m27.26ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-68 with 70 triples
 [BLACKBOX] Parsed DrawIO graph graph-68 with 70 triples
 [BLACKBOX] Returning Turtle payload for graph graph-68 (7369 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline omits ontology declaration when includePreamble disabled[0m [0m[2m[[1m21.73ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline omits ontology declaration when includePreamble disabled[0m [0m[2m[[1m29.41ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-69 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-69 with 72 triples
 [BLACKBOX] Returning Turtle payload for graph graph-69 (7406 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline keeps literals untyped when inference disabled[0m [0m[2m[[1m22.04ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline keeps literals untyped when inference disabled[0m [0m[2m[[1m30.27ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-70 with 72 triples
@@ -1949,13 +836,13 @@ Received: [31m15[0m
 [PIPELINE] DrawIO parser produced graph graph-71 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-71 with 72 triples
 [BLACKBOX] Returning Turtle payload for graph graph-71 (7467 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline forwards strictMode flag to parser configuration[0m [0m[2m[[1m39.46ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline forwards strictMode flag to parser configuration[0m [0m[2m[[1m54.69ms[0m[2m][0m
 [BLACKBOX] Received serialized payload (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-0 with 72 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 72 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m22.29ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m29.73ms[0m[2m][0m
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36445 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -1965,15 +852,29 @@ Received: [31m15[0m
 [BLACKBOX] Returning Turtle payload for graph graph-72 (4985 characters)
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
-[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m22.10ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[3.74ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m31.40ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[6.58ms[0m[2m][0m
 
-[0m[32m 13 pass[0m
+[0m[2m13 tests skipped:[0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
+[0m[33m»[2m[0m[2m General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio: skipped (no matching baseline General Authority to RiC-O Model_2025-06-25_PZ_no_rr.nt)[0m
+[0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
+[0m[33m»[2m[0m[2m Flowchart_tweaked.drawio: skipped (no matching baseline Flowchart_tweaked.nt)[0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
+[0m[33m»[2m[0m[2m Class_Diagram_tweaked.drawio: skipped (no matching baseline Class_Diagram_tweaked.nt)[0m
+[0m[33m»[2m[0m[2m General_Authority_bleep_mock.drawio: skipped (no matching baseline General_Authority_bleep_mock.nt)[0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-severely-mocked.nt)[0m
+[0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked-v2.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked-v2.nt)[0m
+[0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-rml.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-rml.nt)[0m
+[0m[33m»[2m[0m[2m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: skipped (no matching baseline General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.nt)[0m
+[0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
+
+[0m[32m 34 pass[0m
  [0m[33m13 skip[0m
-[0m[31m 21 fail[0m
- 658 expect() calls
-Ran 47 tests across 1 file. [0m[2m[[1m4.75s[0m[2m][0m
-[0m[31merror[0m[2m:[0m script [1m"test"[0m exited with code 1[0m
+[0m[2m 0 fail[0m
+ 679 expect() calls
+Ran 47 tests across 1 file. [0m[2m[[1m6.13s[0m[2m][0m
 
-Command exit status: 1
-Script done on Fri Oct 31 10:46:36 2025
+Command exit status: 0
+Script done on Fri Oct 31 14:54:19 2025

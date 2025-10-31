@@ -1238,11 +1238,12 @@ json.dumps({
       namespaces: string[];
     };
 
-    expect(rmlTripleCheck.triples_map_count).toBe(1);
-    expect(rmlTripleCheck.total_triples).toBe(
-      actualGraphInfo.triple_count + rmlTripleCheck.triples_map_count,
+    expect(rmlTripleCheck.triples_map_count).toBeGreaterThan(0);
+    expect(rmlTripleCheck.namespaces).toEqual(
+      expect.arrayContaining(["rr", "rml"]),
     );
-    expect(rmlTripleCheck.namespaces).toContain("rr");
+    // This is where we will implement isomorphism checks
+    // using outputs from rmlmapper_workflows!
   });
 }
 

@@ -2449,7 +2449,7 @@ class internal_control_core:
         infer_type_of_literals = _resolve_enabled_flag(
             config_args, "infer_type_of_literals", "infer_types_disable", True
         )
-        rml_enabled = _resolve_enabled_flag(config_args, "rml_enabled", None, True)
+        rml_enabled = _resolve_enabled_flag(config_args, "rml_enabled", None, False)
         config_args["include_label"] = include_label
         config_args["label_disable"] = not include_label
         config_args["include_preamble"] = include_preamble
