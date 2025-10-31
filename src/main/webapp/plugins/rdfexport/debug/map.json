@@ -5260,7 +5260,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": false
+        "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -5292,14 +5292,14 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "9200903ee1cdb1cb4912189a82a4ffc04c522a2ff35374f08f5eea837ba2eb17",
+          "nt_sha256": "8c6e40d5a066dbee7184857ae918858ce559cd885c124fd5fa9d4f28623da017",
           "path": "results/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr/ts_pipeline.ttl",
           "triples": 500
         },
         "ts_plugin": {
-          "nt_sha256": "2e59e79b7cdb814b0f7f2e9df9f9c72ba4a091573dae2d4113f18186685c2c8e",
+          "nt_sha256": "dbbca758ecbc3987e4688879d6e2b36f5d689efce9fb6cf176206b1990b91f3a",
           "path": "results/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr/ts_plugin.ttl",
-          "triples": 116
+          "triples": 500
         }
       }
     },
@@ -6637,13 +6637,6 @@
     },
     "general-authority-to-ric-o-model-2025-06-25-pz-no-rr": {
       "cell_classifications": {
-        "0": {
-          "identifier": null,
-          "kind": "UNCLASSIFIED",
-          "parent_identifier": null,
-          "raw_value": null,
-          "tokens": []
-        },
         "1": {
           "identifier": null,
           "kind": "UNCLASSIFIED",
@@ -7850,21 +7843,22 @@
           "LITERAL": 18,
           "STANDALONE_INDIVIDUAL": 29,
           "TYPED_INDIVIDUAL": 29,
-          "UNCLASSIFIED": 2
+          "UNCLASSIFIED": 1
         },
         "classified": 162,
-        "total_cells": 164,
-        "unclassified": 2
+        "total_cells": 163,
+        "unclassified": 1
       },
       "drawio": "tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
       "errors": {
-        "ts_stderr": "[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FMandate%2F%7BAA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FNaturalAgentName%2F%7BNAME%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BCONTAG_1..14%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BSUC_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAuthorityRecord%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BPRED_1..5%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FNaturalAgentName%2F%7BNAME%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATEEX_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FMandate%2F%7BAA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAuthorityRecord%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BCONTAG_1..14%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BPRED_1..5%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BSUC_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2FAgent%2F%7BREFA%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break.\n[PYODIDE] https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#\"%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D\" does not look like a valid URI, trying to serialize this will break."
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
       },
       "format": "turtle",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
-        "py_legacy_vs_ts_plugin": true,
-        "ts_pipeline_vs_ts_plugin": false
+        "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -7895,20 +7889,15 @@
         }
       ],
       "results": {
-        "py_legacy": {
-          "nt_sha256": "45889884aa72217e4e3aa4bbdcce8bb33e8595da88b4acb89d563928b02a7cbd",
-          "path": "results/general-authority-to-ric-o-model-2025-06-25-pz-no-rr/py_legacy.ttl",
-          "triples": 116
-        },
         "ts_pipeline": {
-          "nt_sha256": "cfdee41434d6f6e8a5402c36f89d2956259b02e2acd99ac70abbd3a5e70f3744",
+          "nt_sha256": "da2ad93d14864325248711e31b51ae6d64694bea202daa823879aabbdc128b11",
           "path": "results/general-authority-to-ric-o-model-2025-06-25-pz-no-rr/ts_pipeline.ttl",
-          "triples": 447
+          "triples": 476
         },
         "ts_plugin": {
-          "nt_sha256": "341152d9edc84c2587c4b60251d7fe976e4898be28486e11297663e44332f2c0",
+          "nt_sha256": "6428d52b4ea510252b5d02e2a1b08b896c67db02a95f059181682aa89a87d692",
           "path": "results/general-authority-to-ric-o-model-2025-06-25-pz-no-rr/ts_plugin.ttl",
-          "triples": 105
+          "triples": 476
         }
       }
     },
