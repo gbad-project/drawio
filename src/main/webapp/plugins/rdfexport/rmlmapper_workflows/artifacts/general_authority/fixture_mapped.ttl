@@ -413,6 +413,30 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA952" .
 
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/AA131> a rico:CorporateBody;
+  rdfs:label "AA131 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/AA52> a rico:CorporateBody;
+  rdfs:label "AA52 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA409> a rico:CorporateBody;
+  rdfs:label "BA409 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA483> a rico:CorporateBody;
+  rdfs:label "BA483 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA592> a rico:CorporateBody;
+  rdfs:label "BA592 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA611> a rico:CorporateBody;
+  rdfs:label "BA611 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA700> a rico:CorporateBody;
+  rdfs:label "BA700 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA94> a rico:CorporateBody;
+  rdfs:label "BA94 (Agent)" .
+
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Birchard%20%28family%29> a rico:Family;
   rdfs:label "Birchard (family) (Family)";
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Birchard%20%28family%29> .
@@ -423,6 +447,69 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#Corporate%20Name>;
   rico:history "This act provided for the creation of municipal governments at the town, village and township levels and identified those which would automatically be granted municipal status when the act came into effect, January 1, 1850. Communities not named in the original act could petition the county council or legislative assembly for incorporation on reaching specified population levels. An incorporated township, lower tier municipality, has a council consisting of an elected Reeve, Deputy Reeves, and councillors the number of which depend on the population of the township. Its responsibilities relate largely to the upkeep of the local road system and the delivery of services such as water and sewage. It has wide powers relating to the regulation of land and local administration through by-laws. It has the power to raise money through direct taxation on land and through the use of debentures. Originally part of the County of Ontario, on January 1, 1974  it absorbed the Village of Cannington to form part of the Durham Region under Ontario Statutes, 1973, Chapter 78, the Regional Municipality of Durham Act.";
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Brock%20%28Ont.%20%3A%20Township%29> .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA11> a rico:CorporateBody;
+  rdfs:label "CA11 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1113> a rico:CorporateBody;
+  rdfs:label "CA1113 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1144> a rico:CorporateBody;
+  rdfs:label "CA1144 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1383> a rico:CorporateBody;
+  rdfs:label "CA1383 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA147> a rico:CorporateBody;
+  rdfs:label "CA147 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1635> a rico:CorporateBody;
+  rdfs:label "CA1635 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1796> a rico:CorporateBody;
+  rdfs:label "CA1796 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA2181> a rico:CorporateBody;
+  rdfs:label "CA2181 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA26> a rico:CorporateBody;
+  rdfs:label "CA26 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA262> a rico:CorporateBody;
+  rdfs:label "CA262 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA293> a rico:CorporateBody;
+  rdfs:label "CA293 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA38> a rico:CorporateBody;
+  rdfs:label "CA38 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA383> a rico:CorporateBody;
+  rdfs:label "CA383 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA436> a rico:CorporateBody;
+  rdfs:label "CA436 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA445> a rico:CorporateBody;
+  rdfs:label "CA445 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA447> a rico:CorporateBody;
+  rdfs:label "CA447 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA509> a rico:CorporateBody;
+  rdfs:label "CA509 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA673> a rico:CorporateBody;
+  rdfs:label "CA673 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA931> a rico:CorporateBody;
+  rdfs:label "CA931 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA933> a rico:CorporateBody;
+  rdfs:label "CA933 (Agent)" .
+
+<https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA952> a rico:CorporateBody;
+  rdfs:label "CA952 (Agent)" .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Canniff%2C%20William%2C%201830-1910>
   a rico:Person;
@@ -442,7 +529,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/BA592>;
   rico:history "The Employment Service Council of Ontario was established on August 3, 1922. It is not known how long the council continued in operation but it appears in the annual reports up until about 1940.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA592>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA592>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Employment%20Service%20Council%20of%20Ontario> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Fraser%2C%20Frederick%20George%20Mackenzie%2C%20fl.%201878-1889>
@@ -474,7 +561,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/BA700>;
   rico:history "The Hamilton Normal School was established in 1908. In 1953, the Hamilton Normal School became known as the Hamilton Teachers' College (all Normal Schools were re-named Teachers' Colleges at this time). In 1974, the Hamilton Teachers' College was reorganized as the Hamilton campus of the newly created Ontario Teacher Education College; there was also a Toronto campus. In 1979, the Ontario Teacher Education College, including the Hamilton campus, was closed. The Hamilton building, beside McMaster University, was sold to the Hamilton-Wentworth Roman Catholic Separate School Board for use as a high school.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA700>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA700>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Hamilton%20Normal%20School%20%28Ont.%29> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Hoy%2C%20Claire%2C%201940-> a
@@ -497,7 +584,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/BA483>;
   rico:history "The Inquiry into Motor Vehicle Accident Compensation in Ontario was appointed on November 6, 1986. The Inquiry was headed by a Commissioner, the Hon. Mr. Justice Coulter A.A. Osborne, who was assisted by an Advisory Committee of ten members. The Committee was composed of experts in the field of automobile accident compensation, including representatives from insurance bureaus and companies, consumer's assocations, the handicapped and other groups. The Inquiry conducted in-depth research into all facets of automobile insurance in Ontario, including standard automobile insurance contracts, the history of insurance, litigated claims, and a wide variety of methods of providing adequate insurance to drivers in Ontario and elsewhere. The Inquiry concluded that no-fault benefits should be substantially expanded and made truly \"no-fault\" in their character, and that the right to individual compensation in the tort system should be maintained. In other words, the need to sue to receive compensation was reduced although the right to sue was preserved. The Inquiry did not recommend public ownership of the insurance industry in Ontario, but rather closer regulation of the industry. The inquiry made a great number of detailed recommendations about regulation of the automobile insurance industry, insurance coverage and premiums, systems of compensation, other insurance issues, public or private provision of insurance, rate regulation, and accident prevention. The inquiry was dissolved in 1988.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA483>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA483>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Jessup%2C%20Edward%2C%201735-1816>
@@ -532,7 +619,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/BA409>;
   rico:history "The Milton Jail was opened in 1863 and closed in 1978. Until 1968, all jails in Ontario were administered locally through municipal bodies under the guidance of the Ontario provincial government. Responsibility for jails within the government fell to the Office of the Inspector of Prisons and Public Charities (1868-1934), the Reformatories and Prisons Branch of the Department of the Provincial Secretary (1934-1946), and the Department of Reform Institutions (1946-1968). In 1968, their administration was assumed directly by the provincial government. Since then, jails have been administered within the Department of Correctional Services (1968-1972), and the Ministry of Correctional Services (1972-1993).";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA409>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA409>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Milton%20Jail%20%28Ont.%29> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Montaigne%2C%20Bill%2C%201915-1988>
@@ -550,7 +637,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/BA611>;
   rico:history "The North Bay Psychiatric Hospital (NBPH) was established in October 1957 by the Mental Health Division of the Department of Health. Encompassing Northeastern Ontario, NBPH's catchment area covered close to one third of the province of Ontario. Inpatient services were provided through four functional programs: District Mental Health Program, Regional Specialized Mental Health Program, Seniors' Mental Health Program and the Forensic Program. In addition to its acute care role, the hospital served as the region's tertiary care centre with a large proportion of beds dedicated to long term rehabilitation and care of those with serious mental illness. Care and treatment of the mentally disordered offender population and patients referred by the courts was an important service of the hospital. Small rural and isolated areas depended heavily on NBPH for the provision of acute care services. The Northeastern Regional Mental Health Centre was closed March 31, 1975: patients were transferred to the North Bay Psychiatric Hospital. The Hospital was divested by the Ministry of Health and Long-Term Care on 21 November 2005. It was known as the North Bay site of the Northeast Mental Health Centre until 1 April 2011 when the Northeast Mental Health Centre amalgamated with the North Bay General Hospital. It is now known as the North Bay Regional Health Centre (NBRHC).";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA611>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA611>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Northern%20Telephone%20Company>
@@ -581,7 +668,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA147>;
   rico:history "The Ontario Committee on Student Awards was first appointed by the Minister of University Affairs in 1966 as an ad hoc advisory board on policies relating to financial assistance to students in all areas of post-secondary education. The committee was broadly representative of the academic community in Ontario, including administrators, faculty and students from both the universities and colleges of applied arts and technology as well as members of the Department and of the Association of Student Awards Officers. The Committee appears to have been alternatively known as The Ontario Student Awards Committee (OSAC). It continued to exist after the formation of the Department (later Ministry) of Colleges and Universities in 1971. After an internal review by the Management Committee of the Ministry of Colleges and Universities in 1974, the Committee on Student Awards was replaced by a joint subcommittee of the Ontario Comittee on University Affairs and the Council of Regents. The Committee on Student Awards voted itself out of existence in February 1974 and dissolved on March 31, 1974.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA147>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA147>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario%20Committee%20on%20Student%20Awards> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario%20Concentrated%20Milk%20Producers%27%20Marketing%20Board>
@@ -606,7 +693,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/BA94>;
   rico:history "The Ontario Telephone Service Commission was formed on April 1, 1960 replacing the former Ontario Telephone Authority. It was located within the Department of Agriculture and Food. On 23 June 1971 it became part of the Department, later the Ministry, of Transportation and Communications. In 1987, it was moved to the Ministry of Culture and Communications, and finally became part of the Ministry of Economic Development and Trade in 1993 when that ministry became responsible for communications policy and programs. The Supreme Court of Canada ruled in Spring 1994 that communications was the responsibility of the CRTC (the federal communications regulatory body). The Ontario Telephone Services Commission was consequently closed down in the Fall of 1994.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA94>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/BA94>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario%20Telephone%20Services%20Commission>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario%20Telephone%20Authority> .
 
@@ -626,7 +713,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA952>;
   rico:history "In 1968, the Government of Ontario, through the Department of the Attorney General, became responsible for all aspects of the administration of justice in the province. As a result, the Clerks of the Peace of the province, who prior to 1968 were local county officials, became officials of the Department of the Attorney General. Clerks of the Peace were appointed by the Lieutenant Governor and were required to be a Barrister at Law, with not less than three years standing at the bar of Ontario. The positions of Clerk of the Peace and Crown Attorney were, in general, held by the same individual. However, if it was necessary for health reasons, the individual could resign as Crown Attorney and remain as Clerk of the Peace. If this was the case, the newly appointed Crown Attorney would then become Clerk of the Peace upon the vacancy of that position. With the abolition of the General Sessions of the Peace in 1984, the position of Clerk of the Peace lost much of its remaining raison d'etre and subsequently faded away completely. The following is an alphabetical listing of the counties/districts/judicial districts that have existed within the Province since 1968 (with Dt.= District, Co.=County, and J.D.=Judicial District), along with the dates for which they existed: Algoma Dt. (1859- );  Brant Co. (1853-    ); Bruce Co. (1867-     ); Carleton Co. (1850-1969); Cochrane Dt. (1922- ); Dufferin Co. (1881-     ); Durham J.D. (1974-     ); Elgin Co. (1853- ); Essex Co. (1853-     ); Frontenac Co. (1865-     ); Grey Co. (1853- ); Haldimand Co. (1851-1974); Haldimand J.D. (1974-     ); Haliburton Co. (1874-     ); Halton Co. (1855-1973); Halton J.D. (1974-     ); Hamilton- Wentworth J.D. (1974-     ); Hastings Co. (1850-     ); Huron Co. (1867- ); Kenora Dt. (1898-     ); Kent Co. (1851- ); Lambton Co. (1853-     ); Lanark and Renfrew United Cos. (1850-1866); Lanark Co. (1866- ); Leeds and Grenville United Cos. (1850-     ); Lennox and Addington United Co. (1865- );  Lincoln, Haldimand and Welland United Cos. (1850-1851); Lincoln and Welland United Cos. (1851-1856); Lincoln Co. (1856- 1970); London Dt. (1798-1849); Luneburg Dt. (1788-1792); Manitoulin Dt. (1899-     ); Mecklenburg Dt. (1788-1792); Middlesex Co. (1850-1851; 1853- ); Middlesex and Elgin United Cos. (1851-1853); Midland Dt. (1792-1849); Montreal (1777- 1788); Muskoka and Parry Sound Dt. (1888-1898); Muskoka Dt. (1898- ); Nassau Dt. (1788- 1792); Newcastle Dt. (1802- 1849); Niagara Dt. (1798-1849); Niagara North J.D. (1970-     ); Niagara South J.D. (1970- ); Nipissing Dt. (1858-     ); Norfolk Co. (1850-1974); Norfolk J.D. (1974-     ); Northumberland and Durham United Cos. (1850-1973); Northumberland Co. (1974-     ); Ontario Co. (1853-1973); Ottawa Dt. (1816- 1849); Ottawa-Carleton J.D. (1969-     );    ); Peel Co. (1866-1973); Peel J.D. (1974- ); Perth Co. (1853- ); Peterborough Co. (1850-1851; 1863-     ); Peterborough and Victoria United Cos. (1851- 1863); Prescott and Russell United Cos. (1850-     ); Prince Edward Dt. (1834-1849); Prince Edward Co. (1850-     ); Rainy River Dt. (1909-     ); Renfrew Co. (1866-     ); Simcoe Dt. (1837-1849);  Simcoe Co. (1850- ); Stormont, Dundas and Glengarry United Cos. (1850- ); Sudbury Dt. (1907-     ); Talbot Dt. (1837-1849); Temiskaming Dt. (1913-     ); Thunder Bay Dt. (1884-     ); Victoria Dt. (1839-1849); Victoria Co. (1863-     ); Waterloo Co. (1850-1851; 1853- 1973); Waterloo J.D. (1974- ); Waterloo, Wellington and Grey United Cos. (1851-1853); Wellington Dt. (1840-1849); Wellington Co. (1853-     ); Welland Co. (1856-1970); Wentworth and Halton United Cos. (1850-1851; 1853-1855); Wentworth, Halton and Brant United Cos. (1851-1853); Wentworth Co. (1855-1973); Western Dt. (1792-1849); York Co. (1850-1851; 1866-1970); York, Ontario and Peel United Cos. (1851-1853); York and Peel United Cos. (1853-1866); York J.D. (1971-     ); and York Region J.D. (1980-     ).";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA952>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA952>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281777-1968%29> .
 
@@ -642,7 +729,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA673>;
   rico:history "Community Information Services was established in 1971 as part of the Community Development Branch of the Ontario Department of the Provincial Secretary and Citizenship. The Community Information Services unit was  transferred to the Ontario Ministry of Community and Social Services in April 1972, forming part of the Community Services Division. In 1974, however, the office became part of the Program Development Division. Effective April 1975, responsibility for the Community Information Services Office unit was transferred to the Ontario Ministry of Culture and Recreation, where it formed a part of the Multicultural Development and Public Libraries Division. For a brief period in 1979, the unit formed a part of the Citizens' Inquiry Branch of the Information Access Division. By December 1979, however, it was transferred to the new Libraries and Community Information Branch. In 1989, responsibility for Community Information Services Program was transferred to the Grants Administration, Planning and Evaluation Unit, of the Libraries and Community Information Branch. With this change, the Community Information Services unit ceased to exist. Ministerial responsibility for Community Information Services rested with the Ontario Department of the Provincial Secretary, from 1971 to 1972; the Ontario Ministry of Community and Social Services, from 1972 to 1975; the Ontario Ministry of Culture and Recreation, form 1975- 1982; the Ontario Ministry of Citizenship and Culture, from 1982- 1987; and with the Ontario Ministry of Culture and Communications, from 1987-1989.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA673>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA673>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Community%20Information%20Services> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Dept.%20of%20Colleges%20and%20Universities>
@@ -667,7 +754,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA1113>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications.%20Operations%20Division>;
   rico:history "The Operations Branch was established in 1954 within the Ontario Department of Highways. The Operations Branch was comprised of three sections (later called divisions): Construction;  Maintenance; and Materials and Research (in 1964, Material and Research was divided into two offices, one of which - the Materials Testing Office - remained within the Operations Branch). In 1962 the Municipal Roads Division was added to the branch. In 1971, the Operations Branch became part of the Ontario Department of Transportation and Communications. In 1972, the Operations Branch was replaced by the Operations Division, within the Ontario Ministry of Transportation and Communications.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1113>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1113>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Dept.%20of%20Justice>
@@ -684,7 +771,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/AA52>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources>;
   rico:history "The Department of Lands and Forests was established in 1920, when the Bureau of Mines of the former Department of Lands, Forests and Mines was elevated into a separate department. The Department was presided over by the Minister of Lands and Forests, who was assisted by a Deputy Minister and a number of Divisional Chiefs. Most of the former non-mine functions of the Department of Lands, Forests and Mines were continued by the Department of Lands and Forests. An exception to this, however, was the transfer of the Colonization and Immigration Branch to the Department of Agriculture in 1920. In 1926, the Northern Development Branch was also removed from the Department of Lands and Forests and established as the Department of Northern Development. Although a separate Minister was given direction over this Department, the Department was still required to submit its annual reports to the Minister of Lands and Forests until 1935. In 1941, the Department was considerably reorganized, and many of the branches of the Department were restructured as divisions. The Forestry Branch was divided into three new divisions - the Division of Forest Protection, the Division of Air Services, and the Division of Reforestation; the Lands Branch was renamed the Division of Land and Recreational Areas; the Surveys Branch was renamed the Division of Surveys; the Accounts Branch was renamed the Division of Accounts; and the Woods and Forest Branch was renamed the Division of Timber Management. Two new divisions - the Division of Law and the Division of Research - were also created at this time. Further developments within the Department, between 1941 and 1972, included the transfer of the Games and Fisheries Department to the Department of Lands and Forests, and its subsequent renaming as the Division of Fish and Wildlife, in 1946; the separation of the Division of Lands and Recreational Parks into the Division of Lands and the Division of Parks, in 1954; the transfer of the Conservation Authorities Branch from the Department of Planning and Development in 1962; and the renaming of many of the divisions of the Department as branches, in 1959. The Department existed until 1972, when it amalgamated with the Department of Mines and Northern Affairs to form the Ministry of Natural Resources.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/AA52>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/AA52>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Dept.%20of%20Lands%2C%20Forests%20and%20Mines>;
   rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:daad2ee8-7ccd-5f8c-bd69-815d668587f7>,
@@ -706,7 +793,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA509>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Lands%20and%20Surveys%20Branch>;
   rico:history "The Division of Surveys of the Ontario Department of Lands and Forests was renamed the Division of Surveys and Engineering in 1944, when it was given responsibility over the leasing of water power on Crown lands and authority to approve plans for the construction of dams. The Division was headed by C.H. Fullerton (1944-1947), and by F.W. Beatty from 1947-1957. The Division consisted of two sections - the Ground Surveys Section and the Aerial Surveys Section. On December 1, 1957, the Division of Surveys and Engineering and the Division of Lands were amalgamated under the title of the Division of Surveys (renamed the Lands and Surveys Branch in 1960).";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA509>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA509>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys> .
 
@@ -727,7 +814,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA11>;
   rico:history "The Advertising Branch was established in 1964 as part of the Information and Promotion Division of the Ontario Department of Tourism and Information. The Branch ceased to exist in 1972  when the Department of Tourism and Information was replaced by the Ontario Ministry of Industry and Tourism.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA11>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA11>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Dept.%20of%20Transportation%20and%20Communications>
@@ -771,7 +858,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA262>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Division%20of%20Timber>;
   rico:history "The Division of Reforestation was created in 1941 within the Ontario Department of Lands and Forests. It was created when the former Forestry Branch was divided into the Division of Forest Protection, Division of Air Services and Division of Reforestation. The division was known until 1942 as the Division of Reforestation and Conservation. In 1957, the Division of Reforestation and the Division of Timber Management were merged to form the Division of Timber.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA262>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA262>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Division%20of%20Reforestation> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Division%20of%20Timber>
@@ -788,7 +875,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA2181>;
   rico:history "The Energy Division was formed in 1997 as part of the newly created Ministry of Energy, Science and Technology out of portions of the Policy Division of the former Ministry of Environment and Energy. At various times during its history, the Energy Division included the Electricity Policy Branch; the Electricity Restructuring Office; the Energy Policy Branch; the Energy Economics and Financial Analysis Section and the Oil and Gas Section, among others. The Energy Division was placed back under the Ministry of Environment and Energy when that Ministry was briefly re-established from April 2002-August 2002. The Energy Division continued to exist as part of the newly created Ministry of Energy in 2003 but, in 2004, its responsibilities were transferred to the Office of Energy Supply and Conservation.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA2181>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA2181>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Energy%20Division> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Environmental%20Protection%20Branch.>
@@ -806,7 +893,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Environmental%20Protection%20Branch.>,
     <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Surveys%20and%20Engineering%20Branch>;
   rico:history "The Forest Protection Branch was created within the Ontario Department of Lands and Forests in 1960, replacing the Division of Forest Protection. The branch was comprised of the Forest Protection Section and for Air Services Section. In 1969, the Engineering Services Section was also formed as part of the branch. The Forest Protection Branch ceased to exist in 1971. The Forest Protection Section and Air Services Section became part of the Environmental Protection Branch, and the Engineering Services Section became part of the Surveys and Engineering Branch.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA445>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA445>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Forest%20Protection%20Branch>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Division%20of%20Forest%20Protection> .
 
@@ -825,7 +912,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources.%20Division%20of%20Lands.>,
     <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources.%20Field%20Services%20Division%20%281972-1978%29>;
   rico:history "The Land Management Division was created in 1971 within the Department of Lands and Forests. It oversaw the activities of the Environmental Protection Branch, the Lands and Waters Branch, and the Surveys and the Engineering Branch. The division was eliminated at the time of the creation of the Ministry of Natural Resources on April 1, 1972. Within the new ministry, its functions were assumed by the Division of Lands and the Field Services Division.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA38>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA38>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Land%20Management%20Division> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Lands%20and%20Surveys%20Branch>
@@ -849,7 +936,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA383>;
   rico:history "Select Committees are ad-hoc committees of the Legislative Assembly of Ontario with specific terms of reference to investigate and report on a specific issue. This select committee was established on November 17th, 1868, with M.C. Cameron as Chair. It made its report on January 19, 1869.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA383>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA383>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20Members%27%20Services.>
@@ -868,7 +955,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA447>;
   rico:history "Standing committees of the Legislative Assembly of Ontario are regularly established within ten days of the beginning of each Session of Parliament, and  report to the Legislature on matters referred to them. They do not have the authority to initiate investigations or expand their mandate. This committee, established in 1986, replaced the Standing Committee on Members' Services and the Standing Procedural Affairs Committee.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA447>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA447>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20Members%27%20Services.>,
     <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Procedural%20Affairs%20Committee> .
@@ -910,7 +997,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA1383>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Information%20Systems%20and%20Applied%20Technology%20Division>;
   rico:history "The Management Information Systems Branch of the Ministry of Community and Social Services was established in 1972. It had several minor name changes over the years. It formed part of the Finance and Administration Division. In 1986, the Management Information Systems Branch disappeared, and its functions  were assumed by the newly established Information Systems and Applied Technology Division.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1383>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1383>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Communications>
@@ -957,7 +1044,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA1635>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20and%20Information%20Branch>;
   rico:history "The Research Branch of the Ministry of Education was created in 1981 and resulted from a combination of the Research and Evaluation Branch and the Information Centre (previously named the Information Resources Centre). The Research Branch was part of the Planning and Policy Analysis Division. The Research Branch ceased to exist when it was merged with the Statistical Information Services Unit of the former Management Information Systems Branch to form the Research and Information Branch, effective January 1, 1984.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1635>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1635>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20and%20Information%20Branch>
@@ -983,7 +1070,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/AA131>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%282003-2008%29>;
   rico:history "The Ministry of Enterprise, Opportunity and Innovation was created in 2002. It was superceded by the Ministry of Economic Development and Trade in October, 2003.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/AA131>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/AA131>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281999-2002%29> .
 
@@ -1013,7 +1100,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA933>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Industry%20and%20Trade%20Expansion>;
   rico:history "The Trade Division was formed when the Ministry of Industry and Tourism was replaced by the Ministry of Industry and Trade in 1982. It had no immediate predecessor, but acquired some functions from the Industry Division (which continued to exist after 1982) and from the Policy and Priorities Division. Within the new division, two branches were created: the International Trade and Investment Branch, and the Trade Policy and Analysis Branch. The division was also responsible for administering the international offices of the ministry. The Trade Division ceased to exist when parts of the Trade Division and the Industry Division were combined together in a single, new division in November, 1986, known as Industry and Trade Expansion.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA933>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA933>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology>
@@ -1067,7 +1154,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA1796>;
   rico:history "This branch was created in 1991 as one of the two branches of the newly established Operations Division and assumed the functions of the former Occupational Health and Safety Division.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1796>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1796>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Division> .
 
@@ -1086,7 +1173,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA293>;
   rico:history "The Office of the Provincial Municipal Auditor was established in 1897. The Auditor reported to the Attorney General of Ontario from 1897 to 1914, and after that to the Provincial Secretary. The Provincial Municipal Auditor was transferred to the newly created Bureau of Municipal Affairs in 1917.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA293>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA293>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Surveys%20and%20Engineering%20Branch>
@@ -1111,7 +1198,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA931>;
   rico:history "The Trade Development Branch was formed in 1993 in the Ontario Ministry of Economic Development and Trade within the Trade and Investment Marketing Division. It assumed some of the responsibilities of the former Trade and Investment Support Branch. The branch consisted at creation of the Export Services Section, the Americas Section and the Overseas Section. These last two sections assumed some of the responsibilities of the former international offices of the ministry, which were closed in 1993. In 1996 the Trade Development Branch ceased to exist when its functions were assumed by the Ontario International Trade Corporation.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA931>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA931>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Trade%20and%20Investment%20Support%20Branch> .
 
@@ -1131,7 +1218,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA1144>;
   rico:history "The Transportation Regulation Operations Division was formed in January 1976 within the Ontario Ministry of Transportation and Communications, assuming the administrative functions of the Licensing Control Division as well as responsibility for the newly created Program Development Branch. The Transportation Regulation Operations Division was initially known as the Transportation and Regulation Division and reported to the Assistant Deputy Minister of Drivers and Vehicles between 1976 and 1979 (changing its name to the Transportation Regulation Division in 1977). From 1980 until its closure, the Assistant Deputy Minister of Safety and Regulation administered the division. The agency changed its name to the Transportation Regulation Operations Division in 1981. The division ceased to exist in 1991 when the subordinate branches that it administered began reporting directly to the Assistant Deputy Minister of the Safety and Regulation Division.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1144>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA1144>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Transportation%20Regulation%20Operations%20Division> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Travel%20Services%20Branch>
@@ -1144,7 +1231,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA26>;
   rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Tourism%20Marketing%20Branch>;
   rico:history "In 1972, the Tourist Promotion and Information Branch of the Ontario Department of Tourism and Information was replaced with the Travel Services Branch. The branch formed part of the new Ministry of Industry and Tourism, and was situated within the Communications Division. In 1974, the Travel Services Branch was in turn replaced with the Tourism Marketing Branch.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA26>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA26>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/Ontario.%20Travel%20Services%20Branch>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca//KB/Agent/Ontario.%20Tourist%20Promotion%20and%20Information%20Branch> .
 
@@ -1213,7 +1300,7 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca//KB/AgencyReferenceCode/CA436>;
   rico:history "Select Committees are ad-hoc committees of the Legislative Assembly of Ontario with specific terms of reference to investigate and report on a specific issue. This committee was initially established on April 22, 1920 with Henry Sloane Cooper as Chair, and was re-appointed on April 28, 1921 and March 30, 1922. They issued their final report on February 15, 1923. The committee recommended the construction of a cenotaph on University Avenue in Toronto, but recommended that it be postponed until the creation of a new archives building at the same time.";
-  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA436>;
+  rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca//KB/Agent/CA436>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca//KB/AuthorityRecord/War%20Memorial%20Committee%20of%20Ontario> .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Agent/West%2C%20William%20A.%20N.%2C%20fl.%201872>
@@ -2103,93 +2190,6 @@ rdfs:label a owl:DatatypeProperty .
   rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca//Schema/Authority/WebReady#Y>;
   rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/AA131> a rico:CorporateBody;
-  rdfs:label "AA131 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/AA52> a rico:CorporateBody;
-  rdfs:label "AA52 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA409> a rico:CorporateBody;
-  rdfs:label "BA409 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA483> a rico:CorporateBody;
-  rdfs:label "BA483 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA592> a rico:CorporateBody;
-  rdfs:label "BA592 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA611> a rico:CorporateBody;
-  rdfs:label "BA611 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA700> a rico:CorporateBody;
-  rdfs:label "BA700 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/BA94> a rico:CorporateBody;
-  rdfs:label "BA94 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA11> a rico:CorporateBody;
-  rdfs:label "CA11 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1113> a rico:CorporateBody;
-  rdfs:label "CA1113 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1144> a rico:CorporateBody;
-  rdfs:label "CA1144 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1383> a rico:CorporateBody;
-  rdfs:label "CA1383 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA147> a rico:CorporateBody;
-  rdfs:label "CA147 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1635> a rico:CorporateBody;
-  rdfs:label "CA1635 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA1796> a rico:CorporateBody;
-  rdfs:label "CA1796 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA2181> a rico:CorporateBody;
-  rdfs:label "CA2181 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA26> a rico:CorporateBody;
-  rdfs:label "CA26 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA262> a rico:CorporateBody;
-  rdfs:label "CA262 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA293> a rico:CorporateBody;
-  rdfs:label "CA293 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA38> a rico:CorporateBody;
-  rdfs:label "CA38 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA383> a rico:CorporateBody;
-  rdfs:label "CA383 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA436> a rico:CorporateBody;
-  rdfs:label "CA436 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA445> a rico:CorporateBody;
-  rdfs:label "CA445 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA447> a rico:CorporateBody;
-  rdfs:label "CA447 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA509> a rico:CorporateBody;
-  rdfs:label "CA509 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA673> a rico:CorporateBody;
-  rdfs:label "CA673 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA931> a rico:CorporateBody;
-  rdfs:label "CA931 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA933> a rico:CorporateBody;
-  rdfs:label "CA933 (Corporate Body)" .
-
-<https://data.archives.gov.on.test.gbad.ca//KB/CorporateBody/CA952> a rico:CorporateBody;
-  rdfs:label "CA952 (Corporate Body)" .
 
 <https://data.archives.gov.on.test.gbad.ca//KB/Date/1868> a rico:Date;
   rdfs:label "1868 (Date)" .
