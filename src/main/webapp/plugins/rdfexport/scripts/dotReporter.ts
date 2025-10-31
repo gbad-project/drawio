@@ -148,9 +148,9 @@ class DotReporter {
       const testResult = this.parseTestLine(line);
       if (testResult) {
         const isDuplicate = this.testResults.some(
-          (t) => t.name === testResult.name && t.status === testResult.status
+          (t) => t.name === testResult.name && t.status === testResult.status,
         );
-        
+
         if (!isDuplicate) {
           this.testResults.push(testResult);
           this.testsInCurrentFile++;

@@ -1033,9 +1033,11 @@ async function runPluginExport(
     options.parserConfig?.rml_enabled === true
       ? actions.exportRml
       : actions.exportRdfXml;
-  
+
   if (!exportAction) {
-    const missing = options.parserConfig?.rml_enabled ? "exportRml" : "exportRdfXml";
+    const missing = options.parserConfig?.rml_enabled
+      ? "exportRml"
+      : "exportRdfXml";
     throw new Error(`${missing} action was not registered by plugin`);
   }
 
