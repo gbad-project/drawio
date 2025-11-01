@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from rdflib import BNode, SKOS
+import re
+import uuid
+import urllib.parse
+from typing import Any, Dict, Optional, Type
+
+from rdflib import BNode, Graph, Literal, Namespace, SKOS, URIRef
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
@@ -11,6 +16,10 @@ from meta_builder.drawio_meta_builder import override
 @override(phase="core", type="rdf", role="control")
 class RDFSerializationHelper:
     """Shared helper methods for RDF and RML serialization."""
+
+    _RANGE_PLACEHOLDER_PATTERN = re.compile(
+        r"^(?P<base>[A-Za-z0-9:_-]+)_(?P<start>\d+)\.\.(?P<end>\d+)(?P<suffix>.*)$"
+    )
 
     def __init__(
         self,
@@ -38,6 +47,20 @@ class RDFSerializationHelper:
         self.explicit_overrides: dict[str, URIRef] = {}
 
     @staticmethod
+    def generate_uuid(entity_name: str, base_mapping_iri: str | None = None) -> str:
+        """Generate UUID v5 identical to map_schema implementation."""
+
+        if not entity_name or not entity_name.strip():
+            raise ValueError("entity_name must be a non-empty string")
+
+        base = (
+            base_mapping_iri
+            or "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping"
+        )
+        namespace_source = f"{base}#{entity_name}"
+        return str(uuid.uuid5(uuid.NAMESPACE_URL, namespace_source))
+
+    @staticmethod
     def _is_absolute_iri(candidate: str) -> bool:
         """Check if a string is an absolute IRI."""
         if not candidate or any(ch.isspace() for ch in candidate):
@@ -47,18 +70,50 @@ class RDFSerializationHelper:
         scheme, _, remainder = candidate.partition(":")
         return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
 
+    @staticmethod
+    def _is_relative_iri(candidate: str) -> bool:
+        """Detect if a string represents a relative IRI."""
+
+        if not candidate or any(ch.isspace() for ch in candidate):
+            return False
+        if candidate.startswith(("/", "#", "./", "../")):
+            return True
+        if ":" not in candidate:
+            return True
+        return False
+
+    def _resolve_iri(self, candidate: str) -> URIRef:
+        """Resolve absolute or relative IRI candidates."""
+
+        if self._is_absolute_iri(candidate):
+            return URIRef(candidate)
+
+        if self._is_relative_iri(candidate):
+            base = self.serialisation_config.prefix_iri or self.prefix_iri
+            if base:
+                return URIRef(urllib.parse.urljoin(f"{base.rstrip('/')}/", candidate))
+            if self.fallback_namespace is not None:
+                return self.fallback_namespace[candidate.lstrip("/#")]
+
+        return URIRef(candidate)
+
+    def _resolve_namespace_uri(self, raw_uri: str) -> Namespace:
+        if self._is_absolute_iri(raw_uri):
+            return Namespace(raw_uri)
+        if self._is_relative_iri(raw_uri) and self.prefix_iri:
+            resolved = urllib.parse.urljoin(f"{self.prefix_iri.rstrip('/')}/", raw_uri)
+            return Namespace(resolved)
+        if self.fallback_namespace is not None:
+            return self.fallback_namespace
+        raise ParseException(f"Prefix IRI '{raw_uri}' looks invalid")
+
     def setup_namespaces(self) -> None:
         """Bind namespaces to the graph."""
         if self.prefix_iri and self._is_absolute_iri(self.prefix_iri):
             self.fallback_namespace = Namespace(self.prefix_iri)
 
         for prefix_key, uri in self.prefixes.items():
-            if self._is_absolute_iri(uri):
-                namespace = Namespace(uri)
-            elif self.fallback_namespace is not None:
-                namespace = self.fallback_namespace
-            else:
-                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
+            namespace = self._resolve_namespace_uri(uri)
 
             self.graph.bind(prefix_key, namespace, replace=True)
             self.namespace_map[prefix_key] = namespace
@@ -131,9 +186,58 @@ class RDFSerializationHelper:
         elif self.prefix and self.serialisation_config.prefix_iri:
             return Namespace(self.serialisation_config.prefix_iri)[individual_id]
         elif self.prefix_iri:
-            return URIRef(f"{self.prefix_iri}{individual_id}")
+            return self._resolve_iri(individual_id)
         else:
             return URIRef(individual_id)
+
+    @staticmethod
+    def _decode_value(value: str) -> str:
+        return urllib.parse.unquote(value)
+
+    def _canonicalize_placeholder(self, placeholder: str) -> str:
+        match = self._RANGE_PLACEHOLDER_PATTERN.match(placeholder)
+        if match:
+            base = match.group("base")
+            suffix = match.group("suffix")
+            return f"{base}{suffix}" if suffix else base
+
+        replacements = {
+            "REFD_FILE": "REF_FILE",
+        }
+        return replacements.get(placeholder, placeholder)
+
+    def _parse_template_value(self, raw: str) -> tuple[str, set[str]]:
+        placeholders: set[str] = set()
+        result: list[str] = []
+        idx = 0
+        length = len(raw)
+
+        while idx < length:
+            char = raw[idx]
+            if char == "{" and idx + 1 < length and raw[idx + 1] == "{":
+                result.append("{")
+                idx += 2
+                continue
+            if char == "}" and idx + 1 < length and raw[idx + 1] == "}":
+                result.append("}")
+                idx += 2
+                continue
+            if char == "{":
+                closing = raw.find("}", idx + 1)
+                if closing == -1:
+                    result.append(char)
+                    idx += 1
+                    continue
+                placeholder = raw[idx + 1 : closing]
+                canonical = self._canonicalize_placeholder(placeholder)
+                placeholders.add(canonical)
+                result.append("{" + canonical + "}")
+                idx = closing + 1
+                continue
+            result.append(char)
+            idx += 1
+
+        return "".join(result), placeholders
 
     def coerce_to_literal(self, value: Any) -> Literal:
         """Convert a value to a typed Literal."""
@@ -265,10 +369,15 @@ class RMLSerializer(RDFSerializationHelper):
         self.graph.bind("ql", self.ql, replace=False)
         self.graph.bind("rdfs", RDFS, replace=False)
 
-    def _add_constant_object_map(
-        self, predicate_map_owner: Any, predicate_uri: URIRef, constant: Any
+    def _add_object_map(
+        self,
+        predicate_map_owner: Any,
+        predicate_uri: URIRef,
+        value: Any,
+        *,
+        is_literal: bool,
     ) -> None:
-        """Add a constant object map to a predicate-object map."""
+        """Add an object map supporting constants and templates."""
         predicate_object_map = BNode()
         self.graph.add(
             (predicate_map_owner, self.rr.predicateObjectMap, predicate_object_map)
@@ -277,18 +386,32 @@ class RMLSerializer(RDFSerializationHelper):
 
         object_map = BNode()
         self.graph.add((predicate_object_map, self.rr.objectMap, object_map))
-        self.graph.add((object_map, self.rr.constant, constant))
+        term_type = self.rr.Literal if is_literal else self.rr.IRI
 
-        if isinstance(constant, URIRef):
-            self.graph.add((object_map, self.rr.termType, self.rr.IRI))
-        elif isinstance(constant, Literal):
-            self.graph.add((object_map, self.rr.termType, self.rr.Literal))
-            if constant.datatype:
-                self.graph.add((object_map, self.rr.datatype, constant.datatype))
-            if constant.language:
-                self.graph.add(
-                    (object_map, self.rr.language, Literal(constant.language))
-                )
+        if isinstance(value, Literal):
+            constant = value
+        elif isinstance(value, URIRef):
+            constant = value
+        else:
+            decoded = self._decode_value(str(value))
+            template, placeholders = self._parse_template_value(decoded)
+            if placeholders:
+                self.graph.add((object_map, self.rr.template, Literal(template)))
+                self.graph.add((object_map, self.rr.termType, term_type))
+                return
+
+            if is_literal:
+                constant = self.coerce_to_literal(decoded)
+            else:
+                constant = self._resolve_iri(decoded)
+
+        self.graph.add((object_map, self.rr.constant, constant))
+        self.graph.add((object_map, self.rr.termType, term_type))
+
+        if isinstance(constant, Literal) and constant.datatype:
+            self.graph.add((object_map, self.rr.datatype, constant.datatype))
+        if isinstance(constant, Literal) and constant.language:
+            self.graph.add((object_map, self.rr.language, Literal(constant.language)))
 
     def _get_logical_source_value(self) -> Literal:
         """Determine the logical source value for RML mappings."""
@@ -320,8 +443,16 @@ class RMLSerializer(RDFSerializationHelper):
         # Add subject map
         subject_map = BNode()
         self.graph.add((triples_map, self.rr.subjectMap, subject_map))
-        self.graph.add((subject_map, self.rr.termType, self.rr.IRI))
-        self.graph.add((subject_map, self.rr.constant, subject_uri))
+
+        subject_value = self._decode_value(str(subject_uri))
+        template, placeholders = self._parse_template_value(subject_value)
+        if placeholders:
+            self.graph.add((subject_map, self.rr.template, Literal(template)))
+            self.graph.add((subject_map, self.rr.termType, self.rr.IRI))
+        else:
+            resolved_subject = self._resolve_iri(subject_value)
+            self.graph.add((subject_map, self.rr.constant, resolved_subject))
+            self.graph.add((subject_map, self.rr.termType, self.rr.IRI))
 
         # Add RDF types as rr:class
         for rdf_type in sorted(types_and_facts.get("Types", set())):
@@ -331,8 +462,11 @@ class RMLSerializer(RDFSerializationHelper):
 
         # Add label if configured
         if self.serialisation_config.include_label:
-            self._add_constant_object_map(
-                triples_map, RDFS.label, Literal(individual_label)
+            self._add_object_map(
+                triples_map,
+                RDFS.label,
+                Literal(individual_label),
+                is_literal=True,
             )
 
         # Add properties
@@ -361,13 +495,16 @@ class RMLSerializer(RDFSerializationHelper):
                     )
 
                 if not is_literal:
-                    # Object property
-                    target_uri = self.resolve_individual_uri(str(value))
-                    self._add_constant_object_map(triples_map, prop_uri, target_uri)
+                    target_value = value
                 else:
-                    # Datatype property
-                    literal_value = self.coerce_to_literal(value)
-                    self._add_constant_object_map(triples_map, prop_uri, literal_value)
+                    target_value = value
+
+                self._add_object_map(
+                    triples_map,
+                    prop_uri,
+                    target_value,
+                    is_literal=is_literal,
+                )
 
     def serialize_all_individuals(self) -> None:
         """Serialize all individuals as RML mappings."""

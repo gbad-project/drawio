@@ -35,6 +35,9 @@ from .map_schema_workflow import (  # type: ignore  # noqa: E402
 )
 
 import legacy.map_schema as legacy_map_schema  # type: ignore  # noqa: E402
+from legacy.overrides.serialisers import (  # type: ignore  # noqa: E402
+    RDFSerializationHelper,
+)
 
 
 class PipelineCSVPreprocessor(SourceCSVPreprocessor):
@@ -43,7 +46,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
     INCREMENT_COLUMN = "INCREMENT_NUMBER"
     RICO_AUTHTP_CLASS_COLUMN = "RICO_AUTHTP_CLASS"
     RICO_AUTHTP_TERM_COLUMN = "RICO_AUTHTP_TERM"
-    
+
     _SUFFIX_PATTERN = re.compile(
         r"^(?P<prefix>.+?)_(?P<number>\d+)(?P<suffix>(?:_.+)?)$"
     )
@@ -52,7 +55,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         self,
         source_csv_path: str,
         preprocessed_csv_path: str,
-        schema_code: Literal['add','auth'],
+        schema_code: Literal["add", "auth"],
         *,
         index_col: str | bool = False,
         **kwargs,
@@ -65,13 +68,17 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         self._schema_code = schema_code
         self._rico_authtp_patterns = self._compile_rico_patterns()
         # Auth-specific
-        self._correct_dateex_path = kwargs.get('correct_dateex_path')
+        self._correct_dateex_path = kwargs.get("correct_dateex_path")
+        self._creation_relation_uuid = self._build_creation_relation_uuid_lookup()
+        self._instantiation_uuid = RDFSerializationHelper.generate_uuid(
+            "rr_template___KB_Instantiation__REFD__urn_uuid__UUID_INSTANTIATION_1__"
+        )
 
     def run(self) -> Path:
         """Execute preprocessing and return the path to the written CSV."""
-        if self._schema_code == 'auth':
+        if self._schema_code == "auth":
             self._auth_preprocess()
-        elif self._schema_code == 'add':
+        elif self._schema_code == "add":
             self._add_preprocess()
 
         processed = self._normalise_increment_columns(self.source_df.copy())
@@ -79,10 +86,10 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             "Int64"
         )
         self.source_df = processed
-        
+
         super().dump()
         return Path(self.preprocessed_csv_path)
-    
+
     # Overrides original
     def column_split(self, split_method, joint_col, separate_cols_list):
         mask = self.source_df[joint_col].notna()
@@ -98,10 +105,12 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             columns=separate_cols_list,
         )
         # Drop existing columns first to avoid duplicates
-        self.source_df = self.source_df.drop(columns=[col for col in separate_cols_list if col in self.source_df.columns])
+        self.source_df = self.source_df.drop(
+            columns=[col for col in separate_cols_list if col in self.source_df.columns]
+        )
         self.source_df = pd.concat([self.source_df, split_df], axis=1)
         print(f"Splitting column '{joint_col}' into {separate_cols_list}\n")
-    
+
     ### Auth-specific processing ###
     def _auth_preprocess(self):
         self._annotate_rico_authtp()
@@ -110,12 +119,14 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
     def _annotate_rico_authtp(self):
         """Annotate with RiC-O AUTHTP class and term based on AUTHTP column."""
         if "AUTHTP" not in self.source_df.columns:
-            self.add(self.RICO_AUTHTP_CLASS_COLUMN, pd.Series(
-                [None] * len(self.source_df), dtype="object"
-            ))
-            self.add(self.RICO_AUTHTP_TERM_COLUMN, pd.Series(
-                [None] * len(self.source_df), dtype="object"
-            ))
+            self.add(
+                self.RICO_AUTHTP_CLASS_COLUMN,
+                pd.Series([None] * len(self.source_df), dtype="object"),
+            )
+            self.add(
+                self.RICO_AUTHTP_TERM_COLUMN,
+                pd.Series([None] * len(self.source_df), dtype="object"),
+            )
             return
 
         def _resolve(value: object) -> tuple[str | None, str | None]:
@@ -134,56 +145,68 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         results = self.get(["AUTHTP"]).map(_resolve)
         self.add(self.RICO_AUTHTP_CLASS_COLUMN, results.apply(lambda x: x[0]))
         self.add(self.RICO_AUTHTP_TERM_COLUMN, results.apply(lambda x: x[1]))
-    
+
     def _pull_correct_dateex(self):
-        DATEEX_COLS = ['DATEEX_BEGINNING', 'DATEEX_END']
+        DATEEX_COLS = ["DATEEX_BEGINNING", "DATEEX_END"]
         SISN = "SISN"
         correct_dateex_path = self._correct_dateex_path
         if correct_dateex_path is None:
             return
         try:
             correct_dateex_name = Path(correct_dateex_path).name
-            correct_dateex_df = pd.read_csv(correct_dateex_path, index_col=SISN, dtype='object')
+            correct_dateex_df = pd.read_csv(
+                correct_dateex_path, index_col=SISN, dtype="object"
+            )
             self.update(correct_dateex_df[DATEEX_COLS])
-            
-            print(f"Source preprocessed by updating {DATEEX_COLS} with values from '{correct_dateex_name}'\n")
+
+            print(
+                f"Source preprocessed by updating {DATEEX_COLS} with values from '{correct_dateex_name}'\n"
+            )
         except Exception as e:
             print(f"Failed to update Authority DATEEX with correct values: '{e}'")
 
     ### ADD-specific processing ###
     def _add_preprocess(self):
-        DATEOFF_COLNAME = 'DATEOFF'
-        DATE_BEGINNING_SUFFIX = '_BEGINNING'
-        DATE_END_SUFFIX = '_END'
+        DATEOFF_COLNAME = "DATEOFF"
+        DATE_BEGINNING_SUFFIX = "_BEGINNING"
+        DATE_END_SUFFIX = "_END"
 
         # Column split #1
-        joint_findaid_col = 'FINDAID:FINDAIDLINK:FINDAID_URL'
-        separate_findaid_cols = ['FINDAID', 'FINDAIDLINK', 'FINDAID_URL']
-        self.column_split(self._split_by_colon, joint_findaid_col, separate_findaid_cols)
+        joint_findaid_col = "FINDAID:FINDAIDLINK:FINDAID_URL"
+        separate_findaid_cols = ["FINDAID", "FINDAIDLINK", "FINDAID_URL"]
+        self.column_split(
+            self._split_by_colon, joint_findaid_col, separate_findaid_cols
+        )
 
         # Column split #2
-        joint_iil_col = 'IIL:IIL_URL'
-        separate_iil_cols = ['IIL', 'IIL_URL']
+        joint_iil_col = "IIL:IIL_URL"
+        separate_iil_cols = ["IIL", "IIL_URL"]
         self.column_split(self._split_by_colon, joint_iil_col, separate_iil_cols)
 
         # Column split #3
-        indexprov_col = 'INDEXPROV'
+        indexprov_col = "INDEXPROV"
         numbered_indexprov_cols = [f"{indexprov_col}_{i}" for i in range(1, 31)]
-        self.column_split(self._split_by_adjacent_case, indexprov_col, numbered_indexprov_cols)
+        self.column_split(
+            self._split_by_adjacent_case, indexprov_col, numbered_indexprov_cols
+        )
 
         # Column split #4
-        indexname_col = 'INDEXNAME'
+        indexname_col = "INDEXNAME"
         numbered_indexname_cols = [f"{indexname_col}_{i}" for i in range(1, 31)]
-        self.column_split(self._split_by_adjacent_case, indexname_col, numbered_indexname_cols)
+        self.column_split(
+            self._split_by_adjacent_case, indexname_col, numbered_indexname_cols
+        )
 
         # Column split #5
-        indexsub_col = 'INDEXSUB'
+        indexsub_col = "INDEXSUB"
         numbered_indexsub_cols = [f"{indexsub_col}_{i}" for i in range(1, 31)]
-        self.column_split(self._split_by_adjacent_case, indexsub_col, numbered_indexsub_cols)
+        self.column_split(
+            self._split_by_adjacent_case, indexsub_col, numbered_indexsub_cols
+        )
 
         # Column split #6
-        joint_office_col = 'DATEOFF:OFFICEAB:AB_REFA:OFFICEC:C_REFA'
-        separate_office_cols = ['DATEOFF', 'OFFICEAB', 'AB_REFA', 'OFFICEC', 'C_REFA']
+        joint_office_col = "DATEOFF:OFFICEAB:AB_REFA:OFFICEC:C_REFA"
+        separate_office_cols = ["DATEOFF", "OFFICEAB", "AB_REFA", "OFFICEC", "C_REFA"]
         numbered_office_cols = []
         for i in range(1, 21):
             numbered_office_cols.extend([f"{col}_{i}" for col in separate_office_cols])
@@ -191,66 +214,83 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         self.column_split(self._split_by_colon, joint_office_col, numbered_office_cols)
 
         # Column split #7
-        joint_dateoff_colnames = [f'{DATEOFF_COLNAME}_{i}' for i in range(1, 21)]
+        joint_dateoff_colnames = [f"{DATEOFF_COLNAME}_{i}" for i in range(1, 21)]
         for col in joint_dateoff_colnames:
-            separate_dateoff_cols = [f"{col}{DATE_BEGINNING_SUFFIX}", f"{col}{DATE_END_SUFFIX}"]
+            separate_dateoff_cols = [
+                f"{col}{DATE_BEGINNING_SUFFIX}",
+                f"{col}{DATE_END_SUFFIX}",
+            ]
             self.column_split(self._split_by_hyphen, col, separate_dateoff_cols)
 
         # Column logic (not split) #8, co-created with Claude 3.7 Sonnet on 2025-04-21
         for i in range(1, 21):
             # REFA based (main) logic
-            ab_refa_colname = f'AB_REFA_{i}'
-            c_refa_colname = f'C_REFA_{i}'
-            abc_refa_colname = f'ABC_REFA_{i}'
+            ab_refa_colname = f"AB_REFA_{i}"
+            c_refa_colname = f"C_REFA_{i}"
+            abc_refa_colname = f"ABC_REFA_{i}"
             refa_df = self.get([ab_refa_colname, c_refa_colname])
-            abc_refa_series = refa_df[c_refa_colname].combine_first(refa_df[ab_refa_colname])
+            abc_refa_series = refa_df[c_refa_colname].combine_first(
+                refa_df[ab_refa_colname]
+            )
             self.add(abc_refa_colname, abc_refa_series)
 
             # 1. OFFICE_TYPE: determine by first character
-            office_type_colname = f'OFFICE_TYPE_{i}'
-            office_type_series = abc_refa_series.str[0].str.upper().map(
-                lambda x: x if x in {'A', 'B', 'C'} else None
+            office_type_colname = f"OFFICE_TYPE_{i}"
+            office_type_series = (
+                abc_refa_series.str[0]
+                .str.upper()
+                .map(lambda x: x if x in {"A", "B", "C"} else None)
             )
             self.add(office_type_colname, office_type_series)
 
             # 2. OFFICEABC: pick office_ab or office_c based on office type
-            officeab_colname = f'OFFICEAB_{i}'
-            officec_colname = f'OFFICEC_{i}'
-            officeabc_colname = f'OFFICEABC_{i}'
+            officeab_colname = f"OFFICEAB_{i}"
+            officec_colname = f"OFFICEC_{i}"
+            officeabc_colname = f"OFFICEABC_{i}"
             office_df = self.get([officeab_colname, officec_colname])
-            
+
             # Initialize the result series with None values (same index as other series)
-            officeabc_series = pd.Series(None, index=office_df.index, dtype='object')
-            
+            officeabc_series = pd.Series(None, index=office_df.index, dtype="object")
+
             # Fill in values based on office type
             # For A or B types, use OFFICEAB
-            officeabc_series.loc[office_type_series.isin(['A', 'B'])] = office_df.loc[office_type_series.isin(['A', 'B']), officeab_colname]
-            
+            officeabc_series.loc[office_type_series.isin(["A", "B"])] = office_df.loc[
+                office_type_series.isin(["A", "B"]), officeab_colname
+            ]
+
             # For C type, use OFFICEC
-            officeabc_series.loc[office_type_series == 'C'] = office_df.loc[office_type_series == 'C', officec_colname]
+            officeabc_series.loc[office_type_series == "C"] = office_df.loc[
+                office_type_series == "C", officec_colname
+            ]
 
             # Add the combined series to the preprocessor
             self.add(officeabc_colname, officeabc_series)
 
     def _split_by_colon(self, value: str, expect_num_cols: int):
-        SEP = ' : '
+        SEP = " : "
+
         def fix_colon_spacing(value: str) -> str:
-            while ': :' in value:
-                value = value.replace(': :', ':  :')
-            value = value[:-2] if value.endswith(' :') else value  # to fix any ending colon
-            value = value[2:] if value.startswith(': ') else value  # to fix any starting colon
+            while ": :" in value:
+                value = value.replace(": :", ":  :")
+            value = (
+                value[:-2] if value.endswith(" :") else value
+            )  # to fix any ending colon
+            value = (
+                value[2:] if value.startswith(": ") else value
+            )  # to fix any starting colon
             return value
+
         return self.separate_value(fix_colon_spacing(value), expect_num_cols, sep=SEP)
-    
+
     def _split_by_adjacent_case(self, value: str, expect_num_cols: int):
-        unique_separator = '<split-by-adjacent-case>'
-        value = re.sub(r'([^A-Z\s\(\[])([A-Z])', rf'\1{unique_separator}\2', value)
+        unique_separator = "<split-by-adjacent-case>"
+        value = re.sub(r"([^A-Z\s\(\[])([A-Z])", rf"\1{unique_separator}\2", value)
         return self.separate_value(value, expect_num_cols, sep=unique_separator)
-    
+
     def _split_by_hyphen(self, value: str, expect_num_cols: int):
-        if re.fullmatch(r'\d{4}-\d{4}', value) is None:
-            value = ''  # won't try to separate these for now
-        return self.separate_value(value, expect_num_cols, sep='-')
+        if re.fullmatch(r"\d{4}-\d{4}", value) is None:
+            value = ""  # won't try to separate these for now
+        return self.separate_value(value, expect_num_cols, sep="-")
 
     ### Shared Auth/ADD processing ###
     def _compile_rico_patterns(self) -> list[tuple[str, tuple[str, re.Pattern[str]]]]:
@@ -263,11 +303,21 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             patterns.append((label, (term, re.compile(pythonic))))
         return patterns
 
+    def _build_creation_relation_uuid_lookup(self) -> dict[int, str]:
+        base_lookup: dict[int, str] = {}
+        for increment in range(1, 21):
+            entity_name = (
+                f"rr_template___KB_CreationRelation__REFD__OFFICEABC_{increment}__"
+                "urn_uuid__UUID_OFFICEABC__"
+            )
+            base_lookup[increment] = RDFSerializationHelper.generate_uuid(entity_name)
+        return base_lookup
+
     def _normalise_increment_columns(self, frame: pd.DataFrame) -> pd.DataFrame:
         """Normalise incremented columns by creating rows per increment number."""
         frame.reset_index(inplace=True)
         increment_groups = self._collect_increment_groups(frame.columns)
-        
+
         if not increment_groups:
             frame[self.INCREMENT_COLUMN] = pd.Series(
                 [pd.NA] * len(frame), dtype="Int64"
@@ -284,11 +334,11 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         ]
 
         records: list[dict[str, object]] = []
-        
+
         for _, row in frame.iterrows():
             # Find max increment number with actual data in this row
             max_increment = self._get_max_increment_with_data(row, increment_groups)
-            
+
             if max_increment is None:
                 # No incremented data in this row, create single row with no increment
                 record: dict[str, object] = {
@@ -299,14 +349,18 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
                     record[base] = None
                 records.append(record)
                 continue
-            
+
             # Create rows for each increment number from 1 to max
             for increment_num in range(1, max_increment + 1):
                 record: dict[str, object] = {
                     column: row[column] for column in non_increment_columns
                 }
                 record[self.INCREMENT_COLUMN] = increment_num
-                
+                record["UUID_OFFICEABC"] = self._creation_relation_uuid.get(
+                    increment_num
+                )
+                record["UUID_INSTANTIATION_1"] = self._instantiation_uuid
+
                 # Check if this increment has any data
                 has_data = False
                 for base, mapping in increment_groups.items():
@@ -320,25 +374,67 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
                             record[base] = None
                     else:
                         record[base] = None
-                
+
                 # Only keep this row if it has at least one value from incremented columns
                 if has_data:
                     records.append(record)
 
         normalised = pd.DataFrame.from_records(records)
-        
+
+        if not normalised.empty:
+            normalised = self._augment_placeholder_columns(normalised)
+
         # Order columns: non-increment cols, INCREMENT_COLUMN, then base columns
         ordered_columns = non_increment_columns + [self.INCREMENT_COLUMN]
         for base in increment_groups.keys():
             if base not in ordered_columns:
                 ordered_columns.append(base)
+        for extra in [
+            "UUID_OFFICEABC",
+            "UUID_INSTANTIATION_1",
+        ]:
+            if extra not in ordered_columns and extra in normalised.columns:
+                ordered_columns.append(extra)
         for column in normalised.columns:
             if column not in ordered_columns:
                 ordered_columns.append(column)
-        
+
         normalised = normalised.reindex(columns=ordered_columns)
         normalised.set_index(self.index_col, inplace=True)
         return normalised
+
+    def _augment_placeholder_columns(self, frame: pd.DataFrame) -> pd.DataFrame:
+        frame = frame.copy()
+
+        if "REF_FILE" in frame.columns and "REFD_FILE" not in frame.columns:
+            frame["REFD_FILE"] = frame["REF_FILE"]
+
+        mirror_columns: dict[str, str] = {
+            "GMD_1..8": "GMD",
+            "INDEXPROV_1..20": "INDEXPROV",
+            "INDEXNAME_1..20": "INDEXNAME",
+            "INDEXSUB_1..20": "INDEXSUB",
+            "INDEXGEO_1..20": "INDEXGEO",
+            "OFFICEABC_1..20": "OFFICEABC",
+            "ABC_REFA_1..20": "ABC_REFA",
+            "DATEOFF_1..20": "DATEOFF",
+            "DATEOFF_1..20_BEGINNING": "DATEOFF_BEGINNING",
+            "DATEOFF_1..20_END": "DATEOFF_END",
+        }
+
+        for target, source in mirror_columns.items():
+            if source in frame.columns and target not in frame.columns:
+                frame[target] = frame[source]
+
+        if "UUID_INSTANTIATION_1" not in frame.columns:
+            frame["UUID_INSTANTIATION_1"] = self._instantiation_uuid
+
+        if "UUID_OFFICEABC" not in frame.columns:
+            frame["UUID_OFFICEABC"] = frame[self.INCREMENT_COLUMN].map(
+                self._creation_relation_uuid
+            )
+
+        return frame
 
     def _collect_increment_groups(
         self, columns: pd.Index | list[str]
@@ -371,6 +467,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
                     if max_increment is None or number > max_increment:
                         max_increment = number
         return max_increment
+
 
 @dataclass
 class PipelineWorkflowResult:
