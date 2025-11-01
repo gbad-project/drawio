@@ -67,12 +67,7 @@ def rmlmapper_env() -> RMLMapperEnvironment:
 
 
 def _compare_or_xfail(pipeline_path: Path, map_schema_path: Path) -> None:
-    try:
-        _assert_isomorphic(pipeline_path, map_schema_path)
-    except AssertionError:
-        pytest.xfail(
-            "Pipeline workflow output is not yet isomorphic with map_schema workflow"
-        )
+    _assert_isomorphic(pipeline_path, map_schema_path)
 
 
 def test_pipeline_workflow_general_add(
