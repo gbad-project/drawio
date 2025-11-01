@@ -101,6 +101,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         return patterns
 
     def _normalise_increment_columns(self, frame: pd.DataFrame) -> pd.DataFrame:
+        frame.reset_index(inplace=True)
         increment_groups = self._collect_increment_groups(frame.columns)
         if not increment_groups:
             frame[self.INCREMENT_COLUMN] = pd.Series(
@@ -142,6 +143,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             if column not in ordered_columns:
                 ordered_columns.append(column)
         normalised = normalised.reindex(columns=ordered_columns)
+        normalised.set_index(self.index_col, inplace=True)
         return normalised
 
     def _collect_increment_groups(

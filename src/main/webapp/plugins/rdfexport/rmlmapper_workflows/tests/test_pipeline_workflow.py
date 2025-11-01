@@ -100,6 +100,7 @@ def test_pipeline_workflow_general_add(
         rml_fixture=RML_FIXTURES_DIR
         / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
         slug="pytest-pipeline-general-add-no-rr",
+        index_column="SISN",
     )
 
     pipeline_result = run_pipeline_workflow(
@@ -145,6 +146,7 @@ def test_pipeline_workflow_general_authority(
         rml_fixture=RML_FIXTURES_DIR
         / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
         slug="pytest-pipeline-general-authority-no-rr",
+        index_column="SISN",
     )
 
     pipeline_result = run_pipeline_workflow(
