@@ -26,6 +26,11 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-10-30 – Refactored the RDF serializers to consume
+  `DrawIOCellClassifier` output directly, eliminating the intermediate
+  `individual_blocks` aggregation layer, wiring `_build_graph_from_raw_xml`
+  through the control namespace for both RDF and RML paths, and updating the
+  associated pytest coverage.
 - 2025-10-23 – Standardised DrawIO metadata storage on a canonical
   `<gbadMetadata>` container across the plugin, fixtures, and debugger so
   parser settings and prefixes propagate consistently through the TypeScript

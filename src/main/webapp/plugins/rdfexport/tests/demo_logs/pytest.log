@@ -1,22 +1,21 @@
-Script started on Fri Oct 31 16:21:34 2025
-Command: bun run test:pytest:all
+Script started on 2025-11-03 00:32:25+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m========================== test session starts ==========================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 88 items                                                     [0m[1mcollected 90 items                                                      [0m
-
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                        [ 13%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                              [ 14%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                [ 28%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                          [ 32%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 64%]
-[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                   [ 81%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                     [ 88%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m             [ 95%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[32m          [ 97%][0m
-rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[32m            [100%][0m
+[1mcollecting ... [0m[1mcollecting 86 items                                                                                                            [0m[1mcollecting 88 items                                                                                                            [0m[1mcollected 90 items                                                                                                             [0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                               [ 13%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                                                     [ 14%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                       [ 28%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                                                 [ 32%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                         [ 81%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                            [ 88%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                    [ 95%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[32m                                                                 [ 97%][0m
+rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[32m                                                                   [100%][0m
+[32m========================================== [32m[1m88 passed[0m, [33m2 xfailed[0m[32m in 131.83s (0:02:11)[0m[32m ===========================================[0m
+Script done on 2025-11-03 00:34:38+00:00 [COMMAND_EXIT_CODE="0"]
 
 [32m=============== [32m[1m88 passed[0m, [33m2 xfailed[0m[32m in 63.08s (0:01:03)[0m[32m ================[0m
 
