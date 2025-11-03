@@ -150,8 +150,10 @@ def test_pipeline_workflow_general_authority(
     )
 
     pipeline_result = run_pipeline_workflow(
-        pipeline_config, rmlmapper_env, workspace_base=tmp_path,
-        correct_dateex_path='tmp/New-export-of-Government-authorities-with-correct-Dates-of-Existence-xlsx.csv',
+        pipeline_config,
+        rmlmapper_env,
+        workspace_base=tmp_path,
+        correct_dateex_path="tmp/New-export-of-Government-authorities-with-correct-Dates-of-Existence-xlsx.csv",
     )
     map_result = run_map_schema_workflow(
         map_schema_config, rmlmapper_env, workspace_base=tmp_path

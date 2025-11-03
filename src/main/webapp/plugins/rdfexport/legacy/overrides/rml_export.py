@@ -157,7 +157,7 @@ def _build_graph_from_raw_xml(
         strip_html=strip_html_enabled,
     )
 
-    # 3. Generate Intermediate Blocks from Classifier's results
+    # 3. Prepare serialization controls from configuration
     space_substitute = internal_control_core._parse_space_substitute(
         config_args["metacharacter_substitute"]
     )
@@ -167,28 +167,17 @@ def _build_graph_from_raw_xml(
         )
     )
 
-    blocks, object_properties, datatype_properties = (
-        internal_control_core.individual_blocks(
-            classifier.get_graph_elements(),  # Use the new generator
-            metacharacter_substitutes,
-            space_substitute,
-            config_args["capitalisation_scheme"],
-            prefixes,
-        )
-    )
-
     # 4. Serialize to Final Graph
-    serializer = (
-        pipeline.core.rdf.control.serialise_to_rml
-        if rml_enabled
-        else serialise_to_graph
-    )
+    serializer = pipeline.core.rdf.control.serialise_to_graph
+    if rml_enabled:
+        serializer = pipeline.core.rdf.control.serialise_to_rml
     graph = serializer(
-        blocks,
-        object_properties,
-        datatype_properties,
+        classifier,
         serialisation_config,
         prefixes,
+        metacharacter_substitutes=metacharacter_substitutes,
+        space_substitute=space_substitute,
+        capitalisation_scheme=config_args["capitalisation_scheme"],
         graph_cls=DrawIOParserGraph,
         graph_kwargs={"csv_path": csv_path},
     )

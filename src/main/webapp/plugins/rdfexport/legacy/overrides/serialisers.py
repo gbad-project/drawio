@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any, Dict, Optional, Sequence, Type
+
 from rdflib import BNode, SKOS
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
@@ -14,13 +16,32 @@ class RDFSerializationHelper:
 
     def __init__(
         self,
-        blocks,
-        object_properties: set[str],
-        datatype_properties: set[str],
+        classifier: Any,
         serialisation_config,
         prefixes: dict,
         graph: Graph,
+        *,
+        metacharacter_substitutes: Sequence[tuple[Metacharacter, Replacement]]
+        | None = None,
+        space_substitute: Replacement | None = None,
+        capitalisation_scheme: str = "upper-camel",
     ):
+        (
+            blocks,
+            object_properties,
+            datatype_properties,
+        ) = self._build_serialisation_inputs(
+            classifier,
+            list(metacharacter_substitutes or []),
+            space_substitute,
+            capitalisation_scheme,
+            prefixes,
+        )
+
+        # pipeline.core.rdf.control.RDFSerializationHelper expects precomputed
+        # blocks and property sets. The override derives them directly from the
+        # classifier to avoid calling into legacy helpers, then initialises the
+        # helper state locally to match the historical behaviour.
         self.blocks = blocks
         self.object_properties = object_properties
         self.datatype_properties = datatype_properties
@@ -32,10 +53,123 @@ class RDFSerializationHelper:
         self.prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
             serialisation_config.ontology_iri
         )
-
         self.namespace_map: dict[str, Namespace] = {}
         self.fallback_namespace: Namespace | None = None
         self.explicit_overrides: dict[str, URIRef] = {}
+        self.classifier = classifier
+
+    def _build_serialisation_inputs(
+        self,
+        classifier: Any,
+        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+        space_substitute: Replacement | None,
+        capitalisation_scheme: str,
+        prefixes: dict[str, str],
+    ) -> tuple[Blocks, set[str], set[str]]:
+        blocks: Blocks = {}
+        object_properties: set[str] = set()
+        datatype_properties: set[str] = set()
+
+        individuals = getattr(classifier, "individuals", [])
+        for individual in individuals:
+            individual_id = _replace_metacharacters(
+                individual.identifier,
+                metacharacter_substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+            key = (individual_id, individual.identifier)
+            if key not in blocks:
+                blocks[key] = {"Types": {individual.ric_class}}
+            else:
+                blocks[key].setdefault("Types", set()).add(individual.ric_class)
+
+        arrows = getattr(classifier, "arrows", [])
+        for arrow in arrows:
+            identifier = arrow.identifier
+            normalized_identifier = identifier
+            allow_absolute_identifier = False
+            if self._is_absolute_iri(identifier):
+                for prefix_key, iri in prefixes.items():
+                    if identifier.startswith(iri) and identifier[len(iri) :]:
+                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
+                        break
+                else:
+                    allow_absolute_identifier = True
+
+            if not allow_absolute_identifier:
+                _ensure_known_curie(
+                    normalized_identifier,
+                    prefixes,
+                    (
+                        f"An arrow has label '{normalized_identifier}', "
+                        "which is not a known object property or datatype property"
+                    ),
+                )
+
+            if arrow.is_datatype:
+                datatype_properties.add(normalized_identifier)
+                target_identifier = arrow.target
+                literal_candidate = target_identifier.strip()
+                if (
+                    ":" in literal_candidate
+                    and "://" not in literal_candidate
+                    and literal_candidate
+                ):
+                    prefix, reference = literal_candidate.split(":", 1)
+                    if (
+                        prefix
+                        and (prefix[0].isalpha() or prefix[0] == "_")
+                        and all(ch.isalnum() or ch in "._-" for ch in prefix[1:])
+                        and not (
+                            reference and any(char.isspace() for char in reference)
+                        )
+                    ):
+                        manager = Graph().namespace_manager
+                        for known_prefix, iri in prefixes.items():
+                            manager.bind(known_prefix, iri, replace=True)
+                        try:
+                            manager.expand_curie(literal_candidate)
+                        except (
+                            Exception
+                        ) as exc:  # pragma: no cover - defensive re-raise
+                            raise NotInKnownException(
+                                (
+                                    "The literal value "
+                                    f"'{literal_candidate}' does not correspond to a known CURIE"
+                                )
+                            ) from exc
+                property_value = (target_identifier, True)
+            else:
+                object_properties.add(normalized_identifier)
+                target_identifier = _replace_metacharacters(
+                    arrow.target,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+                property_value = (target_identifier, False)
+
+            source_identifier = _replace_metacharacters(
+                arrow.source,
+                metacharacter_substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+
+            key = (source_identifier, arrow.source)
+            if key not in blocks:
+                blocks[key] = {normalized_identifier: {property_value}}
+                continue
+
+            block = blocks[key]
+            values = block.get(normalized_identifier)
+            if values is None:
+                block[normalized_identifier] = {property_value}
+            else:
+                values.add(property_value)
+
+        return blocks, object_properties, datatype_properties
 
     @staticmethod
     def _is_absolute_iri(candidate: str) -> bool:
@@ -179,8 +313,7 @@ class RDFSerializer(RDFSerializationHelper):
     """Standard RDF serialization (regular triples)."""
 
     def __init__(self, *args, **kwargs):
-        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
-        RDFSerializationHelper.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
@@ -246,8 +379,7 @@ class RMLSerializer(RDFSerializationHelper):
     """RML serialization (R2RML mapping triples)."""
 
     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
-        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
-        RDFSerializationHelper.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.csv_path = csv_path
 
         # RML namespaces
@@ -391,27 +523,32 @@ class RMLSerializer(RDFSerializationHelper):
 
 @override(phase="core", type="rdf", role="control")
 def serialise_to_graph(
-    blocks: Blocks,
-    object_properties: set[str],
-    datatype_properties: set[str],
+    classifier: Any,
     serialisation_config: SerialisationConfig,
     prefixes: dict,
+    *,
+    metacharacter_substitutes: Sequence[tuple[Metacharacter, Replacement]]
+    | None = None,
+    space_substitute: Replacement | None = None,
+    capitalisation_scheme: str = "upper-camel",
     graph_cls: Type[Graph] = Graph,
     graph_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Graph:
-    """Serialize blocks to RDF graph with regular triples."""
+    """Serialize classifier output to an RDF graph with regular triples."""
     RDFSerializer = pipeline.core.rdf.control.RDFSerializer
 
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
+    substitutes_list = list(metacharacter_substitutes or [])
 
     serializer = RDFSerializer(
-        blocks,
-        object_properties,
-        datatype_properties,
+        classifier,
         serialisation_config,
         prefixes,
         graph,
+        metacharacter_substitutes=substitutes_list,
+        space_substitute=space_substitute,
+        capitalisation_scheme=capitalisation_scheme,
     )
 
     serializer.setup_namespaces()
@@ -426,33 +563,38 @@ def serialise_to_graph(
 
 @override(phase="core", type="rdf", role="control")
 def serialise_to_rml(
-    blocks: Blocks,
-    object_properties: set[str],
-    datatype_properties: set[str],
+    classifier: Any,
     serialisation_config: SerialisationConfig,
     prefixes: dict,
-    graph_cls: type[Graph] = Graph,
-    graph_kwargs: dict[str, Any] | None = None,
+    *,
+    metacharacter_substitutes: Sequence[tuple[Metacharacter, Replacement]]
+    | None = None,
+    space_substitute: Replacement | None = None,
+    capitalisation_scheme: str = "upper-camel",
+    graph_cls: Type[Graph] = Graph,
+    graph_kwargs: Optional[Dict[str, Any]] | None = None,
 ) -> Graph:
-    """Serialize blocks to RDF graph with RML mapping triples."""
+    """Serialize classifier output to an RDF graph with RML mapping triples."""
     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
 
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
 
-    # Extract csv_path if available
     csv_path = graph_kwargs.get("csv_path")
     if csv_path is None and hasattr(graph, "csv_path"):
         csv_path = getattr(graph, "csv_path")
 
+    substitutes_list = list(metacharacter_substitutes or [])
+
     serializer = RMLSerializer(
-        blocks,
-        object_properties,
-        datatype_properties,
+        classifier,
         serialisation_config,
         prefixes,
         graph,
         csv_path=csv_path,
+        metacharacter_substitutes=substitutes_list,
+        space_substitute=space_substitute,
+        capitalisation_scheme=capitalisation_scheme,
     )
 
     serializer.setup_namespaces()

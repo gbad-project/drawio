@@ -105,70 +105,98 @@ def _write_class_diagram_variant(
     return output
 
 
-def test_individual_blocks_accepts_declared_prefix_curie():
+class _StubClassifier:
+    def __init__(self, individuals, arrows):
+        self.individuals = individuals
+        self.arrows = arrows
+        self.decorations = {}
+
+
+def test_serialise_to_graph_accepts_declared_prefix_curie():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["ex"] = "https://example.org/custom#"
 
-    items = iter(
+    classifier = _StubClassifier(
         [
             draw_io_parser.Individual("SourceNode", "ex:CustomClass"),
             draw_io_parser.Individual("TargetNode", "ex:OtherClass"),
+        ],
+        [
             draw_io_parser.Arrow(
                 identifier="ex:connectsTo",
                 source="SourceNode",
                 target="TargetNode",
                 is_datatype=False,
-            ),
-        ]
+            )
+        ],
     )
 
-    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
-        items,
-        [],
-        None,
-        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=True,
+        include_preamble=False,
+        ontology_iri="http://example.org/ontology",
+        prefix="ex",
+        prefix_iri="https://example.org/custom#",
+        indentation=2,
+        include_label=False,
+    )
+
+    graph = draw_io_parser.serialise_to_graph(
+        classifier,
+        config,
         prefixes,
+        metacharacter_substitutes=[],
+        space_substitute=None,
+        capitalisation_scheme=draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
     )
 
-    assert ("SourceNode", "SourceNode") in blocks
-    assert "ex:CustomClass" in blocks[("SourceNode", "SourceNode")]["Types"]
-    assert "ex:connectsTo" in object_props
-    assert not datatype_props
+    subject = URIRef("https://example.org/custom#SourceNode")
+    predicate = URIRef("https://example.org/custom#connectsTo")
+    target = URIRef("https://example.org/custom#TargetNode")
+
+    assert (subject, predicate, target) in graph
+    assert (predicate, RDF.type, OWL.ObjectProperty) in graph
 
 
-def test_individual_blocks_tracks_datatype_properties():
-    prefixes = draw_io_parser.get_prefixes()
+def test_serialise_to_graph_tracks_datatype_properties():
+    prefixes = draw_io_parser.get_prefixes().copy()
+    prefixes.setdefault("ex", "http://example.org/")
 
-    items = iter(
+    classifier = _StubClassifier(
+        [draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual")],
         [
-            draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="rdfs:label",
                 source="LiteralNode",
                 target="Example literal",
                 is_datatype=True,
-            ),
-        ]
+            )
+        ],
     )
 
-    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
-        items,
-        [],
-        None,
-        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=True,
+        include_preamble=False,
+        ontology_iri="http://example.org/ontology",
+        prefix="ex",
+        prefix_iri="http://example.org/",
+        indentation=2,
+        include_label=False,
+    )
+
+    graph = draw_io_parser.serialise_to_graph(
+        classifier,
+        config,
         prefixes,
+        metacharacter_substitutes=[],
+        space_substitute=None,
+        capitalisation_scheme=draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
     )
 
-    assert not object_props
-    assert "rdfs:label" in datatype_props
-    facts = blocks[("LiteralNode", "LiteralNode")]["rdfs:label"]
-    assert any(
-        isinstance(value, tuple)
-        and len(value) == 2
-        and value[0] == "Example literal"
-        and value[1] is True
-        for value in facts
-    )
+    subject = URIRef("http://example.org/LiteralNode")
+
+    assert (subject, RDFS.label, Literal("Example literal")) in graph
+    assert (RDFS.label, RDF.type, OWL.DatatypeProperty) in graph
 
 
 def test_parse_drawio_preserves_literal_targets():
@@ -253,24 +281,16 @@ def test_serialise_to_graph_falls_back_for_relative_prefixes():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["bad"] = "relative-prefix"
 
-    items = iter(
+    classifier = _StubClassifier(
+        [draw_io_parser.Individual("Source", "owl:NamedIndividual")],
         [
-            draw_io_parser.Individual("Source", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="bad:prop",
                 source="Source",
                 target="literal value",
                 is_datatype=True,
-            ),
-        ]
-    )
-
-    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
-        items,
-        [],
-        None,
-        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
-        prefixes,
+            )
+        ],
     )
 
     config = draw_io_parser.SerialisationConfig(
@@ -284,11 +304,12 @@ def test_serialise_to_graph_falls_back_for_relative_prefixes():
     )
 
     graph = draw_io_parser.serialise_to_graph(
-        blocks,
-        object_props,
-        datatype_props,
+        classifier,
         config,
         prefixes,
+        metacharacter_substitutes=[],
+        space_substitute=None,
+        capitalisation_scheme=draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
     )
 
     subject = URIRef("http://example.com/Source")
@@ -511,28 +532,39 @@ def test_parse_drawio_rejects_unknown_literal_curie():
         )
 
 
-def test_individual_blocks_rejects_unknown_prefix():
+def test_serialise_to_graph_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
-    items = iter(
+    classifier = _StubClassifier(
+        [draw_io_parser.Individual("SourceNode", "owl:NamedIndividual")],
         [
-            draw_io_parser.Individual("SourceNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="unknown:prop",
                 source="SourceNode",
                 target="Value",
                 is_datatype=True,
-            ),
-        ]
+            )
+        ],
+    )
+
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=True,
+        include_preamble=False,
+        ontology_iri="http://example.org/ontology",
+        prefix="ex",
+        prefix_iri="http://example.org/",
+        indentation=2,
+        include_label=False,
     )
 
     with pytest.raises(draw_io_parser.NotInKnownException):
-        draw_io_parser.individual_blocks(
-            items,
-            [],
-            None,
-            draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+        draw_io_parser.serialise_to_graph(
+            classifier,
+            config,
             prefixes,
+            metacharacter_substitutes=[],
+            space_substitute=None,
+            capitalisation_scheme=draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
         )
 
 

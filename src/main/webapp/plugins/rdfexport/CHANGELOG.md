@@ -26,6 +26,11 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-11-03 – Rewired the RDF and RML serialization overrides to derive
+  block/object/datatype property state directly from
+  `DrawIOCellClassifier`, retired the legacy `individual_blocks`
+  indirection, and regenerated the parser/tests so both Python and
+  TypeScript paths share the streamlined contract.
 - 2025-10-23 – Standardised DrawIO metadata storage on a canonical
   `<gbadMetadata>` container across the plugin, fixtures, and debugger so
   parser settings and prefixes propagate consistently through the TypeScript

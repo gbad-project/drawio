@@ -1,13 +1,11 @@
-Script started on Fri Oct 31 16:22:39 2025
-Command: bun run test:bun:all
+Script started on 2025-11-03 00:41:53+00:00 [COMMAND="bun run test:bun:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1mbun run scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
 
-tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
+tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[33ms[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
 
 
 [32m34 passed[0m, [33m13 skipped[0m
-Ran 47 tests across 1 file. [8.65s]
+Ran 47 tests across 1 files. [25.84s]
 
-Command exit status: 0
-Script done on Fri Oct 31 16:22:47 2025
+Script done on 2025-11-03 00:42:19+00:00 [COMMAND_EXIT_CODE="0"]
