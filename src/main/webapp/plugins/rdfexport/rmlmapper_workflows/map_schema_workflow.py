@@ -309,3 +309,14 @@ def _temporary_cwd(path: Path) -> Iterator[None]:
         yield
     finally:
         os.chdir(previous)
+
+
+if __name__ == "__main__":
+    import pytest
+    from pathlib import Path
+
+    current = Path(__file__).resolve()
+    test_file = current.parent / "tests" / f"test_{current.stem}.py"
+
+    # verbose (-v) and, with -rA, displays a detailed summary of all test results — including passed, failed, skipped, xfailed, and xpassed tests — at the end of the run.
+    pytest.main(["-v", "-rA", test_file])

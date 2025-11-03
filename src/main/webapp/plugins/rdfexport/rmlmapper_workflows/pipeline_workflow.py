@@ -140,7 +140,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
                     class_uri = f"https://www.ica.org/standards/RiC/ontology#{label}"
                     return (class_uri, term)
             return (None, None)
-        
+
         results = self.get(["AUTHTP"]).map(_resolve)
 
         self.add(self.RICO_AUTHTP_CLASS_COLUMN, results.map(lambda x: x[0]))
@@ -561,3 +561,14 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
 def _generate_slug(name: str) -> str:
     safe = re.sub(r"[^a-z0-9-]", "-", name.lower())
     return f"pipeline-{safe}"
+
+
+if __name__ == "__main__":
+    import pytest
+    from pathlib import Path
+
+    current = Path(__file__).resolve()
+    test_file = current.parent / "tests" / f"test_{current.stem}.py"
+
+    # verbose (-v) and, with -rA, displays a detailed summary of all test results — including passed, failed, skipped, xfailed, and xpassed tests — at the end of the run.
+    pytest.main(["-v", "-rA", test_file])
