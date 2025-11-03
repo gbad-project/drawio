@@ -1,16 +1,13 @@
-<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="24.7.5">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.6">
   <diagram name="Page-1" id="JNRxnBV9_3tvGunqLC9R">
-    <mxGraphModel dx="2494" dy="1562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
+    <mxGraphModel dx="2725" dy="1530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
       <root>
-        <gbadMetadata id="0">
-          <mxCell />
-          <mxCell />
-        </gbadMetadata>
+        <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="gmwnegnUR_CNORKRYM6Y-1" value="/KB/{RICO_AUTHTP}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="gmwnegnUR_CNORKRYM6Y-1" value="/KB/{RICO_AUTHTP_TERM}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="240" y="370" width="280" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="gmwnegnUR_CNORKRYM6Y-2" value="rico:Thing" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="gmwnegnUR_CNORKRYM6Y-1" vertex="1">
+        <mxCell id="gmwnegnUR_CNORKRYM6Y-2" value="{RICO_AUTHTP_CLASS}" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="gmwnegnUR_CNORKRYM6Y-1" vertex="1">
           <mxGeometry y="26" width="280" height="26" as="geometry" />
         </mxCell>
         <mxCell id="gmwnegnUR_CNORKRYM6Y-10" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.356;exitY=-0.034;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.654;entryY=0.996;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="iiJ8OJKaNMLrSCaLO3TT-1" target="gmwnegnUR_CNORKRYM6Y-12" edge="1">
@@ -259,13 +256,13 @@
             <mxPoint x="-19" y="-3" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-5" value="/KB/Agent/{CONTAG_1..14}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-5" value="/KB/Agent/{CONTAG}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="170" y="870" width="240" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-6" value="rico:CorporateBody" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-5" vertex="1">
           <mxGeometry y="26" width="240" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-7" value="/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-7" value="/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="-180" y="1010" width="410" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-8" value="rico:AgentControlRelation" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-7" vertex="1">
@@ -302,7 +299,7 @@
             <mxPoint x="2" y="19" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-15" value="/KB/Date/{DATECONT_1..14_BEGINNING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-15" value="/KB/Date/{DATECONT_BEGINNING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="75" y="1180" width="245" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-16" value="rico:Date" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-15" vertex="1">
@@ -319,7 +316,7 @@
             <mxPoint y="18" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-19" value="/KB/Date/{DATECONT_1..14_END}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-19" value="/KB/Date/{DATECONT_END}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="-250" y="1190" width="215" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-20" value="rico:Date" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-19" vertex="1">
@@ -336,7 +333,7 @@
             <mxPoint x="-71" y="48" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-23" value="/KB/VariantAgentName/{VAR_1..11}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-23" value="/KB/VariantAgentName/{VAR}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-200" y="640" width="230" height="52" as="geometry">
             <mxRectangle x="981" y="570" width="50" height="40" as="alternateBounds" />
           </mxGeometry>
@@ -353,7 +350,7 @@
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-29" value="rico:isSuccessorOf" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="LdrxgRQo7zRXQQt_UOkl-28" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-30" value="/KB/Agent/{PRED_1..5}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-30" value="/KB/Agent/{PRED}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="530" y="860" width="200" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-31" value="rico:CorporateBody" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-30" vertex="1">
@@ -368,7 +365,7 @@
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-33" value="rico:hasSuccessor" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="LdrxgRQo7zRXQQt_UOkl-32" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-34" value="/KB/Agent/{SUC_1..4}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-34" value="/KB/Agent/{SUC}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="620" y="750" width="210" height="52" as="geometry" />
         </mxCell>
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-35" value="rico:CorporateBody" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-34" vertex="1">
@@ -383,7 +380,7 @@
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-37" value="rico:hasOrHadAgentName" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" parent="LdrxgRQo7zRXQQt_UOkl-36" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-38" value="/KB/ParallelAgentName/{PAR_1..4}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-38" value="/KB/ParallelAgentName/{PAR}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-150" y="448" width="220" height="52" as="geometry">
             <mxRectangle x="981" y="570" width="50" height="40" as="alternateBounds" />
           </mxGeometry>
@@ -406,7 +403,7 @@
         <mxCell id="LdrxgRQo7zRXQQt_UOkl-43" value="rico:Type" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="LdrxgRQo7zRXQQt_UOkl-42" vertex="1">
           <mxGeometry y="26" width="260" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="LdrxgRQo7zRXQQt_UOkl-47" value="/Schema/Authority/AuthorityType#{AUTHTP_1..2}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="LdrxgRQo7zRXQQt_UOkl-47" value="/Schema/Authority/AuthorityType#{AUTHTP}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="1100" y="930" width="330" height="52" as="geometry">
             <mxRectangle x="981" y="570" width="50" height="40" as="alternateBounds" />
           </mxGeometry>
@@ -518,7 +515,7 @@
         <mxCell id="mXWEuhzCrtuQsP6tQl7L-5" value="RULES" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="-1230" y="500" width="110" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="mXWEuhzCrtuQsP6tQl7L-6" value="{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: &lt;urn:uuid:{UUID}&gt;" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
+        <mxCell id="mXWEuhzCrtuQsP6tQl7L-6" value="{CONTAG} - {HEADING} (Agent Control Relation). Context: &lt;urn:uuid:{UUID}&gt;" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="410" y="1070" width="570" height="50" as="geometry" />
         </mxCell>
         <mxCell id="mXWEuhzCrtuQsP6tQl7L-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="LdrxgRQo7zRXQQt_UOkl-8" target="mXWEuhzCrtuQsP6tQl7L-6" edge="1">
@@ -546,7 +543,7 @@
         <mxCell id="mXWEuhzCrtuQsP6tQl7L-11" value="Rules for Archival Description" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="-1310" y="389" width="130" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-1" value="/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-1" value="/KB/{RICO_AUTHTP_CORPORATEBODY}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="945" y="760" width="340" height="52" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-2" value="rico:CorporateBody" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="Z80UwrU0Vu5smdOcJr8o-1" vertex="1">
@@ -580,19 +577,19 @@
             <mxPoint y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-10" value="/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-10" value="/KB/{RICO_AUTHTP_FAMILY}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="1500" y="730" width="280" height="52" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-11" value="rico:Family" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="Z80UwrU0Vu5smdOcJr8o-10" vertex="1">
           <mxGeometry y="26" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-12" value="/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-12" value="/KB/{RICO_AUTHTP_PLACE}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="1530" y="910" width="280" height="52" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-13" value="rico:Place" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="Z80UwrU0Vu5smdOcJr8o-12" vertex="1">
           <mxGeometry y="26" width="280" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-14" value="/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-14" value="/KB/{RICO_AUTHTP_PERSON}/{HEADING}" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="1440" y="818" width="280" height="52" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-15" value="rico:Person" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="Z80UwrU0Vu5smdOcJr8o-14" vertex="1">
@@ -640,7 +637,7 @@
             <mxPoint y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-25" value="{SUC_1..4} (Corporate Body)" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-25" value="{SUC} (Corporate Body)" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="780" y="872" width="310" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-26" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="LdrxgRQo7zRXQQt_UOkl-35" target="Z80UwrU0Vu5smdOcJr8o-25" edge="1">
@@ -654,7 +651,7 @@
             <mxPoint y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-28" value="{PRED_1..5} (Corporate Body)" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-28" value="{PRED} (Corporate Body)" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="700" y="970" width="310" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-29" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="LdrxgRQo7zRXQQt_UOkl-31" target="Z80UwrU0Vu5smdOcJr8o-28" edge="1">
@@ -668,7 +665,7 @@
             <mxPoint y="-2" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z80UwrU0Vu5smdOcJr8o-31" value="{CONTAG_1..14} (Corporate Body)" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
+        <mxCell id="Z80UwrU0Vu5smdOcJr8o-31" value="{CONTAG} (Corporate Body)" style="html=1;whiteSpace=wrap;rounded=1;arcSize=50;" parent="1" vertex="1">
           <mxGeometry x="370" y="980" width="310" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Z80UwrU0Vu5smdOcJr8o-32" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="LdrxgRQo7zRXQQt_UOkl-6" target="Z80UwrU0Vu5smdOcJr8o-31" edge="1">

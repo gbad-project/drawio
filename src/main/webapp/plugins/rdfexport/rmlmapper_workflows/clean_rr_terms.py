@@ -17,11 +17,27 @@ from legacy.draw_io_parser import pipeline
 # Use parser’s HTML stripper
 NodeHTMLParser = pipeline.core.xml.data.NodeHTMLParser
 
-# Matches rr:/rml: prefixed tokens and any quoted content immediately after
-RR_RML_QUOTED_PATTERN = re.compile(
-    r'(?:rr|rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'
-)
-
+PATTERNS = {
+    # Matches rr:/rml: prefixed tokens and any quoted content immediately after
+    "RR_RML_QUOTED_PATTERN": (
+        re.compile(
+            r'(?:rr|rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'
+        ),
+        r"\1"
+    ),
+    "INCREMENT_NUMBER": (
+        re.compile(
+            r'_\d+\.\.\d+'
+        ),
+        ""
+    ),
+    "RICO_AUTHTP": (
+        re.compile(
+            r'RICO_AUTHTP([^_])'
+        ),
+        r"RICO_AUTHTP_TERM\1"
+    ),
+}
 
 def color(text, code):
     return f"\033[{code}m{text}\033[0m"
@@ -35,9 +51,19 @@ def strip_html(text: str) -> str:
 
 
 def sanitize_drawio_text(text: str) -> str:
-    """Remove rr:/rml: prefixed tokens, following quoted content."""
-    text = RR_RML_QUOTED_PATTERN.sub(r"\1", text)
+    """Remove rr:/rml: prefixed tokens, following quoted content, and other patches."""
+    for _, (pattern, repl) in PATTERNS.items():
+        text = pattern.sub(repl, text)
     return text.strip()
+
+def apply_auth_override(cell: ET.Element) -> dict | None:
+    """If mxCell matches auth ID, replace its value and return change record."""
+    if cell.attrib.get("id") == "gmwnegnUR_CNORKRYM6Y-2":
+        before = cell.attrib.get("value", "")
+        after = "{RICO_AUTHTP_CLASS}"
+        cell.set("value", after)
+        return {"id": cell.attrib.get("id"), "before": before, "after": after}
+    return None
 
 
 # --- core processing ---
@@ -60,6 +86,20 @@ def sanitize_fixture(input_path: Path, output_path: Path) -> dict:
             continue
         total_with_value += 1
 
+        ### Hard value replacements ###
+        override_change = apply_auth_override(cell)
+        if override_change:
+            changed += 1
+            changes.append(override_change)
+            print(
+                f"{color('BEFORE:', '1;33')} {color(override_change['before'], '0;37')}\n"
+                f"{color('AFTER: ', '1;32')} {color(override_change['after'], '0;36')}\n"
+                f"{color('-' * 60, '2;37')}",
+                file=stdout,
+            )
+            continue
+
+        ### Conditional value editing ###
         decoded = unquote(value)
         stripped = strip_html(decoded)
         cleaned = sanitize_drawio_text(stripped)
@@ -67,7 +107,11 @@ def sanitize_fixture(input_path: Path, output_path: Path) -> dict:
 
         if cleaned != stripped:
             changed += 1
-            changes.append({"before": value, "after": encoded})
+            changes.append({
+                "id": cell.attrib.get("id"),
+                "before": value,
+                "after": encoded
+            })
             print(
                 f"{color('BEFORE:', '1;33')} {color(value, '0;37')}\n"
                 f"{color('AFTER: ', '1;32')} {color(encoded or '(removed)', '0;36')}\n"
