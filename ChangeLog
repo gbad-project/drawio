@@ -1,3 +1,9 @@
+31-OCT-2025: Unreleased
+
+- [rdfexport] Refactors RDF and RML serializers to construct graphs directly from
+  DrawIOCellClassifier output and removes the legacy individual_blocks helper
+  layer.
+
 25-JUL-2024: 24.7.5
 
 - [conf cloud] Applies link adjustment configuration to diagram editor [DID-12118]

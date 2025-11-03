@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from collections import OrderedDict
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import Any, Dict, Iterable, Optional, Type
+
 from rdflib import BNode, SKOS
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
@@ -12,18 +17,33 @@ from meta_builder.drawio_meta_builder import override
 class RDFSerializationHelper:
     """Shared helper methods for RDF and RML serialization."""
 
+    @dataclass(slots=True)
+    class SubjectRecord:
+        normalized_id: str
+        label: str
+        types: set[str] = field(default_factory=set)
+        properties: dict[str, set[tuple[str, bool]]] = field(default_factory=dict)
+
+        def add_type(self, rdf_type: str) -> None:
+            self.types.add(rdf_type)
+
+        def add_property(self, predicate: str, value: tuple[str, bool]) -> None:
+            values = self.properties.setdefault(predicate, set())
+            values.add(value)
+
     def __init__(
         self,
-        blocks,
-        object_properties: set[str],
-        datatype_properties: set[str],
-        serialisation_config,
+        classifier: Any,
+        serialisation_config: SerialisationConfig,
         prefixes: dict,
         graph: Graph,
-    ):
-        self.blocks = blocks
-        self.object_properties = object_properties
-        self.datatype_properties = datatype_properties
+        *,
+        metacharacter_substitutes: Iterable[tuple[Metacharacter, Replacement]]
+        | None = None,
+        space_substitute: Replacement | None = None,
+        capitalisation_scheme: str | None = None,
+    ) -> None:
+        self.classifier = classifier
         self.serialisation_config = serialisation_config
         self.prefixes = prefixes
         self.graph = graph
@@ -33,9 +53,20 @@ class RDFSerializationHelper:
             serialisation_config.ontology_iri
         )
 
+        self.metacharacter_substitutes = list(metacharacter_substitutes or [])
+        self.space_substitute = space_substitute
+        if capitalisation_scheme is None:
+            capitalisation_scheme = "upper-camel"
+        self.capitalisation_scheme = capitalisation_scheme
+
         self.namespace_map: dict[str, Namespace] = {}
         self.fallback_namespace: Namespace | None = None
         self.explicit_overrides: dict[str, URIRef] = {}
+        self.subjects: "OrderedDict[tuple[str, str], RDFSerializationHelper.SubjectRecord]" = OrderedDict()
+        self.object_properties: set[str] = set()
+        self.datatype_properties: set[str] = set()
+
+        self._build_serialization_state()
 
     @staticmethod
     def _is_absolute_iri(candidate: str) -> bool:
@@ -46,6 +77,109 @@ class RDFSerializationHelper:
             return True
         scheme, _, remainder = candidate.partition(":")
         return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+
+    def _get_or_create_subject(
+        self, normalized_id: str, label: str
+    ) -> "RDFSerializationHelper.SubjectRecord":
+        key = (normalized_id, label)
+        record = self.subjects.get(key)
+        if record is None:
+            record = self.SubjectRecord(normalized_id=normalized_id, label=label)
+            self.subjects[key] = record
+        return record
+
+    def _register_individual(self, individual: Individual) -> None:
+        normalized_id = _replace_metacharacters(
+            individual.identifier,
+            self.metacharacter_substitutes,
+            self.space_substitute,
+            self.capitalisation_scheme,
+        )
+        record = self._get_or_create_subject(normalized_id, individual.identifier)
+        record.add_type(individual.ric_class)
+
+    def _validate_literal_curie(self, candidate: str) -> None:
+        literal_candidate = candidate.strip()
+        if (
+            ":" in literal_candidate
+            and "://" not in literal_candidate
+            and literal_candidate
+        ):
+            prefix, reference = literal_candidate.split(":", 1)
+            if (
+                prefix
+                and (prefix[0].isalpha() or prefix[0] == "_")
+                and all(ch.isalnum() or ch in "._-" for ch in prefix[1:])
+                and not (reference and any(char.isspace() for char in reference))
+            ):
+                manager = Graph().namespace_manager
+                for known_prefix, iri in self.prefixes.items():
+                    manager.bind(known_prefix, iri, replace=True)
+                try:
+                    manager.expand_curie(literal_candidate)
+                except Exception as exc:  # pragma: no cover - defensive re-raise
+                    raise NotInKnownException(
+                        (
+                            "The literal value "
+                            f"'{literal_candidate}' does not correspond to a known CURIE"
+                        )
+                    ) from exc
+
+    def _register_arrow(self, arrow: Arrow) -> None:
+        identifier = arrow.identifier
+        normalized_identifier = identifier
+        allow_absolute_identifier = False
+
+        if self._is_absolute_iri(identifier):
+            for prefix_key, iri in self.prefixes.items():
+                if identifier.startswith(iri) and identifier[len(iri) :]:
+                    normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
+                    break
+            else:
+                allow_absolute_identifier = True
+
+        if not allow_absolute_identifier:
+            _ensure_known_curie(
+                normalized_identifier,
+                self.prefixes,
+                (
+                    f"An arrow has label '{normalized_identifier}', "
+                    "which is not a known object property or datatype property"
+                ),
+            )
+
+        if arrow.is_datatype:
+            self.datatype_properties.add(normalized_identifier)
+            target_identifier = arrow.target
+            self._validate_literal_curie(target_identifier)
+            property_value = (target_identifier, True)
+        else:
+            self.object_properties.add(normalized_identifier)
+            target_identifier = _replace_metacharacters(
+                arrow.target,
+                self.metacharacter_substitutes,
+                self.space_substitute,
+                self.capitalisation_scheme,
+            )
+            property_value = (target_identifier, False)
+
+        source_identifier = _replace_metacharacters(
+            arrow.source,
+            self.metacharacter_substitutes,
+            self.space_substitute,
+            self.capitalisation_scheme,
+        )
+        record = self._get_or_create_subject(source_identifier, arrow.source)
+        record.add_property(normalized_identifier, property_value)
+
+    def _build_serialization_state(self) -> None:
+        individuals = getattr(self.classifier, "individuals", [])
+        for individual in individuals:
+            self._register_individual(individual)
+
+        arrows = getattr(self.classifier, "arrows", [])
+        for arrow in arrows:
+            self._register_arrow(arrow)
 
     def setup_namespaces(self) -> None:
         """Bind namespaces to the graph."""
@@ -98,7 +232,7 @@ class RDFSerializationHelper:
 
     def compute_explicit_overrides(self) -> None:
         """Compute explicit URI overrides for individuals."""
-        for individual_id, individual_label in self.blocks.keys():
+        for (individual_id, individual_label), _ in self.subjects.items():
             trimmed_label = individual_label.strip()
             if not trimmed_label:
                 continue
@@ -173,44 +307,41 @@ class RDFSerializationHelper:
         if hasattr(pipeline.core.internal.data, decorations_attr):
             delattr(pipeline.core.internal.data, decorations_attr)
 
+    def serialize_all_individuals(self) -> None:
+        """Serialize all individuals collected from the classifier."""
+        for record in self.subjects.values():
+            self.add_individual_triples(record)
+
 
 @override(phase="core", type="rdf", role="control")
 class RDFSerializer(RDFSerializationHelper):
     """Standard RDF serialization (regular triples)."""
 
-    def __init__(self, *args, **kwargs):
-        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
-        RDFSerializationHelper.__init__(self, *args, **kwargs)
-
     def add_individual_triples(
-        self, individual_id: str, individual_label: str, types_and_facts: dict
+        self, subject: "RDFSerializationHelper.SubjectRecord"
     ) -> None:
         """Add triples for a single individual."""
-        individual_uri = self.resolve_individual_uri(individual_id)
+        individual_uri = self.resolve_individual_uri(subject.normalized_id)
 
         # Add NamedIndividual type
         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
 
         # Add RDF types
-        for rdf_type in types_and_facts.get("Types", set()):
-            type_prefix, type_name = rdf_type.split(":")
+        for rdf_type in subject.types:
+            type_prefix, type_name = rdf_type.split(":", 1)
             self.graph.add(
                 (individual_uri, RDF.type, self.namespace_map[type_prefix][type_name])
             )
 
         # Add label if configured
         if self.serialisation_config.include_label:
-            self.graph.add((individual_uri, RDFS.label, Literal(individual_label)))
+            self.graph.add((individual_uri, RDFS.label, Literal(subject.label)))
 
         # Add properties
-        for prop, values in types_and_facts.items():
-            if prop == "Types":
-                continue
-
+        for prop, values in subject.properties.items():
             prop_uri = self.resolve_property_uri(prop)
 
             for raw_value in values:
-                # Determine if value is literal
                 if (
                     isinstance(raw_value, tuple)
                     and len(raw_value) == 2
@@ -226,28 +357,20 @@ class RDFSerializer(RDFSerializationHelper):
 
                 if not is_literal:
                     # Object property - create URI reference
-                    target_uri = self.resolve_individual_uri(value)
+                    target_uri = self.resolve_individual_uri(str(value))
                     self.graph.add((individual_uri, prop_uri, target_uri))
                 else:
                     # Datatype property - create literal
                     literal_value = self.coerce_to_literal(value)
                     self.graph.add((individual_uri, prop_uri, literal_value))
 
-    def serialize_all_individuals(self) -> None:
-        """Serialize all individuals in blocks."""
-        for (individual_id, individual_label), types_and_facts in self.blocks.items():
-            self.add_individual_triples(
-                individual_id, individual_label, types_and_facts
-            )
-
 
 @override(phase="core", type="rdf", role="control")
 class RMLSerializer(RDFSerializationHelper):
     """RML serialization (R2RML mapping triples)."""
 
-    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
-        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
-        RDFSerializationHelper.__init__(self, *args, **kwargs)
+    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.csv_path = csv_path
 
         # RML namespaces
@@ -257,8 +380,7 @@ class RMLSerializer(RDFSerializationHelper):
 
     def setup_namespaces(self) -> None:
         """Bind namespaces including RML-specific ones."""
-        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
-        RDFSerializationHelper.setup_namespaces(self)
+        super().setup_namespaces()
 
         self.graph.bind("rr", self.rr, replace=False)
         self.graph.bind("rml", self.rml_ns, replace=False)
@@ -300,10 +422,10 @@ class RMLSerializer(RDFSerializationHelper):
             return Literal("drawio")
 
     def add_individual_triples(
-        self, individual_id: str, individual_label: str, types_and_facts: dict
+        self, subject: "RDFSerializationHelper.SubjectRecord"
     ) -> None:
         """Add RML triples for a single individual."""
-        subject_uri = self.resolve_individual_uri(individual_id)
+        subject_uri = self.resolve_individual_uri(subject.normalized_id)
 
         # Create TriplesMap
         triples_map = BNode()
@@ -324,7 +446,7 @@ class RMLSerializer(RDFSerializationHelper):
         self.graph.add((subject_map, self.rr.constant, subject_uri))
 
         # Add RDF types as rr:class
-        for rdf_type in sorted(types_and_facts.get("Types", set())):
+        for rdf_type in sorted(subject.types):
             type_prefix, type_name = rdf_type.split(":", 1)
             class_uri = self.namespace_map[type_prefix][type_name]
             self.graph.add((subject_map, self.rr["class"], class_uri))
@@ -332,21 +454,17 @@ class RMLSerializer(RDFSerializationHelper):
         # Add label if configured
         if self.serialisation_config.include_label:
             self._add_constant_object_map(
-                triples_map, RDFS.label, Literal(individual_label)
+                triples_map, RDFS.label, Literal(subject.label)
             )
 
         # Add properties
-        for prop, values in sorted(types_and_facts.items()):
-            if prop == "Types":
-                continue
-
+        for prop, values in sorted(subject.properties.items()):
             prop_uri = self.resolve_property_uri(prop)
 
             for raw_value in sorted(
                 values,
                 key=lambda v: (0, f"{v[0]}") if isinstance(v, tuple) else (1, f"{v}"),
             ):
-                # Determine if value is literal
                 if (
                     isinstance(raw_value, tuple)
                     and len(raw_value) == 2
@@ -371,10 +489,8 @@ class RMLSerializer(RDFSerializationHelper):
 
     def serialize_all_individuals(self) -> None:
         """Serialize all individuals as RML mappings."""
-        for (individual_id, individual_label), types_and_facts in self.blocks.items():
-            self.add_individual_triples(
-                individual_id, individual_label, types_and_facts
-            )
+        for record in self.subjects.values():
+            self.add_individual_triples(record)
 
     def add_preamble(self) -> None:
         """RML doesn't need ontology preamble."""
@@ -391,27 +507,33 @@ class RMLSerializer(RDFSerializationHelper):
 
 @override(phase="core", type="rdf", role="control")
 def serialise_to_graph(
-    blocks: Blocks,
-    object_properties: set[str],
-    datatype_properties: set[str],
+    classifier: Any,
     serialisation_config: SerialisationConfig,
     prefixes: dict,
+    *,
+    metacharacter_substitutes: Iterable[tuple[Metacharacter, Replacement]]
+    | None = None,
+    space_substitute: Replacement | None = None,
+    capitalisation_scheme: str | None = None,
     graph_cls: Type[Graph] = Graph,
     graph_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Graph:
-    """Serialize blocks to RDF graph with regular triples."""
+    """Serialize classifier output to RDF graph with regular triples."""
     RDFSerializer = pipeline.core.rdf.control.RDFSerializer
 
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
 
+    substitutes = list(metacharacter_substitutes or [])
+
     serializer = RDFSerializer(
-        blocks,
-        object_properties,
-        datatype_properties,
+        classifier,
         serialisation_config,
         prefixes,
         graph,
+        metacharacter_substitutes=substitutes,
+        space_substitute=space_substitute,
+        capitalisation_scheme=capitalisation_scheme,
     )
 
     serializer.setup_namespaces()
@@ -426,32 +548,37 @@ def serialise_to_graph(
 
 @override(phase="core", type="rdf", role="control")
 def serialise_to_rml(
-    blocks: Blocks,
-    object_properties: set[str],
-    datatype_properties: set[str],
+    classifier: Any,
     serialisation_config: SerialisationConfig,
     prefixes: dict,
+    *,
+    metacharacter_substitutes: Iterable[tuple[Metacharacter, Replacement]]
+    | None = None,
+    space_substitute: Replacement | None = None,
+    capitalisation_scheme: str | None = None,
     graph_cls: type[Graph] = Graph,
     graph_kwargs: dict[str, Any] | None = None,
 ) -> Graph:
-    """Serialize blocks to RDF graph with RML mapping triples."""
+    """Serialize classifier output to RDF graph with RML mapping triples."""
     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
 
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
 
-    # Extract csv_path if available
     csv_path = graph_kwargs.get("csv_path")
     if csv_path is None and hasattr(graph, "csv_path"):
         csv_path = getattr(graph, "csv_path")
 
+    substitutes = list(metacharacter_substitutes or [])
+
     serializer = RMLSerializer(
-        blocks,
-        object_properties,
-        datatype_properties,
+        classifier,
         serialisation_config,
         prefixes,
         graph,
+        metacharacter_substitutes=substitutes,
+        space_substitute=space_substitute,
+        capitalisation_scheme=capitalisation_scheme,
         csv_path=csv_path,
     )
 
