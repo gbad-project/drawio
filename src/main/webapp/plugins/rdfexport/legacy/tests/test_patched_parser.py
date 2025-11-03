@@ -411,10 +411,16 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
 
 
 def test_parse_drawio_with_rml_metadata_adds_triples_map():
-    fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata-rml.drawio"
+    fixture_path = (
+        FIXTURES_DIR
+        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio"
+    )
     graph = draw_io_parser.parse_drawio_to_graph(
         str(fixture_path),
         metacharacter_substitute=["url"],
+        prefix_iri="mock://generated-from-test-patched-parser/",
+        include_label=False,
+        capitalisation_scheme="lower-camel",
         rml_enabled=True,
     )
 
