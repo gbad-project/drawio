@@ -78,7 +78,11 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         processed[self.INCREMENT_COLUMN] = processed[self.INCREMENT_COLUMN].astype(
             "Int64"
         )
+
         self.source_df = processed
+
+        if self._schema_code == "auth":
+            self._auth_post_preprocess()
 
         super().dump()
         return Path(self.preprocessed_csv_path)
@@ -106,12 +110,14 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
 
     ### Auth-specific processing ###
     def _auth_preprocess(self):
-        self._annotate_rico_authtp()
         self._pull_correct_dateex()
+
+    def _auth_post_preprocess(self):
+        self._annotate_rico_authtp()
 
     def _annotate_rico_authtp(self):
         """Annotate with RiC-O AUTHTP class and term based on AUTHTP column."""
-        if "AUTHTP" not in self.source_df.columns:
+        if "AUTHTP" not in self.source_df.columns:  # defensive fallback
             self.add(
                 self.RICO_AUTHTP_CLASS_COLUMN,
                 pd.Series([None] * len(self.source_df), dtype="object"),
@@ -134,10 +140,20 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
                     class_uri = f"https://www.ica.org/standards/RiC/ontology#{label}"
                     return (class_uri, term)
             return (None, None)
-
+        
         results = self.get(["AUTHTP"]).map(_resolve)
-        self.add(self.RICO_AUTHTP_CLASS_COLUMN, results.apply(lambda x: x[0]))
-        self.add(self.RICO_AUTHTP_TERM_COLUMN, results.apply(lambda x: x[1]))
+
+        self.add(self.RICO_AUTHTP_CLASS_COLUMN, results.map(lambda x: x[0]))
+        self.add(self.RICO_AUTHTP_TERM_COLUMN, results.map(lambda x: x[1]))
+
+        for label, (term, pattern) in self._rico_authtp_patterns:
+            colname = f"RICO_AUTHTP_{label.upper()}"
+            self.add(
+                colname,
+                self.get(["AUTHTP"]).apply(
+                    lambda x: term if pattern.search(str(x["AUTHTP"])) else None, axis=1
+                ),
+            )
 
     def _pull_correct_dateex(self):
         DATEEX_COLS = ["DATEEX_BEGINNING", "DATEEX_END"]

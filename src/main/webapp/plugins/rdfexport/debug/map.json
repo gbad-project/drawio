@@ -38862,12 +38862,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "1ab6265dc63e7c272102e38f19cf7421736e4b0c2b6343c1dad25ca5c7c32fe0",
+          "nt_sha256": "2d9e3a5c9d34cce736373da12a5e2ba7f89c59e69da16c871b1cef956ebf6a00",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
           "triples": 649
         },
         "ts_plugin": {
-          "nt_sha256": "d681156bef5e6d7c1f54ec8d1776399d0d46cecc65cfa5676513fd5ccf6825a7",
+          "nt_sha256": "04a95f053de7a21f4f77ac05697063926365efd38c4de1e4b61744d09da2d4bc",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
           "triples": 649
         }
@@ -41446,12 +41446,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "7f207f441c5fa50fc08b39ffa273042e49e7439922ffe2975a1a44048d22ed05",
+          "nt_sha256": "b802562a6d6413d231a7804210f853dfe212a4e88a703807ed4d7520cbdac017",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
           "triples": 649
         },
         "ts_plugin": {
-          "nt_sha256": "bb4f58e5b2022e9e0e7c1a3df506259d0d5ef8038c8a1acc430560e6ac12bfa1",
+          "nt_sha256": "8327b74e6cf116e638fe3c1b2636f59d2f06463c56684ab5a8f9c1f2fe95af35",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
           "triples": 649
         }
