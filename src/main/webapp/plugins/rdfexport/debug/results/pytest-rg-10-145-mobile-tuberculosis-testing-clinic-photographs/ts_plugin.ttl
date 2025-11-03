@@ -14,7 +14,7 @@
 :Archival%20Description%20Creation a owl:NamedIndividual,
         rico:Activity ;
     rdfs:label "Archival Description Creation" ;
-    rico:isOrWasPerformedBy <ontology://generated-from-draw-io/mock#O'Rourke> .
+    rico:isOrWasPerformedBy :O%27Rourke .
 
 :Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
@@ -56,7 +56,7 @@
     rico:generalDescription "How to Order: To view these records, order Series RG 10-145, container B 972." ;
     rico:instantiationExtent "ca. 200 photographs" .
 
-<ontology://generated-from-draw-io/mock#O'Rourke> a owl:NamedIndividual,
+:O%27Rourke a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "O'Rourke" .
 

@@ -187,9 +187,7 @@ class RDFSerializer(RDFSerializationHelper):
             return URIRef(trimmed_label)
 
         if self._is_relative_iri(trimmed_label):
-            if self.prefix_iri:
-                absolute_iri = f"{self.prefix_iri}{trimmed_label.lstrip('#/')}"
-                return URIRef(absolute_iri)
+            pass  # will be handled by resolve_individual_uri
 
         if ":" not in trimmed_label or "://" in trimmed_label:
             return

@@ -19,6 +19,11 @@
     rico:isOrWasLeaderOf <ontology://generated-from-draw-io/mock#Fort%20York%20Construction%20Company%20Ltd.> ;
     rico:occupiesOrOccupied :President .
 
+<ontology://generated-from-draw-io/mock#%5B194-%5D-1953> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "[194-]-1953" ;
+    rico:normalizedDateValue "194X/1953" .
+
 :1912 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1912" .
@@ -60,7 +65,7 @@
     rico:accruals "No further accruals are expected." ;
     rico:conditionsOfAccess "No restrictions on access." ;
     rico:conditionsOfUse "Copyright has been transferred to the Archives of Ontario   by the donor. There are no restrictions on reproduction for research and private study. If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
-    rico:hasCreationDate <ontology://generated-from-draw-io/mock#[194-]-1953> ;
+    rico:hasCreationDate <ontology://generated-from-draw-io/mock#%5B194-%5D-1953> ;
     rico:hasGeneticLinkToRecordResource :Highway%20Historical%20Collection%20-%20Photographs,
         :Highways%20Historical%20Collection%20-%20Historical%20Research%20Binders ;
     rico:hasOrHadIdentifier :F%204711 ;
@@ -117,11 +122,6 @@
 :Village a owl:NamedIndividual,
         rico:PlaceType ;
     rdfs:label "Village" .
-
-<ontology://generated-from-draw-io/mock#[194-]-1953> a owl:NamedIndividual,
-        rico:Date ;
-    rdfs:label "[194-]-1953" ;
-    rico:normalizedDateValue "194X/1953" .
 
 :Atikokan%2C%20Ontario a owl:NamedIndividual,
         rico:Place ;
