@@ -26,6 +26,14 @@ This is reviewed by a human maintainer from time to time.
 
 ### Changed
 
+- 2025-11-03 – Routed RDF/RML serializer overrides through the
+  `DrawIOCellClassifier` aggregation context so downstream pipelines no
+  longer depend on the legacy `individual_blocks` helper while preserving
+  emitted triples.
+- 2025-10-31 – Refactored the RDF/RML serializer overrides to consume
+  `DrawIOCellClassifier` output directly, retiring the redundant
+  `individual_blocks` control layer while keeping graph semantics
+  untouched.
 - 2025-10-23 – Standardised DrawIO metadata storage on a canonical
   `<gbadMetadata>` container across the plugin, fixtures, and debugger so
   parser settings and prefixes propagate consistently through the TypeScript

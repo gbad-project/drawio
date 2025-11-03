@@ -167,16 +167,6 @@ def _build_graph_from_raw_xml(
         )
     )
 
-    blocks, object_properties, datatype_properties = (
-        internal_control_core.individual_blocks(
-            classifier.get_graph_elements(),  # Use the new generator
-            metacharacter_substitutes,
-            space_substitute,
-            config_args["capitalisation_scheme"],
-            prefixes,
-        )
-    )
-
     # 4. Serialize to Final Graph
     serializer = (
         pipeline.core.rdf.control.serialise_to_rml
@@ -184,13 +174,14 @@ def _build_graph_from_raw_xml(
         else serialise_to_graph
     )
     graph = serializer(
-        blocks,
-        object_properties,
-        datatype_properties,
+        classifier,
         serialisation_config,
         prefixes,
         graph_cls=DrawIOParserGraph,
         graph_kwargs={"csv_path": csv_path},
+        metacharacter_substitutes=metacharacter_substitutes,
+        space_substitute=space_substitute,
+        capitalisation_scheme=config_args["capitalisation_scheme"],
     )
 
     # 5. Final post-processing (e.g., base URI binding)

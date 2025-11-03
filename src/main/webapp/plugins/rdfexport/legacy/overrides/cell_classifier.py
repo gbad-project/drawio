@@ -43,6 +43,12 @@ class DrawIOCellClassifier:
         tokens: list[str] = field(default_factory=list)
         declares_identifier: bool = False
 
+    @dataclass(slots=True)
+    class SerialisationContext:
+        blocks: Blocks
+        object_properties: set[str]
+        datatype_properties: set[str]
+
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
@@ -107,6 +113,122 @@ class DrawIOCellClassifier:
         """Yields all parsed Individual and Arrow objects."""
         yield from self.individuals
         yield from self.arrows
+
+    def build_serialisation_context(
+        self,
+        *,
+        metacharacter_substitutes: Iterable[tuple[Metacharacter, Replacement]]
+        | None = None,
+        space_substitute: Replacement | None = None,
+        capitalisation_scheme: str | None = None,
+        prefixes: dict[str, str],
+    ) -> "SerialisationContext":
+        """Aggregate classifier output for downstream serialisers."""
+
+        substitutes = list(metacharacter_substitutes or ())
+        capitalisation_scheme = capitalisation_scheme or getattr(
+            pipeline.pre.internal.metadata,
+            "DEFAULT_CAPITALISATION_SCHEME",
+            "upper-camel",
+        )
+
+        blocks: Blocks = {}
+        object_properties: set[str] = set()
+        datatype_properties: set[str] = set()
+
+        for individual in self.individuals:
+            _add_individual_type(
+                blocks,
+                individual,
+                substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+
+        namespace_manager = Graph().namespace_manager
+        for known_prefix, iri in prefixes.items():
+            namespace_manager.bind(known_prefix, iri, replace=True)
+
+        def _is_absolute_iri(candidate: str) -> bool:
+            if not candidate or any(ch.isspace() for ch in candidate):
+                return False
+            if "://" in candidate:
+                return True
+            scheme, _, remainder = candidate.partition(":")
+            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+
+        for arrow in self.arrows:
+            identifier = arrow.identifier
+            normalized_identifier = identifier
+            allow_absolute_identifier = False
+
+            if _is_absolute_iri(identifier):
+                for prefix_key, iri in prefixes.items():
+                    if identifier.startswith(iri) and identifier[len(iri) :]:
+                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
+                        break
+                else:
+                    allow_absolute_identifier = True
+
+            if not allow_absolute_identifier:
+                _ensure_known_curie(
+                    normalized_identifier,
+                    prefixes,
+                    (
+                        f"An arrow has label '{normalized_identifier}', "
+                        "which is not a known object property or datatype property"
+                    ),
+                )
+
+            if arrow.is_datatype:
+                datatype_properties.add(normalized_identifier)
+                target_identifier = arrow.target
+                literal_candidate = target_identifier.strip()
+                if (
+                    ":" in literal_candidate
+                    and "://" not in literal_candidate
+                    and literal_candidate
+                ):
+                    prefix, reference = literal_candidate.split(":", 1)
+                    if (
+                        prefix
+                        and (prefix[0].isalpha() or prefix[0] == "_")
+                        and all(ch.isalnum() or ch in "._-" for ch in prefix[1:])
+                        and not (
+                            reference and any(char.isspace() for char in reference)
+                        )
+                    ):
+                        try:
+                            namespace_manager.expand_curie(literal_candidate)
+                        except Exception as exc:  # pragma: no cover - defensive
+                            raise NotInKnownException(
+                                (
+                                    "The literal value "
+                                    f"'{literal_candidate}' does not correspond to a known CURIE"
+                                )
+                            ) from exc
+                property_value = (target_identifier, True)
+            else:
+                object_properties.add(normalized_identifier)
+                target_identifier = _replace_metacharacters(
+                    arrow.target,
+                    substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+                property_value = (target_identifier, False)
+
+            source_identifier = _replace_metacharacters(
+                arrow.source,
+                substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+
+            block = blocks.setdefault((source_identifier, arrow.source), {})
+            block.setdefault(normalized_identifier, set()).add(property_value)
+
+        return self.SerialisationContext(blocks, object_properties, datatype_properties)
 
     def _process_graph(self):
         """

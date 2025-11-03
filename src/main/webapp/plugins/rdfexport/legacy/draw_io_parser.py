@@ -159,6 +159,12 @@ class pipeline:
                         tokens: list[str] = field(default_factory=list)
                         declares_identifier: bool = False
 
+                    @dataclass(slots=True)
+                    class SerialisationContext:
+                        blocks: Blocks
+                        object_properties: set[str]
+                        datatype_properties: set[str]
+
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
@@ -218,6 +224,136 @@ class pipeline:
                         """Yields all parsed Individual and Arrow objects."""
                         yield from self.individuals
                         yield from self.arrows
+
+                    def build_serialisation_context(
+                        self,
+                        *,
+                        metacharacter_substitutes: Iterable[
+                            tuple[Metacharacter, Replacement]
+                        ]
+                        | None = None,
+                        space_substitute: Replacement | None = None,
+                        capitalisation_scheme: str | None = None,
+                        prefixes: dict[str, str],
+                    ) -> "SerialisationContext":
+                        """Aggregate classifier output for downstream serialisers."""
+                        substitutes = list(metacharacter_substitutes or ())
+                        capitalisation_scheme = capitalisation_scheme or getattr(
+                            pipeline.pre.internal.metadata,
+                            "DEFAULT_CAPITALISATION_SCHEME",
+                            "upper-camel",
+                        )
+                        blocks: Blocks = {}
+                        object_properties: set[str] = set()
+                        datatype_properties: set[str] = set()
+                        for individual in self.individuals:
+                            _add_individual_type(
+                                blocks,
+                                individual,
+                                substitutes,
+                                space_substitute,
+                                capitalisation_scheme,
+                            )
+                        namespace_manager = Graph().namespace_manager
+                        for known_prefix, iri in prefixes.items():
+                            namespace_manager.bind(known_prefix, iri, replace=True)
+
+                        def _is_absolute_iri(candidate: str) -> bool:
+                            if not candidate or any((ch.isspace() for ch in candidate)):
+                                return False
+                            if "://" in candidate:
+                                return True
+                            scheme, _, remainder = candidate.partition(":")
+                            return scheme.lower() in {"urn", "tag"} and bool(
+                                remainder.strip()
+                            )
+
+                        for arrow in self.arrows:
+                            identifier = arrow.identifier
+                            normalized_identifier = identifier
+                            allow_absolute_identifier = False
+                            if _is_absolute_iri(identifier):
+                                for prefix_key, iri in prefixes.items():
+                                    if (
+                                        identifier.startswith(iri)
+                                        and identifier[len(iri) :]
+                                    ):
+                                        normalized_identifier = (
+                                            f"{prefix_key}:{identifier[len(iri) :]}"
+                                        )
+                                        break
+                                else:
+                                    allow_absolute_identifier = True
+                            if not allow_absolute_identifier:
+                                _ensure_known_curie(
+                                    normalized_identifier,
+                                    prefixes,
+                                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
+                                )
+                            if arrow.is_datatype:
+                                datatype_properties.add(normalized_identifier)
+                                target_identifier = arrow.target
+                                literal_candidate = target_identifier.strip()
+                                if (
+                                    ":" in literal_candidate
+                                    and "://" not in literal_candidate
+                                    and literal_candidate
+                                ):
+                                    prefix, reference = literal_candidate.split(":", 1)
+                                    if (
+                                        prefix
+                                        and (prefix[0].isalpha() or prefix[0] == "_")
+                                        and all(
+                                            (
+                                                ch.isalnum() or ch in "._-"
+                                                for ch in prefix[1:]
+                                            )
+                                        )
+                                        and (
+                                            not (
+                                                reference
+                                                and any(
+                                                    (
+                                                        char.isspace()
+                                                        for char in reference
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ):
+                                        try:
+                                            namespace_manager.expand_curie(
+                                                literal_candidate
+                                            )
+                                        except Exception as exc:
+                                            raise NotInKnownException(
+                                                f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
+                                            ) from exc
+                                property_value = (target_identifier, True)
+                            else:
+                                object_properties.add(normalized_identifier)
+                                target_identifier = _replace_metacharacters(
+                                    arrow.target,
+                                    substitutes,
+                                    space_substitute,
+                                    capitalisation_scheme,
+                                )
+                                property_value = (target_identifier, False)
+                            source_identifier = _replace_metacharacters(
+                                arrow.source,
+                                substitutes,
+                                space_substitute,
+                                capitalisation_scheme,
+                            )
+                            block = blocks.setdefault(
+                                (source_identifier, arrow.source), {}
+                            )
+                            block.setdefault(normalized_identifier, set()).add(
+                                property_value
+                            )
+                        return self.SerialisationContext(
+                            blocks, object_properties, datatype_properties
+                        )
 
                     def _process_graph(self):
                         """
@@ -935,16 +1071,33 @@ class pipeline:
 
                     def __init__(
                         self,
-                        blocks,
-                        object_properties: set[str],
-                        datatype_properties: set[str],
+                        classifier,
                         serialisation_config,
                         prefixes: dict,
                         graph: Graph,
+                        *,
+                        metacharacter_substitutes: Iterable[
+                            tuple[Metacharacter, Replacement]
+                        ]
+                        | None = None,
+                        space_substitute: Replacement | None = None,
+                        capitalisation_scheme: str | None = None,
                     ):
-                        self.blocks = blocks
-                        self.object_properties = object_properties
-                        self.datatype_properties = datatype_properties
+                        self.classifier = classifier
+                        self.metacharacter_substitutes = tuple(
+                            metacharacter_substitutes or ()
+                        )
+                        self.space_substitute = space_substitute
+                        if capitalisation_scheme is None:
+                            capitalisation_scheme = getattr(
+                                pipeline.pre.internal.metadata,
+                                "DEFAULT_CAPITALISATION_SCHEME",
+                                "upper-camel",
+                            )
+                        self.capitalisation_scheme = capitalisation_scheme
+                        self.blocks: Blocks = {}
+                        self.object_properties: set[str] = set()
+                        self.datatype_properties: set[str] = set()
                         self.serialisation_config = serialisation_config
                         self.prefixes = prefixes
                         self.graph = graph
@@ -956,6 +1109,7 @@ class pipeline:
                         self.namespace_map: dict[str, Namespace] = {}
                         self.fallback_namespace: Namespace | None = None
                         self.explicit_overrides: dict[str, URIRef] = {}
+                        self._populate_from_classifier()
 
                     @staticmethod
                     def _is_absolute_iri(candidate: str) -> bool:
@@ -1123,6 +1277,136 @@ class pipeline:
                                 )
                         if hasattr(pipeline.core.internal.data, decorations_attr):
                             delattr(pipeline.core.internal.data, decorations_attr)
+
+                    def _populate_from_classifier(self) -> None:
+                        """Aggregate classifier output into blocks and property sets."""
+                        metacharacter_substitutes = list(self.metacharacter_substitutes)
+                        space_substitute = self.space_substitute
+                        capitalisation_scheme = self.capitalisation_scheme
+                        context_builder = getattr(
+                            self.classifier, "build_serialisation_context", None
+                        )
+                        if callable(context_builder):
+                            context = context_builder(
+                                metacharacter_substitutes=metacharacter_substitutes,
+                                space_substitute=space_substitute,
+                                capitalisation_scheme=capitalisation_scheme,
+                                prefixes=self.prefixes,
+                            )
+                            if isinstance(context, dict):
+                                blocks = context.get("blocks", {})
+                                object_properties = context.get(
+                                    "object_properties", set()
+                                )
+                                datatype_properties = context.get(
+                                    "datatype_properties", set()
+                                )
+                            else:
+                                blocks = getattr(context, "blocks", {})
+                                object_properties = getattr(
+                                    context, "object_properties", set()
+                                )
+                                datatype_properties = getattr(
+                                    context, "datatype_properties", set()
+                                )
+                            self.blocks = blocks or {}
+                            self.object_properties = set(object_properties)
+                            self.datatype_properties = set(datatype_properties)
+                            return
+                        for individual in getattr(self.classifier, "individuals", ()):
+                            _add_individual_type(
+                                self.blocks,
+                                individual,
+                                metacharacter_substitutes,
+                                space_substitute,
+                                capitalisation_scheme,
+                            )
+                        for arrow in getattr(self.classifier, "arrows", ()):
+                            identifier = arrow.identifier
+                            normalized_identifier = identifier
+                            allow_absolute_identifier = False
+                            if self._is_absolute_iri(identifier):
+                                for prefix_key, iri in self.prefixes.items():
+                                    if (
+                                        identifier.startswith(iri)
+                                        and identifier[len(iri) :]
+                                    ):
+                                        normalized_identifier = (
+                                            f"{prefix_key}:{identifier[len(iri) :]}"
+                                        )
+                                        break
+                                else:
+                                    allow_absolute_identifier = True
+                            if not allow_absolute_identifier:
+                                _ensure_known_curie(
+                                    normalized_identifier,
+                                    self.prefixes,
+                                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
+                                )
+                            if arrow.is_datatype:
+                                self.datatype_properties.add(normalized_identifier)
+                                target_identifier = arrow.target
+                                literal_candidate = target_identifier.strip()
+                                if (
+                                    ":" in literal_candidate
+                                    and "://" not in literal_candidate
+                                    and literal_candidate
+                                ):
+                                    prefix, reference = literal_candidate.split(":", 1)
+                                    if (
+                                        prefix
+                                        and (prefix[0].isalpha() or prefix[0] == "_")
+                                        and all(
+                                            (
+                                                ch.isalnum() or ch in "._-"
+                                                for ch in prefix[1:]
+                                            )
+                                        )
+                                        and (
+                                            not (
+                                                reference
+                                                and any(
+                                                    (
+                                                        char.isspace()
+                                                        for char in reference
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    ):
+                                        manager = Graph().namespace_manager
+                                        for known_prefix, iri in self.prefixes.items():
+                                            manager.bind(
+                                                known_prefix, iri, replace=True
+                                            )
+                                        try:
+                                            manager.expand_curie(literal_candidate)
+                                        except Exception as exc:
+                                            raise NotInKnownException(
+                                                f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
+                                            ) from exc
+                                property_value = (target_identifier, True)
+                            else:
+                                self.object_properties.add(normalized_identifier)
+                                target_identifier = _replace_metacharacters(
+                                    arrow.target,
+                                    metacharacter_substitutes,
+                                    space_substitute,
+                                    capitalisation_scheme,
+                                )
+                                property_value = (target_identifier, False)
+                            source_identifier = _replace_metacharacters(
+                                arrow.source,
+                                metacharacter_substitutes,
+                                space_substitute,
+                                capitalisation_scheme,
+                            )
+                            block = self.blocks.setdefault(
+                                (source_identifier, arrow.source), {}
+                            )
+                            block.setdefault(normalized_identifier, set()).add(
+                                property_value
+                            )
 
                 # END override serialisers.py.RDFSerializationHelper
                 # BEGIN override serialisers.py.RDFSerializer
@@ -1370,11 +1654,16 @@ class pipeline:
                 # END override serialisers.py.RMLSerializer
                 # BEGIN override serialisers.py.serialise_to_rml
                 def serialise_to_rml(
-                    blocks: Blocks,
-                    object_properties: set[str],
-                    datatype_properties: set[str],
+                    classifier,
                     serialisation_config: SerialisationConfig,
                     prefixes: dict,
+                    *,
+                    metacharacter_substitutes: Iterable[
+                        tuple[Metacharacter, Replacement]
+                    ]
+                    | None = None,
+                    space_substitute: Replacement | None = None,
+                    capitalisation_scheme: str | None = None,
                     graph_cls: type[Graph] = Graph,
                     graph_kwargs: dict[str, Any] | None = None,
                 ) -> Graph:
@@ -1386,13 +1675,14 @@ class pipeline:
                     if csv_path is None and hasattr(graph, "csv_path"):
                         csv_path = getattr(graph, "csv_path")
                     serializer = RMLSerializer(
-                        blocks,
-                        object_properties,
-                        datatype_properties,
+                        classifier,
                         serialisation_config,
                         prefixes,
                         graph,
                         csv_path=csv_path,
+                        metacharacter_substitutes=metacharacter_substitutes,
+                        space_substitute=space_substitute,
+                        capitalisation_scheme=capitalisation_scheme,
                     )
                     serializer.setup_namespaces()
                     serializer.compute_explicit_overrides()
@@ -2275,7 +2565,6 @@ class internal_control_core:
 
     # END _parse_metacharacter_substitutes
     # BEGIN individual_blocks
-    # override from curie_validator.py
     def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
@@ -2283,18 +2572,18 @@ class internal_control_core:
         capitalisation_scheme: str,
         prefixes: dict[str, str],
     ) -> tuple[Blocks, set[str], set[str]]:
+        """
+        Takes an iterator of Individual and Arrow instances, such as that outputted
+        by the 'individuals_and_arrows' method of a DrawIOXMLTree instance, and
+        assembles them into adictionary whose keys are individual IRIs. The value
+        for a given key is itself a dictionary, collecting together the facts and
+        types for that individual IRI which were defined by some Individual or Arrow
+        instance in the iterator (the individual IRI may occur many times in
+        Individual instances with differing values for the 'class' variable).
+        """
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
-
-        def _looks_like_absolute_uri(value: str) -> bool:
-            if not value or any((ch.isspace() for ch in value)):
-                return False
-            if "://" in value:
-                return True
-            scheme, _, remainder = value.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
-
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
                 _add_individual_type(
@@ -2305,62 +2594,25 @@ class internal_control_core:
                     capitalisation_scheme,
                 )
                 continue
-            identifier = individual_or_arrow.identifier
-            normalized_identifier = identifier
-            allow_absolute_identifier = False
-            if _looks_like_absolute_uri(identifier):
-                for prefix_key, iri in prefixes.items():
-                    if identifier.startswith(iri) and identifier[len(iri) :]:
-                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
-                        break
-                else:
-                    allow_absolute_identifier = True
-            if not allow_absolute_identifier:
-                _ensure_known_curie(
-                    normalized_identifier,
-                    prefixes,
-                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
-                )
+            _ensure_known_curie(
+                individual_or_arrow.identifier,
+                prefixes,
+                (
+                    f"An arrow has label '{individual_or_arrow.identifier}', "
+                    "which is not a known object property or datatype property"
+                ),
+            )
             if individual_or_arrow.is_datatype:
-                datatype_properties.add(normalized_identifier)
+                datatype_properties.add(individual_or_arrow.identifier)
                 target_identifier = individual_or_arrow.target
-                literal_candidate = target_identifier.strip()
-                if (
-                    ":" in literal_candidate
-                    and "://" not in literal_candidate
-                    and literal_candidate
-                ):
-                    prefix, reference = literal_candidate.split(":", 1)
-                    if (
-                        prefix
-                        and (prefix[0].isalpha() or prefix[0] == "_")
-                        and all((ch.isalnum() or ch in "._-" for ch in prefix[1:]))
-                        and (
-                            not (
-                                reference
-                                and any((char.isspace() for char in reference))
-                            )
-                        )
-                    ):
-                        manager = Graph().namespace_manager
-                        for known_prefix, iri in prefixes.items():
-                            manager.bind(known_prefix, iri, replace=True)
-                        try:
-                            manager.expand_curie(literal_candidate)
-                        except Exception as exc:
-                            raise NotInKnownException(
-                                f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
-                            ) from exc
-                property_value = (target_identifier, True)
             else:
-                object_properties.add(normalized_identifier)
+                object_properties.add(individual_or_arrow.identifier)
                 target_identifier = _replace_metacharacters(
                     individual_or_arrow.target,
                     metacharacter_substitutes,
                     space_substitute,
                     capitalisation_scheme,
                 )
-                property_value = (target_identifier, False)
             source_identifier = _replace_metacharacters(
                 individual_or_arrow.source,
                 metacharacter_substitutes,
@@ -2368,18 +2620,17 @@ class internal_control_core:
                 capitalisation_scheme,
             )
             try:
-                block = blocks[source_identifier, individual_or_arrow.source]
+                block = blocks[(source_identifier, individual_or_arrow.source)]
             except KeyError:
-                blocks[source_identifier, individual_or_arrow.source] = {
-                    normalized_identifier: {property_value}
+                blocks[(source_identifier, individual_or_arrow.source)] = {
+                    individual_or_arrow.identifier: {target_identifier}
                 }
                 continue
-            values = block.get(normalized_identifier)
-            if values is None:
-                block[normalized_identifier] = {property_value}
-            else:
-                values.add(property_value)
-        return (blocks, object_properties, datatype_properties)
+            try:
+                block[individual_or_arrow.identifier].add(target_identifier)
+            except KeyError:
+                block[individual_or_arrow.identifier] = {target_identifier}
+        return blocks, object_properties, datatype_properties
 
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml
@@ -2513,28 +2764,20 @@ class internal_control_core:
                 config_args["metacharacter_substitute"]
             )
         )
-        blocks, object_properties, datatype_properties = (
-            internal_control_core.individual_blocks(
-                classifier.get_graph_elements(),
-                metacharacter_substitutes,
-                space_substitute,
-                config_args["capitalisation_scheme"],
-                prefixes,
-            )
-        )
         serializer = (
             pipeline.core.rdf.control.serialise_to_rml
             if rml_enabled
             else serialise_to_graph
         )
         graph = serializer(
-            blocks,
-            object_properties,
-            datatype_properties,
+            classifier,
             serialisation_config,
             prefixes,
             graph_cls=DrawIOParserGraph,
             graph_kwargs={"csv_path": csv_path},
+            metacharacter_substitutes=metacharacter_substitutes,
+            space_substitute=space_substitute,
+            capitalisation_scheme=config_args["capitalisation_scheme"],
         )
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
@@ -2608,11 +2851,14 @@ class rdf_control_core:
     # BEGIN serialise_to_graph
     # override from serialisers.py
     def serialise_to_graph(
-        blocks: Blocks,
-        object_properties: set[str],
-        datatype_properties: set[str],
+        classifier,
         serialisation_config: SerialisationConfig,
         prefixes: dict,
+        *,
+        metacharacter_substitutes: Iterable[tuple[Metacharacter, Replacement]]
+        | None = None,
+        space_substitute: Replacement | None = None,
+        capitalisation_scheme: str | None = None,
         graph_cls: Type[Graph] = Graph,
         graph_kwargs: Optional[Dict[str, Any]] = None,
     ) -> Graph:
@@ -2621,12 +2867,13 @@ class rdf_control_core:
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
         serializer = RDFSerializer(
-            blocks,
-            object_properties,
-            datatype_properties,
+            classifier,
             serialisation_config,
             prefixes,
             graph,
+            metacharacter_substitutes=metacharacter_substitutes,
+            space_substitute=space_substitute,
+            capitalisation_scheme=capitalisation_scheme,
         )
         serializer.setup_namespaces()
         serializer.add_preamble()

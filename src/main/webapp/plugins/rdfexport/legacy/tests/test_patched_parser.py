@@ -55,6 +55,168 @@ TYPE_CASE_VALUES = {
 CLASS_DIAGRAM_LITERAL_CELL_ID = "zkfFHV4jXpPFQw0GAbJ--17"
 
 
+class _DummyClassifier:
+    def __init__(self, individuals, arrows):
+        self.individuals = list(individuals)
+        self.arrows = list(arrows)
+        self.decorations: dict[str, dict[str, str]] = {}
+
+    def build_serialisation_context(
+        self,
+        *,
+        metacharacter_substitutes,
+        space_substitute,
+        capitalisation_scheme,
+        prefixes,
+    ):
+        substitutes = list(metacharacter_substitutes or [])
+        capitalisation_scheme = capitalisation_scheme or (
+            draw_io_parser.DEFAULT_CAPITALISATION_SCHEME
+        )
+
+        blocks: draw_io_parser.Blocks = {}
+        object_properties: set[str] = set()
+        datatype_properties: set[str] = set()
+
+        for individual in self.individuals:
+            draw_io_parser._add_individual_type(
+                blocks,
+                individual,
+                substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+
+        namespace_manager = Graph().namespace_manager
+        for known_prefix, iri in prefixes.items():
+            namespace_manager.bind(known_prefix, iri, replace=True)
+
+        def _is_absolute_iri(candidate: str) -> bool:
+            if not candidate or any(ch.isspace() for ch in candidate):
+                return False
+            if "://" in candidate:
+                return True
+            scheme, _, remainder = candidate.partition(":")
+            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
+
+        for arrow in self.arrows:
+            identifier = arrow.identifier
+            normalized_identifier = identifier
+            allow_absolute_identifier = False
+
+            if _is_absolute_iri(identifier):
+                for prefix_key, iri in prefixes.items():
+                    if identifier.startswith(iri) and identifier[len(iri) :]:
+                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
+                        break
+                else:
+                    allow_absolute_identifier = True
+
+            if not allow_absolute_identifier:
+                draw_io_parser._ensure_known_curie(
+                    normalized_identifier,
+                    prefixes,
+                    (
+                        f"An arrow has label '{normalized_identifier}', "
+                        "which is not a known object property or datatype property"
+                    ),
+                )
+
+            if arrow.is_datatype:
+                datatype_properties.add(normalized_identifier)
+                target_identifier = arrow.target
+                literal_candidate = target_identifier.strip()
+                if (
+                    ":" in literal_candidate
+                    and "://" not in literal_candidate
+                    and literal_candidate
+                ):
+                    prefix, reference = literal_candidate.split(":", 1)
+                    if (
+                        prefix
+                        and (prefix[0].isalpha() or prefix[0] == "_")
+                        and all(ch.isalnum() or ch in "._-" for ch in prefix[1:])
+                        and not (
+                            reference and any(char.isspace() for char in reference)
+                        )
+                    ):
+                        try:
+                            namespace_manager.expand_curie(literal_candidate)
+                        except Exception as exc:  # pragma: no cover - defensive
+                            raise draw_io_parser.NotInKnownException(
+                                (
+                                    "The literal value "
+                                    f"'{literal_candidate}' does not correspond to a known CURIE"
+                                )
+                            ) from exc
+                property_value = (target_identifier, True)
+            else:
+                object_properties.add(normalized_identifier)
+                target_identifier = draw_io_parser._replace_metacharacters(
+                    arrow.target,
+                    substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+                property_value = (target_identifier, False)
+
+            source_identifier = draw_io_parser._replace_metacharacters(
+                arrow.source,
+                substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+
+            block = blocks.setdefault((source_identifier, arrow.source), {})
+            block.setdefault(normalized_identifier, set()).add(property_value)
+
+        classifier_cls = getattr(draw_io_parser, "DrawIOCellClassifier", None)
+        context_cls = None
+        if classifier_cls is not None:
+            context_cls = getattr(classifier_cls, "SerialisationContext", None)
+
+        if context_cls is None:
+            return {
+                "blocks": blocks,
+                "object_properties": object_properties,
+                "datatype_properties": datatype_properties,
+            }
+
+        return context_cls(blocks, object_properties, datatype_properties)
+
+
+def _serialize_dummy_graph(
+    classifier: _DummyClassifier,
+    prefixes: dict[str, str],
+    *,
+    config: draw_io_parser.SerialisationConfig | None = None,
+    metacharacter_substitutes: list[tuple[str, str]] | None = None,
+    space_substitute: str | None = None,
+    capitalisation_scheme: str | None = None,
+):
+    if config is None:
+        config = draw_io_parser.SerialisationConfig(
+            infer_type_of_literals=True,
+            include_preamble=False,
+            ontology_iri="http://example.com/ontology",
+            prefix="",
+            prefix_iri="http://example.com/",
+            indentation=2,
+            include_label=False,
+        )
+
+    return draw_io_parser.serialise_to_graph(
+        classifier,
+        config,
+        prefixes,
+        metacharacter_substitutes=metacharacter_substitutes or [],
+        space_substitute=space_substitute,
+        capitalisation_scheme=(
+            capitalisation_scheme or draw_io_parser.DEFAULT_CAPITALISATION_SCHEME
+        ),
+    )
+
+
 def _mutate_fixture_for_case(tmp_path: Path, case_key: Optional[str]) -> Path:
     tree = ET.parse(FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio")
     root = tree.getroot()
@@ -105,70 +267,61 @@ def _write_class_diagram_variant(
     return output
 
 
-def test_individual_blocks_accepts_declared_prefix_curie():
+def test_serialise_to_graph_accepts_declared_prefix_curie():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["ex"] = "https://example.org/custom#"
 
-    items = iter(
+    classifier = _DummyClassifier(
         [
             draw_io_parser.Individual("SourceNode", "ex:CustomClass"),
             draw_io_parser.Individual("TargetNode", "ex:OtherClass"),
+        ],
+        [
             draw_io_parser.Arrow(
                 identifier="ex:connectsTo",
                 source="SourceNode",
                 target="TargetNode",
                 is_datatype=False,
-            ),
-        ]
+            )
+        ],
     )
 
-    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
-        items,
-        [],
-        None,
-        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
-        prefixes,
-    )
+    graph = _serialize_dummy_graph(classifier, prefixes)
 
-    assert ("SourceNode", "SourceNode") in blocks
-    assert "ex:CustomClass" in blocks[("SourceNode", "SourceNode")]["Types"]
-    assert "ex:connectsTo" in object_props
-    assert not datatype_props
+    subject = URIRef("http://example.com/SourceNode")
+    target = URIRef("http://example.com/TargetNode")
+    predicate = URIRef("https://example.org/custom#connectsTo")
+    class_uri = URIRef("https://example.org/custom#CustomClass")
+
+    assert (subject, RDF.type, OWL.NamedIndividual) in graph
+    assert (subject, RDF.type, class_uri) in graph
+    assert (subject, predicate, target) in graph
+    assert (predicate, RDF.type, OWL.ObjectProperty) in graph
 
 
-def test_individual_blocks_tracks_datatype_properties():
+def test_serialise_to_graph_tracks_datatype_properties():
     prefixes = draw_io_parser.get_prefixes()
 
-    items = iter(
+    classifier = _DummyClassifier(
+        [draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual")],
         [
-            draw_io_parser.Individual("LiteralNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="rdfs:label",
                 source="LiteralNode",
                 target="Example literal",
                 is_datatype=True,
-            ),
-        ]
+            )
+        ],
     )
 
-    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
-        items,
-        [],
-        None,
-        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
-        prefixes,
-    )
+    graph = _serialize_dummy_graph(classifier, prefixes)
 
-    assert not object_props
-    assert "rdfs:label" in datatype_props
-    facts = blocks[("LiteralNode", "LiteralNode")]["rdfs:label"]
-    assert any(
-        isinstance(value, tuple)
-        and len(value) == 2
-        and value[0] == "Example literal"
-        and value[1] is True
-        for value in facts
-    )
+    subject = URIRef("http://example.com/LiteralNode")
+    predicate = URIRef(f"{prefixes['rdfs']}label")
+
+    assert (subject, RDFS.label, Literal("Example literal")) in graph
+    assert (predicate, RDF.type, OWL.DatatypeProperty) in graph
+    assert (predicate, RDF.type, OWL.ObjectProperty) not in graph
 
 
 def test_parse_drawio_preserves_literal_targets():
@@ -253,24 +406,16 @@ def test_serialise_to_graph_falls_back_for_relative_prefixes():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["bad"] = "relative-prefix"
 
-    items = iter(
+    classifier = _DummyClassifier(
+        [draw_io_parser.Individual("Source", "owl:NamedIndividual")],
         [
-            draw_io_parser.Individual("Source", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="bad:prop",
                 source="Source",
                 target="literal value",
                 is_datatype=True,
-            ),
-        ]
-    )
-
-    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
-        items,
-        [],
-        None,
-        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
-        prefixes,
+            )
+        ],
     )
 
     config = draw_io_parser.SerialisationConfig(
@@ -283,12 +428,10 @@ def test_serialise_to_graph_falls_back_for_relative_prefixes():
         include_label=False,
     )
 
-    graph = draw_io_parser.serialise_to_graph(
-        blocks,
-        object_props,
-        datatype_props,
-        config,
+    graph = _serialize_dummy_graph(
+        classifier,
         prefixes,
+        config=config,
     )
 
     subject = URIRef("http://example.com/Source")
@@ -511,29 +654,23 @@ def test_parse_drawio_rejects_unknown_literal_curie():
         )
 
 
-def test_individual_blocks_rejects_unknown_prefix():
+def test_serialise_to_graph_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 
-    items = iter(
+    classifier = _DummyClassifier(
+        [draw_io_parser.Individual("SourceNode", "owl:NamedIndividual")],
         [
-            draw_io_parser.Individual("SourceNode", "owl:NamedIndividual"),
             draw_io_parser.Arrow(
                 identifier="unknown:prop",
                 source="SourceNode",
                 target="Value",
                 is_datatype=True,
-            ),
-        ]
+            )
+        ],
     )
 
     with pytest.raises(draw_io_parser.NotInKnownException):
-        draw_io_parser.individual_blocks(
-            items,
-            [],
-            None,
-            draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
-            prefixes,
-        )
+        _serialize_dummy_graph(classifier, prefixes)
 
 
 def _run_drawio_metadata_patcher(
