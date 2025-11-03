@@ -190,18 +190,12 @@ MAPPING: List[Tuple[str, str, str, str]] = [
     # ("DrawIOXMLTree._arrow", "xml", "data", "core"),
     # ("DrawIOXMLTree.individuals_and_arrows", "xml", "data", "core"),
     # internal.data.core - Internal model classes and data operations
-    ("Individual", "internal", "data", "core"),
-    ("Arrow", "internal", "data", "core"),
     ("_split_curie", "internal", "data", "core"),
     ("_ensure_known_curie", "internal", "data", "core"),
     ("_verify_is_ric_class", "internal", "data", "core"),
-    ("_SourceNotIndividualException", "internal", "data", "core"),
-    ("ArrowWithoutIndividualAsSourceException", "internal", "data", "core"),
-    ("_add_individual_type", "internal", "data", "core"),
     # internal.control.core - Orchestration: couples data with metadata, produces blocks/props
     ("_parse_space_substitute", "internal", "control", "core"),
     ("_parse_metacharacter_substitutes", "internal", "control", "core"),
-    ("individual_blocks", "internal", "control", "core"),
     ("_build_graph_from_raw_xml", "internal", "control", "core"),
     # rdf.data.core - RDF-specific exceptions
     ("NotInKnownException", "rdf", "data", "core"),
