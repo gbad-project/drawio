@@ -129,6 +129,7 @@ def test_classifier_detects_typed_individuals_and_literals():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
+        allow_template_types=True,
     )
 
     observed = {
@@ -158,6 +159,7 @@ def test_top_level_rounded_text_treated_as_literal():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
+        allow_template_types=True,
     )
 
     literal_ids = set(classifier._literals_by_id.keys())
@@ -182,6 +184,7 @@ def test_classifier_parent_cell_collects_child_type_tokens():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
+        allow_template_types=True,
     )
 
     observed = {
@@ -206,6 +209,26 @@ def test_classifier_standalone_curie_node_creates_individual_without_parent():
         for individual in classifier.individuals
     }
     assert ("owl:NamedIndividual", "owl:NamedIndividual") in observed
+
+
+def test_classifier_typed_individual_accepts_template_tokens():
+    xml = _drawio_xml(
+        _vertex_cell("parent", "Template Individual", style="swimlane"),
+        _vertex_cell("child", "{RICO_AUTHTP_CLASS}", parent="parent"),
+    )
+
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+        allow_template_types=True,
+    )
+
+    observed = {
+        (individual.identifier, individual.ric_class)
+        for individual in classifier.individuals
+    }
+
+    assert ("Template Individual", "{RICO_AUTHTP_CLASS}") in observed
 
 
 def test_absolute_uri_node_uses_default_type_with_classifier():

@@ -1,0 +1,2115 @@
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+
+<http://example.com/KB/AgencyReferenceCode/AA131> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/AA52> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/BA409> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/BA483> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/BA592> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/BA611> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/BA700> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/BA94> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA11> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA1113> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA1144> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA1383> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA147> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA1635> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA1796> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA2181> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA26> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA262> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA293> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA38> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA383> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA436> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA445> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA447> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA509> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA673> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA931> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA933> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/AgencyReferenceCode/CA952> rico:hasIdentifierType <http://example.com/Schema/Authority/AgencyReferenceCode>;
+  rico:normalizedValue "REFA" .
+
+<http://example.com/KB/Agent/Birchard%20%28family%29> rdfs:label "", "Birchard (family) (Family)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Birchard%20%28family%29> .
+
+<http://example.com/KB/Agent/Brock%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Brock (Ont. : Township) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Brock%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Agent/Canniff%2C%20William%2C%201830-1910> rdfs:label "", "Canniff, William, 1830-1910 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Canniff%2C%20William%2C%201830-1910> .
+
+<http://example.com/KB/Agent/Dairy%20Farmers%20of%20Ontario> rdfs:label "Dairy Farmers of Ontario (Corporate Body)" .
+
+<http://example.com/KB/Agent/Employment%20Service%20Council%20of%20Ontario> rdfs:label
+    "", "Employment Service Council of Ontario (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Employment%20Service%20Council%20of%20Ontario>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA592>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/BA592>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Employment%20Service%20Council%20of%20Ontario> .
+
+<http://example.com/KB/Agent/Fraser%2C%20Frederick%20George%20Mackenzie%2C%20fl.%201878-1889>
+  rdfs:label "", "Fraser, Frederick George Mackenzie, fl. 1878-1889 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Fraser%2C%20Frederick%20G.%20M.>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Fraser%2C%20Frederick%20George%20Mackenzie%2C%20fl.%201878-1889> .
+
+<http://example.com/KB/Agent/Gilling%2C%20Walter%20J.%2C%201906-1993> rdfs:label "",
+    "Gilling, Walter J., 1906-1993 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Gilling%2C%20Walter%20J.%2C%201906-1993> .
+
+<http://example.com/KB/Agent/Grobb%2C%20Reita%20Margaret%20%281910-1988%29> rdfs:label
+    "", "Grobb, Reita Margaret (1910-1988) (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Grobb%2C%20Reita%20Margaret%20%281910-1988%29> .
+
+<http://example.com/KB/Agent/Hamilton%20Normal%20School%20%28Ont.%29> rdfs:label "",
+    "Hamilton Normal School (Ont.) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Hamilton%20Normal%20School>,
+    <http://example.com/KB/VariantAgentName/Hamilton%20Teachers%20College.>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA700>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/BA700>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Hamilton%20Normal%20School%20%28Ont.%29> .
+
+<http://example.com/KB/Agent/Hoy%2C%20Claire%2C%201940-> rdfs:label "", "Hoy, Claire, 1940- (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Hoy%2C%20Claire%2C%201940-> .
+
+<http://example.com/KB/Agent/Hunter%2C%20Donald%20F.%2C%201911-1976> rdfs:label "",
+    "Hunter, Donald F., 1911-1976 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Hunter%2C%20Donald%20F.%2C%201911-1976> .
+
+<http://example.com/KB/Agent/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>
+  rdfs:label "", "Inquiry into Motor Vehicle Accident Compensation in Ontario (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA483>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/BA483>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario> .
+
+<http://example.com/KB/Agent/Jessup%2C%20Edward%2C%201735-1816> rdfs:label "", "Jessup, Edward, 1735-1816 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Jessup%2C%20Edward%2C%201735-1816> .
+
+<http://example.com/KB/Agent/Jessup%2C%20Hamilton%20Dibble%2C%201806-1892> rdfs:label
+    "", "Jessup, Hamilton Dibble, 1806-1892 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Jessup%2C%20Hamilton%20Dibble%2C%201806-1892> .
+
+<http://example.com/KB/Agent/Martin%2C%20William%20L.%2C%2019th%20cent.> rdfs:label
+    "", "Martin, William L., 19th cent. (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Martin%2C%20William%20L.%2C%2019th%20cent.> .
+
+<http://example.com/KB/Agent/McMullen%2C%20W.%20T.%2C%20fl.%201891-1928> rdfs:label
+    "", "McMullen, W. T., fl. 1891-1928 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/McMullen%2C%20W.%20T.%2C%20fl.%201891-1928> .
+
+<http://example.com/KB/Agent/Milton%20Jail%20%28Ont.%29> rdfs:label "", "Milton Jail (Ont.) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Milton%20Jail>, <http://example.com/KB/VariantAgentName/Milton%20Gaol%20%28Ont.%29>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA409>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/BA409>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Milton%20Jail%20%28Ont.%29> .
+
+<http://example.com/KB/Agent/Montaigne%2C%20Bill%2C%201915-1988> rdfs:label "", "Montaigne, Bill, 1915-1988 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Montaigne%2C%20William%20J.>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Montaigne%2C%20Bill%2C%201915-1988> .
+
+<http://example.com/KB/Agent/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29> rdfs:label
+    "", "North Bay Psychiatric Hospital (Ont.) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA611>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/BA611>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29> .
+
+<http://example.com/KB/Agent/Northern%20Telephone%20Company> rdfs:label "", "Northern Telephone Company (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Temiskaming%20Telephone%20Company>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Northern%20Telephone%20Company> .
+
+<http://example.com/KB/Agent/Ontario%20Association%20of%20Registered%20Nursing%20Assistants>
+  rdfs:label "", "Ontario Association of Registered Nursing Assistants (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario%20Association%20of%20Registered%20Nursing%20Assistants> .
+
+<http://example.com/KB/Agent/Ontario%20Committee%20on%20Student%20Awards> rdfs:label
+    "", "Ontario Committee on Student Awards (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Ontario%20Committee%20on%20Student%20Awards>,
+    <http://example.com/KB/VariantAgentName/Ontario%20Student%20Awards%20Committee.>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20University%20Affairs>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA147>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA147>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario%20Committee%20on%20Student%20Awards> .
+
+<http://example.com/KB/Agent/Ontario%20Concentrated%20Milk%20Producers%27%20Marketing%20Board>
+  rdfs:label "", "Ontario Concentrated Milk Producers' Marketing Board (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Ontario%20Manufactured%20Milk%20Producers%27%20Association%20.>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Dairy%20Farmers%20of%20Ontario>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario%20Concentrated%20Milk%20Producers%27%20Marketing%20Board> .
+
+<http://example.com/KB/Agent/Ontario%20Telephone%20Authority> rdfs:label "Ontario Telephone Authority (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario%20Telephone%20Services%20Commission> rdfs:label
+    "", "Ontario Telephone Services Commission (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Ontario%20Telephone%20Services%20Commission>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA94>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/BA94>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario%20Telephone%20Services%20Commission>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario%20Telephone%20Authority> .
+
+<http://example.com/KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281777-1968%29>
+  rdfs:label "Ontario. Clerks of the Peace (1777-1968) (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29>
+  rdfs:label "", "Ontario. Clerks of the Peace (1968-1984) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Upper%20Canada.%20Clerks%20of%20the%20Peace.>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA952>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA952>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281777-1968%29> .
+
+<http://example.com/KB/Agent/Ontario.%20Community%20Information%20Services> rdfs:label
+    "", "Ontario. Community Information Services (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA673>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA673>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Community%20Information%20Services> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Colleges%20and%20Universities>
+  rdfs:label "Ontario. Dept. of Colleges and Universities (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Highways> rdfs:label "Ontario. Dept. of Highways (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch>
+  rdfs:label "", "Ontario. Dept. of Highways. Operations Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Operations%20Branch>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Dept.%20of%20Transportation%20and%20Communications.%20Operations%20Branch>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Highways>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA1113>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications.%20Operations%20Division>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA1113>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Justice> rdfs:label "Ontario. Dept. of Justice (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests> rdfs:label
+    "", "Ontario. Dept. of Lands and Forests (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Department%20of%20Lands%20and%20Forests>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#A%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/AA52>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/AA52>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%2C%20Forests%20and%20Mines>;
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys>
+  rdfs:label "Ontario. Dept. of Lands and Forests. Division of Surveys (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering>
+  rdfs:label "", "Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Division%20of%20Surveys%20and%20Engineering>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA509>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Lands%20and%20Surveys%20Branch>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA509>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%2C%20Forests%20and%20Mines>
+  rdfs:label "Ontario. Dept. of Lands, Forests and Mines (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information>
+  rdfs:label "Ontario. Dept. of Tourism and Information (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch>
+  rdfs:label "", "Ontario. Dept. of Tourism and Information. Advertising Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA11>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA11>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Transportation%20and%20Communications>
+  rdfs:label "Ontario. Dept. of Transportation and Communications (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20University%20Affairs> rdfs:label
+    "Ontario. Dept. of University Affairs (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General> rdfs:label
+    "Ontario. Dept. of the Attorney General (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary>
+  rdfs:label "Ontario. Dept. of the Provincial Secretary (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship>
+  rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Division%20of%20Forest%20Protection> rdfs:label
+    "Ontario. Division of Forest Protection (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Division%20of%20Reforestation> rdfs:label
+    "", "Ontario. Division of Reforestation (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Division%20of%20Reforestation>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Division%20of%20Reforestation%20and%20Conservation>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA262>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Division%20of%20Timber>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA262>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Division%20of%20Reforestation> .
+
+<http://example.com/KB/Agent/Ontario.%20Division%20of%20Timber> rdfs:label "Ontario. Division of Timber (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Energy%20Division> rdfs:label "", "Ontario. Energy Division (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA2181>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA2181>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Energy%20Division> .
+
+<http://example.com/KB/Agent/Ontario.%20Environmental%20Protection%20Branch.> rdfs:label
+    "Ontario. Environmental Protection Branch. (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Forest%20Protection%20Branch> rdfs:label "",
+    "Ontario. Forest Protection Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Forest%20Protection%20Branch>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA445>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Environmental%20Protection%20Branch.>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA445>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Forest%20Protection%20Branch>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Division%20of%20Forest%20Protection> .
+
+<http://example.com/KB/Agent/Ontario.%20Industry%20and%20Trade%20Expansion> rdfs:label
+    "Ontario. Industry and Trade Expansion (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Land%20Management%20Division> rdfs:label "",
+    "Ontario. Land Management Division (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Land%20Management%20Division>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA38>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources.%20Division%20of%20Lands.>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA38>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Land%20Management%20Division> .
+
+<http://example.com/KB/Agent/Ontario.%20Lands%20and%20Surveys%20Branch> rdfs:label
+    "Ontario. Lands and Surveys Branch (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly> rdfs:label "Ontario. Legislative Assembly (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
+  rdfs:label "", "Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Select%20Committee%20on%20Common%20and%20Grammar%20Schools>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Common%20and%20Grammar%20Schools%20Committee>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA383>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA383>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools> .
+
+<http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20Members%27%20Services.>
+  rdfs:label "Ontario. Legislative Assembly. Standing Committee on Members' Services. (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly>
+  rdfs:label "", "Ontario. Legislative Assembly. Standing Committee on the Legislative Assembly (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:authorizedBy <http://example.com/KB/Mandate/Standing%20Committees%20are%20established%20under%20the%20authority%20of%20Standing%20Orders%20of%20the%20Legislative%20Assembly%20of%20Ontario.>;
+  rico:hasEndDate <http://example.com/KB/Date/1986>;
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Standing%20Committee%20on%20the%20Legislative%20Assembly>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Standing%20Legislative%20Assembly%20Committee>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA447>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA447>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20Members%27%20Services.> .
+
+<http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Procedural%20Affairs%20Committee>
+  rdfs:label "Ontario. Legislative Assembly. Standing Procedural Affairs Committee (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture>
+  rdfs:label "Ontario. Ministry of Citizenship and Culture (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Colleges%20and%20Universities>
+  rdfs:label "Ontario. Ministry of Colleges and Universities (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services>
+  rdfs:label "Ontario. Ministry of Community and Social Services (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Information%20Systems%20and%20Applied%20Technology%20Division>
+  rdfs:label "Ontario. Ministry of Community and Social Services. Information Systems and Applied Technology Division (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch>
+  rdfs:label "", "Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Management%20Information%20Systems%20Branch>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20and%20Financial%20Services%20Branch.>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA1383>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Information%20Systems%20and%20Applied%20Technology%20Division>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA1383>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Communications>
+  rdfs:label "Ontario. Ministry of Culture and Communications (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Recreation>
+  rdfs:label "Ontario. Ministry of Culture and Recreation (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29>
+  rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281999-2002%29>
+  rdfs:label "Ontario. Ministry of Economic Development and Trade (1999-2002) (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%282003-2008%29>
+  rdfs:label "Ontario. Ministry of Economic Development and Trade (2003-2008) (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism>
+  rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29>
+  rdfs:label "Ontario. Ministry of Education (1972-1993) (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch>
+  rdfs:label "", "Ontario. Ministry of Education (1972-1993). Research Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Research%20Branch>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA1635>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20and%20Information%20Branch>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA1635>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20and%20Information%20Branch>
+  rdfs:label "Ontario. Ministry of Education (1972-1993). Research and Information Branch (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29>
+  rdfs:label "Ontario. Ministry of Energy (2003-2008) (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology>
+  rdfs:label "Ontario. Ministry of Energy, Science and Technology (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
+  rdfs:label "", "Ontario. Ministry of Enterprise, Opportunity and Innovation (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#A%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/AA131>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%282003-2008%29>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/AA131>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281999-2002%29> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29>
+  rdfs:label "Ontario. Ministry of Environment and Energy (2002) (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Tourism>
+  rdfs:label "Ontario. Ministry of Industry and Tourism (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade> rdfs:label
+    "Ontario. Ministry of Industry and Trade (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division>
+  rdfs:label "", "Ontario. Ministry of Industry and Trade. Trade Division (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Trade%20Division>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA933>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Industry%20and%20Trade%20Expansion>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA933>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology>
+  rdfs:label "Ontario. Ministry of Industry, Trade and Technology (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Labour> rdfs:label "Ontario. Ministry of Labour (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources> rdfs:label
+    "Ontario. Ministry of Natural Resources (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources.%20Division%20of%20Lands.>
+  rdfs:label "Ontario. Ministry of Natural Resources. Division of Lands. (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources.%20Field%20Services%20Division%20%281972-1978%29>
+  rdfs:label "Ontario. Ministry of Natural Resources. Field Services Division (1972-1978) (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Transportation> rdfs:label
+    "Ontario. Ministry of Transportation (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications>
+  rdfs:label "Ontario. Ministry of Transportation and Communications (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications.%20Operations%20Division>
+  rdfs:label "Ontario. Ministry of Transportation and Communications. Operations Division (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Ministry%20of%20the%20Attorney%20General>
+  rdfs:label "Ontario. Ministry of the Attorney General (Corporate Body)";
+  rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> .
+
+<http://example.com/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>
+  rdfs:label "", "Ontario. Occupational Health and Safety Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasEndDate <http://example.com/KB/Date/1991>;
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Occupational%20Health%20and%20Safety%20Branch>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Labour>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA1796>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA1796>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Division> .
+
+<http://example.com/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Division>
+  rdfs:label "Ontario. Occupational Health and Safety Division (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor>
+  rdfs:label "", "Ontario. Office of the Provincial Municipal Auditor (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:authorizedBy <http://example.com/KB/Mandate/Act%20to%20make%20better%20provision%20for%20keeping%20and%20auditing%20Municipal%20and%20School%20Accounts%2C%20Statutes%20of%20Ontario%201897%2C%20Chap%2048>;
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Office%20of%20the%20Provincial%20Municipal%20Auditor>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA293>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA293>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor> .
+
+<http://example.com/KB/Agent/Ontario.%20Surveys%20and%20Engineering%20Branch> rdfs:label
+    "Ontario. Surveys and Engineering Branch (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Tourism%20Marketing%20Branch> rdfs:label "Ontario. Tourism Marketing Branch (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Tourist%20Promotion%20and%20Information%20Branch>
+  rdfs:label "Ontario. Tourist Promotion and Information Branch (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29>
+  rdfs:label "", "Ontario. Trade Development Branch (1993-1996) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Trade%20Development%20Branch>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA931>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA931>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Trade%20and%20Investment%20Support%20Branch> .
+
+<http://example.com/KB/Agent/Ontario.%20Trade%20and%20Investment%20Support%20Branch>
+  rdfs:label "Ontario. Trade and Investment Support Branch (Corporate Body)" .
+
+<http://example.com/KB/Agent/Ontario.%20Transportation%20Regulation%20Operations%20Division>
+  rdfs:label "", "Ontario. Transportation Regulation Operations Division (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Transportation%20Regulation%20Operations%20Division>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Transportation%20Regulation%20Division.>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA1144>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA1144>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Transportation%20Regulation%20Operations%20Division> .
+
+<http://example.com/KB/Agent/Ontario.%20Travel%20Services%20Branch> rdfs:label "",
+    "Ontario. Travel Services Branch (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Travel%20Services%20Branch>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Tourism>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA26>;
+  rico:hasSuccessor <http://example.com/KB/Agent/Ontario.%20Tourism%20Marketing%20Branch>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA26>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ontario.%20Travel%20Services%20Branch>;
+  rico:isSuccessorOf <http://example.com/KB/Agent/Ontario.%20Tourist%20Promotion%20and%20Information%20Branch> .
+
+<http://example.com/KB/Agent/Order%20Sons%20of%20Italy%20of%20Canada.%20Principe%20Umberto%20Lodge%20%28St.%20Catharines%2C%20Ont.%29>
+  rdfs:label "", "Order Sons of Italy of Canada. Principe Umberto Lodge (St. Catharines, Ont.) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Order%20Sons%20of%20Italy%20of%20Canada.%20Principe%20Umberto%20Lodge%20%28St.%20Catharines%2C%20Ont.%29> .
+
+<http://example.com/KB/Agent/Ryde%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Ryde (Ont. : Township) (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ryde%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Agent/Saint%20Lawrence%20Permanent%20Building%20Society> rdfs:label
+    "", "Saint Lawrence Permanent Building Society (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Saint%20Lawrence%20Permanent%20Building%20Society> .
+
+<http://example.com/KB/Agent/Schoolcraft%2C%20John> rdfs:label "", "Schoolcraft, John (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Schoolcraft%2C%20John> .
+
+<http://example.com/KB/Agent/Solski%2C%20Mike%2C%201918-1999> rdfs:label "", "Solski, Mike, 1918-1999 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Solski%2C%20Mike%2C%201918-1999> .
+
+<http://example.com/KB/Agent/Sons%20of%20Temperance%20of%20North%20America.%20Ameliasburgh%20Division%20No.%2092>
+  rdfs:label "", "Sons of Temperance of North America. Ameliasburgh Division No. 92 (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#Corporate%20Name>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Sons%20of%20Temperance%20of%20North%20America.%20Ameliasburgh%20Division%20No.%2092> .
+
+<http://example.com/KB/Agent/Toronto%20%28Ont.%29> rdfs:label "Toronto (Ont.) (Corporate Body)" .
+
+<http://example.com/KB/Agent/Troster%2C%20David%2C%201949-1995> rdfs:label "", "Troster, David, 1949-1995 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Troster%2C%20David%2C%201949-1995> .
+
+<http://example.com/KB/Agent/Walmsley%2C%20Thomas%2C%201859-ca.%201929> rdfs:label
+    "", "Walmsley, Thomas, 1859-ca. 1929 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Walmsley%2C%20Thomas%2C%201859-ca.%201929> .
+
+<http://example.com/KB/Agent/War%20Memorial%20Committee%20of%20Ontario> rdfs:label
+    "", "War Memorial Committee of Ontario (Corporate Body)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/War%20Memorial%20Committee%20of%20Ontario>,
+    <http://example.com/KB/VariantAgentName/Ontario.%20Committee%20on%20a%20Memorial%20of%20the%20Recent%20War.>;
+  rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly>;
+  rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
+  rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA436>;
+  rico:history "ADM";
+  rico:isEquivalentTo <http://example.com/KB/Agent/CA436>;
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/War%20Memorial%20Committee%20of%20Ontario> .
+
+<http://example.com/KB/Agent/West%2C%20William%20A.%20N.%2C%20fl.%201872> rdfs:label
+    "", "West, William A. N., fl. 1872 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/West%2C%20William%20A.%20N.%2C%20fl.%201872> .
+
+<http://example.com/KB/Agent/Wood%2C%20Orville%20Alvin%2C%201912-2006> rdfs:label
+    "", "Wood, Orville Alvin, 1912-2006 (Person)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Wood%2C%20Orville%20Alvin%2C%201912-2006> .
+
+<http://example.com/KB/AuthorityRecord/Birchard%20%28family%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Brock%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Campbellville%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Canniff%2C%20William%2C%201830-1910> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Churchill%20%28Man.%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Clear%20Lake%20%28Haliburton%20County%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Colenso%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Cygnet%20Lake%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Dennie%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Devon%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Employment%20Service%20Council%20of%20Ontario>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Fallingsnow%20Lake%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Fraser%2C%20Frederick%20George%20Mackenzie%2C%20fl.%201878-1889>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Gilling%2C%20Walter%20J.%2C%201906-1993> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Greenwater%20Lake%20%28South%20of%20Lac%20des%20Milles%20Lacs%2C%20Thunder%20Bay%20District%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Grobb%2C%20Reita%20Margaret%20%281910-1988%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Halton%20Hills%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Hamilton%20Normal%20School%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Harmony%20%28Oshawa%2C%20Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Harrow%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Henvey%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Herschel%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Hoy%2C%20Claire%2C%201940-> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Hunter%2C%20Donald%20F.%2C%201911-1976> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Inwood%20%28Ont.%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Jessup%2C%20Edward%2C%201735-1816> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Jessup%2C%20Hamilton%20Dibble%2C%201806-1892>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Joffre%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Killraine%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Kirkfield%20%28Ont.%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Law%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Longbow%20Lake%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Lyndoch%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/MacGregor%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Martin%2C%20William%20L.%2C%2019th%20cent.>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/McMullen%2C%20W.%20T.%2C%20fl.%201891-1928>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Medora%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Middle%20Shebandowan%20Lake%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Milton%20Jail%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Minden%20%28Ont.%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Montaigne%2C%20Bill%2C%201915-1988> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Morin%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Musgrove%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/New%20York%20City%2C%20%28NY%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Northern%20Telephone%20Company> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Oneida%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario%20Association%20of%20Registered%20Nursing%20Assistants>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario%20Committee%20on%20Student%20Awards>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario%20Concentrated%20Milk%20Producers%27%20Marketing%20Board>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario%20Telephone%20Services%20Commission>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Community%20Information%20Services>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Division%20of%20Reforestation> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Energy%20Division> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Forest%20Protection%20Branch> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Land%20Management%20Division> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Review>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Review>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Transportation%20Regulation%20Operations%20Division>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ontario.%20Travel%20Services%20Branch> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Opasatika%20River%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Order%20Sons%20of%20Italy%20of%20Canada.%20Principe%20Umberto%20Lodge%20%28St.%20Catharines%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Rebecca%20Lake%20%28Muskoka%20District%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Roosevelt%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ryde%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Saint%20Lawrence%20Permanent%20Building%20Society>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Sanborn%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Schoolcraft%2C%20John> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Shearer%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Shoal%20Lake%20%28Rainy%20River%20District%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Silver%20Lake%20%28Lanark%20and%20Frontenac%20Counties%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Solski%2C%20Mike%2C%201918-1999> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Sombra%20%28Ont.%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Sons%20of%20Temperance%20of%20North%20America.%20Ameliasburgh%20Division%20No.%2092>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/St.%20Raphaels%20%28Ont.%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Sutcliffe%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Tichborne%20%28Ont.%29> auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Tiny%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Troster%2C%20David%2C%201949-1995> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Walmsley%2C%20Thomas%2C%201859-ca.%201929>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/War%20Memorial%20Committee%20of%20Ontario>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Ware%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/West%2C%20William%20A.%20N.%2C%20fl.%201872>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Whitney%20Lake%20%28Smellie%20Township%2C%20Kenora%20District%2C%20Ont.%29>
+  auth:sourceNote "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Wood%2C%20Orville%20Alvin%2C%201912-2006> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/Wyse%20%28Ont.%20%3A%20Township%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/Status#Approved>, <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/AuthorityRecord/York%20%28Upper%20Canada%29> auth:sourceNote
+    "SOURCE";
+  rico:hasDocumentaryFormType <http://example.com/Schema/Authority/AuthorityRecord>;
+  rico:hasRecordState <http://example.com/Schema/Authority/WebReady#Y>;
+  rico:isOrWasRegulatedBy <http://example.com/KB/Rule/RulesForArchivalDescription>;
+  rico:lastModificationDate "MOD_DATE" .
+
+<http://example.com/KB/NaturalAgentName/Department%20of%20Lands%20and%20Forests> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Division%20of%20Reforestation> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Division%20of%20Surveys%20and%20Engineering>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Employment%20Service%20Council%20of%20Ontario>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Forest%20Protection%20Branch> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Hamilton%20Normal%20School> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Land%20Management%20Division> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Management%20Information%20Systems%20Branch>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Milton%20Jail> rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Occupational%20Health%20and%20Safety%20Branch>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Office%20of%20the%20Provincial%20Municipal%20Auditor>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Ontario%20Committee%20on%20Student%20Awards>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Ontario%20Telephone%20Services%20Commission>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Operations%20Branch> rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Research%20Branch> rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Standing%20Committee%20on%20the%20Legislative%20Assembly>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Trade%20Development%20Branch> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Trade%20Division> rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Transportation%20Regulation%20Operations%20Division>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/Travel%20Services%20Branch> rico:hasOrHadType
+    <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/NaturalAgentName/War%20Memorial%20Committee%20of%20Ontario>
+  rico:hasOrHadType <http://example.com/Schema/Authority/NaturalAgentName>;
+  rico:normalizedValue "NAME" .
+
+<http://example.com/KB/Place/Brock%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Brock (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Brock%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Campbellville%20%28Ont.%29> rdfs:label "", "Campbellville (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Campbellville%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Churchill%20%28Man.%29> rdfs:label "", "Churchill (Man.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Churchill%20%28Man.%29> .
+
+<http://example.com/KB/Place/Clear%20Lake%20%28Haliburton%20County%2C%20Ont.%29> rdfs:label
+    "", "Clear Lake (Haliburton County, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Clear%20Lake%20%28Haliburton%20County%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Colenso%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Colenso (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Colenso%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Cygnet%20Lake%20%28Ont.%29> rdfs:label "", "Cygnet Lake (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Cygnet%20Lake%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Dennie%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Dennie (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Dennie%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Devon%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Devon (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Devon%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Fallingsnow%20Lake%20%28Ont.%29> rdfs:label "", "Fallingsnow Lake (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Fallingsnow%20Lake%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Greenwater%20Lake%20%28South%20of%20Lac%20des%20Milles%20Lacs%2C%20Thunder%20Bay%20District%2C%20Ont.%29>
+  rdfs:label "", "Greenwater Lake (South of Lac des Milles Lacs, Thunder Bay District, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Greenwater%20Lake%20%28South%20of%20Lac%20des%20Milles%20Lacs%2C%20Thunder%20Bay%20District%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Halton%20Hills%20%28Ont.%29> rdfs:label "", "Halton Hills (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Halton%20Hills%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Harmony%20%28Oshawa%2C%20Ont.%29> rdfs:label "", "Harmony (Oshawa, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Harmony%20%28Oshawa%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Harrow%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Harrow (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Harrow%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Henvey%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Henvey (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Henvey%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Herschel%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Herschel (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Herschel%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Inwood%20%28Ont.%29> rdfs:label "", "Inwood (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Inwood%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Joffre%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Joffre (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Joffre%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Killraine%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Killraine (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Killraine%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Kirkfield%20%28Ont.%29> rdfs:label "", "Kirkfield (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Kirkfield%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Law%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Law (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Law%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Longbow%20Lake%20%28Ont.%29> rdfs:label "", "Longbow Lake (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Longbow%20Lake%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Lyndoch%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Lyndoch (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Lyndoch%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/MacGregor%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "MacGregor (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Macgregor%20%28Ont.%20%3A%20Township%29>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/MacGregor%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Medora%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Medora (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Medora%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Middle%20Shebandowan%20Lake%20%28Ont.%29> rdfs:label
+    "", "Middle Shebandowan Lake (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Middle%20Shebandowan%20Lake%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Minden%20%28Ont.%29> rdfs:label "", "Minden (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Minden%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Morin%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Morin (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Morin%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Musgrove%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Musgrove (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Musgrove%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/New%20York%20City%2C%20%28NY%29> rdfs:label "", "New York City, (NY) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/New%20York%20City%2C%20%28NY%29> .
+
+<http://example.com/KB/Place/Oneida%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Oneida (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Oneida%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Opasatika%20River%20%28Ont.%29> rdfs:label "", "Opasatika River (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Opasatika%20River%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Rebecca%20Lake%20%28Muskoka%20District%2C%20Ont.%29>
+  rdfs:label "", "Rebecca Lake (Muskoka District, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Rebecca%20Lake%20%28Muskoka%20District%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Roosevelt%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Roosevelt (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Roosevelt%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Ryde%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Ryde (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ryde%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Sanborn%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Sanborn (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Sanborn%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Shearer%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Shearer (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Shearer%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Shoal%20Lake%20%28Rainy%20River%20District%2C%20Ont.%29>
+  rdfs:label "", "Shoal Lake (Rainy River District, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Shoal%20Lake%20%28Rainy%20River%20District%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Silver%20Lake%20%28Lanark%20and%20Frontenac%20Counties%2C%20Ont.%29>
+  rdfs:label "", "Silver Lake (Lanark and Frontenac Counties, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Silver%20Lake%20%28Lanark%20and%20Frontenac%20Counties%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Sombra%20%28Ont.%29> rdfs:label "", "Sombra (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Sombra%20%28Ont.%29> .
+
+<http://example.com/KB/Place/St.%20Raphaels%20%28Ont.%29> rdfs:label "", "St. Raphaels (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/St.%20Raphaels%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Sutcliffe%20%28Ont.%20%3A%20Township%29> rdfs:label "",
+    "Sutcliffe (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Sutcliffe%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Tichborne%20%28Ont.%29> rdfs:label "", "Tichborne (Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Tichborne%20%28Ont.%29> .
+
+<http://example.com/KB/Place/Tiny%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Tiny (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Tiny%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Ware%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Ware (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Ware%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/Whitney%20Lake%20%28Smellie%20Township%2C%20Kenora%20District%2C%20Ont.%29>
+  rdfs:label "", "Whitney Lake (Smellie Township, Kenora District, Ont.) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Whitney%20Lake%20%28Smellie%20Township%2C%20Kenora%20District%2C%20Ont.%29> .
+
+<http://example.com/KB/Place/Wyse%20%28Ont.%20%3A%20Township%29> rdfs:label "", "Wyse (Ont. : Township) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/Wyse%20%28Ont.%20%3A%20Township%29> .
+
+<http://example.com/KB/Place/York%20%28Upper%20Canada%29> rdfs:label "", "York (Upper Canada) (Place)";
+  auth:functionNote "FUN";
+  auth:privateNote "CMTAU";
+  rico:hasSuccessor <http://example.com/KB/Agent/Toronto%20%28Ont.%29>;
+  rico:history "ADM";
+  rico:isOrWasDescribedBy <http://example.com/KB/AuthorityRecord/York%20%28Upper%20Canada%29> .
+
+<http://example.com/KB/Rule/RulesForArchivalDescription> rdfs:label "Rules for Archival Description";
+  rico:title "RULES" .
+
+<http://example.com/KB/VariantAgentName/Canada%20%28Province%29.%20Clerks%20of%20the%20Peace>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Fraser%2C%20Frederick%20G.%20M.> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Hamilton%20Teachers%20College.> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Macgregor%20%28Ont.%20%3A%20Township%29> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Milton%20Gaol%20%28Ont.%29> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Montaigne%2C%20William%20J.> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/OCSA.> rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/OSAC> rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario%20Concentrated%20Producers%27%20Association>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario%20Manufactured%20Milk%20Producers%27%20Association%20.>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario%20Student%20Awards%20Committee.> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario%20Teacher%20Education%20College%20Hamilton%20Campus>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Committee%20on%20a%20Memorial%20of%20the%20Recent%20War.>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Dept.%20of%20Transportation%20and%20Communications.%20Operations%20Branch>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Division%20of%20Reforestation%20and%20Conservation>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Common%20and%20Grammar%20Schools%20Committee>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Standing%20Legislative%20Assembly%20Committee>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20War%20Memorial%20Committee%20of%20Ontario>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20and%20Financial%20Consulting%20Services%20Branch>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20and%20Financial%20Services%20Branch.>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Transportation%20Regulation%20Division.>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20Transportation%20and%20Regulation%20Division>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Ontario.%20War%20Memorial%20Committee.> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Temiskaming%20Telephone%20Company> rico:hasOrHadType
+    <http://example.com/Schema/Authority/VariantAgentName> .
+
+<http://example.com/KB/VariantAgentName/Upper%20Canada.%20Clerks%20of%20the%20Peace.>
+  rico:hasOrHadType <http://example.com/Schema/Authority/VariantAgentName> .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D>
+  rdfs:label "Ontario. Dept. of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context:",
+    "Ontario. Dept. of Highways - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context:",
+    "Ontario. Dept. of Justice - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context:",
+    "Ontario. Dept. of Lands and Forests - Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Agent Control Relation). Context:",
+    "Ontario. Dept. of Lands and Forests - Ontario. Division of Reforestation (Agent Control Relation). Context:",
+    "Ontario. Dept. of Lands and Forests - Ontario. Forest Protection Branch (Agent Control Relation). Context:",
+    "Ontario. Dept. of Lands and Forests - Ontario. Land Management Division (Agent Control Relation). Context:",
+    "Ontario. Dept. of Tourism and Information - Ontario. Dept. of Tourism and Information. Advertising Branch (Agent Control Relation). Context:",
+    "Ontario. Dept. of Transportation and Communications - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context:",
+    "Ontario. Dept. of University Affairs - Ontario Committee on Student Awards (Agent Control Relation). Context:",
+    "Ontario. Dept. of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context:",
+    "Ontario. Dept. of the Attorney General - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context:",
+    "Ontario. Dept. of the Provincial Secretary - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context:",
+    "Ontario. Dept. of the Provincial Secretary and Citizenship - Ontario. Community Information Services (Agent Control Relation). Context:",
+    "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Agent Control Relation). Context:",
+    "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Standing Committee on the Legislative Assembly (Agent Control Relation). Context:",
+    "Ontario. Legislative Assembly - War Memorial Committee of Ontario (Agent Control Relation). Context:",
+    "Ontario. Ministry of Citizenship and Culture - Ontario. Community Information Services (Agent Control Relation). Context:",
+    "Ontario. Ministry of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context:",
+    "Ontario. Ministry of Colleges and Universities - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context:",
+    "Ontario. Ministry of Community and Social Services - Ontario. Community Information Services (Agent Control Relation). Context:",
+    "Ontario. Ministry of Community and Social Services - Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Agent Control Relation). Context:",
+    "Ontario. Ministry of Culture and Communications - Ontario. Community Information Services (Agent Control Relation). Context:",
+    "Ontario. Ministry of Culture and Recreation - Ontario. Community Information Services (Agent Control Relation). Context:",
+    "Ontario. Ministry of Economic Development and Trade (1993-1995) - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context:",
+    "Ontario. Ministry of Economic Development, Trade and Tourism - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context:",
+    "Ontario. Ministry of Education (1972-1993) - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context:",
+    "Ontario. Ministry of Energy (2003-2008) - Ontario. Energy Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of Energy, Science and Technology - Ontario. Energy Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of Environment and Energy (2002) - Ontario. Energy Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of Industry and Tourism - Ontario. Travel Services Branch (Agent Control Relation). Context:",
+    "Ontario. Ministry of Industry and Trade - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of Industry, Trade and Technology - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of Labour - Ontario. Occupational Health and Safety Branch (Agent Control Relation). Context:",
+    "Ontario. Ministry of Transportation - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of Transportation and Communications - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context:",
+    "Ontario. Ministry of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context:";
+  rico:hasBeginningDate <http://example.com/KB/Date/1868>, <http://example.com/KB/Date/1897>,
+    <http://example.com/KB/Date/1914>, <http://example.com/KB/Date/1920>, <http://example.com/KB/Date/1941>,
+    <http://example.com/KB/Date/1944>, <http://example.com/KB/Date/1954>, <http://example.com/KB/Date/1960>,
+    <http://example.com/KB/Date/1964>, <http://example.com/KB/Date/1966>, <http://example.com/KB/Date/1968>,
+    <http://example.com/KB/Date/1969>, <http://example.com/KB/Date/1971>, <http://example.com/KB/Date/1972>,
+    <http://example.com/KB/Date/1975>, <http://example.com/KB/Date/1976>, <http://example.com/KB/Date/1981>,
+    <http://example.com/KB/Date/1982>, <http://example.com/KB/Date/1985>, <http://example.com/KB/Date/1986>,
+    <http://example.com/KB/Date/1987>, <http://example.com/KB/Date/1991>, <http://example.com/KB/Date/1993>,
+    <http://example.com/KB/Date/1995>, <http://example.com/KB/Date/1997>, <http://example.com/KB/Date/2002>;
+  rico:hasEndDate <http://example.com/KB/Date/1869>, <http://example.com/KB/Date/1914>,
+    <http://example.com/KB/Date/1917>, <http://example.com/KB/Date/1923>, <http://example.com/KB/Date/1957>,
+    <http://example.com/KB/Date/1969>, <http://example.com/KB/Date/1971>, <http://example.com/KB/Date/1972>,
+    <http://example.com/KB/Date/1974>, <http://example.com/KB/Date/1975>, <http://example.com/KB/Date/1982>,
+    <http://example.com/KB/Date/1983>, <http://example.com/KB/Date/1985>, <http://example.com/KB/Date/1986>,
+    <http://example.com/KB/Date/1987>, <http://example.com/KB/Date/1989>, <http://example.com/KB/Date/1991>,
+    <http://example.com/KB/Date/1995>, <http://example.com/KB/Date/1996>, <http://example.com/KB/Date/2002>,
+    <http://example.com/KB/Date/2008>;
+  rico:relationHasTarget <http://example.com/KB/Agent/Birchard%20%28family%29>, <http://example.com/KB/Agent/Brock%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Agent/Canniff%2C%20William%2C%201830-1910>, <http://example.com/KB/Agent/Employment%20Service%20Council%20of%20Ontario>,
+    <http://example.com/KB/Agent/Fraser%2C%20Frederick%20George%20Mackenzie%2C%20fl.%201878-1889>,
+    <http://example.com/KB/Agent/Gilling%2C%20Walter%20J.%2C%201906-1993>, <http://example.com/KB/Agent/Grobb%2C%20Reita%20Margaret%20%281910-1988%29>,
+    <http://example.com/KB/Agent/Hamilton%20Normal%20School%20%28Ont.%29>, <http://example.com/KB/Agent/Hoy%2C%20Claire%2C%201940->,
+    <http://example.com/KB/Agent/Hunter%2C%20Donald%20F.%2C%201911-1976>, <http://example.com/KB/Agent/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>,
+    <http://example.com/KB/Agent/Jessup%2C%20Edward%2C%201735-1816>, <http://example.com/KB/Agent/Jessup%2C%20Hamilton%20Dibble%2C%201806-1892>,
+    <http://example.com/KB/Agent/Martin%2C%20William%20L.%2C%2019th%20cent.>, <http://example.com/KB/Agent/McMullen%2C%20W.%20T.%2C%20fl.%201891-1928>,
+    <http://example.com/KB/Agent/Milton%20Jail%20%28Ont.%29>, <http://example.com/KB/Agent/Montaigne%2C%20Bill%2C%201915-1988>,
+    <http://example.com/KB/Agent/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>, <http://example.com/KB/Agent/Northern%20Telephone%20Company>,
+    <http://example.com/KB/Agent/Ontario%20Association%20of%20Registered%20Nursing%20Assistants>,
+    <http://example.com/KB/Agent/Ontario%20Committee%20on%20Student%20Awards>, <http://example.com/KB/Agent/Ontario%20Concentrated%20Milk%20Producers%27%20Marketing%20Board>,
+    <http://example.com/KB/Agent/Ontario%20Telephone%20Services%20Commission>, <http://example.com/KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29>,
+    <http://example.com/KB/Agent/Ontario.%20Community%20Information%20Services>, <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch>,
+    <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>, <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering>,
+    <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch>,
+    <http://example.com/KB/Agent/Ontario.%20Division%20of%20Reforestation>, <http://example.com/KB/Agent/Ontario.%20Energy%20Division>,
+    <http://example.com/KB/Agent/Ontario.%20Forest%20Protection%20Branch>, <http://example.com/KB/Agent/Ontario.%20Land%20Management%20Division>,
+    <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools>,
+    <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly>,
+    <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch>,
+    <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch>,
+    <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>,
+    <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division>,
+    <http://example.com/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>,
+    <http://example.com/KB/Agent/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor>,
+    <http://example.com/KB/Agent/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29>,
+    <http://example.com/KB/Agent/Ontario.%20Transportation%20Regulation%20Operations%20Division>,
+    <http://example.com/KB/Agent/Ontario.%20Travel%20Services%20Branch>, <http://example.com/KB/Agent/Order%20Sons%20of%20Italy%20of%20Canada.%20Principe%20Umberto%20Lodge%20%28St.%20Catharines%2C%20Ont.%29>,
+    <http://example.com/KB/Agent/Ryde%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Agent/Saint%20Lawrence%20Permanent%20Building%20Society>,
+    <http://example.com/KB/Agent/Schoolcraft%2C%20John>, <http://example.com/KB/Agent/Solski%2C%20Mike%2C%201918-1999>,
+    <http://example.com/KB/Agent/Sons%20of%20Temperance%20of%20North%20America.%20Ameliasburgh%20Division%20No.%2092>,
+    <http://example.com/KB/Agent/Troster%2C%20David%2C%201949-1995>, <http://example.com/KB/Agent/Walmsley%2C%20Thomas%2C%201859-ca.%201929>,
+    <http://example.com/KB/Agent/War%20Memorial%20Committee%20of%20Ontario>, <http://example.com/KB/Agent/West%2C%20William%20A.%20N.%2C%20fl.%201872>,
+    <http://example.com/KB/Agent/Wood%2C%20Orville%20Alvin%2C%201912-2006>, <http://example.com/KB/Place/Brock%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Campbellville%20%28Ont.%29>, <http://example.com/KB/Place/Churchill%20%28Man.%29>,
+    <http://example.com/KB/Place/Clear%20Lake%20%28Haliburton%20County%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Colenso%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Cygnet%20Lake%20%28Ont.%29>,
+    <http://example.com/KB/Place/Dennie%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Devon%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Fallingsnow%20Lake%20%28Ont.%29>, <http://example.com/KB/Place/Greenwater%20Lake%20%28South%20of%20Lac%20des%20Milles%20Lacs%2C%20Thunder%20Bay%20District%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Halton%20Hills%20%28Ont.%29>, <http://example.com/KB/Place/Harmony%20%28Oshawa%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Harrow%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Henvey%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Herschel%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Inwood%20%28Ont.%29>,
+    <http://example.com/KB/Place/Joffre%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Killraine%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Kirkfield%20%28Ont.%29>, <http://example.com/KB/Place/Law%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Longbow%20Lake%20%28Ont.%29>, <http://example.com/KB/Place/Lyndoch%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/MacGregor%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Medora%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Middle%20Shebandowan%20Lake%20%28Ont.%29>, <http://example.com/KB/Place/Minden%20%28Ont.%29>,
+    <http://example.com/KB/Place/Morin%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Musgrove%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/New%20York%20City%2C%20%28NY%29>, <http://example.com/KB/Place/Oneida%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Opasatika%20River%20%28Ont.%29>, <http://example.com/KB/Place/Rebecca%20Lake%20%28Muskoka%20District%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Roosevelt%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Ryde%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Sanborn%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Shearer%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Shoal%20Lake%20%28Rainy%20River%20District%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Silver%20Lake%20%28Lanark%20and%20Frontenac%20Counties%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Sombra%20%28Ont.%29>, <http://example.com/KB/Place/St.%20Raphaels%20%28Ont.%29>,
+    <http://example.com/KB/Place/Sutcliffe%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Tichborne%20%28Ont.%29>,
+    <http://example.com/KB/Place/Tiny%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/Ware%20%28Ont.%20%3A%20Township%29>,
+    <http://example.com/KB/Place/Whitney%20Lake%20%28Smellie%20Township%2C%20Kenora%20District%2C%20Ont.%29>,
+    <http://example.com/KB/Place/Wyse%20%28Ont.%20%3A%20Township%29>, <http://example.com/KB/Place/York%20%28Upper%20Canada%29> .

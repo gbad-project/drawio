@@ -38,6 +38,22 @@ class RDFSerializationHelper:
         self.fallback_namespace: Namespace | None = None
         self.explicit_overrides: dict[str, URIRef] = {}
 
+    def _detect_template_references(self, candidate: str) -> list[str | None]:
+        detector = getattr(
+            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
+            "detect_string_template",
+            None,
+        )
+        if callable(detector):
+            try:
+                return list(detector(candidate))
+            except Exception:
+                return []
+        return []
+
+    def _is_template_string(self, candidate: str) -> bool:
+        return bool(self._detect_template_references(candidate))
+
     @staticmethod
     def _is_absolute_iri(candidate: str) -> bool:
         """Check if a string is an absolute IRI."""
@@ -214,6 +230,8 @@ class RDFSerializer(RDFSerializationHelper):
         self, individual_id: str, individual_label: str, types_and_facts: dict
     ) -> None:
         """Add triples for a single individual."""
+        if self._is_template_string(individual_id):
+            return
         individual_uri = self.resolve_individual_uri(individual_id)
 
         # Add NamedIndividual type
@@ -221,7 +239,10 @@ class RDFSerializer(RDFSerializationHelper):
 
         # Add RDF types
         for rdf_type in types_and_facts.get("Types", set()):
-            type_prefix, type_name = rdf_type.split(":")
+            rdf_type_str = str(rdf_type)
+            if self._is_template_string(rdf_type_str):
+                continue
+            type_prefix, type_name = rdf_type_str.split(":")
             self.graph.add(
                 (individual_uri, RDF.type, self.namespace_map[type_prefix][type_name])
             )
@@ -254,7 +275,10 @@ class RDFSerializer(RDFSerializationHelper):
 
                 if not is_literal:
                     # Object property - create URI reference
-                    target_uri = self.resolve_individual_uri(value)
+                    target_identifier = str(value)
+                    if self._is_template_string(target_identifier):
+                        continue
+                    target_uri = self.resolve_individual_uri(target_identifier)
                     self.graph.add((individual_uri, prop_uri, target_uri))
                 else:
                     # Datatype property - create literal
@@ -387,7 +411,7 @@ class RMLSerializer(RDFSerializationHelper):
         predicate_object_map = BNode()
         object_map = BNode()
 
-        has_template = bool(self.detect_string_template(str(fact)))
+        has_template = self._is_template_string(str(fact))
         fact_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
@@ -419,7 +443,7 @@ class RMLSerializer(RDFSerializationHelper):
             return Literal("drawio")
 
     def _build_type_predicate_object_map(
-        self, class_uri: URIRef
+        self, class_value: Any
     ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
         """
         Build predicateObjectMap BNode for rdf:type mapping and
@@ -428,11 +452,12 @@ class RMLSerializer(RDFSerializationHelper):
         object_map = BNode()
         predicate_object_map = BNode()
 
-        has_template = bool(self.detect_string_template(str(class_uri)))
+        text_value = str(class_value)
+        has_template = self._is_template_string(text_value)
         class_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
-            (object_map, class_predicate, Literal(class_uri)),
+            (object_map, class_predicate, Literal(text_value)),
             (predicate_object_map, self.rr["predicate"], RDF["type"]),
             (predicate_object_map, self.rr["objectMap"], object_map),
         ]
@@ -449,7 +474,7 @@ class RMLSerializer(RDFSerializationHelper):
         otherwise rr:constant. Does not modify the graph directly.
         """
         subject_map = BNode()
-        has_template = bool(self.detect_string_template(str(subject_uri)))
+        has_template = self._is_template_string(str(subject_uri))
         subject_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
@@ -458,6 +483,28 @@ class RMLSerializer(RDFSerializationHelper):
         ]
 
         return subject_map, triples
+
+    def _resolve_type_value(self, rdf_type: str) -> Any:
+        if ":" in rdf_type:
+            prefix, reference = _ensure_known_curie(
+                rdf_type,
+                self.prefixes,
+                f"Not a known class: {rdf_type}",
+            )
+            namespace = self.namespace_map.get(prefix)
+            if namespace is None:
+                raise NotInKnownException(f"Not a known class: {rdf_type}")
+            return namespace[reference]
+
+        if self._is_template_string(rdf_type):
+            return Literal(rdf_type)
+
+        raise NotInKnownException(f"Not a known class: {rdf_type}")
+
+    def resolve_individual_uri(self, individual_id: str) -> URIRef:
+        if self._is_template_string(individual_id):
+            return self.FakeURIRef(individual_id)
+        return super().resolve_individual_uri(individual_id)
 
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
@@ -483,11 +530,13 @@ class RMLSerializer(RDFSerializationHelper):
         )
 
         # Add RDF types as rr:class
-        for rdf_type in sorted(types_and_facts.get("Types", set())):
-            type_prefix, type_name = rdf_type.split(":", 1)
-            class_uri = self.namespace_map[type_prefix][type_name]
+        for rdf_type in sorted(
+            types_and_facts.get("Types", set()), key=lambda value: str(value)
+        ):
+            rdf_type_str = str(rdf_type)
+            class_value = self._resolve_type_value(rdf_type_str)
             type_predicate_object_map, type_predicate_object_map_triples = (
-                self._build_type_predicate_object_map(class_uri)
+                self._build_type_predicate_object_map(class_value)
             )
             self.graph.addN1(
                 (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),

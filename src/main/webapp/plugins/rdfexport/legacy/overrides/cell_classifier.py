@@ -54,6 +54,7 @@ class DrawIOCellClassifier:
         strict_mode: bool = False,
         max_gap: float | None = None,
         strip_html: bool = True,
+        allow_template_types: bool = False,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -70,6 +71,16 @@ class DrawIOCellClassifier:
             self._namespace_manager.bind(prefix, iri, replace=True)
 
         self._strict_mode = bool(strict_mode)
+        self._allow_template_types = bool(allow_template_types)
+        detector = getattr(
+            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
+            "detect_string_template",
+            None,
+        )
+        if callable(detector):
+            self._detect_string_template = detector
+        else:
+            self._detect_string_template = lambda value: []
         default_gap = 10.0
         gap_candidate = default_gap if max_gap is None else max_gap
         try:
@@ -268,6 +279,7 @@ class DrawIOCellClassifier:
         # and then these are checked there. However, it will be
         # important to have all curie checks centralized.
         # signed-off: human
+        has_template_token = any(self._token_is_template(token) for token in tokens)
         looks_like_curie = any(":" in token for token in tokens)
 
         if self._style_denotes_literal(cell, style, tokens_are_valid):
@@ -282,7 +294,7 @@ class DrawIOCellClassifier:
                 tokens_are_valid = True
 
         if parent_cell is not None and parent_identifier and tokens:
-            if looks_like_curie:
+            if looks_like_curie or has_template_token:
                 return build(
                     CellKind.TYPED_INDIVIDUAL,
                     parent_cell=parent_cell,
@@ -668,10 +680,18 @@ class DrawIOCellClassifier:
             if t.strip()
         ]
 
+    def _token_is_template(self, token: str) -> bool:
+        try:
+            return bool(self._detect_string_template(token))
+        except Exception:
+            return False
+
     def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
         if not tokens:
             return False
         for token in tokens:
+            if self._token_is_template(token):
+                continue
             if ":" not in token:
                 return False
             prefix, remainder = token.split(":", 1)

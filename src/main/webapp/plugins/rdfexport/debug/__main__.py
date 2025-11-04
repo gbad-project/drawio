@@ -1010,7 +1010,12 @@ class Debugger:
             # 2. Instantiate the new classifier directly with raw XML
             #    The MockTree is no longer needed.
             classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
-            classifier = classifier_cls(xml_text, prefixes)
+            allow_template_types = bool(config.parser_config.get("rml_enabled", False))
+            classifier = classifier_cls(
+                xml_text,
+                prefixes,
+                allow_template_types=allow_template_types,
+            )
 
             # 3. Format the stored classifications into the dictionary the script expects
             output_classifications = {}
