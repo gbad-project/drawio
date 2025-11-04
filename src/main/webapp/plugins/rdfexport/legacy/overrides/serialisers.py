@@ -62,6 +62,23 @@ class RDFSerializationHelper:
                 return True
         return False
 
+    @staticmethod
+    def _string_has_template(candidate: str) -> bool:
+        if (
+            not isinstance(candidate, str)
+            or "{" not in candidate
+            or "}" not in candidate
+        ):
+            return False
+        RMLSerializer = getattr(pipeline.core.rdf.control, "RMLSerializer", None)
+        detector = getattr(RMLSerializer, "detect_string_template", None)
+        if not callable(detector):
+            return False
+        try:
+            return bool(detector(candidate))
+        except ValueError:
+            return False
+
     def setup_namespaces(self) -> None:
         """Bind namespaces to the graph."""
         if self.prefix_iri and self._is_absolute_iri(self.prefix_iri):
@@ -221,7 +238,12 @@ class RDFSerializer(RDFSerializationHelper):
 
         # Add RDF types
         for rdf_type in types_and_facts.get("Types", set()):
-            type_prefix, type_name = rdf_type.split(":")
+            type_str = str(rdf_type)
+            if self._string_has_template(type_str):
+                continue
+            if ":" not in type_str:
+                continue
+            type_prefix, type_name = type_str.split(":", 1)
             self.graph.add(
                 (individual_uri, RDF.type, self.namespace_map[type_prefix][type_name])
             )
@@ -419,7 +441,7 @@ class RMLSerializer(RDFSerializationHelper):
             return Literal("drawio")
 
     def _build_type_predicate_object_map(
-        self, class_uri: URIRef
+        self, class_value: str
     ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
         """
         Build predicateObjectMap BNode for rdf:type mapping and
@@ -428,11 +450,12 @@ class RMLSerializer(RDFSerializationHelper):
         object_map = BNode()
         predicate_object_map = BNode()
 
-        has_template = bool(self.detect_string_template(str(class_uri)))
+        has_template = bool(self.detect_string_template(class_value))
         class_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
-            (object_map, class_predicate, Literal(class_uri)),
+            (object_map, self.rr["termType"], self.rr["IRI"]),
+            (object_map, class_predicate, Literal(class_value)),
             (predicate_object_map, self.rr["predicate"], RDF["type"]),
             (predicate_object_map, self.rr["objectMap"], object_map),
         ]
@@ -459,6 +482,19 @@ class RMLSerializer(RDFSerializationHelper):
 
         return subject_map, triples
 
+    def _resolve_class_value(self, rdf_type: Any) -> str:
+        class_text = str(rdf_type)
+        try:
+            if self.detect_string_template(class_text):
+                return class_text
+        except ValueError:
+            pass
+        if ":" not in class_text:
+            return class_text
+        type_prefix, type_name = class_text.split(":", 1)
+        namespace = self.namespace_map[type_prefix]
+        return str(namespace[type_name])
+
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
     ) -> None:
@@ -484,10 +520,9 @@ class RMLSerializer(RDFSerializationHelper):
 
         # Add RDF types as rr:class
         for rdf_type in sorted(types_and_facts.get("Types", set())):
-            type_prefix, type_name = rdf_type.split(":", 1)
-            class_uri = self.namespace_map[type_prefix][type_name]
+            class_value = self._resolve_class_value(rdf_type)
             type_predicate_object_map, type_predicate_object_map_triples = (
-                self._build_type_predicate_object_map(class_uri)
+                self._build_type_predicate_object_map(class_value)
             )
             self.graph.addN1(
                 (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),

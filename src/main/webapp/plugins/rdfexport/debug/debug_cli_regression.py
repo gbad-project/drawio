@@ -158,6 +158,8 @@ def _ensure_graph_covers_classifications(
             if not tokens:
                 tokens = [default_type]
             for token in tokens:
+                if _token_is_template(token):
+                    continue
                 expanded = namespace_manager.expand_curie(token)
                 assert any(
                     (subject, RDF.type, URIRef(expanded)) in graph
@@ -174,7 +176,7 @@ def _ensure_graph_covers_classifications(
             subjects = identifier_subjects.get(identifier, set())
             assert subjects, f"No subjects found for typed '{identifier}'"
             for token in cell_data.get("tokens", []):
-                if not token:
+                if not token or _token_is_template(token):
                     continue
                 expanded = namespace_manager.expand_curie(token)
                 assert any(
@@ -361,3 +363,18 @@ if __name__ == "__main__":
 
     # Executes tests verbosely (-v) and, with -rA, displays a detailed summary of all test results — including passed, failed, skipped, xfailed, and xpassed tests — at the end of the run.
     pytest.main(["-v", "-rA", __file__])
+
+
+def _token_is_template(token: str) -> bool:
+    if not isinstance(token, str):
+        return False
+    RMLSerializer = getattr(
+        draw_io_parser.pipeline.core.rdf.control, "RMLSerializer", None
+    )
+    detector = getattr(RMLSerializer, "detect_string_template", None)
+    if not callable(detector):
+        return False
+    try:
+        return bool(detector(token))
+    except ValueError:
+        return False

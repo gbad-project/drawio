@@ -260,6 +260,9 @@ class DrawIOCellClassifier:
         value_tokens = self._tokenise(raw_value)
         tokens_are_valid = self._tokens_are_valid(value_tokens)
         tokens = list(value_tokens)
+        tokens_include_template = any(
+            self._token_has_template(token) for token in tokens
+        )
         single_token = tokens[0] if len(tokens) == 1 else None
         # AICODE-NOTE: I recognize that hardcoding a curie check here
         # was not the best codex's idea, however this does do
@@ -277,12 +280,20 @@ class DrawIOCellClassifier:
         if child_tokens:
             if tokens_are_valid:
                 tokens.extend(t for t in child_tokens if t not in tokens)
+                if not tokens_include_template:
+                    tokens_include_template = any(
+                        self._token_has_template(token) for token in tokens
+                    )
             else:
                 tokens = list(child_tokens)
                 tokens_are_valid = True
+                tokens_include_template = any(
+                    self._token_has_template(token) for token in tokens
+                )
+            looks_like_curie = any(":" in token for token in tokens)
 
         if parent_cell is not None and parent_identifier and tokens:
-            if looks_like_curie:
+            if looks_like_curie or tokens_include_template:
                 return build(
                     CellKind.TYPED_INDIVIDUAL,
                     parent_cell=parent_cell,
@@ -337,6 +348,19 @@ class DrawIOCellClassifier:
             return build(CellKind.DECORATION)
 
         return build(CellKind.LITERAL)
+
+    @staticmethod
+    def _token_has_template(token: str) -> bool:
+        if not isinstance(token, str) or "{" not in token or "}" not in token:
+            return False
+        RMLSerializer = getattr(pipeline.core.rdf.control, "RMLSerializer", None)
+        detector = getattr(RMLSerializer, "detect_string_template", None)
+        if not callable(detector):
+            return False
+        try:
+            return bool(detector(token))
+        except ValueError:
+            return False
 
     # region Helper Methods (Moved from DrawIOXMLTree)
     def _value_of(self, cell: Element, *, raw: bool = False) -> str:

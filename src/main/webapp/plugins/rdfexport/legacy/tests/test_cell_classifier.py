@@ -193,6 +193,22 @@ def test_classifier_parent_cell_collects_child_type_tokens():
     assert observed == {"owl:NamedIndividual", "rdf:Resource"}
 
 
+def test_classifier_accepts_template_type_tokens():
+    fixture_path = (
+        FIXTURES_DIR / "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio"
+    )
+    xml = fixture_path.read_text(encoding="utf-8")
+
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+    )
+
+    observed_types = {individual.ric_class for individual in classifier.individuals}
+
+    assert "{RICO_AUTHTP_CLASS}" in observed_types
+
+
 def test_classifier_standalone_curie_node_creates_individual_without_parent():
     xml = _drawio_xml(_vertex_cell("solo", "owl:NamedIndividual"))
 

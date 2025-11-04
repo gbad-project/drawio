@@ -14,6 +14,39 @@ from typing import Literal
 
 import pandas as pd
 
+
+def _get_template_detector():
+    try:
+        import legacy.draw_io_parser as draw_io_parser  # type: ignore
+    except ModuleNotFoundError:  # pragma: no cover - defensive fallback
+        return None
+
+    serializer = getattr(
+        draw_io_parser.pipeline.core.rdf.control, "RMLSerializer", None
+    )
+    return getattr(serializer, "detect_string_template", None)
+
+
+def _details_are_template_warning(details: object) -> bool:
+    if details in (None, ""):
+        return False
+    if isinstance(details, dict):
+        return all(_details_are_template_warning(value) for value in details.values())
+    if isinstance(details, (list, tuple, set)):
+        return all(_details_are_template_warning(value) for value in details)
+
+    text = str(details)
+    if "does not look like a valid URI" not in text:
+        return False
+    detector = _get_template_detector()
+    if not callable(detector):
+        return False
+    try:
+        return bool(detector(text))
+    except ValueError:
+        return False
+
+
 PLUGIN_ROOT = Path(__file__).resolve().parent.parent
 DEBUG_DIR = PLUGIN_ROOT / "debug"
 DEBUG_RESULTS_DIR = DEBUG_DIR / "results"
@@ -545,11 +578,15 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
         )
 
     errors = scenario_entry.get("errors", {}) or {}
-    unexpected_errors = {
-        name: details
-        for name, details in errors.items()
-        if name != "py_legacy" and details
-    }
+    unexpected_errors = {}
+    for name, details in errors.items():
+        if not details:
+            continue
+        if name == "py_legacy":
+            continue
+        if _details_are_template_warning(details):
+            continue
+        unexpected_errors[name] = details
 
     if unexpected_errors:
         raise RuntimeError(

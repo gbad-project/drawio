@@ -384,6 +384,9 @@ class pipeline:
                         value_tokens = self._tokenise(raw_value)
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens)
+                        tokens_include_template = any(
+                            (self._token_has_template(token) for token in tokens)
+                        )
                         single_token = tokens[0] if len(tokens) == 1 else None
                         looks_like_curie = any((":" in token for token in tokens))
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
@@ -394,11 +397,25 @@ class pipeline:
                                 tokens.extend(
                                     (t for t in child_tokens if t not in tokens)
                                 )
+                                if not tokens_include_template:
+                                    tokens_include_template = any(
+                                        (
+                                            self._token_has_template(token)
+                                            for token in tokens
+                                        )
+                                    )
                             else:
                                 tokens = list(child_tokens)
                                 tokens_are_valid = True
+                                tokens_include_template = any(
+                                    (
+                                        self._token_has_template(token)
+                                        for token in tokens
+                                    )
+                                )
+                            looks_like_curie = any((":" in token for token in tokens))
                         if parent_cell is not None and parent_identifier and tokens:
-                            if looks_like_curie:
+                            if looks_like_curie or tokens_include_template:
                                 return build(
                                     CellKind.TYPED_INDIVIDUAL,
                                     parent_cell=parent_cell,
@@ -449,6 +466,27 @@ class pipeline:
                         if self._is_decoration(cell, raw_value):
                             return build(CellKind.DECORATION)
                         return build(CellKind.LITERAL)
+
+                    @staticmethod
+                    def _token_has_template(token: str) -> bool:
+                        if (
+                            not isinstance(token, str)
+                            or "{" not in token
+                            or "}" not in token
+                        ):
+                            return False
+                        RMLSerializer = getattr(
+                            pipeline.core.rdf.control, "RMLSerializer", None
+                        )
+                        detector = getattr(
+                            RMLSerializer, "detect_string_template", None
+                        )
+                        if not callable(detector):
+                            return False
+                        try:
+                            return bool(detector(token))
+                        except ValueError:
+                            return False
 
                     def _value_of(self, cell: Element, *, raw: bool = False) -> str:
                         value = cell.attrib.get("value")
@@ -982,6 +1020,27 @@ class pipeline:
                                 return True
                         return False
 
+                    @staticmethod
+                    def _string_has_template(candidate: str) -> bool:
+                        if (
+                            not isinstance(candidate, str)
+                            or "{" not in candidate
+                            or "}" not in candidate
+                        ):
+                            return False
+                        RMLSerializer = getattr(
+                            pipeline.core.rdf.control, "RMLSerializer", None
+                        )
+                        detector = getattr(
+                            RMLSerializer, "detect_string_template", None
+                        )
+                        if not callable(detector):
+                            return False
+                        try:
+                            return bool(detector(candidate))
+                        except ValueError:
+                            return False
+
                     def setup_namespaces(self) -> None:
                         """Bind namespaces to the graph."""
                         if self.prefix_iri and self._is_absolute_iri(self.prefix_iri):
@@ -1162,7 +1221,12 @@ class pipeline:
                         individual_uri = self.resolve_individual_uri(individual_id)
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
-                            type_prefix, type_name = rdf_type.split(":")
+                            type_str = str(rdf_type)
+                            if self._string_has_template(type_str):
+                                continue
+                            if ":" not in type_str:
+                                continue
+                            type_prefix, type_name = type_str.split(":", 1)
                             self.graph.add(
                                 (
                                     individual_uri,
@@ -1356,7 +1420,7 @@ class pipeline:
                             return Literal("drawio")
 
                     def _build_type_predicate_object_map(
-                        self, class_uri: URIRef
+                        self, class_value: str
                     ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
                         """
                         Build predicateObjectMap BNode for rdf:type mapping and
@@ -1364,12 +1428,13 @@ class pipeline:
                         """
                         object_map = BNode()
                         predicate_object_map = BNode()
-                        has_template = bool(self.detect_string_template(str(class_uri)))
+                        has_template = bool(self.detect_string_template(class_value))
                         class_predicate = (
                             self.rr["template"] if has_template else self.rr["constant"]
                         )
                         triples = [
-                            (object_map, class_predicate, Literal(class_uri)),
+                            (object_map, self.rr["termType"], self.rr["IRI"]),
+                            (object_map, class_predicate, Literal(class_value)),
                             (predicate_object_map, self.rr["predicate"], RDF["type"]),
                             (predicate_object_map, self.rr["objectMap"], object_map),
                         ]
@@ -1396,6 +1461,19 @@ class pipeline:
                             (subject_map, subject_predicate, Literal(subject_uri)),
                         ]
                         return (subject_map, triples)
+
+                    def _resolve_class_value(self, rdf_type: Any) -> str:
+                        class_text = str(rdf_type)
+                        try:
+                            if self.detect_string_template(class_text):
+                                return class_text
+                        except ValueError:
+                            pass
+                        if ":" not in class_text:
+                            return class_text
+                        type_prefix, type_name = class_text.split(":", 1)
+                        namespace = self.namespace_map[type_prefix]
+                        return str(namespace[type_name])
 
                     def add_individual_triples(
                         self,
@@ -1433,12 +1511,11 @@ class pipeline:
                             subject_map_triples,
                         )
                         for rdf_type in sorted(types_and_facts.get("Types", set())):
-                            type_prefix, type_name = rdf_type.split(":", 1)
-                            class_uri = self.namespace_map[type_prefix][type_name]
+                            class_value = self._resolve_class_value(rdf_type)
                             (
                                 type_predicate_object_map,
                                 type_predicate_object_map_triples,
-                            ) = self._build_type_predicate_object_map(class_uri)
+                            ) = self._build_type_predicate_object_map(class_value)
                             self.graph.addN1(
                                 (
                                     subject_map,
@@ -2342,8 +2419,21 @@ class internal_data_core:
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
+    # override from template_validation.py
     def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
-        _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
+        detector = None
+        if isinstance(ric_class, str) and "{" in ric_class and ("}" in ric_class):
+            RMLSerializer = getattr(pipeline.core.rdf.control, "RMLSerializer", None)
+            detector = getattr(RMLSerializer, "detect_string_template", None)
+            if callable(detector):
+                try:
+                    if detector(ric_class):
+                        return
+                except ValueError:
+                    pass
+        pipeline.core.internal.data._ensure_known_curie(
+            ric_class, prefixes, f"Not a known class: {ric_class}"
+        )
 
     # END _verify_is_ric_class
     # BEGIN _SourceNotIndividualException

@@ -434,6 +434,29 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     assert "rr" in prefixes
 
 
+def test_rml_serialiser_allows_template_classes():
+    fixture_path = (
+        FIXTURES_DIR / "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio"
+    )
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["url"],
+        prefix_iri="mock://generated-from-test-patched-parser/",
+        include_label=False,
+        capitalisation_scheme="lower-camel",
+        rml_enabled=True,
+    )
+
+    rr = Namespace("http://www.w3.org/ns/r2rml#")
+    templates = {
+        str(obj)
+        for _, _, obj in graph.triples((None, rr.template, None))
+        if isinstance(obj, Literal)
+    }
+
+    assert "{RICO_AUTHTP_CLASS}" in templates
+
+
 def test_parse_drawio_default_strips_html_literals():
     fixture_path = FIXTURES_DIR / "AA37 Department of Health-with-metadata.drawio"
     graph = draw_io_parser.parse_drawio_to_graph(
