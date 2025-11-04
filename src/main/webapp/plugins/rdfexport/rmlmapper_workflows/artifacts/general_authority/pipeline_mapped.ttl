@@ -118,6 +118,8 @@
     "", "Employment Service Council of Ontario (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1922>;
+  rico:hasEndDate <http://example.com/KB/Date/1940>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Employment%20Service%20Council%20of%20Ontario>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA592>;
@@ -151,6 +153,8 @@
     "Hamilton Normal School (Ont.) (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1908>;
+  rico:hasEndDate <http://example.com/KB/Date/1979>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Hamilton%20Normal%20School>,
     <http://example.com/KB/VariantAgentName/Hamilton%20Teachers%20College.>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
@@ -176,6 +180,8 @@
   rdfs:label "", "Inquiry into Motor Vehicle Accident Compensation in Ontario (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1986>;
+  rico:hasEndDate <http://example.com/KB/Date/1988>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA483>;
@@ -213,6 +219,8 @@
 <http://example.com/KB/Agent/Milton%20Jail%20%28Ont.%29> rdfs:label "", "Milton Jail (Ont.) (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1863>;
+  rico:hasEndDate <http://example.com/KB/Date/1978>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Milton%20Jail>, <http://example.com/KB/VariantAgentName/Milton%20Gaol%20%28Ont.%29>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA409>;
@@ -231,6 +239,8 @@
     "", "North Bay Psychiatric Hospital (Ont.) (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1957>;
+  rico:hasEndDate <http://example.com/KB/Date/2005>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA611>;
@@ -258,6 +268,8 @@
     "", "Ontario Committee on Student Awards (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1966>;
+  rico:hasEndDate <http://example.com/KB/Date/1974>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Ontario%20Committee%20on%20Student%20Awards>,
     <http://example.com/KB/VariantAgentName/Ontario%20Student%20Awards%20Committee.>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20University%20Affairs>;
@@ -283,6 +295,8 @@
     "", "Ontario Telephone Services Commission (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1960>;
+  rico:hasEndDate <http://example.com/KB/Date/1994>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Ontario%20Telephone%20Services%20Commission>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#B%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/BA94>;
@@ -298,6 +312,8 @@
   rdfs:label "", "Ontario. Clerks of the Peace (1968-1984) (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1968>;
+  rico:hasEndDate <http://example.com/KB/Date/1984>;
   rico:hasOrHadAgentName <http://example.com/KB/VariantAgentName/Upper%20Canada.%20Clerks%20of%20the%20Peace.>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -311,6 +327,8 @@
     "", "Ontario. Community Information Services (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1971>;
+  rico:hasEndDate <http://example.com/KB/Date/1989>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA673>;
@@ -329,6 +347,8 @@
   rdfs:label "", "Ontario. Dept. of Highways. Operations Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1954>;
+  rico:hasEndDate <http://example.com/KB/Date/1972>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Operations%20Branch>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Dept.%20of%20Transportation%20and%20Communications.%20Operations%20Branch>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Highways>;
@@ -346,6 +366,8 @@
     "", "Ontario. Dept. of Lands and Forests (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1920>;
+  rico:hasEndDate <http://example.com/KB/Date/1972>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Department%20of%20Lands%20and%20Forests>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#A%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/AA52>;
@@ -363,6 +385,8 @@
   rdfs:label "", "Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1944>;
+  rico:hasEndDate <http://example.com/KB/Date/1957>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Division%20of%20Surveys%20and%20Engineering>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -384,6 +408,8 @@
   rdfs:label "", "Ontario. Dept. of Tourism and Information. Advertising Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1964>;
+  rico:hasEndDate <http://example.com/KB/Date/1972>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/CA11>;
@@ -418,6 +444,8 @@
     "", "Ontario. Division of Reforestation (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1941>;
+  rico:hasEndDate <http://example.com/KB/Date/1957>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Division%20of%20Reforestation>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Division%20of%20Reforestation%20and%20Conservation>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
@@ -447,6 +475,8 @@
     "Ontario. Forest Protection Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1960>;
+  rico:hasEndDate <http://example.com/KB/Date/1971>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Forest%20Protection%20Branch>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -464,6 +494,8 @@
     "Ontario. Land Management Division (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1971>;
+  rico:hasEndDate <http://example.com/KB/Date/1972>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Land%20Management%20Division>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -483,6 +515,8 @@
   rdfs:label "", "Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1868>;
+  rico:hasEndDate <http://example.com/KB/Date/1869>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Select%20Committee%20on%20Common%20and%20Grammar%20Schools>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Common%20and%20Grammar%20Schools%20Committee>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly>;
@@ -500,6 +534,7 @@
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
   rico:authorizedBy <http://example.com/KB/Mandate/Standing%20Committees%20are%20established%20under%20the%20authority%20of%20Standing%20Orders%20of%20the%20Legislative%20Assembly%20of%20Ontario.>;
+  rico:hasBeginningDate <http://example.com/KB/Date/1986>;
   rico:hasEndDate <http://example.com/KB/Date/1986>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Standing%20Committee%20on%20the%20Legislative%20Assembly>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Standing%20Legislative%20Assembly%20Committee>;
@@ -533,6 +568,8 @@
   rdfs:label "", "Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1972>;
+  rico:hasEndDate <http://example.com/KB/Date/1986>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Management%20Information%20Systems%20Branch>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20and%20Financial%20Services%20Branch.>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services>;
@@ -573,6 +610,8 @@
   rdfs:label "", "Ontario. Ministry of Education (1972-1993). Research Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1981>;
+  rico:hasEndDate <http://example.com/KB/Date/1983>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Research%20Branch>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -597,6 +636,8 @@
   rdfs:label "", "Ontario. Ministry of Enterprise, Opportunity and Innovation (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/2002>;
+  rico:hasEndDate <http://example.com/KB/Date/2003>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#A%20Ontario%20Government%20Name>;
   rico:hasOrHadIdentifier <http://example.com/KB/AgencyReferenceCode/AA131>;
@@ -666,6 +707,7 @@
   rdfs:label "", "Ontario. Occupational Health and Safety Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1991>;
   rico:hasEndDate <http://example.com/KB/Date/1991>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Occupational%20Health%20and%20Safety%20Branch>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Labour>;
@@ -684,6 +726,8 @@
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
   rico:authorizedBy <http://example.com/KB/Mandate/Act%20to%20make%20better%20provision%20for%20keeping%20and%20auditing%20Municipal%20and%20School%20Accounts%2C%20Statutes%20of%20Ontario%201897%2C%20Chap%2048>;
+  rico:hasBeginningDate <http://example.com/KB/Date/1897>;
+  rico:hasEndDate <http://example.com/KB/Date/1917>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Office%20of%20the%20Provincial%20Municipal%20Auditor>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -720,6 +764,8 @@
   rdfs:label "", "Ontario. Transportation Regulation Operations Division (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1976>;
+  rico:hasEndDate <http://example.com/KB/Date/1991>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Transportation%20Regulation%20Operations%20Division>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Transportation%20Regulation%20Division.>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications>;
@@ -733,6 +779,8 @@
     "Ontario. Travel Services Branch (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1972>;
+  rico:hasEndDate <http://example.com/KB/Date/1974>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/Travel%20Services%20Branch>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Tourism>;
   rico:hasOrHadCorporateBodyType <http://example.com/Schema/Authority/AuthorityType#C%20Ontario%20Government%20Name>;
@@ -805,6 +853,8 @@
     "", "War Memorial Committee of Ontario (Corporate Body)";
   auth:functionNote "FUN";
   auth:privateNote "CMTAU";
+  rico:hasBeginningDate <http://example.com/KB/Date/1920>;
+  rico:hasEndDate <http://example.com/KB/Date/1923>;
   rico:hasOrHadAgentName <http://example.com/KB/NaturalAgentName/War%20Memorial%20Committee%20of%20Ontario>,
     <http://example.com/KB/VariantAgentName/Ontario.%20Committee%20on%20a%20Memorial%20of%20the%20Recent%20War.>;
   rico:hasOrHadController <http://example.com/KB/Agent/Ontario.%20Legislative%20Assembly>;
