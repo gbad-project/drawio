@@ -12,6 +12,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Added
 
+- 2025-11-04 – Enabled template-aware typed-individual handling for the
+  RML export path, wiring the classifier flag through the parser and
+  debug harness, refreshing RML workflow artefacts, and extending pytest
+  coverage plus Bun baselines for the General ADD no-RR fixture.
 - 2025-10-30 – Implemented a pipeline RML workflow with CSV normalisation,
   debug scenario integration, and pytest scaffolding to compare outputs
   against the legacy map_schema run for General ADD and General Authority fixtures.

@@ -4,6 +4,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from textwrap import dedent
 from typing import Optional
 
 import pytest
@@ -320,20 +321,34 @@ def test_parse_drawio_accepts_corrected_mock_types(tmp_path: Path):
 
     assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
 
-    expected_subjects = {
-        "https://example.com",
-        "https://example.com/dangling-curie",
-        "https://example.com/colon-only",
-        "https://example.com/no-prefix",
-    }
-
     observed = {
         str(subject)
         for subject in graph.subjects(RDF.type, None)
         if isinstance(subject, URIRef)
     }
 
-    assert expected_subjects.issubset(observed)
+    substitutes = list(draw_io_parser._parse_metacharacter_substitutes(["remove"]))
+    space_substitute = draw_io_parser._parse_space_substitute(["remove"])
+    expected_suffixes = {
+        draw_io_parser._replace_metacharacters(
+            candidate,
+            substitutes,
+            space_substitute,
+            draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+        )
+        for candidate in {
+            "https://example.com",
+            "https://example.com/dangling-curie",
+            "https://example.com/colon-only",
+            "https://example.com/no-prefix",
+        }
+    }
+
+    for suffix in expected_suffixes:
+        assert any(entry.endswith(suffix) for entry in observed), (
+            "Expected corrected mock type to produce identifier ending with "
+            f"'{suffix}', observed subjects were: {sorted(observed)}"
+        )
 
 
 def _normalise_graph(graph: Graph) -> Graph:
@@ -432,6 +447,51 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     assert len(triples) > 0
     prefixes = {prefix for prefix, _ in graph.namespace_manager.namespaces()}
     assert "rr" in prefixes
+
+
+def test_parse_drawio_rml_accepts_template_classes(tmp_path: Path):
+    xml_payload = dedent(
+        """
+        <mxfile>
+          <diagram id="template" name="template">
+            <mxGraphModel>
+              <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="parent" value="Template Individual" style="swimlane;fontStyle=0;html=1;" parent="1" vertex="1">
+                  <mxGeometry x="0" y="0" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="child" value="{RICO_AUTHTP_CLASS}" style="text;html=1;" parent="parent" vertex="1">
+                  <mxGeometry x="0" y="0" width="120" height="30" as="geometry"/>
+                </mxCell>
+              </root>
+            </mxGraphModel>
+          </diagram>
+        </mxfile>
+        """
+    ).strip()
+
+    fixture_path = tmp_path / "template-class.drawio"
+    fixture_path.write_text(xml_payload, encoding="utf-8")
+
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        metacharacter_substitute=["remove"],
+        prefix="ex",
+        prefix_iri="http://example.com/",
+        rml_enabled=True,
+        include_label=False,
+    )
+
+    rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+    template_literals = {
+        str(obj)
+        for _, predicate, obj in graph.triples((None, rr["template"], None))
+        if predicate == rr["template"]
+    }
+
+    assert "{RICO_AUTHTP_CLASS}" in template_literals
 
 
 def test_parse_drawio_default_strips_html_literals():

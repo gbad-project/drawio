@@ -20,24 +20,13 @@ NodeHTMLParser = pipeline.core.xml.data.NodeHTMLParser
 PATTERNS = {
     # Matches rr:/rml: prefixed tokens and any quoted content immediately after
     "RR_RML_QUOTED_PATTERN": (
-        re.compile(
-            r'(?:rr|rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'
-        ),
-        r"\1"
+        re.compile(r'(?:rr|rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'),
+        r"\1",
     ),
-    "INCREMENT_NUMBER": (
-        re.compile(
-            r'_\d+\.\.\d+'
-        ),
-        ""
-    ),
-    "RICO_AUTHTP": (
-        re.compile(
-            r'RICO_AUTHTP([^_])'
-        ),
-        r"RICO_AUTHTP_TERM\1"
-    ),
+    "INCREMENT_NUMBER": (re.compile(r"_\d+\.\.\d+"), ""),
+    "RICO_AUTHTP": (re.compile(r"RICO_AUTHTP([^_])"), r"RICO_AUTHTP_TERM\1"),
 }
+
 
 def color(text, code):
     return f"\033[{code}m{text}\033[0m"
@@ -55,6 +44,7 @@ def sanitize_drawio_text(text: str) -> str:
     for _, (pattern, repl) in PATTERNS.items():
         text = pattern.sub(repl, text)
     return text.strip()
+
 
 def apply_auth_override(cell: ET.Element) -> dict | None:
     """If mxCell matches auth ID, replace its value and return change record."""
@@ -107,11 +97,9 @@ def sanitize_fixture(input_path: Path, output_path: Path) -> dict:
 
         if cleaned != stripped:
             changed += 1
-            changes.append({
-                "id": cell.attrib.get("id"),
-                "before": value,
-                "after": encoded
-            })
+            changes.append(
+                {"id": cell.attrib.get("id"), "before": value, "after": encoded}
+            )
             print(
                 f"{color('BEFORE:', '1;33')} {color(value, '0;37')}\n"
                 f"{color('AFTER: ', '1;32')} {color(encoded or '(removed)', '0;36')}\n"

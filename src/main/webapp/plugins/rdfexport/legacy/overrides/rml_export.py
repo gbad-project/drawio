@@ -155,6 +155,7 @@ def _build_graph_from_raw_xml(
         strict_mode=strict_mode,
         max_gap=max_gap,
         strip_html=strip_html_enabled,
+        allow_template_types=rml_enabled,
     )
 
     # 3. Generate Intermediate Blocks from Classifier's results

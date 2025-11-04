@@ -118,6 +118,22 @@ def _ensure_graph_covers_classifications(
         classifier_cls, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
     )
 
+    detector = getattr(
+        getattr(draw_io_parser.pipeline.core.rdf.control, "RMLSerializer", None),
+        "detect_string_template",
+        None,
+    )
+
+    def _token_is_template(candidate: str) -> bool:
+        if not isinstance(candidate, str):
+            return False
+        if callable(detector):
+            try:
+                return bool(detector(candidate))
+            except Exception:
+                return False
+        return False
+
     identifiers: set[str] = set()
     for cell_data in classifications.values():
         kind = cell_data.get("kind")
@@ -126,13 +142,13 @@ def _ensure_graph_covers_classifications(
             continue
         if kind == "STANDALONE_INDIVIDUAL":
             identifier = cell_data.get("identifier") or raw_value
-            if identifier:
+            if identifier and not _token_is_template(identifier):
                 identifiers.add(identifier)
         if kind == "TYPED_INDIVIDUAL":
             identifier = cell_data.get("parent_identifier") or cell_data.get(
                 "identifier"
             )
-            if identifier:
+            if identifier and not _token_is_template(identifier):
                 identifiers.add(identifier)
 
     identifier_subjects: dict[str, set] = {}
@@ -152,12 +168,16 @@ def _ensure_graph_covers_classifications(
 
         if kind == "STANDALONE_INDIVIDUAL":
             identifier = cell_data.get("identifier") or raw_value
+            if _token_is_template(identifier):
+                continue
             subjects = identifier_subjects.get(identifier, set())
             assert subjects, f"No subjects found for standalone '{identifier}'"
             tokens = [token for token in cell_data.get("tokens", []) if token]
             if not tokens:
                 tokens = [default_type]
             for token in tokens:
+                if _token_is_template(token):
+                    continue
                 expanded = namespace_manager.expand_curie(token)
                 assert any(
                     (subject, RDF.type, URIRef(expanded)) in graph
@@ -171,10 +191,12 @@ def _ensure_graph_covers_classifications(
             )
             if not identifier:
                 continue
+            if _token_is_template(identifier):
+                continue
             subjects = identifier_subjects.get(identifier, set())
             assert subjects, f"No subjects found for typed '{identifier}'"
             for token in cell_data.get("tokens", []):
-                if not token:
+                if not token or _token_is_template(token):
                     continue
                 expanded = namespace_manager.expand_curie(token)
                 assert any(

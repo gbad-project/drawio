@@ -1,60 +1,24 @@
-Script started on Mon Nov  3 14:48:43 2025
+Script started on Tue Nov  4 00:17:18 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m====================== test session starts =======================[0m
+[1m======================= test session starts ========================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 90 items                                               [0m
+[1mcollecting ... [0m[1mcollected 93 items                                                 [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                 [ 13%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                       [ 14%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m         [ 28%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                   [ 32%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m [ 56%]
-[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                     [ 81%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m              [ 88%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m      [ 95%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[31m   [ 97%][0m
-rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[31m     [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                   [ 12%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                         [ 13%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m          [ 29%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                     [ 32%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 58%]
+[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                       [ 81%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                [ 89%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m        [ 95%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[32m     [ 97%][0m
+rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[32m       [100%][0m
 
-============================ FAILURES ============================
-[31m[1m_________ test_parse_drawio_accepts_corrected_mock_types _________[0m
+[32m================== [32m[1m91 passed[0m, [33m2 xfailed[0m[32m in 27.31s[0m[32m ==================[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-725/test_parse_drawio_accepts_corr0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_accepts_corrected_mock_types[39;49;00m(tmp_path: Path):[90m[39;49;00m
-        fixture_path = _mutate_fixture_for_case(tmp_path, [94mNone[39;49;00m)[90m[39;49;00m
-        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
-            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        [94massert[39;49;00m [96misinstance[39;49;00m(graph, draw_io_parser.DrawIOParserGraph)[90m[39;49;00m
-    [90m[39;49;00m
-        expected_subjects = {[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com/dangling-curie[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com/colon-only[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mhttps://example.com/no-prefix[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        }[90m[39;49;00m
-    [90m[39;49;00m
-        observed = {[90m[39;49;00m
-            [96mstr[39;49;00m(subject)[90m[39;49;00m
-            [94mfor[39;49;00m subject [95min[39;49;00m graph.subjects(RDF.type, [94mNone[39;49;00m)[90m[39;49;00m
-            [94mif[39;49;00m [96misinstance[39;49;00m(subject, URIRef)[90m[39;49;00m
-        }[90m[39;49;00m
-    [90m[39;49;00m
->       [94massert[39;49;00m expected_subjects.issubset(observed)[90m[39;49;00m
-[1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = <built-in method issubset of set object at 0x107dea6c0>({'://hellolol', 'http://mock23-base-uri.com1924', 'http://mock23-base-uri.com1972', 'http://mock23-base-uri.comAA37', 'http://mock23-base-uri.comAOntarioGovernmentName', 'http://mock23-base-uri.comAgentIdentifier', ...})[0m
-[1m[31mE        +    where <built-in method issubset of set object at 0x107dea6c0> = {'https://example.com', 'https://example.com/colon-only', 'https://example.com/dangling-curie', 'https://example.com/no-prefix'}.issubset[0m
-
-[1m[31mlegacy/tests/test_patched_parser.py[0m:336: AssertionError
-[36m[1m==================== short test summary info =====================[0m
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_corrected_mock_types[0m - AssertionError: assert False
-[31m============ [31m[1m1 failed[0m, [32m87 passed[0m, [33m2 xfailed[0m[31m in 27.44s[0m[31m ============[0m
-[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
-
-Command exit status: 1
-Script done on Mon Nov  3 14:49:11 2025
+Command exit status: 0
+Script done on Tue Nov  4 00:17:46 2025

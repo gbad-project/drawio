@@ -52,6 +52,23 @@ def _ensure_known_curie(
     return prefix, reference
 
 
+@override(phase="core", type="internal", role="data")
+def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
+    detector = getattr(
+        getattr(pipeline.core.rdf.control, "RMLSerializer", None),
+        "detect_string_template",
+        None,
+    )
+    if callable(detector):
+        try:
+            if detector(ric_class):
+                return
+        except Exception:
+            pass
+
+    _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
+
+
 @override(phase="core", type="xml", role="data")
 def _cell_is_literal(self, candidate: Element) -> bool:
     is_literal = any(
