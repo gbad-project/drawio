@@ -17,7 +17,8 @@ def _build_graph_from_raw_xml(
     Builds an RDF graph from raw Draw.io XML using the new self-contained
     DrawIOCellClassifier, completely bypassing DrawIOXMLTree.
     """
-    DrawIOCellClassifier = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
+    RdfClassifier = getattr(pipeline.core.rdf.control, "RdfClassifier", None)
+    RmlClassifier = getattr(pipeline.core.rml.control, "RmlClassifier", None)
 
     def _is_flag_enabled(value: Any) -> bool:
         if isinstance(value, str):
@@ -144,12 +145,13 @@ def _build_graph_from_raw_xml(
 
     if explicit_strip_html:
         strip_html_enabled = _is_flag_enabled(config_strip_html)
-    elif metadata_strip_html is not None:
+    elif metadata_strip_h
         strip_html_enabled = metadata_strip_html
     else:
         strip_html_enabled = _is_flag_enabled(config_strip_html)
 
-    classifier = DrawIOCellClassifier(
+    Classifier = RmlClassifier if rml_enabled else RdfClassifier
+    classifier = Classifier(
         working_xml,
         prefixes,
         strict_mode=strict_mode,

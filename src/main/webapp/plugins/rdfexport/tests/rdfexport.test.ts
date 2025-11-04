@@ -1318,6 +1318,48 @@ json.dumps({
 );
 
 test(
+  "RmlClassifier correctly identifies templates in typed individuals",
+  async () => {
+    await loadPluginModule();
+
+    const fixturePath = join(
+      fixturesDir,
+      "AA37 Department of Health-with-metadata-rml.drawio",
+    );
+    let xml = await Bun.file(fixturePath).text();
+
+    // Modify the XML in-memory to include a template in a typed individual
+    xml = xml.replace(
+      'label="rico:Instantiation"',
+      'label="{RICO_INSTANTIATION_CLASS}"',
+    );
+
+    const rmlConfig: DrawioParserConfigPayload = {
+      infer_type_of_literals: true,
+      include_preamble: true,
+      ontology_iri: null,
+      prefix: null,
+      prefix_iri: null,
+      indentation: 2,
+      include_label: true,
+      max_gap: 10,
+      strict_mode: false,
+      strip_html: true,
+      metacharacter_substitute: ["url"],
+      capitalisation_scheme: "upper-camel",
+      rml_enabled: true,
+    };
+
+    const turtle = await runDrawioPipeline(xml, rmlConfig);
+
+    expect(turtle.length).toBeGreaterThan(0);
+    expect(turtle.includes("rr:TriplesMap")).toBe(true);
+    expect(turtle.includes("{RICO_INSTANTIATION_CLASS}")).toBe(true);
+  },
+  { timeout: 60000 },
+);
+
+test(
   "runDrawioPipeline strips literal HTML when stripHtml enabled",
   async () => {
     await loadPluginModule();
