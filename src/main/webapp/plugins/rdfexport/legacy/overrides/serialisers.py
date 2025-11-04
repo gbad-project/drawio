@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from rdflib import BNode, SKOS
 import re
+from rdflib import BNode, SKOS
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
@@ -12,6 +12,45 @@ from meta_builder.drawio_meta_builder import override
 @override(phase="core", type="rdf", role="control")
 class RDFSerializationHelper:
     """Shared helper methods for RDF and RML serialization."""
+
+    _INITVAR_SENTINEL: InitVar | None = None
+    _TEMPLATE_PATTERN = re.compile(r"(?<!\\)(?<!{){([^{}]+)}(?!})(?!\\)")
+
+    @classmethod
+    def _detect_string_template(cls, template: str) -> list[str | None]:
+        if not isinstance(template, str):
+            return []
+
+        matches: list[str] = []
+        spans: list[tuple[int, int]] = []
+        for match in cls._TEMPLATE_PATTERN.finditer(template):
+            ref = match.group(1).strip()
+            if ref:
+                matches.append(ref)
+                spans.append(match.span())
+
+        if not matches:
+            return []
+
+        for i in range(len(spans) - 1):
+            end_prev = spans[i][1]
+            start_next = spans[i + 1][0]
+            separator = template[end_prev:start_next]
+            if not separator.strip():
+                raise ValueError(
+                    f"Unsafe template: adjacent references not separated — '{template}'"
+                )
+
+        return matches
+
+    @classmethod
+    def _is_template_string(cls, candidate: str) -> bool:
+        if not isinstance(candidate, str):
+            return False
+        try:
+            return bool(cls._detect_string_template(candidate))
+        except ValueError:
+            return True
 
     def __init__(
         self,
@@ -221,6 +260,8 @@ class RDFSerializer(RDFSerializationHelper):
 
         # Add RDF types
         for rdf_type in types_and_facts.get("Types", set()):
+            if self._is_template_string(str(rdf_type)):
+                continue
             type_prefix, type_name = rdf_type.split(":")
             self.graph.add(
                 (individual_uri, RDF.type, self.namespace_map[type_prefix][type_name])
@@ -301,45 +342,8 @@ class RMLSerializer(RDFSerializationHelper):
         self.graph.bind("ql", self.ql, replace=False)
         self.graph.bind("rdfs", RDFS, replace=False)
 
-    @staticmethod
-    def detect_string_template(template: str) -> list[str | None]:
-        """
-        Detects valid unescaped {reference} patterns in a string template.
-
-        Rules:
-        - Double braces {{ }} are ignored.
-        - Escaped braces \\{ or \\} are ignored.
-        - Must contain at least one valid { ... } pair.
-        - Returns a list of references if valid; else [].
-        """
-        # Matches single unescaped curly braces around content
-        # Negative lookbehind avoids \{, and avoids doubling {{ or }}
-        pattern = re.compile(r"(?<!\\)(?<!{){([^{}]+)}(?!})(?!\\)")
-
-        matches = []
-        spans = []
-        for match in pattern.finditer(template):
-            ref = match.group(1).strip()
-            if ref:
-                matches.append(ref)
-                spans.append(match.span())
-
-        # Validate: must have at least one valid pair
-        if not matches:
-            return []
-
-        # Optional: check safe separators between multiple pairs
-        # (simplified heuristic — ensures braces don't touch directly)
-        for i in range(len(spans) - 1):
-            end_prev = spans[i][1]
-            start_next = spans[i + 1][0]
-            separator = template[end_prev:start_next]
-            if not separator.strip():
-                raise ValueError(
-                    f"Unsafe template: adjacent references not separated — '{template}'"
-                )
-
-        return matches
+    def detect_string_template(self, template: str) -> list[str | None]:
+        return self._detect_string_template(template)
 
     def _compute_explicit_override(self, individual_id) -> Any:
         """Compute explicit URI override for a single individual."""
@@ -419,7 +423,7 @@ class RMLSerializer(RDFSerializationHelper):
             return Literal("drawio")
 
     def _build_type_predicate_object_map(
-        self, class_uri: URIRef
+        self, class_value: Any
     ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
         """
         Build predicateObjectMap BNode for rdf:type mapping and
@@ -428,14 +432,23 @@ class RMLSerializer(RDFSerializationHelper):
         object_map = BNode()
         predicate_object_map = BNode()
 
-        has_template = bool(self.detect_string_template(str(class_uri)))
+        has_template = bool(self.detect_string_template(str(class_value)))
         class_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
+        object_term: Node
+        if isinstance(class_value, URIRef):
+            object_term = class_value
+        else:
+            object_term = Literal(class_value)
+
         triples = [
-            (object_map, class_predicate, Literal(class_uri)),
             (predicate_object_map, self.rr["predicate"], RDF["type"]),
             (predicate_object_map, self.rr["objectMap"], object_map),
+            (object_map, class_predicate, object_term),
         ]
+
+        if isinstance(class_value, URIRef) or has_template:
+            triples.append((object_map, self.rr["termType"], self.rr["IRI"]))
 
         return predicate_object_map, triples
 
@@ -484,10 +497,13 @@ class RMLSerializer(RDFSerializationHelper):
 
         # Add RDF types as rr:class
         for rdf_type in sorted(types_and_facts.get("Types", set())):
-            type_prefix, type_name = rdf_type.split(":", 1)
-            class_uri = self.namespace_map[type_prefix][type_name]
+            if self._is_template_string(str(rdf_type)):
+                class_identifier: Any = str(rdf_type)
+            else:
+                type_prefix, type_name = rdf_type.split(":", 1)
+                class_identifier = self.namespace_map[type_prefix][type_name]
             type_predicate_object_map, type_predicate_object_map_triples = (
-                self._build_type_predicate_object_map(class_uri)
+                self._build_type_predicate_object_map(class_identifier)
             )
             self.graph.addN1(
                 (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),

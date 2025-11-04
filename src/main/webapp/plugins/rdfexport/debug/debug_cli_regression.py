@@ -143,6 +143,18 @@ def _ensure_graph_covers_classifications(
         identifier_subjects[identifier] = subjects
         assert subjects, f"Missing label triple for identifier '{identifier}'"
 
+    def _is_template_token(candidate: str) -> bool:
+        helper = getattr(
+            draw_io_parser.pipeline.core.rdf.control, "RDFSerializationHelper", None
+        )
+        detector = getattr(helper, "_is_template_string", None) if helper else None
+        if detector:
+            try:
+                return bool(detector(candidate))
+            except Exception:
+                return False
+        return False
+
     for cell_id, cell_data in classifications.items():
         raw_value = (cell_data.get("raw_value") or "").strip()
         if not raw_value:
@@ -158,6 +170,8 @@ def _ensure_graph_covers_classifications(
             if not tokens:
                 tokens = [default_type]
             for token in tokens:
+                if _is_template_token(token):
+                    continue
                 expanded = namespace_manager.expand_curie(token)
                 assert any(
                     (subject, RDF.type, URIRef(expanded)) in graph
@@ -175,6 +189,8 @@ def _ensure_graph_covers_classifications(
             assert subjects, f"No subjects found for typed '{identifier}'"
             for token in cell_data.get("tokens", []):
                 if not token:
+                    continue
+                if _is_template_token(token):
                     continue
                 expanded = namespace_manager.expand_curie(token)
                 assert any(

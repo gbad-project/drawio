@@ -261,6 +261,7 @@ class DrawIOCellClassifier:
         tokens_are_valid = self._tokens_are_valid(value_tokens)
         tokens = list(value_tokens)
         single_token = tokens[0] if len(tokens) == 1 else None
+        has_template_token = any(self._token_is_template(token) for token in tokens)
         # AICODE-NOTE: I recognize that hardcoding a curie check here
         # was not the best codex's idea, however this does do
         # the trick that if ANY token among tokens has a chance
@@ -268,7 +269,9 @@ class DrawIOCellClassifier:
         # and then these are checked there. However, it will be
         # important to have all curie checks centralized.
         # signed-off: human
-        looks_like_curie = any(":" in token for token in tokens)
+        looks_like_curie = any(
+            ":" in token for token in tokens if not self._token_is_template(token)
+        )
 
         if self._style_denotes_literal(cell, style, tokens_are_valid):
             return build(CellKind.LITERAL)
@@ -282,7 +285,7 @@ class DrawIOCellClassifier:
                 tokens_are_valid = True
 
         if parent_cell is not None and parent_identifier and tokens:
-            if looks_like_curie:
+            if looks_like_curie or has_template_token:
                 return build(
                     CellKind.TYPED_INDIVIDUAL,
                     parent_cell=parent_cell,
@@ -668,10 +671,27 @@ class DrawIOCellClassifier:
             if t.strip()
         ]
 
+    @classmethod
+    def _token_is_template(cls, token: str) -> bool:
+        if not isinstance(token, str):
+            return False
+        helper = getattr(pipeline.core.rdf.control, "RDFSerializationHelper", None)
+        if helper is None:
+            return False
+        detector = getattr(helper, "_is_template_string", None)
+        if detector is None:
+            return False
+        try:
+            return bool(detector(token))
+        except Exception:
+            return False
+
     def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
         if not tokens:
             return False
         for token in tokens:
+            if self._token_is_template(token):
+                continue
             if ":" not in token:
                 return False
             prefix, remainder = token.split(":", 1)

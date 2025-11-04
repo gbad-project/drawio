@@ -42,6 +42,11 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-11-03 – Allowed templated rdf:type tokens to flow through the
+  DrawIO classifier and RML serializer by reusing the shared template
+  detector, patched RiC class verification to defer to that logic, and
+  updated debug regressions to recognise template placeholders while
+  keeping legacy xfails intact.
 - 2025-10-30 – Normalised the map-schema workflow so generated RML emits
   the same labels and IRIs as the published fixtures, and refreshed the
   committed Turtle artefacts to capture the full, unfiltered graphs from

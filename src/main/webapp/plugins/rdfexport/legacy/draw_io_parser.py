@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
@@ -21,8 +21,8 @@ from typing import Iterable
 from rdflib.term import Node
 import json
 from html import unescape
-from rdflib import BNode, SKOS
 import re
+from rdflib import BNode, SKOS
 
 
 class pipeline:
@@ -385,7 +385,16 @@ class pipeline:
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens)
                         single_token = tokens[0] if len(tokens) == 1 else None
-                        looks_like_curie = any((":" in token for token in tokens))
+                        has_template_token = any(
+                            (self._token_is_template(token) for token in tokens)
+                        )
+                        looks_like_curie = any(
+                            (
+                                ":" in token
+                                for token in tokens
+                                if not self._token_is_template(token)
+                            )
+                        )
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
                             return build(CellKind.LITERAL)
                         child_tokens = self._collect_child_tokens(cell)
@@ -398,7 +407,7 @@ class pipeline:
                                 tokens = list(child_tokens)
                                 tokens_are_valid = True
                         if parent_cell is not None and parent_identifier and tokens:
-                            if looks_like_curie:
+                            if looks_like_curie or has_template_token:
                                 return build(
                                     CellKind.TYPED_INDIVIDUAL,
                                     parent_cell=parent_cell,
@@ -781,10 +790,29 @@ class pipeline:
                             if t.strip()
                         ]
 
+                    @classmethod
+                    def _token_is_template(cls, token: str) -> bool:
+                        if not isinstance(token, str):
+                            return False
+                        helper = getattr(
+                            pipeline.core.rdf.control, "RDFSerializationHelper", None
+                        )
+                        if helper is None:
+                            return False
+                        detector = getattr(helper, "_is_template_string", None)
+                        if detector is None:
+                            return False
+                        try:
+                            return bool(detector(token))
+                        except Exception:
+                            return False
+
                     def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
                         if not tokens:
                             return False
                         for token in tokens:
+                            if self._token_is_template(token):
+                                continue
                             if ":" not in token:
                                 return False
                             prefix, remainder = token.split(":", 1)
@@ -934,6 +962,43 @@ class pipeline:
                 # BEGIN override serialisers.py.RDFSerializationHelper
                 class RDFSerializationHelper:
                     """Shared helper methods for RDF and RML serialization."""
+
+                    _INITVAR_SENTINEL: InitVar | None = None
+                    _TEMPLATE_PATTERN = re.compile(
+                        "(?<!\\\\)(?<!{){([^{}]+)}(?!})(?!\\\\)"
+                    )
+
+                    @classmethod
+                    def _detect_string_template(cls, template: str) -> list[str | None]:
+                        if not isinstance(template, str):
+                            return []
+                        matches: list[str] = []
+                        spans: list[tuple[int, int]] = []
+                        for match in cls._TEMPLATE_PATTERN.finditer(template):
+                            ref = match.group(1).strip()
+                            if ref:
+                                matches.append(ref)
+                                spans.append(match.span())
+                        if not matches:
+                            return []
+                        for i in range(len(spans) - 1):
+                            end_prev = spans[i][1]
+                            start_next = spans[i + 1][0]
+                            separator = template[end_prev:start_next]
+                            if not separator.strip():
+                                raise ValueError(
+                                    f"Unsafe template: adjacent references not separated — '{template}'"
+                                )
+                        return matches
+
+                    @classmethod
+                    def _is_template_string(cls, candidate: str) -> bool:
+                        if not isinstance(candidate, str):
+                            return False
+                        try:
+                            return bool(cls._detect_string_template(candidate))
+                        except ValueError:
+                            return True
 
                     def __init__(
                         self,
@@ -1162,6 +1227,8 @@ class pipeline:
                         individual_uri = self.resolve_individual_uri(individual_id)
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
+                            if self._is_template_string(str(rdf_type)):
+                                continue
                             type_prefix, type_name = rdf_type.split(":")
                             self.graph.add(
                                 (
@@ -1244,36 +1311,8 @@ class pipeline:
                         self.graph.bind("ql", self.ql, replace=False)
                         self.graph.bind("rdfs", RDFS, replace=False)
 
-                    @staticmethod
-                    def detect_string_template(template: str) -> list[str | None]:
-                        """
-                        Detects valid unescaped {reference} patterns in a string template.
-
-                        Rules:
-                        - Double braces {{ }} are ignored.
-                        - Escaped braces \\{ or \\} are ignored.
-                        - Must contain at least one valid { ... } pair.
-                        - Returns a list of references if valid; else [].
-                        """
-                        pattern = re.compile("(?<!\\\\)(?<!{){([^{}]+)}(?!})(?!\\\\)")
-                        matches = []
-                        spans = []
-                        for match in pattern.finditer(template):
-                            ref = match.group(1).strip()
-                            if ref:
-                                matches.append(ref)
-                                spans.append(match.span())
-                        if not matches:
-                            return []
-                        for i in range(len(spans) - 1):
-                            end_prev = spans[i][1]
-                            start_next = spans[i + 1][0]
-                            separator = template[end_prev:start_next]
-                            if not separator.strip():
-                                raise ValueError(
-                                    f"Unsafe template: adjacent references not separated — '{template}'"
-                                )
-                        return matches
+                    def detect_string_template(self, template: str) -> list[str | None]:
+                        return self._detect_string_template(template)
 
                     def _compute_explicit_override(self, individual_id) -> Any:
                         """Compute explicit URI override for a single individual."""
@@ -1356,7 +1395,7 @@ class pipeline:
                             return Literal("drawio")
 
                     def _build_type_predicate_object_map(
-                        self, class_uri: URIRef
+                        self, class_value: Any
                     ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
                         """
                         Build predicateObjectMap BNode for rdf:type mapping and
@@ -1364,15 +1403,26 @@ class pipeline:
                         """
                         object_map = BNode()
                         predicate_object_map = BNode()
-                        has_template = bool(self.detect_string_template(str(class_uri)))
+                        has_template = bool(
+                            self.detect_string_template(str(class_value))
+                        )
                         class_predicate = (
                             self.rr["template"] if has_template else self.rr["constant"]
                         )
+                        object_term: Node
+                        if isinstance(class_value, URIRef):
+                            object_term = class_value
+                        else:
+                            object_term = Literal(class_value)
                         triples = [
-                            (object_map, class_predicate, Literal(class_uri)),
                             (predicate_object_map, self.rr["predicate"], RDF["type"]),
                             (predicate_object_map, self.rr["objectMap"], object_map),
+                            (object_map, class_predicate, object_term),
                         ]
+                        if isinstance(class_value, URIRef) or has_template:
+                            triples.append(
+                                (object_map, self.rr["termType"], self.rr["IRI"])
+                            )
                         return (predicate_object_map, triples)
 
                     def _build_subject_map(
@@ -1433,12 +1483,17 @@ class pipeline:
                             subject_map_triples,
                         )
                         for rdf_type in sorted(types_and_facts.get("Types", set())):
-                            type_prefix, type_name = rdf_type.split(":", 1)
-                            class_uri = self.namespace_map[type_prefix][type_name]
+                            if self._is_template_string(str(rdf_type)):
+                                class_identifier: Any = str(rdf_type)
+                            else:
+                                type_prefix, type_name = rdf_type.split(":", 1)
+                                class_identifier = self.namespace_map[type_prefix][
+                                    type_name
+                                ]
                             (
                                 type_predicate_object_map,
                                 type_predicate_object_map_triples,
-                            ) = self._build_type_predicate_object_map(class_uri)
+                            ) = self._build_type_predicate_object_map(class_identifier)
                             self.graph.addN1(
                                 (
                                     subject_map,
@@ -2080,20 +2135,21 @@ class rdf_data_pre:
 
     # END _replace_metacharacter
     # BEGIN _replace_metacharacters
+    # override from metacharacters.py
     def _replace_metacharacters(
         identifier: str,
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
         space_substitute: Replacement | None,
         capitalisation_scheme: str,
     ) -> str:
+        candidate = identifier.strip()
+        if "://" in candidate or candidate.lower().startswith(("urn:", "tag:")):
+            return candidate
+        identifier = candidate
         if " " in identifier:
             if space_substitute is None:
                 raise MetacharacterException(
-                    "The following contains a space, but how to handle spaces in "
-                    "individual nodes has not been specified (spaces cannot be "
-                    f"used in OWL IRIs): '{identifier}'. Use the "
-                    "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
-                    "options to define how to handle spaces"
+                    f"The following contains a space, but how to handle spaces in individual nodes has not been specified (spaces cannot be used in OWL IRIs): '{identifier}'. Use the -m/--metacharacter-substitute and -c/--capitalisation-scheme options to define how to handle spaces"
                 )
             identifier = _handle_spaces(
                 identifier, space_substitute, capitalisation_scheme
@@ -2342,8 +2398,20 @@ class internal_data_core:
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
+    # override from ric_validation.py
     def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
-        _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
+        """Allow templated class tokens to bypass strict CURIE validation."""
+        helper = getattr(pipeline.core.rdf.control, "RDFSerializationHelper", None)
+        detector = getattr(helper, "_is_template_string", None) if helper else None
+        if detector:
+            try:
+                if detector(str(ric_class)):
+                    return
+            except Exception:
+                pass
+        pipeline.core.internal.data._ensure_known_curie(
+            ric_class, prefixes, f"Not a known class: {ric_class}"
+        )
 
     # END _verify_is_ric_class
     # BEGIN _SourceNotIndividualException

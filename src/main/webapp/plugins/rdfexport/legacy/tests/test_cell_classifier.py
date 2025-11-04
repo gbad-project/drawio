@@ -146,6 +146,26 @@ def test_classifier_detects_typed_individuals_and_literals():
     assert registry["decor"]["connected"] is False
 
 
+def test_classifier_accepts_template_class_tokens():
+    xml = _drawio_xml(
+        _vertex_cell("parent", "Authority", style="swimlane"),
+        _vertex_cell("type", "{RICO_AUTHTP_CLASS}", parent="parent"),
+    )
+
+    classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
+        xml,
+        draw_io_parser.get_prefixes(),
+    )
+
+    observed = {
+        individual.ric_class
+        for individual in classifier.individuals
+        if individual.identifier == "Authority"
+    }
+
+    assert "{RICO_AUTHTP_CLASS}" in observed
+
+
 def test_top_level_rounded_text_treated_as_literal():
     xml = _drawio_xml(
         _vertex_cell(
