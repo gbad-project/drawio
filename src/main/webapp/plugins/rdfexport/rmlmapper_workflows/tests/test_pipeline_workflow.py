@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from rdflib import Graph
 from rdflib.compare import to_isomorphic
+import yaml
 
 PLUGIN_ROOT = Path(__file__).resolve().parents[2]
 if str(PLUGIN_ROOT) not in sys.path:
@@ -19,6 +20,7 @@ from rmlmapper_workflows import (  # type: ignore  # noqa: E402
     RMLMapperEnvironment,
     run_map_schema_workflow,
     run_pipeline_workflow,
+    sanitize_fixtures,
 )
 
 SCENARIO_DIR = PLUGIN_ROOT / "debug" / "scenarios"
@@ -60,6 +62,72 @@ def _save_pipeline_artifacts(
             encoding="utf-8",
         )
 
+def _drawio_path_from_yaml(yml_path: Path) -> Path:
+    data = yaml.safe_load(yml_path.read_text())
+    drawio_path = Path(data["drawio"])
+    return drawio_path
+
+@pytest.fixture(scope="session")
+def workflow_fixtures() -> dict[str, MapSchemaFixtureConfig]:
+    cfg = {
+        "map_schema": {
+            "general_authority": MapSchemaFixtureConfig(
+                name="general-authority",
+                schema_code="auth",
+                scenario=SCENARIO_DIR / "general-authority-to-ric-o-model-2025-06-25-pz.yml",
+                csv_fixture=RML_FIXTURES_DIR
+                / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
+                rml_fixture=RML_FIXTURES_DIR
+                / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
+                slug="pytest-pipeline-general-authority",
+            ),
+            "general_add": MapSchemaFixtureConfig(
+                name="general-add",
+                schema_code="add",
+                scenario=SCENARIO_DIR / "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml",
+                csv_fixture=RML_FIXTURES_DIR
+                / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
+                rml_fixture=RML_FIXTURES_DIR
+                / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
+                slug="pytest-pipeline-general-add",
+            ),
+        },
+        "pipeline": {
+            "general_authority": MapSchemaFixtureConfig(
+                name="general-authority",
+                schema_code="auth",
+                scenario=SCENARIO_DIR / "general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml",
+                csv_fixture=RML_FIXTURES_DIR
+                / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
+                rml_fixture=RML_FIXTURES_DIR
+                / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
+                slug="pytest-pipeline-general-authority-no-rr",
+                index_column="SISN",
+            ),
+            "general_add": MapSchemaFixtureConfig(
+                name="general-add",
+                schema_code="add",
+                scenario=SCENARIO_DIR / "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml",
+                csv_fixture=RML_FIXTURES_DIR
+                / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
+                rml_fixture=RML_FIXTURES_DIR
+                / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
+                slug="pytest-pipeline-general-add-no-rr",
+                index_column="SISN",
+            ),
+        },
+    }
+
+    pairs = []
+    for path in cfg["pipeline"].values():
+        drawio_path = _drawio_path_from_yaml(path.scenario)
+        pairs.append((
+            drawio_path.with_name(drawio_path.name.replace("_no_rr", "")),
+            drawio_path,
+        ))
+    sanitize_fixtures(pairs)
+
+    return cfg
 
 @pytest.fixture(scope="session")
 def rmlmapper_env() -> RMLMapperEnvironment:
@@ -76,32 +144,12 @@ def _compare_or_xfail(pipeline_path: Path, map_schema_path: Path) -> None:
 
 
 def test_pipeline_workflow_general_add(
-    rmlmapper_env: RMLMapperEnvironment, tmp_path: Path
+    rmlmapper_env: RMLMapperEnvironment,
+    workflow_fixtures: dict[str, dict[str, MapSchemaFixtureConfig]],
+    tmp_path: Path,
 ) -> None:
-    map_schema_config = MapSchemaFixtureConfig(
-        name="general-add",
-        schema_code="add",
-        scenario=SCENARIO_DIR
-        / "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml",
-        csv_fixture=RML_FIXTURES_DIR
-        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
-        rml_fixture=RML_FIXTURES_DIR
-        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
-        slug="pytest-pipeline-general-add",
-    )
-
-    pipeline_config = MapSchemaFixtureConfig(
-        name="general-add",
-        schema_code="add",
-        scenario=SCENARIO_DIR
-        / "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml",
-        csv_fixture=RML_FIXTURES_DIR
-        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv",
-        rml_fixture=RML_FIXTURES_DIR
-        / "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml",
-        slug="pytest-pipeline-general-add-no-rr",
-        index_column="SISN",
-    )
+    map_schema_config = workflow_fixtures["map_schema"]["general_add"]
+    pipeline_config = workflow_fixtures["pipeline"]["general_add"]
 
     pipeline_result = run_pipeline_workflow(
         pipeline_config, rmlmapper_env, workspace_base=tmp_path
@@ -124,30 +172,12 @@ def test_pipeline_workflow_general_add(
 
 
 def test_pipeline_workflow_general_authority(
-    rmlmapper_env: RMLMapperEnvironment, tmp_path: Path
+    rmlmapper_env: RMLMapperEnvironment,
+    workflow_fixtures: dict[str, dict[str, MapSchemaFixtureConfig]],
+    tmp_path: Path,
 ) -> None:
-    map_schema_config = MapSchemaFixtureConfig(
-        name="general-authority",
-        schema_code="auth",
-        scenario=SCENARIO_DIR / "general-authority-to-ric-o-model-2025-06-25-pz.yml",
-        csv_fixture=RML_FIXTURES_DIR
-        / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
-        rml_fixture=RML_FIXTURES_DIR
-        / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
-        slug="pytest-pipeline-general-authority",
-    )
-    pipeline_config = MapSchemaFixtureConfig(
-        name="general-authority",
-        schema_code="auth",
-        scenario=SCENARIO_DIR
-        / "general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml",
-        csv_fixture=RML_FIXTURES_DIR
-        / "General Authority to RiC-O Model_2025-06-25_PZ.csv",
-        rml_fixture=RML_FIXTURES_DIR
-        / "General Authority to RiC-O Model_2025-06-25_PZ.rml",
-        slug="pytest-pipeline-general-authority-no-rr",
-        index_column="SISN",
-    )
+    map_schema_config = workflow_fixtures["map_schema"]["general_authority"]
+    pipeline_config = workflow_fixtures["pipeline"]["general_authority"]
 
     pipeline_result = run_pipeline_workflow(
         pipeline_config,
