@@ -8,7 +8,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:template "{LEVELDES}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ] ;
@@ -21,7 +21,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Agent/{ABC_REFA}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:relationHasTarget ],
@@ -49,7 +49,109 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Agent" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Agent/{INDEXNAME}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Place" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Place/{INDEXGEO}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{MODDATE}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedDateValue ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Date/{MODDATE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Agent" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Agent/{INDEXSUB}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{GMD}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#ContentType" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/Schema/Description-Listings/ContentType#{GMD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Description-Listings/CurrentReferenceCode" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasIdentifierType ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Identifier" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/CurrentReferenceCode/{REFD_FILE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isCreatorOf ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Agent/{ABC_REFA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:subjectMap [ rr:constant "/Schema/Description-Listings/FormerCode" ;
+            rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#IdentifierType" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Agent" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Agent/{INDEXPROV}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:template "{DATEACM}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate add:accumulationDate ],
@@ -151,7 +253,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:template "{HOWTO}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate add:howToOrder ],
@@ -176,7 +278,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:constant "/Schema/Description-Listings/ArchivalDescriptionRecord" ;
             rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#DocumentaryFormType" ] ;
                     rr:predicate rdf:type ],
@@ -186,7 +288,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
@@ -196,7 +298,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
@@ -206,7 +308,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordSet" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
@@ -216,7 +318,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Title" ] ;
@@ -226,7 +328,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
@@ -236,7 +338,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
@@ -246,7 +348,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Description-Listings/FormerCode" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:hasIdentifierType ],
@@ -262,7 +364,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
@@ -272,7 +374,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordSet" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
@@ -282,7 +384,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:subjectMap [ rr:constant "/Schema/Description-Listings/CurrentReferenceCode" ;
             rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
@@ -292,7 +394,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Archival Description Record)" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
@@ -316,107 +418,5 @@
                 [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ] ;
             rr:template "/KB/ArchivalDescriptionRecord/{REFD_FILE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Agent" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{INDEXNAME}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Place" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Place/{INDEXGEO}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{MODDATE}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:normalizedDateValue ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Date/{MODDATE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Agent" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{INDEXSUB}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{GMD}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#ContentType" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/Schema/Description-Listings/ContentType#{GMD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Description-Listings/CurrentReferenceCode" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasIdentifierType ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Identifier" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/CurrentReferenceCode/{REFD_FILE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isCreatorOf ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{ABC_REFA}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:subjectMap [ rr:constant "/Schema/Description-Listings/FormerCode" ;
-            rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#IdentifierType" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-792/test_pipeline_workflow_general0/pipeline-workflow-general-add-6hh82ce1/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Agent" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{INDEXPROV}" ;
             rr:termType rr:IRI ] .
 

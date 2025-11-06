@@ -545,8 +545,13 @@ def run_pipeline_workflow(
 
         base_uri = _get_base_uri(config.scenario)
         try:
+            # Using actual debug.__main__ output that
+            # contains real CSV path - important because
+            # UUID will be generated from the file contents.
+            # The RML itself now persists also.
+            file_path = pipeline_rml_source
             uuid_obj = generate_uuid_from_file_and_url(
-                file_path=config.rml_fixture,
+                file_path=file_path,
                 any_url=base_uri,
             )
         except Exception as e:
@@ -590,8 +595,11 @@ def run_pipeline_workflow(
             mapper_error=mapper_error,
         )
     finally:
-        if results_dir.exists():
-            shutil.rmtree(results_dir)
+        pass
+        # Preserve pytest debug outputs -
+        # see above rationale for UUID generation
+        # if results_dir.exists():
+        #     shutil.rmtree(results_dir)
 
 
 # ----------------------------------------------------------------------
