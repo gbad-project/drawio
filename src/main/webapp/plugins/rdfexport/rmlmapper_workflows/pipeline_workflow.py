@@ -572,5 +572,5 @@ if __name__ == "__main__":
     current = Path(__file__).resolve()
     test_file = current.parent / "tests" / f"test_{current.stem}.py"
 
-    # verbose (-v) and, with -rA, displays a detailed summary of all test results — including passed, failed, skipped, xfailed, and xpassed tests — at the end of the run.
-    pytest.main(["-v", "-rA", test_file])
+    # verbose (-v), stdout, and, with -rA, displays a detailed summary of all test results — including passed, failed, skipped, xfailed, and xpassed tests — at the end of the run.
+    pytest.main(["-v", "-s", "-rA", test_file])
