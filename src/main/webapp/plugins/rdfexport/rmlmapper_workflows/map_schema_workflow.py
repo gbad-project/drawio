@@ -34,6 +34,7 @@ _SCHEMA_TO_DIR = {
     "auth": "authority",
 }
 
+
 @dataclass
 class MapSchemaFixtureConfig:
     """Configuration describing a DrawIO fixture with a corresponding RML baseline."""
@@ -85,7 +86,9 @@ class RMLMapperEnvironment:
                 f"Setup script completed but manifest not found at {self.manifest_path}"
             )
 
-    def run_mapper(self, rml_path: Path, output_path: Path, cwd: Path, base_uri: str) -> None:
+    def run_mapper(
+        self, rml_path: Path, output_path: Path, cwd: Path, base_uri: str
+    ) -> None:
         """Run RMLMapper against ``rml_path`` and write Turtle output to ``output_path``."""
         import json
 
@@ -177,6 +180,7 @@ def run_map_schema_workflow(
 # ----------------------------------------------------------------------
 # Internal helpers
 # ----------------------------------------------------------------------
+
 
 def _get_base_uri(scenario_path) -> str:
     try:

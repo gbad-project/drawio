@@ -8,3 +8,5 @@ docs/
 debug/map.json
 debug/results/
 debug/scenarios/
+rmlmapper_workflows/artifacts/
+rmlmapper_workflows/rr_terms.json

@@ -43,13 +43,16 @@ from .map_schema_workflow import (  # type: ignore  # noqa: E402
 
 import legacy.map_schema as legacy_map_schema  # type: ignore  # noqa: E402
 
+
 def generate_uuid_from_file_and_url(file_path: Path, any_url: AnyUrl) -> uuid.UUID:
-    encoding_to_use = 'utf-8'
+    encoding_to_use = "utf-8"
     file_content = file_path.read_text(encoding=encoding_to_use)
     file_hash = hashlib.sha256(file_content.encode(encoding_to_use))
-    print(f"\nSHA256 hash '{file_hash.hexdigest()}' generated for '{encoding_to_use}' encoded plain text contents of: '{file_path.relative_to(Path.cwd())}'")
+    print(
+        f"\nSHA256 hash '{file_hash.hexdigest()}' generated for '{encoding_to_use}' encoded plain text contents of: '{file_path.relative_to(Path.cwd())}'"
+    )
     print(f"Base64: {base64.b64encode(file_hash.digest()).decode()}")
-    
+
     # https://www.rfc-editor.org/rfc/rfc6920.html
     # Figure 4: ni Name Syntax
     # NI-URI         = ni-scheme ":" ni-hier-part [ "?" query ]
@@ -59,7 +62,7 @@ def generate_uuid_from_file_and_url(file_path: Path, any_url: AnyUrl) -> uuid.UU
     # The "val" field MUST contain the output of base64url encoding
     # (with no "=" padding characters)
     # Note also that ni val must be generated from bytes and URL safe
-    ni_val = base64.urlsafe_b64encode(file_hash.digest()).decode().rstrip('=')
+    ni_val = base64.urlsafe_b64encode(file_hash.digest()).decode().rstrip("=")
     ni_uri = f"ni:///sha-256;{ni_val}"
     print(f"Valid ni URI (RFC6920-compliant): <{ni_uri}>")
 
@@ -80,6 +83,7 @@ def generate_uuid_from_file_and_url(file_path: Path, any_url: AnyUrl) -> uuid.UU
 9. Generate UUID v5 for ni URI using the earlier UUID as Namespace and ni URI as Name
 10. Both UUIDs should match the function outputs""")
     return uuid_obj
+
 
 def construct_named_graph_uri(uuid_obj: uuid.UUID, base_uri: str) -> URIRef:
     return URIRef(f"{base_uri}/graph/urn:uuid:{uuid_obj}")
@@ -164,7 +168,10 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             return
         try:
             for colname, value in self._constants:
-                self.add(colname, pd.Series(str(value), index=self.source_df.index, dtype="object"))
+                self.add(
+                    colname,
+                    pd.Series(str(value), index=self.source_df.index, dtype="object"),
+                )
         except Exception as e:
             print(f"Could not add constant columns '{self._constants}': {e}")
 
@@ -236,7 +243,10 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
 
     ### ADD-specific processing ###
     def _add_refd_file_column(self):
-        if "REFD" not in self.source_df.columns and "REF_FILE" not in self.source_df.columns:
+        if (
+            "REFD" not in self.source_df.columns
+            and "REF_FILE" not in self.source_df.columns
+        ):
             raise ValueError("Neither REFD nor REF_FILE found in ADD CSV")
         refd = self.source_df.get("REFD")
         ref_file = self.source_df.get("REF_FILE")
@@ -539,9 +549,11 @@ def run_pipeline_workflow(
                 file_path=config.rml_fixture,
                 any_url=base_uri,
             )
-        except:
+        except Exception as e:
             uuid_obj = uuid.uuid4()
-            print(f"Failed to generate UUID from file and URL - falling back to UUID v4: {uuid_obj}")
+            print(
+                f"Failed to generate UUID from file and URL - falling back to UUID v4: {uuid_obj}. Error: {e}"
+            )
         named_graph_uri = construct_named_graph_uri(uuid_obj, base_uri)
 
         preprocessed_csv = _run_pipeline_preprocessor(
@@ -551,7 +563,8 @@ def run_pipeline_workflow(
                 ("NAMED_GRAPH_IRI", str(named_graph_uri)),
                 ("UUID", str(uuid_obj)),
             ],
-            **kwargs)
+            **kwargs,
+        )
 
         pipeline_rml = workspace / "pipeline_map.ttl"
         updated_text = _rewrite_pipeline_csv_path(
