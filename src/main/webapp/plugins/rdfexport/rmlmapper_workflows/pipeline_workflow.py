@@ -32,6 +32,7 @@ from legacy.gbad.converter.preprocessors import (  # type: ignore  # noqa: E402
 from .map_schema_workflow import (  # type: ignore  # noqa: E402
     MapSchemaFixtureConfig,
     RMLMapperEnvironment,
+    _get_base_uri,
 )
 
 import legacy.map_schema as legacy_map_schema  # type: ignore  # noqa: E402
@@ -470,9 +471,10 @@ def run_pipeline_workflow(
         pipeline_rml.write_text(updated_text, encoding="utf-8")
 
         pipeline_turtle = workspace / "pipeline_output.ttl"
+        base_uri = _get_base_uri(config.scenario)
         mapper_error: str | None = None
         try:
-            env.run_mapper(pipeline_rml, pipeline_turtle, workspace)
+            env.run_mapper(pipeline_rml, pipeline_turtle, workspace, base_uri)
         except RuntimeError as exc:  # pragma: no cover - defensive path
             mapper_error = str(exc)
             pipeline_turtle.write_text("", encoding="utf-8")

@@ -14,6 +14,8 @@ from typing import Iterator
 from io import StringIO
 from contextlib import redirect_stdout
 
+import yaml
+
 PLUGIN_ROOT = Path(__file__).resolve().parent.parent
 DEBUG_DIR = PLUGIN_ROOT / "debug"
 DEBUG_RESULTS_DIR = DEBUG_DIR / "results"
@@ -31,13 +33,6 @@ _SCHEMA_TO_DIR = {
     "add": "description-listings",
     "auth": "authority",
 }
-
-_PLACEHOLDER_BASE = "ontology://generated-from-draw-io/mock#"
-_MAPPING_BASE = "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#"
-
-_RML_REFERENCE_PATTERN = re.compile(r'rml:reference\s+"([^"]+)"')
-_TEMPLATE_PLACEHOLDER_PATTERN = re.compile(r"\{([^{}]+)\}")
-
 
 @dataclass
 class MapSchemaFixtureConfig:
@@ -90,7 +85,7 @@ class RMLMapperEnvironment:
                 f"Setup script completed but manifest not found at {self.manifest_path}"
             )
 
-    def run_mapper(self, rml_path: Path, output_path: Path, cwd: Path) -> None:
+    def run_mapper(self, rml_path: Path, output_path: Path, cwd: Path, base_uri: str) -> None:
         """Run RMLMapper against ``rml_path`` and write Turtle output to ``output_path``."""
         import json
 
@@ -120,6 +115,8 @@ class RMLMapperEnvironment:
             str(output_path),
             "-s",
             "turtle",
+            "-b",
+            str(base_uri),
         ]
 
         process = subprocess.run(
@@ -181,6 +178,17 @@ def run_map_schema_workflow(
 # Internal helpers
 # ----------------------------------------------------------------------
 
+def _get_base_uri(scenario_path) -> str:
+    try:
+        with open(scenario_path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+        base_uri = data.get("metadata", {}).get("attributes", {}).get("baseUri")
+        if base_uri is None:
+            raise ValueError("'baseUri' not found in scenario file")
+        return base_uri
+    except (FileNotFoundError, yaml.YAMLError) as e:
+        raise ValueError(f"Could not read scenario file: {e}")
+
 
 def _execute_map_schema(
     config: MapSchemaFixtureConfig,
@@ -234,12 +242,13 @@ def _execute_map_schema(
     fixture_rml = workspace / "fixture.rml"
     updated_text = _rewrite_rml_csv_path(config.rml_fixture, preprocessed_csv)
     fixture_rml.write_text(updated_text, encoding="utf-8")
+    base_uri = _get_base_uri(config.scenario)
 
     workflow_ttl = workspace / "workflow.ttl"
-    env.run_mapper(generated_rml, workflow_ttl, workspace)
+    env.run_mapper(generated_rml, workflow_ttl, workspace, base_uri)
 
     fixture_ttl = workspace / "fixture.ttl"
-    env.run_mapper(fixture_rml, fixture_ttl, workspace)
+    env.run_mapper(fixture_rml, fixture_ttl, workspace, base_uri)
 
     return MapSchemaWorkflowResult(
         workspace=workspace,

@@ -31933,7 +31933,7 @@
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca",
         "csvPath": "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv"
       },
       "parser_config": {
@@ -31948,7 +31948,7 @@
         ],
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
-        "prefix_iri": null,
+        "prefix_iri": "https://data.archives.gov.on.test.gbad.ca/",
         "rml_enabled": true,
         "strict_mode": false,
         "strip_html": true
@@ -31961,17 +31961,17 @@
       ],
       "results": {
         "py_legacy": {
-          "nt_sha256": "34014995d53adacf4b605e311b3219350f503111eca828528560ed9b14cec399",
+          "nt_sha256": "ddc252515f0a12025000c37f1eae1506c93be2bdd0e6a590506c48549ac35818",
           "path": "results/pytest-pipeline-general-add-no-rr/py_legacy.ttl",
           "triples": 120
         },
         "ts_pipeline": {
-          "nt_sha256": "05279839715cfbfad047cdab9c3c8f0333a585a7680bdb036e7df6727c471ed9",
+          "nt_sha256": "08a5bdc029b89f45c0746a513cd42125c616b56ddd12660dea526767663b9700",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
           "triples": 649
         },
         "ts_plugin": {
-          "nt_sha256": "32e0db46a572da8e9c03c0324e03ed218915051f18f1aeaaed8ccab3897b704a",
+          "nt_sha256": "d00dce8aad2d8db83e1bec7d26a7b8f12c0de38116dea079a695c0a3f3f86cbc",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
           "triples": 649
         }
@@ -34529,7 +34529,7 @@
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca",
         "csvPath": "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv"
       },
       "parser_config": {
@@ -34544,7 +34544,7 @@
         ],
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
-        "prefix_iri": null,
+        "prefix_iri": "https://data.archives.gov.on.test.gbad.ca/",
         "rml_enabled": true,
         "strict_mode": false,
         "strip_html": true
@@ -34557,12 +34557,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "1f1a5307a7b41390c597ae805421b96d28f641c192c608e2ad97b7ee7cc384f2",
+          "nt_sha256": "9f76f582ccc1a2797a329d8a423490370fda6245540b6cb5cbdcaf104cf7099d",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
           "triples": 649
         },
         "ts_plugin": {
-          "nt_sha256": "59ba80f493fefbc2b022f04e29acbebfab4078f12c48823b79864098c6cbf4c3",
+          "nt_sha256": "2b908ffb00ae5896b0050a72376b7bc9a4add76ae538cadf060f75170de25c88",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
           "triples": 649
         }
