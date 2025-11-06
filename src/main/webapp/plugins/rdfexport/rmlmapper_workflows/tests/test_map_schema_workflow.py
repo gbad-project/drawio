@@ -2,10 +2,14 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
+import shutil
+import warnings
 
-import pytest
 from rdflib import Graph
-from rdflib.compare import to_isomorphic
+from rdflib.compare import (
+    to_isomorphic,
+    # to_canonical_graph,  # ultimately unused - see below
+)
 
 PLUGIN_ROOT = Path(__file__).resolve().parents[2]
 if str(PLUGIN_ROOT) not in sys.path:
@@ -22,16 +26,21 @@ SCENARIO_DIR = PLUGIN_ROOT / "debug" / "scenarios"
 RML_FIXTURES_DIR = PLUGIN_ROOT / "tests" / "fixtures" / "rml"
 
 
-@pytest.fixture(scope="session")
-def rmlmapper_env() -> RMLMapperEnvironment:
-    """Provide a session-scoped RMLMapper environment using the manifest."""
-    return RMLMapperEnvironment.from_manifest()
-
-
 def _load_graph(path: Path) -> Graph:
     graph = Graph()
     graph.parse(path, format="turtle")
     return graph
+
+
+def _canonicalize_and_copy(src: Path, dst: Path) -> Graph:
+    graph = Graph()
+    graph.parse(src, format="turtle")
+    # this below takes way too long!!
+    # canonical = to_canonical_graph(graph)
+    # and expectedly: https://rdflib.readthedocs.io/en/7.1.1/_modules/rdflib/compare.html#to_canonical_graph
+    # so in summary, will have to remain non-canonical...
+    warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
+    graph.serialize(dst, format="turtle")
 
 
 def _assert_isomorphic(lhs: Path, rhs: Path) -> None:
@@ -47,12 +56,11 @@ def _save_comparison_artifacts(result: MapSchemaWorkflowResult, test_name: str) 
         shutil.rmtree(artifacts_dir)  # clean old run
     artifacts_dir.mkdir(parents=True, exist_ok=True)
 
-    import shutil
 
     shutil.copy2(result.workflow_turtle, artifacts_dir / "map_schema_mapped.ttl")
     shutil.copy2(result.fixture_turtle, artifacts_dir / "fixture_mapped.ttl")
     shutil.copy2(result.preprocessed_csv, artifacts_dir / "map_schema_preprocessed.csv")
-    shutil.copy2(result.generated_rml, artifacts_dir / "map_schema_map.rml")
+    _canonicalize_and_copy(result.generated_rml, artifacts_dir / "map_schema_map.rml")
 
     # Copy the schema.ttl from the workspace
     schema_files = list(result.workspace.glob("gbad/schema/*/schema.ttl"))

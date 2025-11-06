@@ -5,8 +5,11 @@ import sys
 from pathlib import Path
 
 import pytest
-from rdflib import Graph
-from rdflib.compare import to_isomorphic
+
+from test_map_schema_workflow import (
+    _assert_isomorphic,
+    _canonicalize_and_copy,
+)
 
 PLUGIN_ROOT = Path(__file__).resolve().parents[2]
 if str(PLUGIN_ROOT) not in sys.path:
@@ -26,16 +29,6 @@ RML_FIXTURES_DIR = PLUGIN_ROOT / "tests" / "fixtures" / "rml"
 ARTIFACTS_DIR = PLUGIN_ROOT / "rmlmapper_workflows" / "artifacts"
 
 
-def _load_graph(path: Path) -> Graph:
-    graph = Graph()
-    graph.parse(path, format="turtle")
-    return graph
-
-
-def _assert_isomorphic(lhs: Path, rhs: Path) -> None:
-    assert to_isomorphic(_load_graph(lhs)) == to_isomorphic(_load_graph(rhs))
-
-
 def _save_pipeline_artifacts(
     pipeline_result: PipelineWorkflowResult,
     map_result: MapSchemaWorkflowResult,
@@ -47,7 +40,7 @@ def _save_pipeline_artifacts(
     target_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy2(pipeline_result.pipeline_turtle, target_dir / "pipeline_mapped.ttl")
-    shutil.copy2(pipeline_result.pipeline_rml, target_dir / "pipeline_map.rml")
+    _canonicalize_and_copy(pipeline_result.pipeline_rml, target_dir / "pipeline_map.rml")
     shutil.copy2(
         pipeline_result.preprocessed_csv, target_dir / "pipeline_preprocessed.csv"
     )
@@ -61,11 +54,6 @@ def _save_pipeline_artifacts(
             pipeline_result.mapper_error,
             encoding="utf-8",
         )
-
-
-@pytest.fixture(scope="session")
-def rmlmapper_env() -> RMLMapperEnvironment:
-    return RMLMapperEnvironment.from_manifest()
 
 
 def _compare_or_xfail(pipeline_path: Path, map_schema_path: Path) -> None:
