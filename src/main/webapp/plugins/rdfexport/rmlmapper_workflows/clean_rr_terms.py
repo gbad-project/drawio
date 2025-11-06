@@ -19,9 +19,13 @@ NodeHTMLParser = pipeline.core.xml.data.NodeHTMLParser
 
 PATTERNS = {
     # Matches rr:/rml: prefixed tokens and any quoted content immediately after
-    "RR_RML_QUOTED_PATTERN": (
-        re.compile(r'(?:rr|rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'),
+    "RR_QUOTED_PATTERN": (
+        re.compile(r'(?:rr):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'),
         r"\1",
+    ),
+    "RML_QUOTED_PATTERN": (
+        re.compile(r'(?:rml):[A-Za-z0-9_]+\s*(?:(?:"|&quot;)([^"&]+)(?:"|&quot;))'),
+        r"{\1}",
     ),
     "INCREMENT_NUMBER": (re.compile(r"_\d+\.\.\d+"), ""),
     "RICO_AUTHTP": (re.compile(r"RICO_AUTHTP([^_])"), r"RICO_AUTHTP_TERM\1"),

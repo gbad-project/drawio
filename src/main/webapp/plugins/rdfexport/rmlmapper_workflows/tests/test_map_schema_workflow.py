@@ -56,7 +56,6 @@ def _save_comparison_artifacts(result: MapSchemaWorkflowResult, test_name: str) 
         shutil.rmtree(artifacts_dir)  # clean old run
     artifacts_dir.mkdir(parents=True, exist_ok=True)
 
-
     shutil.copy2(result.workflow_turtle, artifacts_dir / "map_schema_mapped.ttl")
     shutil.copy2(result.fixture_turtle, artifacts_dir / "fixture_mapped.ttl")
     shutil.copy2(result.preprocessed_csv, artifacts_dir / "map_schema_preprocessed.csv")

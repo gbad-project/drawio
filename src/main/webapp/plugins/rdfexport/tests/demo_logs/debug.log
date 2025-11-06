@@ -1,12 +1,12 @@
-Script started on Tue Nov  4 00:16:25 2025
+Script started on Wed Nov  5 22:08:29 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/python -m debug.debug_cli_regression[0m
-[1m====================================== test session starts ======================================[0m
+[1m========================================== test session starts ===========================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 35 items                                                                              [0m
+[1mcollecting ... [0m[1mcollected 35 items                                                                                       [0m
 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  2%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  5%][0m
@@ -42,10 +42,10 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 91%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 94%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 97%][0m
-debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure ...)[32m [100%][0m
+debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure of manual...)[32m [100%][0m
 
-============================================ PASSES =============================================
-[36m[1m==================================== short test summary info ====================================[0m
+================================================= PASSES =================================================
+[36m[1m======================================== short test summary info =========================================[0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
@@ -79,11 +79,11 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - Graph/classification mismatch in AA37-with-metadata-even-more-severely-mocked.drawio: Missing rdf:type 'picoL:j' for 'https://example.com'
 assert False
- +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10275d300>)
+ +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10271a4d0>)
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m================================ [32m[1m30 passed[0m, [33m5 xfailed[0m[32m in 52.77s[0m[32m =================================[0m
+[32m===================================== [32m[1m30 passed[0m, [33m5 xfailed[0m[32m in 53.70s[0m[32m =====================================[0m
 
 Command exit status: 0
-Script done on Tue Nov  4 00:17:18 2025
+Script done on Wed Nov  5 22:09:23 2025

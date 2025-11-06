@@ -40,7 +40,9 @@ def _save_pipeline_artifacts(
     target_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy2(pipeline_result.pipeline_turtle, target_dir / "pipeline_mapped.ttl")
-    _canonicalize_and_copy(pipeline_result.pipeline_rml, target_dir / "pipeline_map.rml")
+    _canonicalize_and_copy(
+        pipeline_result.pipeline_rml, target_dir / "pipeline_map.rml"
+    )
     shutil.copy2(
         pipeline_result.preprocessed_csv, target_dir / "pipeline_preprocessed.csv"
     )

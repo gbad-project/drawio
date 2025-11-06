@@ -20,7 +20,7 @@
         {
           "id": "gmwnegnUR_CNORKRYM6Y-12",
           "before": "rml:reference \"NAME\"",
-          "after": "NAME"
+          "after": "{NAME}"
         },
         {
           "id": "gmwnegnUR_CNORKRYM6Y-13",
@@ -50,12 +50,12 @@
         {
           "id": "_-RjwaxhbeTWfwVWe4ke-15",
           "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>ADM<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "ADM"
+          "after": "{ADM}"
         },
         {
           "id": "I4GB3cVhTv-sTvJ7h0Jz-28",
           "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>SOURCE<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "SOURCE"
+          "after": "{SOURCE}"
         },
         {
           "id": "I4GB3cVhTv-sTvJ7h0Jz-29",
@@ -80,7 +80,7 @@
         {
           "id": "QoX8hO-0wcaPtYNZqJav-1",
           "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>FUN<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "FUN"
+          "after": "{FUN}"
         },
         {
           "id": "lstVy3rX84DfsURla7Zy-16",
@@ -90,7 +90,7 @@
         {
           "id": "lstVy3rX84DfsURla7Zy-32",
           "before": "rml:reference \"REFA\"",
-          "after": "REFA"
+          "after": "{REFA}"
         },
         {
           "id": "LdrxgRQo7zRXQQt_UOkl-5",
@@ -155,12 +155,12 @@
         {
           "id": "cuPy41NEiSmLZpDvVlvN-1",
           "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>CMTAU<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "CMTAU"
+          "after": "{CMTAU}"
         },
         {
           "id": "cuPy41NEiSmLZpDvVlvN-6",
           "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>MOD_DATE<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "MOD_DATE"
+          "after": "{MOD_DATE}"
         },
         {
           "id": "T4FhXZd-5XpHwweIhw_B-1",
@@ -175,7 +175,7 @@
         {
           "id": "mXWEuhzCrtuQsP6tQl7L-5",
           "before": "<div><span style=\"background-color: initial;\">rml:reference \"</span>RULES<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "RULES"
+          "after": "{RULES}"
         },
         {
           "id": "mXWEuhzCrtuQsP6tQl7L-6",
@@ -259,7 +259,7 @@
         {
           "id": "sWa0SD8Ajx1KSGOqKPP4-11",
           "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br></div><div><span style=\"background-color: initial;\">\"</span>SCOPE<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "SCOPE"
+          "after": "{SCOPE}"
         },
         {
           "id": "sWa0SD8Ajx1KSGOqKPP4-14",
@@ -269,52 +269,52 @@
         {
           "id": "K4QZWATomJR9_dxTVFmW-21",
           "before": "<div><div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>CUSTOD<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "CUSTOD"
+          "after": "{CUSTOD}"
         },
         {
           "id": "K4QZWATomJR9_dxTVFmW-24",
           "before": "<div><div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>ISA<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "ISA"
+          "after": "{ISA}"
         },
         {
           "id": "K4QZWATomJR9_dxTVFmW-45",
           "before": "<span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>PHDESC<span style=\"background-color: initial;\">\"</span>",
-          "after": "PHDESC"
+          "after": "{PHDESC}"
         },
         {
           "id": "vEi_3DjQt7wcUmB-cSFn-3",
           "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>RESTRTX<span style=\"background-color: initial;\">\"</span>",
-          "after": "RESTRTX"
+          "after": "{RESTRTX}"
         },
         {
           "id": "vEi_3DjQt7wcUmB-cSFn-6",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>TGU<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "TGU"
+          "after": "{TGU}"
         },
         {
           "id": "vEi_3DjQt7wcUmB-cSFn-9",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>FINDAID<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "FINDAID"
+          "after": "{FINDAID}"
         },
         {
           "id": "wiPwyt0miK05mvKJtJq--13",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>ACCRUAL<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "ACCRUAL"
+          "after": "{ACCRUAL}"
         },
         {
           "id": "wiPwyt0miK05mvKJtJq--16",
           "before": "rml:reference<br><div><span style=\"background-color: initial;\">\"</span>NOTES<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "NOTES"
+          "after": "{NOTES}"
         },
         {
           "id": "wiPwyt0miK05mvKJtJq--19",
           "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>PHYSCO<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "PHYSCO"
+          "after": "{PHYSCO}"
         },
         {
           "id": "wiPwyt0miK05mvKJtJq--22",
           "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>HOWTO<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "HOWTO"
+          "after": "{HOWTO}"
         },
         {
           "id": "wiPwyt0miK05mvKJtJq--23",
@@ -384,27 +384,27 @@
         {
           "id": "NtwbBurvTleTFVB1CDUG-3",
           "before": "<div><div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span><span style=\"background-color: initial;\">A</span>VAIL<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "AVAIL"
+          "after": "{AVAIL}"
         },
         {
           "id": "NtwbBurvTleTFVB1CDUG-4",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>RELMAT<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "RELMAT"
+          "after": "{RELMAT}"
         },
         {
           "id": "NtwbBurvTleTFVB1CDUG-5",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>ASSMAT<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "ASSMAT"
+          "after": "{ASSMAT}"
         },
         {
           "id": "hDRFmwmGqqun0fTEbF33-3",
           "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br><span style=\"background-color: initial;\">\"</span>DATECR<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "DATECR"
+          "after": "{DATECR}"
         },
         {
           "id": "qJwiYtpHSBwsKD2Hf-6o-3",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>ADMBIO<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "ADMBIO"
+          "after": "{ADMBIO}"
         },
         {
           "id": "Y8udmLn4DJvaPjTo5dh8-3",
@@ -414,7 +414,7 @@
         {
           "id": "CqqkDmUT1u8SLOdHSZvS-5",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>CMTD<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "CMTD"
+          "after": "{CMTD}"
         },
         {
           "id": "YGqFNZoWXpBRJY-Ts6mn-7",
@@ -424,22 +424,22 @@
         {
           "id": "YGqFNZoWXpBRJY-Ts6mn-11",
           "before": "rml:reference<div><span style=\"background-color: initial;\">\"</span><span style=\"background-color: initial;\">MODDATE</span><span style=\"background-color: initial;\">\"</span></div>",
-          "after": "MODDATE"
+          "after": "{MODDATE}"
         },
         {
           "id": "Uwzefx5BK_WfCsw-JH24-1",
           "before": "<div>rml:reference<br><span style=\"background-color: initial;\">\"</span>HIDDENNOTES<span style=\"background-color: initial;\">\"</span>&nbsp;</div>",
-          "after": "HIDDENNOTES"
+          "after": "{HIDDENNOTES}"
         },
         {
           "id": "Uwzefx5BK_WfCsw-JH24-4",
           "before": "<div><span style=\"background-color: initial;\">rml:reference</span><br></div><span style=\"background-color: initial;\">\"</span>REST<span style=\"background-color: initial;\">\"</span>",
-          "after": "REST"
+          "after": "{REST}"
         },
         {
           "id": "EzCOlmovBxoPGXJnYbDV-1",
           "before": "rml:reference<div>\"FCODES\"</div>",
-          "after": "FCODES"
+          "after": "{FCODES}"
         },
         {
           "id": "EzCOlmovBxoPGXJnYbDV-22",
@@ -454,7 +454,7 @@
         {
           "id": "EzCOlmovBxoPGXJnYbDV-55",
           "before": "rml:reference<div><span style=\"background-color: initial;\">\"</span>DATEACM<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "DATEACM"
+          "after": "{DATEACM}"
         },
         {
           "id": "nZdSzTGt5yp-Q97JLt56-1",
@@ -524,7 +524,7 @@
         {
           "id": "3gA3fmld-IYxpeRIXyl3-5",
           "before": "<div>rml<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">:reference</span></div><div><span style=\"background-color: initial;\">\"</span>LEVELDES<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "LEVELDES"
+          "after": "{LEVELDES}"
         },
         {
           "id": "oJl3FkC9V9rQO8DduHPF-3",
