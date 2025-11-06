@@ -235,6 +235,17 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             print(f"Failed to update Authority DATEEX with correct values: '{e}'")
 
     ### ADD-specific processing ###
+    def _add_refd_file_column(self):
+        if "REFD" not in self.source_df.columns and "REF_FILE" not in self.source_df.columns:
+            raise ValueError("Neither REFD nor REF_FILE found in ADD CSV")
+        refd = self.source_df.get("REFD")
+        ref_file = self.source_df.get("REF_FILE")
+        both_non_null = refd.notna() & ref_file.notna()
+        if both_non_null.any():
+            raise ValueError("Both REFD and REF_FILE present and non-null in some rows")
+        refd_file = refd.combine_first(ref_file)
+        self.add("REFD_FILE", refd_file)
+
     def _add_preprocess(self):
         DATEOFF_COLNAME = "DATEOFF"
         DATE_BEGINNING_SUFFIX = "_BEGINNING"
@@ -334,6 +345,8 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
 
             # Add the combined series to the preprocessor
             self.add(officeabc_colname, officeabc_series)
+
+        self._add_refd_file_column()
 
     def _split_by_colon(self, value: str, expect_num_cols: int):
         SEP = " : "
