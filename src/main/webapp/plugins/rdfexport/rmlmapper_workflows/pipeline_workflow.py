@@ -11,8 +11,14 @@ from dataclasses import dataclass
 from pathlib import Path
 import json
 from typing import Literal
+from pydantic import AnyUrl
+
+import uuid
+import base64
+import hashlib
 
 import pandas as pd
+from rdflib import URIRef
 
 PLUGIN_ROOT = Path(__file__).resolve().parent.parent
 DEBUG_DIR = PLUGIN_ROOT / "debug"
@@ -36,6 +42,47 @@ from .map_schema_workflow import (  # type: ignore  # noqa: E402
 )
 
 import legacy.map_schema as legacy_map_schema  # type: ignore  # noqa: E402
+
+def generate_uuid_from_file_and_url(file_path: Path, any_url: AnyUrl) -> uuid.UUID:
+    encoding_to_use = 'utf-8'
+    file_content = file_path.read_text(encoding=encoding_to_use)
+    file_hash = hashlib.sha256(file_content.encode(encoding_to_use))
+    print(f"\nSHA256 hash '{file_hash.hexdigest()}' generated for '{encoding_to_use}' encoded plain text contents of: '{file_path.relative_to(Path.cwd())}'")
+    print(f"Base64: {base64.b64encode(file_hash.digest()).decode()}")
+    
+    # https://www.rfc-editor.org/rfc/rfc6920.html
+    # Figure 4: ni Name Syntax
+    # NI-URI         = ni-scheme ":" ni-hier-part [ "?" query ]
+    # ni-scheme      = "ni"
+    # ni-hier-part   = "//" [ authority ] "/" alg-val
+    # alg-val        = alg ";" val
+    # The "val" field MUST contain the output of base64url encoding
+    # (with no "=" padding characters)
+    # Note also that ni val must be generated from bytes and URL safe
+    ni_val = base64.urlsafe_b64encode(file_hash.digest()).decode().rstrip('=')
+    ni_uri = f"ni:///sha-256;{ni_val}"
+    print(f"Valid ni URI (RFC6920-compliant): <{ni_uri}>")
+
+    # Generate a UUID v5 for ni URI
+    uuid_ns = uuid.uuid5(uuid.NAMESPACE_URL, str(any_url))
+    print(f"UUID v5 Namespace generated from ns:URL and URL <{any_url}>: {uuid_ns}")
+    uuid_obj = uuid.uuid5(uuid_ns, ni_uri)
+    print(f"UUID v5 generated from this namespace and ni URI: {uuid_obj}")
+    print("""Ten steps to verify (ONLY for public data!):
+1. Generate a custom UUID Namespace using your URL here: https://www.uuidtools.com/v5
+2. Make sure you select 'Enter identifier for pre-defined UUIDs' and choose 'ns:URL - for URLs', and enter your URL as Name
+3. Copy the generated UUID into the Namespace field and leave the browser tab open
+4. In a new tab, copy and paste file contents into: https://emn178.github.io/online-tools/sha256.html
+5. Make sure input encoding is set to UTF-8 and output encoding to Base64
+6. Review the output - should be identical to Base64 in function outputs
+7. Once the hash is verified, go back to the other tab and copy and paste entire ni URI to Name field
+8. Make sure the UUID you generated earlier is still entered in Namespace field
+9. Generate UUID v5 for ni URI using the earlier UUID as Namespace and ni URI as Name
+10. Both UUIDs should match the function outputs""")
+    return uuid_obj
+
+def construct_named_graph_uri(uuid_obj: uuid.UUID, base_uri: str) -> URIRef:
+    return URIRef(f"{base_uri}/graph/urn:uuid:{uuid_obj}")
 
 
 class PipelineCSVPreprocessor(SourceCSVPreprocessor):
@@ -64,6 +111,7 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
             index_col=index_col,
         )
         self._schema_code = schema_code
+        self._constants = kwargs.get("constants", [])
         self._rico_authtp_patterns = self._compile_rico_patterns()
         # Auth-specific
         self._correct_dateex_path = kwargs.get("correct_dateex_path")
@@ -84,6 +132,8 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
 
         if self._schema_code == "auth":
             self._auth_post_preprocess()
+
+        self._append_constant_columns()
 
         super().dump()
         return Path(self.preprocessed_csv_path)
@@ -108,6 +158,15 @@ class PipelineCSVPreprocessor(SourceCSVPreprocessor):
         )
         self.source_df = pd.concat([self.source_df, split_df], axis=1)
         print(f"Splitting column '{joint_col}' into {separate_cols_list}\n")
+
+    def _append_constant_columns(self):
+        if not self._constants:
+            return
+        try:
+            for colname, value in self._constants:
+                self.add(colname, pd.Series(str(value), index=self.source_df.index, dtype="object"))
+        except Exception as e:
+            print(f"Could not add constant columns '{self._constants}': {e}")
 
     ### Auth-specific processing ###
     def _auth_preprocess(self):
@@ -461,7 +520,25 @@ def run_pipeline_workflow(
             )
         )
 
-        preprocessed_csv = _run_pipeline_preprocessor(config, workspace, **kwargs)
+        base_uri = _get_base_uri(config.scenario)
+        try:
+            uuid_obj = generate_uuid_from_file_and_url(
+                file_path=config.rml_fixture,
+                any_url=base_uri,
+            )
+        except:
+            uuid_obj = uuid.uuid4()
+            print(f"Failed to generate UUID from file and URL - falling back to UUID v4: {uuid_obj}")
+        named_graph_uri = construct_named_graph_uri(uuid_obj, base_uri)
+
+        preprocessed_csv = _run_pipeline_preprocessor(
+            config,
+            workspace,
+            constants=[
+                ("NAMED_GRAPH_IRI", str(named_graph_uri)),
+                ("UUID", str(uuid_obj)),
+            ],
+            **kwargs)
 
         pipeline_rml = workspace / "pipeline_map.ttl"
         updated_text = _rewrite_pipeline_csv_path(
@@ -471,7 +548,6 @@ def run_pipeline_workflow(
         pipeline_rml.write_text(updated_text, encoding="utf-8")
 
         pipeline_turtle = workspace / "pipeline_output.ttl"
-        base_uri = _get_base_uri(config.scenario)
         mapper_error: str | None = None
         try:
             env.run_mapper(pipeline_rml, pipeline_turtle, workspace, base_uri)
