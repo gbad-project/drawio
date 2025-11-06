@@ -264,7 +264,7 @@
         {
           "id": "sWa0SD8Ajx1KSGOqKPP4-14",
           "before": "rr:template<br><span style=\"background-color: initial;\">\"/</span>KB/Instantiation<span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">{REFD_FILE}/urn:uuid:{</span>UUID_INSTANTIATION_1<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span>",
-          "after": "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}"
+          "after": "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}"
         },
         {
           "id": "K4QZWATomJR9_dxTVFmW-21",
@@ -464,7 +464,7 @@
         {
           "id": "nZdSzTGt5yp-Q97JLt56-3",
           "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB/</span><span style=\"background-color: initial;\">CreationRelation/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}/</span><span style=\"background-color: initial;\">{</span>OFFICEABC<span style=\"background-color: initial;\">_1..20</span><span style=\"background-color: initial;\">}/urn:uuid:{UUID_OFFICEABC}\"</span></div>",
-          "after": "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:{UUID_OFFICEABC}"
+          "after": "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:{UUID}"
         },
         {
           "id": "nZdSzTGt5yp-Q97JLt56-11",
@@ -534,12 +534,12 @@
         {
           "id": "oJl3FkC9V9rQO8DduHPF-6",
           "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Instantiation). Context: &lt;urn:uuid:{<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">UUID_INSTANTIATION_1}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
-          "after": "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>"
+          "after": "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>"
         },
         {
           "id": "oJl3FkC9V9rQO8DduHPF-9",
           "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"</span>{TITLE} -&nbsp;{OFFICEABC_1..20} (Creation Relation). Context: &lt;urn:uuid:{UUID_OFFICEABC<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
-          "after": "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>"
+          "after": "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>"
         },
         {
           "id": "oJl3FkC9V9rQO8DduHPF-12",

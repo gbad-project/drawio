@@ -29,6 +29,10 @@ PATTERNS = {
     ),
     "INCREMENT_NUMBER": (re.compile(r"_\d+\.\.\d+"), ""),
     "RICO_AUTHTP": (re.compile(r"RICO_AUTHTP([^_])"), r"RICO_AUTHTP_TERM\1"),
+    "UUID_IN_CURLY": (
+        re.compile(r"\{[A-Z0-9_-]*UUID[A-Z0-9_-]*\}"),
+        "{UUID}",
+    ),
 }
 
 
