@@ -2,7 +2,7 @@
   <diagram name="Page-1" id="JNRxnBV9_3tvGunqLC9R">
     <mxGraphModel dx="1644" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFFF" math="0" shadow="0">
       <root>
-        <UserObject label="" csvPath="/mock22/path/to/file.csv" baseUri="http://mock23-base-uri.com" id="0">
+        <gbadMetadata label="" csvPath="/mock22/path/to/file.csv" baseUri="http://mock23-base-uri.com" id="0">
           <userObjectPreambleElement rdfPrefix="mock1" rdfIRI="http://mock-iri-ns.org" />
           <userObjectPreambleElement rdfPrefix="mock2" rdfIRI="http://prefix.com" />
           <userObjectPreambleElement rdfPrefix="rico" rdfIRI="rico://mock-rico" />
@@ -11,7 +11,7 @@
           <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="://hello" />
           <userObjectPreambleElement rdfPrefix="unknown" rdfIRI="unknown://link" />
           <mxCell />
-        </UserObject>
+        </gbadMetadata>
         <mxCell id="1" parent="0" />
         <mxCell id="gmwnegnUR_CNORKRYM6Y-10" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.456;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.359;exitY=-0.038;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="iiJ8OJKaNMLrSCaLO3TT-1" target="gmwnegnUR_CNORKRYM6Y-12" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -249,6 +249,30 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="lTHjRTAcClQ9bYR0I0Gv-14" value="&lt;div&gt;picoL:&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="lTHjRTAcClQ9bYR0I0Gv-13" vertex="1">
+          <mxGeometry y="26" width="150" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="danglingCurieNode" value="https://example.com/dangling-curie" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="270" width="150" height="52" as="geometry">
+            <mxRectangle x="1041" y="570" width="50" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="danglingCurieType" value="&lt;div&gt;:danglingCurie&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="danglingCurieNode" vertex="1">
+          <mxGeometry y="26" width="150" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="colonOnlyNode" value="https://example.com/colon-only" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="270" width="150" height="52" as="geometry">
+            <mxRectangle x="1101" y="570" width="50" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="colonOnlyType" value="&lt;div&gt;:&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="colonOnlyNode" vertex="1">
+          <mxGeometry y="26" width="150" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="noPrefixNode" value="https://example.com/no-prefix" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="270" width="150" height="52" as="geometry">
+            <mxRectangle x="1161" y="570" width="50" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="noPrefixType" value="&lt;div&gt;NoPrefixClass&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="noPrefixNode" vertex="1">
           <mxGeometry y="26" width="150" height="26" as="geometry" />
         </mxCell>
         <mxCell id="lTHjRTAcClQ9bYR0I0Gv-15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.43;exitY=-0.058;exitDx=0;exitDy=0;entryX=0.543;entryY=1.038;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" parent="1" source="I4GB3cVhTv-sTvJ7h0Jz-29" target="lTHjRTAcClQ9bYR0I0Gv-14" edge="1">

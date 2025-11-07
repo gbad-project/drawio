@@ -1,0 +1,42 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Authority/functionNote> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Authority/privateNote> a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Authority/sourceNote> a owl:DatatypeProperty .
+
+add:ArchivalDescriptionRecord a rico:DocumentaryFormType ;
+    rdfs:label "Archival Description Record" .
+
+add:CurrentReferenceCode a rico:IdentifierType ;
+    rdfs:label "Current Reference Code" .
+
+add:FormerCode a rico:IdentifierType ;
+    rdfs:label "Former Code" .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+

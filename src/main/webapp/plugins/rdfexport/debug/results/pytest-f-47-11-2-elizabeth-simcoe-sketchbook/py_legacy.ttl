@@ -1,0 +1,126 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#Archival%20Description> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Archival Description" .
+
+<ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Archival Description Creation" ;
+    rico:isOrWasPerformedBy <ontology://generated-from-draw-io/mock#Walz> .
+
+<ontology://generated-from-draw-io/mock#Current%20Reference%20Code> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Current Reference Code" .
+
+<ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketchbook> a owl:NamedIndividual,
+        rico:RecordSet,
+        rico:Title ;
+    rdfs:label "Elizabeth Simcoe sketchbook" ;
+    rico:accruals "No further accruals are expected." ;
+    rico:conditionsOfAccess "This material is closed for conservation reasons." ;
+    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
+    rico:creationDate "1795-1796" ;
+    rico:generalDescription "Finding Aid Note: An online list is available for this sub-series." ;
+    rico:hasContentOfType <ontology://generated-from-draw-io/mock#Graphic%20Materials> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#F%2047-11-2> ;
+    rico:hasOrHadInstantiation <ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketchbook-i1> ;
+    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketchbook> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#Sub-Series> ;
+    rico:history "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." ;
+    rico:isDirectlyIncludedIn <ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketches> ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketchbook%20Archival%20Description> ;
+    rico:scopeAndContent "Sub-series consists of a sketchbook containing 63 watercolours and drawings done by Elizabeth Simcoe during the time she accompanied her husband to Upper Canada.  Many of the sketches are rough views, with few details. Some of the sketches are identified as Fort Erie, 40 Mile Creek, Queenston, Huron and Chippewa. Some of the sketches are of flowers and have accompanying notes." .
+
+<ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketchbook%20Archival%20Description> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Elizabeth Simcoe sketchbook Archival Description" ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Archival%20Description> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Status%3A%20Approved>,
+        <ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> ;
+    rico:lastModificationDate "2009-07-17"^^xsd:date ;
+    rico:resultsOrResultedFrom <ontology://generated-from-draw-io/mock#Archival%20Description%20Creation> .
+
+<ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketchbook-i1> a owl:NamedIndividual,
+        rico:Instantiation ;
+    rdfs:label "Elizabeth Simcoe sketchbook-i1" ;
+    rico:generalDescription "How to Order: This material is closed for conservation reasons. Contact a Reference Archivist for more information." ;
+    rico:instantiationExtent "1 sketchbook (63 watercolours and drawings)" .
+
+<ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Sketches> a owl:NamedIndividual,
+        rico:RecordSet ;
+    rdfs:label "Elizabeth Simcoe sketches" ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#F%2047-11> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#Series> .
+
+<ontology://generated-from-draw-io/mock#F%2047-11> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "F 47-11" .
+
+<ontology://generated-from-draw-io/mock#F%2047-11-2> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "F 47-11-2" ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#Current%20Reference%20Code> .
+
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> a owl:NamedIndividual,
+        rico:ContentType ;
+    rdfs:label "Graphic materials" .
+
+<ontology://generated-from-draw-io/mock#Series> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "Series" .
+
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+<ontology://generated-from-draw-io/mock#Sub-Series> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "Sub-Series" .
+
+<ontology://generated-from-draw-io/mock#Walz> a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "Walz" .
+
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Enabled: Y" .
+

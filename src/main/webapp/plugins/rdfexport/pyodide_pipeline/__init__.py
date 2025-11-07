@@ -5,6 +5,7 @@ from .drawio_pipeline import (
     reset_graph_store,
     list_graph_ids,
     get_graph_summary,
+    parse_drawio_xml,
 )
 
 __all__ = [
@@ -12,4 +13,5 @@ __all__ = [
     "reset_graph_store",
     "list_graph_ids",
     "get_graph_summary",
+    "parse_drawio_xml",
 ]

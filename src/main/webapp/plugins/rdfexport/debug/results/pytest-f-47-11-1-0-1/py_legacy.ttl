@@ -1,0 +1,98 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#Archival%20Description> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Archival Description" .
+
+<ontology://generated-from-draw-io/mock#Current%20Reference%20Code> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Current Reference Code" .
+
+<ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Loose%20Sketches> a owl:NamedIndividual,
+        rico:RecordSet ;
+    rdfs:label "Elizabeth Simcoe loose sketches" ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#F%2047-11-1> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#Sub-Series> .
+
+<ontology://generated-from-draw-io/mock#F%2047-11-1> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "F 47-11-1" .
+
+<ontology://generated-from-draw-io/mock#F%2047-11-1-0-1> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "F 47-11-1-0-1" ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#Current%20Reference%20Code> .
+
+<ontology://generated-from-draw-io/mock#Graphic%20Materials> a owl:NamedIndividual,
+        rico:ContentType ;
+    rdfs:label "Graphic materials" .
+
+<ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.> a owl:NamedIndividual,
+        rico:Record,
+        rico:Title ;
+    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I." ;
+    rico:creationDate "Oct. 29, 1791" ;
+    rico:generalDescription "Notes: Old Code: 1" ;
+    rico:hasContentOfType <ontology://generated-from-draw-io/mock#Graphic%20Materials> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#F%2047-11-1-0-1> ;
+    rico:hasOrHadInstantiation <ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i1> ;
+    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.> ;
+    rico:isDirectlyIncludedIn <ontology://generated-from-draw-io/mock#Elizabeth%20Simcoe%20Loose%20Sketches> ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.%20Archival%20Description> .
+
+<ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.%20Archival%20Description> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I. Archival Description" ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Archival%20Description> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> .
+
+<ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i1> a owl:NamedIndividual,
+        rico:Instantiation ;
+    rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i1" ;
+    rico:instantiationExtent "1 watercolour on paper" .
+
+<ontology://generated-from-draw-io/mock#Sub-Series> a owl:NamedIndividual,
+        rico:RecordSetType ;
+    rdfs:label "Sub-Series" .
+
+<ontology://generated-from-draw-io/mock#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Enabled: Y" .
+

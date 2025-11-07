@@ -1,0 +1,13 @@
+slug: aa37-with-metadata-even-more-severely-mocked
+drawio: tests/fixtures/AA37-with-metadata-even-more-severely-mocked.drawio
+csv_path: /mock/path/to/file.csv
+base_uri: http://mock23-base-uri.com
+prefixes:
+  mock1: http://mock-uri.com
+  lol: http://something.com
+  picoL: mock://sample-test2
+  hellow: some://helloworld
+  somprefix: mock://sample-text4
+  unknown: mock://sample-text5
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle

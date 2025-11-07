@@ -1,0 +1,131 @@
+graph TB
+    subgraph PRE["PRE-PROCESSING PHASE"]
+        direction TB
+        XML_IN[Raw Draw.io XML]
+        
+        subgraph XML_PRE["xml.metadata.pre"]
+            EXTRACT[_extract_drawio_metadata]
+            STRIP[_strip_metadata_user_object]
+        end
+        
+        subgraph INT_META_PRE["internal.metadata.pre"]
+            DEFAULTS[Constants & Defaults]
+            GETTERS[get_ontology_iri, get_prefix, etc.]
+            TYPES[Type Aliases]
+        end
+        
+        subgraph INT_CTRL_PRE["internal.control.pre"]
+            ARGPARSE[_arguments_parser]
+        end
+        
+        subgraph RDF_DATA_PRE["rdf.data.pre"]
+            METACHAR[Metacharacter handling]
+            CAPSCHEME[Capitalization schemes]
+        end
+        
+        subgraph RDF_CTRL_PRE["rdf.control.pre"]
+            VALIDATE[_parse_capitalisation_scheme]
+        end
+        
+        XML_IN --> EXTRACT
+        EXTRACT --> |prefixes, base_uri, csv_path| STRIP
+        STRIP --> |cleaned XML| XMLCORE[To Core]
+        
+        DEFAULTS --> METADATA[Metadata Pool]
+        TYPES --> METADATA
+        GETTERS --> METADATA
+        ARGPARSE --> |user config| METADATA
+        METACHAR --> METADATA
+        VALIDATE --> METADATA
+    end
+    
+    subgraph CORE["CORE PROCESSING PHASE"]
+        direction TB
+
+        subgraph INT_CTRL_CORE["internal.control.core"]
+            ORCHESTRATOR[_build_graph_from_raw_xml]
+            INDIV_BLOCKS[individual_blocks]
+        end
+        
+        subgraph XML_DATA_CORE["xml.data.core"]
+            direction LR
+            subgraph LEGACY["Legacy Logic (Superseded)"]
+                style LEGACY fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px,stroke-dasharray: 5 5
+                TREE[DrawIOXMLTree]
+                GEOMETRY[Geometry calculations]
+                CELLS[Cell identification]
+                ARROWS[Arrow parsing]
+                INDIV_ARR[individuals_and_arrows method]
+            end
+            
+            subgraph REVISED["Revised Logic"]
+                style REVISED fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+                subgraph CLASSIFIER[DrawIOCellClassifier]
+                    direction TB
+                    CELL_CLASS[Cell Classification]
+                    GEO_PROX[Geometry & Proximity]
+                    ARROW_RES[Arrow Resolution]
+                    ELEMENT_GEN[Graph Element Generation]
+                end
+            end
+        end
+        
+        subgraph INT_DATA_CORE["internal.data.core"]
+            INDIV[Individual class]
+            ARR[Arrow class]
+            VERIFY[_verify_is_ric_class]
+            ADDTYPE[_add_individual_type]
+        end
+        
+        subgraph RDF_DATA_CORE["rdf.data.core"]
+            RDF_EXCEPT[RDF-related exceptions]
+        end
+        
+        subgraph RDF_CTRL_CORE["rdf.control.core"]
+            GRAPHCLS[DrawIOParserGraph class]
+            SERIALIZE[serialise_to_graph]
+        end
+        
+        XMLCORE --> ORCHESTRATOR
+        METADATA --> ORCHESTRATOR
+        
+        ORCHESTRATOR --> |instantiates with config| CLASSIFIER
+        CLASSIFIER --> |Individual/Arrow instances| ORCHESTRATOR
+        
+        ORCHESTRATOR --> |passes instances & config| INDIV_BLOCKS
+        
+        INDIV_BLOCKS --> |blocks, obj_props, data_props| ORCHESTRATOR
+        
+        ORCHESTRATOR --> |passes blocks & config| SERIALIZE
+        
+        SERIALIZE --> |DrawIOParserGraph instance| GRAPHOUT[To Post]
+    end
+    
+    subgraph POST["POST-PROCESSING PHASE"]
+        direction TB
+        
+        subgraph INT_CTRL_POST["internal.control.post"]
+            SDK[parse_drawio_to_graph]
+            CLI[_run, main]
+        end
+        
+        GRAPHOUT --> SDK
+        GRAPHOUT --> CLI
+        SDK --> OUTPUT[Final Output]
+        CLI --> OUTPUT
+    end
+    
+    style PRE fill:#e1f5ff
+    style CORE fill:#fff9e1
+    style POST fill:#e8f5e9
+    style XML_PRE fill:#b3e5fc
+    style INT_META_PRE fill:#c8e6c9
+    style INT_CTRL_PRE fill:#c8e6c9
+    style RDF_DATA_PRE fill:#f8bbd0
+    style RDF_CTRL_PRE fill:#f8bbd0
+    style XML_DATA_CORE fill:#b3e5fc
+    style INT_DATA_CORE fill:#c8e6c9
+    style INT_CTRL_CORE fill:#c8e6c9
+    style RDF_DATA_CORE fill:#f8bbd0
+    style RDF_CTRL_CORE fill:#f8bbd0
+    style INT_CTRL_POST fill:#c8e6c9

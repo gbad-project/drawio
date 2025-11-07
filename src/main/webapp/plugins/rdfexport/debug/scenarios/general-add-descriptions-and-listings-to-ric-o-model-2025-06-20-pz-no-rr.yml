@@ -1,0 +1,26 @@
+slug: general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr
+drawio: tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv"
+    baseUri: https://data.archives.gov.on.test.gbad.ca
+  preamble:
+  - prefix: mock1
+    iri: http://mock-uri.com
+parser_config:
+  ontology_iri: https://data.archives.gov.on.test.gbad.ca/Schema/Mapping
+  infer_type_of_literals: true
+  include_preamble: false
+  prefix: null
+  prefix_iri: https://data.archives.gov.on.test.gbad.ca/
+  indentation: 2
+  include_label: false
+  max_gap: 10
+  strict_mode: false
+  strip_html: true
+  metacharacter_substitute:
+    - "url"
+  capitalisation_scheme: lower-camel
+  rml_enabled: true

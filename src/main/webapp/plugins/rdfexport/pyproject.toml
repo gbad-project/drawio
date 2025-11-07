@@ -5,7 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "pandas>=2.3.3",
     "rdflib>=7.2.1",
+    "requests>=2.32.5",
 ]
 
 [dependency-groups]
@@ -14,9 +16,12 @@ dev = [
     "ruff>=0.14.0",
     "pyyaml>=6.0.2",
     "rich>=13.9.4",
+    "pydantic>=2.12.4",
 ]
 
 [tool.ruff]
 exclude = [
     "legacy/map_schema.py",
+    "docs/",
+    "legacy/original/draw_io_parser_5d85cf0.py",
 ]

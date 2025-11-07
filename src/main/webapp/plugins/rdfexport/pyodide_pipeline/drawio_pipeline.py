@@ -16,7 +16,7 @@ if str(LEGACY_DIR) not in sys.path:
     sys.path.insert(0, str(LEGACY_DIR))
 
 from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
-    DrawioParserGraph,
+    DrawIOParserGraph,
     DEFAULT_CAPITALISATION_SCHEME,
     DEFAULT_INDENTATION,
     DEFAULT_MAX_GAP,
@@ -29,7 +29,7 @@ _LAST_PARSER_CONFIG: dict[str, Any] | None = None
 
 GraphSummary = Dict[str, Any]
 
-_GRAPH_STORE: dict[str, DrawioParserGraph] = {}
+_GRAPH_STORE: dict[str, DrawIOParserGraph] = {}
 _GRAPH_CACHE: dict[str, str] = {}
 _GRAPH_ID_COUNTER = itertools.count()
 
@@ -63,8 +63,10 @@ def _default_parser_config() -> dict[str, Any]:
         "include_label": True,
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
+        "strip_html": True,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
+        "rml_enabled": False,
     }
 
 
@@ -151,6 +153,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 overrides["strict_mode"],
                 config["strict_mode"],
             )
+        if "strip_html" in overrides:
+            config["strip_html"] = _coerce_bool(
+                overrides["strip_html"],
+                config["strip_html"],
+            )
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
         if "prefix" in overrides:
@@ -176,6 +183,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             str,
         ):
             config["capitalisation_scheme"] = overrides["capitalisation_scheme"]
+        if "rml_enabled" in overrides:
+            config["rml_enabled"] = _coerce_bool(
+                overrides["rml_enabled"],
+                config["rml_enabled"],
+            )
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]
@@ -195,7 +207,7 @@ def get_last_parser_config() -> dict[str, Any] | None:
     return deepcopy(_LAST_PARSER_CONFIG)
 
 
-def _store_graph(graph: DrawioParserGraph, payload_hash: str | None = None) -> str:
+def _store_graph(graph: DrawIOParserGraph, payload_hash: str | None = None) -> str:
     if payload_hash and payload_hash in _GRAPH_CACHE:
         graph_id = _GRAPH_CACHE[payload_hash]
         _GRAPH_STORE[graph_id] = graph
@@ -245,13 +257,13 @@ def _normalize_drawio_xml(serialized_xml: str) -> str:
     return stripped
 
 
-def _sorted_namespaces(graph: DrawioParserGraph) -> Iterable[tuple[str | None, Any]]:
+def _sorted_namespaces(graph: DrawIOParserGraph) -> Iterable[tuple[str | None, Any]]:
     namespaces = list(graph.namespace_manager.namespaces())
     namespaces.sort(key=lambda item: ("" if item[0] is None else item[0]))
     return namespaces
 
 
-def _build_summary(graph_id: str, graph: DrawioParserGraph) -> GraphSummary:
+def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
     base = getattr(graph, "base", None)
     csv_path = getattr(graph, "csv_path", None)
 
@@ -278,8 +290,8 @@ def get_graph_summary(graph_id: str) -> GraphSummary:
 
 def parse_drawio_xml(
     serialized_xml: str, parser_config: dict[str, Any] | None = None
-) -> tuple[str, DrawioParserGraph]:
-    """Parse DrawIO XML into a DrawioParserGraph and cache it."""
+) -> tuple[str, DrawIOParserGraph]:
+    """Parse DrawIO XML into a DrawIOParserGraph and cache it."""
     normalized_xml = _normalize_drawio_xml(serialized_xml)
     config = _apply_parser_overrides(parser_config)
     payload_descriptor = json.dumps(

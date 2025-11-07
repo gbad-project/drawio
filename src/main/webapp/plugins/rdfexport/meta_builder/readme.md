@@ -1,0 +1,30 @@
+# Metabuilder diagram for Records in Contexts parser for draw.io
+
+[Online Mermaid Diagram on Kroki](https://kroki.io/mermaid/svg/eNqdV1tvozgUfu-vsDrSaFdqu3NRRtM-rMQQN0VDGwRMt120sgiYxDsERwbaZtQfv8c2EG5J200klOBzP9-5eCnCzQr5344QfPJysVT_HRcHx_A4ddy5iT3Pupkh58rw8PE_ilB-YiZoVDCe1dzyc3dtE-smcMNHNBXh4xnj8tWOqfnRqJIcSt3TOj1b0yKMwyI82wjaUiU_-M53DdMPCH0qRBgVJAb5jJOapUvt-a7lBCQvBNs0JKTMqSB88S_YvSOnWXzAPOvGJ9fYN7SNLCuoyMKDhk7xpfHD9r3A5FlehFmRo_doSpOwTIu8SzrDvo9dL1jSgvCs4ClfbgkT7ATJNyA6YU8niBbRWZfPv3ewF_jbDUVGysKc5m9xx_Rdu-dOBNoFT0e8MdyZY7geDkgoluWagjtkEwoI5GtVutNLMjXqCIo4OdsTOBlm88pwg2sIbrQKZZapQKswi1OWLbvEpuF45hW-xoEZblgRpuxXqMCYRyu6fn1ApHW7gEjr9sfi1rAt8ARioSJAokpzrjQTrfkFxbpA0OnpnzWij3oIV2fPOvk0P0ELyC8pJSii_AE0F6tnDe-jDtg1W5TSMKOxVPMsH-Yc3PI5MrmgI1VYY1Uxy_jLRKn4yxwhh_N0x6VQ16E86gF5_LCGkLZQ1iCCGCds-TykrTEwLqlOwPC0jnW3jSnvj-UTvbaRHSgZLW1QMxEfAGXuAjQhK4Y_dwOyKFkaEyWMJIKvCTQuAt2uy2PdTK1b8s2em9-9gGUxe2BxGaZkkfLo56vhLOGlik0bK3uqqrYRI3du227noBFm45lh3gfHNl2G0RbZfMki9JtXbiigP6bx7z2JirnYprTiRAlL04t3yUR-T6AX85_04t05ld_q7-kji4vVxafNU_0iDnMofRFuL9AETQbyfRfjQI4Waw6--oLSoQ0zPAdwuPfBjHJo1GKLojCNylSVaT6kN7FtQ7umaYpYDB2OJSxStENSw3Xnf3mBIQR_RLILDBrTLpdA20pkTqCPQRMFxhyBVSsedxnbie0kt9uv8K3l4Wlw7NIHBlnQWdmbiIq8ygT9nHxK4iYTHydfJtGHQSaGopp6sg0ooUsLu1UKZMzMNMxzCFl7IozjrLUn9MNPlGidg1rgvhxUKYaOPb_bpfg9cgR_YmtWbMdZVOqIi-vsuTTnablfBbZhukDtz_BNMFPu45TKAYhmNKNij3H9LLb_vzyaW6Xb9Jl99atAFlgNwFAk49af3m7l7cjhLXaty_uAPFDBEtg7ciJYRMakTKey98MKEMek1ZoKWEDevAVo75o1YMQxSYrvTOz4Afw8FRQKF4BOnyK66VXwK2f7TueBpj1zDefKhEagoe2oJUcnfiQmHgQPptHfOAAqJpcASgquu_zLK4AaSXKItSdFZwjKWO2nOBqbNHq-Mr10MohZjh5ZsWqG7a56G_bdK828Q9MfGjZaWkTz5zcbsoGYgQmNBKjQ2pL2rBuKap9qUXoGniBY3WEr5hv4qfZ59ft_W6altsxqcjoU0hxpCUOI1G4-axzNf_hy7XJ4Xt00xhcUZ-75cNGC55tvWod2eyV1uNyDMT3Me9Pvgd5lq9vUEMIaJlZARJmdoHXIshfgXfuvIgUKxg9A5FHLCg31H74DcbtkYDWal8WmbF3TgKFFNBJTNe9gi69n3UfYOpLWkaq5aiNJknP6sc0GEav5viYTet46qy6o1fHiM50kUeu4fUGsaKKv9Et03qOpLxn7aNrXpNrMr4tF_KFH05MzoOlsgIeM7hPtt_oQUaevv2j3IaIOfDvq_gM-gYi4)
+
+![SVG](assets/mermaid-diagram-2025-10-23-140512.svg)
+
+Metabuilder Python module: [drawio_meta_builder.py](drawio_meta_builder.py)
+
+---
+
+Source chats for diagram:
+
+- initial: [2025-10-16_claude](../docs/chats/2025-10-16_claude)
+- revision: [2025-10-23_gemini](../docs/chats/2025-10-23_gemini)
+
+## Override workflow
+
+Custom parser behaviour can be introduced by placing Python modules in
+`legacy/overrides/`. Decorate replacement functions or classes with the
+`@override` decorator exported by `meta_builder.drawio_meta_builder` and specify
+their data type, role, and phase. Matching entries in the builder mapping are
+replaced, while new symbols are injected directly into the generated pipeline
+namespace. Overrides are discovered by default when running
+`python -m meta_builder`, and the CLI now reports which modules were loaded.
+
+## Managing pipeline imports
+
+When writing code that interacts with the metabuilder pipeline, import patterns depend on context. For **override modules** placed in `legacy/overrides/`, import the compiled pipeline using `from legacy.draw_io_parser import pipeline`, then reference pipeline symbols via their nested namespace path (e.g., `pipeline.pre.xml.metadata.MetadataNodeNotFoundError`). Within override functions, assign any needed pipeline annotations to local variables at the top of the function for cleaner code. For **external code** such as tests or utility modules, use the same import: `from legacy.draw_io_parser import pipeline`. While original functions are technically accessible through their source classes (e.g., `xml_metadata_pre._find_metadata_node`), the intended access pattern is always through the `pipeline` namespace. When circular import issues arise during function overrides, either access pattern will work—prioritize whatever resolves the circular dependency.
+
+For **external code** that imports the pipeline, ensure Python can locate the necessary modules by setting up `sys.path` before importing. Use `Path(__file__).resolve().parents[N]` to locate package roots relative to your script, then insert these paths into `sys.path` if not already present. Place these path manipulations before any `from legacy.draw_io_parser import pipeline` statements (which should be marked with `# noqa: E402` to suppress linting warnings about non-top-level imports). This setup is essential because the metabuilder generates code in locations that may not be in Python's default import path.

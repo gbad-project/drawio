@@ -7,6 +7,17 @@
 
 Note: Output Turtle file successfully validates (e.g., with `GBAD: Validate and Serialize` button from GBAD VS Code Extension [version 0.0.2-prerelease.2](https://github.com/gbad-project/records_in_contexts_draw_io_parser/blob/cd4f0f692cec8a2096b1b596161b2f53c50e9091/vs_code_extension/gbad-vsce-0.0.2-prerelease.2.vsix)) once the prefix IRI on Line 7 is fixed.
 
+## Malformed rdf:type scenarios
+
+The mocked diagram now includes dedicated nodes for each malformed rdf:type case that the parser must flag:
+
+- `https://example.com/dangling-curie` → rdf:type `:danglingCurie` (missing prefix component).
+- `https://example.com/colon-only` → rdf:type `:` (colon without reference component).
+- `https://example.com/no-prefix` → rdf:type `NoPrefixClass` (no CURIE separator at all).
+- `https://example.com` → rdf:type `picoL:` (unknown prefix combined with missing reference).
+
+All of these shapes are rectangular children of swimlane nodes, ensuring the parser interprets them as attempted individual type declarations rather than literals.
+
 ## Preparation process
 
 Please refer to the [main plugin readme](../../README.md) for launch/installation instructions.
@@ -16,6 +27,7 @@ Please refer to the [main plugin readme](../../README.md) for launch/installatio
 > I produced this fixture in the web browser interface by executing these steps:
 >
 > - Using `Open Existing Diagram` button to load an existing fixture: [AA37 Department of Health-with-metadata.drawio](AA37%20Department%20of%20Health-with-metadata.drawio)
-> - I _manually_ changed node and arrow values to different kinds of weird values.
+> - I _manually_ changed node and arrow values to different kinds of weird values. This includes, among other things, a node with rdf:type specified as `picoL:` which instead gets parsed as a literal while the actual value of the node `https://example.com` is not present in the output graph at all.
 > - After the changes, I tried to dump using `Menu > File > Export as > GBAD: Export as RDF/Turtle (.ttl)`
 > - The user interface helpfully showed me the error if there was one, with a trace back to the original error coming from within the Python drawio parser code, so I fixed values in nodes and arrows according to what the error said and retried dumping to Turtle until this was successful.
+> - Notably, `python -m debug --scenario aa37-with-metadata-severely-mocked` command fails both the pipeline and plugin generations.

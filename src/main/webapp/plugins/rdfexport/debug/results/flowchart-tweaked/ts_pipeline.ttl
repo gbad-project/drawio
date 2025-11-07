@@ -1,0 +1,23 @@
+@prefix ex: <http://example/schema#> .
+@prefix kb: <mock://debug-knowledge-base/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+ex:No a owl:DatatypeProperty .
+
+ex:Yes a owl:DatatypeProperty,
+        owl:ObjectProperty .
+
+kb:Lampdoesntwork a owl:NamedIndividual .
+
+kb:Lamppluggedin a owl:NamedIndividual ;
+    ex:No "Plug in lamp" ;
+    ex:Yes kb:Bulbburnedout .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+kb:Bulbburnedout a owl:NamedIndividual ;
+    ex:No "Repair Lamp" ;
+    ex:Yes "Replace Bulb" .
+

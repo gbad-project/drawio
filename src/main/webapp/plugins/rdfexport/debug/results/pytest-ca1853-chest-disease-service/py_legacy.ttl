@@ -1,0 +1,129 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#Agent%20Identifier> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Agent Identifier" .
+
+<ontology://generated-from-draw-io/mock#Authority%20Record> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+<ontology://generated-from-draw-io/mock#Authority%20Record%20Creation> a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Authority Record Creation" ;
+    rico:isOrWasPerformedBy <ontology://generated-from-draw-io/mock#Billinton> .
+
+<ontology://generated-from-draw-io/mock#Billinton> a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "Billinton" .
+
+<ontology://generated-from-draw-io/mock#C%20Ontario%20Government%20Name> a owl:NamedIndividual,
+        rico:CorporateBodyType ;
+    rdfs:label "C Ontario Government Name" .
+
+<ontology://generated-from-draw-io/mock#CA1853> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "CA1853" ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#Agent%20Identifier> .
+
+<ontology://generated-from-draw-io/mock#Controlling%20Agency%20Relation> a owl:NamedIndividual,
+        rico:AgentControlRelation ;
+    rdfs:label "Controlling Agency Relation" ;
+    rico:hasBeginningDate <ontology://generated-from-draw-io/mock#1974> ;
+    rico:hasEndDate <ontology://generated-from-draw-io/mock#1982> ;
+    rico:relationHasTarget <ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service%20Authority%20Record> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Ontario. Chest Disease Service Authority Record" ;
+    rico:generalDescription "Source Note: Not in Canadiana. Inventory for RG 10. Archivaria, Number 41, Spring 1996." ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Authority%20Record> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Status%3A%20Approved>,
+        <ontology://generated-from-draw-io/mock#Web%20Ready%3A%20Y> ;
+    rico:isOrWasRegulatedBy <ontology://generated-from-draw-io/mock#Rules%20For%20Archival%20Description> ;
+    rico:lastModificationDate "2010-07-19"^^xsd:date ;
+    rico:resultsOrResultedFrom <ontology://generated-from-draw-io/mock#Authority%20Record%20Creation> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Division of Tuberculosis Prevention" .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Ministry%20Of%20Health> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Ministry of Health" ;
+    rico:thingIsSourceOfRelation <ontology://generated-from-draw-io/mock#Controlling%20Agency%20Relation> .
+
+<ontology://generated-from-draw-io/mock#Rules%20For%20Archival%20Description> a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+<ontology://generated-from-draw-io/mock#Web%20Ready%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Ready: Y" .
+
+<ontology://generated-from-draw-io/mock#1974> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1974" .
+
+<ontology://generated-from-draw-io/mock#1982> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1982" .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service> a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Chest Disease Service" ;
+    rico:generalDescription "Function Note: The Chest Disease Service was established to eradicate tuberculosis and to deal with other diseases of the chest and lungs." ;
+    rico:hasBeginningDate <ontology://generated-from-draw-io/mock#1974> ;
+    rico:hasEndDate <ontology://generated-from-draw-io/mock#1982> ;
+    rico:hasOrHadAgentName <ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service> ;
+    rico:hasOrHadController <ontology://generated-from-draw-io/mock#Ontario.%20Ministry%20Of%20Health> ;
+    rico:hasOrHadCorporateBodyType <ontology://generated-from-draw-io/mock#C%20Ontario%20Government%20Name> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#CA1853> ;
+    rico:history "In 1974, in response to the continuing decline of the incidence of TB, the Tuberculosis Prevention Service was renamed Chest Disease Service, and was moved, within the Clinic Services Branch, to the Community Health Division.  Throughout the late 1970s and into the 1980s, the Chest Disease Service was transferred several times within the public health function to different offices. Finally in 1982 it was effectively shut down. Of the 23 chest clinics that the service operated, 18 were closed and the remaining 5, all located in Northern Ontario, were transferred to the Ministry of Labour for the purposes of screening miners." ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service%20Authority%20Record> ;
+    rico:isSuccessorOf <ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention> ;
+    rico:normalizedValue "Chest Disease Service" .
+

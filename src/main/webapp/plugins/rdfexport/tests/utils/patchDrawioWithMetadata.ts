@@ -1,5 +1,11 @@
 import { DOMParser, XMLSerializer } from "@xmldom/xmldom";
 
+const METADATA_ROOT_TAG = "gbadMetadata";
+const LEGACY_METADATA_TAGS = ["UserObject", "object"] as const;
+const LOWERCASE_LEGACY_METADATA_TAGS = LEGACY_METADATA_TAGS.map((tag) =>
+  tag.toLowerCase(),
+);
+
 export interface DrawioPreambleElement {
   rdfPrefix: string;
   rdfIRI: string;
@@ -39,6 +45,49 @@ function createWhitespaceNode(document: Document, value: string): Text {
   return document.createTextNode(value);
 }
 
+function collectExistingPreambleElements(
+  rootElement: Element,
+): DrawioPreambleElement[] {
+  const entries = new Map<string, string>();
+
+  const metadataTagNames = [
+    METADATA_ROOT_TAG.toLowerCase(),
+    ...LOWERCASE_LEGACY_METADATA_TAGS,
+  ];
+
+  for (const child of collectChildElements(rootElement)) {
+    const tagName = child.tagName?.toLowerCase() ?? "";
+
+    if (!metadataTagNames.includes(tagName)) {
+      continue;
+    }
+
+    for (const preamble of collectChildElements(child)) {
+      const preambleTag = preamble.tagName?.toLowerCase() ?? "";
+
+      if (preambleTag !== "userobjectpreambleelement") {
+        continue;
+      }
+
+      const prefix = preamble.getAttribute("rdfPrefix")?.trim();
+      const iri = preamble.getAttribute("rdfIRI")?.trim();
+
+      if (!prefix || !iri) {
+        continue;
+      }
+
+      if (!entries.has(prefix)) {
+        entries.set(prefix, iri);
+      }
+    }
+  }
+
+  return Array.from(entries.entries()).map(([rdfPrefix, rdfIRI]) => ({
+    rdfPrefix,
+    rdfIRI,
+  }));
+}
+
 export function patchDrawioWithMetadata(
   source: string,
   options: DrawioMetadataPatchOptions,
@@ -72,28 +121,28 @@ export function patchDrawioWithMetadata(
   );
 
   const rootChildren = collectChildElements(rootElement);
-  const existingUserObject = rootChildren.find(
-    (child) => child.tagName === "UserObject",
-  );
+  const existingCanonicalMetadata = rootChildren.find((child) => {
+    const tagName = child.tagName?.toLowerCase() ?? "";
+    return tagName === METADATA_ROOT_TAG.toLowerCase();
+  });
 
-  if (existingUserObject) {
+  if (existingCanonicalMetadata) {
     throw new Error(
-      "Drawio document already contains a <UserObject> root metadata node",
+      "Drawio document already contains a <gbadMetadata> root metadata node",
     );
   }
 
   const rootCell = rootChildren.find(
     (child) => child.tagName === "mxCell" && child.getAttribute("id") === "0",
   );
-  assertElement(
-    rootCell ?? null,
-    'Unable to locate root <mxCell id="0"> element to patch',
-  );
-
-  const outerWhitespace = rootCell.previousSibling?.nodeValue ?? "\n        ";
+  const anchorNode = rootCell ?? rootChildren[0] ?? null;
+  const outerWhitespace =
+    rootCell?.previousSibling?.nodeValue ??
+    anchorNode?.previousSibling?.nodeValue ??
+    "\n        ";
   const innerWhitespace = `${outerWhitespace}  `;
 
-  const metadataNode = document.createElement("UserObject");
+  const metadataNode = document.createElement(METADATA_ROOT_TAG);
   metadataNode.setAttribute("label", options.label ?? "");
   metadataNode.setAttribute("csvPath", options.csvPath);
   metadataNode.setAttribute("baseUri", options.baseUri);
@@ -101,10 +150,18 @@ export function patchDrawioWithMetadata(
 
   metadataNode.appendChild(createWhitespaceNode(document, innerWhitespace));
 
+  const mergedPreamble = new Map<string, string>();
+  for (const existing of collectExistingPreambleElements(rootElement)) {
+    mergedPreamble.set(existing.rdfPrefix, existing.rdfIRI);
+  }
   for (const preambleEntry of options.preamble) {
+    mergedPreamble.set(preambleEntry.rdfPrefix, preambleEntry.rdfIRI);
+  }
+
+  for (const [rdfPrefix, rdfIRI] of mergedPreamble) {
     const preambleNode = document.createElement("userObjectPreambleElement");
-    preambleNode.setAttribute("rdfPrefix", preambleEntry.rdfPrefix);
-    preambleNode.setAttribute("rdfIRI", preambleEntry.rdfIRI);
+    preambleNode.setAttribute("rdfPrefix", rdfPrefix);
+    preambleNode.setAttribute("rdfIRI", rdfIRI);
     metadataNode.appendChild(preambleNode);
     metadataNode.appendChild(createWhitespaceNode(document, innerWhitespace));
   }
@@ -113,7 +170,13 @@ export function patchDrawioWithMetadata(
   metadataNode.appendChild(mxCellNode);
   metadataNode.appendChild(createWhitespaceNode(document, outerWhitespace));
 
-  rootElement.replaceChild(metadataNode, rootCell);
+  if (rootCell) {
+    rootElement.replaceChild(metadataNode, rootCell);
+  } else if (anchorNode) {
+    rootElement.insertBefore(metadataNode, anchorNode);
+  } else {
+    rootElement.appendChild(metadataNode);
+  }
 
   const serializer = new XMLSerializer();
   return serializer.serializeToString(document);

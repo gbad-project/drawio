@@ -3,3 +3,10 @@
 .ruff_cache/
 dist/
 **/__pycache__/
+*.md
+docs/
+debug/map.json
+debug/results/
+debug/scenarios/
+rmlmapper_workflows/artifacts/
+rmlmapper_workflows/rr_terms.json

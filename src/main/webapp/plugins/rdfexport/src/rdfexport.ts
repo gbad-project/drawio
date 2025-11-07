@@ -135,6 +135,7 @@ const DEFAULT_IRI_PLACEHOLDER = "Enter IRI";
 const DEFAULT_ADD_PREFIX_LABEL = "Add Prefix";
 
 const PREAMBLE_ENTRY_TAG = "userObjectPreambleElement";
+const PREAMBLE_ENTRY_TAG_LEGACY = "UserObjectPreambleElement";
 const PREAMBLE_PREFIX_ATTRIBUTE = "rdfPrefix";
 const PREAMBLE_IRI_ATTRIBUTE = "rdfIRI";
 
@@ -154,6 +155,7 @@ const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
   "data-rdfexport-parser-infer-types";
 const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
   "data-rdfexport-parser-strict-mode";
+const PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
 const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
@@ -179,6 +181,13 @@ const PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE =
   "data-rdfexport-parser-metachar-add";
 const PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 const PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
+
+const RML_ENABLED_ATTRIBUTE = "rmlEnabled";
+const STRIP_HTML_METADATA_ATTRIBUTE = "stripHtml";
+
+const METADATA_TAG_NAME = "gbadMetadata";
+const LEGACY_METADATA_TAG_NAMES = ["UserObject", "object"] as const;
+const MXCELL_TAG_NAME = "mxCell";
 
 const DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
 const DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
@@ -245,6 +254,7 @@ interface ParserSettings {
   inferTypeOfLiterals: boolean;
   includeLabel: boolean;
   strictMode: boolean;
+  stripHtml: boolean;
   indentation: number;
   maxGap: number;
   ontologyIri: string | null;
@@ -266,6 +276,7 @@ function createDefaultParserSettings(): ParserSettings {
     inferTypeOfLiterals: true,
     includeLabel: true,
     strictMode: false,
+    stripHtml: true,
     indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
     maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
     ontologyIri: null,
@@ -406,6 +417,7 @@ function normaliseParserSettings(
       defaults.includeLabel,
     ),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
+    stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
     indentation: normalizeIndentation(
       partial?.indentation,
       defaults.indentation,
@@ -500,8 +512,10 @@ function buildParserConfigPayloadFromSettings(
     include_label: normalized.includeLabel,
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
+    strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
+    rml_enabled: false,
   };
 }
 
@@ -562,6 +576,12 @@ function writeParserSettingsToGraphInstance(
   const serialized = serializeParserSettings(settings);
   const valueToStore =
     serialized === DEFAULT_SERIALIZED_PARSER_SETTINGS ? null : serialized;
+
+  try {
+    ensureRootCellMetadataElement(model, rootCell);
+  } catch (error) {
+    // ignore failures while normalising metadata storage before persisting settings
+  }
 
   model.beginUpdate?.();
   try {
@@ -649,6 +669,50 @@ function resolveLabel(key: string, fallback: string): string {
   return fallback;
 }
 
+interface SerializeDiagramOptions {
+  rmlEnabled?: boolean;
+  stripHtml?: boolean;
+}
+
+function findRootMetadataNode(graphXml: Element): Element | null {
+  return ensureGraphXmlMetadataNode(graphXml);
+}
+
+function applyRmlEnabledMetadata(graphXml: Element, enabled: boolean): void {
+  const metadataNode = findRootMetadataNode(graphXml);
+
+  if (!metadataNode) {
+    return;
+  }
+
+  if (enabled) {
+    metadataNode.setAttribute(RML_ENABLED_ATTRIBUTE, "true");
+  } else {
+    metadataNode.removeAttribute(RML_ENABLED_ATTRIBUTE);
+  }
+}
+
+function applyStripHtmlMetadata(graphXml: Element, stripHtml: boolean): void {
+  const metadataNode = findRootMetadataNode(graphXml);
+
+  if (!metadataNode) {
+    return;
+  }
+
+  metadataNode.setAttribute(
+    STRIP_HTML_METADATA_ATTRIBUTE,
+    stripHtml ? "true" : "false",
+  );
+}
+
+function cloneGraphXml(graphXml: Element): Element {
+  if (typeof graphXml.cloneNode === "function") {
+    return graphXml.cloneNode(true) as Element;
+  }
+
+  return graphXml;
+}
+
 function installCsvPathProperty(): void {
   if (csvPropertyPatched) {
     return;
@@ -696,6 +760,15 @@ function installCsvPathProperty(): void {
       typeof (graph as any).setAttributeForCell !== "function"
     ) {
       return result;
+    }
+
+    try {
+      const rootCell = model.getRoot();
+      if (rootCell) {
+        ensureRootCellMetadataElement(model, rootCell);
+      }
+    } catch (error) {
+      // ignore failures when normalising the metadata container
     }
 
     typedContainer[PREAMBLE_SECTION_FLAG] = true;
@@ -981,6 +1054,12 @@ function installCsvPathProperty(): void {
 
       if (!rootCell) {
         return;
+      }
+
+      try {
+        ensureRootCellMetadataElement(model, rootCell);
+      } catch (error) {
+        // ignore failures when normalising the metadata container before writes
       }
 
       const normalizedRaw = field.input.value.trim();
@@ -1321,6 +1400,190 @@ function normalizeNodeName(node: Element): string {
   return rawName;
 }
 
+function nodeNameEquals(node: Element, expected: string): boolean {
+  return normalizeNodeName(node).toLowerCase() === expected.toLowerCase();
+}
+
+function ensureCanonicalMetadataElementInPlace(element: Element): void {
+  const existingId = element.getAttribute("id");
+  if (!existingId || existingId.length === 0) {
+    element.setAttribute("id", "0");
+  }
+
+  let hasMxCellChild = false;
+  let child: ChildNode | null = element.firstChild;
+  while (child != null) {
+    if (
+      child.nodeType === mxConstants.NODETYPE_ELEMENT &&
+      nodeNameEquals(child as Element, MXCELL_TAG_NAME)
+    ) {
+      hasMxCellChild = true;
+      break;
+    }
+    child = child.nextSibling;
+  }
+
+  if (!hasMxCellChild) {
+    const ownerDoc = element.ownerDocument ?? mxUtils.createXmlDocument();
+    element.appendChild(ownerDoc.createElement(MXCELL_TAG_NAME));
+  }
+}
+
+function cloneAsCanonicalMetadataElement(
+  source: Element | null,
+  fallbackLabel: string | null,
+): Element {
+  const ownerDoc = source?.ownerDocument ?? mxUtils.createXmlDocument();
+  const canonical = ownerDoc.createElement(METADATA_TAG_NAME);
+
+  if (source) {
+    if (source.attributes) {
+      for (let index = 0; index < source.attributes.length; index += 1) {
+        const attribute = source.attributes.item(index);
+        if (attribute) {
+          canonical.setAttribute(attribute.name, attribute.value);
+        }
+      }
+    }
+
+    let child: ChildNode | null = source.firstChild;
+    while (child != null) {
+      canonical.appendChild(child.cloneNode(true));
+      child = child.nextSibling;
+    }
+  } else if (fallbackLabel && fallbackLabel.length > 0) {
+    canonical.setAttribute("label", fallbackLabel);
+  }
+
+  ensureCanonicalMetadataElementInPlace(canonical);
+  return canonical;
+}
+
+function ensureRootCellMetadataElement(
+  model: MxGraphModel,
+  rootCell: any,
+): Element | null {
+  const existing = extractValueElement(model, rootCell);
+  if (existing && nodeNameEquals(existing, METADATA_TAG_NAME)) {
+    ensureCanonicalMetadataElementInPlace(existing);
+    return existing;
+  }
+
+  let fallbackLabel: string | null = null;
+  if (typeof model.getValue === "function") {
+    try {
+      const rawValue = model.getValue(rootCell);
+      if (typeof rawValue === "string" && rawValue.length > 0) {
+        fallbackLabel = rawValue;
+      }
+    } catch (error) {
+      // ignore failures to read the label and fall back to metadata defaults
+    }
+  }
+
+  const canonical = cloneAsCanonicalMetadataElement(existing, fallbackLabel);
+
+  model.beginUpdate?.();
+  try {
+    if (typeof model.setValue === "function") {
+      model.setValue(rootCell, canonical);
+    } else {
+      (rootCell as { value?: any }).value = canonical;
+      (model as { markDirty?: () => void }).markDirty?.();
+    }
+  } finally {
+    model.endUpdate?.();
+  }
+
+  return canonical;
+}
+
+function metadataCandidateHasPayload(node: Element): boolean {
+  const csvPath = node.getAttribute(CSV_PATH_ATTRIBUTE) ?? "";
+  const baseUri = node.getAttribute(BASE_URI_ATTRIBUTE) ?? "";
+  const parserSettings =
+    node.getAttribute(PARSER_SETTINGS_ATTRIBUTE_NAME) ?? "";
+
+  if (csvPath.length > 0 || baseUri.length > 0 || parserSettings.length > 0) {
+    return true;
+  }
+
+  for (const tag of [PREAMBLE_ENTRY_TAG, PREAMBLE_ENTRY_TAG_LEGACY]) {
+    if (node.getElementsByTagName(tag).length > 0) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function ensureGraphXmlMetadataNode(graphXml: Element): Element | null {
+  if (typeof graphXml.getElementsByTagName !== "function") {
+    return null;
+  }
+
+  const canonicalNodes = graphXml.getElementsByTagName(METADATA_TAG_NAME);
+  for (let index = 0; index < canonicalNodes.length; index += 1) {
+    const node = canonicalNodes.item(index);
+    if (!node || node.getAttribute("id") !== "0") {
+      continue;
+    }
+    ensureCanonicalMetadataElementInPlace(node);
+    return node;
+  }
+
+  const rootNodes = graphXml.getElementsByTagName("root");
+  const graphRoot = rootNodes.item(0);
+
+  if (!graphRoot) {
+    return null;
+  }
+
+  let fallback: Element | null = null;
+  for (let index = 0; index < graphRoot.childNodes.length; index += 1) {
+    const child = graphRoot.childNodes.item(index);
+    if (child?.nodeType !== mxConstants.NODETYPE_ELEMENT) {
+      continue;
+    }
+
+    const element = child as Element;
+    const normalized = normalizeNodeName(element).toLowerCase();
+
+    if (normalized === METADATA_TAG_NAME.toLowerCase()) {
+      ensureCanonicalMetadataElementInPlace(element);
+      return element;
+    }
+
+    if (
+      LEGACY_METADATA_TAG_NAMES.some(
+        (name) => name.toLowerCase() === normalized,
+      )
+    ) {
+      if (element.getAttribute("id") === "0") {
+        fallback = element;
+        break;
+      }
+
+      if (!fallback && metadataCandidateHasPayload(element)) {
+        fallback = element;
+      }
+    }
+  }
+
+  if (!fallback) {
+    return null;
+  }
+
+  const canonical = cloneAsCanonicalMetadataElement(fallback, null);
+  const parent = fallback.parentNode;
+
+  if (parent) {
+    parent.replaceChild(canonical, fallback);
+  }
+
+  return canonical;
+}
+
 function extractPreambleEntries(value: any): PreambleEntry[] {
   const entries: PreambleEntry[] = [];
 
@@ -1333,7 +1596,8 @@ function extractPreambleEntries(value: any): PreambleEntry[] {
   while (child != null) {
     if (
       child.nodeType === mxConstants.NODETYPE_ELEMENT &&
-      normalizeNodeName(child as Element) === PREAMBLE_ENTRY_TAG
+      (nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG) ||
+        nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG_LEGACY))
     ) {
       const element = child as Element;
       const prefix = element.getAttribute(PREAMBLE_PREFIX_ATTRIBUTE) ?? "";
@@ -1351,18 +1615,18 @@ function buildValueWithPreamble(
   baseValue: any,
   entries: PreambleEntry[],
 ): Element {
-  let valueElement: Element;
+  const baseElement = isElementNode(baseValue) ? (baseValue as Element) : null;
+  const fallbackLabel =
+    !isElementNode(baseValue) &&
+    typeof baseValue === "string" &&
+    baseValue.length > 0
+      ? baseValue
+      : null;
 
-  if (isElementNode(baseValue)) {
-    valueElement = (baseValue.cloneNode(true) as Element) ?? baseValue;
-  } else {
-    const doc = mxUtils.createXmlDocument();
-    valueElement = doc.createElement("object");
-    if (typeof baseValue === "string" && baseValue.length > 0) {
-      valueElement.setAttribute("label", baseValue);
-    }
-    doc.appendChild(valueElement);
-  }
+  const valueElement = cloneAsCanonicalMetadataElement(
+    baseElement,
+    fallbackLabel,
+  );
 
   const ownerDoc = valueElement.ownerDocument ?? mxUtils.createXmlDocument();
 
@@ -1375,7 +1639,8 @@ function buildValueWithPreamble(
     const next = child.nextSibling;
     if (
       child.nodeType === mxConstants.NODETYPE_ELEMENT &&
-      normalizeNodeName(child as Element) === PREAMBLE_ENTRY_TAG
+      (nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG) ||
+        nodeNameEquals(child as Element, PREAMBLE_ENTRY_TAG_LEGACY))
     ) {
       valueElement.removeChild(child);
     }
@@ -1409,6 +1674,21 @@ function createParserSettingsDialog(
   if (typeof document === "undefined") {
     return null;
   }
+
+  const resolveMetadataElement = (): Element | null => {
+    try {
+      return ensureRootCellMetadataElement(model, rootCell);
+    } catch (error) {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        ensureCanonicalMetadataElementInPlace(valueElement);
+        return valueElement;
+      }
+      return null;
+    }
+  };
+
+  const initialMetadataElement = resolveMetadataElement();
 
   const settings = readParserSettingsFromGraphInstance(graph, model, rootCell);
 
@@ -1599,6 +1879,14 @@ function createParserSettingsDialog(
   );
   generalSection.appendChild(strictModeRow.container);
   const strictModeCheckbox = strictModeRow.input;
+
+  const stripHtmlRow = createCheckboxRow(
+    "Strip HTML tags from literal values",
+    settings.stripHtml,
+    PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE,
+  );
+  generalSection.appendChild(stripHtmlRow.container);
+  const stripHtmlCheckbox = stripHtmlRow.input;
 
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
@@ -1849,6 +2137,7 @@ function createParserSettingsDialog(
       includeLabel: includeLabelCheckbox.checked,
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
+      stripHtml: stripHtmlCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,
@@ -1918,6 +2207,21 @@ function createPreambleDialog(
   if (typeof document === "undefined") {
     return null;
   }
+
+  const resolveMetadataElement = (): Element | null => {
+    try {
+      return ensureRootCellMetadataElement(model, rootCell);
+    } catch (error) {
+      const valueElement = extractValueElement(model, rootCell);
+      if (valueElement) {
+        ensureCanonicalMetadataElementInPlace(valueElement);
+        return valueElement;
+      }
+      return null;
+    }
+  };
+
+  const initialMetadataElement = resolveMetadataElement();
 
   const container = document.createElement("div");
   container.setAttribute("data-rdfexport-preamble-dialog", "true");
@@ -2036,7 +2340,8 @@ function createPreambleDialog(
   };
 
   const baseValue =
-    typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+    initialMetadataElement ??
+    (typeof model.getValue === "function" ? model.getValue(rootCell) : null);
   for (const entry of extractPreambleEntries(baseValue)) {
     addEntry(entry.prefix, entry.iri);
   }
@@ -2126,8 +2431,10 @@ function createPreambleDialog(
       }))
       .filter((entry) => entry.prefix.length > 0 && entry.iri.length > 0);
 
+    const metadataElement = resolveMetadataElement();
     const baseValue =
-      typeof model.getValue === "function" ? model.getValue(rootCell) : null;
+      metadataElement ??
+      (typeof model.getValue === "function" ? model.getValue(rootCell) : null);
 
     const newValue = buildValueWithPreamble(baseValue, normalizedEntries);
 
@@ -2227,25 +2534,42 @@ installCsvPathProperty();
 Draw.loadPlugin(function (editorUi: any): void {
   installCsvPathProperty();
 
-  function serializeDiagramXml(ui: any): string {
+  function serializeDiagramXml(
+    ui: any,
+    options?: SerializeDiagramOptions,
+  ): string {
     const graphXml = ui.editor.getGraphXml();
-    return mxUtils.getPrettyXml(graphXml);
+    const workingGraphXml = cloneGraphXml(graphXml);
+
+    ensureGraphXmlMetadataNode(workingGraphXml);
+
+    const rmlEnabled = options?.rmlEnabled === true;
+    applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
+    const stripHtml = options?.stripHtml ?? true;
+    applyStripHtmlMetadata(workingGraphXml, stripHtml);
+
+    return mxUtils.getPrettyXml(workingGraphXml);
   }
 
-  mxResources.parse("exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...");
+  mxResources.parse(
+    "exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...\n" +
+      "exportRml=GBAD: Export as RML (.ttl)...",
+  );
 
   editorUi.actions.addAction("exportRdfXml", async function (): Promise<void> {
     logInfo(LOG_PREFIX.PIPELINE, "exportRdfXml action invoked");
 
     try {
-      const serializedXml = serializeDiagramXml(editorUi);
+      const parserConfig = buildParserConfigPayloadFromGraph(
+        editorUi?.editor?.graph ?? null,
+      );
+      const serializedXml = serializeDiagramXml(editorUi, {
+        rmlEnabled: false,
+        stripHtml: parserConfig.strip_html,
+      });
       logInfo(
         LOG_PREFIX.PIPELINE,
         `Generated DrawIO XML payload (${serializedXml.length} characters)`,
-      );
-
-      const parserConfig = buildParserConfigPayloadFromGraph(
-        editorUi?.editor?.graph ?? null,
       );
       const blackBoxPayload = await runDrawioPipeline(
         serializedXml,
@@ -2262,6 +2586,40 @@ Draw.loadPlugin(function (editorUi: any): void {
     }
   });
 
+  editorUi.actions.addAction("exportRml", async function (): Promise<void> {
+    logInfo(LOG_PREFIX.PIPELINE, "exportRml action invoked");
+
+    try {
+      const parserConfig = buildParserConfigPayloadFromGraph(
+        editorUi?.editor?.graph ?? null,
+      );
+      const rmlConfig: DrawioParserConfigPayload = {
+        ...parserConfig,
+        rml_enabled: true,
+      };
+      const serializedXml = serializeDiagramXml(editorUi, {
+        rmlEnabled: true,
+        stripHtml: parserConfig.strip_html,
+      });
+      logInfo(
+        LOG_PREFIX.PIPELINE,
+        `Generated DrawIO XML payload (${serializedXml.length} characters) for RML export`,
+      );
+      const blackBoxPayload = await runDrawioPipeline(serializedXml, rmlConfig);
+      const filename = editorUi.getBaseFilename() + ".rml.ttl";
+
+      logInfo(LOG_PREFIX.PIPELINE, `Saving RML export payload to ${filename}`);
+      editorUi.saveData(filename, "turtle", blackBoxPayload, "text/turtle");
+      logInfo(
+        LOG_PREFIX.PIPELINE,
+        `Export pipeline completed for ${filename} (RML mode)`,
+      );
+    } catch (e) {
+      logError(LOG_PREFIX.PIPELINE, "Export pipeline failed", e);
+      editorUi.handleError(e as Error);
+    }
+  });
+
   const exportMenu = editorUi.menus.get("exportAs");
 
   if (exportMenu != null) {
@@ -2269,7 +2627,11 @@ Draw.loadPlugin(function (editorUi: any): void {
 
     exportMenu.funct = function (menu: any, parent: any): void {
       oldFunct.call(this, menu, parent);
-      editorUi.menus.addMenuItems(menu, ["-", "exportRdfXml"], parent);
+      editorUi.menus.addMenuItems(
+        menu,
+        ["-", "exportRdfXml", "exportRml"],
+        parent,
+      );
     };
   }
 });

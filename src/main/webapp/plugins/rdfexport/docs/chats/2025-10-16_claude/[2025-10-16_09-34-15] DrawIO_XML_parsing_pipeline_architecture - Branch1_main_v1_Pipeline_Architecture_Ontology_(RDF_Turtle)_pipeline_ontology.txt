@@ -1,0 +1,216 @@
+# Artifact ID: pipeline_ontology
+# Branch: 1 (main) (6ae7dc60...)
+# Version: 1
+# Command: create
+# UUID: 6665b486-9b58-489d-948b-f4cd9a6e491e
+# Created: 10/16/2025, 9:34:15 AM
+# Change: Created
+
+# ---
+
+@prefix : <http://example.org/drawio-pipeline#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# ===== Dimensions =====
+
+:DataType a owl:Class ;
+    rdfs:label "Data Type Dimension" ;
+    rdfs:comment "The domain in which code operates" .
+
+:xml a :DataType ;
+    rdfs:label "XML Domain" ;
+    rdfs:comment "Direct XML manipulation and parsing" .
+
+:internal a :DataType ;
+    rdfs:label "Internal Domain" ;
+    rdfs:comment "Internal data models and business logic" .
+
+:rdf a :DataType ;
+    rdfs:label "RDF Domain" ;
+    rdfs:comment "RDF/OWL graph construction" .
+
+:DataRole a owl:Class ;
+    rdfs:label "Data Role Dimension" ;
+    rdfs:comment "The kind of concern being addressed" .
+
+:metadata a :DataRole ;
+    rdfs:label "Metadata Concern" ;
+    rdfs:comment "Configuration, prefixes, IRIs, settings" .
+
+:data a :DataRole ;
+    rdfs:label "Data Concern" ;
+    rdfs:comment "Core entities and their transformations" .
+
+:control a :DataRole ;
+    rdfs:label "Control Concern" ;
+    rdfs:comment "Orchestration, flow control, scaffolding" .
+
+:Phase a owl:Class ;
+    rdfs:label "Phase Dimension" ;
+    rdfs:comment "When in the pipeline execution" .
+
+:pre a :Phase ;
+    rdfs:label "Pre-processing" ;
+    rdfs:comment "Before Individual/Arrow generation" .
+
+:core a :Phase ;
+    rdfs:label "Core Processing" ;
+    rdfs:comment "Individual/Arrow generation and coupling" .
+
+:post a :Phase ;
+    rdfs:label "Post-processing" ;
+    rdfs:comment "After blocks/props ready, final graph" .
+
+# ===== Namespace Cells (3x3x3 = 27 possible combinations) =====
+
+:Cell a owl:Class ;
+    rdfs:label "Pipeline Cell" ;
+    rdfs:comment "A specific combination of data_type × data_role × phase" .
+
+:hasDataType a owl:ObjectProperty ;
+    rdfs:domain :Cell ;
+    rdfs:range :DataType .
+
+:hasDataRole a owl:ObjectProperty ;
+    rdfs:domain :Cell ;
+    rdfs:range :DataRole .
+
+:hasPhase a owl:ObjectProperty ;
+    rdfs:domain :Cell ;
+    rdfs:range :Phase .
+
+:containsComponent a owl:ObjectProperty ;
+    rdfs:domain :Cell ;
+    rdfs:comment "Links to specific functions/classes in this cell" .
+
+# ===== Active Cells with Components =====
+
+:xml_metadata_pre a :Cell ;
+    :hasDataType :xml ;
+    :hasDataRole :metadata ;
+    :hasPhase :pre ;
+    :containsComponent "_extract_drawio_metadata" ;
+    :containsComponent "_strip_metadata_user_object" ;
+    rdfs:comment "Extract and remove metadata from XML" .
+
+:xml_data_core a :Cell ;
+    :hasDataType :xml ;
+    :hasDataRole :data ;
+    :hasPhase :core ;
+    :containsComponent "DrawIOXMLTree" ;
+    :containsComponent "NodeHTMLParser" ;
+    rdfs:comment "ALL XML parsing to Individual/Arrow instances" .
+
+:internal_metadata_pre a :Cell ;
+    :hasDataType :internal ;
+    :hasDataRole :metadata ;
+    :hasPhase :pre ;
+    :containsComponent "DEFAULT_CAPITALISATION_SCHEME" ;
+    :containsComponent "get_ontology_iri" ;
+    :containsComponent "get_prefix" ;
+    :containsComponent "SerialisationConfig" ;
+    rdfs:comment "Constants, defaults, metadata getters" .
+
+:internal_data_core a :Cell ;
+    :hasDataType :internal ;
+    :hasDataRole :data ;
+    :hasPhase :core ;
+    :containsComponent "Individual" ;
+    :containsComponent "Arrow" ;
+    :containsComponent "_split_curie" ;
+    :containsComponent "_verify_is_ric_class" ;
+    :containsComponent "_add_individual_type" ;
+    rdfs:comment "Internal model processing with metadata" .
+
+:internal_data_post a :Cell ;
+    :hasDataType :internal ;
+    :hasDataRole :data ;
+    :hasPhase :post ;
+    :containsComponent "individuals_and_arrows" ;
+    rdfs:comment "Generator bridging XML to internal model" .
+
+:internal_control_pre a :Cell ;
+    :hasDataType :internal ;
+    :hasDataRole :control ;
+    :hasPhase :pre ;
+    :containsComponent "_arguments_parser" ;
+    rdfs:comment "User input collection via CLI" .
+
+:internal_control_core a :Cell ;
+    :hasDataType :internal ;
+    :hasDataRole :control ;
+    :hasPhase :core ;
+    :containsComponent "_build_graph_from_raw_xml" ;
+    :containsComponent "_parse_space_substitute" ;
+    :containsComponent "_parse_metacharacter_substitutes" ;
+    rdfs:comment "Orchestration scaffolding (tech debt)" .
+
+:internal_control_post a :Cell ;
+    :hasDataType :internal ;
+    :hasDataRole :control ;
+    :hasPhase :post ;
+    :containsComponent "individual_blocks" ;
+    :containsComponent "parse_drawio_to_graph" ;
+    :containsComponent "_run" ;
+    :containsComponent "main" ;
+    rdfs:comment "SDK and CLI wrappers" .
+
+:rdf_data_pre a :Cell ;
+    :hasDataType :rdf ;
+    :hasDataRole :data ;
+    :hasPhase :pre ;
+    :containsComponent "_handle_spaces" ;
+    :containsComponent "_replace_metacharacter" ;
+    :containsComponent "_replace_metacharacters" ;
+    rdfs:comment "String manipulation for RDF compliance" .
+
+:rdf_control_pre a :Cell ;
+    :hasDataType :rdf ;
+    :hasDataRole :control ;
+    :hasPhase :pre ;
+    :containsComponent "_parse_capitalisation_scheme" ;
+    rdfs:comment "Validation of RDF-related config" .
+
+:rdf_control_core a :Cell ;
+    :hasDataType :rdf ;
+    :hasDataRole :control ;
+    :hasPhase :core ;
+    :containsComponent "DrawIOParserGraph" ;
+    rdfs:comment "Graph class definition and prep" .
+
+:rdf_control_post a :Cell ;
+    :hasDataType :rdf ;
+    :hasDataRole :control ;
+    :hasPhase :post ;
+    :containsComponent "serialise_to_graph" ;
+    rdfs:comment "Final graph serialization and manipulation" .
+
+# ===== Data Flow =====
+
+:flowsInto a owl:ObjectProperty ;
+    rdfs:domain :Cell ;
+    rdfs:range :Cell ;
+    rdfs:comment "Pipeline data flow between cells" .
+
+:xml_metadata_pre :flowsInto :xml_data_core .
+:xml_metadata_pre :flowsInto :internal_control_core .
+:internal_metadata_pre :flowsInto :internal_control_core .
+:internal_control_pre :flowsInto :internal_control_core .
+:rdf_data_pre :flowsInto :internal_control_core .
+:rdf_control_pre :flowsInto :internal_control_core .
+:xml_data_core :flowsInto :internal_data_core .
+:internal_data_core :flowsInto :internal_control_core .
+:internal_control_core :flowsInto :rdf_control_core .
+:rdf_control_core :flowsInto :internal_data_post .
+:internal_data_post :flowsInto :internal_control_post .
+:internal_control_post :flowsInto :rdf_control_post .
+
+# ===== Exceptions Map to Cells =====
+
+:NothingToParseException :belongsTo :xml_data_core .
+:NotInKnownException :belongsTo :rdf_data_pre .
+:NoSourceException :belongsTo :xml_data_core .
+:ParseException :belongsTo :xml_data_core .
+:MetacharacterException :belongsTo :rdf_data_pre .
+:ArrowWithoutIndividualAsSourceException :belongsTo :internal_data_core .

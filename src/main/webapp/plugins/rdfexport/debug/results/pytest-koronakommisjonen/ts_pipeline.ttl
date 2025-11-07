@@ -1,0 +1,120 @@
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:isDefinedBy a owl:DatatypeProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+:Arkivvesenet a owl:NamedIndividual,
+        rico:AgentName ;
+    rdfs:label "Arkivvesenet" ;
+    rico:followsInTime :Arkivverket .
+
+:Koronakommisjonen%20Dokumentasjon a owl:NamedIndividual,
+        rico:RecordSet ;
+    rdfs:label "Koronakommisjonen Dokumentasjon" ;
+    rico:hasBeginningDate :Initiation%20Of%20Koronakommisjonen ;
+    rico:hasCreator :Koronakommisjonen ;
+    rico:hasEndDate :Closing%20Of%20Koronakommisjonen ;
+    rico:hasOrHadDigitalInstantiation :Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation ;
+    rico:hasOrHadHolder :Arkivverket ;
+    rico:hasOrHadLanguage :Norsk%20Bokmål ;
+    rico:hasOrganicOrFunctionalProvenance :Sharepoint ;
+    rico:hasSender :Koronakommisjonen ;
+    rico:isAssociatedWithEvent :Covid-19 ;
+    rico:isAssociatedWithPlace :Norge ;
+    rico:isOrWasUnderAuthorityOf :Arkivverket ;
+    rico:scopeAndContent "Dokumentasjon knyttet til kommisjonens møter (innkallinger, referater, oppsummeringsnotater), informasjon som kommisjonen har innhentet fra forvaltningen, gjennom innspill og intervjuer (stort volum), eksterne utredninger, rapporten med forarbeider, dokumentasjon knyttet til innsynsforespørsler. Administrasjon og økonomi ble håndtert av Statsministerens kontor." .
+
+:Bytes a owl:NamedIndividual,
+        rico:UnitOfMeasurement ;
+    rdfs:label "Bytes" .
+
+:Country a owl:NamedIndividual,
+        rico:PlaceType ;
+    rdfs:label "Country" .
+
+:Covid-19 a owl:NamedIndividual,
+        rico:Event ;
+    rdfs:label "Covid-19" .
+
+:FileSize a owl:NamedIndividual,
+        rico:ExtentType ;
+    rdfs:label "FileSize" .
+
+:Kongelig%20Resolusjon a owl:NamedIndividual,
+        rico:RuleType ;
+    rdfs:label "Kongelig Resolusjon" .
+
+:Kongelig%20Resolusjon%20Koronakommisjonen a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Kongelig Resolusjon Koronakommisjonen" ;
+    rico:hasOrHadRuleType :Kongelig%20Resolusjon ;
+    rico:occurredAtDate :Initiation%20Of%20Koronakommisjonen .
+
+:Koronakommisjonen%20Dokumentasjon%20Storage%20ID a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "Koronakommisjonen Dokumentasjon Storage ID" ;
+    rico:hasIdentifierType :Storage%20ID ;
+    rico:identifier "96e28e3a-94fd-49e9-af7c-be6c8f60c141" .
+
+:Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation a owl:NamedIndividual,
+        rico:Instantiation ;
+    rdfs:label "Koronakommisjonen Dokumentasjon Stored Instantiation" ;
+    rico:hasExtent :Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size ;
+    rico:hasOrHadIdentifier :Koronakommisjonen%20Dokumentasjon%20Storage%20ID .
+
+:Koronakommisjonen%20Dokumentasjon%20Tar%20File%20Size a owl:NamedIndividual,
+        rico:InstantiationExtent ;
+    rdfs:label "Koronakommisjonen Dokumentasjon Tar File Size" ;
+    rico:hasExtentType :FileSize ;
+    rico:hasUnitOfMeasurement :Bytes ;
+    rico:quantity 131070863360 .
+
+:Norsk%20Bokmål a owl:NamedIndividual,
+        rico:Language ;
+    rdfs:label "Norsk Bokmål" ;
+    rico:isOrWasLanguageOf :Norge .
+
+:Sharepoint a owl:NamedIndividual,
+        rico:Mechanism ;
+    rdfs:label "Sharepoint" .
+
+:Storage%20ID a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Storage ID" .
+
+:Closing%20Of%20Koronakommisjonen a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "Closing of Koronakommisjonen" ;
+    rico:normalizedDateValue "2022-05-06"^^xsd:date .
+
+:Koronakommisjonen a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Koronakommisjonen" ;
+    rico:hasBeginningDate :Initiation%20Of%20Koronakommisjonen ;
+    rico:hasEndDate :Closing%20Of%20Koronakommisjonen ;
+    rico:isOrWasRegulatedBy :Kongelig%20Resolusjon%20Koronakommisjonen .
+
+:Norge a owl:NamedIndividual,
+        rico:Place ;
+    rdfs:label "Norge" ;
+    rico:hasOrHadPlaceType :Country .
+
+:Arkivverket a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Arkivverket" ;
+    rdfs:isDefinedBy "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" ;
+    rico:name "National Archives of Norway" .
+
+:Initiation%20Of%20Koronakommisjonen a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "Initiation of Koronakommisjonen" ;
+    rico:normalizedDateValue "2020-04-24"^^xsd:date .
+

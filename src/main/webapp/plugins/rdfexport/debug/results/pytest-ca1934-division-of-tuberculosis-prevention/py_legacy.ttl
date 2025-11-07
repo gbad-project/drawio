@@ -1,0 +1,156 @@
+@prefix add: <https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/> .
+@prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:label a owl:DatatypeProperty .
+
+rdfs:subPropertyOf a owl:ObjectProperty .
+
+auth:functionNote a owl:DatatypeProperty .
+
+auth:privateNote a owl:DatatypeProperty .
+
+auth:sourceNote a owl:DatatypeProperty .
+
+add:accumulationDate a owl:DatatypeProperty .
+
+add:associatedMaterial a owl:DatatypeProperty .
+
+add:availabilityOfOtherFormats a owl:DatatypeProperty .
+
+add:custodialHistory a owl:DatatypeProperty .
+
+add:findingAidNote a owl:DatatypeProperty .
+
+add:howToOrder a owl:DatatypeProperty .
+
+add:immediateSourceOfAcquisition a owl:DatatypeProperty .
+
+add:notes a owl:DatatypeProperty .
+
+add:privateNote a owl:DatatypeProperty .
+
+add:relatedMaterial a owl:DatatypeProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#Agent%20Identifier> a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Agent Identifier" .
+
+<ontology://generated-from-draw-io/mock#Authority%20Record> a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+<ontology://generated-from-draw-io/mock#Authority%20Record%20Creation> a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Authority Record Creation" ;
+    rico:isOrWasPerformedBy <ontology://generated-from-draw-io/mock#Billinton> .
+
+<ontology://generated-from-draw-io/mock#Billinton> a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "Billinton" .
+
+<ontology://generated-from-draw-io/mock#C%20Ontario%20Government%20Name> a owl:NamedIndividual,
+        rico:CorporateBodyType ;
+    rdfs:label "C Ontario Government Name" .
+
+<ontology://generated-from-draw-io/mock#CA1934> a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "CA1934" ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#Agent%20Identifier> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Chest Disease Service" .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Dept. of Health" ;
+    rico:thingIsSourceOfRelation <ontology://generated-from-draw-io/mock#Controlling%20Agency%20Relation> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention%20Authority%20Record> a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Ontario. Division of Tuberculosis Prevention Authority Record" ;
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#Authority%20Record> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#Status%3A%20Approved>,
+        <ontology://generated-from-draw-io/mock#Web%20Ready%3A%20Y> ;
+    rico:isOrWasRegulatedBy <ontology://generated-from-draw-io/mock#Rules%20For%20Archival%20Description> ;
+    rico:lastModificationDate "2024-06-03"^^xsd:date ;
+    rico:resultsOrResultedFrom <ontology://generated-from-draw-io/mock#Authority%20Record%20Creation> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Ministry%20Of%20Health> a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Ministry of Health" ;
+    rico:thingIsSourceOfRelation <ontology://generated-from-draw-io/mock#Controlling%20Agency%20Relation> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Tuberculosis%20Prevention%20Branch> a owl:NamedIndividual,
+        rico:AgentName ;
+    rdfs:label "Ontario. Tuberculosis Prevention Branch" ;
+    rico:hasOrHadCategory <ontology://generated-from-draw-io/mock#Variant%20Name> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Tuberculosis%20Prevention%20Service> a owl:NamedIndividual,
+        rico:AgentName ;
+    rdfs:label "Ontario. Tuberculosis Prevention Service" ;
+    rico:hasOrHadCategory <ontology://generated-from-draw-io/mock#Variant%20Name> .
+
+<ontology://generated-from-draw-io/mock#Rules%20For%20Archival%20Description> a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+<ontology://generated-from-draw-io/mock#Status%3A%20Approved> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+<ontology://generated-from-draw-io/mock#Web%20Ready%3A%20Y> a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Ready: Y" .
+
+<ontology://generated-from-draw-io/mock#1935> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1935" .
+
+<ontology://generated-from-draw-io/mock#1972> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1972" .
+
+<ontology://generated-from-draw-io/mock#1974> a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1974" .
+
+<ontology://generated-from-draw-io/mock#Controlling%20Agency%20Relation> a owl:NamedIndividual,
+        rico:AgentControlRelation ;
+    rdfs:label "Controlling Agency Relation" ;
+    rico:hasBeginningDate <ontology://generated-from-draw-io/mock#1935>,
+        <ontology://generated-from-draw-io/mock#1972> ;
+    rico:hasEndDate <ontology://generated-from-draw-io/mock#1972>,
+        <ontology://generated-from-draw-io/mock#1974> ;
+    rico:relationHasTarget <ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention> .
+
+<ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention> a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Division of Tuberculosis Prevention" ;
+    rico:generalDescription "Function Note: The Tuberculosis Prevention Division developed and promoted measures designed to eradicate tuberculosis in its early stages." ;
+    rico:hasBeginningDate <ontology://generated-from-draw-io/mock#1935> ;
+    rico:hasEndDate <ontology://generated-from-draw-io/mock#1974> ;
+    rico:hasOrHadAgentName <ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention>,
+        <ontology://generated-from-draw-io/mock#Ontario.%20Tuberculosis%20Prevention%20Branch>,
+        <ontology://generated-from-draw-io/mock#Ontario.%20Tuberculosis%20Prevention%20Service> ;
+    rico:hasOrHadController <ontology://generated-from-draw-io/mock#Ontario.%20Dept.%20Of%20Health>,
+        <ontology://generated-from-draw-io/mock#Ontario.%20Ministry%20Of%20Health> ;
+    rico:hasOrHadCorporateBodyType <ontology://generated-from-draw-io/mock#C%20Ontario%20Government%20Name> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#CA1934> ;
+    rico:hasSuccessor <ontology://generated-from-draw-io/mock#Ontario.%20Chest%20Disease%20Service> ;
+    rico:history "The origins of tuberculosis prevention in the government of Ontario date to 1923 when a Diagnostic Chest Clinic was established in the Division of Preventable Diseases. In 1935 a separate Division of Tuberculosis Prevention was created. In 1959 the division was renamed the Tuberculosis Prevention Branch.           As part of a major reorganization of the Department of Health in 1966, the newly named Tuberculosis Prevention Service became part of the Special Health Services Branch of the Public Health Division.         In 1969 a number of changes occured in the branch. The TB case register was turned over to the Epidemiology Service and in conformity with the Task Force on Tuberculosis Prevention, the service assumed responsibility for all chest clinics in the province. Up until that year, voluntary agencies had operated the chest clinics. Fourteen permanent chest clinics were operated at Ottawa, Belleville, Timmins, Lindsay, North Bay, Orillia, Brantford, Kingston, Windsor, Fort William, Kirkland Lake, London, Kitchener, Hamilton, with sub-office in Sault Ste. Marie, Sudbury, Cornwall, and Barrie. By 1970, the department was responsible for 28 chest clinic offices.         In 1973 the Tuberculosis Prevention Service was moved to the Clinic Services Branch, which formed part of the Direct Services Division.          The unit was headed by G.C. Brink (1935-1959), S.A. Holling (1959-1965), and C.H. Rorabeck (1965-1973).           In 1974 the service was renamed the Chest Disease Service and formed part of the Clinic Service Branch." ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#Ontario.%20Division%20Of%20Tuberculosis%20Prevention%20Authority%20Record> ;
+    rico:normalizedValue "Division of Tuberculosis Prevention" .
+
+<ontology://generated-from-draw-io/mock#Variant%20Name> a owl:NamedIndividual,
+        rico:Type ;
+    rdfs:label "Variant Name" .
+
