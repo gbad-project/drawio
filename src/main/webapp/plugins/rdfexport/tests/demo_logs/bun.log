@@ -1,13 +1,23 @@
-Script started on Thu Nov  6 13:39:53 2025
+Script started on Thu Nov  6 16:52:18 2025
 Command: bun run test:bun:all
 [0m[2m[35m$[0m [2m[1mbun run scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
 
-tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
+tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
 
 
-[32m35 passed[0m, [33m12 skipped[0m
-Ran 47 tests across 1 file. [5.21s]
+[31m[1mFAILURES[0m
+================================================================================
+[31mFAILED[0m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression
+--------------------------------------------------------------------------------
+[31mFAILED[0m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: no regression
+================================================================================
 
-Command exit status: 0
-Script done on Thu Nov  6 13:39:59 2025
+[32m32 passed[0m, [31m3 failed[0m, [33m12 skipped[0m
+Ran 47 tests across 1 file. [4.62s]
+[0m[31merror[0m[2m:[0m script [1m"test:bun:all"[0m exited with code 1[0m
+
+Command exit status: 1
+Script done on Thu Nov  6 16:52:23 2025

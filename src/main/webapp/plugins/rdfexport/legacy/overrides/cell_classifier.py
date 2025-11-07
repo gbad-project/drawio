@@ -80,7 +80,7 @@ class DrawIOCellClassifier:
         if callable(detector):
             self._detect_string_template = detector
         else:
-            self._detect_string_template = lambda value: []
+            self._detect_string_template = lambda value: ([], value)
         default_gap = 10.0
         gap_candidate = default_gap if max_gap is None else max_gap
         try:
@@ -682,7 +682,8 @@ class DrawIOCellClassifier:
 
     def _token_is_template(self, token: str) -> bool:
         try:
-            return bool(self._detect_string_template(token))
+            matches, _ = self._detect_string_template(token)
+            return bool(matches)
         except Exception:
             return False
 

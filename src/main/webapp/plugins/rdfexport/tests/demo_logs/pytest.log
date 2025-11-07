@@ -1,23 +1,109 @@
-Script started on Thu Nov  6 13:39:24 2025
+Script started on Thu Nov  6 16:51:49 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m====================================== test session starts ======================================[0m
+[1m================================== test session starts ===================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 93 items                                                                              [0m
+[1mcollecting ... [0m[1mcollecting 91 items                                                                      [0m[1mcollected 93 items                                                                       [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                [ 12%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                      [ 13%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                       [ 29%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                                  [ 32%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m        [ 81%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                             [ 89%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                     [ 95%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m                                  [ 97%][0m
-rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[33m                                    [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                         [ 12%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                               [ 13%][0m
+legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                [ 29%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                           [ 32%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m [ 81%]
+[0m[31m                                                                                   [ 81%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                      [ 89%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                              [ 95%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[31m                           [ 97%][0m
+rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[31m                             [100%][0m
 
-[33m======================================= warnings summary ========================================[0m
+======================================== FAILURES ========================================
+[31m[1m_______________ test_parse_drawio_matches_baseline_graphs[baseline_path14] _______________[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
+        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
+[1m[31mE       AssertionError: assert False[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N290680fa904d4962b2b53749a19e5dbd (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N8a3641c9a4bd42ba86544f873a9ce330 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:388: AssertionError
+[31m[1m_______________ test_parse_drawio_matches_baseline_graphs[baseline_path15] _______________[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
+        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
+[1m[31mE       AssertionError: assert False[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nb520501f9bf44e76a7441317bb069bc7 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nfdf624deaf18414a84e048af07ffe8b0 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:388: AssertionError
+[31m[1m_______________ test_parse_drawio_matches_baseline_graphs[baseline_path16] _______________[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
+        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
+[1m[31mE       AssertionError: assert False[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nbc1e6d7cf02f4a31864bba47e40f9f55 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Na01909f50fec401e825a3d0b7aa62527 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:388: AssertionError
+[33m==================================== warnings summary ====================================[0m
 rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_add
 rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_authority
 rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_general_add
@@ -26,7 +112,12 @@ rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_gene
     warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m========================== [32m91 passed[0m, [33m[1m2 xfailed[0m, [33m[1m4 warnings[0m[33m in 28.95s[0m[33m ===========================[0m
+[36m[1m================================ short test summary info =================================[0m
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path14][0m - AssertionError: assert False
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path15][0m - AssertionError: assert False
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[baseline_path16][0m - AssertionError: assert False
+[31m================== [31m[1m3 failed[0m, [32m88 passed[0m, [33m2 xfailed[0m, [33m4 warnings[0m[31m in 28.41s[0m[31m ==================[0m
+[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
 
-Command exit status: 0
-Script done on Thu Nov  6 13:39:53 2025
+Command exit status: 1
+Script done on Thu Nov  6 16:52:18 2025

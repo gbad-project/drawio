@@ -458,7 +458,7 @@ def test_parse_drawio_rml_accepts_template_classes(tmp_path: Path):
               <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="parent" value="Template Individual" style="swimlane;fontStyle=0;html=1;" parent="1" vertex="1">
+                <mxCell id="parent" value="/KB/{RICO_AUTHTP_TERM}/{OTHER_TERM}/tail" style="swimlane;fontStyle=0;html=1;" parent="1" vertex="1">
                   <mxGeometry x="0" y="0" width="160" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="child" value="{RICO_AUTHTP_CLASS}" style="text;html=1;" parent="parent" vertex="1">
@@ -476,7 +476,8 @@ def test_parse_drawio_rml_accepts_template_classes(tmp_path: Path):
 
     graph = draw_io_parser.parse_drawio_to_graph(
         str(fixture_path),
-        metacharacter_substitute=["remove"],
+        metacharacter_substitute=["url"],
+        capitalisation_scheme="lower-camel",
         prefix="ex",
         prefix_iri="http://example.com/",
         rml_enabled=True,

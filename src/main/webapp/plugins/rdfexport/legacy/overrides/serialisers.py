@@ -38,7 +38,13 @@ class RDFSerializationHelper:
         self.fallback_namespace: Namespace | None = None
         self.explicit_overrides: dict[str, URIRef] = {}
 
-    def _detect_template_references(self, candidate: str) -> list[str | None]:
+    def _detect_template_references(
+        self, candidate: str
+    ) -> tuple[list[str | None], str]:
+        default_response = (
+            [],
+            candidate,
+        )  # No templates detected, return unprocessed candidate
         detector = getattr(
             getattr(pipeline.core.rdf.control, "RMLSerializer", None),
             "detect_string_template",
@@ -46,13 +52,14 @@ class RDFSerializationHelper:
         )
         if callable(detector):
             try:
-                return list(detector(candidate))
+                return tuple(detector(candidate))
             except Exception:
-                return []
-        return []
+                return default_response
+        return default_response
 
     def _is_template_string(self, candidate: str) -> bool:
-        return bool(self._detect_template_references(candidate))
+        matches, _ = self._detect_template_references(candidate)
+        return bool(matches)
 
     @staticmethod
     def _is_absolute_iri(candidate: str) -> bool:
@@ -326,7 +333,7 @@ class RMLSerializer(RDFSerializationHelper):
         self.graph.bind("rdfs", RDFS, replace=False)
 
     @staticmethod
-    def detect_string_template(template: str) -> list[str | None]:
+    def detect_string_template(template: str) -> tuple[list[str | None], str]:
         """
         Detects valid unescaped {reference} patterns in a string template.
 
@@ -334,36 +341,45 @@ class RMLSerializer(RDFSerializationHelper):
         - Double braces {{ }} are ignored.
         - Escaped braces \\{ or \\} are ignored.
         - Must contain at least one valid { ... } pair.
-        - Returns a list of references if valid; else [].
+        - Returns a tuple of:
+          - list of references if valid; else [].
+          - final candidate for which templates are claimed.
         """
         # Matches single unescaped curly braces around content
         # Negative lookbehind avoids \{, and avoids doubling {{ or }}
         pattern = re.compile(r"(?<!\\)(?<!{){([^{}]+)}(?!})(?!\\)")
 
-        matches = []
-        spans = []
+        # Check both original and URL-decoded versions
+        decoded = urllib.parse.unquote(template)
+
+        matches_original = []
+        matches_decoded = []
+
         for match in pattern.finditer(template):
             ref = match.group(1).strip()
             if ref:
-                matches.append(ref)
-                spans.append(match.span())
+                matches_original.append(ref)
 
-        # Validate: must have at least one valid pair
-        if not matches:
-            return []
+        for match in pattern.finditer(decoded):
+            ref = match.group(1).strip()
+            if ref:
+                matches_decoded.append(ref)
 
-        # Optional: check safe separators between multiple pairs
-        # (simplified heuristic — ensures braces don't touch directly)
-        for i in range(len(spans) - 1):
-            end_prev = spans[i][1]
-            start_next = spans[i + 1][0]
-            separator = template[end_prev:start_next]
-            if not separator.strip():
-                raise ValueError(
-                    f"Unsafe template: adjacent references not separated — '{template}'"
-                )
+        default_response = (matches_original, template)
+        decoded_response = (matches_decoded, decoded)
 
-        return matches
+        # Warn if patterns found in both
+        if matches_original and matches_decoded and template != decoded:
+            print(
+                f"Warning: Template patterns detected in both original and URL-decoded versions of: {template}"
+            )
+            return default_response
+
+        # Return decoded version if it has matches and original doesn't
+        if matches_decoded and not matches_original:
+            return decoded_response
+
+        return default_response
 
     def _compute_explicit_override(self, individual_id) -> Any:
         """Compute explicit URI override for a single individual."""
@@ -411,13 +427,14 @@ class RMLSerializer(RDFSerializationHelper):
         predicate_object_map = BNode()
         object_map = BNode()
 
-        has_template = self._is_template_string(str(fact))
+        # has_template = self._is_template_string(str(fact))
+        has_template, fact_literal = self._detect_template_references(str(fact))
         fact_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
             (predicate_object_map, self.rr["predicate"], predicate_uri),
             (predicate_object_map, self.rr["objectMap"], object_map),
-            (object_map, fact_predicate, fact),
+            (object_map, fact_predicate, fact_literal),
         ]
 
         if isinstance(fact, self.FakeURIRef):
@@ -474,12 +491,14 @@ class RMLSerializer(RDFSerializationHelper):
         otherwise rr:constant. Does not modify the graph directly.
         """
         subject_map = BNode()
-        has_template = self._is_template_string(str(subject_uri))
+        has_template, subject_literal = self._detect_template_references(
+            str(subject_uri)
+        )
         subject_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
             (subject_map, self.rr["termType"], self.rr["IRI"]),
-            (subject_map, subject_predicate, Literal(subject_uri)),
+            (subject_map, subject_predicate, Literal(subject_literal)),
         ]
 
         return subject_map, triples

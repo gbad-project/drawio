@@ -61,7 +61,8 @@ def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
     )
     if callable(detector):
         try:
-            if detector(ric_class):
+            matches, _ = detector(ric_class)
+            if matches:
                 return
         except Exception:
             pass

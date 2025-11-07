@@ -18731,9 +18731,11 @@ from rdflib.namespace import RDF, RDFS, OWL, XSD
 from enum import Enum, auto
 import typing
 from typing import Iterable
+from rdflib.term import Node
 import json
 from html import unescape
 from rdflib import BNode, SKOS
+import re
 
 
 class pipeline:
@@ -18883,6 +18885,7 @@ class pipeline:
                         strict_mode: bool = False,
                         max_gap: float | None = None,
                         strip_html: bool = True,
+                        allow_template_types: bool = False,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -18898,6 +18901,16 @@ class pipeline:
                         for prefix, iri in prefixes.items():
                             self._namespace_manager.bind(prefix, iri, replace=True)
                         self._strict_mode = bool(strict_mode)
+                        self._allow_template_types = bool(allow_template_types)
+                        detector = getattr(
+                            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
+                            "detect_string_template",
+                            None,
+                        )
+                        if callable(detector):
+                            self._detect_string_template = detector
+                        else:
+                            self._detect_string_template = lambda value: []
                         default_gap = 10.0
                         gap_candidate = default_gap if max_gap is None else max_gap
                         try:
@@ -19096,6 +19109,9 @@ class pipeline:
                         tokens_are_valid = self._tokens_are_valid(value_tokens)
                         tokens = list(value_tokens)
                         single_token = tokens[0] if len(tokens) == 1 else None
+                        has_template_token = any(
+                            (self._token_is_template(token) for token in tokens)
+                        )
                         looks_like_curie = any((":" in token for token in tokens))
                         if self._style_denotes_literal(cell, style, tokens_are_valid):
                             return build(CellKind.LITERAL)
@@ -19109,7 +19125,7 @@ class pipeline:
                                 tokens = list(child_tokens)
                                 tokens_are_valid = True
                         if parent_cell is not None and parent_identifier and tokens:
-                            if looks_like_curie:
+                            if looks_like_curie or has_template_token:
                                 return build(
                                     CellKind.TYPED_INDIVIDUAL,
                                     parent_cell=parent_cell,
@@ -19492,10 +19508,18 @@ class pipeline:
                             if t.strip()
                         ]
 
+                    def _token_is_template(self, token: str) -> bool:
+                        try:
+                            return bool(self._detect_string_template(token))
+                        except Exception:
+                            return False
+
                     def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
                         if not tokens:
                             return False
                         for token in tokens:
+                            if self._token_is_template(token):
+                                continue
                             if ":" not in token:
                                 return False
                             prefix, remainder = token.split(":", 1)
@@ -19670,6 +19694,24 @@ class pipeline:
                         self.fallback_namespace: Namespace | None = None
                         self.explicit_overrides: dict[str, URIRef] = {}
 
+                    def _detect_template_references(
+                        self, candidate: str
+                    ) -> list[str | None]:
+                        detector = getattr(
+                            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
+                            "detect_string_template",
+                            None,
+                        )
+                        if callable(detector):
+                            try:
+                                return list(detector(candidate))
+                            except Exception:
+                                return []
+                        return []
+
+                    def _is_template_string(self, candidate: str) -> bool:
+                        return bool(self._detect_template_references(candidate))
+
                     @staticmethod
                     def _is_absolute_iri(candidate: str) -> bool:
                         """Check if a string is an absolute IRI."""
@@ -19681,6 +19723,17 @@ class pipeline:
                         return scheme.lower() in {"urn", "tag"} and bool(
                             remainder.strip()
                         )
+
+                    def _is_relative_iri(self, candidate: str) -> bool:
+                        """Check if a string looks like a relative IRI and, if so, expand it."""
+                        if not candidate or any((ch.isspace() for ch in candidate)):
+                            return False
+                        if self._is_absolute_iri(candidate):
+                            return False
+                        if not (":" in candidate or "://" in candidate):
+                            if self.prefix_iri:
+                                return True
+                        return False
 
                     def setup_namespaces(self) -> None:
                         """Bind namespaces to the graph."""
@@ -19748,39 +19801,13 @@ class pipeline:
                             prop_uri = self.resolve_property_uri(prop)
                             self.graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-                    def compute_explicit_overrides(self) -> None:
-                        """Compute explicit URI overrides for individuals."""
-                        for individual_id, individual_label in self.blocks.keys():
-                            trimmed_label = individual_label.strip()
-                            if not trimmed_label:
-                                continue
-                            if self._is_absolute_iri(trimmed_label):
-                                self.explicit_overrides[individual_id] = URIRef(
-                                    trimmed_label
-                                )
-                                continue
-                            if ":" not in trimmed_label or "://" in trimmed_label:
-                                continue
-                            try:
-                                prefix, reference = _ensure_known_curie(
-                                    trimmed_label,
-                                    self.prefixes,
-                                    "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
-                                        trimmed_label
-                                    ),
-                                )
-                            except NotInKnownException:
-                                continue
-                            namespace = self.namespace_map.get(prefix)
-                            if namespace is None:
-                                continue
-                            self.explicit_overrides[individual_id] = namespace[
-                                reference
-                            ]
+                    def _compute_explicit_override(self, individual_id) -> None:
+                        """Compute explicit URI override for a single individual."""
+                        pass
 
                     def resolve_individual_uri(self, individual_id: str) -> URIRef:
                         """Resolve an individual ID to its URI."""
-                        override_uri = self.explicit_overrides.get(individual_id)
+                        override_uri = self._compute_explicit_override(individual_id)
                         if override_uri is not None:
                             return override_uri
                         elif self.prefix and self.serialisation_config.prefix_iri:
@@ -19848,6 +19875,36 @@ class pipeline:
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
 
+                    def _compute_explicit_override(self, individual_id) -> None:
+                        """Compute explicit URI override for a single individual."""
+                        _ensure_known_curie = (
+                            pipeline.core.internal.data._ensure_known_curie
+                        )
+                        individual_label = urllib.parse.unquote(individual_id)
+                        trimmed_label = individual_label.strip()
+                        if not trimmed_label:
+                            return
+                        if self._is_absolute_iri(trimmed_label):
+                            return URIRef(trimmed_label)
+                        if self._is_relative_iri(trimmed_label):
+                            pass
+                        if ":" not in trimmed_label or "://" in trimmed_label:
+                            return
+                        try:
+                            prefix, reference = _ensure_known_curie(
+                                trimmed_label,
+                                self.prefixes,
+                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                                    trimmed_label
+                                ),
+                            )
+                        except NotInKnownException:
+                            return
+                        namespace = self.namespace_map.get(prefix)
+                        if namespace is None:
+                            return
+                        return namespace[reference]
+
                     def add_individual_triples(
                         self,
                         individual_id: str,
@@ -19855,10 +19912,15 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add triples for a single individual."""
+                        if self._is_template_string(individual_id):
+                            return
                         individual_uri = self.resolve_individual_uri(individual_id)
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
-                            type_prefix, type_name = rdf_type.split(":")
+                            rdf_type_str = str(rdf_type)
+                            if self._is_template_string(rdf_type_str):
+                                continue
+                            type_prefix, type_name = rdf_type_str.split(":")
                             self.graph.add(
                                 (
                                     individual_uri,
@@ -19888,7 +19950,12 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.resolve_individual_uri(value)
+                                    target_identifier = str(value)
+                                    if self._is_template_string(target_identifier):
+                                        continue
+                                    target_uri = self.resolve_individual_uri(
+                                        target_identifier
+                                    )
                                     self.graph.add(
                                         (individual_uri, prop_uri, target_uri)
                                     )
@@ -19913,6 +19980,11 @@ class pipeline:
                 class RMLSerializer(RDFSerializationHelper):
                     """RML serialization (R2RML mapping triples)."""
 
+                    class FakeURIRef(Literal):
+                        """Helpful for temporary labeling."""
+
+                        pass
+
                     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
                         RDFSerializationHelper = (
                             pipeline.core.rdf.control.RDFSerializationHelper
@@ -19922,6 +19994,7 @@ class pipeline:
                         self.rr = Namespace("http://www.w3.org/ns/r2rml#")
                         self.rml_ns = Namespace("http://semweb.mmlab.be/ns/rml#")
                         self.ql = Namespace("http://semweb.mmlab.be/ns/ql#")
+                        self.graph: pipeline.core.internal.control.DrawIOParserGraph
 
                     def setup_namespaces(self) -> None:
                         """Bind namespaces including RML-specific ones."""
@@ -19934,47 +20007,107 @@ class pipeline:
                         self.graph.bind("ql", self.ql, replace=False)
                         self.graph.bind("rdfs", RDFS, replace=False)
 
-                    def _add_constant_object_map(
-                        self,
-                        predicate_map_owner: Any,
-                        predicate_uri: URIRef,
-                        constant: Any,
-                    ) -> None:
-                        """Add a constant object map to a predicate-object map."""
-                        predicate_object_map = BNode()
-                        self.graph.add(
-                            (
-                                predicate_map_owner,
-                                self.rr.predicateObjectMap,
-                                predicate_object_map,
-                            )
-                        )
-                        self.graph.add(
-                            (predicate_object_map, self.rr.predicate, predicate_uri)
-                        )
-                        object_map = BNode()
-                        self.graph.add(
-                            (predicate_object_map, self.rr.objectMap, object_map)
-                        )
-                        self.graph.add((object_map, self.rr.constant, constant))
-                        if isinstance(constant, URIRef):
-                            self.graph.add((object_map, self.rr.termType, self.rr.IRI))
-                        elif isinstance(constant, Literal):
-                            self.graph.add(
-                                (object_map, self.rr.termType, self.rr.Literal)
-                            )
-                            if constant.datatype:
-                                self.graph.add(
-                                    (object_map, self.rr.datatype, constant.datatype)
+                    @staticmethod
+                    def detect_string_template(template: str) -> list[str | None]:
+                        """
+                        Detects valid unescaped {reference} patterns in a string template.
+
+                        Rules:
+                        - Double braces {{ }} are ignored.
+                        - Escaped braces \\\\{ or \\\\} are ignored.
+                        - Must contain at least one valid { ... } pair.
+                        - Returns a list of references if valid; else [].
+                        """
+                        pattern = re.compile("(?<!\\\\\\\\)(?<!{){([^{}]+)}(?!})(?!\\\\\\\\)")
+                        matches = []
+                        spans = []
+                        for match in pattern.finditer(template):
+                            ref = match.group(1).strip()
+                            if ref:
+                                matches.append(ref)
+                                spans.append(match.span())
+                        if not matches:
+                            return []
+                        for i in range(len(spans) - 1):
+                            end_prev = spans[i][1]
+                            start_next = spans[i + 1][0]
+                            separator = template[end_prev:start_next]
+                            if not separator.strip():
+                                raise ValueError(
+                                    f"Unsafe template: adjacent references not separated — '{template}'"
                                 )
-                            if constant.language:
-                                self.graph.add(
+                        return matches
+
+                    def _compute_explicit_override(self, individual_id) -> Any:
+                        """Compute explicit URI override for a single individual."""
+                        _ensure_known_curie = (
+                            pipeline.core.internal.data._ensure_known_curie
+                        )
+                        individual_label = urllib.parse.unquote(individual_id)
+                        trimmed_label = individual_label.strip()
+                        if not trimmed_label:
+                            return
+                        if self._is_absolute_iri(
+                            trimmed_label
+                        ) or self._is_relative_iri(trimmed_label):
+                            return self.FakeURIRef(trimmed_label)
+                        if ":" not in trimmed_label or "://" in trimmed_label:
+                            return
+                        try:
+                            prefix, reference = _ensure_known_curie(
+                                trimmed_label,
+                                self.prefixes,
+                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                                    trimmed_label
+                                ),
+                            )
+                        except NotInKnownException:
+                            return
+                        namespace = self.namespace_map.get(prefix)
+                        if namespace is None:
+                            return
+                        return namespace[reference]
+
+                    def _build_fact_predicate_object_map(
+                        self, predicate_uri: URIRef, fact: Any
+                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                        """
+                        Build a predicateObjectMap BNode for a fact and return it with all related triples.
+
+                        No triples are added to the graph; they can be inserted later with addN1().
+                        """
+                        predicate_object_map = BNode()
+                        object_map = BNode()
+                        has_template = self._is_template_string(str(fact))
+                        fact_predicate = (
+                            self.rr["template"] if has_template else self.rr["constant"]
+                        )
+                        triples = [
+                            (predicate_object_map, self.rr["predicate"], predicate_uri),
+                            (predicate_object_map, self.rr["objectMap"], object_map),
+                            (object_map, fact_predicate, fact),
+                        ]
+                        if isinstance(fact, self.FakeURIRef):
+                            triples.append(
+                                (object_map, self.rr["termType"], self.rr["IRI"])
+                            )
+                        elif isinstance(fact, Literal):
+                            triples.append(
+                                (object_map, self.rr["termType"], self.rr["Literal"])
+                            )
+                            if fact.datatype:
+                                triples.append(
+                                    (object_map, self.rr["datatype"], fact.datatype)
+                                )
+                            if fact.language:
+                                triples.append(
                                     (
                                         object_map,
-                                        self.rr.language,
-                                        Literal(constant.language),
+                                        self.rr["language"],
+                                        Literal(fact.language),
                                     )
                                 )
+                        return (predicate_object_map, triples)
 
                     def _get_logical_source_value(self) -> Literal:
                         """Determine the logical source value for RML mappings."""
@@ -19985,6 +20118,69 @@ class pipeline:
                         else:
                             return Literal("drawio")
 
+                    def _build_type_predicate_object_map(
+                        self, class_value: Any
+                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                        """
+                        Build predicateObjectMap BNode for rdf:type mapping and
+                        return all related triples for direct graph insertion.
+                        """
+                        object_map = BNode()
+                        predicate_object_map = BNode()
+                        text_value = str(class_value)
+                        has_template = self._is_template_string(text_value)
+                        class_predicate = (
+                            self.rr["template"] if has_template else self.rr["constant"]
+                        )
+                        triples = [
+                            (object_map, class_predicate, Literal(text_value)),
+                            (predicate_object_map, self.rr["predicate"], RDF["type"]),
+                            (predicate_object_map, self.rr["objectMap"], object_map),
+                        ]
+                        return (predicate_object_map, triples)
+
+                    def _build_subject_map(
+                        self, subject_uri
+                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                        """
+                        Build a subjectMap BNode and return it with its triples.
+
+                        Uses rr:template if the subject URI contains a valid template,
+                        otherwise rr:constant. Does not modify the graph directly.
+                        """
+                        subject_map = BNode()
+                        has_template = self._is_template_string(str(subject_uri))
+                        subject_predicate = (
+                            self.rr["template"] if has_template else self.rr["constant"]
+                        )
+                        triples = [
+                            (subject_map, self.rr["termType"], self.rr["IRI"]),
+                            (subject_map, subject_predicate, Literal(subject_uri)),
+                        ]
+                        return (subject_map, triples)
+
+                    def _resolve_type_value(self, rdf_type: str) -> Any:
+                        if ":" in rdf_type:
+                            prefix, reference = _ensure_known_curie(
+                                rdf_type,
+                                self.prefixes,
+                                f"Not a known class: {rdf_type}",
+                            )
+                            namespace = self.namespace_map.get(prefix)
+                            if namespace is None:
+                                raise NotInKnownException(
+                                    f"Not a known class: {rdf_type}"
+                                )
+                            return namespace[reference]
+                        if self._is_template_string(rdf_type):
+                            return Literal(rdf_type)
+                        raise NotInKnownException(f"Not a known class: {rdf_type}")
+
+                    def resolve_individual_uri(self, individual_id: str) -> URIRef:
+                        if self._is_template_string(individual_id):
+                            return self.FakeURIRef(individual_id)
+                        return super().resolve_individual_uri(individual_id)
+
                     def add_individual_triples(
                         self,
                         individual_id: str,
@@ -19992,7 +20188,6 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add RML triples for a single individual."""
-                        subject_uri = self.resolve_individual_uri(individual_id)
                         triples_map = BNode()
                         self.graph.add((triples_map, RDF.type, self.rr.TriplesMap))
                         logical_source = BNode()
@@ -20013,17 +20208,46 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_map = BNode()
-                        self.graph.add((triples_map, self.rr.subjectMap, subject_map))
-                        self.graph.add((subject_map, self.rr.termType, self.rr.IRI))
-                        self.graph.add((subject_map, self.rr.constant, subject_uri))
-                        for rdf_type in sorted(types_and_facts.get("Types", set())):
-                            type_prefix, type_name = rdf_type.split(":", 1)
-                            class_uri = self.namespace_map[type_prefix][type_name]
-                            self.graph.add((subject_map, self.rr["class"], class_uri))
+                        subject_uri = self.resolve_individual_uri(individual_id)
+                        subject_map, subject_map_triples = self._build_subject_map(
+                            subject_uri
+                        )
+                        self.graph.addN1(
+                            (triples_map, self.rr["subjectMap"], subject_map),
+                            subject_map_triples,
+                        )
+                        for rdf_type in sorted(
+                            types_and_facts.get("Types", set()),
+                            key=lambda value: str(value),
+                        ):
+                            rdf_type_str = str(rdf_type)
+                            class_value = self._resolve_type_value(rdf_type_str)
+                            (
+                                type_predicate_object_map,
+                                type_predicate_object_map_triples,
+                            ) = self._build_type_predicate_object_map(class_value)
+                            self.graph.addN1(
+                                (
+                                    subject_map,
+                                    self.rr["predicateObjectMap"],
+                                    type_predicate_object_map,
+                                ),
+                                type_predicate_object_map_triples,
+                            )
                         if self.serialisation_config.include_label:
-                            self._add_constant_object_map(
-                                triples_map, RDFS.label, Literal(individual_label)
+                            (
+                                label_predicate_object_map,
+                                label_predicate_object_map_triples,
+                            ) = self._build_fact_predicate_object_map(
+                                RDFS.label, Literal(individual_label)
+                            )
+                            self.graph.addN1(
+                                (
+                                    triples_map,
+                                    self.rr["predicateObjectMap"],
+                                    label_predicate_object_map,
+                                ),
+                                label_predicate_object_map_triples,
                             )
                         for prop, values in sorted(types_and_facts.items()):
                             if prop == "Types":
@@ -20049,13 +20273,35 @@ class pipeline:
                                     )
                                 if not is_literal:
                                     target_uri = self.resolve_individual_uri(str(value))
-                                    self._add_constant_object_map(
-                                        triples_map, prop_uri, target_uri
+                                    (
+                                        fact_predicate_object_map,
+                                        fact_predicate_object_map_triples,
+                                    ) = self._build_fact_predicate_object_map(
+                                        prop_uri, target_uri
+                                    )
+                                    self.graph.addN1(
+                                        (
+                                            triples_map,
+                                            self.rr["predicateObjectMap"],
+                                            fact_predicate_object_map,
+                                        ),
+                                        fact_predicate_object_map_triples,
                                     )
                                 else:
                                     literal_value = self.coerce_to_literal(value)
-                                    self._add_constant_object_map(
-                                        triples_map, prop_uri, literal_value
+                                    (
+                                        fact_predicate_object_map,
+                                        fact_predicate_object_map_triples,
+                                    ) = self._build_fact_predicate_object_map(
+                                        prop_uri, literal_value
+                                    )
+                                    self.graph.addN1(
+                                        (
+                                            triples_map,
+                                            self.rr["predicateObjectMap"],
+                                            fact_predicate_object_map,
+                                        ),
+                                        fact_predicate_object_map_triples,
                                     )
 
                     def serialize_all_individuals(self) -> None:
@@ -20093,6 +20339,31 @@ class pipeline:
                 ) -> Graph:
                     """Serialize blocks to RDF graph with RML mapping triples."""
                     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
+                    if os.getenv("DEBUG") == "true":
+                        import json
+
+                        def make_json_safe(obj):
+                            if isinstance(obj, dict):
+                                return {
+                                    k
+                                    if isinstance(
+                                        k, (str, int, float, bool, type(None))
+                                    )
+                                    else str(k): make_json_safe(v)
+                                    for k, v in obj.items()
+                                }
+                            elif isinstance(obj, (list, tuple, set)):
+                                return [make_json_safe(i) for i in obj]
+                            else:
+                                return obj
+
+                        data = {
+                            "blocks": make_json_safe(blocks),
+                            "object_properties": make_json_safe(object_properties),
+                            "datatype_properties": make_json_safe(datatype_properties),
+                        }
+                        with open("tmp/blocks.json", "w") as f:
+                            json.dump(data, f, indent=4, ensure_ascii=False)
                     graph_kwargs = graph_kwargs or {}
                     graph = graph_cls(**graph_kwargs)
                     csv_path = graph_kwargs.get("csv_path")
@@ -20108,8 +20379,9 @@ class pipeline:
                         csv_path=csv_path,
                     )
                     serializer.setup_namespaces()
-                    serializer.compute_explicit_overrides()
                     serializer.serialize_all_individuals()
+                    if os.getenv("DEBUG") == "true":
+                        graph.serialize("tmp/graph.ttl", format="turtle")
                     return graph
 
                 # END override serialisers.py.serialise_to_rml
@@ -20857,7 +21129,19 @@ class internal_data_core:
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
+    # override from curie_validator.py
     def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
+        detector = getattr(
+            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
+            "detect_string_template",
+            None,
+        )
+        if callable(detector):
+            try:
+                if detector(ric_class):
+                    return
+            except Exception:
+                pass
         _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
 
     # END _verify_is_ric_class
@@ -21217,6 +21501,7 @@ class internal_control_core:
             strict_mode=strict_mode,
             max_gap=max_gap,
             strip_html=strip_html_enabled,
+            allow_template_types=rml_enabled,
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
@@ -21310,12 +21595,26 @@ class rdf_data_core:
 
 class rdf_control_core:
     # BEGIN DrawIOParserGraph
+    # override from draw_io_parser_graph.py
     class DrawIOParserGraph(Graph):
         """Graph subclass that records Draw.io specific metadata."""
 
         def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
             super().__init__(*args, **kwargs)
             self.csv_path = csv_path
+
+        def addN1(
+            self,
+            triple_1: tuple[Node, Node, Node],
+            triples_N: list[tuple[Node, Node, Node]],
+        ):
+            """
+            Add N+1: a triple and some other triples to the graph.
+
+            Useful for cases like RR predicate-object map.
+            """
+            self.add(triple_1)
+            self.addN(((s, p, o, self) for s, p, o in triples_N))
 
     # END DrawIOParserGraph
     # BEGIN serialise_to_graph
@@ -21344,7 +21643,6 @@ class rdf_control_core:
         serializer.setup_namespaces()
         serializer.add_preamble()
         serializer.declare_properties()
-        serializer.compute_explicit_overrides()
         serializer.serialize_all_individuals()
         serializer.add_decoration_notes()
         return graph

@@ -1,19 +1,19 @@
-Script started on Thu Nov  6 13:38:30 2025
+Script started on Thu Nov  6 16:50:54 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/python -m debug.debug_cli_regression[0m
-[1m=================================== test session starts ====================================[0m
+[1m===================================== test session starts ======================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python
 cachedir: .pytest_cache
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 35 items                                                                         [0m
+[1mcollecting ... [0m[1mcollected 35 items                                                                             [0m
 
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] [32mPASSED[0m[32m [  2%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] [32mPASSED[0m[32m [  5%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio] [32mPASSED[0m[32m [  8%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] [32mPASSED[0m[32m [ 11%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] [33mXFAIL[0m[32m [ 14%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] [33mXFAIL[0m[32m [ 17%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] [32mPASSED[0m[32m [ 17%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio] [33mXFAIL[0m[32m [ 20%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] [32mPASSED[0m[32m [ 22%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] [32mPASSED[0m[32m [ 25%][0m
@@ -30,26 +30,1128 @@ debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] [32mPASSED[0m[32m [ 57%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] [32mPASSED[0m[32m [ 60%][0m
 debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] [32mPASSED[0m[32m [ 62%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [32mPASSED[0m[32m [ 65%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] [32mPASSED[0m[32m [ 68%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [32mPASSED[0m[32m [ 71%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] [32mPASSED[0m[32m [ 74%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[32m [ 77%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[32m [ 80%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[32m [ 82%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[32m [ 85%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[32m [ 88%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[32m [ 91%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[32m [ 94%][0m
-debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[32m [ 97%][0m
-debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Fai...)[32m [100%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] [31mFAILED[0m[31m [ 65%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] [31mFAILED[0m[31m [ 68%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] [31mFAILED[0m[31m [ 71%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] [31mFAILED[0m[31m [ 74%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] [33mXFAIL[0m[31m [ 77%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] [32mPASSED[0m[31m [ 80%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] [32mPASSED[0m[31m [ 82%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] [32mPASSED[0m[31m [ 85%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] [32mPASSED[0m[31m [ 88%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] [32mPASSED[0m[31m [ 91%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] [32mPASSED[0m[31m [ 94%][0m
+debug/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] [32mPASSED[0m[31m [ 97%][0m
+debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL[0m (Failure...)[31m [100%][0m
 
-========================================== PASSES ==========================================
-[36m[1m================================= short test summary info ==================================[0m
+=========================================== FAILURES ===========================================
+[31m[1m_ test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] _[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+
+[1m[31mdebug/debug_cli_regression.py[0m:295: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+graph = <Graph identifier=N00a7a995931c41dca91fd7a6fd9d9896 (<class 'rdflib.graph.Graph'>)>
+classifications = {'0': {'identifier': None, 'kind': 'UNCLASSIFIED', 'parent_identifier': None, 'raw_value': None, ...}, '1': {'identifi...HSrnf-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rdfs:label', ...}, ...}
+xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_graph_covers_classifications[39;49;00m([90m[39;49;00m
+        graph: Graph,[90m[39;49;00m
+        classifications: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mdict[39;49;00m],[90m[39;49;00m
+        xml_text: [96mstr[39;49;00m,[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        prefixes = _load_prefixes(xml_text)[90m[39;49;00m
+        namespace_manager = Graph().namespace_manager[90m[39;49;00m
+        [94mfor[39;49;00m prefix, iri [95min[39;49;00m prefixes.items():[90m[39;49;00m
+            namespace_manager.bind(prefix, iri, replace=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        classifier_cls = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier[90m[39;49;00m
+        default_type = [96mgetattr[39;49;00m([90m[39;49;00m
+            classifier_cls, [33m"[39;49;00m[33mDEFAULT_STANDALONE_TYPE[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        detector = [96mgetattr[39;49;00m([90m[39;49;00m
+            [96mgetattr[39;49;00m(draw_io_parser.pipeline.core.rdf.control, [33m"[39;49;00m[33mRMLSerializer[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m),[90m[39;49;00m
+            [33m"[39;49;00m[33mdetect_string_template[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [94mNone[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92m_token_is_template[39;49;00m(candidate: [96mstr[39;49;00m) -> [96mbool[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(candidate, [96mstr[39;49;00m):[90m[39;49;00m
+                [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m [96mcallable[39;49;00m(detector):[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [96mbool[39;49;00m(detector(candidate))[90m[39;49;00m
+                [94mexcept[39;49;00m [96mException[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        identifiers: [96mset[39;49;00m[[96mstr[39;49;00m] = [96mset[39;49;00m()[90m[39;49;00m
+        [94mfor[39;49;00m cell_data [95min[39;49;00m classifications.values():[90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+    [90m[39;49;00m
+        identifier_subjects: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mset[39;49;00m] = {}[90m[39;49;00m
+        [94mfor[39;49;00m identifier [95min[39;49;00m identifiers:[90m[39;49;00m
+            subjects = {[90m[39;49;00m
+                subject [94mfor[39;49;00m subject [95min[39;49;00m graph.subjects(RDFS.label, Literal(identifier))[90m[39;49;00m
+            }[90m[39;49;00m
+            identifier_subjects[identifier] = subjects[90m[39;49;00m
+            [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mMissing label triple for identifier [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m cell_id, cell_data [95min[39;49;00m classifications.items():[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for standalone [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                tokens = [token [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []) [94mif[39;49;00m token][90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m tokens:[90m[39;49;00m
+                    tokens = [default_type][90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m tokens:[90m[39;49;00m
+                    [94mif[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m identifier:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for typed [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []):[90m[39;49;00m
+                    [94mif[39;49;00m [95mnot[39;49;00m token [95mor[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mLITERAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+>               [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    [96mstr[39;49;00m(obj) == raw_value [94mfor[39;49;00m _, _, obj [95min[39;49;00m graph.triples(([94mNone[39;49;00m, [94mNone[39;49;00m, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mLiteral [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not found in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE               AssertionError: Literal 'rr:template "{REFD_FILE} - {TITLE} (Record Set)"' not found in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x104e27ca0>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:209: AssertionError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            msg = [33mf[39;49;00m[33m"[39;49;00m[33mGraph/classification mismatch in [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(msg)[90m[39;49;00m
+            [94melse[39;49;00m:[90m[39;49;00m
+>               pytest.fail(msg)[90m[39;49;00m
+[1m[31mE               Failed: Graph/classification mismatch in General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: Literal 'rr:template "{REFD_FILE} - {TITLE} (Record Set)"' not found in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x104e27ca0>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:303: Failed
+[31m[1m_ test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] _[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+
+[1m[31mdebug/debug_cli_regression.py[0m:295: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+graph = <Graph identifier=N917fca51dd134dd0b8e6d10c59c25f97 (<class 'rdflib.graph.Graph'>)>
+classifications = {'0': {'identifier': None, 'kind': 'UNCLASSIFIED', 'parent_identifier': None, 'raw_value': None, ...}, '1': {'identifi...HSrnf-12': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'rdfs:label', ...}, ...}
+xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik...s="offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_graph_covers_classifications[39;49;00m([90m[39;49;00m
+        graph: Graph,[90m[39;49;00m
+        classifications: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mdict[39;49;00m],[90m[39;49;00m
+        xml_text: [96mstr[39;49;00m,[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        prefixes = _load_prefixes(xml_text)[90m[39;49;00m
+        namespace_manager = Graph().namespace_manager[90m[39;49;00m
+        [94mfor[39;49;00m prefix, iri [95min[39;49;00m prefixes.items():[90m[39;49;00m
+            namespace_manager.bind(prefix, iri, replace=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        classifier_cls = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier[90m[39;49;00m
+        default_type = [96mgetattr[39;49;00m([90m[39;49;00m
+            classifier_cls, [33m"[39;49;00m[33mDEFAULT_STANDALONE_TYPE[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        detector = [96mgetattr[39;49;00m([90m[39;49;00m
+            [96mgetattr[39;49;00m(draw_io_parser.pipeline.core.rdf.control, [33m"[39;49;00m[33mRMLSerializer[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m),[90m[39;49;00m
+            [33m"[39;49;00m[33mdetect_string_template[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [94mNone[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92m_token_is_template[39;49;00m(candidate: [96mstr[39;49;00m) -> [96mbool[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(candidate, [96mstr[39;49;00m):[90m[39;49;00m
+                [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m [96mcallable[39;49;00m(detector):[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [96mbool[39;49;00m(detector(candidate))[90m[39;49;00m
+                [94mexcept[39;49;00m [96mException[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        identifiers: [96mset[39;49;00m[[96mstr[39;49;00m] = [96mset[39;49;00m()[90m[39;49;00m
+        [94mfor[39;49;00m cell_data [95min[39;49;00m classifications.values():[90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+    [90m[39;49;00m
+        identifier_subjects: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mset[39;49;00m] = {}[90m[39;49;00m
+        [94mfor[39;49;00m identifier [95min[39;49;00m identifiers:[90m[39;49;00m
+            subjects = {[90m[39;49;00m
+                subject [94mfor[39;49;00m subject [95min[39;49;00m graph.subjects(RDFS.label, Literal(identifier))[90m[39;49;00m
+            }[90m[39;49;00m
+            identifier_subjects[identifier] = subjects[90m[39;49;00m
+            [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mMissing label triple for identifier [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m cell_id, cell_data [95min[39;49;00m classifications.items():[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for standalone [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                tokens = [token [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []) [94mif[39;49;00m token][90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m tokens:[90m[39;49;00m
+                    tokens = [default_type][90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m tokens:[90m[39;49;00m
+                    [94mif[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m identifier:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for typed [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []):[90m[39;49;00m
+                    [94mif[39;49;00m [95mnot[39;49;00m token [95mor[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mLITERAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+>               [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    [96mstr[39;49;00m(obj) == raw_value [94mfor[39;49;00m _, _, obj [95min[39;49;00m graph.triples(([94mNone[39;49;00m, [94mNone[39;49;00m, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mLiteral [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not found in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE               AssertionError: Literal '{REFD_FILE} - {TITLE} (Record Set)' not found in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10531d0e0>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:209: AssertionError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            msg = [33mf[39;49;00m[33m"[39;49;00m[33mGraph/classification mismatch in [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(msg)[90m[39;49;00m
+            [94melse[39;49;00m:[90m[39;49;00m
+>               pytest.fail(msg)[90m[39;49;00m
+[1m[31mE               Failed: Graph/classification mismatch in General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: Literal '{REFD_FILE} - {TITLE} (Record Set)' not found in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x10531d0e0>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:303: Failed
+[31m[1m_ test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] _[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+
+[1m[31mdebug/debug_cli_regression.py[0m:295: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+graph = <Graph identifier=Nccb0221244c34c1ea044b340debf4097 (<class 'rdflib.graph.Graph'>)>
+classifications = {'0': {'identifier': None, 'kind': 'UNCLASSIFIED', 'parent_identifier': None, 'raw_value': None, ...}, '1': {'identifi...-27': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'auth:sourceNote', ...}, ...}
+xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik..."offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>\n'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_graph_covers_classifications[39;49;00m([90m[39;49;00m
+        graph: Graph,[90m[39;49;00m
+        classifications: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mdict[39;49;00m],[90m[39;49;00m
+        xml_text: [96mstr[39;49;00m,[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        prefixes = _load_prefixes(xml_text)[90m[39;49;00m
+        namespace_manager = Graph().namespace_manager[90m[39;49;00m
+        [94mfor[39;49;00m prefix, iri [95min[39;49;00m prefixes.items():[90m[39;49;00m
+            namespace_manager.bind(prefix, iri, replace=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        classifier_cls = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier[90m[39;49;00m
+        default_type = [96mgetattr[39;49;00m([90m[39;49;00m
+            classifier_cls, [33m"[39;49;00m[33mDEFAULT_STANDALONE_TYPE[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        detector = [96mgetattr[39;49;00m([90m[39;49;00m
+            [96mgetattr[39;49;00m(draw_io_parser.pipeline.core.rdf.control, [33m"[39;49;00m[33mRMLSerializer[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m),[90m[39;49;00m
+            [33m"[39;49;00m[33mdetect_string_template[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [94mNone[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92m_token_is_template[39;49;00m(candidate: [96mstr[39;49;00m) -> [96mbool[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(candidate, [96mstr[39;49;00m):[90m[39;49;00m
+                [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m [96mcallable[39;49;00m(detector):[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [96mbool[39;49;00m(detector(candidate))[90m[39;49;00m
+                [94mexcept[39;49;00m [96mException[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        identifiers: [96mset[39;49;00m[[96mstr[39;49;00m] = [96mset[39;49;00m()[90m[39;49;00m
+        [94mfor[39;49;00m cell_data [95min[39;49;00m classifications.values():[90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+    [90m[39;49;00m
+        identifier_subjects: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mset[39;49;00m] = {}[90m[39;49;00m
+        [94mfor[39;49;00m identifier [95min[39;49;00m identifiers:[90m[39;49;00m
+            subjects = {[90m[39;49;00m
+                subject [94mfor[39;49;00m subject [95min[39;49;00m graph.subjects(RDFS.label, Literal(identifier))[90m[39;49;00m
+            }[90m[39;49;00m
+            identifier_subjects[identifier] = subjects[90m[39;49;00m
+            [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mMissing label triple for identifier [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m cell_id, cell_data [95min[39;49;00m classifications.items():[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for standalone [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                tokens = [token [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []) [94mif[39;49;00m token][90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m tokens:[90m[39;49;00m
+                    tokens = [default_type][90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m tokens:[90m[39;49;00m
+                    [94mif[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m identifier:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for typed [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []):[90m[39;49;00m
+                    [94mif[39;49;00m [95mnot[39;49;00m token [95mor[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mLITERAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    [96mstr[39;49;00m(obj) == raw_value [94mfor[39;49;00m _, _, obj [95min[39;49;00m graph.triples(([94mNone[39;49;00m, [94mNone[39;49;00m, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mLiteral [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not found in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mDECORATION[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    obj == Literal(raw_value)[90m[39;49;00m
+                    [94mfor[39;49;00m _, _, obj [95min[39;49;00m graph.triples(([94mNone[39;49;00m, SKOS.note, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mDecoration [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m missing from SKOS notes[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mARROW_LABEL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94mif[39;49;00m [33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m raw_value:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                prefix = raw_value.split([33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m, [94m1[39;49;00m)[[94m0[39;49;00m][90m[39;49;00m
+                [94mif[39;49;00m prefix [95mnot[39;49;00m [95min[39;49;00m prefixes:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                expanded = namespace_manager.expand_curie(raw_value)[90m[39;49;00m
+>               [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    predicate == URIRef(expanded)[90m[39;49;00m
+                    [94mfor[39;49;00m _, predicate, _ [95min[39;49;00m graph.triples(([94mNone[39;49;00m, [94mNone[39;49;00m, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE               AssertionError: Property 'auth:sourceNote' not used in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x104dd9a80>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:228: AssertionError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            msg = [33mf[39;49;00m[33m"[39;49;00m[33mGraph/classification mismatch in [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(msg)[90m[39;49;00m
+            [94melse[39;49;00m:[90m[39;49;00m
+>               pytest.fail(msg)[90m[39;49;00m
+[1m[31mE               Failed: Graph/classification mismatch in General Authority to RiC-O Model_2025-06-25_PZ.drawio: Property 'auth:sourceNote' not used in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x104dd9a80>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:303: Failed
+[31m[1m_ test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] _[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+
+[1m[31mdebug/debug_cli_regression.py[0m:295: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+graph = <Graph identifier=N31a466b0e7b440d6a16ce2d21669047d (<class 'rdflib.graph.Graph'>)>
+classifications = {'0': {'identifier': None, 'kind': 'UNCLASSIFIED', 'parent_identifier': None, 'raw_value': None, ...}, '1': {'identifi...-27': {'identifier': None, 'kind': 'ARROW_LABEL', 'parent_identifier': None, 'raw_value': 'auth:sourceNote', ...}, ...}
+xml_text = '<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik...s="offset" />\n          </mxGeometry>\n        </mxCell>\n      </root>\n    </mxGraphModel>\n  </diagram>\n</mxfile>'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_graph_covers_classifications[39;49;00m([90m[39;49;00m
+        graph: Graph,[90m[39;49;00m
+        classifications: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mdict[39;49;00m],[90m[39;49;00m
+        xml_text: [96mstr[39;49;00m,[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        prefixes = _load_prefixes(xml_text)[90m[39;49;00m
+        namespace_manager = Graph().namespace_manager[90m[39;49;00m
+        [94mfor[39;49;00m prefix, iri [95min[39;49;00m prefixes.items():[90m[39;49;00m
+            namespace_manager.bind(prefix, iri, replace=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        classifier_cls = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier[90m[39;49;00m
+        default_type = [96mgetattr[39;49;00m([90m[39;49;00m
+            classifier_cls, [33m"[39;49;00m[33mDEFAULT_STANDALONE_TYPE[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        detector = [96mgetattr[39;49;00m([90m[39;49;00m
+            [96mgetattr[39;49;00m(draw_io_parser.pipeline.core.rdf.control, [33m"[39;49;00m[33mRMLSerializer[39;49;00m[33m"[39;49;00m, [94mNone[39;49;00m),[90m[39;49;00m
+            [33m"[39;49;00m[33mdetect_string_template[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [94mNone[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92m_token_is_template[39;49;00m(candidate: [96mstr[39;49;00m) -> [96mbool[39;49;00m:[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(candidate, [96mstr[39;49;00m):[90m[39;49;00m
+                [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m [96mcallable[39;49;00m(detector):[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [96mbool[39;49;00m(detector(candidate))[90m[39;49;00m
+                [94mexcept[39;49;00m [96mException[39;49;00m:[90m[39;49;00m
+                    [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m [94mFalse[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        identifiers: [96mset[39;49;00m[[96mstr[39;49;00m] = [96mset[39;49;00m()[90m[39;49;00m
+        [94mfor[39;49;00m cell_data [95min[39;49;00m classifications.values():[90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m identifier [95mand[39;49;00m [95mnot[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    identifiers.add(identifier)[90m[39;49;00m
+    [90m[39;49;00m
+        identifier_subjects: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mset[39;49;00m] = {}[90m[39;49;00m
+        [94mfor[39;49;00m identifier [95min[39;49;00m identifiers:[90m[39;49;00m
+            subjects = {[90m[39;49;00m
+                subject [94mfor[39;49;00m subject [95min[39;49;00m graph.subjects(RDFS.label, Literal(identifier))[90m[39;49;00m
+            }[90m[39;49;00m
+            identifier_subjects[identifier] = subjects[90m[39;49;00m
+            [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mMissing label triple for identifier [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mfor[39;49;00m cell_id, cell_data [95min[39;49;00m classifications.items():[90m[39;49;00m
+            raw_value = (cell_data.get([33m"[39;49;00m[33mraw_value[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m [33m"[39;49;00m[33m"[39;49;00m).strip()[90m[39;49;00m
+            [94mif[39;49;00m [95mnot[39;49;00m raw_value:[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            kind = cell_data.get([33m"[39;49;00m[33mkind[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mSTANDALONE_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m raw_value[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for standalone [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                tokens = [token [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []) [94mif[39;49;00m token][90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m tokens:[90m[39;49;00m
+                    tokens = [default_type][90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m tokens:[90m[39;49;00m
+                    [94mif[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mTYPED_INDIVIDUAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                identifier = cell_data.get([33m"[39;49;00m[33mparent_identifier[39;49;00m[33m"[39;49;00m) [95mor[39;49;00m cell_data.get([90m[39;49;00m
+                    [33m"[39;49;00m[33midentifier[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                [94mif[39;49;00m [95mnot[39;49;00m identifier:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                [94mif[39;49;00m _token_is_template(identifier):[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                subjects = identifier_subjects.get(identifier, [96mset[39;49;00m())[90m[39;49;00m
+                [94massert[39;49;00m subjects, [33mf[39;49;00m[33m"[39;49;00m[33mNo subjects found for typed [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mfor[39;49;00m token [95min[39;49;00m cell_data.get([33m"[39;49;00m[33mtokens[39;49;00m[33m"[39;49;00m, []):[90m[39;49;00m
+                    [94mif[39;49;00m [95mnot[39;49;00m token [95mor[39;49;00m _token_is_template(token):[90m[39;49;00m
+                        [94mcontinue[39;49;00m[90m[39;49;00m
+                    expanded = namespace_manager.expand_curie(token)[90m[39;49;00m
+                    [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                        (subject, RDF.type, URIRef(expanded)) [95min[39;49;00m graph[90m[39;49;00m
+                        [94mfor[39;49;00m subject [95min[39;49;00m subjects[90m[39;49;00m
+                    ), [33mf[39;49;00m[33m"[39;49;00m[33mMissing rdf:type [39;49;00m[33m'[39;49;00m[33m{[39;49;00mtoken[33m}[39;49;00m[33m'[39;49;00m[33m for [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mLITERAL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    [96mstr[39;49;00m(obj) == raw_value [94mfor[39;49;00m _, _, obj [95min[39;49;00m graph.triples(([94mNone[39;49;00m, [94mNone[39;49;00m, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mLiteral [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not found in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mDECORATION[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    obj == Literal(raw_value)[90m[39;49;00m
+                    [94mfor[39;49;00m _, _, obj [95min[39;49;00m graph.triples(([94mNone[39;49;00m, SKOS.note, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mDecoration [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m missing from SKOS notes[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mcontinue[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [94mif[39;49;00m kind == [33m"[39;49;00m[33mARROW_LABEL[39;49;00m[33m"[39;49;00m:[90m[39;49;00m
+                [94mif[39;49;00m [33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m raw_value:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                prefix = raw_value.split([33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m, [94m1[39;49;00m)[[94m0[39;49;00m][90m[39;49;00m
+                [94mif[39;49;00m prefix [95mnot[39;49;00m [95min[39;49;00m prefixes:[90m[39;49;00m
+                    [94mcontinue[39;49;00m[90m[39;49;00m
+                expanded = namespace_manager.expand_curie(raw_value)[90m[39;49;00m
+>               [94massert[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                    predicate == URIRef(expanded)[90m[39;49;00m
+                    [94mfor[39;49;00m _, predicate, _ [95min[39;49;00m graph.triples(([94mNone[39;49;00m, [94mNone[39;49;00m, [94mNone[39;49;00m))[90m[39;49;00m
+                ), [33mf[39;49;00m[33m"[39;49;00m[33mProperty [39;49;00m[33m'[39;49;00m[33m{[39;49;00mraw_value[33m}[39;49;00m[33m'[39;49;00m[33m not used in graph[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+[1m[31mE               AssertionError: Property 'auth:sourceNote' not used in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x104ddb1f0>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:228: AssertionError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+fixture_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mfixture_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(FIXTURES_DIR.glob([33m"[39;49;00m[33m*.drawio[39;49;00m[33m"[39;49;00m), key=[94mlambda[39;49;00m path: path.name),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m path: path.name,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_debug_cli_matches_expected_triple_counts[39;49;00m(fixture_path: Path) -> [94mNone[39;49;00m:[90m[39;49;00m
+        slug = _slugify(fixture_path.stem)[90m[39;49;00m
+        cmd = [[90m[39;49;00m
+            sys.executable,[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--drawio[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--format[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--parser-option[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33montology_iri=mock://pytest-debug-ontology[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+    [90m[39;49;00m
+        [90m# This exits 1 on any error, so we set check=False[39;49;00m[90m[39;49;00m
+        subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=[94mFalse[39;49;00m, capture_output=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94massert[39;49;00m scenario_entry [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        classifications = scenario_entry.get([33m"[39;49;00m[33mcell_classifications[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        xml_text = fixture_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        results = scenario_entry.get([33m"[39;49;00m[33mresults[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m results:[90m[39;49;00m
+            errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {})[90m[39;49;00m
+            [94massert[39;49;00m [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m [95min[39;49;00m errors, [33m"[39;49;00m[33mts_plugin graph missing without recorded error[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                entry = EXPECTED_TS_PLUGIN[fname][90m[39;49;00m
+                reason = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mentry[[33m'[39;49;00m[33mreason[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33m  |  Command: python [39;49;00m[33m{[39;49;00m[33m'[39;49;00m[33m [39;49;00m[33m'[39;49;00m.join(entry.get([33m'[39;49;00m[33mcommand[39;49;00m[33m'[39;49;00m,[90m [39;49;00m[]))[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(reason)[90m[39;49;00m
+            pytest.fail([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected skip: ts_plugin graph unavailable for [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m. Errors: [39;49;00m[33m{[39;49;00merrors.get([33m'[39;49;00m[33mts_plugin[39;49;00m[33m'[39;49;00m)[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        ttl_path = DEBUG_DIR / results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mpath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m ttl_path.exists(), [33mf[39;49;00m[33m"[39;49;00m[33mTurtle output missing for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        graph = Graph()[90m[39;49;00m
+        graph.parse(ttl_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mturtle[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        expected_triples = estimate_triple_count_from_classifications([90m[39;49;00m
+            xml_text, classifications, graph=graph[90m[39;49;00m
+        )[90m[39;49;00m
+        actual_triples = results[[33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m][[33m"[39;49;00m[33mtriples[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        [94massert[39;49;00m actual_triples == expected_triples, ([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33mTriple count mismatch for [39;49;00m[33m{[39;49;00mfixture_path.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            _ensure_graph_covers_classifications(graph, classifications, xml_text)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mAssertionError[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            fname = fixture_path.name[90m[39;49;00m
+            msg = [33mf[39;49;00m[33m"[39;49;00m[33mGraph/classification mismatch in [39;49;00m[33m{[39;49;00mfname[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m fname [95min[39;49;00m EXPECTED_TS_PLUGIN:[90m[39;49;00m
+                XFAlLED_FIXTURES.append(fname)[90m[39;49;00m
+                pytest.xfail(msg)[90m[39;49;00m
+            [94melse[39;49;00m:[90m[39;49;00m
+>               pytest.fail(msg)[90m[39;49;00m
+[1m[31mE               Failed: Graph/classification mismatch in General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio: Property 'auth:sourceNote' not used in graph[0m
+[1m[31mE               assert False[0m
+[1m[31mE                +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x104ddb1f0>)[0m
+
+[1m[31mdebug/debug_cli_regression.py[0m:303: Failed
+============================================ PASSES ============================================
+[36m[1m=================================== short test summary info ====================================[0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio][0m
+[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio][0m
@@ -65,10 +1167,6 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio][0m
-[32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio][0m
@@ -77,13 +1175,14 @@ debug/debug_cli_regression.py::test_run_manual_scenarios_after_xfails [33mXFAIL
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio][0m
 [32mPASSED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio][0m
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
-[33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m - Graph/classification mismatch in AA37-with-metadata-even-more-severely-mocked.drawio: Missing rdf:type 'picoL:j' for 'https://example.com'
-assert False
- +  where False = any(<generator object _ensure_graph_covers_classifications.<locals>.<genexpr> at 0x1069fe7a0>)
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m debug/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m============================== [32m[1m30 passed[0m, [33m5 xfailed[0m[32m in 53.66s[0m[32m ==============================[0m
+[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m - Failed: Graph/classification mismatch in General ADD (Descriptions and Listings) to RiC-O M...
+[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio][0m - Failed: Graph/classification mismatch in General ADD (Descriptions and Listings) to RiC-O M...
+[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio][0m - Failed: Graph/classification mismatch in General Authority to RiC-O Model_2025-06-25_PZ.dra...
+[31mFAILED[0m debug/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio][0m - Failed: Graph/classification mismatch in General Authority to RiC-O Model_2025-06-25_PZ_no_...
+[31m=========================== [31m[1m4 failed[0m, [32m27 passed[0m, [33m4 xfailed[0m[31m in 55.55s[0m[31m ===========================[0m
 
 Command exit status: 0
-Script done on Thu Nov  6 13:39:24 2025
+Script done on Thu Nov  6 16:51:49 2025
