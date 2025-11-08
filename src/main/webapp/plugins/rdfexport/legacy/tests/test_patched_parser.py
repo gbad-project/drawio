@@ -172,6 +172,41 @@ def test_individual_blocks_tracks_datatype_properties():
     )
 
 
+def test_individual_blocks_preserves_templates_when_substitution_disabled():
+    prefixes = draw_io_parser.get_prefixes().copy()
+    prefixes.setdefault("rico", "http://www.ica.org/standards/RiC/ontology#")
+
+    items = iter(
+        [
+            draw_io_parser.Individual("{UUID}", "rico:Record"),
+            draw_io_parser.Arrow(
+                identifier="rico:isAssociatedWith",
+                source="{UUID}",
+                target="{REFD_FILE}",
+                is_datatype=False,
+            ),
+        ]
+    )
+
+    blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
+        items,
+        [],
+        None,
+        draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+        prefixes,
+        apply_metacharacter_substitution=False,
+    )
+
+    assert ("{UUID}", "{UUID}") in blocks
+    types = blocks[("{UUID}", "{UUID}")]["Types"]
+    assert "rico:Record" in types
+    assert "rico:isAssociatedWith" in object_props
+    values = blocks[("{UUID}", "{UUID}")]["rico:isAssociatedWith"]
+    assert all(isinstance(value, tuple) for value in values)
+    assert ("{REFD_FILE}", False) in values
+    assert not datatype_props
+
+
 def test_parse_drawio_preserves_literal_targets():
     graph = draw_io_parser.parse_drawio_to_graph(
         str(FIXTURES_DIR / "AA37-with-metadata-even-more-severely-mocked.drawio"),

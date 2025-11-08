@@ -175,6 +175,7 @@ def _build_graph_from_raw_xml(
             space_substitute,
             config_args["capitalisation_scheme"],
             prefixes,
+            apply_metacharacter_substitution=not rml_enabled,
         )
     )
 

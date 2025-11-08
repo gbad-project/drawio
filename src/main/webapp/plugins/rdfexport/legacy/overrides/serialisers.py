@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from rdflib import BNode, SKOS
+from dataclasses import dataclass
+
+from rdflib import BNode, Literal, Namespace, SKOS, URIRef
 import re
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
@@ -302,6 +304,10 @@ class RMLSerializer(RDFSerializationHelper):
 
         pass
 
+    @dataclass(slots=True)
+    class RMLReference:
+        reference: str
+
     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
         RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
         RDFSerializationHelper.__init__(self, *args, **kwargs)
@@ -324,6 +330,23 @@ class RMLSerializer(RDFSerializationHelper):
         self.graph.bind("rml", self.rml_ns, replace=False)
         self.graph.bind("ql", self.ql, replace=False)
         self.graph.bind("rdfs", RDFS, replace=False)
+
+    def _parse_rml_token(self, candidate: Any) -> tuple[str, Any]:
+        """Parse rr:/rml: token prefixes emitted by individual_blocks."""
+
+        if not isinstance(candidate, str):
+            return "raw", candidate
+
+        prefix, _, remainder = candidate.partition(" ")
+        normalized_prefix = prefix.strip()
+        if normalized_prefix not in {"rr:template", "rr:constant", "rml:reference"}:
+            return "raw", candidate
+
+        payload = remainder.strip()
+        if payload.startswith('"') and payload.endswith('"'):
+            payload = payload[1:-1]
+
+        return normalized_prefix, payload
 
     @staticmethod
     def detect_string_template(template: str) -> list[str | None]:
@@ -411,7 +434,19 @@ class RMLSerializer(RDFSerializationHelper):
         predicate_object_map = BNode()
         object_map = BNode()
 
+        if isinstance(fact, self.RMLReference):
+            triples = [
+                (predicate_object_map, self.rr["predicate"], predicate_uri),
+                (predicate_object_map, self.rr["objectMap"], object_map),
+                (object_map, self.rml_ns["reference"], Literal(fact.reference)),
+            ]
+            return predicate_object_map, triples
+
         has_template = self._is_template_string(str(fact))
+
+        if has_template and isinstance(fact, URIRef):
+            fact = self.FakeURIRef(str(fact))
+
         fact_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
@@ -502,7 +537,12 @@ class RMLSerializer(RDFSerializationHelper):
         raise NotInKnownException(f"Not a known class: {rdf_type}")
 
     def resolve_individual_uri(self, individual_id: str) -> URIRef:
-        if self._is_template_string(individual_id):
+        token_kind, payload = self._parse_rml_token(individual_id)
+        if token_kind == "rr:template":
+            return self.FakeURIRef(payload)
+        if token_kind == "rr:constant":
+            individual_id = payload
+        elif self._is_template_string(individual_id):
             return self.FakeURIRef(individual_id)
         return super().resolve_individual_uri(individual_id)
 
@@ -584,9 +624,20 @@ class RMLSerializer(RDFSerializationHelper):
                         and prop not in self.object_properties
                     )
 
+                token_kind, payload = (
+                    self._parse_rml_token(value)
+                    if isinstance(value, str)
+                    else ("raw", value)
+                )
+
                 if not is_literal:
                     # Object property
-                    target_uri = self.resolve_individual_uri(str(value))
+                    if token_kind == "rr:template":
+                        target_uri = self.FakeURIRef(payload)
+                    elif token_kind == "rr:constant":
+                        target_uri = URIRef(payload)
+                    else:
+                        target_uri = self.resolve_individual_uri(str(payload))
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, target_uri)
                     )
@@ -600,10 +651,18 @@ class RMLSerializer(RDFSerializationHelper):
                     )
                 else:
                     # Datatype property
-                    literal_value = self.coerce_to_literal(value)
-                    fact_predicate_object_map, fact_predicate_object_map_triples = (
-                        self._build_fact_predicate_object_map(prop_uri, literal_value)
-                    )
+                    if token_kind == "rml:reference":
+                        reference = self.RMLReference(payload)
+                        fact_predicate_object_map, fact_predicate_object_map_triples = (
+                            self._build_fact_predicate_object_map(prop_uri, reference)
+                        )
+                    else:
+                        literal_value = self.coerce_to_literal(payload)
+                        fact_predicate_object_map, fact_predicate_object_map_triples = (
+                            self._build_fact_predicate_object_map(
+                                prop_uri, literal_value
+                            )
+                        )
                     self.graph.addN1(
                         (
                             triples_map,

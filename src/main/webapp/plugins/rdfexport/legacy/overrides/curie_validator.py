@@ -91,6 +91,8 @@ def individual_blocks(
     space_substitute: Replacement | None,
     capitalisation_scheme: str,
     prefixes: dict[str, str],
+    *,
+    apply_metacharacter_substitution: bool = True,
 ) -> tuple[Blocks, set[str], set[str]]:
     blocks: Blocks = {}
     object_properties: set[str] = set()
@@ -104,15 +106,43 @@ def individual_blocks(
         scheme, _, remainder = value.partition(":")
         return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
 
+    def _add_individual_without_substitution(individual: Individual) -> None:
+        identifier = individual.identifier
+        try:
+            block = blocks[(identifier, individual.identifier)]
+        except KeyError:
+            blocks[(identifier, individual.identifier)] = {
+                "Types": {individual.ric_class}
+            }
+            return
+
+        try:
+            block["Types"].add(individual.ric_class)
+        except KeyError:
+            block["Types"] = {individual.ric_class}
+
+    def _maybe_replace(identifier: str) -> str:
+        if not apply_metacharacter_substitution:
+            return identifier
+        return _replace_metacharacters(
+            identifier,
+            metacharacter_substitutes,
+            space_substitute,
+            capitalisation_scheme,
+        )
+
     for individual_or_arrow in individuals_and_arrows:
         if isinstance(individual_or_arrow, Individual):
-            _add_individual_type(
-                blocks,
-                individual_or_arrow,
-                metacharacter_substitutes,
-                space_substitute,
-                capitalisation_scheme,
-            )
+            if apply_metacharacter_substitution:
+                _add_individual_type(
+                    blocks,
+                    individual_or_arrow,
+                    metacharacter_substitutes,
+                    space_substitute,
+                    capitalisation_scheme,
+                )
+            else:
+                _add_individual_without_substitution(individual_or_arrow)
             continue
 
         identifier = individual_or_arrow.identifier
@@ -167,20 +197,10 @@ def individual_blocks(
             property_value = (target_identifier, True)
         else:
             object_properties.add(normalized_identifier)
-            target_identifier = _replace_metacharacters(
-                individual_or_arrow.target,
-                metacharacter_substitutes,
-                space_substitute,
-                capitalisation_scheme,
-            )
+            target_identifier = _maybe_replace(individual_or_arrow.target)
             property_value = (target_identifier, False)
 
-        source_identifier = _replace_metacharacters(
-            individual_or_arrow.source,
-            metacharacter_substitutes,
-            space_substitute,
-            capitalisation_scheme,
-        )
+        source_identifier = _maybe_replace(individual_or_arrow.source)
 
         try:
             block = blocks[(source_identifier, individual_or_arrow.source)]

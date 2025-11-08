@@ -1272,6 +1272,10 @@ class pipeline:
 
                         pass
 
+                    @dataclass(slots=True)
+                    class RMLReference:
+                        reference: str
+
                     def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
                         RDFSerializationHelper = (
                             pipeline.core.rdf.control.RDFSerializationHelper
@@ -1293,6 +1297,23 @@ class pipeline:
                         self.graph.bind("rml", self.rml_ns, replace=False)
                         self.graph.bind("ql", self.ql, replace=False)
                         self.graph.bind("rdfs", RDFS, replace=False)
+
+                    def _parse_rml_token(self, candidate: Any) -> tuple[str, Any]:
+                        """Parse rr:/rml: token prefixes emitted by individual_blocks."""
+                        if not isinstance(candidate, str):
+                            return ("raw", candidate)
+                        prefix, _, remainder = candidate.partition(" ")
+                        normalized_prefix = prefix.strip()
+                        if normalized_prefix not in {
+                            "rr:template",
+                            "rr:constant",
+                            "rml:reference",
+                        }:
+                            return ("raw", candidate)
+                        payload = remainder.strip()
+                        if payload.startswith('"') and payload.endswith('"'):
+                            payload = payload[1:-1]
+                        return (normalized_prefix, payload)
 
                     @staticmethod
                     def detect_string_template(template: str) -> list[str | None]:
@@ -1365,7 +1386,28 @@ class pipeline:
                         """
                         predicate_object_map = BNode()
                         object_map = BNode()
+                        if isinstance(fact, self.RMLReference):
+                            triples = [
+                                (
+                                    predicate_object_map,
+                                    self.rr["predicate"],
+                                    predicate_uri,
+                                ),
+                                (
+                                    predicate_object_map,
+                                    self.rr["objectMap"],
+                                    object_map,
+                                ),
+                                (
+                                    object_map,
+                                    self.rml_ns["reference"],
+                                    Literal(fact.reference),
+                                ),
+                            ]
+                            return (predicate_object_map, triples)
                         has_template = self._is_template_string(str(fact))
+                        if has_template and isinstance(fact, URIRef):
+                            fact = self.FakeURIRef(str(fact))
                         fact_predicate = (
                             self.rr["template"] if has_template else self.rr["constant"]
                         )
@@ -1464,7 +1506,12 @@ class pipeline:
                         raise NotInKnownException(f"Not a known class: {rdf_type}")
 
                     def resolve_individual_uri(self, individual_id: str) -> URIRef:
-                        if self._is_template_string(individual_id):
+                        token_kind, payload = self._parse_rml_token(individual_id)
+                        if token_kind == "rr:template":
+                            return self.FakeURIRef(payload)
+                        if token_kind == "rr:constant":
+                            individual_id = payload
+                        elif self._is_template_string(individual_id):
                             return self.FakeURIRef(individual_id)
                         return super().resolve_individual_uri(individual_id)
 
@@ -1558,8 +1605,20 @@ class pipeline:
                                         prop in self.datatype_properties
                                         and prop not in self.object_properties
                                     )
+                                token_kind, payload = (
+                                    self._parse_rml_token(value)
+                                    if isinstance(value, str)
+                                    else ("raw", value)
+                                )
                                 if not is_literal:
-                                    target_uri = self.resolve_individual_uri(str(value))
+                                    if token_kind == "rr:template":
+                                        target_uri = self.FakeURIRef(payload)
+                                    elif token_kind == "rr:constant":
+                                        target_uri = URIRef(payload)
+                                    else:
+                                        target_uri = self.resolve_individual_uri(
+                                            str(payload)
+                                        )
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -1575,13 +1634,22 @@ class pipeline:
                                         fact_predicate_object_map_triples,
                                     )
                                 else:
-                                    literal_value = self.coerce_to_literal(value)
-                                    (
-                                        fact_predicate_object_map,
-                                        fact_predicate_object_map_triples,
-                                    ) = self._build_fact_predicate_object_map(
-                                        prop_uri, literal_value
-                                    )
+                                    if token_kind == "rml:reference":
+                                        reference = self.RMLReference(payload)
+                                        (
+                                            fact_predicate_object_map,
+                                            fact_predicate_object_map_triples,
+                                        ) = self._build_fact_predicate_object_map(
+                                            prop_uri, reference
+                                        )
+                                    else:
+                                        literal_value = self.coerce_to_literal(payload)
+                                        (
+                                            fact_predicate_object_map,
+                                            fact_predicate_object_map_triples,
+                                        ) = self._build_fact_predicate_object_map(
+                                            prop_uri, literal_value
+                                        )
                                     self.graph.addN1(
                                         (
                                             triples_map,
@@ -2566,6 +2634,8 @@ class internal_control_core:
         space_substitute: Replacement | None,
         capitalisation_scheme: str,
         prefixes: dict[str, str],
+        *,
+        apply_metacharacter_substitution: bool = True,
     ) -> tuple[Blocks, set[str], set[str]]:
         blocks: Blocks = {}
         object_properties: set[str] = set()
@@ -2579,15 +2649,42 @@ class internal_control_core:
             scheme, _, remainder = value.partition(":")
             return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
 
+        def _add_individual_without_substitution(individual: Individual) -> None:
+            identifier = individual.identifier
+            try:
+                block = blocks[identifier, individual.identifier]
+            except KeyError:
+                blocks[identifier, individual.identifier] = {
+                    "Types": {individual.ric_class}
+                }
+                return
+            try:
+                block["Types"].add(individual.ric_class)
+            except KeyError:
+                block["Types"] = {individual.ric_class}
+
+        def _maybe_replace(identifier: str) -> str:
+            if not apply_metacharacter_substitution:
+                return identifier
+            return _replace_metacharacters(
+                identifier,
+                metacharacter_substitutes,
+                space_substitute,
+                capitalisation_scheme,
+            )
+
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
-                _add_individual_type(
-                    blocks,
-                    individual_or_arrow,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    capitalisation_scheme,
-                )
+                if apply_metacharacter_substitution:
+                    _add_individual_type(
+                        blocks,
+                        individual_or_arrow,
+                        metacharacter_substitutes,
+                        space_substitute,
+                        capitalisation_scheme,
+                    )
+                else:
+                    _add_individual_without_substitution(individual_or_arrow)
                 continue
             identifier = individual_or_arrow.identifier
             normalized_identifier = identifier
@@ -2638,19 +2735,9 @@ class internal_control_core:
                 property_value = (target_identifier, True)
             else:
                 object_properties.add(normalized_identifier)
-                target_identifier = _replace_metacharacters(
-                    individual_or_arrow.target,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    capitalisation_scheme,
-                )
+                target_identifier = _maybe_replace(individual_or_arrow.target)
                 property_value = (target_identifier, False)
-            source_identifier = _replace_metacharacters(
-                individual_or_arrow.source,
-                metacharacter_substitutes,
-                space_substitute,
-                capitalisation_scheme,
-            )
+            source_identifier = _maybe_replace(individual_or_arrow.source)
             try:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
@@ -2805,6 +2892,7 @@ class internal_control_core:
                 space_substitute,
                 config_args["capitalisation_scheme"],
                 prefixes,
+                apply_metacharacter_substitution=not rml_enabled,
             )
         )
         serializer = (

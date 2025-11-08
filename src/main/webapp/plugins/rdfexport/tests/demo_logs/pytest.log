@@ -1,30 +1,76 @@
-Script started on Fri Nov  7 13:49:05 2025
-Command: bun run test:pytest:all
+Script started on 2025-11-08 02:49:20+00:00 [COMMAND="bun run test:pytest:all" TERM="xterm" COLUMNS="128" LINES="-1"]
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m========================== test session starts ===========================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+[1m===================================================== test session starts ======================================================[0m
+platform linux -- Python 3.12.12, pytest-8.4.2, pluggy-1.6.0
+rootdir: /workspace/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 91 items                                                      [0m[1mcollected 93 items                                                       [0m
+[1mcollecting ... [0m[1mcollecting 90 items                                                                                                            [0m[1mcollecting 92 items                                                                                                            [0m[1mcollected 94 items                                                                                                             [0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m^C
+=========================================================== FAILURES ===========================================================
+[31m[1m____________________ test_run_scenario_generates_artifacts_and_map_entry[AA37 Department of Health.drawio] _____________________[0m
+fixture_name = 'AA37 Department of Health.drawio'
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                         [ 12%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                               [ 13%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                [ 29%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                           [ 32%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 64%]
-[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                   [ 81%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                      [ 89%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m              [ 95%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m           [ 97%][0m
-rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[33m             [100%][0m
+    [0m[37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mfixture_name[39;49;00m[33m"[39;49;00m, [[33m"[39;49;00m[33mAA37 Department of Health.drawio[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_run_scenario_generates_artifacts_and_map_entry[39;49;00m(fixture_name: [96mstr[39;49;00m):[90m[39;49;00m
+        debugger = Debugger(FIXTURES_DIR)[90m[39;49;00m
+        slug = [33mf[39;49;00m[33m"[39;49;00m[33mpytest-[39;49;00m[33m{[39;49;00muuid4().hex[:[94m8[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        drawio_path = FIXTURES_DIR / fixture_name[90m[39;49;00m
+    [90m[39;49;00m
+        config = build_config(slug, drawio_path)[90m[39;49;00m
+    [90m[39;49;00m
+        results_dir = debugger.results_dir / slug[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            debugger._run_scenario(config)[90m[39;49;00m
+    [90m[39;49;00m
+            [94massert[39;49;00m results_dir.exists()[90m[39;49;00m
+            outputs = {[90m[39;49;00m
+                name: results_dir / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mname[33m}[39;49;00m[33m.nt[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [94mfor[39;49;00m name [95min[39;49;00m ([33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mts_pipeline[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mts_plugin[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            }[90m[39;49;00m
+            [94mfor[39;49;00m path [95min[39;49;00m outputs.values():[90m[39;49;00m
+>               [94massert[39;49;00m path.exists()[90m[39;49;00m
+[1m[31mE               AssertionError: assert False[0m
+[1m[31mE                +  where False = exists()[0m
+[1m[31mE                +    where exists = PosixPath('/workspace/drawio/src/main/webapp/plugins/rdfexport/debug/results/pytest-47e7050a/py_legacy.nt').exists[0m
 
-[33m============================ warnings summary ============================[0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_add
-rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_authority
-rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_general_add
-rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_general_authority
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper_workflows/tests/test_map_schema_workflow.py:42: UserWarning: RML canonicalization took too long and was skipped.
-    warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
+[1m[31mdebug/tests/test_debug_cli.py[0m:73: AssertionError
+----------------------------------------------------- Captured stdout call -----------------------------------------------------
+────────────────────────────────────────────────── Scenario: pytest-47e7050a ───────────────────────────────────────────────────
+Fixture: /workspace/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/AA37 Department of Health.drawio
+CSV path: /mock/path/to/file.csv
+Base URI: ontology://generated-from-draw-io/mock#
+Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+Format: nt
+✓ Loaded 83 mxCells from XML
+Starting cell classifications...
+✓ Classified 81 mxCells
+Injected 2 unclassified mxCells (using unprocessed values)
+✓ Extracted 83 cell classifications:
+  ARROW_LABEL: 42
+  LITERAL: 5
+  STANDALONE_INDIVIDUAL: 17
+  TYPED_INDIVIDUAL: 17
+  UNCLASSIFIED: 2
+Warning: Legacy Python parser failed to parse DrawIO file
+RuntimeError: Failed to read draw_io_parser.py from commit cf8f84bb84ff83843b6726ac96aff3a2055f4275: fatal: path 
+'src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py' exists on disk, but not in 
+'cf8f84bb84ff83843b6726ac96aff3a2055f4275'
+                                                     Debug scenario results                                                     
+┏━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Graph       ┃ Triples ┃ Output                                 ┃ N-Triples SHA256                                            ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ ts_pipeline │      72 │ results/pytest-47e7050a/ts_pipeline.nt │ 9c223e9980efa2e57252bf8760fac0e9bb1a0288e4b8c8553903ad01c5… │
+│ ts_plugin   │      72 │ results/pytest-47e7050a/ts_plugin.nt   │ 3b0513d94ce71ecd9dfc7193f4efca1842b9efe1a3a6696136f62f6671… │
+└─────────────┴─────────┴────────────────────────────────────────┴─────────────────────────────────────────────────────────────┘
+Isomorphism checks:
+  ✅ ts_pipeline_vs_ts_plugin
+[36m[1m=================================================== short test summary info ====================================================[0m
+[31mFAILED[0m debug/tests/test_debug_cli.py::[1mtest_run_scenario_generates_artifacts_and_map_entry[AA37 Department of Health.drawio][0m - AssertionError: assert False
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[1m[31m/root/.pyenv/versions/3.12.12/lib/python3.12/subprocess.py[0m:2032: KeyboardInterrupt
+[33m(to show a full traceback on KeyboardInterrupt use --full-trace)[0m
+[31m================================================= [31m[1m1 failed[0m, [32m3 passed[0m[31m in 10.49s[0m[31m =================================================[0m
+Script done on 2025-11-08 02:49:31+00:00 [COMMAND_EXIT_CODE="130"]
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 [33m=============== [32m91 passed[0m, [33m[1m2 xfailed[0m, [33m[1m4 warnings[0m[33m in 28.75s[0m[33m ===============[0m
