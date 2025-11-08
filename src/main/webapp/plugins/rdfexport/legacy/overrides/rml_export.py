@@ -168,15 +168,34 @@ def _build_graph_from_raw_xml(
         )
     )
 
-    blocks, object_properties, datatype_properties = (
-        internal_control_core.individual_blocks(
-            classifier.get_graph_elements(),  # Use the new generator
-            metacharacter_substitutes,
-            space_substitute,
-            config_args["capitalisation_scheme"],
-            prefixes,
+    passthrough_enabled = False
+    if rml_enabled:
+        setattr(
+            pipeline.core.internal.data,
+            "__individual_blocks_passthrough_metacharacters",
+            True,
         )
-    )
+        passthrough_enabled = True
+
+    try:
+        blocks, object_properties, datatype_properties = (
+            internal_control_core.individual_blocks(
+                classifier.get_graph_elements(),  # Use the new generator
+                metacharacter_substitutes,
+                space_substitute,
+                config_args["capitalisation_scheme"],
+                prefixes,
+            )
+        )
+    finally:
+        if passthrough_enabled and hasattr(
+            pipeline.core.internal.data,
+            "__individual_blocks_passthrough_metacharacters",
+        ):
+            delattr(
+                pipeline.core.internal.data,
+                "__individual_blocks_passthrough_metacharacters",
+            )
 
     # 4. Serialize to Final Graph
     serializer = (

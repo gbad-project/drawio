@@ -2154,20 +2154,23 @@ class rdf_data_pre:
 
     # END _replace_metacharacter
     # BEGIN _replace_metacharacters
+    # override from curie_validator.py
     def _replace_metacharacters(
         identifier: str,
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
         space_substitute: Replacement | None,
         capitalisation_scheme: str,
     ) -> str:
+        if getattr(
+            pipeline.core.internal.data,
+            "__individual_blocks_passthrough_metacharacters",
+            False,
+        ):
+            return identifier
         if " " in identifier:
             if space_substitute is None:
                 raise MetacharacterException(
-                    "The following contains a space, but how to handle spaces in "
-                    "individual nodes has not been specified (spaces cannot be "
-                    f"used in OWL IRIs): '{identifier}'. Use the "
-                    "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
-                    "options to define how to handle spaces"
+                    f"The following contains a space, but how to handle spaces in individual nodes has not been specified (spaces cannot be used in OWL IRIs): '{identifier}'. Use the -m/--metacharacter-substitute and -c/--capitalisation-scheme options to define how to handle spaces"
                 )
             identifier = _handle_spaces(
                 identifier, space_substitute, capitalisation_scheme
@@ -2798,15 +2801,33 @@ class internal_control_core:
                 config_args["metacharacter_substitute"]
             )
         )
-        blocks, object_properties, datatype_properties = (
-            internal_control_core.individual_blocks(
-                classifier.get_graph_elements(),
-                metacharacter_substitutes,
-                space_substitute,
-                config_args["capitalisation_scheme"],
-                prefixes,
+        passthrough_enabled = False
+        if rml_enabled:
+            setattr(
+                pipeline.core.internal.data,
+                "__individual_blocks_passthrough_metacharacters",
+                True,
             )
-        )
+            passthrough_enabled = True
+        try:
+            blocks, object_properties, datatype_properties = (
+                internal_control_core.individual_blocks(
+                    classifier.get_graph_elements(),
+                    metacharacter_substitutes,
+                    space_substitute,
+                    config_args["capitalisation_scheme"],
+                    prefixes,
+                )
+            )
+        finally:
+            if passthrough_enabled and hasattr(
+                pipeline.core.internal.data,
+                "__individual_blocks_passthrough_metacharacters",
+            ):
+                delattr(
+                    pipeline.core.internal.data,
+                    "__individual_blocks_passthrough_metacharacters",
+                )
         serializer = (
             pipeline.core.rdf.control.serialise_to_rml
             if rml_enabled

@@ -197,3 +197,38 @@ def individual_blocks(
             values.add(property_value)
 
     return blocks, object_properties, datatype_properties
+
+
+@override(phase="pre", type="rdf", role="data")
+def _replace_metacharacters(
+    identifier: str,
+    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+    space_substitute: Replacement | None,
+    capitalisation_scheme: str,
+) -> str:
+    if getattr(
+        pipeline.core.internal.data,
+        "__individual_blocks_passthrough_metacharacters",
+        False,
+    ):
+        return identifier
+
+    if " " in identifier:
+        if space_substitute is None:
+            raise MetacharacterException(
+                "The following contains a space, but how to handle spaces in "
+                "individual nodes has not been specified (spaces cannot be "
+                f"used in OWL IRIs): '{identifier}'. Use the "
+                "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
+                "options to define how to handle spaces"
+            )
+        identifier = _handle_spaces(identifier, space_substitute, capitalisation_scheme)
+    elif capitalisation_scheme in ["lower-camel", "flat"]:
+        identifier = identifier[0].lower() + identifier[1:]
+
+    for metacharacter in OWL_METACHARACTERS:
+        identifier = _replace_metacharacter(
+            metacharacter, identifier, metacharacter_substitutes
+        )
+
+    return identifier

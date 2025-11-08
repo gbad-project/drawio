@@ -172,6 +172,45 @@ def test_individual_blocks_tracks_datatype_properties():
     )
 
 
+def test_individual_blocks_passthrough_metacharacters_when_flag_enabled():
+    prefixes = draw_io_parser.get_prefixes()
+    passthrough_attr = "__individual_blocks_passthrough_metacharacters"
+
+    setattr(draw_io_parser.pipeline.core.internal.data, passthrough_attr, True)
+    try:
+        items = iter(
+            [
+                draw_io_parser.Individual(
+                    "KB/{REFD_FILE}/{OFFICEABC}", "rico:RecordSet"
+                ),
+                draw_io_parser.Arrow(
+                    identifier="rico:relationHasTarget",
+                    source="KB/{REFD_FILE}/{OFFICEABC}",
+                    target="KB/{REFD_FILE}/{OFFICEABC}/{UUID}",
+                    is_datatype=False,
+                ),
+            ]
+        )
+
+        blocks, object_props, datatype_props = draw_io_parser.individual_blocks(
+            items,
+            [],
+            None,
+            draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
+            prefixes,
+        )
+    finally:
+        if hasattr(draw_io_parser.pipeline.core.internal.data, passthrough_attr):
+            delattr(draw_io_parser.pipeline.core.internal.data, passthrough_attr)
+
+    key = ("KB/{REFD_FILE}/{OFFICEABC}", "KB/{REFD_FILE}/{OFFICEABC}")
+    assert key in blocks
+    assert "rico:relationHasTarget" in object_props
+    assert not datatype_props
+    relation_values = blocks[key]["rico:relationHasTarget"]
+    assert ("KB/{REFD_FILE}/{OFFICEABC}/{UUID}", False) in relation_values
+
+
 def test_parse_drawio_preserves_literal_targets():
     graph = draw_io_parser.parse_drawio_to_graph(
         str(FIXTURES_DIR / "AA37-with-metadata-even-more-severely-mocked.drawio"),
