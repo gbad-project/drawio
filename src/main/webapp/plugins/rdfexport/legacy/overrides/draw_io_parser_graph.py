@@ -12,9 +12,16 @@ from rdflib.term import Node
 class DrawIOParserGraph(Graph):
     """Graph subclass that records Draw.io specific metadata."""
 
-    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+    def __init__(
+        self,
+        *args,
+        csv_path: Optional[str] = None,
+        metacharacter_mode: str | None = None,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
         self.csv_path = csv_path
+        self.metacharacter_mode = metacharacter_mode
 
     def addN1(
         self,

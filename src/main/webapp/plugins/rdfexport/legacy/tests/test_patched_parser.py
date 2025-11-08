@@ -298,6 +298,62 @@ def test_serialise_to_graph_falls_back_for_relative_prefixes():
     assert (subject, predicate, Literal("literal value")) in graph
 
 
+def test_serialise_to_rml_decodes_url_templates():
+    prefixes = draw_io_parser.get_prefixes().copy()
+    prefixes["ex"] = "https://example.org/"
+
+    config = draw_io_parser.SerialisationConfig(
+        infer_type_of_literals=True,
+        include_preamble=False,
+        ontology_iri="https://example.org/ontology",
+        prefix="ex",
+        prefix_iri="https://example.org/",
+        indentation=2,
+        include_label=False,
+    )
+
+    encoded_subject = "https://example.org/%7BID%7D"
+    encoded_object = "https://example.org/%7BCONTAINER%7D"
+
+    blocks = {
+        (encoded_subject, "Context: {ID}"): {
+            "Types": {"rico:Record"},
+            "rico:isOrWasIncludedIn": {(encoded_object, False)},
+        }
+    }
+
+    serialise_to_rml = draw_io_parser.pipeline.core.rdf.control.serialise_to_rml
+
+    graph = serialise_to_rml(
+        blocks,
+        object_properties={"rico:isOrWasIncludedIn"},
+        datatype_properties=set(),
+        serialisation_config=config,
+        prefixes=prefixes,
+        graph_cls=draw_io_parser.DrawIOParserGraph,
+        graph_kwargs={"metacharacter_mode": "url"},
+    )
+
+    rr = Namespace("http://www.w3.org/ns/r2rml#")
+
+    template_literals = {
+        str(obj)
+        for _, _, obj in graph.triples((None, rr.template, None))
+        if isinstance(obj, Literal)
+    }
+
+    assert "https://example.org/{ID}" in template_literals
+    assert "https://example.org/{CONTAINER}" in template_literals
+
+    encoded_literals = {
+        str(obj)
+        for obj in graph.objects()
+        if isinstance(obj, Literal) and "%7B" in str(obj)
+    }
+
+    assert not encoded_literals
+
+
 @pytest.mark.parametrize(
     "case_key",
     ["unknown_prefix", "dangling_curie", "colon_only", "no_prefix"],
