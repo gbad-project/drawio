@@ -1,7 +1,13 @@
 from __future__ import annotations
 
-from rdflib import BNode, SKOS
+import os
 import re
+import urllib.parse
+from datetime import datetime
+from typing import Any, Dict, Optional, Type
+
+from rdflib import BNode, SKOS
+from rdflib.term import Node
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
@@ -37,6 +43,78 @@ class RDFSerializationHelper:
         self.namespace_map: dict[str, Namespace] = {}
         self.fallback_namespace: Namespace | None = None
         self.explicit_overrides: dict[str, URIRef] = {}
+        self.metacharacter_substitution_mode = getattr(
+            graph, "metacharacter_mode", None
+        )
+        self._should_decode_literals = False
+
+    def _normalize_candidate(self, candidate: str) -> str:
+        if self._should_decode_literals and isinstance(candidate, str) and candidate:
+            return urllib.parse.unquote(candidate)
+        return candidate
+
+    def _normalize_literal(self, literal: Literal) -> Literal:
+        if not self._should_decode_literals:
+            return literal
+
+        lexical_form = str(literal)
+        decoded = urllib.parse.unquote(lexical_form)
+        if decoded == lexical_form:
+            return literal
+
+        literal_kwargs: dict[str, Any] = {}
+        if getattr(literal, "datatype", None):
+            literal_kwargs["datatype"] = literal.datatype
+        if getattr(literal, "language", None):
+            literal_kwargs["lang"] = literal.language
+
+        return literal.__class__(decoded, **literal_kwargs)
+
+    def _normalize_node(self, node: Node) -> Node:
+        if isinstance(node, Literal):
+            return self._normalize_literal(node)
+        return node
+
+    def _normalize_triple(
+        self, triple: tuple[Node, Node, Node]
+    ) -> tuple[Node, Node, Node]:
+        subject, predicate, obj = triple
+        return (
+            self._normalize_node(subject),
+            self._normalize_node(predicate),
+            self._normalize_node(obj),
+        )
+
+    def _add_triple(self, triple: tuple[Node, Node, Node]) -> tuple[Node, Node, Node]:
+        normalized = self._normalize_triple(triple)
+        self.graph.add(normalized)
+        return normalized
+
+    def _add_triples(
+        self, triples: list[tuple[Node, Node, Node]]
+    ) -> list[tuple[Node, Node, Node]]:
+        normalized = [self._normalize_triple(triple) for triple in triples]
+        for triple in normalized:
+            self.graph.add(triple)
+        return normalized
+
+    def _add_n1(
+        self,
+        triple_1: tuple[Node, Node, Node],
+        triples_n: list[tuple[Node, Node, Node]],
+    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+        normalized_first = self._normalize_triple(triple_1)
+        normalized_rest = [self._normalize_triple(triple) for triple in triples_n]
+
+        addn1 = getattr(self.graph, "addN1", None)
+        if callable(addn1):
+            addn1(normalized_first, normalized_rest)
+        else:
+            self.graph.add(normalized_first)
+            if normalized_rest:
+                self.graph.addN((s, p, o, self.graph) for s, p, o in normalized_rest)
+
+        return normalized_first, normalized_rest
 
     def _detect_template_references(self, candidate: str) -> list[str | None]:
         detector = getattr(
@@ -52,7 +130,8 @@ class RDFSerializationHelper:
         return []
 
     def _is_template_string(self, candidate: str) -> bool:
-        return bool(self._detect_template_references(candidate))
+        normalized = self._normalize_candidate(candidate)
+        return bool(self._detect_template_references(normalized))
 
     @staticmethod
     def _is_absolute_iri(candidate: str) -> bool:
@@ -101,8 +180,8 @@ class RDFSerializationHelper:
         """Add ontology preamble if configured."""
         if self.serialisation_config.include_preamble:
             ontology_iri = self.serialisation_config.ontology_iri or get_ontology_iri()
-            self.graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
-            self.graph.add(
+            self._add_triple((URIRef(ontology_iri), RDF.type, OWL.Ontology))
+            self._add_triple(
                 (URIRef(ontology_iri), OWL.imports, URIRef(self.prefixes["rico"]))
             )
 
@@ -119,17 +198,17 @@ class RDFSerializationHelper:
             prop for prop in self.object_properties if not prop.startswith("rico:")
         ):
             prop_uri = self.resolve_property_uri(prop)
-            self.graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
+            self._add_triple((prop_uri, RDF.type, OWL.ObjectProperty))
 
         for prop in sorted(
             prop for prop in self.datatype_properties if not prop.startswith("rico:")
         ):
             prop_uri = self.resolve_property_uri(prop)
-            self.graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+            self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-    def _compute_explicit_override(self, individual_id) -> None:
+    def _compute_explicit_override(self, individual_id) -> Any:
         """Compute explicit URI override for a single individual."""
-        pass
+        return None
 
     def resolve_individual_uri(self, individual_id: str) -> URIRef:
         """Resolve an individual ID to its URI."""
@@ -176,7 +255,7 @@ class RDFSerializationHelper:
             else:
                 decoration_subject = BNode()
             for note in decoration_values:
-                self.graph.add((decoration_subject, SKOS.note, Literal(note)))
+                self._add_triple((decoration_subject, SKOS.note, Literal(note)))
 
         if hasattr(pipeline.core.internal.data, decorations_attr):
             delattr(pipeline.core.internal.data, decorations_attr)
@@ -190,7 +269,7 @@ class RDFSerializer(RDFSerializationHelper):
         RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
         RDFSerializationHelper.__init__(self, *args, **kwargs)
 
-    def _compute_explicit_override(self, individual_id) -> None:
+    def _compute_explicit_override(self, individual_id) -> Any:
         """Compute explicit URI override for a single individual."""
         _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
 
@@ -235,7 +314,7 @@ class RDFSerializer(RDFSerializationHelper):
         individual_uri = self.resolve_individual_uri(individual_id)
 
         # Add NamedIndividual type
-        self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
+        self._add_triple((individual_uri, RDF.type, OWL.NamedIndividual))
 
         # Add RDF types
         for rdf_type in types_and_facts.get("Types", set()):
@@ -243,13 +322,13 @@ class RDFSerializer(RDFSerializationHelper):
             if self._is_template_string(rdf_type_str):
                 continue
             type_prefix, type_name = rdf_type_str.split(":")
-            self.graph.add(
+            self._add_triple(
                 (individual_uri, RDF.type, self.namespace_map[type_prefix][type_name])
             )
 
         # Add label if configured
         if self.serialisation_config.include_label:
-            self.graph.add((individual_uri, RDFS.label, Literal(individual_label)))
+            self._add_triple((individual_uri, RDFS.label, Literal(individual_label)))
 
         # Add properties
         for prop, values in types_and_facts.items():
@@ -279,11 +358,11 @@ class RDFSerializer(RDFSerializationHelper):
                     if self._is_template_string(target_identifier):
                         continue
                     target_uri = self.resolve_individual_uri(target_identifier)
-                    self.graph.add((individual_uri, prop_uri, target_uri))
+                    self._add_triple((individual_uri, prop_uri, target_uri))
                 else:
                     # Datatype property - create literal
                     literal_value = self.coerce_to_literal(value)
-                    self.graph.add((individual_uri, prop_uri, literal_value))
+                    self._add_triple((individual_uri, prop_uri, literal_value))
 
     def serialize_all_individuals(self) -> None:
         """Serialize all individuals in blocks."""
@@ -306,6 +385,8 @@ class RMLSerializer(RDFSerializationHelper):
         RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
         RDFSerializationHelper.__init__(self, *args, **kwargs)
         self.csv_path = csv_path
+        if self.metacharacter_substitution_mode == "url":
+            self._should_decode_literals = True
 
         # RML namespaces
         self.rr = Namespace("http://www.w3.org/ns/r2rml#")
@@ -512,20 +593,22 @@ class RMLSerializer(RDFSerializationHelper):
         """Add RML triples for a single individual."""
         # Create TriplesMap
         triples_map = BNode()
-        self.graph.add((triples_map, RDF.type, self.rr.TriplesMap))
+        self._add_triple((triples_map, RDF.type, self.rr.TriplesMap))
 
         # Add logical source
         logical_source = BNode()
-        self.graph.add((triples_map, self.rml_ns.logicalSource, logical_source))
-        self.graph.add(
+        self._add_triple((triples_map, self.rml_ns.logicalSource, logical_source))
+        self._add_triple(
             (logical_source, self.rml_ns.source, self._get_logical_source_value())
         )
-        self.graph.add((logical_source, self.rml_ns.referenceFormulation, self.ql.CSV))
+        self._add_triple(
+            (logical_source, self.rml_ns.referenceFormulation, self.ql.CSV)
+        )
 
         # Add subject map
         subject_uri = self.resolve_individual_uri(individual_id)
         subject_map, subject_map_triples = self._build_subject_map(subject_uri)
-        self.graph.addN1(
+        self._add_n1(
             (triples_map, self.rr["subjectMap"], subject_map), subject_map_triples
         )
 
@@ -538,7 +621,7 @@ class RMLSerializer(RDFSerializationHelper):
             type_predicate_object_map, type_predicate_object_map_triples = (
                 self._build_type_predicate_object_map(class_value)
             )
-            self.graph.addN1(
+            self._add_n1(
                 (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),
                 type_predicate_object_map_triples,
             )
@@ -550,7 +633,7 @@ class RMLSerializer(RDFSerializationHelper):
                     RDFS.label, Literal(individual_label)
                 )
             )
-            self.graph.addN1(
+            self._add_n1(
                 (
                     triples_map,
                     self.rr["predicateObjectMap"],
@@ -590,7 +673,7 @@ class RMLSerializer(RDFSerializationHelper):
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, target_uri)
                     )
-                    self.graph.addN1(
+                    self._add_n1(
                         (
                             triples_map,
                             self.rr["predicateObjectMap"],
@@ -604,7 +687,7 @@ class RMLSerializer(RDFSerializationHelper):
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, literal_value)
                     )
-                    self.graph.addN1(
+                    self._add_n1(
                         (
                             triples_map,
                             self.rr["predicateObjectMap"],

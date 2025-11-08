@@ -167,6 +167,11 @@ def _build_graph_from_raw_xml(
             config_args["metacharacter_substitute"]
         )
     )
+    metacharacter_mode: str | None = None
+    if any(
+        definition == "url" for definition in config_args["metacharacter_substitute"]
+    ):
+        metacharacter_mode = "url"
 
     blocks, object_properties, datatype_properties = (
         internal_control_core.individual_blocks(
@@ -191,7 +196,10 @@ def _build_graph_from_raw_xml(
         serialisation_config,
         prefixes,
         graph_cls=DrawIOParserGraph,
-        graph_kwargs={"csv_path": csv_path},
+        graph_kwargs={
+            "csv_path": csv_path,
+            "metacharacter_mode": metacharacter_mode,
+        },
     )
 
     # 5. Final post-processing (e.g., base URI binding)

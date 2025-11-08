@@ -46,6 +46,10 @@ This is reviewed by a human maintainer from time to time.
 
 ### Fixed
 
+- 2025-11-07 – Decoded URL-substituted identifiers at serialization time so
+  RML templates and literals retain their placeholders, aligning pipeline
+  exports with map_schema outputs and extending regression coverage for the
+  override.
 - 2025-10-30 – Normalised the map-schema workflow so generated RML emits
   the same labels and IRIs as the published fixtures, and refreshed the
   committed Turtle artefacts to capture the full, unfiltered graphs from
