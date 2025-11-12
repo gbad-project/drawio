@@ -33,14 +33,15 @@ def _load_graph(path: Path) -> Graph:
 
 
 def _canonicalize_and_copy(src: Path, dst: Path) -> Graph:
-    graph = Graph()
-    graph.parse(src, format="turtle")
+    # graph = Graph()
+    # graph.parse(src, format="turtle")
     # this below takes way too long!!
     # canonical = to_canonical_graph(graph)
     # and expectedly: https://rdflib.readthedocs.io/en/7.1.1/_modules/rdflib/compare.html#to_canonical_graph
     # so in summary, will have to remain non-canonical...
     warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
-    graph.serialize(dst, format="turtle")
+    shutil.copy2(src, dst)
+    # graph.serialize(dst, format="turtle")
 
 
 def _assert_isomorphic(lhs: Path, rhs: Path) -> None:
