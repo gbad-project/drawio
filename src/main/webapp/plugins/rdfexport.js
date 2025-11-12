@@ -18734,8 +18734,8 @@ from typing import Iterable
 from rdflib.term import Node
 import json
 from html import unescape
-from rdflib import BNode, SKOS
 import re
+from rdflib import BNode, SKOS
 
 
 class pipeline:
@@ -19693,6 +19693,88 @@ class pipeline:
                         self.namespace_map: dict[str, Namespace] = {}
                         self.fallback_namespace: Namespace | None = None
                         self.explicit_overrides: dict[str, URIRef] = {}
+                        self.metacharacter_substitution_mode = getattr(
+                            graph, "metacharacter_mode", None
+                        )
+                        self._should_decode_literals = False
+
+                    def _normalize_candidate(self, candidate: str) -> str:
+                        if (
+                            self._should_decode_literals
+                            and isinstance(candidate, str)
+                            and candidate
+                        ):
+                            return urllib.parse.unquote(candidate)
+                        return candidate
+
+                    def _normalize_literal(self, literal: Literal) -> Literal:
+                        if not self._should_decode_literals:
+                            return literal
+                        lexical_form = str(literal)
+                        decoded = urllib.parse.unquote(lexical_form)
+                        if decoded == lexical_form:
+                            return literal
+                        literal_kwargs: dict[str, Any] = {}
+                        if getattr(literal, "datatype", None):
+                            literal_kwargs["datatype"] = literal.datatype
+                        if getattr(literal, "language", None):
+                            literal_kwargs["lang"] = literal.language
+                        return literal.__class__(decoded, **literal_kwargs)
+
+                    def _normalize_node(self, node: Node) -> Node:
+                        if isinstance(node, Literal):
+                            return self._normalize_literal(node)
+                        return node
+
+                    def _normalize_triple(
+                        self, triple: tuple[Node, Node, Node]
+                    ) -> tuple[Node, Node, Node]:
+                        subject, predicate, obj = triple
+                        return (
+                            self._normalize_node(subject),
+                            self._normalize_node(predicate),
+                            self._normalize_node(obj),
+                        )
+
+                    def _add_triple(
+                        self, triple: tuple[Node, Node, Node]
+                    ) -> tuple[Node, Node, Node]:
+                        normalized = self._normalize_triple(triple)
+                        self.graph.add(normalized)
+                        return normalized
+
+                    def _add_triples(
+                        self, triples: list[tuple[Node, Node, Node]]
+                    ) -> list[tuple[Node, Node, Node]]:
+                        normalized = [
+                            self._normalize_triple(triple) for triple in triples
+                        ]
+                        for triple in normalized:
+                            self.graph.add(triple)
+                        return normalized
+
+                    def _add_n1(
+                        self,
+                        triple_1: tuple[Node, Node, Node],
+                        triples_n: list[tuple[Node, Node, Node]],
+                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                        normalized_first = self._normalize_triple(triple_1)
+                        normalized_rest = [
+                            self._normalize_triple(triple) for triple in triples_n
+                        ]
+                        addn1 = getattr(self.graph, "addN1", None)
+                        if callable(addn1):
+                            addn1(normalized_first, normalized_rest)
+                        else:
+                            self.graph.add(normalized_first)
+                            if normalized_rest:
+                                self.graph.addN(
+                                    (
+                                        (s, p, o, self.graph)
+                                        for s, p, o in normalized_rest
+                                    )
+                                )
+                        return (normalized_first, normalized_rest)
 
                     def _detect_template_references(
                         self, candidate: str
@@ -19710,7 +19792,8 @@ class pipeline:
                         return []
 
                     def _is_template_string(self, candidate: str) -> bool:
-                        return bool(self._detect_template_references(candidate))
+                        normalized = self._normalize_candidate(candidate)
+                        return bool(self._detect_template_references(normalized))
 
                     @staticmethod
                     def _is_absolute_iri(candidate: str) -> bool:
@@ -19762,10 +19845,10 @@ class pipeline:
                                 self.serialisation_config.ontology_iri
                                 or get_ontology_iri()
                             )
-                            self.graph.add(
+                            self._add_triple(
                                 (URIRef(ontology_iri), RDF.type, OWL.Ontology)
                             )
-                            self.graph.add(
+                            self._add_triple(
                                 (
                                     URIRef(ontology_iri),
                                     OWL.imports,
@@ -19790,7 +19873,7 @@ class pipeline:
                             )
                         ):
                             prop_uri = self.resolve_property_uri(prop)
-                            self.graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
+                            self._add_triple((prop_uri, RDF.type, OWL.ObjectProperty))
                         for prop in sorted(
                             (
                                 prop
@@ -19799,11 +19882,11 @@ class pipeline:
                             )
                         ):
                             prop_uri = self.resolve_property_uri(prop)
-                            self.graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
+                            self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-                    def _compute_explicit_override(self, individual_id) -> None:
+                    def _compute_explicit_override(self, individual_id) -> Any:
                         """Compute explicit URI override for a single individual."""
-                        pass
+                        return None
 
                     def resolve_individual_uri(self, individual_id: str) -> URIRef:
                         """Resolve an individual ID to its URI."""
@@ -19858,7 +19941,7 @@ class pipeline:
                             else:
                                 decoration_subject = BNode()
                             for note in decoration_values:
-                                self.graph.add(
+                                self._add_triple(
                                     (decoration_subject, SKOS.note, Literal(note))
                                 )
                         if hasattr(pipeline.core.internal.data, decorations_attr):
@@ -19875,7 +19958,7 @@ class pipeline:
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
 
-                    def _compute_explicit_override(self, individual_id) -> None:
+                    def _compute_explicit_override(self, individual_id) -> Any:
                         """Compute explicit URI override for a single individual."""
                         _ensure_known_curie = (
                             pipeline.core.internal.data._ensure_known_curie
@@ -19915,13 +19998,15 @@ class pipeline:
                         if self._is_template_string(individual_id):
                             return
                         individual_uri = self.resolve_individual_uri(individual_id)
-                        self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
+                        self._add_triple(
+                            (individual_uri, RDF.type, OWL.NamedIndividual)
+                        )
                         for rdf_type in types_and_facts.get("Types", set()):
                             rdf_type_str = str(rdf_type)
                             if self._is_template_string(rdf_type_str):
                                 continue
                             type_prefix, type_name = rdf_type_str.split(":")
-                            self.graph.add(
+                            self._add_triple(
                                 (
                                     individual_uri,
                                     RDF.type,
@@ -19929,7 +20014,7 @@ class pipeline:
                                 )
                             )
                         if self.serialisation_config.include_label:
-                            self.graph.add(
+                            self._add_triple(
                                 (individual_uri, RDFS.label, Literal(individual_label))
                             )
                         for prop, values in types_and_facts.items():
@@ -19956,12 +20041,12 @@ class pipeline:
                                     target_uri = self.resolve_individual_uri(
                                         target_identifier
                                     )
-                                    self.graph.add(
+                                    self._add_triple(
                                         (individual_uri, prop_uri, target_uri)
                                     )
                                 else:
                                     literal_value = self.coerce_to_literal(value)
-                                    self.graph.add(
+                                    self._add_triple(
                                         (individual_uri, prop_uri, literal_value)
                                     )
 
@@ -19991,6 +20076,8 @@ class pipeline:
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
                         self.csv_path = csv_path
+                        if self.metacharacter_substitution_mode == "url":
+                            self._should_decode_literals = True
                         self.rr = Namespace("http://www.w3.org/ns/r2rml#")
                         self.rml_ns = Namespace("http://semweb.mmlab.be/ns/rml#")
                         self.ql = Namespace("http://semweb.mmlab.be/ns/ql#")
@@ -20189,19 +20276,19 @@ class pipeline:
                     ) -> None:
                         """Add RML triples for a single individual."""
                         triples_map = BNode()
-                        self.graph.add((triples_map, RDF.type, self.rr.TriplesMap))
+                        self._add_triple((triples_map, RDF.type, self.rr.TriplesMap))
                         logical_source = BNode()
-                        self.graph.add(
+                        self._add_triple(
                             (triples_map, self.rml_ns.logicalSource, logical_source)
                         )
-                        self.graph.add(
+                        self._add_triple(
                             (
                                 logical_source,
                                 self.rml_ns.source,
                                 self._get_logical_source_value(),
                             )
                         )
-                        self.graph.add(
+                        self._add_triple(
                             (
                                 logical_source,
                                 self.rml_ns.referenceFormulation,
@@ -20212,7 +20299,7 @@ class pipeline:
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
-                        self.graph.addN1(
+                        self._add_n1(
                             (triples_map, self.rr["subjectMap"], subject_map),
                             subject_map_triples,
                         )
@@ -20226,7 +20313,7 @@ class pipeline:
                                 type_predicate_object_map,
                                 type_predicate_object_map_triples,
                             ) = self._build_type_predicate_object_map(class_value)
-                            self.graph.addN1(
+                            self._add_n1(
                                 (
                                     subject_map,
                                     self.rr["predicateObjectMap"],
@@ -20241,7 +20328,7 @@ class pipeline:
                             ) = self._build_fact_predicate_object_map(
                                 RDFS.label, Literal(individual_label)
                             )
-                            self.graph.addN1(
+                            self._add_n1(
                                 (
                                     triples_map,
                                     self.rr["predicateObjectMap"],
@@ -20279,7 +20366,7 @@ class pipeline:
                                     ) = self._build_fact_predicate_object_map(
                                         prop_uri, target_uri
                                     )
-                                    self.graph.addN1(
+                                    self._add_n1(
                                         (
                                             triples_map,
                                             self.rr["predicateObjectMap"],
@@ -20295,7 +20382,7 @@ class pipeline:
                                     ) = self._build_fact_predicate_object_map(
                                         prop_uri, literal_value
                                     )
-                                    self.graph.addN1(
+                                    self._add_n1(
                                         (
                                             triples_map,
                                             self.rr["predicateObjectMap"],
@@ -21511,6 +21598,14 @@ class internal_control_core:
                 config_args["metacharacter_substitute"]
             )
         )
+        metacharacter_mode: str | None = None
+        if any(
+            (
+                definition == "url"
+                for definition in config_args["metacharacter_substitute"]
+            )
+        ):
+            metacharacter_mode = "url"
         blocks, object_properties, datatype_properties = (
             internal_control_core.individual_blocks(
                 classifier.get_graph_elements(),
@@ -21532,7 +21627,10 @@ class internal_control_core:
             serialisation_config,
             prefixes,
             graph_cls=DrawIOParserGraph,
-            graph_kwargs={"csv_path": csv_path},
+            graph_kwargs={
+                "csv_path": csv_path,
+                "metacharacter_mode": metacharacter_mode,
+            },
         )
         if base_uri:
             graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
@@ -21599,9 +21697,16 @@ class rdf_control_core:
     class DrawIOParserGraph(Graph):
         """Graph subclass that records Draw.io specific metadata."""
 
-        def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
+        def __init__(
+            self,
+            *args,
+            csv_path: Optional[str] = None,
+            metacharacter_mode: str | None = None,
+            **kwargs,
+        ):
             super().__init__(*args, **kwargs)
             self.csv_path = csv_path
+            self.metacharacter_mode = metacharacter_mode
 
         def addN1(
             self,

@@ -83,7 +83,7 @@ auth:sourceNote a owl:DatatypeProperty .
 <ontology://generated-from-draw-io/mock#%2FKB%2FAgentControlRelation%2F%7BCONTAG%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
         rico:AgentControlRelation ;
     rdfs:label "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}",
-        "{CONTAG} - {HEADING} (Agent Control Relation). Context:" ;
+        "{CONTAG} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>" ;
     rico:hasBeginningDate <ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BDATECONT_BEGINNING%7D> ;
     rico:hasEndDate <ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BDATECONT_END%7D> ;
     rico:relationHasTarget <ontology://generated-from-draw-io/mock#%2FKB%2F%7BRICO_AUTHTP_TERM%7D%2F%7BHEADING%7D> .

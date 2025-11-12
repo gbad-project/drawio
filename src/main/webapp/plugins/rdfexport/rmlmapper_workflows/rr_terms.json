@@ -100,7 +100,7 @@
         {
           "id": "LdrxgRQo7zRXQQt_UOkl-7",
           "before": "rr:template<div>\"/<span style=\"background-color: initial;\">KB/</span>AgentControlRelation<span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">{CONTAG_1..14}</span><span style=\"background-color: initial;\">/</span>{HEADING}/urn:uuid:{UUID}<span style=\"background-color: initial;\">\"</span></div>",
-          "after": "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}"
+          "after": "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:<span>{UUID}</span>"
         },
         {
           "id": "LdrxgRQo7zRXQQt_UOkl-15",
@@ -180,7 +180,7 @@
         {
           "id": "mXWEuhzCrtuQsP6tQl7L-6",
           "before": "<div><span style=\"background-color: initial;\">rr:template \"</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">{CONTAG_1..14} -&nbsp;</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">{HEADING} (</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">Agent Control Relation). Context: &lt;urn:uuid:{</span><span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">UUID}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
-          "after": "{CONTAG} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>"
+          "after": "{CONTAG} - {HEADING} (Agent Control Relation). Context: <span><</span>urn:uuid:<span>{UUID}</span><span>></span>"
         },
         {
           "id": "Z80UwrU0Vu5smdOcJr8o-1",
@@ -264,7 +264,7 @@
         {
           "id": "sWa0SD8Ajx1KSGOqKPP4-14",
           "before": "rr:template<br><span style=\"background-color: initial;\">\"/</span>KB/Instantiation<span style=\"background-color: initial;\">/</span><span style=\"background-color: initial;\">{REFD_FILE}/urn:uuid:{</span>UUID_INSTANTIATION_1<span style=\"background-color: initial;\">}</span><span style=\"background-color: initial;\">\"</span>",
-          "after": "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}"
+          "after": "/KB/Instantiation/{REFD_FILE}/urn:uuid:<span>{UUID}</span>"
         },
         {
           "id": "K4QZWATomJR9_dxTVFmW-21",
@@ -464,7 +464,7 @@
         {
           "id": "nZdSzTGt5yp-Q97JLt56-3",
           "before": "rr:template<div><span style=\"background-color: initial;\">\"/</span><span style=\"background-color: initial;\">KB/</span><span style=\"background-color: initial;\">CreationRelation/</span><span style=\"background-color: initial;\"></span><span style=\"background-color: initial;\">{REFD_FILE}/</span><span style=\"background-color: initial;\">{</span>OFFICEABC<span style=\"background-color: initial;\">_1..20</span><span style=\"background-color: initial;\">}/urn:uuid:{UUID_OFFICEABC}\"</span></div>",
-          "after": "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:{UUID}"
+          "after": "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:<span>{UUID}</span>"
         },
         {
           "id": "nZdSzTGt5yp-Q97JLt56-11",
@@ -534,12 +534,12 @@
         {
           "id": "oJl3FkC9V9rQO8DduHPF-6",
           "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"{REFD_FILE} -&nbsp;</span>{TITLE} (Instantiation). Context: &lt;urn:uuid:{<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">UUID_INSTANTIATION_1}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
-          "after": "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>"
+          "after": "{REFD_FILE} - {TITLE} (Instantiation). Context: <span><</span>urn:uuid:<span>{UUID}</span><span>></span>"
         },
         {
           "id": "oJl3FkC9V9rQO8DduHPF-9",
           "before": "<div>rr:template<br><span style=\"background-color: initial;\">\"</span>{TITLE} -&nbsp;{OFFICEABC_1..20} (Creation Relation). Context: &lt;urn:uuid:{UUID_OFFICEABC<span style=\"background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">}&gt;</span><span style=\"background-color: initial; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));\">\"</span></div>",
-          "after": "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>"
+          "after": "{TITLE} - {OFFICEABC} (Creation Relation). Context: <span><</span>urn:uuid:<span>{UUID}</span><span>></span>"
         },
         {
           "id": "oJl3FkC9V9rQO8DduHPF-12",

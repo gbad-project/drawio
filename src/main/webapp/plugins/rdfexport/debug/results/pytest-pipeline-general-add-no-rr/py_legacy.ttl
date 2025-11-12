@@ -10,7 +10,7 @@ rdfs:subPropertyOf a owl:ObjectProperty .
 
 <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FCreationRelation%2F%7BREFD_FILE%7D%2F%7BOFFICEABC%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
         rico:CreationRelation ;
-    rdfs:label "{TITLE} - {OFFICEABC} (Creation Relation). Context:" ;
+    rdfs:label "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>" ;
     rico:date "{DATEOFF}" ;
     rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FDate%2F%7BDATEOFF_BEGINNING%7D> ;
     rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FDate%2F%7BDATEOFF_END%7D> ;
@@ -86,7 +86,7 @@ add:relatedMaterial a owl:DatatypeProperty .
 
 <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FInstantiation%2F%7BREFD_FILE%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
         rico:Instantiation ;
-    rdfs:label "{REFD_FILE} - {TITLE} (Instantiation). Context:" ;
+    rdfs:label "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>" ;
     add:howToOrder "{HOWTO}" ;
     rico:hasOrHadTitle <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FTitle%2F%7BTITLE%7D> ;
     rico:instantiationExtent "{PHDESC}" ;
