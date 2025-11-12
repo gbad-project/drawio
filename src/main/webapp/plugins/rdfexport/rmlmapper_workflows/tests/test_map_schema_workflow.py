@@ -52,8 +52,19 @@ def _assert_isomorphic(lhs: Path, rhs: Path) -> None:
 def _save_comparison_artifacts(result: MapSchemaWorkflowResult, test_name: str) -> None:
     """Save workflow and fixture turtle files to artifacts directory for comparison."""
     artifacts_dir = PLUGIN_ROOT / "rmlmapper_workflows" / "artifacts" / test_name
-    if artifacts_dir.exists():
-        shutil.rmtree(artifacts_dir)  # clean old run
+    if artifacts_dir.exists():  # clean old run
+        for item in artifacts_dir.iterdir():
+            if item.name in [
+                "map_schema_mapped.ttl",
+                "fixture_mapped.ttl",
+                "map_schema_preprocessed.csv",
+                "map_schema_map.rml",
+                "pipeline_schema.ttl",
+            ]:
+                if item.is_dir():  # defensive
+                    shutil.rmtree(item)
+                else:
+                    item.unlink()
     artifacts_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy2(result.workflow_turtle, artifacts_dir / "map_schema_mapped.ttl")

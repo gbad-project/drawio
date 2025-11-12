@@ -35,8 +35,20 @@ def _save_pipeline_artifacts(
     test_name: str,
 ) -> None:
     target_dir = ARTIFACTS_DIR / test_name
-    if target_dir.exists():
-        shutil.rmtree(target_dir)  # clean old run
+    if target_dir.exists():  # clean old run
+        for item in target_dir.iterdir():
+            if item.name in [
+                "pipeline_mapped.ttl",
+                "pipeline_map.rml",
+                "pipeline_preprocessed.csv",
+                "map_schema_mapped.ttl",
+                "map_schema_preprocessed.csv",
+                "mapper_error.txt",
+            ]:
+                if item.is_dir():  # defensive
+                    shutil.rmtree(item)
+                else:
+                    item.unlink()
     target_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy2(pipeline_result.pipeline_turtle, target_dir / "pipeline_mapped.ttl")
