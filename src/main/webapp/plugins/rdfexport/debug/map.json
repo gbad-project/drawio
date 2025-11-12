@@ -30258,7 +30258,7 @@
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca",
         "csvPath": "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv"
       },
       "parser_config": {
@@ -30273,7 +30273,7 @@
         ],
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
-        "prefix_iri": null,
+        "prefix_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
         "rml_enabled": false,
         "strict_mode": false,
         "strip_html": true
@@ -31576,7 +31576,7 @@
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca",
         "csvPath": "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv"
       },
       "parser_config": {
@@ -31591,7 +31591,7 @@
         ],
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
-        "prefix_iri": null,
+        "prefix_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
         "rml_enabled": false,
         "strict_mode": false,
         "strip_html": true
@@ -33202,7 +33202,7 @@
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca",
         "csvPath": "gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv"
       },
       "parser_config": {
@@ -33217,7 +33217,7 @@
         ],
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
-        "prefix_iri": null,
+        "prefix_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
         "rml_enabled": false,
         "strict_mode": false,
         "strip_html": true
@@ -34807,12 +34807,12 @@
           "triples": 120
         },
         "ts_pipeline": {
-          "nt_sha256": "1d221ed9bf6cff24b319ae06b5a8671e49c6a608be2fd9f9c53f86d264504ddd",
+          "nt_sha256": "b905514c2f67941d323387f239fef63b61986be1ecd7a30b40c28de63904085f",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
           "triples": 650
         },
         "ts_plugin": {
-          "nt_sha256": "1f7f86c8f093283720d25b020143f0cecb146c4fb6fa1d89f90437b3f6b41600",
+          "nt_sha256": "c8ce60fdc43105b133c791cb791a01e1af99dff78dda6bfb974f6f4526ee7e72",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
           "triples": 650
         }
@@ -36102,7 +36102,7 @@
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
+        "baseUri": "https://data.archives.gov.on.test.gbad.ca",
         "csvPath": "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv"
       },
       "parser_config": {
@@ -36117,7 +36117,7 @@
         ],
         "ontology_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping",
         "prefix": null,
-        "prefix_iri": null,
+        "prefix_iri": "https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#",
         "rml_enabled": false,
         "strict_mode": false,
         "strip_html": true
@@ -37398,12 +37398,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "ceba7a9dcf6e0bf234f0263f43a4f6ffc0001654fcf0839368dc7ee874618a5b",
+          "nt_sha256": "dac5ce36cfb6d88cee90be44803777f6390f2eafb5d69d87adfb244b1242dd9f",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
           "triples": 650
         },
         "ts_plugin": {
-          "nt_sha256": "fabcfb392e5bc626333b7916cb1fd8e970f49c86bb64eea0bbcdb9264fe343a0",
+          "nt_sha256": "5d5ea17d8bb2311b35ac8aa9df02b873e68f186bc9dc2173484fb53ccb1c5b5b",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
           "triples": 650
         }

@@ -1,13 +1,11 @@
 slug: general-authority-to-ric-o-model-2025-06-25-pz
-drawio:
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General
-  Authority to RiC-O Model_2025-06-25_PZ.drawio
+drawio: tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio
 legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
 format: turtle
 metadata:
   attributes:
     csvPath: "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv"
-    baseUri: https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#
+    baseUri: https://data.archives.gov.on.test.gbad.ca
   preamble:
   - prefix: mock1
     iri: http://mock-uri.com
@@ -16,7 +14,7 @@ parser_config:
   infer_type_of_literals: true
   include_preamble: false
   prefix: null
-  prefix_iri: null
+  prefix_iri: https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#
   indentation: 2
   include_label: false
   max_gap: 10
