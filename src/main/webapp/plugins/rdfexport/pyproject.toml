@@ -25,3 +25,6 @@ exclude = [
     "docs/",
     "legacy/original/draw_io_parser_5d85cf0.py",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
