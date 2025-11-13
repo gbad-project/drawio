@@ -513,49 +513,131 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
     assert "rr" in prefixes
 
 
-def test_parse_drawio_rml_accepts_template_classes(tmp_path: Path):
-    xml_payload = dedent(
-        """
+@pytest.mark.parametrize(
+    "rml_enabled, individual_label, type_value, expected_type_term, expect_exception",
+    [
+        # Non-RML cases
+        (
+            False,
+            "Template Individual",
+            "{RICO_AUTHTP_CLASS}",
+            None,
+            True,
+        ),
+        (
+            False,
+            "Curie Individual",
+            "rdfs:Class",
+            URIRef("http://www.w3.org/2000/01/rdf-schema#Class"),
+            False,
+        ),
+        (
+            False,
+            "Abs IRI Individual",
+            "http://example.com/exampleClass",
+            URIRef("http://example.com/exampleClass"),
+            False,
+        ),
+        (
+            False,
+            "Rel IRI Individual",
+            "/someClass",
+            URIRef("http://example.com/someClass"),
+            False,
+        ),
+        (False, "Nefarious Individual", "Unexpected Literal As Type", None, True),
+        # RML-enabled cases
+        (
+            True,
+            "Template Individual",
+            "{RICO_AUTHTP_CLASS}",
+            Literal("{RICO_AUTHTP_CLASS}"),
+            False,
+        ),
+        (
+            True,
+            "Curie Individual",
+            "rdfs:Class",
+            URIRef("http://www.w3.org/2000/01/rdf-schema#Class"),
+            False,
+        ),
+        (
+            True,
+            "Abs IRI Individual",
+            "http://example.com/exampleClass",
+            URIRef("http://example.com/exampleClass"),
+            False,
+        ),
+        (
+            True,
+            "Rel IRI Individual",
+            "/someClass",
+            URIRef("http://example.com//someClass"),
+            False,
+        ),
+        (True, "Nefarious Individual", "Unexpected Literal As Type", None, True),
+    ],
+)
+def test_parse_drawio_type_values(
+    tmp_path: Path,
+    rml_enabled,
+    individual_label,
+    type_value,
+    expected_type_term,
+    expect_exception,
+):
+    """Verify parser handles valid types correctly and raises for literal types."""
+    xml_payload = dedent(f"""
         <mxfile>
           <diagram id="template" name="template">
             <mxGraphModel>
               <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="parent" value="Template Individual" style="swimlane;fontStyle=0;html=1;" parent="1" vertex="1">
+                <mxCell id="parent" value="{individual_label}" style="swimlane;fontStyle=0;html=1;" parent="1" vertex="1">
                   <mxGeometry x="0" y="0" width="160" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="child" value="{RICO_AUTHTP_CLASS}" style="text;html=1;" parent="parent" vertex="1">
+                <mxCell id="child" value="{type_value}" style="text;html=1;" parent="parent" vertex="1">
                   <mxGeometry x="0" y="0" width="120" height="30" as="geometry"/>
                 </mxCell>
               </root>
             </mxGraphModel>
           </diagram>
         </mxfile>
-        """
-    ).strip()
+    """).strip()
 
-    fixture_path = tmp_path / "template-class.drawio"
+    fixture_path = tmp_path / "tmp_fixture.drawio"
     fixture_path.write_text(xml_payload, encoding="utf-8")
 
-    graph = draw_io_parser.parse_drawio_to_graph(
-        str(fixture_path),
+    parser_args = dict(
+        drawio_file_path=str(fixture_path),
         metacharacter_substitute=["remove"],
         prefix="ex",
         prefix_iri="http://example.com/",
-        rml_enabled=True,
+        rml_enabled=rml_enabled,
         include_label=False,
     )
 
-    rr = Namespace("http://www.w3.org/ns/r2rml#")
-
-    template_literals = {
-        str(obj)
-        for _, predicate, obj in graph.triples((None, rr["template"], None))
-        if predicate == rr["template"]
-    }
-
-    assert "{RICO_AUTHTP_CLASS}" in template_literals
+    if expect_exception:
+        with pytest.raises(draw_io_parser.NotInKnownException):
+            draw_io_parser.parse_drawio_to_graph(**parser_args)
+    else:
+        graph = draw_io_parser.parse_drawio_to_graph(**parser_args)
+        predicate_iri = (
+            Namespace("http://www.w3.org/ns/r2rml#")["template"]
+            if rml_enabled
+            else RDF.type
+        )
+        triples = list(
+            graph.triples(
+                (
+                    None,
+                    predicate_iri,
+                    expected_type_term,
+                )
+            )
+        )
+        assert len(triples) == 1
 
 
 def test_parse_drawio_default_strips_html_literals():

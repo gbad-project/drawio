@@ -192,10 +192,7 @@ class RDFSerializationHelper:
             prefix, reference = _ensure_known_curie(
                 trimmed_label,
                 self.prefixes,
-                (
-                    "The entity '{0}' references a CURIE, "
-                    "which is not defined by the available prefixes."
-                ).format(trimmed_label),
+                ("Unable to coerce entity '{0}' to a CURIE").format(trimmed_label),
             )
             return self.namespace_map[prefix][reference]
         except NotInKnownException:
@@ -433,7 +430,7 @@ class RMLSerializer(RDFSerializationHelper):
             return Literal("drawio")
 
     def _build_type_predicate_object_map(
-        self, class_value: Any
+        self, class_term: Any
     ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
         """
         Build predicateObjectMap BNode for rdf:type mapping and
@@ -442,12 +439,16 @@ class RMLSerializer(RDFSerializationHelper):
         object_map = BNode()
         predicate_object_map = BNode()
 
-        text_value = str(class_value)
+        text_value = str(class_term)
         has_template = self._is_template_string(text_value)
         class_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
+        class_object = (
+            Literal(class_term) if isinstance(class_term, self.FakeURIRef) else URIRef
+        )
         triples = [
-            (object_map, class_predicate, Literal(text_value)),
+            (object_map, class_predicate, class_object),
+            (object_map, self.rr["termType"], self.rr["IRI"]),
             (predicate_object_map, self.rr["predicate"], RDF["type"]),
             (predicate_object_map, self.rr["objectMap"], object_map),
         ]
@@ -508,10 +509,9 @@ class RMLSerializer(RDFSerializationHelper):
         for rdf_type in sorted(
             types_and_facts.get("Types", set()), key=lambda value: str(value)
         ):
-            rdf_type_str = str(rdf_type)
-            class_value = self.resolve_type(rdf_type_str)
+            class_term = self.resolve_type(str(rdf_type))
             type_predicate_object_map, type_predicate_object_map_triples = (
-                self._build_type_predicate_object_map(class_value)
+                self._build_type_predicate_object_map(class_term)
             )
             self._add_n1(
                 (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),
