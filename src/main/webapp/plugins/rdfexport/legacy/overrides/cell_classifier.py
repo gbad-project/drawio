@@ -168,7 +168,6 @@ class DrawIOCellClassifier:
                 if parent is None or identifier is None or cell_id is None:
                     continue
                 for token in classification.tokens:
-                    _verify_is_ric_class(token, self._prefixes)
                     individual = Individual(identifier, token)
                     # Check for duplicates before adding
                     if not any(
@@ -190,7 +189,6 @@ class DrawIOCellClassifier:
                     continue
                 types = classification.tokens or [self.DEFAULT_STANDALONE_TYPE]
                 for rdf_type in types:
-                    _verify_is_ric_class(rdf_type, self._prefixes)
                     individual = Individual(identifier, rdf_type)
                     if not any(
                         ind == individual
@@ -269,7 +267,6 @@ class DrawIOCellClassifier:
             )
 
         value_tokens = self._tokenise(raw_value)
-        tokens_are_valid = self._tokens_are_valid(value_tokens)
         tokens = list(value_tokens)
         single_token = tokens[0] if len(tokens) == 1 else None
         # AICODE-NOTE: I recognize that hardcoding a curie check here
@@ -282,16 +279,12 @@ class DrawIOCellClassifier:
         has_template_token = any(self._token_is_template(token) for token in tokens)
         looks_like_curie = any(":" in token for token in tokens)
 
-        if self._style_denotes_literal(cell, style, tokens_are_valid):
+        if self._style_denotes_literal(cell, style, True):
             return build(CellKind.LITERAL)
 
         child_tokens = self._collect_child_tokens(cell)
         if child_tokens:
-            if tokens_are_valid:
-                tokens.extend(t for t in child_tokens if t not in tokens)
-            else:
-                tokens = list(child_tokens)
-                tokens_are_valid = True
+            tokens.extend(t for t in child_tokens if t not in tokens)
 
         if parent_cell is not None and parent_identifier and tokens:
             if looks_like_curie or has_template_token:
@@ -302,14 +295,7 @@ class DrawIOCellClassifier:
                     tokens=tokens,
                 )
 
-            if not tokens_are_valid and "html=1" in style:
-                for token in tokens:
-                    candidate = token.strip()
-                    if not candidate:
-                        continue
-                    _verify_is_ric_class(candidate, self._prefixes)
-
-        if parent_cell is None and single_token is not None and tokens_are_valid:
+        if parent_cell is None and single_token is not None:
             return build(
                 CellKind.STANDALONE_INDIVIDUAL,
                 identifier=single_token,
@@ -317,20 +303,8 @@ class DrawIOCellClassifier:
                 declares_identifier=True,
             )
 
-        if (
-            parent_cell is None
-            and single_token is not None
-            and self._looks_like_curie_candidate(single_token)
-            and not tokens_are_valid
-        ):
-            raise NotInKnownException(
-                (
-                    "The standalone node '{0}' references a CURIE, "
-                    "which is not defined by the available prefixes."
-                ).format(single_token)
-            )
 
-        if tokens and tokens_are_valid:
+        if tokens:
             return build(
                 CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
@@ -674,34 +648,13 @@ class DrawIOCellClassifier:
 
     @staticmethod
     def _tokenise(value: str) -> list[str]:
-        return [
-            t.strip()
-            for t in value.replace(",", " ").replace(";", " ").split()
-            if t.strip()
-        ]
+        return [t.strip() for t in value.split("\n\n") if t.strip()]
 
     def _token_is_template(self, token: str) -> bool:
         try:
             return bool(self._detect_string_template(token))
         except Exception:
             return False
-
-    def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
-        if not tokens:
-            return False
-        for token in tokens:
-            if self._token_is_template(token):
-                continue
-            if ":" not in token:
-                return False
-            prefix, remainder = token.split(":", 1)
-            if not prefix or not remainder.strip() or prefix not in self._prefixes:
-                return False
-            try:
-                self._namespace_manager.expand_curie(token)
-            except Exception:
-                return False
-        return True
 
     @staticmethod
     def _looks_like_curie_candidate(value: str) -> bool:

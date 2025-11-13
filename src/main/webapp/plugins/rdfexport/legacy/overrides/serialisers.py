@@ -321,9 +321,8 @@ class RDFSerializer(RDFSerializationHelper):
             rdf_type_str = str(rdf_type)
             if self._is_template_string(rdf_type_str):
                 continue
-            type_prefix, type_name = rdf_type_str.split(":")
             self._add_triple(
-                (individual_uri, RDF.type, self.namespace_map[type_prefix][type_name])
+                (individual_uri, RDF.type, self.resolve_individual_uri(rdf_type_str))
             )
 
         # Add label if configured
@@ -566,21 +565,7 @@ class RMLSerializer(RDFSerializationHelper):
         return subject_map, triples
 
     def _resolve_type_value(self, rdf_type: str) -> Any:
-        if ":" in rdf_type:
-            prefix, reference = _ensure_known_curie(
-                rdf_type,
-                self.prefixes,
-                f"Not a known class: {rdf_type}",
-            )
-            namespace = self.namespace_map.get(prefix)
-            if namespace is None:
-                raise NotInKnownException(f"Not a known class: {rdf_type}")
-            return namespace[reference]
-
-        if self._is_template_string(rdf_type):
-            return Literal(rdf_type)
-
-        raise NotInKnownException(f"Not a known class: {rdf_type}")
+        return self.resolve_individual_uri(rdf_type)
 
     def resolve_individual_uri(self, individual_id: str) -> URIRef:
         if self._is_template_string(individual_id):
