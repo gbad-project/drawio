@@ -17,7 +17,7 @@ from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 from enum import Enum, auto
 import typing
-from typing import Iterable
+from rdflib.namespace import NamespaceManager
 from rdflib.term import Node
 import json
 from html import unescape
@@ -144,11 +144,13 @@ class pipeline:
                     """
 
                     class CellKind(Enum):
+                        ARROW = auto()
                         ARROW_LABEL = auto()
                         TYPED_INDIVIDUAL = auto()
                         STANDALONE_INDIVIDUAL = auto()
                         LITERAL = auto()
                         DECORATION = auto()
+                        EMPTY_CELL = auto()
 
                     @dataclass(slots=True)
                     class CellClassification:
@@ -280,7 +282,6 @@ class pipeline:
                                 ):
                                     continue
                                 for token in classification.tokens:
-                                    _verify_is_ric_class(token, self._prefixes)
                                     individual = Individual(identifier, token)
                                     if not any(
                                         (
@@ -309,7 +310,6 @@ class pipeline:
                                     self.DEFAULT_STANDALONE_TYPE
                                 ]
                                 for rdf_type in types:
-                                    _verify_is_ric_class(rdf_type, self._prefixes)
                                     individual = Individual(identifier, rdf_type)
                                     if not any(
                                         (
@@ -355,6 +355,7 @@ class pipeline:
                         """Determines the role of a given mxCell in the graph."""
                         CellClassification = self.CellClassification
                         CellKind = self.CellKind
+                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
                         raw_value = cell_value.strip()
                         literal_value = raw_value
                         if raw_html is not None and (not self._strip_html):
@@ -380,7 +381,7 @@ class pipeline:
                         if "edgeLabel" in style:
                             return build(CellKind.ARROW_LABEL)
                         if not raw_value:
-                            return build(CellKind.LITERAL)
+                            return build(CellKind.EMPTY_CELL)
                         parent_cell, parent_identifier = self._resolve_parent(cell)
                         if (
                             parent_cell is not None
@@ -392,68 +393,22 @@ class pipeline:
                                 parent_cell=parent_cell,
                                 parent_identifier=parent_identifier,
                             )
-                        value_tokens = self._tokenise(raw_value)
-                        tokens_are_valid = self._tokens_are_valid(value_tokens)
-                        tokens = list(value_tokens)
-                        single_token = tokens[0] if len(tokens) == 1 else None
-                        has_template_token = any(
-                            (self._token_is_template(token) for token in tokens)
-                        )
-                        looks_like_curie = any((":" in token for token in tokens))
-                        if self._style_denotes_literal(cell, style, tokens_are_valid):
+                        if self._style_denotes_literal(cell, style):
                             return build(CellKind.LITERAL)
-                        child_tokens = self._collect_child_tokens(cell)
-                        if child_tokens:
-                            if tokens_are_valid:
+                        if parent_cell is not None and parent_identifier:
+                            tokens = self._tokenise(raw_value)
+                            child_tokens = self._collect_child_tokens(cell)
+                            if child_tokens:
                                 tokens.extend(
                                     (t for t in child_tokens if t not in tokens)
                                 )
-                            else:
-                                tokens = list(child_tokens)
-                                tokens_are_valid = True
-                        if parent_cell is not None and parent_identifier and tokens:
-                            if looks_like_curie or has_template_token:
-                                return build(
-                                    CellKind.TYPED_INDIVIDUAL,
-                                    parent_cell=parent_cell,
-                                    parent_identifier=parent_identifier,
-                                    tokens=tokens,
-                                )
-                            if not tokens_are_valid and "html=1" in style:
-                                for token in tokens:
-                                    candidate = token.strip()
-                                    if not candidate:
-                                        continue
-                                    _verify_is_ric_class(candidate, self._prefixes)
-                        if (
-                            parent_cell is None
-                            and single_token is not None
-                            and tokens_are_valid
-                        ):
                             return build(
-                                CellKind.STANDALONE_INDIVIDUAL,
-                                identifier=single_token,
-                                tokens=[],
-                                declares_identifier=True,
-                            )
-                        if (
-                            parent_cell is None
-                            and single_token is not None
-                            and self._looks_like_curie_candidate(single_token)
-                            and (not tokens_are_valid)
-                        ):
-                            raise NotInKnownException(
-                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
-                                    single_token
-                                )
-                            )
-                        if tokens and tokens_are_valid:
-                            return build(
-                                CellKind.STANDALONE_INDIVIDUAL,
-                                identifier=raw_value,
+                                CellKind.TYPED_INDIVIDUAL,
+                                parent_cell=parent_cell,
+                                parent_identifier=parent_identifier,
                                 tokens=tokens,
                             )
-                        if self._looks_like_absolute_uri(raw_value):
+                        elif looks_like_iri(raw_value):
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
@@ -789,38 +744,14 @@ class pipeline:
 
                     @staticmethod
                     def _tokenise(value: str) -> list[str]:
-                        return [
-                            t.strip()
-                            for t in value.replace(",", " ").replace(";", " ").split()
-                            if t.strip()
-                        ]
+                        """Split by any whitespace character and strip each token."""
+                        return [t.strip() for t in value.split("\n") if t.strip()]
 
                     def _token_is_template(self, token: str) -> bool:
                         try:
                             return bool(self._detect_string_template(token))
                         except Exception:
                             return False
-
-                    def _tokens_are_valid(self, tokens: Iterable[str]) -> bool:
-                        if not tokens:
-                            return False
-                        for token in tokens:
-                            if self._token_is_template(token):
-                                continue
-                            if ":" not in token:
-                                return False
-                            prefix, remainder = token.split(":", 1)
-                            if (
-                                not prefix
-                                or not remainder.strip()
-                                or prefix not in self._prefixes
-                            ):
-                                return False
-                            try:
-                                self._namespace_manager.expand_curie(token)
-                            except Exception:
-                                return False
-                        return True
 
                     @staticmethod
                     def _looks_like_curie_candidate(value: str) -> bool:
@@ -855,10 +786,9 @@ class pipeline:
                             try:
                                 child_value = self._value_of(child).strip()
                                 child_tokens = self._tokenise(child_value)
-                                if self._tokens_are_valid(child_tokens):
-                                    tokens.extend(
-                                        (t for t in child_tokens if t not in tokens)
-                                    )
+                                tokens.extend(
+                                    (t for t in child_tokens if t not in tokens)
+                                )
                             except (_NoValueException, ParseException):
                                 continue
                         self._child_token_cache[cell_id] = tokens
@@ -883,21 +813,11 @@ class pipeline:
                         return "text;" in style or "shape=text" in style
 
                     @staticmethod
-                    def _style_denotes_literal(
-                        cell: Element, style: str, tokens_are_valid: bool
-                    ) -> bool:
+                    def _style_denotes_literal(cell: Element, style: str) -> bool:
                         if not style:
                             return False
                         if "rounded=1" in style:
-                            parent_is_root = cell.attrib.get("parent") == "1"
-                            has_swimlane_style = "swimlane" in style
-                            if parent_is_root or has_swimlane_style:
-                                return True
-                        if cell.attrib.get("parent") != "1":
-                            return False
-                        if tokens_are_valid:
-                            return False
-                        return False
+                            return True
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:
@@ -911,26 +831,6 @@ class pipeline:
                         )
 
                 # END override cell_classifier.py.DrawIOCellClassifier
-                # BEGIN override curie_validator.py._cell_is_literal
-                def _cell_is_literal(self, candidate: Element) -> bool:
-                    is_literal = any(
-                        (
-                            literal_cell is candidate
-                            for literal_cell, _ in self.literal_cells
-                        )
-                    )
-                    if is_literal:
-                        decorations_attr = "__drawio_literal_registry"
-                        registry = getattr(
-                            pipeline.core.internal.data, decorations_attr, None
-                        )
-                        if isinstance(registry, dict):
-                            cell_id = candidate.attrib.get("id")
-                            if cell_id in registry:
-                                registry[cell_id]["connected"] = True
-                    return is_literal
-
-                # END override curie_validator.py._cell_is_literal
 
             class control:
                 pass
@@ -940,10 +840,59 @@ class pipeline:
                 pass
 
             class data:
-                pass
+                # BEGIN override curie_validator.py.looks_like_iri
+                def looks_like_iri(candidate: str) -> str | bool:
+                    """Check if a string is an absolute IRI."""
+                    if not candidate or any((ch.isspace() for ch in candidate)):
+                        return False
+                    if "://" in candidate:
+                        return "absolute-iri"
+                    scheme, _, remainder = candidate.partition(":")
+                    if bool(remainder.strip()):
+                        if scheme.lower() in {"urn", "tag", "ni"}:
+                            return "absolute-iri"
+                        elif len(remainder.split()) == 1:
+                            return "curie"
+                    if candidate.startswith(("/", "#")):
+                        return "relative-iri"
+                    return False
+
+                # END override curie_validator.py.looks_like_iri
 
             class control:
-                pass
+                # BEGIN override serialisers.py.dump_blocks
+                def dump_blocks(
+                    blocks: Blocks,
+                    object_properties: set[str],
+                    datatype_properties: set[str],
+                    dump_path: str,
+                ):
+                    import json
+                    from pathlib import Path
+
+                    def make_json_safe(obj):
+                        if isinstance(obj, dict):
+                            return {
+                                k
+                                if isinstance(k, (str, int, float, bool, type(None)))
+                                else str(k): make_json_safe(v)
+                                for k, v in obj.items()
+                            }
+                        elif isinstance(obj, (list, tuple, set)):
+                            return [make_json_safe(i) for i in obj]
+                        else:
+                            return obj
+
+                    data = {
+                        "blocks": make_json_safe(blocks),
+                        "object_properties": make_json_safe(object_properties),
+                        "datatype_properties": make_json_safe(datatype_properties),
+                    }
+                    Path(dump_path).write_text(
+                        json.dumps(data, indent=4, ensure_ascii=False), encoding="utf-8"
+                    )
+
+                # END override serialisers.py.dump_blocks
 
         class rdf:
             class metadata:
@@ -1063,54 +1012,16 @@ class pipeline:
                                 )
                         return (normalized_first, normalized_rest)
 
-                    def _detect_template_references(
-                        self, candidate: str
-                    ) -> list[str | None]:
-                        detector = getattr(
-                            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
-                            "detect_string_template",
-                            None,
-                        )
-                        if callable(detector):
-                            try:
-                                return list(detector(candidate))
-                            except Exception:
-                                return []
-                        return []
-
-                    def _is_template_string(self, candidate: str) -> bool:
-                        normalized = self._normalize_candidate(candidate)
-                        return bool(self._detect_template_references(normalized))
-
-                    @staticmethod
-                    def _is_absolute_iri(candidate: str) -> bool:
-                        """Check if a string is an absolute IRI."""
-                        if not candidate or any((ch.isspace() for ch in candidate)):
-                            return False
-                        if "://" in candidate:
-                            return True
-                        scheme, _, remainder = candidate.partition(":")
-                        return scheme.lower() in {"urn", "tag"} and bool(
-                            remainder.strip()
-                        )
-
-                    def _is_relative_iri(self, candidate: str) -> bool:
-                        """Check if a string looks like a relative IRI and, if so, expand it."""
-                        if not candidate or any((ch.isspace() for ch in candidate)):
-                            return False
-                        if self._is_absolute_iri(candidate):
-                            return False
-                        if not (":" in candidate or "://" in candidate):
-                            if self.prefix_iri:
-                                return True
-                        return False
-
                     def setup_namespaces(self) -> None:
                         """Bind namespaces to the graph."""
-                        if self.prefix_iri and self._is_absolute_iri(self.prefix_iri):
+                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+                        if (
+                            self.prefix_iri
+                            and looks_like_iri(self.prefix_iri) == "absolute-iri"
+                        ):
                             self.fallback_namespace = Namespace(self.prefix_iri)
                         for prefix_key, uri in self.prefixes.items():
-                            if self._is_absolute_iri(uri):
+                            if looks_like_iri(uri) == "absolute-iri":
                                 namespace = Namespace(uri)
                             elif self.fallback_namespace is not None:
                                 namespace = self.fallback_namespace
@@ -1145,7 +1056,8 @@ class pipeline:
 
                     def resolve_property_uri(self, prop: str) -> URIRef:
                         """Resolve a property string to a URIRef."""
-                        if self._is_absolute_iri(prop):
+                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+                        if looks_like_iri(prop) == "absolute-iri":
                             return URIRef(prop)
                         prop_prefix, prop_name = prop.split(":", 1)
                         return self.namespace_map[prop_prefix][prop_name]
@@ -1171,23 +1083,36 @@ class pipeline:
                             prop_uri = self.resolve_property_uri(prop)
                             self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-                    def _compute_explicit_override(self, individual_id) -> Any:
-                        """Compute explicit URI override for a single individual."""
-                        return None
-
-                    def resolve_individual_uri(self, individual_id: str) -> URIRef:
-                        """Resolve an individual ID to its URI."""
-                        override_uri = self._compute_explicit_override(individual_id)
-                        if override_uri is not None:
-                            return override_uri
-                        elif self.prefix and self.serialisation_config.prefix_iri:
-                            return Namespace(self.serialisation_config.prefix_iri)[
-                                individual_id
-                            ]
-                        elif self.prefix_iri:
-                            return URIRef(f"{self.prefix_iri}{individual_id}")
-                        else:
-                            return URIRef(individual_id)
+                    def coerce_to_uriref(self, value: str) -> URIRef:
+                        """Resolve an individual ID/type/object fact to its URI."""
+                        _ensure_known_curie = (
+                            pipeline.core.internal.data._ensure_known_curie
+                        )
+                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+                        individual_label = urllib.parse.unquote(value)
+                        trimmed_label = individual_label.strip()
+                        if not trimmed_label:
+                            raise NotInKnownException(f"Entity {value!r} is empty")
+                        if looks_like_iri(trimmed_label) == "absolute-iri":
+                            return URIRef(trimmed_label)
+                        if looks_like_iri(trimmed_label) == "relative-iri":
+                            if self.prefix_iri:
+                                return Namespace(self.prefix_iri)[value]
+                            else:
+                                raise NotInKnownException(
+                                    f"Failed to coerce {value!r} to URIRef because prefix IRI is {self.prefix_iri!r}"
+                                )
+                        try:
+                            prefix, reference = _ensure_known_curie(
+                                trimmed_label,
+                                self.prefixes,
+                                "The entity '{0}' references a CURIE, which is not defined by the available prefixes.".format(
+                                    trimmed_label
+                                ),
+                            )
+                            return self.namespace_map[prefix][reference]
+                        except NotInKnownException:
+                            return Namespace(self.prefix_iri)[value]
 
                     def coerce_to_literal(self, value: Any) -> Literal:
                         """Convert a value to a typed Literal."""
@@ -1245,36 +1170,6 @@ class pipeline:
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
 
-                    def _compute_explicit_override(self, individual_id) -> Any:
-                        """Compute explicit URI override for a single individual."""
-                        _ensure_known_curie = (
-                            pipeline.core.internal.data._ensure_known_curie
-                        )
-                        individual_label = urllib.parse.unquote(individual_id)
-                        trimmed_label = individual_label.strip()
-                        if not trimmed_label:
-                            return
-                        if self._is_absolute_iri(trimmed_label):
-                            return URIRef(trimmed_label)
-                        if self._is_relative_iri(trimmed_label):
-                            pass
-                        if ":" not in trimmed_label or "://" in trimmed_label:
-                            return
-                        try:
-                            prefix, reference = _ensure_known_curie(
-                                trimmed_label,
-                                self.prefixes,
-                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
-                                    trimmed_label
-                                ),
-                            )
-                        except NotInKnownException:
-                            return
-                        namespace = self.namespace_map.get(prefix)
-                        if namespace is None:
-                            return
-                        return namespace[reference]
-
                     def add_individual_triples(
                         self,
                         individual_id: str,
@@ -1282,22 +1177,17 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add triples for a single individual."""
-                        if self._is_template_string(individual_id):
-                            return
-                        individual_uri = self.resolve_individual_uri(individual_id)
+                        individual_uri = self.coerce_to_uriref(individual_id)
                         self._add_triple(
                             (individual_uri, RDF.type, OWL.NamedIndividual)
                         )
                         for rdf_type in types_and_facts.get("Types", set()):
                             rdf_type_str = str(rdf_type)
-                            if self._is_template_string(rdf_type_str):
-                                continue
-                            type_prefix, type_name = rdf_type_str.split(":")
                             self._add_triple(
                                 (
                                     individual_uri,
                                     RDF.type,
-                                    self.namespace_map[type_prefix][type_name],
+                                    self.coerce_to_uriref(rdf_type_str),
                                 )
                             )
                         if self.serialisation_config.include_label:
@@ -1323,9 +1213,7 @@ class pipeline:
                                     )
                                 if not is_literal:
                                     target_identifier = str(value)
-                                    if self._is_template_string(target_identifier):
-                                        continue
-                                    target_uri = self.resolve_individual_uri(
+                                    target_uri = self.coerce_to_uriref(
                                         target_identifier
                                     )
                                     self._add_triple(
@@ -1412,35 +1300,9 @@ class pipeline:
                                 )
                         return matches
 
-                    def _compute_explicit_override(self, individual_id) -> Any:
-                        """Compute explicit URI override for a single individual."""
-                        _ensure_known_curie = (
-                            pipeline.core.internal.data._ensure_known_curie
-                        )
-                        individual_label = urllib.parse.unquote(individual_id)
-                        trimmed_label = individual_label.strip()
-                        if not trimmed_label:
-                            return
-                        if self._is_absolute_iri(
-                            trimmed_label
-                        ) or self._is_relative_iri(trimmed_label):
-                            return self.FakeURIRef(trimmed_label)
-                        if ":" not in trimmed_label or "://" in trimmed_label:
-                            return
-                        try:
-                            prefix, reference = _ensure_known_curie(
-                                trimmed_label,
-                                self.prefixes,
-                                "The standalone node '{0}' references a CURIE, which is not defined by the available prefixes.".format(
-                                    trimmed_label
-                                ),
-                            )
-                        except NotInKnownException:
-                            return
-                        namespace = self.namespace_map.get(prefix)
-                        if namespace is None:
-                            return
-                        return namespace[reference]
+                    def _is_template_string(self, candidate: str) -> bool:
+                        normalized = self._normalize_candidate(candidate)
+                        return bool(self.detect_string_template(normalized))
 
                     def _build_fact_predicate_object_map(
                         self, predicate_uri: URIRef, fact: Any
@@ -1534,26 +1396,12 @@ class pipeline:
                         return (subject_map, triples)
 
                     def _resolve_type_value(self, rdf_type: str) -> Any:
-                        if ":" in rdf_type:
-                            prefix, reference = _ensure_known_curie(
-                                rdf_type,
-                                self.prefixes,
-                                f"Not a known class: {rdf_type}",
-                            )
-                            namespace = self.namespace_map.get(prefix)
-                            if namespace is None:
-                                raise NotInKnownException(
-                                    f"Not a known class: {rdf_type}"
-                                )
-                            return namespace[reference]
-                        if self._is_template_string(rdf_type):
-                            return Literal(rdf_type)
-                        raise NotInKnownException(f"Not a known class: {rdf_type}")
+                        return self.coerce_to_uriref(rdf_type)
 
-                    def resolve_individual_uri(self, individual_id: str) -> URIRef:
+                    def coerce_to_uriref(self, individual_id: str) -> URIRef:
                         if self._is_template_string(individual_id):
                             return self.FakeURIRef(individual_id)
-                        return super().resolve_individual_uri(individual_id)
+                        return super().coerce_to_uriref(individual_id)
 
                     def add_individual_triples(
                         self,
@@ -1582,7 +1430,7 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_uri = self.resolve_individual_uri(individual_id)
+                        subject_uri = self.coerce_to_uriref(individual_id)
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
@@ -1646,7 +1494,7 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.resolve_individual_uri(str(value))
+                                    target_uri = self.coerce_to_uriref(str(value))
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -1714,30 +1562,13 @@ class pipeline:
                     """Serialize blocks to RDF graph with RML mapping triples."""
                     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
                     if os.getenv("DEBUG") == "true":
-                        import json
-
-                        def make_json_safe(obj):
-                            if isinstance(obj, dict):
-                                return {
-                                    k
-                                    if isinstance(
-                                        k, (str, int, float, bool, type(None))
-                                    )
-                                    else str(k): make_json_safe(v)
-                                    for k, v in obj.items()
-                                }
-                            elif isinstance(obj, (list, tuple, set)):
-                                return [make_json_safe(i) for i in obj]
-                            else:
-                                return obj
-
-                        data = {
-                            "blocks": make_json_safe(blocks),
-                            "object_properties": make_json_safe(object_properties),
-                            "datatype_properties": make_json_safe(datatype_properties),
-                        }
-                        with open("tmp/blocks.json", "w") as f:
-                            json.dump(data, f, indent=4, ensure_ascii=False)
+                        dump_blocks = pipeline.core.internal.control.dump_blocks
+                        dump_blocks(
+                            blocks,
+                            object_properties,
+                            datatype_properties,
+                            "tmp/blocks.json",
+                        )
                     graph_kwargs = graph_kwargs or {}
                     graph = graph_cls(**graph_kwargs)
                     csv_path = graph_kwargs.get("csv_path")
@@ -2463,23 +2294,21 @@ class internal_data_core:
     # END Arrow
     # BEGIN _split_curie
     # override from curie_validator.py
-    def _split_curie(curie: str) -> tuple[str, str]:
-        active_attr = "__curie_validator_active_prefixes"
-        prefixes = getattr(pipeline.core.internal.data, active_attr, None)
-        manager = Graph().namespace_manager
-        if isinstance(prefixes, dict):
-            for prefix, iri in prefixes.items():
-                manager.bind(prefix, iri, replace=True)
+    def _split_curie(curie: str, prefixes: dict[str, str]) -> tuple[str, str]:
         if ":" not in curie:
-            raise ValueError(f"CURIE '{curie}' must include a prefix separator")
+            raise ValueError(f"CURIE {curie!r} must include a prefix separator")
         prefix, remainder = curie.split(":", 1)
         remainder = remainder.strip()
+        if not remainder:
+            raise ValueError(f"CURIE {curie!r} is missing a reference component")
         try:
+            manager = NamespaceManager(Graph())
+            if isinstance(prefixes, dict):
+                for p, i in prefixes.items():
+                    manager.bind(p, i, replace=True)
             manager.expand_curie(curie)
         except Exception as exc:
             raise ValueError(f"Failed to expand CURIE '{curie}'") from exc
-        if not remainder:
-            raise ValueError(f"CURIE '{curie}' is missing a reference component")
         return (prefix, remainder)
 
     # END _split_curie
@@ -2488,34 +2317,15 @@ class internal_data_core:
     def _ensure_known_curie(
         curie: str, prefixes: dict[str, str], error_message: str
     ) -> tuple[str, str]:
-        active_attr = "__curie_validator_active_prefixes"
-        setattr(pipeline.core.internal.data, active_attr, prefixes)
         try:
-            prefix, reference = _split_curie(curie)
-        except ValueError as exc:
-            raise NotInKnownException(error_message) from exc
-        finally:
-            if hasattr(pipeline.core.internal.data, active_attr):
-                delattr(pipeline.core.internal.data, active_attr)
-        if prefix not in prefixes:
-            raise NotInKnownException(error_message)
+            prefix, reference = _split_curie(curie, prefixes)
+        except ValueError as e:
+            raise NotInKnownException(error_message) from e
         return (prefix, reference)
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
-    # override from curie_validator.py
     def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
-        detector = getattr(
-            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
-            "detect_string_template",
-            None,
-        )
-        if callable(detector):
-            try:
-                if detector(ric_class):
-                    return
-            except Exception:
-                pass
         _ensure_known_curie(ric_class, prefixes, f"Not a known class: {ric_class}")
 
     # END _verify_is_ric_class
@@ -2536,6 +2346,7 @@ class internal_data_core:
 
     # END ArrowWithoutIndividualAsSourceException
     # BEGIN _add_individual_type
+    # override from individual_blocks.py
     def _add_individual_type(
         blocks: Blocks,
         individual: Individual,
@@ -2543,23 +2354,28 @@ class internal_data_core:
         space_substitute: Replacement | None,
         capitalisation_scheme: str,
     ) -> None:
+        _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
         individual_id = _replace_metacharacters(
             individual.identifier,
             metacharacter_substitutes,
             space_substitute,
             capitalisation_scheme,
         )
+        rdf_type = _replace_metacharacters(
+            individual.ric_class,
+            metacharacter_substitutes,
+            space_substitute,
+            capitalisation_scheme,
+        )
         try:
-            block = blocks[(individual_id, individual.identifier)]
+            block = blocks[individual_id, individual.identifier]
         except KeyError:
-            blocks[(individual_id, individual.identifier)] = {
-                "Types": {individual.ric_class}
-            }
+            blocks[individual_id, individual.identifier] = {"Types": {rdf_type}}
             return
         try:
-            block["Types"].add(individual.ric_class)
+            block["Types"].add(rdf_type)
         except KeyError:
-            block["Types"] = {individual.ric_class}
+            block["Types"] = {rdf_type}
 
     # END _add_individual_type
 
@@ -2646,7 +2462,7 @@ class internal_control_core:
 
     # END _parse_metacharacter_substitutes
     # BEGIN individual_blocks
-    # override from curie_validator.py
+    # override from individual_blocks.py
     def individual_blocks(
         individuals_and_arrows: Iterator[Individual | Arrow],
         metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
@@ -2654,18 +2470,12 @@ class internal_control_core:
         capitalisation_scheme: str,
         prefixes: dict[str, str],
     ) -> tuple[Blocks, set[str], set[str]]:
+        _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
+        _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
+        _add_individual_type = pipeline.core.internal.data._add_individual_type
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
-
-        def _looks_like_absolute_uri(value: str) -> bool:
-            if not value or any((ch.isspace() for ch in value)):
-                return False
-            if "://" in value:
-                return True
-            scheme, _, remainder = value.partition(":")
-            return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
-
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
                 _add_individual_type(
@@ -2678,50 +2488,9 @@ class internal_control_core:
                 continue
             identifier = individual_or_arrow.identifier
             normalized_identifier = identifier
-            allow_absolute_identifier = False
-            if _looks_like_absolute_uri(identifier):
-                for prefix_key, iri in prefixes.items():
-                    if identifier.startswith(iri) and identifier[len(iri) :]:
-                        normalized_identifier = f"{prefix_key}:{identifier[len(iri) :]}"
-                        break
-                else:
-                    allow_absolute_identifier = True
-            if not allow_absolute_identifier:
-                _ensure_known_curie(
-                    normalized_identifier,
-                    prefixes,
-                    f"An arrow has label '{normalized_identifier}', which is not a known object property or datatype property",
-                )
             if individual_or_arrow.is_datatype:
                 datatype_properties.add(normalized_identifier)
                 target_identifier = individual_or_arrow.target
-                literal_candidate = target_identifier.strip()
-                if (
-                    ":" in literal_candidate
-                    and "://" not in literal_candidate
-                    and literal_candidate
-                ):
-                    prefix, reference = literal_candidate.split(":", 1)
-                    if (
-                        prefix
-                        and (prefix[0].isalpha() or prefix[0] == "_")
-                        and all((ch.isalnum() or ch in "._-" for ch in prefix[1:]))
-                        and (
-                            not (
-                                reference
-                                and any((char.isspace() for char in reference))
-                            )
-                        )
-                    ):
-                        manager = Graph().namespace_manager
-                        for known_prefix, iri in prefixes.items():
-                            manager.bind(known_prefix, iri, replace=True)
-                        try:
-                            manager.expand_curie(literal_candidate)
-                        except Exception as exc:
-                            raise NotInKnownException(
-                                f"The literal value '{literal_candidate}' does not correspond to a known CURIE"
-                            ) from exc
                 property_value = (target_identifier, True)
             else:
                 object_properties.add(normalized_identifier)
@@ -2745,6 +2514,7 @@ class internal_control_core:
                     normalized_identifier: {property_value}
                 }
                 continue
+            print(normalized_identifier)
             values = block.get(normalized_identifier)
             if values is None:
                 block[normalized_identifier] = {property_value}
@@ -3022,6 +2792,11 @@ class rdf_control_core:
     ) -> Graph:
         """Serialize blocks to RDF graph with regular triples."""
         RDFSerializer = pipeline.core.rdf.control.RDFSerializer
+        if os.getenv("DEBUG") == "true":
+            dump_blocks = pipeline.core.internal.control.dump_blocks
+            dump_blocks(
+                blocks, object_properties, datatype_properties, "tmp/blocks.json"
+            )
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
         serializer = RDFSerializer(
@@ -3037,6 +2812,8 @@ class rdf_control_core:
         serializer.declare_properties()
         serializer.serialize_all_individuals()
         serializer.add_decoration_notes()
+        if os.getenv("DEBUG") == "true":
+            graph.serialize("tmp/graph.ttl", format="turtle")
         return graph
 
     # END serialise_to_graph

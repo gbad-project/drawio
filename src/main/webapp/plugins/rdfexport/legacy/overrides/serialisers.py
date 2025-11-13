@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import re
-import urllib.parse
 from datetime import datetime
 from typing import Any, Dict, Optional, Type
 
@@ -116,54 +115,15 @@ class RDFSerializationHelper:
 
         return normalized_first, normalized_rest
 
-    def _detect_template_references(self, candidate: str) -> list[str | None]:
-        detector = getattr(
-            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
-            "detect_string_template",
-            None,
-        )
-        if callable(detector):
-            try:
-                return list(detector(candidate))
-            except Exception:
-                return []
-        return []
-
-    def _is_template_string(self, candidate: str) -> bool:
-        normalized = self._normalize_candidate(candidate)
-        return bool(self._detect_template_references(normalized))
-
-    @staticmethod
-    def _is_absolute_iri(candidate: str) -> bool:
-        """Check if a string is an absolute IRI."""
-        if not candidate or any(ch.isspace() for ch in candidate):
-            return False
-        if "://" in candidate:
-            return True
-        scheme, _, remainder = candidate.partition(":")
-        return scheme.lower() in {"urn", "tag"} and bool(remainder.strip())
-
-    def _is_relative_iri(self, candidate: str) -> bool:
-        """Check if a string looks like a relative IRI and, if so, expand it."""
-        if not candidate or any(ch.isspace() for ch in candidate):
-            return False
-        if self._is_absolute_iri(candidate):
-            return False
-
-        # Relative if it lacks a scheme or known prefix but is non-empty
-        if not (":" in candidate or "://" in candidate):
-            # Expand by prefix_iri if available
-            if self.prefix_iri:
-                return True
-        return False
-
     def setup_namespaces(self) -> None:
         """Bind namespaces to the graph."""
-        if self.prefix_iri and self._is_absolute_iri(self.prefix_iri):
+        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+
+        if self.prefix_iri and looks_like_iri(self.prefix_iri) == "absolute-iri":
             self.fallback_namespace = Namespace(self.prefix_iri)
 
         for prefix_key, uri in self.prefixes.items():
-            if self._is_absolute_iri(uri):
+            if looks_like_iri(uri) == "absolute-iri":
                 namespace = Namespace(uri)
             elif self.fallback_namespace is not None:
                 namespace = self.fallback_namespace
@@ -187,7 +147,9 @@ class RDFSerializationHelper:
 
     def resolve_property_uri(self, prop: str) -> URIRef:
         """Resolve a property string to a URIRef."""
-        if self._is_absolute_iri(prop):
+        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+
+        if looks_like_iri(prop) == "absolute-iri":
             return URIRef(prop)
         prop_prefix, prop_name = prop.split(":", 1)
         return self.namespace_map[prop_prefix][prop_name]
@@ -206,21 +168,39 @@ class RDFSerializationHelper:
             prop_uri = self.resolve_property_uri(prop)
             self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-    def _compute_explicit_override(self, individual_id) -> Any:
-        """Compute explicit URI override for a single individual."""
-        return None
+    def coerce_to_uriref(self, value: str) -> URIRef:
+        """Resolve an individual ID/type/object fact to its URI."""
+        _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
+        looks_like_iri = pipeline.core.internal.data.looks_like_iri
 
-    def resolve_individual_uri(self, individual_id: str) -> URIRef:
-        """Resolve an individual ID to its URI."""
-        override_uri = self._compute_explicit_override(individual_id)
-        if override_uri is not None:
-            return override_uri
-        elif self.prefix and self.serialisation_config.prefix_iri:
-            return Namespace(self.serialisation_config.prefix_iri)[individual_id]
-        elif self.prefix_iri:
-            return URIRef(f"{self.prefix_iri}{individual_id}")
-        else:
-            return URIRef(individual_id)
+        individual_label = urllib.parse.unquote(value)
+        trimmed_label = individual_label.strip()
+        if not trimmed_label:
+            raise NotInKnownException(f"Entity {value!r} is empty")
+
+        if looks_like_iri(trimmed_label) == "absolute-iri":
+            return URIRef(trimmed_label)
+
+        if looks_like_iri(trimmed_label) == "relative-iri":
+            if self.prefix_iri:
+                return Namespace(self.prefix_iri)[value]
+            else:
+                raise NotInKnownException(
+                    f"Failed to coerce {value!r} to URIRef because prefix IRI is {self.prefix_iri!r}"
+                )
+
+        try:
+            prefix, reference = _ensure_known_curie(
+                trimmed_label,
+                self.prefixes,
+                (
+                    "The entity '{0}' references a CURIE, "
+                    "which is not defined by the available prefixes."
+                ).format(trimmed_label),
+            )
+            return self.namespace_map[prefix][reference]
+        except NotInKnownException:
+            return Namespace(self.prefix_iri)[value]
 
     def coerce_to_literal(self, value: Any) -> Literal:
         """Convert a value to a typed Literal."""
@@ -269,49 +249,11 @@ class RDFSerializer(RDFSerializationHelper):
         RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
         RDFSerializationHelper.__init__(self, *args, **kwargs)
 
-    def _compute_explicit_override(self, individual_id) -> Any:
-        """Compute explicit URI override for a single individual."""
-        _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
-
-        individual_label = urllib.parse.unquote(individual_id)
-        trimmed_label = individual_label.strip()
-        if not trimmed_label:
-            return
-
-        if self._is_absolute_iri(trimmed_label):
-            return URIRef(trimmed_label)
-
-        if self._is_relative_iri(trimmed_label):
-            pass  # will be handled by resolve_individual_uri
-
-        if ":" not in trimmed_label or "://" in trimmed_label:
-            return
-
-        try:
-            prefix, reference = _ensure_known_curie(
-                trimmed_label,
-                self.prefixes,
-                (
-                    "The standalone node '{0}' references a CURIE, "
-                    "which is not defined by the available prefixes."
-                ).format(trimmed_label),
-            )
-        except NotInKnownException:
-            return
-
-        namespace = self.namespace_map.get(prefix)
-        if namespace is None:
-            return
-
-        return namespace[reference]
-
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
     ) -> None:
         """Add triples for a single individual."""
-        if self._is_template_string(individual_id):
-            return
-        individual_uri = self.resolve_individual_uri(individual_id)
+        individual_uri = self.coerce_to_uriref(individual_id)
 
         # Add NamedIndividual type
         self._add_triple((individual_uri, RDF.type, OWL.NamedIndividual))
@@ -319,10 +261,8 @@ class RDFSerializer(RDFSerializationHelper):
         # Add RDF types
         for rdf_type in types_and_facts.get("Types", set()):
             rdf_type_str = str(rdf_type)
-            if self._is_template_string(rdf_type_str):
-                continue
             self._add_triple(
-                (individual_uri, RDF.type, self.resolve_individual_uri(rdf_type_str))
+                (individual_uri, RDF.type, self.coerce_to_uriref(rdf_type_str))
             )
 
         # Add label if configured
@@ -354,9 +294,7 @@ class RDFSerializer(RDFSerializationHelper):
                 if not is_literal:
                     # Object property - create URI reference
                     target_identifier = str(value)
-                    if self._is_template_string(target_identifier):
-                        continue
-                    target_uri = self.resolve_individual_uri(target_identifier)
+                    target_uri = self.coerce_to_uriref(target_identifier)
                     self._add_triple((individual_uri, prop_uri, target_uri))
                 else:
                     # Datatype property - create literal
@@ -445,40 +383,9 @@ class RMLSerializer(RDFSerializationHelper):
 
         return matches
 
-    def _compute_explicit_override(self, individual_id) -> Any:
-        """Compute explicit URI override for a single individual."""
-        _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
-
-        individual_label = urllib.parse.unquote(individual_id)
-        trimmed_label = individual_label.strip()
-        if not trimmed_label:
-            return
-
-        if self._is_absolute_iri(trimmed_label) or self._is_relative_iri(
-            trimmed_label
-        ):  # RMLmapper will convert to abs
-            return self.FakeURIRef(trimmed_label)
-
-        if ":" not in trimmed_label or "://" in trimmed_label:
-            return
-
-        try:
-            prefix, reference = _ensure_known_curie(
-                trimmed_label,
-                self.prefixes,
-                (
-                    "The standalone node '{0}' references a CURIE, "
-                    "which is not defined by the available prefixes."
-                ).format(trimmed_label),
-            )
-        except NotInKnownException:
-            return
-
-        namespace = self.namespace_map.get(prefix)
-        if namespace is None:
-            return
-
-        return namespace[reference]
+    def _is_template_string(self, candidate: str) -> bool:
+        normalized = self._normalize_candidate(candidate)
+        return bool(self.detect_string_template(normalized))
 
     def _build_fact_predicate_object_map(
         self, predicate_uri: URIRef, fact: Any
@@ -565,12 +472,12 @@ class RMLSerializer(RDFSerializationHelper):
         return subject_map, triples
 
     def _resolve_type_value(self, rdf_type: str) -> Any:
-        return self.resolve_individual_uri(rdf_type)
+        return self.coerce_to_uriref(rdf_type)
 
-    def resolve_individual_uri(self, individual_id: str) -> URIRef:
+    def coerce_to_uriref(self, individual_id: str) -> URIRef:
         if self._is_template_string(individual_id):
             return self.FakeURIRef(individual_id)
-        return super().resolve_individual_uri(individual_id)
+        return super().coerce_to_uriref(individual_id)
 
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
@@ -591,7 +498,7 @@ class RMLSerializer(RDFSerializationHelper):
         )
 
         # Add subject map
-        subject_uri = self.resolve_individual_uri(individual_id)
+        subject_uri = self.coerce_to_uriref(individual_id)
         subject_map, subject_map_triples = self._build_subject_map(subject_uri)
         self._add_n1(
             (triples_map, self.rr["subjectMap"], subject_map), subject_map_triples
@@ -654,7 +561,7 @@ class RMLSerializer(RDFSerializationHelper):
 
                 if not is_literal:
                     # Object property
-                    target_uri = self.resolve_individual_uri(str(value))
+                    target_uri = self.coerce_to_uriref(str(value))
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, target_uri)
                     )
@@ -701,6 +608,40 @@ class RMLSerializer(RDFSerializationHelper):
         pass
 
 
+@override(phase="core", type="internal", role="control")
+def dump_blocks(
+    blocks: Blocks,
+    object_properties: set[str],
+    datatype_properties: set[str],
+    dump_path: str,
+):
+    import json
+    from pathlib import Path
+
+    def make_json_safe(obj):
+        if isinstance(obj, dict):
+            return {
+                (
+                    k if isinstance(k, (str, int, float, bool, type(None))) else str(k)
+                ): make_json_safe(v)
+                for k, v in obj.items()
+            }
+        elif isinstance(obj, (list, tuple, set)):
+            return [make_json_safe(i) for i in obj]
+        else:
+            return obj
+
+    data = {
+        "blocks": make_json_safe(blocks),
+        "object_properties": make_json_safe(object_properties),
+        "datatype_properties": make_json_safe(datatype_properties),
+    }
+    Path(dump_path).write_text(
+        json.dumps(data, indent=4, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
 @override(phase="core", type="rdf", role="control")
 def serialise_to_graph(
     blocks: Blocks,
@@ -713,6 +654,10 @@ def serialise_to_graph(
 ) -> Graph:
     """Serialize blocks to RDF graph with regular triples."""
     RDFSerializer = pipeline.core.rdf.control.RDFSerializer
+
+    if os.getenv("DEBUG") == "true":
+        dump_blocks = pipeline.core.internal.control.dump_blocks
+        dump_blocks(blocks, object_properties, datatype_properties, "tmp/blocks.json")
 
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)
@@ -732,6 +677,11 @@ def serialise_to_graph(
     serializer.serialize_all_individuals()
     serializer.add_decoration_notes()
 
+    if os.getenv("DEBUG") == "true":
+        # from rdflib.compare import to_canonical_graph
+        # graph = to_canonical_graph(graph)
+        graph.serialize("tmp/graph.ttl", format="turtle")
+
     return graph
 
 
@@ -749,30 +699,8 @@ def serialise_to_rml(
     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
 
     if os.getenv("DEBUG") == "true":
-        import json
-
-        def make_json_safe(obj):
-            if isinstance(obj, dict):
-                return {
-                    (
-                        k
-                        if isinstance(k, (str, int, float, bool, type(None)))
-                        else str(k)
-                    ): make_json_safe(v)
-                    for k, v in obj.items()
-                }
-            elif isinstance(obj, (list, tuple, set)):
-                return [make_json_safe(i) for i in obj]
-            else:
-                return obj
-
-        data = {
-            "blocks": make_json_safe(blocks),
-            "object_properties": make_json_safe(object_properties),
-            "datatype_properties": make_json_safe(datatype_properties),
-        }
-        with open("tmp/blocks.json", "w") as f:
-            json.dump(data, f, indent=4, ensure_ascii=False)
+        dump_blocks = pipeline.core.internal.control.dump_blocks
+        dump_blocks(blocks, object_properties, datatype_properties, "tmp/blocks.json")
 
     graph_kwargs = graph_kwargs or {}
     graph = graph_cls(**graph_kwargs)

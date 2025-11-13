@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from enum import Enum, auto
 import typing
-from typing import Iterable
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
@@ -26,11 +25,13 @@ class DrawIOCellClassifier:
     """
 
     class CellKind(Enum):
+        ARROW = auto()
         ARROW_LABEL = auto()
         TYPED_INDIVIDUAL = auto()
         STANDALONE_INDIVIDUAL = auto()
         LITERAL = auto()
         DECORATION = auto()
+        EMPTY_CELL = auto()
 
     @dataclass(slots=True)
     class CellClassification:
@@ -228,6 +229,8 @@ class DrawIOCellClassifier:
         CellClassification = self.CellClassification
         CellKind = self.CellKind
 
+        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+
         raw_value = cell_value.strip()
         literal_value = raw_value
         if raw_html is not None and not self._strip_html:
@@ -251,7 +254,7 @@ class DrawIOCellClassifier:
             return build(CellKind.ARROW_LABEL)
 
         if not raw_value:
-            return build(CellKind.LITERAL)
+            return build(CellKind.EMPTY_CELL)
 
         parent_cell, parent_identifier = self._resolve_parent(cell)
 
@@ -266,52 +269,21 @@ class DrawIOCellClassifier:
                 parent_identifier=parent_identifier,
             )
 
-        value_tokens = self._tokenise(raw_value)
-        tokens = list(value_tokens)
-        single_token = tokens[0] if len(tokens) == 1 else None
-        # AICODE-NOTE: I recognize that hardcoding a curie check here
-        # was not the best codex's idea, however this does do
-        # the trick that if ANY token among tokens has a chance
-        # of being valid, a typed individual is constructed
-        # and then these are checked there. However, it will be
-        # important to have all curie checks centralized.
-        # signed-off: human
-        has_template_token = any(self._token_is_template(token) for token in tokens)
-        looks_like_curie = any(":" in token for token in tokens)
-
-        if self._style_denotes_literal(cell, style, True):
+        if self._style_denotes_literal(cell, style):
             return build(CellKind.LITERAL)
 
-        child_tokens = self._collect_child_tokens(cell)
-        if child_tokens:
-            tokens.extend(t for t in child_tokens if t not in tokens)
-
-        if parent_cell is not None and parent_identifier and tokens:
-            if looks_like_curie or has_template_token:
-                return build(
-                    CellKind.TYPED_INDIVIDUAL,
-                    parent_cell=parent_cell,
-                    parent_identifier=parent_identifier,
-                    tokens=tokens,
-                )
-
-        if parent_cell is None and single_token is not None:
+        if parent_cell is not None and parent_identifier:
+            tokens = self._tokenise(raw_value)
+            child_tokens = self._collect_child_tokens(cell)
+            if child_tokens:
+                tokens.extend(t for t in child_tokens if t not in tokens)
             return build(
-                CellKind.STANDALONE_INDIVIDUAL,
-                identifier=single_token,
-                tokens=[],
-                declares_identifier=True,
-            )
-
-
-        if tokens:
-            return build(
-                CellKind.STANDALONE_INDIVIDUAL,
-                identifier=raw_value,
+                CellKind.TYPED_INDIVIDUAL,
+                parent_cell=parent_cell,
+                parent_identifier=parent_identifier,
                 tokens=tokens,
             )
-
-        if self._looks_like_absolute_uri(raw_value):
+        elif looks_like_iri(raw_value):
             return build(
                 CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
@@ -648,7 +620,8 @@ class DrawIOCellClassifier:
 
     @staticmethod
     def _tokenise(value: str) -> list[str]:
-        return [t.strip() for t in value.split("\n\n") if t.strip()]
+        "Split by any whitespace character and strip each token."
+        return [t.strip() for t in value.split("\n") if t.strip()]
 
     def _token_is_template(self, token: str) -> bool:
         try:
@@ -690,8 +663,7 @@ class DrawIOCellClassifier:
             try:
                 child_value = self._value_of(child).strip()
                 child_tokens = self._tokenise(child_value)
-                if self._tokens_are_valid(child_tokens):
-                    tokens.extend(t for t in child_tokens if t not in tokens)
+                tokens.extend(t for t in child_tokens if t not in tokens)
             except (_NoValueException, ParseException):
                 continue
         self._child_token_cache[cell_id] = tokens
@@ -716,21 +688,11 @@ class DrawIOCellClassifier:
         return "text;" in style or "shape=text" in style
 
     @staticmethod
-    def _style_denotes_literal(
-        cell: Element, style: str, tokens_are_valid: bool
-    ) -> bool:
+    def _style_denotes_literal(cell: Element, style: str) -> bool:
         if not style:
             return False
         if "rounded=1" in style:
-            parent_is_root = cell.attrib.get("parent") == "1"
-            has_swimlane_style = "swimlane" in style
-            if parent_is_root or has_swimlane_style:
-                return True
-        if cell.attrib.get("parent") != "1":
-            return False
-        if tokens_are_valid:
-            return False
-        return False
+            return True
 
     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
         if not raw_value:
