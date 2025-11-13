@@ -145,31 +145,30 @@ class RDFSerializationHelper:
                 (URIRef(ontology_iri), OWL.imports, URIRef(self.prefixes["rico"]))
             )
 
-    def resolve_property_uri(self, prop: str) -> URIRef:
-        """Resolve a property string to a URIRef."""
-        looks_like_iri = pipeline.core.internal.data.looks_like_iri
+    def resolve_predicate(self, prop: str) -> URIRef:
+        """Resolve a predicate string (property IRI) to a URIRef."""
+        return self.coerce_to_uriref(prop, mint_from_literal=False)
 
-        if looks_like_iri(prop) == "absolute-iri":
-            return URIRef(prop)
-        prop_prefix, prop_name = prop.split(":", 1)
-        return self.namespace_map[prop_prefix][prop_name]
+    def resolve_type(self, rdf_type: str) -> Any:
+        return self.coerce_to_uriref(rdf_type, mint_from_literal=False)
 
     def declare_properties(self) -> None:
         """Declare object and datatype properties in the graph."""
-        for prop in sorted(
-            prop for prop in self.object_properties if not prop.startswith("rico:")
-        ):
-            prop_uri = self.resolve_property_uri(prop)
+        for prop in sorted(self.object_properties):
+            prop_uri = self.resolve_predicate(prop)
             self._add_triple((prop_uri, RDF.type, OWL.ObjectProperty))
 
-        for prop in sorted(
-            prop for prop in self.datatype_properties if not prop.startswith("rico:")
-        ):
-            prop_uri = self.resolve_property_uri(prop)
+        for prop in sorted(self.datatype_properties):
+            prop_uri = self.resolve_predicate(prop)
             self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-    def coerce_to_uriref(self, value: str) -> URIRef:
-        """Resolve an individual ID/type/object fact to its URI."""
+    def coerce_to_uriref(self, value: str, mint_from_literal: bool = True) -> URIRef:
+        """
+        Resolve an individual ID/type/object fact to its URI.
+
+        If mint_from_literal = False, raises NotInKnownException,
+        otherwise urlencodes and mints entity to default namespace.
+        """
         _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
         looks_like_iri = pipeline.core.internal.data.looks_like_iri
 
@@ -200,7 +199,12 @@ class RDFSerializationHelper:
             )
             return self.namespace_map[prefix][reference]
         except NotInKnownException:
-            return Namespace(self.prefix_iri)[value]
+            if looks_like_iri(trimmed_label) == "curie":
+                raise
+            if mint_from_literal:
+                return Namespace(self.prefix_iri)[value]
+            else:
+                raise
 
     def coerce_to_literal(self, value: Any) -> Literal:
         """Convert a value to a typed Literal."""
@@ -260,9 +264,8 @@ class RDFSerializer(RDFSerializationHelper):
 
         # Add RDF types
         for rdf_type in types_and_facts.get("Types", set()):
-            rdf_type_str = str(rdf_type)
             self._add_triple(
-                (individual_uri, RDF.type, self.coerce_to_uriref(rdf_type_str))
+                (individual_uri, RDF.type, self.resolve_type(str(rdf_type)))
             )
 
         # Add label if configured
@@ -274,7 +277,7 @@ class RDFSerializer(RDFSerializationHelper):
             if prop == "Types":
                 continue
 
-            prop_uri = self.resolve_property_uri(prop)
+            prop_uri = self.resolve_predicate(prop)
 
             for raw_value in values:
                 # Determine if value is literal
@@ -471,13 +474,10 @@ class RMLSerializer(RDFSerializationHelper):
 
         return subject_map, triples
 
-    def _resolve_type_value(self, rdf_type: str) -> Any:
-        return self.coerce_to_uriref(rdf_type)
-
-    def coerce_to_uriref(self, individual_id: str) -> URIRef:
-        if self._is_template_string(individual_id):
-            return self.FakeURIRef(individual_id)
-        return super().coerce_to_uriref(individual_id)
+    def coerce_to_uriref(self, value: str, mint_from_literal: bool = True) -> URIRef:
+        if self._is_template_string(value):
+            return self.FakeURIRef(value)
+        return super().coerce_to_uriref(value, mint_from_literal)
 
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
@@ -509,7 +509,7 @@ class RMLSerializer(RDFSerializationHelper):
             types_and_facts.get("Types", set()), key=lambda value: str(value)
         ):
             rdf_type_str = str(rdf_type)
-            class_value = self._resolve_type_value(rdf_type_str)
+            class_value = self.resolve_type(rdf_type_str)
             type_predicate_object_map, type_predicate_object_map_triples = (
                 self._build_type_predicate_object_map(class_value)
             )
@@ -539,7 +539,7 @@ class RMLSerializer(RDFSerializationHelper):
             if prop == "Types":
                 continue
 
-            prop_uri = self.resolve_property_uri(prop)
+            prop_uri = self.resolve_predicate(prop)
 
             for raw_value in sorted(
                 values,

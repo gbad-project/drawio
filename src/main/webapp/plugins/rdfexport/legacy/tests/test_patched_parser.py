@@ -130,7 +130,6 @@ def test_individual_blocks_accepts_declared_prefix_curie():
         draw_io_parser.DEFAULT_CAPITALISATION_SCHEME,
         prefixes,
     )
-
     assert ("SourceNode", "SourceNode") in blocks
     assert "ex:CustomClass" in blocks[("SourceNode", "SourceNode")]["Types"]
     assert "ex:connectsTo" in object_props
@@ -198,12 +197,19 @@ def test_parse_drawio_curie_cell_without_parent():
 
 
 def test_parse_drawio_curie_without_known_prefix(tmp_path: Path):
-    return
     tree = ET.parse(FIXTURES_DIR / "Flowchart_tweaked.drawio")
     root = tree.getroot()
-    cell = root.find(".//mxCell[@id='WIyWlLk6GJQsqaUBKTNV-3']")
-    assert cell is not None
-    cell.set("value", "zz:MissingPrefix")
+    # --- insert raw XML ---
+    mxroot = root.find(".//mxGraphModel/root")
+    assert mxroot is not None
+    raw_xml = """
+    <mxCell id="zz-missing-prefix" value="zz:MissingPrefix" parent="1" vertex="1">
+        <mxGeometry x="300" y="300" width="100" height="50" as="geometry"/>
+    </mxCell>
+    """
+    new_cell = ET.fromstring(raw_xml.strip())
+    mxroot.append(new_cell)
+    # --- end insert ---
 
     mutated = tmp_path / "Flowchart_bad.drawio"
     tree.write(mutated, encoding="unicode", xml_declaration=False)
@@ -228,14 +234,14 @@ def test_curie_literal_style_rounding(tmp_path: Path):
             isinstance(obj, Literal) and str(obj) == value for obj in graph.objects()
         )
 
-    # base_graph = parse(FIXTURES_DIR / "Class_Diagram_tweaked.drawio")
-    # assert literal_present(base_graph, "Address")
-    # assert (expected_individual, RDF.type, OWL.NamedIndividual) not in base_graph
+    base_graph = parse(FIXTURES_DIR / "Class_Diagram_tweaked.drawio")
+    assert literal_present(base_graph, "Address")
+    assert (expected_individual, RDF.type, OWL.NamedIndividual) not in base_graph
 
-    # curie_path = _write_class_diagram_variant(tmp_path, value="rdfs:Address")
-    # curie_graph = parse(curie_path)
-    # assert literal_present(curie_graph, "rdfs:Address")
-    # assert (expected_individual, RDF.type, OWL.NamedIndividual) in curie_graph
+    curie_path = _write_class_diagram_variant(tmp_path, value="rdfs:Address")
+    curie_graph = parse(curie_path)
+    assert literal_present(curie_graph, "rdfs:Address")
+    assert (expected_individual, RDF.type, OWL.NamedIndividual) in curie_graph
 
     rounded_path = _write_class_diagram_variant(
         tmp_path, value="rdfs:Address", rounded=1
@@ -635,6 +641,9 @@ def test_parse_drawio_rejects_unknown_literal_curie():
         )
 
 
+@pytest.mark.xfail(
+    reason="Deprecated behavior - prefixes are not checked now before serialisation."
+)
 def test_individual_blocks_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes()
 

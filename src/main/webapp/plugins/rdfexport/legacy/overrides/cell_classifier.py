@@ -165,8 +165,14 @@ class DrawIOCellClassifier:
 
             if kind_name == "TYPED_INDIVIDUAL":
                 parent = classification.parent_cell
+                parent_cell_id = parent.attrib.get("id")
                 identifier = classification.parent_identifier
-                if parent is None or identifier is None or cell_id is None:
+                if (
+                    parent is None
+                    or identifier is None
+                    or cell_id is None
+                    or parent_cell_id in self._literals_by_id
+                ):
                     continue
                 for token in classification.tokens:
                     individual = Individual(identifier, token)
@@ -229,8 +235,6 @@ class DrawIOCellClassifier:
         CellClassification = self.CellClassification
         CellKind = self.CellKind
 
-        looks_like_iri = pipeline.core.internal.data.looks_like_iri
-
         raw_value = cell_value.strip()
         literal_value = raw_value
         if raw_html is not None and not self._strip_html:
@@ -272,29 +276,28 @@ class DrawIOCellClassifier:
         if self._style_denotes_literal(cell, style):
             return build(CellKind.LITERAL)
 
+        tokens = self._tokenise(raw_value)
+        child_tokens = self._collect_child_tokens(cell)
+        if child_tokens:
+            tokens.extend(t for t in child_tokens if t not in tokens)
+
         if parent_cell is not None and parent_identifier:
-            tokens = self._tokenise(raw_value)
-            child_tokens = self._collect_child_tokens(cell)
-            if child_tokens:
-                tokens.extend(t for t in child_tokens if t not in tokens)
             return build(
                 CellKind.TYPED_INDIVIDUAL,
                 parent_cell=parent_cell,
                 parent_identifier=parent_identifier,
                 tokens=tokens,
             )
-        elif looks_like_iri(raw_value):
+        elif self._is_decoration(cell, raw_value):
+            return build(CellKind.DECORATION)
+        else:
+            declares_identifier = bool(child_tokens)
             return build(
                 CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
                 tokens=[],
-                declares_identifier=True,
+                declares_identifier=declares_identifier,
             )
-
-        if self._is_decoration(cell, raw_value):
-            return build(CellKind.DECORATION)
-
-        return build(CellKind.LITERAL)
 
     # region Helper Methods (Moved from DrawIOXMLTree)
     def _value_of(self, cell: Element, *, raw: bool = False) -> str:

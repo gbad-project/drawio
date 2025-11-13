@@ -22,12 +22,7 @@ def _add_individual_type(
         space_substitute,
         capitalisation_scheme,
     )
-    rdf_type = _replace_metacharacters(
-        individual.ric_class,
-        metacharacter_substitutes,
-        space_substitute,
-        capitalisation_scheme,
-    )
+    rdf_type = individual.ric_class
     try:
         block = blocks[(individual_id, individual.identifier)]
     except KeyError:

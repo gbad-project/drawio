@@ -28862,9 +28862,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/RecordSet/{REF_ADD}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-23": {
           "identifier": null,
@@ -28887,9 +28885,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Title/{TITLE}\"",
-          "tokens": [
-            "rico:Title"
-          ]
+          "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-49": {
           "identifier": null,
@@ -28940,9 +28936,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Description-Listings/ArchivalDescriptionRecord\"",
-          "tokens": [
-            "rico:DocumentaryFormType"
-          ]
+          "tokens": []
         },
         "JUvVhaggt__ALHUesofw-10": {
           "identifier": null,
@@ -28958,9 +28952,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBD}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "JUvVhaggt__ALHUesofw-12": {
           "identifier": null,
@@ -29027,9 +29019,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Description-Listings/Status#{STATUSD}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-19": {
           "identifier": null,
@@ -29176,9 +29166,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Title/{TITLE}\"",
-          "tokens": [
-            "rico:Title"
-          ]
+          "tokens": []
         },
         "Pa1L8ZfUJXBHrEYyGiSI-10": {
           "identifier": null,
@@ -29245,9 +29233,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{INDEXSUB_1..20}\"",
-          "tokens": [
-            "rico:Agent"
-          ]
+          "tokens": []
         },
         "Pa1L8ZfUJXBHrEYyGiSI-8": {
           "identifier": null,
@@ -29263,18 +29249,14 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Place/{INDEXGEO_1..20}\"",
-          "tokens": [
-            "rico:Place"
-          ]
+          "tokens": []
         },
         "QP1M_VxjNRpTCKrBJooY-1": {
           "identifier": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBL}\"",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBL}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "QP1M_VxjNRpTCKrBJooY-2": {
           "identifier": null,
@@ -29360,9 +29342,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/RecordSet/{REFD_HIGHER}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "Y8udmLn4DJvaPjTo5dh8-4": {
           "identifier": null,
@@ -29406,9 +29386,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Date/{MODDATE}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "YGqFNZoWXpBRJY-Ts6mn-8": {
           "identifier": null,
@@ -29452,9 +29430,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/Schema/Description-Listings/ContentType#{GMD_1..8}\"",
-          "tokens": [
-            "rico:ContentType"
-          ]
+          "tokens": []
         },
         "lszSfj4lrEIONad0Ssyt-2": {
           "identifier": null,
@@ -29484,9 +29460,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-10": {
           "identifier": null,
@@ -29500,9 +29474,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template    \"/KB/Date/{DATEOFF_1..20_BEGINNING}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-12": {
           "identifier": null,
@@ -29518,9 +29490,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template    \"/KB/Date/{DATEOFF_1..20_END}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-14": {
           "identifier": null,
@@ -29564,9 +29534,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{ABC_REFA_1..20}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-2": {
           "identifier": null,
@@ -29591,9 +29559,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/CreationRelation/{REFD_FILE}/{OFFICEABC_1..20}/urn:uuid:{UUID_OFFICEABC}\"",
-          "tokens": [
-            "rico:CreationRelation"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-4": {
           "identifier": null,
@@ -29623,9 +29589,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-62": {
           "identifier": null,
@@ -29641,9 +29605,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-64": {
           "identifier": null,
@@ -29708,9 +29670,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{INDEXNAME_1..20}\"",
-          "tokens": [
-            "rico:Agent"
-          ]
+          "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-14": {
           "identifier": null,
@@ -29817,9 +29777,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-11": {
           "identifier": null,
@@ -29847,9 +29805,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}\"",
-          "tokens": [
-            "rico:Instantiation"
-          ]
+          "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-15": {
           "identifier": null,
@@ -29874,9 +29830,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/Schema/Description-Listings/Level#{LEVELDES}\"",
-          "tokens": [
-            "rico:RecordSetType"
-          ]
+          "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-4": {
           "identifier": null,
@@ -30053,9 +30007,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/CurrentReferenceCode/{REFD_FILE}\"",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--24": {
           "identifier": null,
@@ -30099,9 +30051,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/FormerCode/{FCODES}\"",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--30": {
           "identifier": null,
@@ -30131,9 +30081,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Description-Listings/CurrentReferenceCode\"",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--34": {
           "identifier": null,
@@ -30163,9 +30111,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Description-Listings/FormerCode\"",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--38": {
           "identifier": null,
@@ -30195,9 +30141,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/ArchivalDescriptionRecord/{REFD_FILE}\"",
-          "tokens": [
-            "rico:Record"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--56": {
           "identifier": null,
@@ -30227,9 +30171,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{INDEXPROV_1..20}\"",
-          "tokens": [
-            "rico:Agent"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--74": {
           "identifier": null,
@@ -30334,9 +30276,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/AuthorityRecord/{HEADING}\"",
-          "tokens": [
-            "rico:Record"
-          ]
+          "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-30": {
           "identifier": null,
@@ -30380,9 +30320,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Authority/AuthorityRecord\"",
-          "tokens": [
-            "rico:DocumentaryFormType"
-          ]
+          "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-36": {
           "identifier": null,
@@ -30447,9 +30385,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/Date/{DATECONT_1..14_BEGINNING}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-16": {
           "identifier": null,
@@ -30479,9 +30415,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Date/{DATECONT_1..14_END}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-20": {
           "identifier": null,
@@ -30511,9 +30445,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/VariantAgentName/{VAR_1..11}\"",
-          "tokens": [
-            "rico:AgentName"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-24": {
           "identifier": null,
@@ -30550,9 +30482,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{PRED_1..5}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-31": {
           "identifier": null,
@@ -30582,9 +30512,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/Agent/{SUC_1..4}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-35": {
           "identifier": null,
@@ -30614,9 +30542,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/ParallelAgentName/{PAR_1..4}\"",
-          "tokens": [
-            "rico:AgentName"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-39": {
           "identifier": null,
@@ -30653,9 +30579,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Authority/ParallelAgentName\"",
-          "tokens": [
-            "rico:Type"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-43": {
           "identifier": null,
@@ -30671,9 +30595,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Authority/AuthorityType#{AUTHTP_1..2}\"",
-          "tokens": [
-            "rico:CorporateBodyType"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-48": {
           "identifier": null,
@@ -30696,9 +30618,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{CONTAG_1..14}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-50": {
           "identifier": null,
@@ -30726,9 +30646,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Authority/VariantAgentName\"",
-          "tokens": [
-            "rico:Type"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-54": {
           "identifier": null,
@@ -30753,9 +30671,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/AgentControlRelation/{CONTAG_1..14}/{HEADING}/urn:uuid:{UUID}\"",
-          "tokens": [
-            "rico:AgentControlRelation"
-          ]
+          "tokens": []
         },
         "LdrxgRQo7zRXQQt_UOkl-8": {
           "identifier": null,
@@ -30792,9 +30708,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Authority/NaturalAgentName\"",
-          "tokens": [
-            "rico:Type"
-          ]
+          "tokens": []
         },
         "PsgF6pNrnCMBm3obLfe6-4": {
           "identifier": null,
@@ -30831,9 +30745,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{REFA}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "T4FhXZd-5XpHwweIhw_B-2": {
           "identifier": null,
@@ -30863,18 +30775,14 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/{RICO_AUTHTP_CORPORATEBODY_1..2}/{HEADING}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-10": {
           "identifier": "rr:template \"/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}\"",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/{RICO_AUTHTP_FAMILY_1..2}/{HEADING}\"",
-          "tokens": [
-            "rico:Family"
-          ]
+          "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-11": {
           "identifier": null,
@@ -30890,9 +30798,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/{RICO_AUTHTP_PLACE_1..2}/{HEADING}\"",
-          "tokens": [
-            "rico:Place"
-          ]
+          "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-13": {
           "identifier": null,
@@ -30908,9 +30814,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/{RICO_AUTHTP_PERSON_1..2}/{HEADING}\"",
-          "tokens": [
-            "rico:Person"
-          ]
+          "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-15": {
           "identifier": null,
@@ -31079,7 +30983,7 @@
         },
         "Z80UwrU0Vu5smdOcJr8o-7": {
           "identifier": null,
-          "kind": "LITERAL",
+          "kind": "EMPTY_CELL",
           "parent_identifier": null,
           "raw_value": "",
           "tokens": []
@@ -31103,9 +31007,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Mandate/{AA}\"",
-          "tokens": [
-            "rico:Mandate"
-          ]
+          "tokens": []
         },
         "_-RjwaxhbeTWfwVWe4ke-13": {
           "identifier": null,
@@ -31198,9 +31100,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"",
-          "tokens": [
-            "rico:Thing"
-          ]
+          "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-10": {
           "identifier": null,
@@ -31228,9 +31128,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/AgencyReferenceCode/{REFA}\"",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-14": {
           "identifier": null,
@@ -31283,9 +31181,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/NaturalAgentName/{NAME}\"",
-          "tokens": [
-            "rico:AgentName"
-          ]
+          "tokens": []
         },
         "iiJ8OJKaNMLrSCaLO3TT-10": {
           "identifier": null,
@@ -31299,9 +31195,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/Date/{DATEEX_BEGINNING}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "iiJ8OJKaNMLrSCaLO3TT-12": {
           "identifier": null,
@@ -31331,9 +31225,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/Date/{DATEEX_END}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "iiJ8OJKaNMLrSCaLO3TT-2": {
           "identifier": null,
@@ -31386,9 +31278,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/Schema/Authority/WebReady#{WEBA}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "lTHjRTAcClQ9bYR0I0Gv-12": {
           "identifier": null,
@@ -31404,9 +31294,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/Schema/Authority/Status#{STATUSA}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "lTHjRTAcClQ9bYR0I0Gv-14": {
           "identifier": null,
@@ -31443,9 +31331,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Authority/AgencyReferenceCode\"",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": []
         },
         "lstVy3rX84DfsURla7Zy-17": {
           "identifier": null,
@@ -31482,9 +31368,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/KB/Rule/RulesForArchivalDescription\"",
-          "tokens": [
-            "rico:Rule"
-          ]
+          "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-10": {
           "identifier": null,
@@ -31562,7 +31446,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 86,
-          "LITERAL": 18,
+          "EMPTY_CELL": 1,
+          "LITERAL": 17,
           "STANDALONE_INDIVIDUAL": 29,
           "TYPED_INDIVIDUAL": 29,
           "UNCLASSIFIED": 2
@@ -31572,6 +31457,9 @@
         "unclassified": 2
       },
       "drawio": "tests/fixtures/General Authority to RiC-O Model_2025-06-25_PZ.drawio",
+      "errors": {
+        "py_stdout": "Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) target 'Z80UwrU0Vu5smdOcJr8o-7' could not be found."
+      },
       "format": "turtle",
       "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
@@ -31806,9 +31694,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/RecordSet/{REF_ADD}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-23": {
           "identifier": null,
@@ -31831,9 +31717,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Title/{TITLE}\"",
-          "tokens": [
-            "rico:Title"
-          ]
+          "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-49": {
           "identifier": null,
@@ -31884,9 +31768,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Description-Listings/ArchivalDescriptionRecord\"",
-          "tokens": [
-            "rico:DocumentaryFormType"
-          ]
+          "tokens": []
         },
         "JUvVhaggt__ALHUesofw-10": {
           "identifier": null,
@@ -31902,9 +31784,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBD}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "JUvVhaggt__ALHUesofw-12": {
           "identifier": null,
@@ -31971,9 +31851,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Description-Listings/Status#{STATUSD}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-19": {
           "identifier": null,
@@ -32120,9 +31998,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Title/{TITLE}\"",
-          "tokens": [
-            "rico:Title"
-          ]
+          "tokens": []
         },
         "Pa1L8ZfUJXBHrEYyGiSI-10": {
           "identifier": null,
@@ -32189,9 +32065,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{INDEXSUB_1..20}\"",
-          "tokens": [
-            "rico:Agent"
-          ]
+          "tokens": []
         },
         "Pa1L8ZfUJXBHrEYyGiSI-8": {
           "identifier": null,
@@ -32207,18 +32081,14 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Place/{INDEXGEO_1..20}\"",
-          "tokens": [
-            "rico:Place"
-          ]
+          "tokens": []
         },
         "QP1M_VxjNRpTCKrBJooY-1": {
           "identifier": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBL}\"",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/Schema/Description-Listings/WebEnabled#{WEBL}\"",
-          "tokens": [
-            "rico:RecordState"
-          ]
+          "tokens": []
         },
         "QP1M_VxjNRpTCKrBJooY-2": {
           "identifier": null,
@@ -32304,9 +32174,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/KB/RecordSet/{REFD_HIGHER}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "Y8udmLn4DJvaPjTo5dh8-4": {
           "identifier": null,
@@ -32350,9 +32218,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Date/{MODDATE}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "YGqFNZoWXpBRJY-Ts6mn-8": {
           "identifier": null,
@@ -32396,9 +32262,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/Schema/Description-Listings/ContentType#{GMD_1..8}\"",
-          "tokens": [
-            "rico:ContentType"
-          ]
+          "tokens": []
         },
         "lszSfj4lrEIONad0Ssyt-2": {
           "identifier": null,
@@ -32428,9 +32292,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-10": {
           "identifier": null,
@@ -32444,9 +32306,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template    \"/KB/Date/{DATEOFF_1..20_BEGINNING}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-12": {
           "identifier": null,
@@ -32462,9 +32322,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template    \"/KB/Date/{DATEOFF_1..20_END}\"",
-          "tokens": [
-            "rico:Date"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-14": {
           "identifier": null,
@@ -32508,9 +32366,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{ABC_REFA_1..20}\"",
-          "tokens": [
-            "rico:CorporateBody"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-2": {
           "identifier": null,
@@ -32535,9 +32391,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/CreationRelation/{REFD_FILE}/{OFFICEABC_1..20}/urn:uuid:{UUID_OFFICEABC}\"",
-          "tokens": [
-            "rico:CreationRelation"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-4": {
           "identifier": null,
@@ -32567,9 +32421,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-62": {
           "identifier": null,
@@ -32585,9 +32437,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "nZdSzTGt5yp-Q97JLt56-64": {
           "identifier": null,
@@ -32652,9 +32502,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{INDEXNAME_1..20}\"",
-          "tokens": [
-            "rico:Agent"
-          ]
+          "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-14": {
           "identifier": null,
@@ -32761,9 +32609,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/RecordSet/{REFD_FILE}\"",
-          "tokens": [
-            "rico:RecordSet"
-          ]
+          "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-11": {
           "identifier": null,
@@ -32791,9 +32637,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID_INSTANTIATION_1}\"",
-          "tokens": [
-            "rico:Instantiation"
-          ]
+          "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-15": {
           "identifier": null,
@@ -32818,9 +32662,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"/Schema/Description-Listings/Level#{LEVELDES}\"",
-          "tokens": [
-            "rico:RecordSetType"
-          ]
+          "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-4": {
           "identifier": null,
@@ -32997,9 +32839,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/CurrentReferenceCode/{REFD_FILE}\"",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--24": {
           "identifier": null,
@@ -33043,9 +32883,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/FormerCode/{FCODES}\"",
-          "tokens": [
-            "rico:Identifier"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--30": {
           "identifier": null,
@@ -33075,9 +32913,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Description-Listings/CurrentReferenceCode\"",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--34": {
           "identifier": null,
@@ -33107,9 +32943,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:constant \"/Schema/Description-Listings/FormerCode\"",
-          "tokens": [
-            "rico:IdentifierType"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--38": {
           "identifier": null,
@@ -33139,9 +32973,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/ArchivalDescriptionRecord/{REFD_FILE}\"",
-          "tokens": [
-            "rico:Record"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--56": {
           "identifier": null,
@@ -33171,9 +33003,7 @@
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"/KB/Agent/{INDEXPROV_1..20}\"",
-          "tokens": [
-            "rico:Agent"
-          ]
+          "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--74": {
           "identifier": null,
@@ -34807,14 +34637,14 @@
           "triples": 120
         },
         "ts_pipeline": {
-          "nt_sha256": "ba89e651c9cff28eacc89afe6eb013f1a7396da86f2af4fc5f74fc75bc933c13",
+          "nt_sha256": "997d39f215b60429bfba1521e84cbeba79adf601c8e1e35a0d4537e4b5236b25",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
-          "triples": 650
+          "triples": 647
         },
         "ts_plugin": {
-          "nt_sha256": "8c98ba9e451b843c7599fc8bc1ffd41b6a586441b24b4a59d4f4b62ca2ef3c12",
+          "nt_sha256": "57f284513d230d94e3f64d7cd13857b70f892035cf35ccebf2408408b1f64c35",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
-          "triples": 650
+          "triples": 647
         }
       }
     },
@@ -36885,7 +36715,7 @@
         },
         "Z80UwrU0Vu5smdOcJr8o-7": {
           "identifier": null,
-          "kind": "LITERAL",
+          "kind": "EMPTY_CELL",
           "parent_identifier": null,
           "raw_value": "",
           "tokens": []
@@ -37348,7 +37178,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 86,
-          "LITERAL": 18,
+          "EMPTY_CELL": 1,
+          "LITERAL": 17,
           "STANDALONE_INDIVIDUAL": 29,
           "TYPED_INDIVIDUAL": 29,
           "UNCLASSIFIED": 2
@@ -37362,7 +37193,8 @@
         "py_legacy": [
           "Legacy Python graph is None",
           "ArrowWithoutIndividualAsSourceException: The arrow with id gmwnegnUR_CNORKRYM6Y-16 and label rico:hasOrHadIdentifier has a source which appears not to be a node defining a RiC-O individual"
-        ]
+        ],
+        "py_stdout": "Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) target 'Z80UwrU0Vu5smdOcJr8o-7' could not be found."
       },
       "format": "turtle",
       "isomorphism": {
@@ -37398,14 +37230,14 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "9895846f478dad7d8616f8e752308234278bea452ffb33678f43200727f63ad6",
+          "nt_sha256": "a272699eb751599f02d4dce86307337fb6c1fdfb24089d9f2cdaf8a6bfe1db25",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
-          "triples": 650
+          "triples": 639
         },
         "ts_plugin": {
-          "nt_sha256": "ae8bc9bc84ce906412719a031daacfc6b227e6e062fdbd854eb6f31c08f12235",
+          "nt_sha256": "8eb4c0dd79c0f8dba3ee32b424f78e8ebc99df408b84ef394e06c379064f2f33",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
-          "triples": 650
+          "triples": 639
         }
       }
     },

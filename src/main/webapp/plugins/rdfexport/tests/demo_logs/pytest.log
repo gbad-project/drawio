@@ -1,33 +1,673 @@
-Script started on Wed Nov 12 13:43:49 2025
+Script started on Thu Nov 13 16:31:27 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m============================== test session starts ==============================[0m
+[1m========================================= test session starts =========================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 94 items                                                              [0m
+[1mcollecting ... [0m[1mcollecting 92 items                                                                                   [0m[1mcollected 94 items                                                                                    [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                [ 12%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                      [ 13%][0m
-legacy/tests/test_cell_classifier.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                       [ 28%][0m
-legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[32m                                  [ 31%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m [ 71%]
-[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                                [ 81%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                             [ 89%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                     [ 95%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m                  [ 97%][0m
-rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[33m                    [100%][0m
+debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                      [ 12%][0m
+debug/tests/test_dynamic_config.py [32m.[0m[32m                                                            [ 13%][0m
+legacy/tests/test_cell_classifier.py [31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31m                                             [ 28%][0m
+legacy/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[31m                                                        [ 31%][0m
+legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33mx[0m[33mx[0m[31m             [ 81%][0m
+legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                                   [ 89%][0m
+meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                           [ 95%][0m
+rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[31mF[0m[31m                                        [ 97%][0m
+rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[31mF[0m[31m                                          [100%][0m
 
-[33m=============================== warnings summary ================================[0m
+============================================== FAILURES ===============================================
+[31m[1m_______________________ test_classifier_detects_typed_individuals_and_literals ________________________[0m
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_classifier_detects_typed_individuals_and_literals[39;49;00m():[90m[39;49;00m
+        xml = _drawio_xml([90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mMy Individual[39;49;00m[33m"[39;49;00m, style=[33m"[39;49;00m[33mrounded=1[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mdecor[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mDecoration literal[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier([90m[39;49;00m
+            xml,[90m[39;49;00m
+            draw_io_parser.get_prefixes(),[90m[39;49;00m
+            allow_template_types=[94mTrue[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        observed = {[90m[39;49;00m
+            (individual.identifier, individual.ric_class)[90m[39;49;00m
+            [94mfor[39;49;00m individual [95min[39;49;00m classifier.individuals[90m[39;49;00m
+        }[90m[39;49;00m
+>       [94massert[39;49;00m ([33m"[39;49;00m[33mMy Individual[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m) [95min[39;49;00m observed[90m[39;49;00m
+[1m[31mE       AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', 'owl:NamedIndividual')}[0m
+
+[1m[31mlegacy/tests/test_cell_classifier.py[0m:139: AssertionError
+[31m[1m_______________________________ test_decorations_serialise_to_skos_note _______________________________[0m
+
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1045/test_decorations_serialise_to_0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_decorations_serialise_to_skos_note[39;49;00m(tmp_path: Path):[90m[39;49;00m
+        xml = _drawio_xml([90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mSubject[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mdecor[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mLoose literal[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+        )[90m[39;49;00m
+        path = tmp_path / [33m"[39;49;00m[33mdecorations.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://test[39;49;00m[33m"[39;49;00m,  [90m# ensure deterministic attachment[39;49;00m[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        notes = [96mlist[39;49;00m(graph.objects(URIRef([33m"[39;49;00m[33montology://test[39;49;00m[33m"[39;49;00m), SKOS.note))[90m[39;49;00m
+>       [94massert[39;49;00m Literal([33m"[39;49;00m[33mLoose literal[39;49;00m[33m"[39;49;00m) [95min[39;49;00m notes[90m[39;49;00m
+[1m[31mE       AssertionError: assert rdflib.term.Literal('Loose literal') in [][0m
+[1m[31mE        +  where rdflib.term.Literal('Loose literal') = Literal('Loose literal')[0m
+
+[1m[31mlegacy/tests/test_cell_classifier.py[0m:260: AssertionError
+[31m[1m_________________________________ test_literal_as_arrow_source_raises _________________________________[0m
+
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1045/test_literal_as_arrow_source_r0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_literal_as_arrow_source_raises[39;49;00m(tmp_path: Path):[90m[39;49;00m
+        xml = _drawio_xml([90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mNode[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mLiteral source[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _edge_cell([33m"[39;49;00m[33marrow[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m"[39;49;00m, source=[33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m, target=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _edge_label([33m"[39;49;00m[33mlabel[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33marrow[39;49;00m[33m"[39;49;00m, value=[33m"[39;49;00m[33mrdfs:label[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+        )[90m[39;49;00m
+        path = tmp_path / [33m"[39;49;00m[33minvalid.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mwith[39;49;00m pytest.raises(draw_io_parser.ArrowWithoutIndividualAsSourceException):[90m[39;49;00m
+>           draw_io_parser.parse_drawio_to_graph([96mstr[39;49;00m(path))[90m[39;49;00m
+
+[1m[31mlegacy/tests/test_cell_classifier.py[0m:300: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mlegacy/draw_io_parser.py[0m:2874: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2657: in _build_graph_from_raw_xml
+    [0minternal_control_core.individual_blocks([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2472: in individual_blocks
+    [0m_add_individual_type([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2354: in _add_individual_type
+    [0mindividual_id = _replace_metacharacters([90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+identifier = 'Literal source'
+metacharacter_substitutes = [('(', ''), (')', ''), ('[', ''), (']', ''), ('{', ''), ('}', ''), ...]
+space_substitute = None, capitalisation_scheme = 'upper-camel'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_replace_metacharacters[39;49;00m([90m[39;49;00m
+        identifier: [96mstr[39;49;00m,[90m[39;49;00m
+        metacharacter_substitutes: [96mlist[39;49;00m[[96mtuple[39;49;00m[Metacharacter, Replacement]],[90m[39;49;00m
+        space_substitute: Replacement | [94mNone[39;49;00m,[90m[39;49;00m
+        capitalisation_scheme: [96mstr[39;49;00m,[90m[39;49;00m
+    ) -> [96mstr[39;49;00m:[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33m [39;49;00m[33m"[39;49;00m [95min[39;49;00m identifier:[90m[39;49;00m
+            [94mif[39;49;00m space_substitute [95mis[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+>               [94mraise[39;49;00m MetacharacterException([90m[39;49;00m
+                    [33m"[39;49;00m[33mThe following contains a space, but how to handle spaces in [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33m"[39;49;00m[33mindividual nodes has not been specified (spaces cannot be [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mused in OWL IRIs): [39;49;00m[33m'[39;49;00m[33m{[39;49;00midentifier[33m}[39;49;00m[33m'[39;49;00m[33m. Use the [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33m"[39;49;00m[33m-m/--metacharacter-substitute and -c/--capitalisation-scheme [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33m"[39;49;00m[33moptions to define how to handle spaces[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+[1m[31mE               draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space, but how to handle spaces in individual nodes has not been specified (spaces cannot be used in OWL IRIs): 'Literal source'. Use the -m/--metacharacter-substitute and -c/--capitalisation-scheme options to define how to handle spaces[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2079: MetacharacterException
+[31m[1m________________________ test_blank_node_used_for_decorations_without_ontology ________________________[0m
+
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1045/test_blank_node_used_for_decor0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_blank_node_used_for_decorations_without_ontology[39;49;00m(tmp_path: Path):[90m[39;49;00m
+        xml = _drawio_xml([90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mSubject[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mtype[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            _vertex_cell([33m"[39;49;00m[33mdecor[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mDetached[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+        )[90m[39;49;00m
+        path = tmp_path / [33m"[39;49;00m[33mblank.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        path.write_text(xml, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(path), metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        triples = [96mlist[39;49;00m(graph.triples(([94mNone[39;49;00m, SKOS.note, Literal([33m"[39;49;00m[33mDetached[39;49;00m[33m"[39;49;00m))))[90m[39;49;00m
+>       [94massert[39;49;00m triples[90m[39;49;00m
+[1m[31mE       assert [][0m
+
+[1m[31mlegacy/tests/test_cell_classifier.py[0m:341: AssertionError
+[31m[1m_____________________________ test_parse_drawio_curie_cell_without_parent _____________________________[0m
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_cell_without_parent[39;49;00m():[90m[39;49;00m
+        graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(FIXTURES_DIR / [33m"[39;49;00m[33mFlowchart_tweaked.drawio[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        kb = Namespace([33m"[39;49;00m[33mmock://knowledge-base/[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        individual = kb[[33m"[39;49;00m[33mLampdoesntwork[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m (individual, RDF.type, OWL.NamedIndividual) [95min[39;49;00m graph[90m[39;49;00m
+[1m[31mE       AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=Nc625a80ebd684a749dd39b465ac444be (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:195: AssertionError
+[31m[1m__________________________________ test_curie_literal_style_rounding __________________________________[0m
+
+curie = 'Email Address'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+error_message = "The entity 'Email Address' references a CURIE, which is not defined by the available prefixes."
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
+        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
+    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           prefix, reference = _split_curie(curie, prefixes)[90m[39;49;00m
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2317: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+curie = 'Email Address'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_split_curie[39;49;00m(curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m curie:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mValueError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mCURIE [39;49;00m[33m{[39;49;00mcurie[33m!r}[39;49;00m[33m must include a prefix separator[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+[1m[31mE           ValueError: CURIE 'Email Address' must include a prefix separator[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2295: ValueError
+
+[33mThe above exception was the direct cause of the following exception:[0m
+
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1045/test_curie_literal_style_round0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_curie_literal_style_rounding[39;49;00m(tmp_path: Path):[90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mparse[39;49;00m(path: Path) -> Graph:[90m[39;49;00m
+            [94mreturn[39;49;00m draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+                [96mstr[39;49;00m(path), metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        prefixes = draw_io_parser.get_prefixes()[90m[39;49;00m
+        expected_individual = URIRef([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprefixes[[33m'[39;49;00m[33mrdfs[39;49;00m[33m'[39;49;00m][33m}[39;49;00m[33mAddress[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mliteral_present[39;49;00m(graph: Graph, value: [96mstr[39;49;00m) -> [96mbool[39;49;00m:[90m[39;49;00m
+            [94mreturn[39;49;00m [96many[39;49;00m([90m[39;49;00m
+                [96misinstance[39;49;00m(obj, Literal) [95mand[39;49;00m [96mstr[39;49;00m(obj) == value [94mfor[39;49;00m obj [95min[39;49;00m graph.objects()[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+>       base_graph = parse(FIXTURES_DIR / [33m"[39;49;00m[33mClass_Diagram_tweaked.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:237: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mlegacy/tests/test_patched_parser.py[0m:225: in parse
+    [0m[94mreturn[39;49;00m draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2874: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2670: in _build_graph_from_raw_xml
+    [0mgraph = serializer([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2803: in serialise_to_graph
+    [0mserializer.serialize_all_individuals()[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1231: in serialize_all_individuals
+    [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+    [0m[96mself[39;49;00m.resolve_type([96mstr[39;49;00m(rdf_type)),[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1061: in resolve_type
+    [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref(rdf_type, mint_from_literal=[94mFalse[39;49;00m)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1099: in coerce_to_uriref
+    [0mprefix, reference = _ensure_known_curie([90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+curie = 'Email Address'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+error_message = "The entity 'Email Address' references a CURIE, which is not defined by the available prefixes."
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
+        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
+    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            prefix, reference = _split_curie(curie, prefixes)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mValueError[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+>           [94mraise[39;49;00m NotInKnownException(error_message) [94mfrom[39;49;00m[90m [39;49;00m[04m[96me[39;49;00m[90m[39;49;00m
+[1m[31mE           draw_io_parser.rdf_data_core.NotInKnownException: The entity 'Email Address' references a CURIE, which is not defined by the available prefixes.[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2319: NotInKnownException
+[31m[1m________________ test_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds] _________________[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 4711 Orville Wood fonds.nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m p: p.stem,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
+        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
+[1m[31mE       AssertionError: assert False[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nd08f3cc10e334f0eaa721e8c225bae34 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N10df8cdad0c74021bc0ce24e436f5096 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:452: AssertionError
+------------------------------------------ Captured log call ------------------------------------------
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#Person rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#Person rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[31m[1m_ test_parse_drawio_matches_baseline_graphs[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr] _[0m
+
+curie = '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_split_curie[39;49;00m(curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m curie:[90m[39;49;00m
+            [94mraise[39;49;00m [96mValueError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mCURIE [39;49;00m[33m{[39;49;00mcurie[33m!r}[39;49;00m[33m must include a prefix separator[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        prefix, remainder = curie.split([33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m, [94m1[39;49;00m)[90m[39;49;00m
+        remainder = remainder.strip()[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m remainder:[90m[39;49;00m
+            [94mraise[39;49;00m [96mValueError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mCURIE [39;49;00m[33m{[39;49;00mcurie[33m!r}[39;49;00m[33m is missing a reference component[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            manager = NamespaceManager(Graph())[90m[39;49;00m
+            [94mif[39;49;00m [96misinstance[39;49;00m(prefixes, [96mdict[39;49;00m):[90m[39;49;00m
+                [94mfor[39;49;00m p, i [95min[39;49;00m prefixes.items():[90m[39;49;00m
+                    manager.bind(p, i, replace=[94mTrue[39;49;00m)[90m[39;49;00m
+>           manager.expand_curie(curie)[90m[39;49;00m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2305: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <rdflib.namespace.NamespaceManager object at 0x10a8f7e60>
+curie = '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mexpand_curie[39;49;00m([96mself[39;49;00m, curie: [96mstr[39;49;00m) -> URIRef:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Expand a CURIE of the form <prefix:element>, e.g. "rdf:type"[39;49;00m
+    [33m    into its full expression:[39;49;00m
+    [33m[39;49;00m
+    [33m    >>> import rdflib[39;49;00m
+    [33m    >>> g = rdflib.Graph()[39;49;00m
+    [33m    >>> g.namespace_manager.expand_curie("rdf:type")[39;49;00m
+    [33m    rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type')[39;49;00m
+    [33m[39;49;00m
+    [33m    Raises exception if a namespace is not bound to the prefix.[39;49;00m
+    [33m[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m [96mtype[39;49;00m(curie) [95mis[39;49;00m [96mstr[39;49;00m:  [90m# noqa: E714[39;49;00m[90m[39;49;00m
+            [94mraise[39;49;00m [96mTypeError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mArgument must be a string, not [39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(curie).[91m__name__[39;49;00m[33m}[39;49;00m[33m.[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        parts = curie.split([33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m, [94m1[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m [96mlen[39;49;00m(parts) != [94m2[39;49;00m:[90m[39;49;00m
+            [94mraise[39;49;00m [96mValueError[39;49;00m([90m[39;49;00m
+                [33m"[39;49;00m[33mMalformed curie argument, format should be e.g. “foaf:name”.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+        ns = [96mself[39;49;00m.store.namespace(parts[[94m0[39;49;00m])[90m[39;49;00m
+        [94mif[39;49;00m ns [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+            [94mreturn[39;49;00m URIRef([33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mstr[39;49;00m(ns)[33m}[39;49;00m[33m{[39;49;00mparts[[94m1[39;49;00m][33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94melse[39;49;00m:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mValueError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mPrefix [39;49;00m[33m\"[39;49;00m[33m{[39;49;00mcurie.split([33m'[39;49;00m[33m:[39;49;00m[33m'[39;49;00m)[[94m0[39;49;00m][33m}[39;49;00m[33m\"[39;49;00m[33m not bound to any namespace.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           ValueError: Prefix "/KB/Instantiation/{REFD_FILE}/urn" not bound to any namespace.[0m
+
+[1m[31m.venv/lib/python3.12/site-packages/rdflib/namespace/__init__.py[0m:726: ValueError
+
+[33mThe above exception was the direct cause of the following exception:[0m
+
+curie = '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+error_message = "The entity '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}' references a CURIE, which is not defined by the available prefixes."
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
+        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
+    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           prefix, reference = _split_curie(curie, prefixes)[90m[39;49;00m
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2317: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+curie = '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_split_curie[39;49;00m(curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mif[39;49;00m [33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m [95mnot[39;49;00m [95min[39;49;00m curie:[90m[39;49;00m
+            [94mraise[39;49;00m [96mValueError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mCURIE [39;49;00m[33m{[39;49;00mcurie[33m!r}[39;49;00m[33m must include a prefix separator[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        prefix, remainder = curie.split([33m"[39;49;00m[33m:[39;49;00m[33m"[39;49;00m, [94m1[39;49;00m)[90m[39;49;00m
+        remainder = remainder.strip()[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m remainder:[90m[39;49;00m
+            [94mraise[39;49;00m [96mValueError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mCURIE [39;49;00m[33m{[39;49;00mcurie[33m!r}[39;49;00m[33m is missing a reference component[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            manager = NamespaceManager(Graph())[90m[39;49;00m
+            [94mif[39;49;00m [96misinstance[39;49;00m(prefixes, [96mdict[39;49;00m):[90m[39;49;00m
+                [94mfor[39;49;00m p, i [95min[39;49;00m prefixes.items():[90m[39;49;00m
+                    manager.bind(p, i, replace=[94mTrue[39;49;00m)[90m[39;49;00m
+            manager.expand_curie(curie)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mValueError[39;49;00m([33mf[39;49;00m[33m"[39;49;00m[33mFailed to expand CURIE [39;49;00m[33m'[39;49;00m[33m{[39;49;00mcurie[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mexc[39;49;00m[90m[39;49;00m
+[1m[31mE           ValueError: Failed to expand CURIE '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}'[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2307: ValueError
+
+[33mThe above exception was the direct cause of the following exception:[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m p: p.stem,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+>       actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:443: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mlegacy/draw_io_parser.py[0m:2874: in parse_drawio_to_graph
+    [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2670: in _build_graph_from_raw_xml
+    [0mgraph = serializer([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:2803: in serialise_to_graph
+    [0mserializer.serialize_all_individuals()[90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1231: in serialize_all_individuals
+    [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1213: in add_individual_triples
+    [0mtarget_uri = [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
+[1m[31mlegacy/draw_io_parser.py[0m:1099: in coerce_to_uriref
+    [0mprefix, reference = _ensure_known_curie([90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+curie = '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}'
+prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
+error_message = "The entity '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}' references a CURIE, which is not defined by the available prefixes."
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
+        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
+    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            prefix, reference = _split_curie(curie, prefixes)[90m[39;49;00m
+        [94mexcept[39;49;00m [96mValueError[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+>           [94mraise[39;49;00m NotInKnownException(error_message) [94mfrom[39;49;00m[90m [39;49;00m[04m[96me[39;49;00m[90m[39;49;00m
+[1m[31mE           draw_io_parser.rdf_data_core.NotInKnownException: The entity '/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}' references a CURIE, which is not defined by the available prefixes.[0m
+
+[1m[31mlegacy/draw_io_parser.py[0m:2319: NotInKnownException
+[31m[1m______ test_parse_drawio_matches_baseline_graphs[General Authority to RiC-O Model_2025-06-25_PZ] ______[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m p: p.stem,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
+        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
+[1m[31mE       AssertionError: assert False[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=N7f7c1a3c755a455f95aeaa5d0358ad28 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N4845c3094cdb49f89f851d5adfefb1ff (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:452: AssertionError
+---------------------------------------- Captured stdout call -----------------------------------------
+Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) target 'Z80UwrU0Vu5smdOcJr8o-7' could not be found.
+[31m[1m_____ test_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)] ______[0m
+
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt')
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
+        [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        [96msorted[39;49;00m(BASELINES_DIR.glob([33m"[39;49;00m[33m*.nt[39;49;00m[33m"[39;49;00m)),[90m[39;49;00m
+        ids=[94mlambda[39;49;00m p: p.stem,[90m[39;49;00m
+    )[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_matches_baseline_graphs[39;49;00m(baseline_path: Path):[90m[39;49;00m
+        fixture_path = FIXTURES_DIR / [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mbaseline_path.stem[33m}[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        expected = Graph()[90m[39;49;00m
+        expected.parse(baseline_path, [96mformat[39;49;00m=[33m"[39;49;00m[33mnt[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        actual = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
+            [96mstr[39;49;00m(fixture_path),[90m[39;49;00m
+            ontology_iri=[33m"[39;49;00m[33montology://generated-from-draw-io/mock[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        expected_normalised = _normalise_graph(expected)[90m[39;49;00m
+        actual_normalised = _normalise_graph(actual)[90m[39;49;00m
+    [90m[39;49;00m
+>       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
+[1m[31mE       AssertionError: assert False[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nc0a00f993a8b4678809ee996f67c30eb (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=Nd6f522e8d374489c96c822a239135cda (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+
+[1m[31mlegacy/tests/test_patched_parser.py[0m:452: AssertionError
+------------------------------------------ Captured log call ------------------------------------------
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#CorporateBody rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#CorporateBody rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#Person rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#Person rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#CorporateBody rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:303 https://www.ica.org/standards/RiC/ontology#CorporateBody rico:AgentName does not look like a valid URI, trying to serialize this will break.
+[31m[1m_____________________________ test_map_schema_workflow_general_authority ______________________________[0m
+
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1045/test_map_schema_workflow_gener1')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_authority[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-map-schema-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+>       result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31mrmlmapper_workflows/tests/test_map_schema_workflow.py[0m:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mrmlmapper_workflows/map_schema_workflow.py[0m:170: in run_map_schema_workflow
+    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz.yml')
+slug = 'pytest-map-schema-general-authority'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
+        command = [[90m[39;49;00m
+            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--skip-ts[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+        process = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m process.returncode != [94m0[39;49;00m:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33m"[39;49;00m[33mDebugger scenario failed: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprocess.stderr.strip()[90m [39;49;00m[95mor[39;49;00m[90m [39;49;00mprocess.stdout.strip()[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           RuntimeError: Debugger scenario failed: ──────────────────────────── Scenario: pytest-map-schema-general-authority ────────────────────────────[0m
+[1m[31mE           Fixture: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General [0m
+[1m[31mE           Authority to RiC-O Model_2025-06-25_PZ.drawio[0m
+[1m[31mE           CSV path: gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv[0m
+[1m[31mE           Base URI: https://data.archives.gov.on.test.gbad.ca[0m
+[1m[31mE           Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275[0m
+[1m[31mE           Format: turtle[0m
+[1m[31mE           ✓ Loaded 164 mxCells from XML[0m
+[1m[31mE           Starting cell classifications...[0m
+[1m[31mE           ✓ Classified 162 mxCells[0m
+[1m[31mE           Classifier stdout:[0m
+[1m[31mE           Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) target [0m
+[1m[31mE           'Z80UwrU0Vu5smdOcJr8o-7' could not be found.[0m
+[1m[31mE           Injected 2 unclassified mxCells (using unprocessed values)[0m
+[1m[31mE           ✓ Extracted 164 cell classifications:[0m
+[1m[31mE             ARROW_LABEL: 86[0m
+[1m[31mE             EMPTY_CELL: 1[0m
+[1m[31mE             LITERAL: 17[0m
+[1m[31mE             STANDALONE_INDIVIDUAL: 29[0m
+[1m[31mE             TYPED_INDIVIDUAL: 29[0m
+[1m[31mE             UNCLASSIFIED: 2[0m
+[1m[31mE                                                   Debug scenario results                                         [0m
+[1m[31mE           ┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[1m[31mE           ┃ Graph     ┃ Triples ┃ Output                                ┃ N-Triples SHA256                      ┃[0m
+[1m[31mE           ┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩[0m
+[1m[31mE           │ py_legacy │     116 │ results/pytest-map-schema-general-au… │ 39a982fcbe70a98c60604609ab13633a5c64… │[0m
+[1m[31mE           └───────────┴─────────┴───────────────────────────────────────┴───────────────────────────────────────┘[0m
+[1m[31mE           Isomorphism checks:[0m
+
+[1m[31mrmlmapper_workflows/map_schema_workflow.py[0m:280: RuntimeError
+[31m[1m______________________________ test_pipeline_workflow_general_authority _______________________________[0m
+
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1045/test_pipeline_workflow_general1')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_pipeline_workflow_general_authority[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        map_schema_config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-pipeline-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+        pipeline_config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-pipeline-general-authority-no-rr[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            index_column=[33m"[39;49;00m[33mSISN[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+>       pipeline_result = run_pipeline_workflow([90m[39;49;00m
+            pipeline_config,[90m[39;49;00m
+            rmlmapper_env,[90m[39;49;00m
+            workspace_base=tmp_path,[90m[39;49;00m
+            correct_dateex_path=[33m"[39;49;00m[33mtmp/New-export-of-Government-authorities-with-correct-Dates-of-Existence-xlsx.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31mrmlmapper_workflows/tests/test_pipeline_workflow.py[0m:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mrmlmapper_workflows/pipeline_workflow.py[0m:531: in run_pipeline_workflow
+    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml')
+slug = 'pytest-pipeline-general-authority-no-rr'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
+        command = [[90m[39;49;00m
+            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+        ][90m[39;49;00m
+        result = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m scenario_entry:[90m[39;49;00m
+            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded after command.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mstdout:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stdout[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stderr[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {}) [95mor[39;49;00m {}[90m[39;49;00m
+        unexpected_errors = {[90m[39;49;00m
+            name: details[90m[39;49;00m
+            [94mfor[39;49;00m name, details [95min[39;49;00m errors.items()[90m[39;49;00m
+            [94mif[39;49;00m name != [33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m details[90m[39;49;00m
+        }[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m unexpected_errors:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected debugger errors in scenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m: [39;49;00m[33m{[39;49;00munexpected_errors[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-authority-no-rr': {'py_stdout': "Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) target 'Z80UwrU0Vu5smdOcJr8o-7' could not be found."}[0m
+
+[1m[31mrmlmapper_workflows/pipeline_workflow.py[0m:666: RuntimeError
+[33m========================================== warnings summary ===========================================[0m
 rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_add
-rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_authority
 rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_general_add
-rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_general_authority
   /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper_workflows/tests/test_map_schema_workflow.py:42: UserWarning: RML canonicalization took too long and was skipped.
     warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m================== [32m92 passed[0m, [33m[1m2 xfailed[0m, [33m[1m4 warnings[0m[33m in 27.88s[0m[33m ===================[0m
+[36m[1m======================================= short test summary info =======================================[0m
+[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m - AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', 'owl:Na...
+[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_decorations_serialise_to_skos_note[0m - AssertionError: assert rdflib.term.Literal('Loose literal') in []
+[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_literal_as_arrow_source_raises[0m - draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space, but how to ha...
+[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_blank_node_used_for_decorations_without_ontology[0m - assert []
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.UR...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - draw_io_parser.rdf_data_core.NotInKnownException: The entity 'Email Address' references a CURIE, w...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds][0m - AssertionError: assert False
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr][0m - draw_io_parser.rdf_data_core.NotInKnownException: The entity '/KB/Instantiation/{REFD_FILE}/urn:uu...
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[General Authority to RiC-O Model_2025-06-25_PZ][0m - AssertionError: assert False
+[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)][0m - AssertionError: assert False
+[31mFAILED[0m rmlmapper_workflows/tests/test_map_schema_workflow.py::[1mtest_map_schema_workflow_general_authority[0m - RuntimeError: Debugger scenario failed: ──────────────────────────── Scenario: pytest-map-schema-g...
+[31mFAILED[0m rmlmapper_workflows/tests/test_pipeline_workflow.py::[1mtest_pipeline_workflow_general_authority[0m - RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-authority-no-rr': {'...
+[31m======================== [31m[1m12 failed[0m, [32m79 passed[0m, [33m3 xfailed[0m, [33m2 warnings[0m[31m in 20.02s[0m[31m ========================[0m
+[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
 
-Command exit status: 0
-Script done on Wed Nov 12 13:44:17 2025
+Command exit status: 1
+Script done on Thu Nov 13 16:31:47 2025

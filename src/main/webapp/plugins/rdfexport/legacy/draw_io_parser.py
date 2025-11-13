@@ -274,11 +274,13 @@ class pipeline:
                             cell_id = cell.attrib.get("id")
                             if kind_name == "TYPED_INDIVIDUAL":
                                 parent = classification.parent_cell
+                                parent_cell_id = parent.attrib.get("id")
                                 identifier = classification.parent_identifier
                                 if (
                                     parent is None
                                     or identifier is None
                                     or cell_id is None
+                                    or (parent_cell_id in self._literals_by_id)
                                 ):
                                     continue
                                 for token in classification.tokens:
@@ -355,7 +357,6 @@ class pipeline:
                         """Determines the role of a given mxCell in the graph."""
                         CellClassification = self.CellClassification
                         CellKind = self.CellKind
-                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
                         raw_value = cell_value.strip()
                         literal_value = raw_value
                         if raw_html is not None and (not self._strip_html):
@@ -395,29 +396,27 @@ class pipeline:
                             )
                         if self._style_denotes_literal(cell, style):
                             return build(CellKind.LITERAL)
+                        tokens = self._tokenise(raw_value)
+                        child_tokens = self._collect_child_tokens(cell)
+                        if child_tokens:
+                            tokens.extend((t for t in child_tokens if t not in tokens))
                         if parent_cell is not None and parent_identifier:
-                            tokens = self._tokenise(raw_value)
-                            child_tokens = self._collect_child_tokens(cell)
-                            if child_tokens:
-                                tokens.extend(
-                                    (t for t in child_tokens if t not in tokens)
-                                )
                             return build(
                                 CellKind.TYPED_INDIVIDUAL,
                                 parent_cell=parent_cell,
                                 parent_identifier=parent_identifier,
                                 tokens=tokens,
                             )
-                        elif looks_like_iri(raw_value):
+                        elif self._is_decoration(cell, raw_value):
+                            return build(CellKind.DECORATION)
+                        else:
+                            declares_identifier = bool(child_tokens)
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=[],
-                                declares_identifier=True,
+                                declares_identifier=declares_identifier,
                             )
-                        if self._is_decoration(cell, raw_value):
-                            return build(CellKind.DECORATION)
-                        return build(CellKind.LITERAL)
 
                     def _value_of(self, cell: Element, *, raw: bool = False) -> str:
                         value = cell.attrib.get("value")
@@ -1054,37 +1053,31 @@ class pipeline:
                                 )
                             )
 
-                    def resolve_property_uri(self, prop: str) -> URIRef:
-                        """Resolve a property string to a URIRef."""
-                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
-                        if looks_like_iri(prop) == "absolute-iri":
-                            return URIRef(prop)
-                        prop_prefix, prop_name = prop.split(":", 1)
-                        return self.namespace_map[prop_prefix][prop_name]
+                    def resolve_predicate(self, prop: str) -> URIRef:
+                        """Resolve a predicate string (property IRI) to a URIRef."""
+                        return self.coerce_to_uriref(prop, mint_from_literal=False)
+
+                    def resolve_type(self, rdf_type: str) -> Any:
+                        return self.coerce_to_uriref(rdf_type, mint_from_literal=False)
 
                     def declare_properties(self) -> None:
                         """Declare object and datatype properties in the graph."""
-                        for prop in sorted(
-                            (
-                                prop
-                                for prop in self.object_properties
-                                if not prop.startswith("rico:")
-                            )
-                        ):
-                            prop_uri = self.resolve_property_uri(prop)
+                        for prop in sorted(self.object_properties):
+                            prop_uri = self.resolve_predicate(prop)
                             self._add_triple((prop_uri, RDF.type, OWL.ObjectProperty))
-                        for prop in sorted(
-                            (
-                                prop
-                                for prop in self.datatype_properties
-                                if not prop.startswith("rico:")
-                            )
-                        ):
-                            prop_uri = self.resolve_property_uri(prop)
+                        for prop in sorted(self.datatype_properties):
+                            prop_uri = self.resolve_predicate(prop)
                             self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
 
-                    def coerce_to_uriref(self, value: str) -> URIRef:
-                        """Resolve an individual ID/type/object fact to its URI."""
+                    def coerce_to_uriref(
+                        self, value: str, mint_from_literal: bool = True
+                    ) -> URIRef:
+                        """
+                        Resolve an individual ID/type/object fact to its URI.
+
+                        If mint_from_literal = False, raises NotInKnownException,
+                        otherwise urlencodes and mints entity to default namespace.
+                        """
                         _ensure_known_curie = (
                             pipeline.core.internal.data._ensure_known_curie
                         )
@@ -1112,7 +1105,12 @@ class pipeline:
                             )
                             return self.namespace_map[prefix][reference]
                         except NotInKnownException:
-                            return Namespace(self.prefix_iri)[value]
+                            if looks_like_iri(trimmed_label) == "curie":
+                                raise
+                            if mint_from_literal:
+                                return Namespace(self.prefix_iri)[value]
+                            else:
+                                raise
 
                     def coerce_to_literal(self, value: Any) -> Literal:
                         """Convert a value to a typed Literal."""
@@ -1182,12 +1180,11 @@ class pipeline:
                             (individual_uri, RDF.type, OWL.NamedIndividual)
                         )
                         for rdf_type in types_and_facts.get("Types", set()):
-                            rdf_type_str = str(rdf_type)
                             self._add_triple(
                                 (
                                     individual_uri,
                                     RDF.type,
-                                    self.coerce_to_uriref(rdf_type_str),
+                                    self.resolve_type(str(rdf_type)),
                                 )
                             )
                         if self.serialisation_config.include_label:
@@ -1197,7 +1194,7 @@ class pipeline:
                         for prop, values in types_and_facts.items():
                             if prop == "Types":
                                 continue
-                            prop_uri = self.resolve_property_uri(prop)
+                            prop_uri = self.resolve_predicate(prop)
                             for raw_value in values:
                                 if (
                                     isinstance(raw_value, tuple)
@@ -1395,13 +1392,12 @@ class pipeline:
                         ]
                         return (subject_map, triples)
 
-                    def _resolve_type_value(self, rdf_type: str) -> Any:
-                        return self.coerce_to_uriref(rdf_type)
-
-                    def coerce_to_uriref(self, individual_id: str) -> URIRef:
-                        if self._is_template_string(individual_id):
-                            return self.FakeURIRef(individual_id)
-                        return super().coerce_to_uriref(individual_id)
+                    def coerce_to_uriref(
+                        self, value: str, mint_from_literal: bool = True
+                    ) -> URIRef:
+                        if self._is_template_string(value):
+                            return self.FakeURIRef(value)
+                        return super().coerce_to_uriref(value, mint_from_literal)
 
                     def add_individual_triples(
                         self,
@@ -1443,7 +1439,7 @@ class pipeline:
                             key=lambda value: str(value),
                         ):
                             rdf_type_str = str(rdf_type)
-                            class_value = self._resolve_type_value(rdf_type_str)
+                            class_value = self.resolve_type(rdf_type_str)
                             (
                                 type_predicate_object_map,
                                 type_predicate_object_map_triples,
@@ -1474,7 +1470,7 @@ class pipeline:
                         for prop, values in sorted(types_and_facts.items()):
                             if prop == "Types":
                                 continue
-                            prop_uri = self.resolve_property_uri(prop)
+                            prop_uri = self.resolve_predicate(prop)
                             for raw_value in sorted(
                                 values,
                                 key=lambda v: (0, f"{v[0]}")
@@ -2361,12 +2357,7 @@ class internal_data_core:
             space_substitute,
             capitalisation_scheme,
         )
-        rdf_type = _replace_metacharacters(
-            individual.ric_class,
-            metacharacter_substitutes,
-            space_substitute,
-            capitalisation_scheme,
-        )
+        rdf_type = individual.ric_class
         try:
             block = blocks[individual_id, individual.identifier]
         except KeyError:
@@ -2514,7 +2505,6 @@ class internal_control_core:
                     normalized_identifier: {property_value}
                 }
                 continue
-            print(normalized_identifier)
             values = block.get(normalized_identifier)
             if values is None:
                 block[normalized_identifier] = {property_value}

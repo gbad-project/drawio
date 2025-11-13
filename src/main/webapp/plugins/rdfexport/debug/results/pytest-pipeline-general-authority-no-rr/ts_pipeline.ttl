@@ -9,266 +9,51 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:constant "/Schema/Authority/VariantAgentName" ;
-            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Type" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{REFA}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Authority/NaturalAgentName" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadType ],
-        [ rr:objectMap [ rr:template "{NAME}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:normalizedValue ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentName" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/NaturalAgentName/{NAME}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{SUC} (Corporate Body)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{SUC}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:hasBeginningDate ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
+        [ rr:objectMap [ rr:template "/KB/Agent/{REFA}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:hasEndDate ],
-        [ rr:objectMap [ rr:template "{CONTAG} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
+            rr:predicate rico:isEquivalentTo ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{CONTAG}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:relationHasTarget ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentControlRelation" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{REFA}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:normalizedValue ],
-        [ rr:objectMap [ rr:constant "/Schema/Authority/AgencyReferenceCode" ;
+            rr:predicate rico:hasOrHadController ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{SUC}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:hasIdentifierType ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Identifier" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/AgencyReferenceCode/{REFA}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{PRED} (Corporate Body)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Agent/{PRED}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:constant "/Schema/Authority/NaturalAgentName" ;
-            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Type" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:constant "/Schema/Authority/AgencyReferenceCode" ;
-            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#IdentifierType" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Corporate Body)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
+            rr:predicate rico:hasSuccessor ],
+        [ rr:objectMap [ rr:template "/KB/ParallelAgentName/{PAR}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadCorporateBodyType ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/{RICO_AUTHTP_CORPORATEBODY}/{HEADING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/Date/{DATECONT_END}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Place)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Place" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/{RICO_AUTHTP_PLACE}/{HEADING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Authority/VariantAgentName" ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadType ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentName" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/VariantAgentName/{VAR}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/Schema/Authority/Status#{STATUSA}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:constant "/Schema/Authority/AuthorityRecord" ;
-            rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#DocumentaryFormType" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
+            rr:predicate rico:hasOrHadAgentName ],
         [ rr:objectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:isOrWasDescribedBy ],
         [ rr:objectMap [ rr:template "/KB/Mandate/{AA}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:authorizedBy ],
-        [ rr:objectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadIdentifier ],
-        [ rr:objectMap [ rr:template "{CMTAU}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate auth:privateNote ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{REFA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isEquivalentTo ],
-        [ rr:objectMap [ rr:template "{ADM}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:history ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{SUC}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasSuccessor ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{PRED}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isSuccessorOf ],
         [ rr:objectMap [ rr:template "{FUN}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate auth:functionNote ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{PRED}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isSuccessorOf ],
+        [ rr:objectMap [ rr:template "{CMTAU}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:privateNote ],
+        [ rr:objectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadIdentifier ],
         [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:hasEndDate ],
-        [ rr:objectMap [ rr:template "/KB/ParallelAgentName/{PAR}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasBeginningDate ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{CONTAG}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadController ] ;
+        [ rr:objectMap [ rr:template "{ADM}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:history ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:template "{RICO_AUTHTP_CLASS}" ] ;
@@ -279,10 +64,16 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:constant "/Schema/Authority/ParallelAgentName" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{RULES}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:title ],
+        [ rr:objectMap [ rr:constant "Rules for Archival Description" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca//KB/Rule/RulesForArchivalDescription" ;
             rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Type" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Rule" ] ;
                     rr:predicate rdf:type ] ;
             rr:termType rr:IRI ] .
 
@@ -299,14 +90,249 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Authority/ParallelAgentName" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadType ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Person)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Person" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/{RICO_AUTHTP_PERSON}/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentName" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/Schema/Authority/Status#{STATUSA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadCorporateBodyType ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/{RICO_AUTHTP_CORPORATEBODY}/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord> ] ;
+            rr:predicate rico:hasDocumentaryFormType ],
+        [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> ] ;
+            rr:predicate rico:isOrWasRegulatedBy ],
+        [ rr:objectMap [ rr:template "{MOD_DATE}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:lastModificationDate ],
+        [ rr:objectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:template "/Schema/Authority/WebReady#{WEBA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:template "{SOURCE}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:sourceNote ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Record" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/AuthorityRecord/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:relationHasTarget ],
+        [ rr:objectMap [ rr:template "{CONTAG} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentControlRelation" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Agent/{REFA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AgencyReferenceCode" ;
+            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#IdentifierType" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{SUC} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Agent/{SUC}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca//Schema/Authority/AuthorityRecord" ;
+            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#DocumentaryFormType" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca//Schema/Authority/ParallelAgentName" ;
+            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Type" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode> ] ;
+            rr:predicate rico:hasIdentifierType ],
+        [ rr:objectMap [ rr:template "{REFA}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Identifier" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/AgencyReferenceCode/{REFA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FParallelAgentName> ] ;
+            rr:predicate rico:hasOrHadType ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentName" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ] ;
             rr:template "/KB/ParallelAgentName/{PAR}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Family)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Family" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/{RICO_AUTHTP_FAMILY}/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca//Schema/Authority/VariantAgentName" ;
+            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Type" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Place)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Place" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/{RICO_AUTHTP_PLACE}/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName> ] ;
+            rr:predicate rico:hasOrHadType ],
+        [ rr:objectMap [ rr:template "{NAME}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentName" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/NaturalAgentName/{NAME}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/Schema/Authority/WebReady#{WEBA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                    rr:predicate rdf:type ],
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
+                    rr:predicate rdf:type ] ;
+            rr:template "/KB/Date/{DATECONT_END}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -318,9 +344,9 @@
         [ rr:objectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:thingIsSourceOfRelation ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
                     rr:predicate rdf:type ] ;
             rr:template "/KB/Agent/{CONTAG}" ;
             rr:termType rr:IRI ] .
@@ -328,55 +354,31 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "Rules for Archival Description" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "{RULES}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:title ] ;
-    rr:subjectMap [ rr:constant "/KB/Rule/RulesForArchivalDescription" ;
-            rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Rule" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBodyType" ] ;
                     rr:predicate rdf:type ],
                 [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ] ;
+            rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:template "{SOURCE}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate auth:sourceNote ],
-        [ rr:objectMap [ rr:template "/Schema/Authority/WebReady#{WEBA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:template "{MOD_DATE}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:lastModificationDate ],
-        [ rr:objectMap [ rr:constant "/Schema/Authority/AuthorityRecord" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasDocumentaryFormType ],
-        [ rr:objectMap [ rr:constant "/KB/Rule/RulesForArchivalDescription" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isOrWasRegulatedBy ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Record" ] ;
+    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Date" ] ;
                     rr:predicate rdf:type ] ;
-            rr:template "/KB/AuthorityRecord/{HEADING}" ;
+            rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#RecordState" ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca//Schema/Authority/NaturalAgentName" ;
+            rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Type" ] ;
                     rr:predicate rdf:type ] ;
-            rr:template "/Schema/Authority/WebReady#{WEBA}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -392,36 +394,25 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Person)" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{PRED} (Corporate Body)" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Person" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBody" ] ;
                     rr:predicate rdf:type ] ;
-            rr:template "/KB/{RICO_AUTHTP_PERSON}/{HEADING}" ;
+            rr:template "/KB/Agent/{PRED}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> ] ;
+            rr:predicate rico:hasOrHadType ] ;
     rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
                     rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#CorporateBodyType" ] ;
+                [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#AgentName" ] ;
                     rr:predicate rdf:type ] ;
-            rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HEADING} (Family)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:predicateObjectMap [ rr:objectMap [ rr:constant "https://www.ica.org/standards/RiC/ontology#Family" ] ;
-                    rr:predicate rdf:type ],
-                [ rr:objectMap [ rr:constant "http://www.w3.org/2002/07/owl#NamedIndividual" ] ;
-                    rr:predicate rdf:type ] ;
-            rr:template "/KB/{RICO_AUTHTP_FAMILY}/{HEADING}" ;
+            rr:template "/KB/VariantAgentName/{VAR}" ;
             rr:termType rr:IRI ] .
 
