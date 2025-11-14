@@ -14,6 +14,7 @@ import sys
 from dataclasses import dataclass
 from types import ModuleType
 from typing import Dict, List, Tuple
+from pathlib import Path
 
 
 VALID_TYPES = {"xml", "internal", "rdf"}
@@ -378,18 +379,21 @@ def collect_overrides(
     external_imports: List[str] = []
     seen_external_imports: set[str] = set()
 
-    for idx, filename in enumerate(sorted(os.listdir(directory))):
-        if not filename.endswith(".py") or filename.startswith("_"):
-            continue
-        path = os.path.join(directory, filename)
-        module_name = f"drawio_meta_override_{idx}_{os.path.splitext(filename)[0]}"
+    source_files: list[Path] = []
+    for dirpath, _, filenames in os.walk(directory):
+        for filename in filenames:
+            if not filename.endswith(".py") or filename.startswith("_"):
+                continue
+            source_files.append(Path(dirpath) / filename)
+    for idx, path in enumerate(source_files):
+        module_name = f"drawio_meta_override_{idx}_{path.stem}"
         spec = importlib.util.spec_from_file_location(module_name, path)
         if spec is None or spec.loader is None:
             raise RuntimeError(f"Unable to load override module from {path}")
         module = importlib.util.module_from_spec(spec)
         sys.modules[module_name] = module
         spec.loader.exec_module(module)  # type: ignore[arg-type]
-        modules.append(os.path.relpath(path, directory))
+        modules.append(str(path.relative_to(directory)))
 
         try:
             with open(path, "r", encoding="utf-8") as handle:
