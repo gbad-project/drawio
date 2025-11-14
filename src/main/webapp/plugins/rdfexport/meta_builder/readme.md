@@ -28,7 +28,7 @@ Adhering to this conceptual framework is helpful for ensuring continuity between
 
 1. **Phase:** `["pre", "core", "post"]`. Denotes the timing of execution in the pipeline: `pre` means before the main XML tree (e.g., mxCells) has started processing.  `core` is from XML processing to graph building. `post` is after `DrawIOParserGraph` (our custom subclass of `rdflib.graph.Graph`) is constructed.
 2. **Data type:** `["xml", "internal", "rdf"]`. Denotes the data model that is primarily the focus of the override, namely the XML tree or `xml.etree.ElementTree.Element`, internal models, or `rdflib` terms and graphs, respectively.
-3. **Role:** `["metadata", "data", "control"]`. Denotes the kind of data primarily operated on the override: Whenever it comes from the main Draw\.io XML tree (exclusive of metadata nodes), it is considered a `data` role; `metadata` concerns operations specifically on metadata; `control` includes operations that involve/depend on both data and metadata, or control flow functionality such as I/O operations or exception handling.
+3. **Role:** `["metadata", "data", "control"]`. Denotes the kind of data primarily operated on the override: Whenever it comes from the main Draw\.io XML tree (exclusive of metadata nodes), it is considered a `data` role; `metadata` concerns operations specifically on metadata; `control` includes operations that involve/depend on both data and metadata, and occasional control flow functionality such as I/O operations or exception handling (however, the dependence on data vs. metadata is the primary consideration for the `control` role which is rather overblown already, so self-contained control operations may be better placed under `data` or `metadata`).
 
 ## Managing pipeline imports
 
