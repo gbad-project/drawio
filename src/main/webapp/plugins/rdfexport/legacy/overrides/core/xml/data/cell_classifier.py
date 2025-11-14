@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from enum import Enum, auto
-import typing
+from typing import TYPE_CHECKING
 
 from legacy.draw_io_parser import *  # type: ignore=imported-unused
 from meta_builder.drawio_meta_builder import override
@@ -13,6 +12,8 @@ from meta_builder.drawio_meta_builder import override
 
 @override(phase="core", type="xml", role="data")
 class DrawIOXMLTree:
+    """Deprecated. Use `DrawIOCellClassifier` instead."""
+
     pass
 
 
@@ -24,38 +25,20 @@ class DrawIOCellClassifier:
     and graph element generation in a single place.
     """
 
-    class CellKind(Enum):
-        ARROW = auto()
-        ARROW_LABEL = auto()
-        TYPED_INDIVIDUAL = auto()
-        STANDALONE_INDIVIDUAL = auto()
-        LITERAL = auto()
-        DECORATION = auto()
-        EMPTY_CELL = auto()
-
-    @dataclass(slots=True)
-    class CellClassification:
-        kind: Enum
-        raw_value: str
-        cell: Element
-        parent_cell: Optional[Element] = None
-        parent_identifier: Optional[str] = None
-        identifier: Optional[str] = None
-        tokens: list[str] = field(default_factory=list)
-        declares_identifier: bool = False
-
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
 
+    if TYPE_CHECKING:
+        from legacy.draw_io_parser import pipeline
+
     def __init__(
         self,
-        raw_xml: typing.Any,
+        raw_xml: Any,
         prefixes: dict[str, str],
         *,
         strict_mode: bool = False,
         max_gap: float | None = None,
         strip_html: bool = True,
-        allow_template_types: bool = False,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -72,16 +55,6 @@ class DrawIOCellClassifier:
             self._namespace_manager.bind(prefix, iri, replace=True)
 
         self._strict_mode = bool(strict_mode)
-        self._allow_template_types = bool(allow_template_types)
-        detector = getattr(
-            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
-            "detect_string_template",
-            None,
-        )
-        if callable(detector):
-            self._detect_string_template = detector
-        else:
-            self._detect_string_template = lambda value: []
         default_gap = 10.0
         gap_candidate = default_gap if max_gap is None else max_gap
         try:
@@ -125,6 +98,10 @@ class DrawIOCellClassifier:
         Main processing loop. First classifies all nodes (vertices), then
         resolves all arrows (edges).
         """
+        _NoValueException = pipeline.core.xml.data._NoValueException
+        CellKind = pipeline.core.internal.data.CellKind
+        CellClassification = pipeline.core.internal.data.CellClassification
+
         try:
             cells = self.draw_io_xml_tree.findall(".//mxCell")
             if not cells:
@@ -141,8 +118,8 @@ class DrawIOCellClassifier:
                         arrow_value = self._arrow_label(cell)
                     except _NoValueException:
                         arrow_value = cell.attrib.get("value", "").strip()
-                    self.classifications[cell_id] = self.CellClassification(
-                        self.CellKind.ARROW_LABEL,
+                    self.classifications[cell_id] = CellClassification(
+                        CellKind.ARROW_LABEL,
                         arrow_value,
                         cell,
                     )
@@ -228,12 +205,10 @@ class DrawIOCellClassifier:
                     raise
                 print(f"Warning: Skipping arrow due to error: {e}")
 
-    def classify(
-        self, cell: Element, cell_value: str, raw_html: str | None = None
-    ) -> CellClassification:
+    def classify(self, cell: Element, cell_value: str, raw_html: str | None = None):
         """Determines the role of a given mxCell in the graph."""
-        CellClassification = self.CellClassification
-        CellKind = self.CellKind
+        CellKind = pipeline.core.internal.data.CellKind
+        CellClassification = pipeline.core.internal.data.CellClassification
 
         raw_value = cell_value.strip()
         literal_value = raw_value
@@ -301,6 +276,8 @@ class DrawIOCellClassifier:
 
     # region Helper Methods (Moved from DrawIOXMLTree)
     def _value_of(self, cell: Element, *, raw: bool = False) -> str:
+        _NoValueException = pipeline.core.xml.data._NoValueException
+
         value = cell.attrib.get("value")
         if value is None:
             raise _NoValueException

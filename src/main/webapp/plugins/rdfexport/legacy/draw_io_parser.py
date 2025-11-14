@@ -15,14 +15,16 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-from enum import Enum, auto
-import typing
 from rdflib.namespace import NamespaceManager
-from rdflib.term import Node
+from enum import Enum, auto
 import json
 from html import unescape
+from typing import TYPE_CHECKING
 import re
-from rdflib import BNode, SKOS
+from rdflib import BNode
+from rdflib.term import Node
+from typing import Callable
+from rdflib import SKOS
 
 
 class pipeline:
@@ -143,38 +145,19 @@ class pipeline:
                     and graph element generation in a single place.
                     """
 
-                    class CellKind(Enum):
-                        ARROW = auto()
-                        ARROW_LABEL = auto()
-                        TYPED_INDIVIDUAL = auto()
-                        STANDALONE_INDIVIDUAL = auto()
-                        LITERAL = auto()
-                        DECORATION = auto()
-                        EMPTY_CELL = auto()
-
-                    @dataclass(slots=True)
-                    class CellClassification:
-                        kind: Enum
-                        raw_value: str
-                        cell: Element
-                        parent_cell: Optional[Element] = None
-                        parent_identifier: Optional[str] = None
-                        identifier: Optional[str] = None
-                        tokens: list[str] = field(default_factory=list)
-                        declares_identifier: bool = False
-
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
+                    if TYPE_CHECKING:
+                        from legacy.draw_io_parser import pipeline
 
                     def __init__(
                         self,
-                        raw_xml: typing.Any,
+                        raw_xml: Any,
                         prefixes: dict[str, str],
                         *,
                         strict_mode: bool = False,
                         max_gap: float | None = None,
                         strip_html: bool = True,
-                        allow_template_types: bool = False,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -190,16 +173,6 @@ class pipeline:
                         for prefix, iri in prefixes.items():
                             self._namespace_manager.bind(prefix, iri, replace=True)
                         self._strict_mode = bool(strict_mode)
-                        self._allow_template_types = bool(allow_template_types)
-                        detector = getattr(
-                            getattr(pipeline.core.rdf.control, "RMLSerializer", None),
-                            "detect_string_template",
-                            None,
-                        )
-                        if callable(detector):
-                            self._detect_string_template = detector
-                        else:
-                            self._detect_string_template = lambda value: []
                         default_gap = 10.0
                         gap_candidate = default_gap if max_gap is None else max_gap
                         try:
@@ -239,6 +212,11 @@ class pipeline:
                         Main processing loop. First classifies all nodes (vertices), then
                         resolves all arrows (edges).
                         """
+                        _NoValueException = pipeline.core.xml.data._NoValueException
+                        CellKind = pipeline.core.internal.data.CellKind
+                        CellClassification = (
+                            pipeline.core.internal.data.CellClassification
+                        )
                         try:
                             cells = self.draw_io_xml_tree.findall(".//mxCell")
                             if not cells:
@@ -255,10 +233,8 @@ class pipeline:
                                         arrow_value = cell.attrib.get(
                                             "value", ""
                                         ).strip()
-                                    self.classifications[cell_id] = (
-                                        self.CellClassification(
-                                            self.CellKind.ARROW_LABEL, arrow_value, cell
-                                        )
+                                    self.classifications[cell_id] = CellClassification(
+                                        CellKind.ARROW_LABEL, arrow_value, cell
                                     )
                                 continue
                             try:
@@ -353,10 +329,12 @@ class pipeline:
                         cell: Element,
                         cell_value: str,
                         raw_html: str | None = None,
-                    ) -> CellClassification:
+                    ):
                         """Determines the role of a given mxCell in the graph."""
-                        CellClassification = self.CellClassification
-                        CellKind = self.CellKind
+                        CellKind = pipeline.core.internal.data.CellKind
+                        CellClassification = (
+                            pipeline.core.internal.data.CellClassification
+                        )
                         raw_value = cell_value.strip()
                         literal_value = raw_value
                         if raw_html is not None and (not self._strip_html):
@@ -419,6 +397,7 @@ class pipeline:
                             )
 
                     def _value_of(self, cell: Element, *, raw: bool = False) -> str:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         value = cell.attrib.get("value")
                         if value is None:
                             raise _NoValueException
@@ -839,6 +818,30 @@ class pipeline:
                 pass
 
             class data:
+                # BEGIN override cell_models.py.CellClassification
+                @dataclass(slots=True)
+                class CellClassification:
+                    kind: Enum
+                    raw_value: str
+                    cell: Element
+                    parent_cell: Optional[Element] = None
+                    parent_identifier: Optional[str] = None
+                    identifier: Optional[str] = None
+                    tokens: list[str] = field(default_factory=list)
+                    declares_identifier: bool = False
+
+                # END override cell_models.py.CellClassification
+                # BEGIN override cell_models.py.CellKind
+                class CellKind(Enum):
+                    ARROW = auto()
+                    ARROW_LABEL = auto()
+                    TYPED_INDIVIDUAL = auto()
+                    STANDALONE_INDIVIDUAL = auto()
+                    LITERAL = auto()
+                    DECORATION = auto()
+                    EMPTY_CELL = auto()
+
+                # END override cell_models.py.CellKind
                 # BEGIN override curie_validator.py.looks_like_iri
                 def looks_like_iri(candidate: str) -> str | bool:
                     """
@@ -867,7 +870,38 @@ class pipeline:
                 # END override curie_validator.py.looks_like_iri
 
             class control:
-                # BEGIN override serialisers.py.dump_blocks
+                # BEGIN override individual_blocks.py._add_individual_type
+                def _add_individual_type(
+                    blocks: Blocks,
+                    individual: Individual,
+                    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
+                    space_substitute: Replacement | None,
+                    capitalisation_scheme: str,
+                ) -> None:
+                    _replace_metacharacters = (
+                        pipeline.pre.rdf.data._replace_metacharacters
+                    )
+                    individual_id = _replace_metacharacters(
+                        individual.identifier,
+                        metacharacter_substitutes,
+                        space_substitute,
+                        capitalisation_scheme,
+                    )
+                    rdf_type = individual.ric_class
+                    try:
+                        block = blocks[individual_id, individual.identifier]
+                    except KeyError:
+                        blocks[individual_id, individual.identifier] = {
+                            "Types": {rdf_type}
+                        }
+                        return
+                    try:
+                        block["Types"].add(rdf_type)
+                    except KeyError:
+                        block["Types"] = {rdf_type}
+
+                # END override individual_blocks.py._add_individual_type
+                # BEGIN override dump_blocks.py.dump_blocks
                 def dump_blocks(
                     blocks: Blocks,
                     object_properties: set[str],
@@ -899,19 +933,101 @@ class pipeline:
                         json.dumps(data, indent=4, ensure_ascii=False), encoding="utf-8"
                     )
 
-                # END override serialisers.py.dump_blocks
+                # END override dump_blocks.py.dump_blocks
 
         class rdf:
             class metadata:
                 pass
 
             class data:
-                pass
+                # BEGIN override infer_type.py.UnableToCoerceException
+                class UnableToCoerceException(Exception):
+                    """
+                    Can be raised on any attempted coercion to any set of target types.
+                    """
+
+                    default_message = "Failed to coerce {0!r} to {1!s}"
+
+                    def __init__(
+                        self, candidate: Any, target: set[type] | type, message: str
+                    ) -> None:
+                        target_types = target if isinstance(target, set) else {target}
+                        self.message = self.default_message.format(
+                            candidate, str([t.__name__ for t in target_types])
+                        )
+                        if message:
+                            self.message += f": {message}"
+                        super().__init__(self.message)
+
+                # END override infer_type.py.UnableToCoerceException
+                # BEGIN override infer_type.py._infer_literal_type
+                def _infer_literal_type(literal: str | int | float) -> Literal:
+                    """
+                    Augmented rdflib port of `_infer_type` function from the
+                    original `5d85cf0` Draw\\.io parser.
+
+                    Return type adjusted accordingly to rdflib.term.Literal.
+
+                    Augmentations:
+
+                    - Fixed an incidental IndexError when strings were sliced.
+                    - Added support for int | float inputs in addition to str.
+                    - Raises UnableToCoerceException if input is of unexpected type.
+                    """
+                    UnableToCoerceException = (
+                        pipeline.core.rdf.data.UnableToCoerceException
+                    )
+                    expected_types = {str, int, float}
+                    if isinstance(literal, int) or literal.isnumeric():
+                        return Literal(literal, datatype=XSD.integer)
+                    elif isinstance(literal, float):
+                        return Literal(literal, datatype=XSD.float)
+                    elif isinstance(literal, str):
+                        pass
+                    elif not any((isinstance(literal, t) for t in expected_types)):
+                        raise UnableToCoerceException(
+                            literal,
+                            expected_types,
+                            "Not any of expected Python types for a Literal candidate",
+                        )
+                    try:
+                        datetime.strptime(literal, "%Y-%m-%d")
+                        return Literal(literal, datatype=XSD.date)
+                    except ValueError:
+                        pass
+                    try:
+                        if literal[-1] == "Z":
+                            try:
+                                datetime.strptime(literal[-1], "%Y-%m-%dT%H-%M-%S")
+                                return Literal(literal, datatype=XSD.dateTime)
+                            except ValueError:
+                                pass
+                        elif literal[-6] == "+" or literal[-6] == "-":
+                            try:
+                                datetime.strptime(literal[:-6], "%Y-%m-%dT%H-%M-%S")
+                                datetime.strptime(literal[-5:], "%H:%M")
+                                return Literal(literal, datatype=XSD.dateTime)
+                            except ValueError:
+                                pass
+                        else:
+                            try:
+                                datetime.strptime("%Y-%m-%dT%H-%M-%S", literal)
+                                return Literal(literal, datatype=XSD.dateTime)
+                            except ValueError:
+                                pass
+                    except IndexError:
+                        pass
+                    return Literal(literal)
+
+                # END override infer_type.py._infer_literal_type
 
             class control:
-                # BEGIN override serialisers.py.RDFSerializationHelper
+                # BEGIN override serialization_helper.py.RDFSerializationHelper
                 class RDFSerializationHelper:
                     """Shared helper methods for RDF and RML serialization."""
+
+                    coerce_to_uriref: Callable
+                    coerce_to_literal: Callable
 
                     def __init__(
                         self,
@@ -940,84 +1056,6 @@ class pipeline:
                             graph, "metacharacter_mode", None
                         )
                         self._should_decode_literals = False
-
-                    def _normalize_candidate(self, candidate: str) -> str:
-                        if (
-                            self._should_decode_literals
-                            and isinstance(candidate, str)
-                            and candidate
-                        ):
-                            return urllib.parse.unquote(candidate)
-                        return candidate
-
-                    def _normalize_literal(self, literal: Literal) -> Literal:
-                        if not self._should_decode_literals:
-                            return literal
-                        lexical_form = str(literal)
-                        decoded = urllib.parse.unquote(lexical_form)
-                        if decoded == lexical_form:
-                            return literal
-                        literal_kwargs: dict[str, Any] = {}
-                        if getattr(literal, "datatype", None):
-                            literal_kwargs["datatype"] = literal.datatype
-                        if getattr(literal, "language", None):
-                            literal_kwargs["lang"] = literal.language
-                        return literal.__class__(decoded, **literal_kwargs)
-
-                    def _normalize_node(self, node: Node) -> Node:
-                        if isinstance(node, Literal):
-                            return self._normalize_literal(node)
-                        return node
-
-                    def _normalize_triple(
-                        self, triple: tuple[Node, Node, Node]
-                    ) -> tuple[Node, Node, Node]:
-                        subject, predicate, obj = triple
-                        return (
-                            self._normalize_node(subject),
-                            self._normalize_node(predicate),
-                            self._normalize_node(obj),
-                        )
-
-                    def _add_triple(
-                        self, triple: tuple[Node, Node, Node]
-                    ) -> tuple[Node, Node, Node]:
-                        normalized = self._normalize_triple(triple)
-                        self.graph.add(normalized)
-                        return normalized
-
-                    def _add_triples(
-                        self, triples: list[tuple[Node, Node, Node]]
-                    ) -> list[tuple[Node, Node, Node]]:
-                        normalized = [
-                            self._normalize_triple(triple) for triple in triples
-                        ]
-                        for triple in normalized:
-                            self.graph.add(triple)
-                        return normalized
-
-                    def _add_n1(
-                        self,
-                        triple_1: tuple[Node, Node, Node],
-                        triples_n: list[tuple[Node, Node, Node]],
-                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
-                        normalized_first = self._normalize_triple(triple_1)
-                        normalized_rest = [
-                            self._normalize_triple(triple) for triple in triples_n
-                        ]
-                        addn1 = getattr(self.graph, "addN1", None)
-                        if callable(addn1):
-                            addn1(normalized_first, normalized_rest)
-                        else:
-                            self.graph.add(normalized_first)
-                            if normalized_rest:
-                                self.graph.addN(
-                                    (
-                                        (s, p, o, self.graph)
-                                        for s, p, o in normalized_rest
-                                    )
-                                )
-                        return (normalized_first, normalized_rest)
 
                     def setup_namespaces(self) -> None:
                         """Bind namespaces to the graph."""
@@ -1050,10 +1088,10 @@ class pipeline:
                                 self.serialisation_config.ontology_iri
                                 or get_ontology_iri()
                             )
-                            self._add_triple(
+                            self.graph.add(
                                 (URIRef(ontology_iri), RDF.type, OWL.Ontology)
                             )
-                            self._add_triple(
+                            self.graph.add(
                                 (
                                     URIRef(ontology_iri),
                                     OWL.imports,
@@ -1063,114 +1101,23 @@ class pipeline:
 
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
-                        return self.coerce_to_uriref(prop, mint_from_literal=False)
+                        return self.coerce_to_uriref(
+                            self, prop, mint_from_literal=False
+                        )
 
                     def resolve_type(self, rdf_type: str) -> Any:
-                        return self.coerce_to_uriref(rdf_type, mint_from_literal=False)
+                        return self.coerce_to_uriref(
+                            self, rdf_type, mint_from_literal=False
+                        )
 
                     def declare_properties(self) -> None:
                         """Declare object and datatype properties in the graph."""
                         for prop in sorted(self.object_properties):
                             prop_uri = self.resolve_predicate(prop)
-                            self._add_triple((prop_uri, RDF.type, OWL.ObjectProperty))
+                            self.graph.add((prop_uri, RDF.type, OWL.ObjectProperty))
                         for prop in sorted(self.datatype_properties):
                             prop_uri = self.resolve_predicate(prop)
-                            self._add_triple((prop_uri, RDF.type, OWL.DatatypeProperty))
-
-                    def coerce_to_uriref(
-                        self, value: str, mint_from_literal: bool = True
-                    ) -> URIRef:
-                        """
-                        Resolve an individual ID/type/object fact to its URI.
-
-                        If what looks like a Literal is passed, urlencodes and mints
-                        entity to default namespace unless mint_from_literal = False;
-                        in the latter case raises UnableToCoerceException.
-                        """
-                        _split_curie = pipeline.core.internal.data._split_curie
-                        looks_like_iri = pipeline.core.internal.data.looks_like_iri
-                        UnableToCoerceException = (
-                            pipeline.core.rdf.control.UnableToCoerceException
-                        )
-                        trimmed_value = value.strip()
-                        individual_label = urllib.parse.unquote(value)
-                        if not individual_label:
-                            raise UnableToCoerceException(
-                                value, URIRef, "Entity is empty"
-                            )
-                        for candidate in (trimmed_value, individual_label):
-                            iri_variant = looks_like_iri(candidate)
-                            if iri_variant == "absolute-iri":
-                                return URIRef(candidate)
-                            elif iri_variant == "relative-iri":
-                                if self.prefix_iri:
-                                    return Namespace(self.prefix_iri)[candidate]
-                                else:
-                                    if candidate == trimmed_value:
-                                        continue
-                                    raise UnableToCoerceException(
-                                        candidate,
-                                        URIRef,
-                                        "Unable to resolve what looks like a relative IRI because prefix IRI is not set or could not pass through to the serializer",
-                                    )
-                            elif iri_variant == "curie":
-                                try:
-                                    prefix, reference = _split_curie(
-                                        candidate, self.prefixes
-                                    )
-                                    return self.namespace_map[prefix][reference]
-                                except (
-                                    ValueError,
-                                    NotInKnownException,
-                                    KeyError,
-                                    TypeError,
-                                ) as e:
-                                    if candidate == trimmed_value:
-                                        continue
-                                    raise UnableToCoerceException(
-                                        candidate,
-                                        URIRef,
-                                        f"Unable to resolve what looks like a CURIE: {e}",
-                                    )
-                            elif isinstance(iri_variant, bool) and (not iri_variant):
-                                if mint_from_literal:
-                                    return Namespace(self.prefix_iri)[candidate]
-                                else:
-                                    if candidate == trimmed_value:
-                                        continue
-                                    raise UnableToCoerceException(
-                                        candidate,
-                                        URIRef,
-                                        "Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE",
-                                    )
-                            else:
-                                raise RuntimeError(
-                                    f"Unhandled IRI variant: {iri_variant!r}"
-                                )
-
-                    def coerce_to_literal(self, value: Any) -> Literal:
-                        """Convert a value to a typed Literal."""
-                        UnableToCoerceException = (
-                            pipeline.core.rdf.control.UnableToCoerceException
-                        )
-                        try:
-                            if self.serialisation_config.infer_type_of_literals:
-                                if isinstance(value, int) or (
-                                    isinstance(value, str) and value.isnumeric()
-                                ):
-                                    return Literal(value, datatype=XSD.integer)
-                                elif isinstance(value, float):
-                                    return Literal(value, datatype=XSD.float)
-                                else:
-                                    try:
-                                        datetime.strptime(value, "%Y-%m-%d")
-                                        return Literal(value, datatype=XSD.date)
-                                    except (ValueError, TypeError):
-                                        return Literal(value)
-                            else:
-                                return Literal(value)
-                        except Exception as e:
-                            raise UnableToCoerceException(e)
+                            self.graph.add((prop_uri, RDF.type, OWL.DatatypeProperty))
 
                     def add_decoration_notes(self) -> None:
                         """Add decoration notes from the pipeline registry."""
@@ -1193,14 +1140,24 @@ class pipeline:
                             else:
                                 decoration_subject = BNode()
                             for note in decoration_values:
-                                self._add_triple(
+                                self.graph.add(
                                     (decoration_subject, SKOS.note, Literal(note))
                                 )
                         if hasattr(pipeline.core.internal.data, decorations_attr):
                             delattr(pipeline.core.internal.data, decorations_attr)
 
-                # END override serialisers.py.RDFSerializationHelper
-                # BEGIN override serialisers.py.RDFSerializer
+                    def serialize_all_individuals(self) -> None:
+                        """Serialize all individuals in blocks."""
+                        for (
+                            individual_id,
+                            individual_label,
+                        ), types_and_facts in self.blocks.items():
+                            self.add_individual_triples(
+                                individual_id, individual_label, types_and_facts
+                            )
+
+                # END override serialization_helper.py.RDFSerializationHelper
+                # BEGIN override rdf_serializer.py.RDFSerializer
                 class RDFSerializer(RDFSerializationHelper):
                     """Standard RDF serialization (regular triples)."""
 
@@ -1209,6 +1166,12 @@ class pipeline:
                             pipeline.core.rdf.control.RDFSerializationHelper
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
+                        self.coerce_to_uriref = (
+                            pipeline.core.rdf.control.coerce_to_uriref
+                        )
+                        self.coerce_to_literal = (
+                            pipeline.core.rdf.control.coerce_to_literal
+                        )
 
                     def add_individual_triples(
                         self,
@@ -1217,20 +1180,14 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add triples for a single individual."""
-                        individual_uri = self.coerce_to_uriref(individual_id)
-                        self._add_triple(
-                            (individual_uri, RDF.type, OWL.NamedIndividual)
-                        )
+                        individual_uri = self.coerce_to_uriref(self, individual_id)
+                        self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
-                            self._add_triple(
-                                (
-                                    individual_uri,
-                                    RDF.type,
-                                    self.resolve_type(str(rdf_type)),
-                                )
+                            self.graph.add(
+                                (individual_uri, RDF.type, self.resolve_type(rdf_type))
                             )
                         if self.serialisation_config.include_label:
-                            self._add_triple(
+                            self.graph.add(
                                 (individual_uri, RDFS.label, Literal(individual_label))
                             )
                         for prop, values in types_and_facts.items():
@@ -1251,31 +1208,26 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_identifier = str(value)
-                                    target_uri = self.coerce_to_uriref(
-                                        target_identifier
-                                    )
-                                    self._add_triple(
+                                    target_uri = self.coerce_to_uriref(self, value)
+                                    self.graph.add(
                                         (individual_uri, prop_uri, target_uri)
                                     )
                                 else:
-                                    literal_value = self.coerce_to_literal(value)
-                                    self._add_triple(
+                                    literal_value = self.coerce_to_literal(self, value)
+                                    self.graph.add(
                                         (individual_uri, prop_uri, literal_value)
                                     )
 
                     def serialize_all_individuals(self) -> None:
-                        """Serialize all individuals in blocks."""
-                        for (
-                            individual_id,
-                            individual_label,
-                        ), types_and_facts in self.blocks.items():
-                            self.add_individual_triples(
-                                individual_id, individual_label, types_and_facts
-                            )
+                        """
+                        Serialize all individuals in blocks.
 
-                # END override serialisers.py.RDFSerializer
-                # BEGIN override serialisers.py.RMLSerializer
+                        Will pick up this subclass's `add_individual_triples` at runtime.
+                        """
+                        super().serialize_all_individuals()
+
+                # END override rdf_serializer.py.RDFSerializer
+                # BEGIN override rml_serialiser.py.RMLSerializer
                 class RMLSerializer(RDFSerializationHelper):
                     """RML serialization (R2RML mapping triples)."""
 
@@ -1440,12 +1392,19 @@ class pipeline:
                         ]
                         return (subject_map, triples)
 
+                    def coerce_to_literal(self, *args, **kwargs):
+                        return pipeline.core.rdf.control.coerce_to_literal(
+                            *args, **kwargs
+                        )
+
                     def coerce_to_uriref(
                         self, value: str, mint_from_literal: bool = True
                     ) -> URIRef:
                         if self._is_template_string(value):
                             return self.FakeURIRef(value)
-                        return super().coerce_to_uriref(value, mint_from_literal)
+                        return pipeline.core.rdf.control.coerce_to_uriref(
+                            self, value, mint_from_literal
+                        )
 
                     def add_individual_triples(
                         self,
@@ -1474,7 +1433,7 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_uri = self.coerce_to_uriref(individual_id)
+                        subject_uri = self.coerce_to_uriref(self, individual_id)
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
@@ -1537,7 +1496,7 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(str(value))
+                                    target_uri = self.coerce_to_uriref(self, str(value))
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -1553,7 +1512,7 @@ class pipeline:
                                         fact_predicate_object_map_triples,
                                     )
                                 else:
-                                    literal_value = self.coerce_to_literal(value)
+                                    literal_value = self.coerce_to_literal(self, value)
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -1570,14 +1529,12 @@ class pipeline:
                                     )
 
                     def serialize_all_individuals(self) -> None:
-                        """Serialize all individuals as RML mappings."""
-                        for (
-                            individual_id,
-                            individual_label,
-                        ), types_and_facts in self.blocks.items():
-                            self.add_individual_triples(
-                                individual_id, individual_label, types_and_facts
-                            )
+                        """
+                        Serialize all individuals as RML mappings.
+
+                        Will pick up this subclass's `add_individual_triples` at runtime.
+                        """
+                        super().serialize_all_individuals()
 
                     def add_preamble(self) -> None:
                         """RML doesn't need ontology preamble."""
@@ -1591,24 +1548,130 @@ class pipeline:
                         """RML doesn't include decoration notes."""
                         pass
 
-                # END override serialisers.py.RMLSerializer
-                # BEGIN override serialisers.py.UnableToCoerceException
-                class UnableToCoerceException(Exception):
+                # END override rml_serialiser.py.RMLSerializer
+                # BEGIN override coerce_to_literal.py.coerce_to_literal
+                def coerce_to_literal(
+                    cfg: RDFSerializationHelper, value: str | int | float
+                ) -> Literal:
                     """
-                    Can be thrown by serialisers if they failed to coerce a given
-                    individual, type, or fact to an appropriate rdflib term
+                    Convert a value to a typed Literal.
+
+                    Invalid input types raise an UnableToCoerceException.
                     """
+                    UnableToCoerceException = (
+                        pipeline.core.rdf.data.UnableToCoerceException
+                    )
+                    try:
 
-                    def __init__(
-                        self, candidate: Any, rdflib_term_type: type[Node], message: str
-                    ) -> None:
-                        error_message = f"Failed to coerce {candidate!r} to {rdflib_term_type.__name__}"
-                        if message:
-                            error_message += f": {message}"
-                        super().__init__(error_message)
+                        def normalize(value) -> Literal:
+                            _infer_literal_type = (
+                                pipeline.core.rdf.control._infer_literal_type
+                            )
+                            if cfg._should_decode_literals:
+                                if isinstance(value, str):
+                                    value = urllib.parse.unquote(value)
+                            if cfg.serialisation_config.infer_type_of_literals:
+                                literal_object = _infer_literal_type(cfg, value)
+                            else:
+                                if value is None:
+                                    raise UnableToCoerceException(
+                                        value,
+                                        Literal,
+                                        "Unexpected for a Literal candidate",
+                                    )
+                                literal_object = Literal(str(value).strip())
+                            return literal_object
 
-                # END override serialisers.py.UnableToCoerceException
-                # BEGIN override serialisers.py.serialise_to_rml
+                        return normalize(value)
+                    except UnableToCoerceException:
+                        raise
+                    except Exception as e:
+                        raise UnableToCoerceException(e)
+
+                # END override coerce_to_literal.py.coerce_to_literal
+                # BEGIN override coerce_to_uriref.py.coerce_to_uriref
+                def coerce_to_uriref(
+                    cfg: RDFSerializationHelper,
+                    value: str,
+                    mint_from_literal: bool = True,
+                ) -> URIRef:
+                    """
+                    Resolve an individual ID/type/object fact to its URI.
+
+                    If what looks like a Literal is passed, urlencodes and mints
+                    entity to default namespace unless mint_from_literal = False;
+                    in the latter case raises UnableToCoerceException.
+                    """
+                    _split_curie = pipeline.core.internal.data._split_curie
+                    looks_like_iri = pipeline.core.internal.data.looks_like_iri
+                    UnableToCoerceException = (
+                        pipeline.core.rdf.data.UnableToCoerceException
+                    )
+
+                    def normalize(value) -> tuple[str, str]:
+                        if value is None:
+                            raise UnableToCoerceException(
+                                value, Literal, "Unexpected for a URIRef candidate"
+                            )
+                        norm_value = str(value).strip()
+                        decoded_norm_value = urllib.parse.unquote(norm_value)
+                        return (norm_value, decoded_norm_value)
+
+                    norm_value, decoded_norm_value = normalize(value)
+                    if not decoded_norm_value:
+                        raise UnableToCoerceException(value, URIRef, "Entity is empty")
+                    for candidate in (norm_value, decoded_norm_value):
+                        iri_variant = looks_like_iri(candidate)
+                        if iri_variant == "absolute-iri":
+                            return URIRef(candidate)
+                        elif iri_variant == "relative-iri":
+                            if cfg.prefix_iri:
+                                return Namespace(cfg.prefix_iri)[candidate]
+                            else:
+                                if candidate == norm_value:
+                                    continue
+                                raise UnableToCoerceException(
+                                    candidate,
+                                    URIRef,
+                                    "Unable to resolve what looks like a relative IRI because prefix IRI is not set or could not pass through to the serializer",
+                                )
+                        elif iri_variant == "curie":
+                            try:
+                                prefix, reference = _split_curie(
+                                    candidate, cfg.prefixes
+                                )
+                                return cfg.namespace_map[prefix][reference]
+                            except (
+                                ValueError,
+                                NotInKnownException,
+                                KeyError,
+                                TypeError,
+                            ) as e:
+                                if candidate == norm_value:
+                                    continue
+                                raise UnableToCoerceException(
+                                    candidate,
+                                    URIRef,
+                                    f"Unable to resolve what looks like a CURIE: {e}",
+                                )
+                        elif isinstance(iri_variant, bool) and (not iri_variant):
+                            if mint_from_literal:
+                                return Namespace(cfg.prefix_iri)[candidate]
+                            else:
+                                if candidate == norm_value:
+                                    continue
+                                raise UnableToCoerceException(
+                                    candidate,
+                                    URIRef,
+                                    "Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE",
+                                )
+                        else:
+                            raise RuntimeError(
+                                f"Unhandled IRI variant: {iri_variant!r}"
+                            )
+
+                # END override coerce_to_uriref.py.coerce_to_uriref
+                # BEGIN override rml_serialiser.py.serialise_to_rml
                 def serialise_to_rml(
                     blocks: Blocks,
                     object_properties: set[str],
@@ -1648,7 +1711,7 @@ class pipeline:
                         graph.serialize("tmp/graph.ttl", format="turtle")
                     return graph
 
-                # END override serialisers.py.serialise_to_rml
+                # END override rml_serialiser.py.serialise_to_rml
 
     class post:
         class xml:
@@ -2302,6 +2365,8 @@ class xml_data_core:
     # BEGIN DrawIOXMLTree
     # override from cell_classifier.py
     class DrawIOXMLTree:
+        """Deprecated. Use `DrawIOCellClassifier` instead."""
+
         pass
 
     # END DrawIOXMLTree
@@ -2403,7 +2468,6 @@ class internal_data_core:
 
     # END ArrowWithoutIndividualAsSourceException
     # BEGIN _add_individual_type
-    # override from individual_blocks.py
     def _add_individual_type(
         blocks: Blocks,
         individual: Individual,
@@ -2411,23 +2475,23 @@ class internal_data_core:
         space_substitute: Replacement | None,
         capitalisation_scheme: str,
     ) -> None:
-        _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
         individual_id = _replace_metacharacters(
             individual.identifier,
             metacharacter_substitutes,
             space_substitute,
             capitalisation_scheme,
         )
-        rdf_type = individual.ric_class
         try:
-            block = blocks[individual_id, individual.identifier]
+            block = blocks[(individual_id, individual.identifier)]
         except KeyError:
-            blocks[individual_id, individual.identifier] = {"Types": {rdf_type}}
+            blocks[(individual_id, individual.identifier)] = {
+                "Types": {individual.ric_class}
+            }
             return
         try:
-            block["Types"].add(rdf_type)
+            block["Types"].add(individual.ric_class)
         except KeyError:
-            block["Types"] = {rdf_type}
+            block["Types"] = {individual.ric_class}
 
     # END _add_individual_type
 
@@ -2524,7 +2588,7 @@ class internal_control_core:
     ) -> tuple[Blocks, set[str], set[str]]:
         _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
         _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
-        _add_individual_type = pipeline.core.internal.data._add_individual_type
+        _add_individual_type = pipeline.core.internal.control._add_individual_type
         blocks: Blocks = {}
         object_properties: set[str] = set()
         datatype_properties: set[str] = set()
@@ -2575,7 +2639,7 @@ class internal_control_core:
 
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml
-    # override from rml_export.py
+    # override from build_graph.py
     def _build_graph_from_raw_xml(
         raw_xml: str, config_args: dict[str, Any]
     ) -> DrawIOParserGraph:
@@ -2585,6 +2649,9 @@ class internal_control_core:
         """
         DrawIOCellClassifier = getattr(
             pipeline.core.xml.data, "DrawIOCellClassifier", None
+        )
+        _parse_capitalisation_scheme = (
+            pipeline.pre.rdf.control._parse_capitalisation_scheme
         )
 
         def _is_flag_enabled(value: Any) -> bool:
@@ -2696,7 +2763,6 @@ class internal_control_core:
             strict_mode=strict_mode,
             max_gap=max_gap,
             strip_html=strip_html_enabled,
-            allow_template_types=rml_enabled,
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
@@ -2831,7 +2897,7 @@ class rdf_control_core:
 
     # END DrawIOParserGraph
     # BEGIN serialise_to_graph
-    # override from serialisers.py
+    # override from rdf_serializer.py
     def serialise_to_graph(
         blocks: Blocks,
         object_properties: set[str],

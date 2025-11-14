@@ -6,7 +6,7 @@ from meta_builder.drawio_meta_builder import override
 # ruff: noqa: F403, F405
 
 
-@override(phase="core", type="internal", role="data")
+@override(phase="core", type="internal", role="control")
 def _add_individual_type(
     blocks: Blocks,
     individual: Individual,
@@ -44,7 +44,7 @@ def individual_blocks(
 ) -> tuple[Blocks, set[str], set[str]]:
     _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
     _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
-    _add_individual_type = pipeline.core.internal.data._add_individual_type
+    _add_individual_type = pipeline.core.internal.control._add_individual_type
 
     blocks: Blocks = {}
     object_properties: set[str] = set()

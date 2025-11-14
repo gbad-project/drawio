@@ -18,6 +18,7 @@ def _build_graph_from_raw_xml(
     DrawIOCellClassifier, completely bypassing DrawIOXMLTree.
     """
     DrawIOCellClassifier = getattr(pipeline.core.xml.data, "DrawIOCellClassifier", None)
+    _parse_capitalisation_scheme = pipeline.pre.rdf.control._parse_capitalisation_scheme
 
     def _is_flag_enabled(value: Any) -> bool:
         if isinstance(value, str):
@@ -155,7 +156,6 @@ def _build_graph_from_raw_xml(
         strict_mode=strict_mode,
         max_gap=max_gap,
         strip_html=strip_html_enabled,
-        allow_template_types=rml_enabled,
     )
 
     # 3. Generate Intermediate Blocks from Classifier's results
