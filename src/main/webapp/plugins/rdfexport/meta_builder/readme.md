@@ -23,6 +23,13 @@ replaced, while new symbols are injected directly into the generated pipeline
 namespace. Overrides are discovered by default when running
 `python -m meta_builder`, and the CLI now reports which modules were loaded.
 
+**Data type, role, and phase:** These are three conceptual dimensions that allow description of the purpose and place of the override – as well as of the original parser’s functions and classes, for which labels were purposively developed and hardcoded into `meta_builder`.
+Adhering to this conceptual framework is helpful for ensuring continuity between the old and new codebases while respecting the output single-file layout tailored for ingestion into Pyodide.
+
+1. **Phase:** `["pre", "core", "post"]`. Denotes the timing of execution in the pipeline: `pre` means before the main XML tree (e.g., mxCells) has started processing.  `core` is from XML processing to graph building. `post` is after `DrawIOParserGraph` (our custom subclass of `rdflib.graph.Graph`) is constructed.
+2. **Data type:** `["xml", "internal", "rdf"]`. Denotes the data model that is primarily the focus of the override, namely the XML tree or `xml.etree.ElementTree.Element`, internal models, or `rdflib` terms and graphs, respectively.
+3. **Role:** `["metadata", "data", "control"]`. Denotes the kind of data primarily operated on the override: Whenever it comes from the main Draw\.io XML tree (exclusive of metadata nodes), it is considered a `data` role; `metadata` concerns operations specifically on metadata; `control` includes operations that involve/depend on both data and metadata, or control flow functionality such as I/O operations or exception handling.
+
 ## Managing pipeline imports
 
 When writing code that interacts with the metabuilder pipeline, import patterns depend on context. For **override modules** placed in `legacy/overrides/`, import the compiled pipeline using `from legacy.draw_io_parser import pipeline`, then reference pipeline symbols via their nested namespace path (e.g., `pipeline.pre.xml.metadata.MetadataNodeNotFoundError`). Within override functions, assign any needed pipeline annotations to local variables at the top of the function for cleaner code. For **external code** such as tests or utility modules, use the same import: `from legacy.draw_io_parser import pipeline`. While original functions are technically accessible through their source classes (e.g., `xml_metadata_pre._find_metadata_node`), the intended access pattern is always through the `pipeline` namespace. When circular import issues arise during function overrides, either access pattern will work—prioritize whatever resolves the circular dependency.
