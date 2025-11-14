@@ -406,19 +406,24 @@ def collect_overrides(
         except SyntaxError:
             override_tree = None
 
+        def is_circular_import(module_name: str):
+            if module_name == "__future__":
+                return True
+            if module_name.startswith("meta_builder"):
+                return True
+            if module_name.startswith("legacy."):
+                return True
+            if module_name.startswith("."):
+                return True
+            return False
+
         if override_tree is not None:
             for node in override_tree.body:
                 if not isinstance(node, (ast.Import, ast.ImportFrom)):
                     continue
                 if isinstance(node, ast.ImportFrom):
                     module_name = ("." * node.level) + (node.module or "")
-                    if module_name == "__future__":
-                        continue
-                    if module_name.startswith("meta_builder"):
-                        continue
-                    if module_name.startswith("legacy."):
-                        continue
-                    if module_name.startswith("."):
+                    if is_circular_import(module_name):
                         continue
                     formatted = format_import_node(node)
                 else:
@@ -444,6 +449,8 @@ def collect_overrides(
                 raise TypeError(
                     f"Object {attr_name} in {module.__name__} carries an invalid override"
                 )
+            if is_circular_import(attr.__module__):
+                continue
             record = OverrideRecord(attr.__name__, spec_attr, attr, module, path)
             key = (
                 spec_attr.data_type,
