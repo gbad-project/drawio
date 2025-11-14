@@ -841,7 +841,15 @@ class pipeline:
             class data:
                 # BEGIN override curie_validator.py.looks_like_iri
                 def looks_like_iri(candidate: str) -> str | bool:
-                    """Check if a string is an absolute IRI."""
+                    """
+                    Check if a string looks like an IRI.
+
+                    Handles variants: [
+                        "absolute-iri",
+                        "curie",
+                        "relative-iri",
+                    ]
+                    """
                     if not candidate or any((ch.isspace() for ch in candidate)):
                         return False
                     if "://" in candidate:
@@ -1075,60 +1083,94 @@ class pipeline:
                         """
                         Resolve an individual ID/type/object fact to its URI.
 
-                        If mint_from_literal = False, raises NotInKnownException,
-                        otherwise urlencodes and mints entity to default namespace.
+                        If what looks like a Literal is passed, urlencodes and mints
+                        entity to default namespace unless mint_from_literal = False;
+                        in the latter case raises UnableToCoerceException.
                         """
-                        _ensure_known_curie = (
-                            pipeline.core.internal.data._ensure_known_curie
-                        )
+                        _split_curie = pipeline.core.internal.data._split_curie
                         looks_like_iri = pipeline.core.internal.data.looks_like_iri
+                        UnableToCoerceException = (
+                            pipeline.core.rdf.control.UnableToCoerceException
+                        )
+                        trimmed_value = value.strip()
                         individual_label = urllib.parse.unquote(value)
-                        trimmed_label = individual_label.strip()
-                        if not trimmed_label:
-                            raise NotInKnownException(f"Entity {value!r} is empty")
-                        if looks_like_iri(trimmed_label) == "absolute-iri":
-                            return URIRef(trimmed_label)
-                        if looks_like_iri(trimmed_label) == "relative-iri":
-                            if self.prefix_iri:
-                                return Namespace(self.prefix_iri)[value]
-                            else:
-                                raise NotInKnownException(
-                                    f"Failed to coerce {value!r} to URIRef because prefix IRI is {self.prefix_iri!r}"
-                                )
-                        try:
-                            prefix, reference = _ensure_known_curie(
-                                trimmed_label,
-                                self.prefixes,
-                                "Unable to coerce entity '{0}' to a CURIE".format(
-                                    trimmed_label
-                                ),
+                        if not individual_label:
+                            raise UnableToCoerceException(
+                                value, URIRef, "Entity is empty"
                             )
-                            return self.namespace_map[prefix][reference]
-                        except NotInKnownException:
-                            if looks_like_iri(trimmed_label) == "curie":
-                                raise
-                            if mint_from_literal:
-                                return Namespace(self.prefix_iri)[value]
+                        for candidate in (trimmed_value, individual_label):
+                            iri_variant = looks_like_iri(candidate)
+                            if iri_variant == "absolute-iri":
+                                return URIRef(candidate)
+                            elif iri_variant == "relative-iri":
+                                if self.prefix_iri:
+                                    return Namespace(self.prefix_iri)[candidate]
+                                else:
+                                    if candidate == trimmed_value:
+                                        continue
+                                    raise UnableToCoerceException(
+                                        candidate,
+                                        URIRef,
+                                        "Unable to resolve what looks like a relative IRI because prefix IRI is not set or could not pass through to the serializer",
+                                    )
+                            elif iri_variant == "curie":
+                                try:
+                                    prefix, reference = _split_curie(
+                                        candidate, self.prefixes
+                                    )
+                                    return self.namespace_map[prefix][reference]
+                                except (
+                                    ValueError,
+                                    NotInKnownException,
+                                    KeyError,
+                                    TypeError,
+                                ) as e:
+                                    if candidate == trimmed_value:
+                                        continue
+                                    raise UnableToCoerceException(
+                                        candidate,
+                                        URIRef,
+                                        f"Unable to resolve what looks like a CURIE: {e}",
+                                    )
+                            elif isinstance(iri_variant, bool) and (not iri_variant):
+                                if mint_from_literal:
+                                    return Namespace(self.prefix_iri)[candidate]
+                                else:
+                                    if candidate == trimmed_value:
+                                        continue
+                                    raise UnableToCoerceException(
+                                        candidate,
+                                        URIRef,
+                                        "Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE",
+                                    )
                             else:
-                                raise
+                                raise RuntimeError(
+                                    f"Unhandled IRI variant: {iri_variant!r}"
+                                )
 
                     def coerce_to_literal(self, value: Any) -> Literal:
                         """Convert a value to a typed Literal."""
-                        if self.serialisation_config.infer_type_of_literals:
-                            if isinstance(value, int) or (
-                                isinstance(value, str) and value.isnumeric()
-                            ):
-                                return Literal(value, datatype=XSD.integer)
-                            elif isinstance(value, float):
-                                return Literal(value, datatype=XSD.float)
+                        UnableToCoerceException = (
+                            pipeline.core.rdf.control.UnableToCoerceException
+                        )
+                        try:
+                            if self.serialisation_config.infer_type_of_literals:
+                                if isinstance(value, int) or (
+                                    isinstance(value, str) and value.isnumeric()
+                                ):
+                                    return Literal(value, datatype=XSD.integer)
+                                elif isinstance(value, float):
+                                    return Literal(value, datatype=XSD.float)
+                                else:
+                                    try:
+                                        datetime.strptime(value, "%Y-%m-%d")
+                                        return Literal(value, datatype=XSD.date)
+                                    except (ValueError, TypeError):
+                                        return Literal(value)
                             else:
-                                try:
-                                    datetime.strptime(value, "%Y-%m-%d")
-                                    return Literal(value, datatype=XSD.date)
-                                except (ValueError, TypeError):
-                                    return Literal(value)
-                        else:
-                            return Literal(value)
+                                return Literal(value)
+                        except Exception as e:
+                            raise UnableToCoerceException(e)
 
                     def add_decoration_notes(self) -> None:
                         """Add decoration notes from the pipeline registry."""
@@ -1550,6 +1592,22 @@ class pipeline:
                         pass
 
                 # END override serialisers.py.RMLSerializer
+                # BEGIN override serialisers.py.UnableToCoerceException
+                class UnableToCoerceException(Exception):
+                    """
+                    Can be thrown by serialisers if they failed to coerce a given
+                    individual, type, or fact to an appropriate rdflib term
+                    """
+
+                    def __init__(
+                        self, candidate: Any, rdflib_term_type: type[Node], message: str
+                    ) -> None:
+                        error_message = f"Failed to coerce {candidate!r} to {rdflib_term_type.__name__}"
+                        if message:
+                            error_message += f": {message}"
+                        super().__init__(error_message)
+
+                # END override serialisers.py.UnableToCoerceException
                 # BEGIN override serialisers.py.serialise_to_rml
                 def serialise_to_rml(
                     blocks: Blocks,
@@ -2309,20 +2367,18 @@ class internal_data_core:
                     manager.bind(p, i, replace=True)
             manager.expand_curie(curie)
         except Exception as exc:
-            raise ValueError(f"Failed to expand CURIE '{curie}'") from exc
+            raise NotInKnownException(f"Failed to expand CURIE '{curie}'") from exc
         return (prefix, remainder)
 
     # END _split_curie
     # BEGIN _ensure_known_curie
-    # override from curie_validator.py
     def _ensure_known_curie(
         curie: str, prefixes: dict[str, str], error_message: str
     ) -> tuple[str, str]:
-        try:
-            prefix, reference = _split_curie(curie, prefixes)
-        except ValueError as e:
-            raise NotInKnownException(error_message) from e
-        return (prefix, reference)
+        prefix, reference = _split_curie(curie)
+        if prefix not in prefixes or not reference:
+            raise NotInKnownException(error_message)
+        return prefix, reference
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class

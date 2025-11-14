@@ -26,26 +26,22 @@ def _split_curie(curie: str, prefixes: dict[str, str]) -> tuple[str, str]:
                 manager.bind(p, i, replace=True)
         manager.expand_curie(curie)
     except Exception as exc:  # pragma: no cover - defensive re-raise from rdflib
-        raise ValueError(f"Failed to expand CURIE '{curie}'") from exc
+        raise NotInKnownException(f"Failed to expand CURIE '{curie}'") from exc
 
     return prefix, remainder
 
 
 @override(phase="core", type="internal", role="data")
-def _ensure_known_curie(
-    curie: str, prefixes: dict[str, str], error_message: str
-) -> tuple[str, str]:
-    try:
-        prefix, reference = _split_curie(curie, prefixes)
-    except ValueError as e:
-        raise NotInKnownException(error_message) from e
-
-    return prefix, reference
-
-
-@override(phase="core", type="internal", role="data")
 def looks_like_iri(candidate: str) -> str | bool:
-    """Check if a string is an absolute IRI."""
+    """
+    Check if a string looks like an IRI.
+
+    Handles variants: [
+        "absolute-iri",
+        "curie",
+        "relative-iri",
+    ]
+    """
     if not candidate or any(ch.isspace() for ch in candidate):
         return False
     if "://" in candidate:
