@@ -30,7 +30,7 @@ class UnableToCoerceException(Exception):
 def _infer_literal_type(literal: str | int | float) -> Literal:
     """
     Augmented rdflib port of `_infer_type` function from the
-    original `5d85cf0` Draw\.io parser.
+    original `5d85cf0` Draw.io parser.
 
     Return type adjusted accordingly to rdflib.term.Literal.
 
