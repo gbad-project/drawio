@@ -964,7 +964,7 @@ class pipeline:
                 def _infer_literal_type(literal: str | int | float) -> Literal:
                     """
                     Augmented rdflib port of `_infer_type` function from the
-                    original `5d85cf0` Draw\\.io parser.
+                    original `5d85cf0` Draw.io parser.
 
                     Return type adjusted accordingly to rdflib.term.Literal.
 
@@ -1621,6 +1621,9 @@ class pipeline:
                     if not decoded_norm_value:
                         raise UnableToCoerceException(value, URIRef, "Entity is empty")
                     for candidate in (norm_value, decoded_norm_value):
+                        if norm_value == decoded_norm_value:
+                            norm_value = object()
+                            continue
                         iri_variant = looks_like_iri(candidate)
                         if iri_variant == "absolute-iri":
                             return URIRef(candidate)
@@ -1666,9 +1669,12 @@ class pipeline:
                                     "Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE",
                                 )
                         else:
-                            raise RuntimeError(
-                                f"Unhandled IRI variant: {iri_variant!r}"
+                            raise RuntimeError from UnableToCoerceException(
+                                iri_variant, URIRef, "Unhandled IRI variant"
                             )
+                    raise RuntimeError from UnableToCoerceException(
+                        value, URIRef, "Unhandled return"
+                    )
 
                 # END override coerce_to_uriref.py.coerce_to_uriref
                 # BEGIN override rml_serialiser.py.serialise_to_rml

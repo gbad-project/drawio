@@ -43,6 +43,9 @@ def coerce_to_uriref(
     if not decoded_norm_value:
         raise UnableToCoerceException(value, URIRef, "Entity is empty")
     for candidate in (norm_value, decoded_norm_value):
+        if norm_value == decoded_norm_value:  # wicked case! used to break everything
+            norm_value = object()  # invalidate for further checks
+            continue
         iri_variant = looks_like_iri(candidate)
         if iri_variant == "absolute-iri":
             return URIRef(candidate)
@@ -86,4 +89,11 @@ def coerce_to_uriref(
                     "Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE",
                 )
         else:
-            raise RuntimeError(f"Unhandled IRI variant: {iri_variant!r}")
+            raise RuntimeError from UnableToCoerceException(
+                iri_variant, URIRef, "Unhandled IRI variant"
+            )
+    raise RuntimeError from UnableToCoerceException(
+        value,
+        URIRef,
+        "Unhandled return",
+    )
