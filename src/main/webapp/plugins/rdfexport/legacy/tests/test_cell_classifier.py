@@ -129,7 +129,6 @@ def test_classifier_detects_typed_individuals_and_literals():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
-        allow_template_types=True,
     )
 
     observed = {

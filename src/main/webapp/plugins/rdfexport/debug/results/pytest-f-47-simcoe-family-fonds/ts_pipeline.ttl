@@ -4,6 +4,50 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+rico:accruals a owl:DatatypeProperty .
+
+rico:conditionsOfAccess a owl:DatatypeProperty .
+
+rico:conditionsOfUse a owl:DatatypeProperty .
+
+rico:creationDate a owl:DatatypeProperty .
+
+rico:date a owl:DatatypeProperty .
+
+rico:generalDescription a owl:DatatypeProperty .
+
+rico:hasContentOfType a owl:ObjectProperty .
+
+rico:hasCreator a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasOrHadInstantiation a owl:ObjectProperty .
+
+rico:hasOrHadTitle a owl:ObjectProperty .
+
+rico:hasRecordSetType a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:instantiationExtent a owl:DatatypeProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:isOrWasPerformedBy a owl:ObjectProperty .
+
+rico:lastModificationDate a owl:DatatypeProperty .
+
+rico:resultsOrResultedFrom a owl:ObjectProperty .
+
+rico:scopeAndContent a owl:DatatypeProperty .
+
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 

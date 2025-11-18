@@ -12,6 +12,50 @@ auth:privateNote a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
+rico:authorizedBy a owl:ObjectProperty .
+
+rico:hasBeginningDate a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasEndDate a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadAgentName a owl:ObjectProperty .
+
+rico:hasOrHadController a owl:ObjectProperty .
+
+rico:hasOrHadCorporateBodyType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasOrHadType a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:hasSuccessor a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:isEquivalentTo a owl:ObjectProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:isOrWasRegulatedBy a owl:ObjectProperty .
+
+rico:isSuccessorOf a owl:ObjectProperty .
+
+rico:lastModificationDate a owl:DatatypeProperty .
+
+rico:normalizedValue a owl:DatatypeProperty .
+
+rico:relationHasTarget a owl:ObjectProperty .
+
+rico:thingIsSourceOfRelation a owl:ObjectProperty .
+
+rico:title a owl:DatatypeProperty .
+
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
@@ -64,8 +108,7 @@ auth:sourceNote a owl:DatatypeProperty .
 
 :Rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
         rico:Thing ;
-    rdfs:label "",
-        "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"" ;
+    rdfs:label "rr:template \"/KB/{RICO_AUTHTP}/{HEADING}\"" ;
     auth:functionNote "rml:reference \"FUN\"" ;
     auth:privateNote "rml:reference \"CMTAU\"" ;
     rico:authorizedBy :Rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 ;

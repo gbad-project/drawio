@@ -25,6 +25,66 @@ add:privateNote a owl:DatatypeProperty .
 
 add:relatedMaterial a owl:DatatypeProperty .
 
+rico:accruals a owl:DatatypeProperty .
+
+rico:conditionsOfAccess a owl:DatatypeProperty .
+
+rico:conditionsOfUse a owl:DatatypeProperty .
+
+rico:creationDate a owl:DatatypeProperty .
+
+rico:date a owl:DatatypeProperty .
+
+rico:hasBeginningDate a owl:ObjectProperty .
+
+rico:hasContentOfType a owl:ObjectProperty .
+
+rico:hasCreator a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasEndDate a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasOrHadInstantiation a owl:ObjectProperty .
+
+rico:hasOrHadSubject a owl:ObjectProperty .
+
+rico:hasOrHadTitle a owl:ObjectProperty .
+
+rico:hasRecordSetType a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:instantiationExtent a owl:DatatypeProperty .
+
+rico:isAssociatedWithPlace a owl:ObjectProperty .
+
+rico:isCreatorOf a owl:ObjectProperty .
+
+rico:isDirectlyIncludedIn a owl:ObjectProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:normalizedDateValue a owl:DatatypeProperty .
+
+rico:physicalCharacteristicsNote a owl:DatatypeProperty .
+
+rico:relationHasSource a owl:ObjectProperty .
+
+rico:relationHasTarget a owl:ObjectProperty .
+
+rico:scopeAndContent a owl:DatatypeProperty .
+
+rico:textualValue a owl:DatatypeProperty .
+
+rico:wasLastUpdatedAtDate a owl:ObjectProperty .
+
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 

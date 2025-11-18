@@ -1102,12 +1102,12 @@ class pipeline:
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
                         return self.coerce_to_uriref(
-                            self, prop, mint_from_literal=False
+                            cfg=self, value=prop, mint_from_literal=False
                         )
 
                     def resolve_type(self, rdf_type: str) -> Any:
                         return self.coerce_to_uriref(
-                            self, rdf_type, mint_from_literal=False
+                            cfg=self, value=rdf_type, mint_from_literal=False
                         )
 
                     def declare_properties(self) -> None:
@@ -1270,7 +1270,13 @@ class pipeline:
                         - Escaped braces \\{ or \\} are ignored.
                         - Must contain at least one valid { ... } pair.
                         - Returns a list of references if valid; else [].
+
+                        Returns [] if input is None, otherwise stringifies it.
                         """
+                        if template is None:
+                            return []
+                        if not isinstance(template, str):
+                            template = str(template)
                         pattern = re.compile("(?<!\\\\)(?<!{){([^{}]+)}(?!})(?!\\\\)")
                         matches = []
                         spans = []
@@ -1291,9 +1297,21 @@ class pipeline:
                                 )
                         return matches
 
+                    def _resolve_template(self, candidate: str) -> Node | bool:
+                        """
+                        Runs `detect_string_template` on raw and unquoted candidate.
+
+                        Returns a FakeURIRef with the resolved one, otherwise False.
+                        """
+                        decoded = urllib.parse.unquote(str(candidate))
+                        for value in (candidate, decoded):
+                            if self.detect_string_template(value):
+                                return self.FakeURIRef(value)
+                        return False
+
                     def _is_template_string(self, candidate: str) -> bool:
-                        normalized = self._normalize_candidate(candidate)
-                        return bool(self.detect_string_template(normalized))
+                        """Checks `detect_string_template` on raw and unquoted candidate."""
+                        return bool(self._resolve_template(candidate))
 
                     def _build_fact_predicate_object_map(
                         self, predicate_uri: URIRef, fact: Any
@@ -1305,7 +1323,7 @@ class pipeline:
                         """
                         predicate_object_map = BNode()
                         object_map = BNode()
-                        has_template = self._is_template_string(str(fact))
+                        has_template = self._is_template_string(fact)
                         fact_predicate = (
                             self.rr["template"] if has_template else self.rr["constant"]
                         )
@@ -1354,15 +1372,14 @@ class pipeline:
                         """
                         object_map = BNode()
                         predicate_object_map = BNode()
-                        text_value = str(class_term)
-                        has_template = self._is_template_string(text_value)
+                        has_template = self._is_template_string(class_term)
                         class_predicate = (
                             self.rr["template"] if has_template else self.rr["constant"]
                         )
                         class_object = (
                             Literal(class_term)
                             if isinstance(class_term, self.FakeURIRef)
-                            else URIRef
+                            else URIRef(class_term)
                         )
                         triples = [
                             (object_map, class_predicate, class_object),
@@ -1382,7 +1399,7 @@ class pipeline:
                         otherwise rr:constant. Does not modify the graph directly.
                         """
                         subject_map = BNode()
-                        has_template = self._is_template_string(str(subject_uri))
+                        has_template = self._is_template_string(subject_uri)
                         subject_predicate = (
                             self.rr["template"] if has_template else self.rr["constant"]
                         )
@@ -1398,12 +1415,13 @@ class pipeline:
                         )
 
                     def coerce_to_uriref(
-                        self, value: str, mint_from_literal: bool = True
-                    ) -> URIRef:
-                        if self._is_template_string(value):
-                            return self.FakeURIRef(value)
+                        self, cfg, value: str, mint_from_literal: bool = True
+                    ) -> Node:
+                        fake_uriref = self._resolve_template(value)
+                        if fake_uriref:
+                            return fake_uriref
                         return pipeline.core.rdf.control.coerce_to_uriref(
-                            self, value, mint_from_literal
+                            cfg, value, mint_from_literal
                         )
 
                     def add_individual_triples(
@@ -1414,19 +1432,19 @@ class pipeline:
                     ) -> None:
                         """Add RML triples for a single individual."""
                         triples_map = BNode()
-                        self._add_triple((triples_map, RDF.type, self.rr.TriplesMap))
+                        self.graph.add((triples_map, RDF.type, self.rr.TriplesMap))
                         logical_source = BNode()
-                        self._add_triple(
+                        self.graph.add(
                             (triples_map, self.rml_ns.logicalSource, logical_source)
                         )
-                        self._add_triple(
+                        self.graph.add(
                             (
                                 logical_source,
                                 self.rml_ns.source,
                                 self._get_logical_source_value(),
                             )
                         )
-                        self._add_triple(
+                        self.graph.add(
                             (
                                 logical_source,
                                 self.rml_ns.referenceFormulation,
@@ -1437,20 +1455,19 @@ class pipeline:
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
-                        self._add_n1(
+                        self.graph.addN1(
                             (triples_map, self.rr["subjectMap"], subject_map),
                             subject_map_triples,
                         )
                         for rdf_type in sorted(
-                            types_and_facts.get("Types", set()),
-                            key=lambda value: str(value),
+                            types_and_facts.get("Types", set()), key=lambda value: value
                         ):
-                            class_term = self.resolve_type(str(rdf_type))
+                            class_term = self.resolve_type(rdf_type)
                             (
                                 type_predicate_object_map,
                                 type_predicate_object_map_triples,
                             ) = self._build_type_predicate_object_map(class_term)
-                            self._add_n1(
+                            self.graph.addN1(
                                 (
                                     subject_map,
                                     self.rr["predicateObjectMap"],
@@ -1465,7 +1482,7 @@ class pipeline:
                             ) = self._build_fact_predicate_object_map(
                                 RDFS.label, Literal(individual_label)
                             )
-                            self._add_n1(
+                            self.graph.addN1(
                                 (
                                     triples_map,
                                     self.rr["predicateObjectMap"],
@@ -1496,14 +1513,14 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, str(value))
+                                    target_uri = self.coerce_to_uriref(self, value)
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
                                     ) = self._build_fact_predicate_object_map(
                                         prop_uri, target_uri
                                     )
-                                    self._add_n1(
+                                    self.graph.addN1(
                                         (
                                             triples_map,
                                             self.rr["predicateObjectMap"],
@@ -1519,7 +1536,7 @@ class pipeline:
                                     ) = self._build_fact_predicate_object_map(
                                         prop_uri, literal_value
                                     )
-                                    self._add_n1(
+                                    self.graph.addN1(
                                         (
                                             triples_map,
                                             self.rr["predicateObjectMap"],
@@ -1565,13 +1582,13 @@ class pipeline:
 
                         def normalize(value) -> Literal:
                             _infer_literal_type = (
-                                pipeline.core.rdf.control._infer_literal_type
+                                pipeline.core.rdf.data._infer_literal_type
                             )
                             if cfg._should_decode_literals:
                                 if isinstance(value, str):
                                     value = urllib.parse.unquote(value)
                             if cfg.serialisation_config.infer_type_of_literals:
-                                literal_object = _infer_literal_type(cfg, value)
+                                literal_object = _infer_literal_type(value)
                             else:
                                 if value is None:
                                     raise UnableToCoerceException(
@@ -1586,7 +1603,7 @@ class pipeline:
                     except UnableToCoerceException:
                         raise
                     except Exception as e:
-                        raise UnableToCoerceException(e)
+                        raise UnableToCoerceException(value, Literal, e)
 
                 # END override coerce_to_literal.py.coerce_to_literal
                 # BEGIN override coerce_to_uriref.py.coerce_to_uriref

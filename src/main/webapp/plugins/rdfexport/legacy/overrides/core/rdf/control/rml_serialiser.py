@@ -62,7 +62,15 @@ class RMLSerializer(RDFSerializationHelper):
         - Escaped braces \\{ or \\} are ignored.
         - Must contain at least one valid { ... } pair.
         - Returns a list of references if valid; else [].
+
+        Returns [] if input is None, otherwise stringifies it.
         """
+        if template is None:
+            return []
+
+        if not isinstance(template, str):
+            template = str(template)
+
         # Matches single unescaped curly braces around content
         # Negative lookbehind avoids \{, and avoids doubling {{ or }}
         pattern = re.compile(r"(?<!\\)(?<!{){([^{}]+)}(?!})(?!\\)")
@@ -92,9 +100,21 @@ class RMLSerializer(RDFSerializationHelper):
 
         return matches
 
+    def _resolve_template(self, candidate: str) -> Node | bool:
+        """
+        Runs `detect_string_template` on raw and unquoted candidate.
+
+        Returns a FakeURIRef with the resolved one, otherwise False.
+        """
+        decoded = urllib.parse.unquote(str(candidate))
+        for value in (candidate, decoded):  # order matters - check raw first
+            if self.detect_string_template(value):
+                return self.FakeURIRef(value)
+        return False
+
     def _is_template_string(self, candidate: str) -> bool:
-        normalized = self._normalize_candidate(candidate)
-        return bool(self.detect_string_template(normalized))
+        """Checks `detect_string_template` on raw and unquoted candidate."""
+        return bool(self._resolve_template(candidate))
 
     def _build_fact_predicate_object_map(
         self, predicate_uri: URIRef, fact: Any
@@ -107,7 +127,7 @@ class RMLSerializer(RDFSerializationHelper):
         predicate_object_map = BNode()
         object_map = BNode()
 
-        has_template = self._is_template_string(str(fact))
+        has_template = self._is_template_string(fact)
         fact_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
@@ -148,12 +168,13 @@ class RMLSerializer(RDFSerializationHelper):
         object_map = BNode()
         predicate_object_map = BNode()
 
-        text_value = str(class_term)
-        has_template = self._is_template_string(text_value)
+        has_template = self._is_template_string(class_term)
         class_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         class_object = (
-            Literal(class_term) if isinstance(class_term, self.FakeURIRef) else URIRef
+            Literal(class_term)
+            if isinstance(class_term, self.FakeURIRef)
+            else URIRef(class_term)
         )
         triples = [
             (object_map, class_predicate, class_object),
@@ -174,7 +195,7 @@ class RMLSerializer(RDFSerializationHelper):
         otherwise rr:constant. Does not modify the graph directly.
         """
         subject_map = BNode()
-        has_template = self._is_template_string(str(subject_uri))
+        has_template = self._is_template_string(subject_uri)
         subject_predicate = self.rr["template"] if has_template else self.rr["constant"]
 
         triples = [
@@ -187,12 +208,11 @@ class RMLSerializer(RDFSerializationHelper):
     def coerce_to_literal(self, *args, **kwargs):
         return pipeline.core.rdf.control.coerce_to_literal(*args, **kwargs)
 
-    def coerce_to_uriref(self, value: str, mint_from_literal: bool = True) -> URIRef:
-        if self._is_template_string(value):
-            return self.FakeURIRef(value)
-        return pipeline.core.rdf.control.coerce_to_uriref(
-            self, value, mint_from_literal
-        )
+    def coerce_to_uriref(self, cfg, value: str, mint_from_literal: bool = True) -> Node:
+        fake_uriref = self._resolve_template(value)  # -> FakeURIRef | False
+        if fake_uriref:
+            return fake_uriref
+        return pipeline.core.rdf.control.coerce_to_uriref(cfg, value, mint_from_literal)
 
     def add_individual_triples(
         self, individual_id: str, individual_label: str, types_and_facts: dict
@@ -200,34 +220,32 @@ class RMLSerializer(RDFSerializationHelper):
         """Add RML triples for a single individual."""
         # Create TriplesMap
         triples_map = BNode()
-        self._add_triple((triples_map, RDF.type, self.rr.TriplesMap))
+        self.graph.add((triples_map, RDF.type, self.rr.TriplesMap))
 
         # Add logical source
         logical_source = BNode()
-        self._add_triple((triples_map, self.rml_ns.logicalSource, logical_source))
-        self._add_triple(
+        self.graph.add((triples_map, self.rml_ns.logicalSource, logical_source))
+        self.graph.add(
             (logical_source, self.rml_ns.source, self._get_logical_source_value())
         )
-        self._add_triple(
-            (logical_source, self.rml_ns.referenceFormulation, self.ql.CSV)
-        )
+        self.graph.add((logical_source, self.rml_ns.referenceFormulation, self.ql.CSV))
 
         # Add subject map
         subject_uri = self.coerce_to_uriref(self, individual_id)
         subject_map, subject_map_triples = self._build_subject_map(subject_uri)
-        self._add_n1(
+        self.graph.addN1(
             (triples_map, self.rr["subjectMap"], subject_map), subject_map_triples
         )
 
         # Add RDF types as rr:class
         for rdf_type in sorted(
-            types_and_facts.get("Types", set()), key=lambda value: str(value)
+            types_and_facts.get("Types", set()), key=lambda value: value
         ):
-            class_term = self.resolve_type(str(rdf_type))
+            class_term = self.resolve_type(rdf_type)
             type_predicate_object_map, type_predicate_object_map_triples = (
                 self._build_type_predicate_object_map(class_term)
             )
-            self._add_n1(
+            self.graph.addN1(
                 (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),
                 type_predicate_object_map_triples,
             )
@@ -239,7 +257,7 @@ class RMLSerializer(RDFSerializationHelper):
                     RDFS.label, Literal(individual_label)
                 )
             )
-            self._add_n1(
+            self.graph.addN1(
                 (
                     triples_map,
                     self.rr["predicateObjectMap"],
@@ -275,11 +293,11 @@ class RMLSerializer(RDFSerializationHelper):
 
                 if not is_literal:
                     # Object property
-                    target_uri = self.coerce_to_uriref(self, str(value))
+                    target_uri = self.coerce_to_uriref(self, value)
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, target_uri)
                     )
-                    self._add_n1(
+                    self.graph.addN1(
                         (
                             triples_map,
                             self.rr["predicateObjectMap"],
@@ -293,7 +311,7 @@ class RMLSerializer(RDFSerializationHelper):
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, literal_value)
                     )
-                    self._add_n1(
+                    self.graph.addN1(
                         (
                             triples_map,
                             self.rr["predicateObjectMap"],

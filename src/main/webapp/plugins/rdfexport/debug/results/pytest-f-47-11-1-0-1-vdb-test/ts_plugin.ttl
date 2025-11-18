@@ -3,6 +3,42 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
+rico:creationDate a owl:DatatypeProperty .
+
+rico:generalDescription a owl:DatatypeProperty .
+
+rico:hasContentOfType a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadDerivedInstantiation a owl:ObjectProperty .
+
+rico:hasOrHadDigitalInstantiation a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasOrHadInstantiation a owl:ObjectProperty .
+
+rico:hasOrHadSubject a owl:ObjectProperty .
+
+rico:hasOrHadTitle a owl:ObjectProperty .
+
+rico:hasProductionTechniqueType a owl:ObjectProperty .
+
+rico:hasRecordSetType a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:instantiationExtent a owl:DatatypeProperty .
+
+rico:isDirectlyIncludedIn a owl:ObjectProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:qualityOfRepresentationNote a owl:DatatypeProperty .
+
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 

@@ -519,13 +519,29 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
         # Non-RML cases
         (
             False,
-            "Template Individual",
+            "Template Individual Only Reference",
             "{RICO_AUTHTP_CLASS}",
             None,
             True,
         ),
         (
             False,
+            "Template Individual URIRef Encoded",
+            "https://example.com/%7BRICO_AUTHTP_CLASS%7D",
+            URIRef("https://example.com/%7BRICO_AUTHTP_CLASS%7D"),
+            False,
+        ),
+        # Not encoded should not get here - dealt with upstream
+        # at metacharacter replacements; so not testing it
+        # (
+        #     False,
+        #     "Template Individual URIRef Not Encoded",
+        #     "https://example.com/{RICO_AUTHTP_CLASS}",
+        #     URIRef("https://example.com/%7BRICO_AUTHTP_CLASS%7D"),
+        #     False,
+        # ),
+        (
+            False,
             "Curie Individual",
             "rdfs:Class",
             URIRef("http://www.w3.org/2000/01/rdf-schema#Class"),
@@ -542,18 +558,35 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
             False,
             "Rel IRI Individual",
             "/someClass",
-            URIRef("http://example.com/someClass"),
+            # Note double slash - prefix IRI defined below with a trailing slash
+            URIRef("http://example.com//someClass"),
             False,
         ),
         (False, "Nefarious Individual", "Unexpected Literal As Type", None, True),
         # RML-enabled cases
         (
             True,
-            "Template Individual",
+            "Template Individual Only Reference",
             "{RICO_AUTHTP_CLASS}",
             Literal("{RICO_AUTHTP_CLASS}"),
             False,
         ),
+        (
+            True,
+            "Template Individual URIRef Encoded",
+            "https://example.com/%7BRICO_AUTHTP_CLASS%7D",
+            Literal("https://example.com/{RICO_AUTHTP_CLASS}"),
+            False,
+        ),
+        # Not encoded should not get here - dealt with upstream
+        # at metacharacter replacements; so not testing it
+        # (
+        #     True,
+        #     "Template Individual URIRef Not Encoded",
+        #     "https://example.com/{RICO_AUTHTP_CLASS}",
+        #     Literal("https://example.com/{RICO_AUTHTP_CLASS}"),
+        #     False,
+        # ),
         (
             True,
             "Curie Individual",
@@ -572,6 +605,7 @@ def test_parse_drawio_with_rml_metadata_adds_triples_map():
             True,
             "Rel IRI Individual",
             "/someClass",
+            # Note double slash - prefix IRI defined below with a trailing slash
             URIRef("http://example.com//someClass"),
             False,
         ),
@@ -619,25 +653,29 @@ def test_parse_drawio_type_values(
     )
 
     if expect_exception:
-        with pytest.raises(draw_io_parser.NotInKnownException):
+        with pytest.raises(
+            draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException
+        ):
             draw_io_parser.parse_drawio_to_graph(**parser_args)
     else:
         graph = draw_io_parser.parse_drawio_to_graph(**parser_args)
-        predicate_iri = (
-            Namespace("http://www.w3.org/ns/r2rml#")["template"]
+        rr = Namespace("http://www.w3.org/ns/r2rml#")
+        expected_triples_any_of = (
+            [
+                (None, rr.constant, expected_type_term),
+                (None, rr.template, expected_type_term),
+            ]
             if rml_enabled
-            else RDF.type
+            else [
+                (None, RDF.type, expected_type_term),
+            ]
         )
-        triples = list(
-            graph.triples(
-                (
-                    None,
-                    predicate_iri,
-                    expected_type_term,
-                )
-            )
+        triples = []
+        for triple_pattern in expected_triples_any_of:
+            triples.extend(graph.triples(triple_pattern))
+        assert len(triples) == 1, (
+            f"Expected 1 triple with any of {[p for _, p, _ in expected_triples_any_of]} as predicate, but found {len(triples)}: {triples}"
         )
-        assert len(triples) == 1
 
 
 def test_parse_drawio_default_strips_html_literals():

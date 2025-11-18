@@ -4,6 +4,40 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+rico:authorizedBy a owl:ObjectProperty .
+
+rico:generalDescription a owl:DatatypeProperty .
+
+rico:hasBeginningDate a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasEndDate a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadAgentName a owl:ObjectProperty .
+
+rico:hasOrHadCorporateBodyType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:isOrWasPerformedBy a owl:ObjectProperty .
+
+rico:isOrWasRegulatedBy a owl:ObjectProperty .
+
+rico:lastModificationDate a owl:DatatypeProperty .
+
+rico:normalizedValue a owl:DatatypeProperty .
+
+rico:resultsOrResultedFrom a owl:ObjectProperty .
+
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 

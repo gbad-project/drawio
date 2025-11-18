@@ -26,12 +26,12 @@ def coerce_to_literal(
     try:
 
         def normalize(value) -> Literal:
-            _infer_literal_type = pipeline.core.rdf.control._infer_literal_type
+            _infer_literal_type = pipeline.core.rdf.data._infer_literal_type
             if cfg._should_decode_literals:
                 if isinstance(value, str):
                     value = urllib.parse.unquote(value)
             if cfg.serialisation_config.infer_type_of_literals:
-                literal_object = _infer_literal_type(cfg, value)
+                literal_object = _infer_literal_type(value)
             else:
                 if value is None:
                     raise UnableToCoerceException(
@@ -44,4 +44,4 @@ def coerce_to_literal(
     except UnableToCoerceException:
         raise
     except Exception as e:
-        raise UnableToCoerceException(e)
+        raise UnableToCoerceException(value, Literal, e)
