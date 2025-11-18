@@ -11,11 +11,11 @@ from test_map_schema_workflow import (
     _canonicalize_and_copy,
 )
 
-PLUGIN_ROOT = Path(__file__).resolve().parents[2]
+PLUGIN_ROOT = Path(__file__).resolve().parents[4]
 if str(PLUGIN_ROOT) not in sys.path:
     sys.path.insert(0, str(PLUGIN_ROOT))
 
-from rmlmapper_workflows import (  # type: ignore  # noqa: E402
+from aicode.integration_tests.rmlmapper_workflows.src import (  # type: ignore  # noqa: E402
     MapSchemaFixtureConfig,
     MapSchemaWorkflowResult,
     PipelineWorkflowResult,
@@ -24,9 +24,9 @@ from rmlmapper_workflows import (  # type: ignore  # noqa: E402
     run_pipeline_workflow,
 )
 
-SCENARIO_DIR = PLUGIN_ROOT / "debug" / "scenarios"
-RML_FIXTURES_DIR = PLUGIN_ROOT / "tests" / "fixtures" / "rml"
-ARTIFACTS_DIR = PLUGIN_ROOT / "rmlmapper_workflows" / "artifacts"
+SCENARIO_DIR = PLUGIN_ROOT / "data" / "debug" / "scenarios"
+RML_FIXTURES_DIR = PLUGIN_ROOT / "data" / "fixtures" / "rml_fixtures"
+ARTIFACTS_DIR = PLUGIN_ROOT / "data" / "rmlmapper_workflows" / "artifacts"
 
 
 def _save_pipeline_artifacts(

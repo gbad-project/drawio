@@ -11,19 +11,19 @@ from rdflib.compare import (
     # to_canonical_graph,  # ultimately unused - see below
 )
 
-PLUGIN_ROOT = Path(__file__).resolve().parents[2]
+PLUGIN_ROOT = Path(__file__).resolve().parents[4]
 if str(PLUGIN_ROOT) not in sys.path:
     sys.path.insert(0, str(PLUGIN_ROOT))
 
-from rmlmapper_workflows import (  # noqa: E402
+from aicode.integration_tests.rmlmapper_workflows.src import (  # noqa: E402
     MapSchemaFixtureConfig,
     RMLMapperEnvironment,
     run_map_schema_workflow,
     MapSchemaWorkflowResult,
 )
 
-SCENARIO_DIR = PLUGIN_ROOT / "debug" / "scenarios"
-RML_FIXTURES_DIR = PLUGIN_ROOT / "tests" / "fixtures" / "rml"
+SCENARIO_DIR = PLUGIN_ROOT / "data" / "debug" / "scenarios"
+RML_FIXTURES_DIR = PLUGIN_ROOT / "data" / "fixtures" / "rml_fixtures"
 
 
 def _load_graph(path: Path) -> Graph:

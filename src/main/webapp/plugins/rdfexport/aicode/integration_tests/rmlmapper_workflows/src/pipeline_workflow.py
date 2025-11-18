@@ -19,10 +19,10 @@ import hashlib
 import pandas as pd
 from rdflib import URIRef
 
-PLUGIN_ROOT = Path(__file__).resolve().parent.parent
-DEBUG_DIR = PLUGIN_ROOT / "debug"
-DEBUG_RESULTS_DIR = DEBUG_DIR / "results"
-LEGACY_DIR = PLUGIN_ROOT / "legacy"
+PLUGIN_ROOT = Path(__file__).resolve().parents[4]
+DEBUG_DATA_DIR = PLUGIN_ROOT / "data" / "debug"
+DEBUG_RESULTS_DIR = DEBUG_DATA_DIR / "results"
+LEGACY_DIR = PLUGIN_ROOT / "python_core" / "src" / "legacy"
 PYTHON_BIN = PLUGIN_ROOT / ".venv" / "bin" / "python"
 
 if str(PLUGIN_ROOT) not in sys.path:
@@ -30,17 +30,17 @@ if str(PLUGIN_ROOT) not in sys.path:
 if str(LEGACY_DIR) not in sys.path:
     sys.path.insert(0, str(LEGACY_DIR))
 
-from legacy.gbad.converter.preprocessors import (  # type: ignore  # noqa: E402
+from python_core.src.legacy.gbad.converter.preprocessors import (  # type: ignore  # noqa: E402
     SourceCSVPreprocessor,
 )
 
-from .map_schema_workflow import (  # type: ignore  # noqa: E402
+from aicode.integration_tests.rmlmapper_workflows.src.map_schema_workflow import (  # type: ignore  # noqa: E402
     MapSchemaFixtureConfig,
     RMLMapperEnvironment,
     _get_base_uri,
 )
 
-import legacy.map_schema as legacy_map_schema  # type: ignore  # noqa: E402
+import python_core.src.legacy.map_schema as legacy_map_schema  # type: ignore  # noqa: E402
 
 
 def generate_uuid_from_file_and_url(file_path: Path, any_url: AnyUrl) -> uuid.UUID:
@@ -645,7 +645,7 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
     ]
     result = subprocess.run(command, capture_output=True, text=True)
 
-    map_path = DEBUG_DIR / "map.json"
+    map_path = DEBUG_DATA_DIR / "map.json"
     map_data = json.loads(map_path.read_text(encoding="utf-8"))
     scenario_entry = map_data["scenarios"].get(slug)
     if not scenario_entry:

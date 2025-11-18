@@ -16,10 +16,9 @@ from contextlib import redirect_stdout
 
 import yaml
 
-PLUGIN_ROOT = Path(__file__).resolve().parent.parent
-DEBUG_DIR = PLUGIN_ROOT / "debug"
-DEBUG_RESULTS_DIR = DEBUG_DIR / "results"
-LEGACY_DIR = PLUGIN_ROOT / "legacy"
+PLUGIN_ROOT = Path(__file__).resolve().parents[4]
+DEBUG_RESULTS_DIR = PLUGIN_ROOT / "data" / "debug" / "results"
+LEGACY_DIR = PLUGIN_ROOT / "python_core" / "src" / "legacy"
 PYTHON_BIN = PLUGIN_ROOT / ".venv" / "bin" / "python"
 
 if str(PLUGIN_ROOT) not in sys.path:
@@ -27,7 +26,7 @@ if str(PLUGIN_ROOT) not in sys.path:
 if str(LEGACY_DIR) not in sys.path:
     sys.path.insert(0, str(LEGACY_DIR))
 
-from legacy.gbad.converter.preprocessors import SourceCSVPreprocessor  # type: ignore  # noqa: E402
+from python_core.src.legacy.gbad.converter.preprocessors import SourceCSVPreprocessor  # type: ignore  # noqa: E402
 
 _SCHEMA_TO_DIR = {
     "add": "description-listings",
@@ -70,7 +69,7 @@ class RMLMapperEnvironment:
     def from_manifest(cls, manifest_path: Path | None = None) -> RMLMapperEnvironment:
         """Create environment from manifest, running setup script if needed."""
         if manifest_path is None:
-            manifest_path = PLUGIN_ROOT / "rmlmapper" / "manifest.json"
+            manifest_path = PLUGIN_ROOT / ".rmlmapper" / "manifest.json"
 
         env = cls(manifest_path=manifest_path)
         env.ensure_ready()
@@ -138,7 +137,7 @@ class RMLMapperEnvironment:
 
     def _run_setup_script(self) -> None:
         """Execute the setup-rmlmapper.sh script."""
-        setup_script = PLUGIN_ROOT / "scripts" / "setup_rmlmapper.sh"
+        setup_script = PLUGIN_ROOT / "aicode" / "integration_tests" / "scripts" / "setup_rmlmapper.sh"
 
         if not setup_script.exists():
             raise FileNotFoundError(f"Setup script not found at: {setup_script}")

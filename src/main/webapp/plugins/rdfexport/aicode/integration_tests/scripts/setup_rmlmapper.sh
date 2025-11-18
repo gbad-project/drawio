@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-TOOLS_DIR="${ROOT_DIR}/rmlmapper"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+TOOLS_DIR="${ROOT_DIR}/.rmlmapper"
 JAR_DIR="${TOOLS_DIR}/lib"
 MANIFEST_PATH="${TOOLS_DIR}/manifest.json"
 

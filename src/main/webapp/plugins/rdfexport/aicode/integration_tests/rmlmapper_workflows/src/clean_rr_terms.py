@@ -10,7 +10,7 @@ from urllib.parse import unquote, quote
 from sys import stdout
 import json
 
-from legacy.draw_io_parser import pipeline
+from python_core.src.draw_io_parser import pipeline
 
 # --- utilities ---
 
