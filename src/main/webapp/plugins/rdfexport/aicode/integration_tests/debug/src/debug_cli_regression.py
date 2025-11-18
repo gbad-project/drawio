@@ -10,17 +10,17 @@ import pytest
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS
 
-RDFEXPORT_DIR = Path(__file__).resolve().parents[1]
+RDFEXPORT_DIR = Path(__file__).resolve().parents[4]
 
 if str(RDFEXPORT_DIR) not in sys.path:
     sys.path.insert(0, str(RDFEXPORT_DIR))
 
-from debug.__main__ import estimate_triple_count_from_classifications  # noqa: E402
-from legacy import draw_io_parser  # noqa: E402
+from aicode.integration_tests.debug.src.__main__ import estimate_triple_count_from_classifications  # noqa: E402
+from python_core.src import draw_io_parser  # noqa: E402
 
 
-FIXTURES_DIR = RDFEXPORT_DIR / "tests" / "fixtures"
-DEBUG_DIR = RDFEXPORT_DIR / "debug"
+FIXTURES_DIR = RDFEXPORT_DIR / "data" / "fixtures" / "drawio_fixtures"
+DEBUG_DATA_DIR = RDFEXPORT_DIR / "data" / "debug"
 
 EXPECTED_TS_PLUGIN = {
     "AA37-with-metadata-severely-mocked.drawio": {
@@ -255,7 +255,7 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     # This exits 1 on any error, so we set check=False
     subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=False, capture_output=True)
 
-    map_path = DEBUG_DIR / "map.json"
+    map_path = DEBUG_DATA_DIR / "map.json"
     map_data = json.loads(map_path.read_text(encoding="utf-8"))
     scenario_entry = map_data["scenarios"].get(slug)
     assert scenario_entry is not None, f"Scenario '{slug}' not recorded"
@@ -277,7 +277,7 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
             f"Unexpected skip: ts_plugin graph unavailable for {fname}. Errors: {errors.get('ts_plugin')}"
         )
 
-    ttl_path = DEBUG_DIR / results["ts_plugin"]["path"]
+    ttl_path = DEBUG_DATA_DIR / results["ts_plugin"]["path"]
     assert ttl_path.exists(), f"Turtle output missing for {fixture_path.name}"
 
     graph = Graph()
@@ -319,7 +319,7 @@ def test_run_manual_scenarios_after_xfails() -> None:
     if not XFAlLED_FIXTURES:
         pytest.skip("No expected xfails to rerun manually.")
 
-    map_path = DEBUG_DIR / "map.json"
+    map_path = DEBUG_DATA_DIR / "map.json"
 
     for fname in XFAlLED_FIXTURES:
         entry = EXPECTED_TS_PLUGIN[fname]

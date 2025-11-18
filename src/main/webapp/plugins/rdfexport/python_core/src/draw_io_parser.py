@@ -148,7 +148,7 @@ class pipeline:
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
                     if TYPE_CHECKING:
-                        from legacy.draw_io_parser import pipeline
+                        from python_core.src.draw_io_parser import pipeline
 
                     def __init__(
                         self,

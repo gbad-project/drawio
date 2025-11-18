@@ -2,7 +2,7 @@ import { readFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { basename, normalize } from "path";
-import type { DrawioParserConfigPayload } from "../../typescript_plugin/src/mockBlackBox";
+import type { DrawioParserConfigPayload } from "../../../typescript_plugin/src/mockBlackBox";
 
 interface ScenarioConfig {
   xmlPath: string;
@@ -17,11 +17,11 @@ interface ScenarioConfig {
 }
 
 const rdfexportUrl = fileURLToPath(
-  new URL("../src/rdfexport.ts", import.meta.url),
+  new URL("../../../src/rdfexport.ts", import.meta.url),
 );
 
 const pyodideIndexPath = fileURLToPath(
-  new URL("../node_modules/pyodide/", import.meta.url),
+  new URL("../../../../node_modules/pyodide/", import.meta.url),
 );
 const pyodideIndexURL = normalize(pyodideIndexPath);
 (globalThis as any).__rdfexportPyodideIndexURL = pyodideIndexURL.endsWith("/")

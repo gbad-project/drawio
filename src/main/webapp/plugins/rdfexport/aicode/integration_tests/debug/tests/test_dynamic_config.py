@@ -6,14 +6,14 @@ from xml.etree.ElementTree import Element
 
 import pytest
 
-PLUGIN_DIR = Path(__file__).resolve().parents[2]
+PLUGIN_DIR = Path(__file__).resolve().parents[4]
 REPO_ROOT = PLUGIN_DIR.parents[4]
 for candidate in (REPO_ROOT, PLUGIN_DIR):
     path_str = str(candidate)
     if path_str not in sys.path:
         sys.path.insert(0, path_str)
 
-from debug.__main__ import (  # noqa: E402
+from aicode.integration_tests.debug.src.__main__ import (  # noqa: E402
     DEFAULT_LEGACY_COMMIT,
     DEFAULT_METADATA_ATTRIBUTES,
     DEFAULT_PREFIXES,
@@ -21,9 +21,9 @@ from debug.__main__ import (  # noqa: E402
     ScenarioConfig,
 )
 
-from legacy.draw_io_parser import pipeline  # noqa: E402
+from python_core.src.draw_io_parser import pipeline  # noqa: E402
 
-FIXTURES_DIR = PLUGIN_DIR / "tests" / "fixtures"
+FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
 
 
 def build_config(
@@ -95,7 +95,7 @@ def test_dynamic_metadata_and_parser_payloads(monkeypatch: pytest.MonkeyPatch):
         captured["payload"] = payload
         return DummyResult()
 
-    monkeypatch.setattr("debug.__main__.subprocess.run", fake_run)
+    monkeypatch.setattr("aicode.integration_tests.debug.src.__main__.subprocess.run", fake_run)
 
     debugger._run_ts_pipeline(patched_xml, config)
 

@@ -20,7 +20,7 @@ from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
 
-from legacy.tests.regenerate_baselines import (
+from aicode.python_core.tests.regenerate_baselines import (
     PreviousParserLoader,
     _serialise_graph,
 )
@@ -71,11 +71,11 @@ class Debugger:
 
     def __init__(self, fixtures_dir: Path) -> None:
         self.console = Console()
-        self.debug_dir = Path(__file__).resolve().parent
+        self.debug_data_dir = Path(__file__).resolve().parents[4] / "data" / "debug"
         self.fixtures_dir = fixtures_dir.resolve()
-        self.scenarios_dir = self.debug_dir / "scenarios"
-        self.results_dir = self.debug_dir / "results"
-        self.map_path = self.debug_dir / "map.json"
+        self.scenarios_dir = self.debug_data_dir / "scenarios"
+        self.results_dir = self.debug_data_dir / "results"
+        self.map_path = self.debug_data_dir / "map.json"
 
         self.scenarios_dir.mkdir(parents=True, exist_ok=True)
         self.results_dir.mkdir(parents=True, exist_ok=True)
@@ -316,7 +316,7 @@ class Debugger:
         if not scenario_file.exists():
             saved_path = self._save_scenario_config(config)
             self.console.print(
-                f"[green]✓[/green] Saved scenario config to {saved_path.relative_to(self.debug_dir)}"
+                f"[green]✓[/green] Saved scenario config to {saved_path.relative_to(self.debug_data_dir)}"
             )
 
         return config
@@ -675,7 +675,7 @@ class Debugger:
             summary_table.add_row(
                 name,
                 str(triple_counts[name]),
-                str(serialised_paths[name].relative_to(self.debug_dir)),
+                str(serialised_paths[name].relative_to(self.debug_data_dir)),
                 nt_hashes[name],
             )
         self.console.print(summary_table)
@@ -797,14 +797,15 @@ class Debugger:
             command = [
                 "bun",
                 "run",
-                "debug/run_scenario.ts",
+                "aicode/integration_tests/debug/src/run_scenario.ts",
                 str(config_path),
             ]
 
             try:
+                plugin_dir = self.debug_data_dir.parent.parent
                 result = subprocess.run(
                     command,
-                    cwd=self.debug_dir.parent,
+                    cwd=plugin_dir,
                     check=True,
                     capture_output=True,
                     text=True,
@@ -819,9 +820,10 @@ class Debugger:
                 error_output = exc.stderr.strip() or exc.stdout.strip()
                 if "pyodide/wheels" in error_output and not self._pyodide_ready:
                     self._ensure_pyodide_assets()
+                    plugin_dir = self.debug_data_dir.parent.parent
                     result = subprocess.run(
                         command,
-                        cwd=self.debug_dir.parent,
+                        cwd=plugin_dir,
                         check=True,
                         capture_output=True,
                         text=True,
@@ -855,9 +857,10 @@ class Debugger:
             return
 
         for command in (["bun", "install"], ["bun", "run", "setup:pyodide"]):
+            plugin_dir = self.debug_data_dir.parent.parent
             subprocess.run(
                 command,
-                cwd=self.debug_dir.parent,
+                cwd=plugin_dir,
                 check=True,
                 capture_output=True,
                 text=True,
@@ -915,7 +918,7 @@ class Debugger:
             "cell_classifications": cell_classifications,
             "results": {
                 name: {
-                    "path": str(outputs[name].relative_to(self.debug_dir)),
+                    "path": str(outputs[name].relative_to(self.debug_data_dir)),
                     "triples": triple_counts[name],
                     "nt_sha256": nt_hashes[name],
                 }
@@ -947,7 +950,8 @@ class Debugger:
 
     def _relative_to_plugin_dir(self, path: Path) -> Path:
         try:
-            return path.relative_to(self.debug_dir.parent)
+            plugin_dir = self.debug_data_dir.parent.parent
+            return path.relative_to(plugin_dir)
         except ValueError:
             return path.resolve()
 
@@ -993,7 +997,7 @@ class Debugger:
             sys.path.insert(0, str(parser_dir))
 
         try:
-            from legacy.draw_io_parser import (
+            from python_core.src.draw_io_parser import (
                 _extract_drawio_metadata,
                 get_prefixes,
                 pipeline,
@@ -1361,7 +1365,7 @@ def estimate_triple_count_from_classifications(
 ) -> int:
     """Predict the expected triple count for a DrawIO payload."""
 
-    from legacy.draw_io_parser import (  # type: ignore=imported-unused
+    from python_core.draw_io_parser import (  # type: ignore=imported-unused
         _extract_drawio_metadata,
         get_prefixes,
         pipeline,
@@ -1558,8 +1562,8 @@ def main() -> None:
     parser = build_argument_parser()
     args = parser.parse_args()
 
-    debug_dir = Path(__file__).resolve().parent
-    default_fixtures = debug_dir.parent / "tests" / "fixtures"
+    debug_data_dir = Path(__file__).resolve().parents[4]
+    default_fixtures = debug_data_dir / "data" / "fixtures" / "drawio_fixtures"
     fixtures_dir = (
         Path(args.fixtures).expanduser() if args.fixtures else default_fixtures
     )
