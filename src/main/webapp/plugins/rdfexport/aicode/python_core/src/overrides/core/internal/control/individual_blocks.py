@@ -42,7 +42,6 @@ def individual_blocks(
     capitalisation_scheme: str,
     prefixes: dict[str, str],
 ) -> tuple[Blocks, set[str], set[str]]:
-    _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
     _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
     _add_individual_type = pipeline.core.internal.control._add_individual_type
 

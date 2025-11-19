@@ -305,7 +305,7 @@ class pipeline:
                                             identifier
                                         )
                                     self._nodes_by_id[cell_id] = (cell, individual)
-                            elif kind_name in ("LITERAL", "DECORATION"):
+                            elif kind_name in ("LITERAL", "DECORATION", "EMPTY_CELL"):
                                 if cell_id:
                                     self._literals_by_id[cell_id] = cell
                                     self.decorations[cell_id] = {
@@ -511,6 +511,10 @@ class pipeline:
                         *,
                         require_individual: bool,
                     ) -> tuple[Element, str, bool]:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
+                        _NoCellCloseEnoughException = (
+                            pipeline.core.xml.data._NoCellCloseEnoughException
+                        )
                         if arrow_point is None:
                             raise _NoCellCloseEnoughException
                         for cell, individual in self._nodes_by_id.values():
@@ -588,6 +592,7 @@ class pipeline:
                         )
 
                     def _arrow_label(self, arrow_cell: Element) -> str:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         for cell in self._child_of(arrow_cell.attrib["id"]):
                             try:
                                 style = cell.attrib["style"]
@@ -606,6 +611,10 @@ class pipeline:
                         raise _NoValueException("No label found for arrow")
 
                     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
+                        _NoCellCloseEnoughException = (
+                            pipeline.core.xml.data._NoCellCloseEnoughException
+                        )
                         try:
                             arrow_label = self._arrow_label(arrow_cell)
                         except _NoValueException:
@@ -710,6 +719,7 @@ class pipeline:
                     def _resolve_parent(
                         self, cell: Element
                     ) -> tuple[Optional[Element], Optional[str]]:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         parent_id = cell.attrib.get("parent")
                         if parent_id in {None, "1"}:
                             return (None, None)
@@ -754,6 +764,7 @@ class pipeline:
                             return False
 
                     def _collect_child_tokens(self, cell: Element) -> list[str]:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         cell_id = cell.attrib.get("id")
                         if not cell_id:
                             return []
@@ -2624,7 +2635,6 @@ class internal_control_core:
         capitalisation_scheme: str,
         prefixes: dict[str, str],
     ) -> tuple[Blocks, set[str], set[str]]:
-        _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
         _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
         _add_individual_type = pipeline.core.internal.control._add_individual_type
         blocks: Blocks = {}
