@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from legacy.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
-from meta_builder.drawio_meta_builder import override
+from python_core.src.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
+from aicode.python_core.meta_builder.drawio_meta_builder import override
 
 # ruff: noqa: F403, F405
 

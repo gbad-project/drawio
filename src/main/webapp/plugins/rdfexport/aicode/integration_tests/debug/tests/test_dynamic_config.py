@@ -95,7 +95,9 @@ def test_dynamic_metadata_and_parser_payloads(monkeypatch: pytest.MonkeyPatch):
         captured["payload"] = payload
         return DummyResult()
 
-    monkeypatch.setattr("aicode.integration_tests.debug.src.__main__.subprocess.run", fake_run)
+    monkeypatch.setattr(
+        "aicode.integration_tests.debug.src.__main__.subprocess.run", fake_run
+    )
 
     debugger._run_ts_pipeline(patched_xml, config)
 

@@ -137,7 +137,13 @@ class RMLMapperEnvironment:
 
     def _run_setup_script(self) -> None:
         """Execute the setup-rmlmapper.sh script."""
-        setup_script = PLUGIN_ROOT / "aicode" / "integration_tests" / "scripts" / "setup_rmlmapper.sh"
+        setup_script = (
+            PLUGIN_ROOT
+            / "aicode"
+            / "integration_tests"
+            / "scripts"
+            / "setup_rmlmapper.sh"
+        )
 
         if not setup_script.exists():
             raise FileNotFoundError(f"Setup script not found at: {setup_script}")

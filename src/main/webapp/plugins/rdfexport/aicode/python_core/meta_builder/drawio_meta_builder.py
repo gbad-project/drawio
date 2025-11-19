@@ -64,9 +64,8 @@ class OverrideCollection:
         return sum(len(v) for v in self.extras.values())
 
 
-DEFAULT_OVERRIDES_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(__file__), "..", "legacy", "overrides")
-)
+PLUGIN_DIR = Path(__file__).resolve().parents[3]
+DEFAULT_OVERRIDES_DIR = PLUGIN_DIR / "python_core" / "src" / "overrides"
 
 
 def override(*, type: str, role: str, phase: str):
@@ -99,11 +98,13 @@ def override(*, type: str, role: str, phase: str):
 # ---- Load legacy module ----
 def load_legacy():
     try:
-        return importlib.import_module("legacy.original.draw_io_parser")
+        return importlib.import_module("python_core.src.legacy.draw_io_parser")
     except ModuleNotFoundError:
         here = os.path.dirname(__file__)
         search = [
-            os.path.join(here, "..", "legacy", "original", "draw_io_parser.py"),
+            os.path.join(
+                here, "..", "..", "..", "python_core", "legacy", "draw_io_parser.py"
+            ),
             os.path.join(here, "draw_io_parser.py"),
         ]
         for path in search:
@@ -364,13 +365,20 @@ def format_import_node(node: ast.AST) -> str:
 
 
 def collect_overrides(
-    enabled: bool = True, overrides_dir: str | None = None
+    enabled: bool = True, overrides_dirs: list[str] | None = None
 ) -> OverrideCollection:
     if not enabled:
         return OverrideCollection({}, {}, [], [])
 
-    directory = os.path.normpath(overrides_dir or DEFAULT_OVERRIDES_DIR)
-    if not os.path.isdir(directory):
+    if not overrides_dirs:
+        overrides_dirs = [str(DEFAULT_OVERRIDES_DIR)]
+
+    directories = []
+    for overrides_dir in overrides_dirs:
+        directory = os.path.normpath(overrides_dir)
+        if os.path.isdir(directory):
+            directories.append(directory)
+    if not directories:
         return OverrideCollection({}, {}, [], [])
 
     replacements: Dict[tuple[str, str, str, str], OverrideRecord] = {}
@@ -380,11 +388,12 @@ def collect_overrides(
     seen_external_imports: set[str] = set()
 
     source_files: list[Path] = []
-    for dirpath, _, filenames in os.walk(directory):
-        for filename in filenames:
-            if not filename.endswith(".py") or filename.startswith("_"):
-                continue
-            source_files.append(Path(dirpath) / filename)
+    for directory in directories:
+        for dirpath, _, filenames in os.walk(directory):
+            for filename in filenames:
+                if not filename.endswith(".py") or filename.startswith("_"):
+                    continue
+                source_files.append(Path(dirpath) / filename)
     for idx, path in enumerate(source_files):
         module_name = f"drawio_meta_override_{idx}_{path.stem}"
         spec = importlib.util.spec_from_file_location(module_name, path)
@@ -393,7 +402,7 @@ def collect_overrides(
         module = importlib.util.module_from_spec(spec)
         sys.modules[module_name] = module
         spec.loader.exec_module(module)  # type: ignore[arg-type]
-        modules.append(str(path.relative_to(directory)))
+        modules.append(str(path.relative_to(PLUGIN_DIR)))
 
         try:
             with open(path, "r", encoding="utf-8") as handle:
@@ -409,9 +418,11 @@ def collect_overrides(
         def is_circular_import(module_name: str):
             if module_name == "__future__":
                 return True
-            if module_name.startswith("meta_builder"):
+            if module_name.startswith("aicode."):
                 return True
-            if module_name.startswith("legacy."):
+            if module_name.startswith("python_core."):
+                return True
+            if module_name.startswith("integration_tests."):
                 return True
             if module_name.startswith("."):
                 return True
@@ -430,8 +441,9 @@ def collect_overrides(
                     names = [
                         alias
                         for alias in node.names
-                        if not alias.name.startswith("meta_builder")
-                        and not alias.name.startswith("legacy.")
+                        if not alias.name.startswith("aicode.")
+                        and not alias.name.startswith("python_core.")
+                        and not alias.name.startswith("integration_tests.")
                     ]
                     if not names:
                         continue
@@ -472,9 +484,7 @@ def collect_overrides(
                 )
                 existing = extras.setdefault(extra_key, [])
                 if any(r.name == record.name for r in existing):
-                    raise ValueError(
-                        f"Duplicate override name {record.name} for {extra_key}"
-                    )
+                    raise ValueError(f"Duplicate override for {extra_key}: {record}")
                 existing.append(record)
 
     for values in extras.values():
@@ -509,9 +519,9 @@ def build_pipeline_namespace(overrides: OverrideCollection) -> str:
 
 
 def build_output(
-    *, use_overrides: bool = True, overrides_dir: str | None = None
+    *, use_overrides: bool = True, overrides_dirs: list[str] | None = None
 ) -> tuple[str, OverrideCollection]:
-    overrides = collect_overrides(enabled=use_overrides, overrides_dir=overrides_dir)
+    overrides = collect_overrides(enabled=use_overrides, overrides_dirs=overrides_dirs)
 
     header = [
         "# AUTO-GENERATED FILE — DO NOT EDIT",
@@ -659,10 +669,10 @@ def write_output(
     path: str = "drawio_meta.py",
     *,
     use_overrides: bool = True,
-    overrides_dir: str | None = None,
+    overrides_dirs: list[str] | None = None,
 ) -> tuple[str, OverrideCollection]:
     src, overrides = build_output(
-        use_overrides=use_overrides, overrides_dir=overrides_dir
+        use_overrides=use_overrides, overrides_dirs=overrides_dirs
     )
     with open(path, "w", encoding="utf-8") as f:
         f.write(src)
@@ -692,13 +702,20 @@ def main():
     )
     args = parser.parse_args()
 
+    if args.overrides_dir:
+        directories = [os.path.normpath(args.overrides_dir)]
+    else:
+        directories = [
+            os.path.abspath(os.path.normpath("aicode/python_core/src/overrides")),
+            os.path.abspath(os.path.normpath(str(DEFAULT_OVERRIDES_DIR))),
+        ]
+
     path, overrides = write_output(
         args.output,
         use_overrides=args.overrides,
-        overrides_dir=args.overrides_dir,
+        overrides_dirs=directories,
     )
 
-    directory = os.path.normpath(args.overrides_dir or DEFAULT_OVERRIDES_DIR)
     status = "on" if args.overrides else "off"
 
     def format_override_summary(overrides, path, status):
@@ -717,9 +734,11 @@ def main():
     if args.overrides:
         if overrides.modules:
             modules = ", ".join(overrides.modules)
-            print(f"[metabuilder] Loaded override modules from {directory}: {modules}")
+            print(
+                f"[metabuilder] Loaded override modules from {[str(Path(d).relative_to(PLUGIN_DIR)) for d in directories]}: {modules}"
+            )
         else:
-            print(f"[metabuilder] No override modules discovered in {directory}.")
+            print(f"[metabuilder] No override modules discovered in {directories}.")
     else:
         print("[metabuilder] Override discovery disabled via --no-overrides.")
 

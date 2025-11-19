@@ -15,7 +15,6 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-from rdflib.namespace import NamespaceManager
 from enum import Enum, auto
 import json
 from html import unescape
@@ -25,6 +24,7 @@ from rdflib import BNode
 from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
+from rdflib.namespace import NamespaceManager
 
 
 class pipeline:
@@ -148,7 +148,7 @@ class pipeline:
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
                     if TYPE_CHECKING:
-                        from python_core.src.draw_io_parser import pipeline
+                        from legacy.draw_io_parser import pipeline
 
                     def __init__(
                         self,

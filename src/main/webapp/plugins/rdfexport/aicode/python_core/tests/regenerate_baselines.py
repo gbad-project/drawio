@@ -13,13 +13,14 @@ from typing import Iterable, List, Sequence, Tuple
 
 from rdflib import Graph
 
-REPO_ROOT = Path(__file__).resolve().parents[5]
-LEGACY_DIR = Path(__file__).resolve().parents[1]
-FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
-BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
-TEST_PATH = LEGACY_DIR / "tests" / "test_patched_parser.py"
+PLUGIN_DIR = Path(__file__).resolve().parents[3]
+REPO_ROOT = PLUGIN_DIR.resolve().parents[4]
+
+FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
+BASELINES_DIR = PLUGIN_DIR / "data" / "fixtures" / "baselines"
+TEST_PATH = PLUGIN_DIR / "aicode" / "python_core" / "tests" / "test_patched_parser.py"
 PARSER_RELATIVE_PATH = Path(
-    "src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py"
+    "src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.py"
 )
 
 

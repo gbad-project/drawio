@@ -165,7 +165,9 @@ def test_repl_run_persists_scenario_file(monkeypatch):
 
     captured: dict[str, ScenarioConfig] = {}
 
-    monkeypatch.setattr("aicode.integration_tests.debug.src.__main__.Prompt.ask", fake_prompt)
+    monkeypatch.setattr(
+        "aicode.integration_tests.debug.src.__main__.Prompt.ask", fake_prompt
+    )
     monkeypatch.setattr(
         "aicode.integration_tests.debug.src.__main__.Debugger._run_scenario",
         lambda self, config, skip_ts=False: captured.setdefault("config", config),
@@ -215,7 +217,9 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
             return kwargs.get("default")
         return value
 
-    monkeypatch.setattr("aicode.integration_tests.debug.src.__main__.Prompt.ask", fake_prompt)
+    monkeypatch.setattr(
+        "aicode.integration_tests.debug.src.__main__.Prompt.ask", fake_prompt
+    )
     monkeypatch.setattr(
         "aicode.integration_tests.debug.src.__main__.Debugger._run_scenario",
         lambda self, config, skip_ts=False: None,

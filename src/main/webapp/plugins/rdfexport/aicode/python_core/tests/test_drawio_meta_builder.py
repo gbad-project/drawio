@@ -26,7 +26,7 @@ def test_override_decorator_validation():
 
 def test_collect_overrides_replacement_and_addition(tmp_path):
     override_src = """
-from meta_builder.drawio_meta_builder import override
+from aicode.python_core.meta_builder.drawio_meta_builder import override
 
 @override(type="internal", role="control", phase="core")
 def individual_blocks():

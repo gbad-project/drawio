@@ -1,10 +1,8 @@
 from rdflib import Graph, Namespace, URIRef, Literal, BNode
-from rdflib.namespace import RDF, RDFS, OWL, DCTERMS
+from rdflib.namespace import RDF, RDFS, OWL
 import pandas as pd
-from numpy import nan
 import re
 import urllib.parse
-from pprint import pprint
 import os
 import argparse
 import glob
@@ -319,7 +317,7 @@ def __init__(schema_code, source_filename=None):
         elif schema_code == 'add':
             return add_term
         else:
-            raise Exception(f"Fatal error: Schema code not supplied or supported.")
+            raise Exception("Fatal error: Schema code not supplied or supported.")
 
     # Any supported schema namespaces
     schema_regex_str = rf'^({auth_term}|{add_term}|{maps_term})/([A-Za-z_]+)(#.*|/.*)?$'
@@ -535,12 +533,12 @@ def __init__(schema_code, source_filename=None):
             source_filename = 'generic.csv'
 
     else:
-        raise Exception(f"Fatal error: Schema code not supplied.")
+        raise Exception("Fatal error: Schema code not supplied.")
 
     if source_filename:
         source_path = f'gbad/mapping/source/{source_filename}'
         print(f"Using source file: '{source_path}'\n")
-        print(f"Checking in for preprocessing...\n")
+        print("Checking in for preprocessing...\n")
         if schema_code == 'add':
             preprocessed_csv_path = f'gbad/mapping/source/preprocessed/{source_filename}'
             add_preprocess(source_path, preprocessed_csv_path)
@@ -622,11 +620,11 @@ def __init__(schema_code, source_filename=None):
     #print(g.serialize(format='turtle'))
 
     # Query to get all subjects, predicates, and objects
-    query = f"""
+    query = """
     SELECT ?subject ?predicate ?object
-    WHERE {{
+    WHERE {
     ?subject ?predicate ?object.
-    }}
+    }
     """
     # Execute the query
     result = g.query(query)
@@ -665,7 +663,7 @@ def __init__(schema_code, source_filename=None):
                         rico_disaggregated_subject_uri = Literal(rico_disaggregated_subject_uri)
                     rico_disaggregated_subjects.append(rico_disaggregated_subject_uri)
                     # Keep an external list of these for future use
-                    if not rico_disaggregated_subject_uri in rico_authtp_subjects.keys():
+                    if rico_disaggregated_subject_uri not in rico_authtp_subjects.keys():
                         true_rico_disaggregated_subject_uri = str(subject_uri).replace(subject_mask, rico_authtp_uri_term) # actual term
                         if isinstance(subject_uri, URIRef):
                             true_rico_disaggregated_subject_uri = URIRef(true_rico_disaggregated_subject_uri)
@@ -732,7 +730,7 @@ def __init__(schema_code, source_filename=None):
                 #f'{{{add_ref_add_label}}}/{{{add_title_label}}}'
             ])
         else:
-            raise Exception(f"Fatal error: Schema code not supplied or supported.")
+            raise Exception("Fatal error: Schema code not supplied or supported.")
 
         # Necessary to make matches and replacements work
         refd_file_mask_encoded = urllib.parse.quote(refd_file_mask, safe='')
@@ -972,7 +970,7 @@ def __init__(schema_code, source_filename=None):
                         if all is not True:
                             print("At most one rr:template is allowed per subject map ",
                                 f"whereas multiple are given in: '{map_object}'. ",
-                                f"By default logic, the leftmost mnemonic is deliberately chosen as the main one.",
+                                "By default logic, the leftmost mnemonic is deliberately chosen as the main one.",
                                 f"Thus, {{{matches[0]}}} will be processed as the main mnemonic, "
                                 f"and all the others will be passed to RML as is: {other_mnemonics}", "\n")
                     #return None

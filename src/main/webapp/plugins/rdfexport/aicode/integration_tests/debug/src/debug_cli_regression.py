@@ -10,13 +10,18 @@ import pytest
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS
 
+# ruff: noqa: E402
+
+
 RDFEXPORT_DIR = Path(__file__).resolve().parents[4]
 
 if str(RDFEXPORT_DIR) not in sys.path:
     sys.path.insert(0, str(RDFEXPORT_DIR))
 
-from aicode.integration_tests.debug.src.__main__ import estimate_triple_count_from_classifications  # noqa: E402
-from python_core.src import draw_io_parser  # noqa: E402
+from aicode.integration_tests.debug.src.__main__ import (
+    estimate_triple_count_from_classifications,
+)
+from python_core.src import draw_io_parser
 
 
 FIXTURES_DIR = RDFEXPORT_DIR / "data" / "fixtures" / "drawio_fixtures"

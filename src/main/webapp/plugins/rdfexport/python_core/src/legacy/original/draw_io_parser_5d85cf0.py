@@ -1185,7 +1185,7 @@ class DrawIOXMLTree:
 
 
 def _verify_is_ric_class(ric_class: str):
-    if not ric_class in _ric_classes:
+    if ric_class not in _ric_classes:
         raise NotInRiCException(f"Not a RiC class: {ric_class}")
 
 

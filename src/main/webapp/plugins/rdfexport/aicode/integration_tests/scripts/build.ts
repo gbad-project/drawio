@@ -27,7 +27,7 @@ const rawPlugin: BunPlugin = {
 };
 
 await Bun.build({
-  entrypoints: ["./src/rdfexport.ts"],
-  outdir: "./dist",
+  entrypoints: ["../../typescript_plugin/src/rdfexport.ts"],
+  outdir: "../../../dist",
   plugins: [rawPlugin],
 });

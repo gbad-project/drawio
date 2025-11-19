@@ -6,14 +6,14 @@ import re
 from rdflib import BNode
 from rdflib.term import Node
 
-from legacy.draw_io_parser import *  # type: ignore=imported-unused
-from meta_builder.drawio_meta_builder import override
+from python_core.src.draw_io_parser import *  # type: ignore=imported-unused
+from aicode.python_core.meta_builder.drawio_meta_builder import override
 
 # ruff: noqa: F403, F405
 
 # IMPORTANT! Module-level constants are not picked up by meta builder
 
-from legacy.overrides.core.rdf.control.serialization_helper import (
+from aicode.python_core.src.overrides.core.rdf.control.serialization_helper import (
     RDFSerializationHelper,
 )
 

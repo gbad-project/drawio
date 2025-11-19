@@ -2,8 +2,8 @@
 set -euo pipefail
 
 VERSION="0.28.3"
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-TARGET_DIR="${ROOT_DIR}/pyodide"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+TARGET_DIR="${ROOT_DIR}/.pyodide"
 ARCHIVE="pyodide-${VERSION}.tar.bz2"
 ARCHIVE_URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${ARCHIVE}"
 WHEEL_FILE="rdflib-7.2.1-py3-none-any.whl"

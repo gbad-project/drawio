@@ -4,7 +4,6 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
-from textwrap import dedent
 from typing import Optional
 
 import pytest

@@ -1,15 +1,10 @@
-import json
-import re
-import subprocess
 import sys
-import xml.etree.ElementTree as ET
 from pathlib import Path
 from textwrap import dedent
-from typing import Optional
 
 import pytest
-from rdflib import Graph, Namespace, Literal, URIRef
-from rdflib.namespace import OWL, RDF, RDFS
+from rdflib import Namespace, Literal, URIRef
+from rdflib.namespace import RDF
 
 LEGACY_DIR = Path(__file__).resolve().parents[1]
 if str(LEGACY_DIR) not in sys.path:
@@ -181,4 +176,3 @@ def test_parse_drawio_type_values(
         assert len(triples) == 1, (
             f"Expected 1 triple with any of {[p for _, p, _ in expected_triples_any_of]} as predicate, but found {len(triples)}: {triples}"
         )
-
