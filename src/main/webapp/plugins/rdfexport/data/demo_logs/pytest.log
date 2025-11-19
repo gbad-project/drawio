@@ -1,25 +1,825 @@
-Script started on Tue Nov 18 04:41:47 2025
+Script started on Tue Nov 18 23:33:35 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m====================================== test session starts ======================================[0m
+[1m========================================== test session starts ==========================================[0m
 platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 103 items                                                                            [0m[1mcollected 105 items                                                                             [0m
+[1mcollecting ... [0m[1mcollecting 15 items                                                                                     [0m[1mcollected 105 items                                                                                     [0m
 
-debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                [ 11%][0m
-debug/tests/test_dynamic_config.py [32m.[0m[32m                                                      [ 12%][0m
-legacy/tests/test_cell_classifier.py [31mF[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31m                                       [ 25%][0m
-legacy/tests/test_curie_validator.py [31mF[0m[31mF[0m[31mF[0m[31m                                                  [ 28%][0m
-legacy/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m [ 79%]
-[0m[32m.[0m[32m.[0m[31mF[0m[33mx[0m[33mx[0m[31m                                                                                     [ 83%][0m
-legacy/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                             [ 90%][0m
-meta_builder/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31m                                     [ 96%][0m
-rmlmapper_workflows/tests/test_map_schema_workflow.py [31mF[0m[31mF[0m[31m                                  [ 98%][0m
-rmlmapper_workflows/tests/test_pipeline_workflow.py [31mF[0m[31mF[0m[31m                                    [100%][0m
+aicode/integration_tests/debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                               [ 11%][0m
+aicode/integration_tests/debug/tests/test_dynamic_config.py [32m.[0m[31m                                     [ 12%][0m
+aicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py [31mF[0m[31mF[0m[31m                 [ 14%][0m
+aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py [31mF[0m[31mF[0m[31m                   [ 16%][0m
+aicode/python_core/tests/test_cell_classifier.py [31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31m                                   [ 29%][0m
+aicode/python_core/tests/test_curie_validator.py [32m.[0m[32m.[0m[32m.[0m[31m                                              [ 32%][0m
+aicode/python_core/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                       [ 38%][0m
+aicode/python_core/tests/test_patched_parser.py [32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[33mx[0m[33mx[0m[31m    [ 81%][0m
+aicode/python_core/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                         [ 88%][0m
+python_core/tests/test_parse_drawio_type_values.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                                   [100%][0m
 
-=========================================== FAILURES ============================================
-[31m[1m____________________ test_classifier_detects_typed_individuals_and_literals _____________________[0m
+=============================================== FAILURES ================================================
+[31m[1m_________ test_run_scenario_generates_artifacts_and_map_entry[AA37 Department of Health.drawio] _________[0m
+
+fixture_name = 'AA37 Department of Health.drawio'
+
+    [0m[37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33mfixture_name[39;49;00m[33m"[39;49;00m, [[33m"[39;49;00m[33mAA37 Department of Health.drawio[39;49;00m[33m"[39;49;00m])[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mtest_run_scenario_generates_artifacts_and_map_entry[39;49;00m(fixture_name: [96mstr[39;49;00m):[90m[39;49;00m
+        debugger = Debugger(FIXTURES_DIR)[90m[39;49;00m
+        slug = [33mf[39;49;00m[33m"[39;49;00m[33mpytest-[39;49;00m[33m{[39;49;00muuid4().hex[:[94m8[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        drawio_path = FIXTURES_DIR / fixture_name[90m[39;49;00m
+    [90m[39;49;00m
+        config = build_config(slug, drawio_path)[90m[39;49;00m
+    [90m[39;49;00m
+        results_dir = debugger.results_dir / slug[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           debugger._run_scenario(config)[90m[39;49;00m
+
+[1m[31maicode/integration_tests/debug/tests/test_debug_cli.py[0m:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <aicode.integration_tests.debug.src.__main__.Debugger object at 0x114f9b530>
+config = ScenarioConfig(slug='pytest-41e29f7b', drawio_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/r..., 'baseUri': 'ontology://generated-from-draw-io/mock#'}, prefixes=[('mock1', 'http://mock-uri.com')], parser_config={})
+skip_ts = False
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_scenario[39;49;00m([96mself[39;49;00m, config: ScenarioConfig, skip_ts: [96mbool[39;49;00m = [94mFalse[39;49;00m) -> [94mNone[39;49;00m:[90m[39;49;00m
+        [96mself[39;49;00m.console.rule([33mf[39;49;00m[33m"[39;49;00m[33mScenario: [39;49;00m[33m{[39;49;00mconfig.slug[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [96mself[39;49;00m.console.print([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Fixture:[/bold] [39;49;00m[33m{[39;49;00mconfig.drawio_path[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]CSV path:[/bold] [39;49;00m[33m{[39;49;00mconfig.csv_path[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Base URI:[/bold] [39;49;00m[33m{[39;49;00mconfig.base_uri[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Legacy commit:[/bold] [39;49;00m[33m{[39;49;00mconfig.legacy_commit[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Format:[/bold] [39;49;00m[33m{[39;49;00mconfig.serialization_format[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        original_xml = config.drawio_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        patched_xml = [96mself[39;49;00m._apply_metadata_overrides(original_xml, config)[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# ------------------------------------------------------------------[39;49;00m[90m[39;49;00m
+        [90m# Before classification extraction, always load and count all mxCells[39;49;00m[90m[39;49;00m
+        [90m# ------------------------------------------------------------------[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            all_mxcells = [96mself[39;49;00m._extract_mxcell_trace(original_xml)[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[green]✓[/green] Loaded [39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(all_mxcells)[33m}[39;49;00m[33m mxCells from XML[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            [96mself[39;49;00m.console.print([33mf[39;49;00m[33m"[39;49;00m[33m[red]Error:[/red] Failed to parse DrawIO XML: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            all_mxcells = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Extract cell classifications before generating graphs - always try to get them[39;49;00m[90m[39;49;00m
+        [96mself[39;49;00m.console.print([33m"[39;49;00m[33mStarting cell classifications...[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            ansi_re = re.compile([33mr[39;49;00m[33m"[39;49;00m[33m\[39;49;00m[33mx1B[39;49;00m[33m\[39;49;00m[33m[[0-?]*[ -/]*[@-~][39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            stdout_buf, stderr_buf = io.StringIO(), io.StringIO()[90m[39;49;00m
+    [90m[39;49;00m
+            [94mdef[39;49;00m[90m [39;49;00m[92mcleanse_ansi[39;49;00m(text: [96mstr[39;49;00m) -> [96mstr[39;49;00m:[90m[39;49;00m
+                [94mreturn[39;49;00m ansi_re.sub([33m"[39;49;00m[33m"[39;49;00m, text)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mwith[39;49;00m ([90m[39;49;00m
+                contextlib.redirect_stdout(stdout_buf),[90m[39;49;00m
+                contextlib.redirect_stderr(stderr_buf),[90m[39;49;00m
+            ):[90m[39;49;00m
+                cell_classifications = [96mself[39;49;00m._extract_cell_classifications([90m[39;49;00m
+                    patched_xml, config[90m[39;49;00m
+                )[90m[39;49;00m
+            py_stdout, py_stderr = ([90m[39;49;00m
+                cleanse_ansi(stdout_buf.getvalue()),[90m[39;49;00m
+                cleanse_ansi(stderr_buf.getvalue()),[90m[39;49;00m
+            )[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[green]✓[/green] Classified [39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(cell_classifications)[33m}[39;49;00m[33m mxCells[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            [94mif[39;49;00m py_stdout.strip():[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[cyan]Classifier stdout:[/cyan][39;49;00m[33m\n[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00mpy_stdout.strip()[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+            [94mif[39;49;00m py_stderr.strip():[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[magenta]Classifier stderr:[/magenta][39;49;00m[33m\n[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00mpy_stderr.strip()[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[yellow]Warning:[/yellow] Cell classification extraction failed: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            cell_classifications = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Ensure all mxCells are tracked, even if unclassified[39;49;00m[90m[39;49;00m
+        cell_classifications = [96mself[39;49;00m._fill_missing_classifications([90m[39;49;00m
+            cell_classifications, all_mxcells[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Calculate and print to console[39;49;00m[90m[39;49;00m
+        classification_counts = [96mself[39;49;00m._classification_counts([90m[39;49;00m
+            cell_classifications, total_cells=[96mlen[39;49;00m(all_mxcells)[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mwith[39;49;00m tempfile.NamedTemporaryFile([90m[39;49;00m
+            [33m"[39;49;00m[33mw[39;49;00m[33m"[39;49;00m, suffix=[33m"[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m, delete=[94mFalse[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        ) [94mas[39;49;00m temp_file:[90m[39;49;00m
+            temp_file.write(original_xml)[90m[39;49;00m
+            temp_file_path = Path(temp_file.name)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            py_legacy_graph = [96mself[39;49;00m._generate_py_legacy_graph([90m[39;49;00m
+                temp_file_path, config.legacy_commit, config[90m[39;49;00m
+            )[90m[39;49;00m
+            py_legacy_error = [94mNone[39;49;00m[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+            error_msg = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(exc).[91m__name__[39;49;00m[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mexc[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00merror_msg[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            py_legacy_error = error_msg[90m[39;49;00m
+            py_legacy_graph = [94mNone[39;49;00m[90m[39;49;00m
+        [94mfinally[39;49;00m:[90m[39;49;00m
+            temp_file_path.unlink(missing_ok=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        ts_pipeline_graph = [94mNone[39;49;00m[90m[39;49;00m
+        ts_plugin_graph = [94mNone[39;49;00m[90m[39;49;00m
+        ts_error = [94mNone[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m skip_ts:[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                ([90m[39;49;00m
+                    ts_pipeline_graph,[90m[39;49;00m
+                    ts_plugin_graph,[90m[39;49;00m
+                    ts_stderr,[90m[39;49;00m
+                ) = [96mself[39;49;00m._generate_bun_graphs(patched_xml, config)[90m[39;49;00m
+                ts_error = ts_stderr  [90m# Capture stderr even on success[39;49;00m[90m[39;49;00m
+            [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+                error_msg = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(exc).[91m__name__[39;49;00m[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mexc[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33m"[39;49;00m[33m[yellow]Warning:[/yellow] TypeScript pipeline failed to generate graphs[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00merror_msg[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                ts_pipeline_graph = [94mNone[39;49;00m[90m[39;49;00m
+                ts_plugin_graph = [94mNone[39;49;00m[90m[39;49;00m
+                ts_error = error_msg[90m[39;49;00m
+    [90m[39;49;00m
+        errors = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Cell classification[39;49;00m[90m[39;49;00m
+>       [94mif[39;49;00m py_stdout.strip() [95mor[39;49;00m py_stderr.strip():[90m[39;49;00m
+           ^^^^^^^^^[90m[39;49;00m
+[1m[31mE       UnboundLocalError: cannot access local variable 'py_stdout' where it is not associated with a value[0m
+
+[1m[31maicode/integration_tests/debug/src/__main__.py[0m:557: UnboundLocalError
+----------------------------------------- Captured stdout call ------------------------------------------
+────────────────────────── Scenario: pytest-41e29f7b ───────────────────────────
+Fixture: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/d
+rawio_fixtures/AA37 Department of Health.drawio
+CSV path: /mock/path/to/file.csv
+Base URI: ontology://generated-from-draw-io/mock#
+Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+Format: nt
+✓ Loaded 83 mxCells from XML
+Starting cell classifications...
+Warning: Cell classification extraction failed: 'Debugger' object has no 
+attribute 'debug_dir'
+Injected 83 unclassified mxCells (using unprocessed values)
+✓ Extracted 83 cell classifications:
+  UNCLASSIFIED: 83
+Warning: Legacy Python parser failed to parse DrawIO file
+RuntimeError: Failed to read draw_io_parser.py from commit 
+cf8f84bb84ff83843b6726ac96aff3a2055f4275: fatal: path 
+'src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.py' exists on 
+disk, but not in 'cf8f84bb84ff83843b6726ac96aff3a2055f4275'
+Warning: TypeScript pipeline failed to generate graphs
+RuntimeError: Bun scenario execution failed: error: Cannot find module 
+'../../typescript_plugin/src/mockBlackBox' from 
+'/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integra
+tion_tests/debug/src/run_scenario.ts'
+
+Bun v1.2.22 (macOS arm64)
+[31m[1m______________________________ test_outputs_are_isomorphic_across_sources _______________________________[0m
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_outputs_are_isomorphic_across_sources[39;49;00m():[90m[39;49;00m
+        debugger = Debugger(FIXTURES_DIR)[90m[39;49;00m
+        slug = [33mf[39;49;00m[33m"[39;49;00m[33mpytest-[39;49;00m[33m{[39;49;00muuid4().hex[:[94m8[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        drawio_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37 Department of Health.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        config = build_config(slug, drawio_path)[90m[39;49;00m
+    [90m[39;49;00m
+        results_dir = debugger.results_dir / slug[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           debugger._run_scenario(config)[90m[39;49;00m
+
+[1m[31maicode/integration_tests/debug/tests/test_debug_cli.py[0m:111: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <aicode.integration_tests.debug.src.__main__.Debugger object at 0x115b7e8a0>
+config = ScenarioConfig(slug='pytest-b523ffee', drawio_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/r..., 'baseUri': 'ontology://generated-from-draw-io/mock#'}, prefixes=[('mock1', 'http://mock-uri.com')], parser_config={})
+skip_ts = False
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_scenario[39;49;00m([96mself[39;49;00m, config: ScenarioConfig, skip_ts: [96mbool[39;49;00m = [94mFalse[39;49;00m) -> [94mNone[39;49;00m:[90m[39;49;00m
+        [96mself[39;49;00m.console.rule([33mf[39;49;00m[33m"[39;49;00m[33mScenario: [39;49;00m[33m{[39;49;00mconfig.slug[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [96mself[39;49;00m.console.print([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Fixture:[/bold] [39;49;00m[33m{[39;49;00mconfig.drawio_path[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]CSV path:[/bold] [39;49;00m[33m{[39;49;00mconfig.csv_path[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Base URI:[/bold] [39;49;00m[33m{[39;49;00mconfig.base_uri[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Legacy commit:[/bold] [39;49;00m[33m{[39;49;00mconfig.legacy_commit[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Format:[/bold] [39;49;00m[33m{[39;49;00mconfig.serialization_format[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        original_xml = config.drawio_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        patched_xml = [96mself[39;49;00m._apply_metadata_overrides(original_xml, config)[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# ------------------------------------------------------------------[39;49;00m[90m[39;49;00m
+        [90m# Before classification extraction, always load and count all mxCells[39;49;00m[90m[39;49;00m
+        [90m# ------------------------------------------------------------------[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            all_mxcells = [96mself[39;49;00m._extract_mxcell_trace(original_xml)[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[green]✓[/green] Loaded [39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(all_mxcells)[33m}[39;49;00m[33m mxCells from XML[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            [96mself[39;49;00m.console.print([33mf[39;49;00m[33m"[39;49;00m[33m[red]Error:[/red] Failed to parse DrawIO XML: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            all_mxcells = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Extract cell classifications before generating graphs - always try to get them[39;49;00m[90m[39;49;00m
+        [96mself[39;49;00m.console.print([33m"[39;49;00m[33mStarting cell classifications...[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            ansi_re = re.compile([33mr[39;49;00m[33m"[39;49;00m[33m\[39;49;00m[33mx1B[39;49;00m[33m\[39;49;00m[33m[[0-?]*[ -/]*[@-~][39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            stdout_buf, stderr_buf = io.StringIO(), io.StringIO()[90m[39;49;00m
+    [90m[39;49;00m
+            [94mdef[39;49;00m[90m [39;49;00m[92mcleanse_ansi[39;49;00m(text: [96mstr[39;49;00m) -> [96mstr[39;49;00m:[90m[39;49;00m
+                [94mreturn[39;49;00m ansi_re.sub([33m"[39;49;00m[33m"[39;49;00m, text)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mwith[39;49;00m ([90m[39;49;00m
+                contextlib.redirect_stdout(stdout_buf),[90m[39;49;00m
+                contextlib.redirect_stderr(stderr_buf),[90m[39;49;00m
+            ):[90m[39;49;00m
+                cell_classifications = [96mself[39;49;00m._extract_cell_classifications([90m[39;49;00m
+                    patched_xml, config[90m[39;49;00m
+                )[90m[39;49;00m
+            py_stdout, py_stderr = ([90m[39;49;00m
+                cleanse_ansi(stdout_buf.getvalue()),[90m[39;49;00m
+                cleanse_ansi(stderr_buf.getvalue()),[90m[39;49;00m
+            )[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[green]✓[/green] Classified [39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(cell_classifications)[33m}[39;49;00m[33m mxCells[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            [94mif[39;49;00m py_stdout.strip():[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[cyan]Classifier stdout:[/cyan][39;49;00m[33m\n[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00mpy_stdout.strip()[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+            [94mif[39;49;00m py_stderr.strip():[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[magenta]Classifier stderr:[/magenta][39;49;00m[33m\n[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00mpy_stderr.strip()[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[yellow]Warning:[/yellow] Cell classification extraction failed: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            cell_classifications = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Ensure all mxCells are tracked, even if unclassified[39;49;00m[90m[39;49;00m
+        cell_classifications = [96mself[39;49;00m._fill_missing_classifications([90m[39;49;00m
+            cell_classifications, all_mxcells[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Calculate and print to console[39;49;00m[90m[39;49;00m
+        classification_counts = [96mself[39;49;00m._classification_counts([90m[39;49;00m
+            cell_classifications, total_cells=[96mlen[39;49;00m(all_mxcells)[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mwith[39;49;00m tempfile.NamedTemporaryFile([90m[39;49;00m
+            [33m"[39;49;00m[33mw[39;49;00m[33m"[39;49;00m, suffix=[33m"[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m, delete=[94mFalse[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        ) [94mas[39;49;00m temp_file:[90m[39;49;00m
+            temp_file.write(original_xml)[90m[39;49;00m
+            temp_file_path = Path(temp_file.name)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            py_legacy_graph = [96mself[39;49;00m._generate_py_legacy_graph([90m[39;49;00m
+                temp_file_path, config.legacy_commit, config[90m[39;49;00m
+            )[90m[39;49;00m
+            py_legacy_error = [94mNone[39;49;00m[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+            error_msg = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(exc).[91m__name__[39;49;00m[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mexc[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00merror_msg[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            py_legacy_error = error_msg[90m[39;49;00m
+            py_legacy_graph = [94mNone[39;49;00m[90m[39;49;00m
+        [94mfinally[39;49;00m:[90m[39;49;00m
+            temp_file_path.unlink(missing_ok=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        ts_pipeline_graph = [94mNone[39;49;00m[90m[39;49;00m
+        ts_plugin_graph = [94mNone[39;49;00m[90m[39;49;00m
+        ts_error = [94mNone[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m skip_ts:[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                ([90m[39;49;00m
+                    ts_pipeline_graph,[90m[39;49;00m
+                    ts_plugin_graph,[90m[39;49;00m
+                    ts_stderr,[90m[39;49;00m
+                ) = [96mself[39;49;00m._generate_bun_graphs(patched_xml, config)[90m[39;49;00m
+                ts_error = ts_stderr  [90m# Capture stderr even on success[39;49;00m[90m[39;49;00m
+            [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+                error_msg = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(exc).[91m__name__[39;49;00m[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mexc[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33m"[39;49;00m[33m[yellow]Warning:[/yellow] TypeScript pipeline failed to generate graphs[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00merror_msg[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                ts_pipeline_graph = [94mNone[39;49;00m[90m[39;49;00m
+                ts_plugin_graph = [94mNone[39;49;00m[90m[39;49;00m
+                ts_error = error_msg[90m[39;49;00m
+    [90m[39;49;00m
+        errors = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Cell classification[39;49;00m[90m[39;49;00m
+>       [94mif[39;49;00m py_stdout.strip() [95mor[39;49;00m py_stderr.strip():[90m[39;49;00m
+           ^^^^^^^^^[90m[39;49;00m
+[1m[31mE       UnboundLocalError: cannot access local variable 'py_stdout' where it is not associated with a value[0m
+
+[1m[31maicode/integration_tests/debug/src/__main__.py[0m:557: UnboundLocalError
+----------------------------------------- Captured stdout call ------------------------------------------
+────────────────────────── Scenario: pytest-b523ffee ───────────────────────────
+Fixture: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/d
+rawio_fixtures/AA37 Department of Health.drawio
+CSV path: /mock/path/to/file.csv
+Base URI: ontology://generated-from-draw-io/mock#
+Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+Format: nt
+✓ Loaded 83 mxCells from XML
+Starting cell classifications...
+Warning: Cell classification extraction failed: 'Debugger' object has no 
+attribute 'debug_dir'
+Injected 83 unclassified mxCells (using unprocessed values)
+✓ Extracted 83 cell classifications:
+  UNCLASSIFIED: 83
+Warning: Legacy Python parser failed to parse DrawIO file
+RuntimeError: Failed to read draw_io_parser.py from commit 
+cf8f84bb84ff83843b6726ac96aff3a2055f4275: fatal: path 
+'src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.py' exists on 
+disk, but not in 'cf8f84bb84ff83843b6726ac96aff3a2055f4275'
+Warning: TypeScript pipeline failed to generate graphs
+RuntimeError: Bun scenario execution failed: error: Cannot find module 
+'../../typescript_plugin/src/mockBlackBox' from 
+'/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integra
+tion_tests/debug/src/run_scenario.ts'
+
+Bun v1.2.22 (macOS arm64)
+[31m[1m__________________________________ test_ts_stderr_captured_as_warning ___________________________________[0m
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x115c02ab0>
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ts_stderr_captured_as_warning[39;49;00m(monkeypatch):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Test that TypeScript stderr is captured as a warning even when graphs generate successfully."""[39;49;00m[90m[39;49;00m
+        debugger = Debugger(FIXTURES_DIR)[90m[39;49;00m
+        slug = [33mf[39;49;00m[33m"[39;49;00m[33mpytest-[39;49;00m[33m{[39;49;00muuid4().hex[:[94m8[39;49;00m][33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        drawio_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37 Department of Health.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        config = build_config(slug, drawio_path)[90m[39;49;00m
+    [90m[39;49;00m
+        results_dir = debugger.results_dir / slug[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Mock _run_ts_pipeline to return stderr along with valid data[39;49;00m[90m[39;49;00m
+        original_run_ts_pipeline = debugger._run_ts_pipeline[90m[39;49;00m
+    [90m[39;49;00m
+        [94mdef[39;49;00m[90m [39;49;00m[92mmock_run_ts_pipeline[39;49;00m(xml, cfg):[90m[39;49;00m
+            result = original_run_ts_pipeline(xml, cfg)[90m[39;49;00m
+            result[[33m"[39;49;00m[33mstderr[39;49;00m[33m"[39;49;00m] = [33m"[39;49;00m[33mMock TypeScript warning message[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [94mreturn[39;49;00m result[90m[39;49;00m
+    [90m[39;49;00m
+        monkeypatch.setattr(debugger, [33m"[39;49;00m[33m_run_ts_pipeline[39;49;00m[33m"[39;49;00m, mock_run_ts_pipeline)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           debugger._run_scenario(config)[90m[39;49;00m
+
+[1m[31maicode/integration_tests/debug/tests/test_debug_cli.py[0m:270: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <aicode.integration_tests.debug.src.__main__.Debugger object at 0x115c03770>
+config = ScenarioConfig(slug='pytest-24fe33ea', drawio_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/r..., 'baseUri': 'ontology://generated-from-draw-io/mock#'}, prefixes=[('mock1', 'http://mock-uri.com')], parser_config={})
+skip_ts = False
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_scenario[39;49;00m([96mself[39;49;00m, config: ScenarioConfig, skip_ts: [96mbool[39;49;00m = [94mFalse[39;49;00m) -> [94mNone[39;49;00m:[90m[39;49;00m
+        [96mself[39;49;00m.console.rule([33mf[39;49;00m[33m"[39;49;00m[33mScenario: [39;49;00m[33m{[39;49;00mconfig.slug[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [96mself[39;49;00m.console.print([90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Fixture:[/bold] [39;49;00m[33m{[39;49;00mconfig.drawio_path[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]CSV path:[/bold] [39;49;00m[33m{[39;49;00mconfig.csv_path[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Base URI:[/bold] [39;49;00m[33m{[39;49;00mconfig.base_uri[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Legacy commit:[/bold] [39;49;00m[33m{[39;49;00mconfig.legacy_commit[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [33mf[39;49;00m[33m"[39;49;00m[33m[bold]Format:[/bold] [39;49;00m[33m{[39;49;00mconfig.serialization_format[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        original_xml = config.drawio_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        patched_xml = [96mself[39;49;00m._apply_metadata_overrides(original_xml, config)[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# ------------------------------------------------------------------[39;49;00m[90m[39;49;00m
+        [90m# Before classification extraction, always load and count all mxCells[39;49;00m[90m[39;49;00m
+        [90m# ------------------------------------------------------------------[39;49;00m[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            all_mxcells = [96mself[39;49;00m._extract_mxcell_trace(original_xml)[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[green]✓[/green] Loaded [39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(all_mxcells)[33m}[39;49;00m[33m mxCells from XML[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            [96mself[39;49;00m.console.print([33mf[39;49;00m[33m"[39;49;00m[33m[red]Error:[/red] Failed to parse DrawIO XML: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            all_mxcells = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Extract cell classifications before generating graphs - always try to get them[39;49;00m[90m[39;49;00m
+        [96mself[39;49;00m.console.print([33m"[39;49;00m[33mStarting cell classifications...[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            ansi_re = re.compile([33mr[39;49;00m[33m"[39;49;00m[33m\[39;49;00m[33mx1B[39;49;00m[33m\[39;49;00m[33m[[0-?]*[ -/]*[@-~][39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+            stdout_buf, stderr_buf = io.StringIO(), io.StringIO()[90m[39;49;00m
+    [90m[39;49;00m
+            [94mdef[39;49;00m[90m [39;49;00m[92mcleanse_ansi[39;49;00m(text: [96mstr[39;49;00m) -> [96mstr[39;49;00m:[90m[39;49;00m
+                [94mreturn[39;49;00m ansi_re.sub([33m"[39;49;00m[33m"[39;49;00m, text)[90m[39;49;00m
+    [90m[39;49;00m
+            [94mwith[39;49;00m ([90m[39;49;00m
+                contextlib.redirect_stdout(stdout_buf),[90m[39;49;00m
+                contextlib.redirect_stderr(stderr_buf),[90m[39;49;00m
+            ):[90m[39;49;00m
+                cell_classifications = [96mself[39;49;00m._extract_cell_classifications([90m[39;49;00m
+                    patched_xml, config[90m[39;49;00m
+                )[90m[39;49;00m
+            py_stdout, py_stderr = ([90m[39;49;00m
+                cleanse_ansi(stdout_buf.getvalue()),[90m[39;49;00m
+                cleanse_ansi(stderr_buf.getvalue()),[90m[39;49;00m
+            )[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[green]✓[/green] Classified [39;49;00m[33m{[39;49;00m[96mlen[39;49;00m(cell_classifications)[33m}[39;49;00m[33m mxCells[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            [94mif[39;49;00m py_stdout.strip():[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[cyan]Classifier stdout:[/cyan][39;49;00m[33m\n[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00mpy_stdout.strip()[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+            [94mif[39;49;00m py_stderr.strip():[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[magenta]Classifier stderr:[/magenta][39;49;00m[33m\n[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00mpy_stderr.strip()[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m e:[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[yellow]Warning:[/yellow] Cell classification extraction failed: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            cell_classifications = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Ensure all mxCells are tracked, even if unclassified[39;49;00m[90m[39;49;00m
+        cell_classifications = [96mself[39;49;00m._fill_missing_classifications([90m[39;49;00m
+            cell_classifications, all_mxcells[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Calculate and print to console[39;49;00m[90m[39;49;00m
+        classification_counts = [96mself[39;49;00m._classification_counts([90m[39;49;00m
+            cell_classifications, total_cells=[96mlen[39;49;00m(all_mxcells)[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mwith[39;49;00m tempfile.NamedTemporaryFile([90m[39;49;00m
+            [33m"[39;49;00m[33mw[39;49;00m[33m"[39;49;00m, suffix=[33m"[39;49;00m[33m.drawio[39;49;00m[33m"[39;49;00m, delete=[94mFalse[39;49;00m, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        ) [94mas[39;49;00m temp_file:[90m[39;49;00m
+            temp_file.write(original_xml)[90m[39;49;00m
+            temp_file_path = Path(temp_file.name)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            py_legacy_graph = [96mself[39;49;00m._generate_py_legacy_graph([90m[39;49;00m
+                temp_file_path, config.legacy_commit, config[90m[39;49;00m
+            )[90m[39;49;00m
+            py_legacy_error = [94mNone[39;49;00m[90m[39;49;00m
+        [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+            error_msg = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(exc).[91m__name__[39;49;00m[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mexc[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            [96mself[39;49;00m.console.print([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00merror_msg[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+            py_legacy_error = error_msg[90m[39;49;00m
+            py_legacy_graph = [94mNone[39;49;00m[90m[39;49;00m
+        [94mfinally[39;49;00m:[90m[39;49;00m
+            temp_file_path.unlink(missing_ok=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        ts_pipeline_graph = [94mNone[39;49;00m[90m[39;49;00m
+        ts_plugin_graph = [94mNone[39;49;00m[90m[39;49;00m
+        ts_error = [94mNone[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m skip_ts:[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                ([90m[39;49;00m
+                    ts_pipeline_graph,[90m[39;49;00m
+                    ts_plugin_graph,[90m[39;49;00m
+                    ts_stderr,[90m[39;49;00m
+                ) = [96mself[39;49;00m._generate_bun_graphs(patched_xml, config)[90m[39;49;00m
+                ts_error = ts_stderr  [90m# Capture stderr even on success[39;49;00m[90m[39;49;00m
+            [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
+                error_msg = [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00m[96mtype[39;49;00m(exc).[91m__name__[39;49;00m[33m}[39;49;00m[33m: [39;49;00m[33m{[39;49;00mexc[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [96mself[39;49;00m.console.print([90m[39;49;00m
+                    [33m"[39;49;00m[33m[yellow]Warning:[/yellow] TypeScript pipeline failed to generate graphs[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33m[dim][39;49;00m[33m{[39;49;00merror_msg[33m}[39;49;00m[33m[/dim][39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+                ts_pipeline_graph = [94mNone[39;49;00m[90m[39;49;00m
+                ts_plugin_graph = [94mNone[39;49;00m[90m[39;49;00m
+                ts_error = error_msg[90m[39;49;00m
+    [90m[39;49;00m
+        errors = {}[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Cell classification[39;49;00m[90m[39;49;00m
+>       [94mif[39;49;00m py_stdout.strip() [95mor[39;49;00m py_stderr.strip():[90m[39;49;00m
+           ^^^^^^^^^[90m[39;49;00m
+[1m[31mE       UnboundLocalError: cannot access local variable 'py_stdout' where it is not associated with a value[0m
+
+[1m[31maicode/integration_tests/debug/src/__main__.py[0m:557: UnboundLocalError
+----------------------------------------- Captured stdout call ------------------------------------------
+────────────────────────── Scenario: pytest-24fe33ea ───────────────────────────
+Fixture: 
+/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/d
+rawio_fixtures/AA37 Department of Health.drawio
+CSV path: /mock/path/to/file.csv
+Base URI: ontology://generated-from-draw-io/mock#
+Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+Format: nt
+✓ Loaded 83 mxCells from XML
+Starting cell classifications...
+Warning: Cell classification extraction failed: 'Debugger' object has no 
+attribute 'debug_dir'
+Injected 83 unclassified mxCells (using unprocessed values)
+✓ Extracted 83 cell classifications:
+  UNCLASSIFIED: 83
+Warning: Legacy Python parser failed to parse DrawIO file
+RuntimeError: Failed to read draw_io_parser.py from commit 
+cf8f84bb84ff83843b6726ac96aff3a2055f4275: fatal: path 
+'src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.py' exists on 
+disk, but not in 'cf8f84bb84ff83843b6726ac96aff3a2055f4275'
+Warning: TypeScript pipeline failed to generate graphs
+RuntimeError: Bun scenario execution failed: error: Cannot find module 
+'../../typescript_plugin/src/mockBlackBox' from 
+'/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integra
+tion_tests/debug/src/run_scenario.ts'
+
+Bun v1.2.22 (macOS arm64)
+[31m[1m_________________________________ test_map_schema_workflow_general_add __________________________________[0m
+
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_map_schema_workflow_gener0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_add[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33madd[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mgeneral-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-map-schema-general-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+>       result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py[0m:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/map_schema_workflow.py[0m:175: in run_map_schema_workflow
+    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/debug/scenarios/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml')
+slug = 'pytest-map-schema-general-add'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
+        command = [[90m[39;49;00m
+            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--skip-ts[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+        process = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m process.returncode != [94m0[39;49;00m:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33m"[39;49;00m[33mDebugger scenario failed: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprocess.stderr.strip()[90m [39;49;00m[95mor[39;49;00m[90m [39;49;00mprocess.stdout.strip()[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           RuntimeError: Debugger scenario failed: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python: No module named debug[0m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/map_schema_workflow.py[0m:285: RuntimeError
+[31m[1m______________________________ test_map_schema_workflow_general_authority _______________________________[0m
+
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_map_schema_workflow_gener1')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_authority[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-map-schema-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+>       result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)[90m[39;49;00m
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py[0m:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/map_schema_workflow.py[0m:175: in run_map_schema_workflow
+    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz.yml')
+slug = 'pytest-map-schema-general-authority'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
+        command = [[90m[39;49;00m
+            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+            [33m"[39;49;00m[33m--skip-ts[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        ][90m[39;49;00m
+        process = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
+        [94mif[39;49;00m process.returncode != [94m0[39;49;00m:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33m"[39;49;00m[33mDebugger scenario failed: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprocess.stderr.strip()[90m [39;49;00m[95mor[39;49;00m[90m [39;49;00mprocess.stdout.strip()[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           RuntimeError: Debugger scenario failed: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python: No module named debug[0m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/map_schema_workflow.py[0m:285: RuntimeError
+[31m[1m__________________________________ test_pipeline_workflow_general_add ___________________________________[0m
+
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_pipeline_workflow_general0')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_pipeline_workflow_general_add[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        map_schema_config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33madd[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mgeneral-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-pipeline-general-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        pipeline_config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33madd[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mgeneral-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-pipeline-general-add-no-rr[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            index_column=[33m"[39;49;00m[33mSISN[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+>       pipeline_result = run_pipeline_workflow([90m[39;49;00m
+            pipeline_config, rmlmapper_env, workspace_base=tmp_path[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py[0m:110: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/pipeline_workflow.py[0m:531: in run_pipeline_workflow
+    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/debug/scenarios/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml')
+slug = 'pytest-pipeline-general-add-no-rr'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
+        command = [[90m[39;49;00m
+            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+        ][90m[39;49;00m
+        result = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DATA_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m scenario_entry:[90m[39;49;00m
+            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded after command.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mstdout:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stdout[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stderr[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {}) [95mor[39;49;00m {}[90m[39;49;00m
+        unexpected_errors = {[90m[39;49;00m
+            name: details[90m[39;49;00m
+            [94mfor[39;49;00m name, details [95min[39;49;00m errors.items()[90m[39;49;00m
+            [94mif[39;49;00m name != [33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m details[90m[39;49;00m
+        }[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m unexpected_errors:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected debugger errors in scenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m: [39;49;00m[33m{[39;49;00munexpected_errors[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-add-no-rr': {'py_stdout': 'Warning: Failed to extract cell classifications: \npipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument \n\'allow_template_types\'\nTraceback (most recent call last):\n  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py", line\n1014, in _extract_cell_classifications\n    classifier = classifier_cls(\n                 ^^^^^^^^^^^^^^^\nTypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword \nargument \'allow_template_types\''}[0m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/pipeline_workflow.py[0m:666: RuntimeError
+[31m[1m_______________________________ test_pipeline_workflow_general_authority ________________________________[0m
+
+rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.rmlmapper/manifest.json'))
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_pipeline_workflow_general1')
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_pipeline_workflow_general_authority[39;49;00m([90m[39;49;00m
+        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
+    ) -> [94mNone[39;49;00m:[90m[39;49;00m
+        map_schema_config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-pipeline-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+        pipeline_config = MapSchemaFixtureConfig([90m[39;49;00m
+            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            scenario=SCENARIO_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
+            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug=[33m"[39;49;00m[33mpytest-pipeline-general-authority-no-rr[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            index_column=[33m"[39;49;00m[33mSISN[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+>       pipeline_result = run_pipeline_workflow([90m[39;49;00m
+            pipeline_config,[90m[39;49;00m
+            rmlmapper_env,[90m[39;49;00m
+            workspace_base=tmp_path,[90m[39;49;00m
+            correct_dateex_path=[33m"[39;49;00m[33mtmp/New-export-of-Government-authorities-with-correct-Dates-of-Existence-xlsx.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+        )[90m[39;49;00m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py[0m:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/pipeline_workflow.py[0m:531: in run_pipeline_workflow
+    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml')
+slug = 'pytest-pipeline-general-authority-no-rr'
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
+        command = [[90m[39;49;00m
+            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
+            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
+            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
+            slug,[90m[39;49;00m
+        ][90m[39;49;00m
+        result = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        map_path = DEBUG_DATA_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
+        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m scenario_entry:[90m[39;49;00m
+            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded after command.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mstdout:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stdout[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stderr[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {}) [95mor[39;49;00m {}[90m[39;49;00m
+        unexpected_errors = {[90m[39;49;00m
+            name: details[90m[39;49;00m
+            [94mfor[39;49;00m name, details [95min[39;49;00m errors.items()[90m[39;49;00m
+            [94mif[39;49;00m name != [33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m details[90m[39;49;00m
+        }[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m unexpected_errors:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
+                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected debugger errors in scenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m: [39;49;00m[33m{[39;49;00munexpected_errors[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+            )[90m[39;49;00m
+[1m[31mE           RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-authority-no-rr': {'py_stdout': 'Warning: Failed to extract cell classifications: \npipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument \n\'allow_template_types\'\nTraceback (most recent call last):\n  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py", line\n1014, in _extract_cell_classifications\n    classifier = classifier_cls(\n                 ^^^^^^^^^^^^^^^\nTypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword \nargument \'allow_template_types\''}[0m
+
+[1m[31maicode/integration_tests/rmlmapper_workflows/src/pipeline_workflow.py[0m:666: RuntimeError
+[31m[1m________________________ test_classifier_detects_typed_individuals_and_literals _________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_classifier_detects_typed_individuals_and_literals[39;49;00m():[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -40,62 +840,10 @@ rmlmapper_workflows/tests/test_pipeline_workflow.py [31mF[0m[31mF[0m[31m   
 >       [94massert[39;49;00m ([33m"[39;49;00m[33mMy Individual[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m) [95min[39;49;00m observed[90m[39;49;00m
 [1m[31mE       AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', 'owl:NamedIndividual')}[0m
 
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:138: AssertionError
-[31m[1m________________________ test_top_level_rounded_text_treated_as_literal _________________________[0m
+[1m[31maicode/python_core/tests/test_cell_classifier.py[0m:132: AssertionError
+[31m[1m________________________________ test_decorations_serialise_to_skos_note ________________________________[0m
 
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_top_level_rounded_text_treated_as_literal[39;49;00m():[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([90m[39;49;00m
-                [33m"[39;49;00m[33mliteral[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-                [33m"[39;49;00m[33mCustom:Value[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-                style=[33m"[39;49;00m[33mtext;rounded=1;whiteSpace=wrap;html=1;[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            )[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
->       classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier([90m[39;49;00m
-            xml,[90m[39;49;00m
-            draw_io_parser.get_prefixes(),[90m[39;49;00m
-            allow_template_types=[94mTrue[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-[1m[31mE       TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument 'allow_template_types'[0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:158: TypeError
-[31m[1m____________________ test_classifier_parent_cell_collects_child_type_tokens _____________________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_classifier_parent_cell_collects_child_type_tokens[39;49;00m():[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mList pnnpni[39;49;00m[33m"[39;49;00m, style=[33m"[39;49;00m[33mswimlane[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mtype1[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mowl:NamedIndividual[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mtype2[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mrdf:Resource[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
->       classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier([90m[39;49;00m
-            xml,[90m[39;49;00m
-            draw_io_parser.get_prefixes(),[90m[39;49;00m
-            allow_template_types=[94mTrue[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-[1m[31mE       TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument 'allow_template_types'[0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:183: TypeError
-[31m[1m___________________ test_classifier_typed_individual_accepts_template_tokens ____________________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_classifier_typed_individual_accepts_template_tokens[39;49;00m():[90m[39;49;00m
-        xml = _drawio_xml([90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mTemplate Individual[39;49;00m[33m"[39;49;00m, style=[33m"[39;49;00m[33mswimlane[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-            _vertex_cell([33m"[39;49;00m[33mchild[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m{RICO_AUTHTP_CLASS}[39;49;00m[33m"[39;49;00m, parent=[33m"[39;49;00m[33mparent[39;49;00m[33m"[39;49;00m),[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
->       classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier([90m[39;49;00m
-            xml,[90m[39;49;00m
-            draw_io_parser.get_prefixes(),[90m[39;49;00m
-            allow_template_types=[94mTrue[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-[1m[31mE       TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument 'allow_template_types'[0m
-
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:219: TypeError
-[31m[1m____________________________ test_decorations_serialise_to_skos_note ____________________________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_decorations_serialise_to_0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_decorations_serialise_to_0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_decorations_serialise_to_skos_note[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -117,10 +865,10 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 [1m[31mE       AssertionError: assert rdflib.term.Literal('Loose literal') in [][0m
 [1m[31mE        +  where rdflib.term.Literal('Loose literal') = Literal('Loose literal')[0m
 
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:259: AssertionError
-[31m[1m______________________________ test_literal_as_arrow_source_raises ______________________________[0m
+[1m[31maicode/python_core/tests/test_cell_classifier.py[0m:250: AssertionError
+[31m[1m__________________________________ test_literal_as_arrow_source_raises __________________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_literal_as_arrow_source_r0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_literal_as_arrow_source_r0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_literal_as_arrow_source_raises[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -136,18 +884,18 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
         [94mwith[39;49;00m pytest.raises(draw_io_parser.ArrowWithoutIndividualAsSourceException):[90m[39;49;00m
 >           draw_io_parser.parse_drawio_to_graph([96mstr[39;49;00m(path))[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:299: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_cell_classifier.py[0m:290: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2807: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2822: in _build_graph_from_raw_xml
     [0minternal_control_core.individual_blocks([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2620: in individual_blocks
+[1m[31mpython_core/src/draw_io_parser.py[0m:2635: in individual_blocks
     [0m_add_individual_type([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:884: in _add_individual_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:900: in _add_individual_type
     [0mindividual_id = _replace_metacharacters([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 identifier = 'Literal source'
 metacharacter_substitutes = [('(', ''), (')', ''), ('[', ''), (']', ''), ('{', ''), ('}', ''), ...]
@@ -168,12 +916,12 @@ space_substitute = None, capitalisation_scheme = 'upper-camel'
                     [33m"[39;49;00m[33m-m/--metacharacter-substitute and -c/--capitalisation-scheme [39;49;00m[33m"[39;49;00m[90m[39;49;00m
                     [33m"[39;49;00m[33moptions to define how to handle spaces[39;49;00m[33m"[39;49;00m[90m[39;49;00m
                 )[90m[39;49;00m
-[1m[31mE               draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space, but how to handle spaces in individual nodes has not been specified (spaces cannot be used in OWL IRIs): 'Literal source'. Use the -m/--metacharacter-substitute and -c/--capitalisation-scheme options to define how to handle spaces[0m
+[1m[31mE               python_core.src.draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space, but how to handle spaces in individual nodes has not been specified (spaces cannot be used in OWL IRIs): 'Literal source'. Use the -m/--metacharacter-substitute and -c/--capitalisation-scheme options to define how to handle spaces[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2228: MetacharacterException
-[31m[1m_____________________ test_blank_node_used_for_decorations_without_ontology _____________________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:2244: MetacharacterException
+[31m[1m_________________________ test_blank_node_used_for_decorations_without_ontology _________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_blank_node_used_for_decor0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_blank_node_used_for_decor0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_blank_node_used_for_decorations_without_ontology[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -192,94 +940,8 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 >       [94massert[39;49;00m triples[90m[39;49;00m
 [1m[31mE       assert [][0m
 
-[1m[31mlegacy/tests/test_cell_classifier.py[0m:340: AssertionError
-[31m[1m_________________________ test_ensure_known_curie_accepts_bound_prefix __________________________[0m
-
-monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1029bbaa0>
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ensure_known_curie_accepts_bound_prefix[39;49;00m(monkeypatch):[90m[39;49;00m
-        prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
-        prefixes[[33m"[39;49;00m[33mex[39;49;00m[33m"[39;49;00m] = [33m"[39;49;00m[33mhttps://example.org/[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        called = [94mFalse[39;49;00m[90m[39;49;00m
-        original_expand = NamespaceManager.expand_curie[90m[39;49;00m
-    [90m[39;49;00m
-        [94mdef[39;49;00m[90m [39;49;00m[92mtracking_expand[39;49;00m([96mself[39;49;00m, curie: [96mstr[39;49;00m, *args, **kwargs):[90m[39;49;00m
-            [94mnonlocal[39;49;00m called[90m[39;49;00m
-            called = [94mTrue[39;49;00m[90m[39;49;00m
-            [94mreturn[39;49;00m original_expand([96mself[39;49;00m, curie, *args, **kwargs)[90m[39;49;00m
-    [90m[39;49;00m
-        monkeypatch.setattr(NamespaceManager, [33m"[39;49;00m[33mexpand_curie[39;49;00m[33m"[39;49;00m, tracking_expand)[90m[39;49;00m
-    [90m[39;49;00m
->       prefix, reference = draw_io_parser._ensure_known_curie([90m[39;49;00m
-            [33m"[39;49;00m[33mex:Thing[39;49;00m[33m"[39;49;00m, prefixes, [33m"[39;49;00m[33mexpected to succeed[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        )[90m[39;49;00m
-
-[1m[31mlegacy/tests/test_curie_validator.py[0m:30: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-curie = 'ex:Thing'
-prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o....ca/Schema/Authority/', 'ex': 'https://example.org/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', ...}
-error_message = 'expected to succeed'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
-        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
-    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
->       prefix, reference = _split_curie(curie)[90m[39;49;00m
-                            ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mE       TypeError: internal_data_core._split_curie() missing 1 required positional argument: 'prefixes'[0m
-
-[1m[31mlegacy/draw_io_parser.py[0m:2466: TypeError
-[31m[1m________________________ test_ensure_known_curie_rejects_unknown_prefix _________________________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ensure_known_curie_rejects_unknown_prefix[39;49;00m():[90m[39;49;00m
-        prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
-    [90m[39;49;00m
-        [94mwith[39;49;00m pytest.raises(draw_io_parser.NotInKnownException):[90m[39;49;00m
->           draw_io_parser._ensure_known_curie([90m[39;49;00m
-                [33m"[39;49;00m[33munknown:Thing[39;49;00m[33m"[39;49;00m, prefixes, [33m"[39;49;00m[33munknown prefix should fail[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-
-[1m[31mlegacy/tests/test_curie_validator.py[0m:43: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-curie = 'unknown:Thing'
-prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...}
-error_message = 'unknown prefix should fail'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
-        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
-    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
->       prefix, reference = _split_curie(curie)[90m[39;49;00m
-                            ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mE       TypeError: internal_data_core._split_curie() missing 1 required positional argument: 'prefixes'[0m
-
-[1m[31mlegacy/draw_io_parser.py[0m:2466: TypeError
-[31m[1m________________________ test_ensure_known_curie_rejects_empty_reference ________________________[0m
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ensure_known_curie_rejects_empty_reference[39;49;00m():[90m[39;49;00m
-        prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
-        prefixes[[33m"[39;49;00m[33mex[39;49;00m[33m"[39;49;00m] = [33m"[39;49;00m[33mhttps://example.org/[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        [94mwith[39;49;00m pytest.raises(draw_io_parser.NotInKnownException):[90m[39;49;00m
->           draw_io_parser._ensure_known_curie([33m"[39;49;00m[33mex:[39;49;00m[33m"[39;49;00m, prefixes, [33m"[39;49;00m[33mmissing reference[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-
-[1m[31mlegacy/tests/test_curie_validator.py[0m:53: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-curie = 'ex:'
-prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o....ca/Schema/Authority/', 'ex': 'https://example.org/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', ...}
-error_message = 'missing reference'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_ensure_known_curie[39;49;00m([90m[39;49;00m
-        curie: [96mstr[39;49;00m, prefixes: [96mdict[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m], error_message: [96mstr[39;49;00m[90m[39;49;00m
-    ) -> [96mtuple[39;49;00m[[96mstr[39;49;00m, [96mstr[39;49;00m]:[90m[39;49;00m
->       prefix, reference = _split_curie(curie)[90m[39;49;00m
-                            ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mE       TypeError: internal_data_core._split_curie() missing 1 required positional argument: 'prefixes'[0m
-
-[1m[31mlegacy/draw_io_parser.py[0m:2466: TypeError
-[31m[1m__________________________ test_parse_drawio_curie_cell_without_parent __________________________[0m
+[1m[31maicode/python_core/tests/test_cell_classifier.py[0m:331: AssertionError
+[31m[1m______________________________ test_parse_drawio_curie_cell_without_parent ______________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_cell_without_parent[39;49;00m():[90m[39;49;00m
         graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
@@ -291,12 +953,12 @@ error_message = 'missing reference'
         individual = kb[[33m"[39;49;00m[33mLampdoesntwork[39;49;00m[33m"[39;49;00m][90m[39;49;00m
     [90m[39;49;00m
 >       [94massert[39;49;00m (individual, RDF.type, OWL.NamedIndividual) [95min[39;49;00m graph[90m[39;49;00m
-[1m[31mE       AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N6461218e2ede4f9b90ff43445562e138 (<class 'draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
+[1m[31mE       AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N205794d6fb774eebb936540bc8c82a4c (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:195: AssertionError
-[31m[1m_________________________ test_parse_drawio_curie_without_known_prefix __________________________[0m
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:198: AssertionError
+[31m[1m_____________________________ test_parse_drawio_curie_without_known_prefix ______________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_parse_drawio_curie_withou0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_parse_drawio_curie_withou0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_without_known_prefix[39;49;00m(tmp_path: Path):[90m[39;49;00m
         tree = ET.parse(FIXTURES_DIR / [33m"[39;49;00m[33mFlowchart_tweaked.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
@@ -318,12 +980,12 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
     [90m[39;49;00m
 >       [94mwith[39;49;00m pytest.raises(draw_io_parser.NotInKnownException):[90m[39;49;00m
              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mE       Failed: DID NOT RAISE <class 'draw_io_parser.rdf_data_core.NotInKnownException'>[0m
+[1m[31mE       Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownException'>[0m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:217: Failed
-[31m[1m_______________________________ test_curie_literal_style_rounding _______________________________[0m
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:220: Failed
+[31m[1m___________________________________ test_curie_literal_style_rounding ___________________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_curie_literal_style_round0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_curie_literal_style_round0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_curie_literal_style_rounding[39;49;00m(tmp_path: Path):[90m[39;49;00m
         [94mdef[39;49;00m[90m [39;49;00m[92mparse[39;49;00m(path: Path) -> Graph:[90m[39;49;00m
@@ -342,29 +1004,29 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 >       base_graph = parse(FIXTURES_DIR / [33m"[39;49;00m[33mClass_Diagram_tweaked.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:237: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/tests/test_patched_parser.py[0m:225: in parse
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:240: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:228: in parse
     [0m[94mreturn[39;49;00m draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x106930560>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115e12f60>
 value = 'Email Address', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -445,12 +1107,12 @@ value = 'Email Address', mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'Email Address' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'Email Address' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[unknown_prefix] _______________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[31m[1m___________________ test_parse_drawio_rejects_malformed_type_variants[unknown_prefix] ___________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_parse_drawio_rejects_malf0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_parse_drawio_rejects_malf0')
 case_key = 'unknown_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -466,27 +1128,27 @@ case_key = 'unknown_prefix'
                 metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
             )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:372: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x1065f7170>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115f7b230>
 value = 'picoL:', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -567,10 +1229,10 @@ value = 'picoL:', mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _______________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[31m[1m___________________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] ___________________[0m
 
 curie = ':danglingCurie'
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
@@ -589,10 +1251,10 @@ prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description
                     manager.bind(p, i, replace=[94mTrue[39;49;00m)[90m[39;49;00m
 >           manager.expand_curie(curie)[90m[39;49;00m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2456: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:2475: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <rdflib.namespace.NamespaceManager object at 0x1065f7a10>, curie = ':danglingCurie'
+self = <rdflib.namespace.NamespaceManager object at 0x115ed0230>, curie = ':danglingCurie'
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mexpand_curie[39;49;00m([96mself[39;49;00m, curie: [96mstr[39;49;00m) -> URIRef:[90m[39;49;00m
     [90m    [39;49;00m[33m"""[39;49;00m
@@ -627,7 +1289,7 @@ self = <rdflib.namespace.NamespaceManager object at 0x1065f7a10>, curie = ':dang
 
 [33mThe above exception was the direct cause of the following exception:[0m
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x10693cf80>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115ed3530>
 value = ':danglingCurie', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -684,8 +1346,8 @@ value = ':danglingCurie', mint_from_literal = False
                         candidate, cfg.prefixes[90m[39;49;00m
                     )[90m[39;49;00m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1660: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:1676: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 curie = ':danglingCurie'
 prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archives.gov.o...ca/Schema/Authority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'hellow': 'some://helloworld', ...}
@@ -705,13 +1367,13 @@ prefixes = {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description
             manager.expand_curie(curie)[90m[39;49;00m
         [94mexcept[39;49;00m [96mException[39;49;00m [94mas[39;49;00m exc:[90m[39;49;00m
 >           [94mraise[39;49;00m NotInKnownException([33mf[39;49;00m[33m"[39;49;00m[33mFailed to expand CURIE [39;49;00m[33m'[39;49;00m[33m{[39;49;00mcurie[33m}[39;49;00m[33m'[39;49;00m[33m"[39;49;00m) [94mfrom[39;49;00m[90m [39;49;00m[04m[96mexc[39;49;00m[90m[39;49;00m
-[1m[31mE           draw_io_parser.rdf_data_core.NotInKnownException: Failed to expand CURIE ':danglingCurie'[0m
+[1m[31mE           python_core.src.draw_io_parser.rdf_data_core.NotInKnownException: Failed to expand CURIE ':danglingCurie'[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:2458: NotInKnownException
+[1m[31mpython_core/src/draw_io_parser.py[0m:2477: NotInKnownException
 
 [33mDuring handling of the above exception, another exception occurred:[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_parse_drawio_rejects_malf1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_parse_drawio_rejects_malf1')
 case_key = 'dangling_curie'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -727,27 +1389,27 @@ case_key = 'dangling_curie'
                 metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
             )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:372: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x10693cf80>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115ed3530>
 value = ':danglingCurie', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -816,12 +1478,12 @@ value = ':danglingCurie', mint_from_literal = False
                         candidate,[90m[39;49;00m
                         URIRef,[90m[39;49;00m
                         [33mf[39;49;00m[33m"[39;49;00m[33mUnable to resolve what looks like a CURIE: [39;49;00m[33m{[39;49;00me[33m}[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-[1m[31mE                       draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':danglingCurie' to ['URIRef']: Unable to resolve what looks like a CURIE: Failed to expand CURIE ':danglingCurie'[0m
+[1m[31mE                       python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':danglingCurie' to ['URIRef']: Unable to resolve what looks like a CURIE: Failed to expand CURIE ':danglingCurie'[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1672: UnableToCoerceException
-[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] _________________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1688: UnableToCoerceException
+[31m[1m_____________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] _____________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_parse_drawio_rejects_malf2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_parse_drawio_rejects_malf2')
 case_key = 'colon_only'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -837,28 +1499,28 @@ case_key = 'colon_only'
                 metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
             )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:372: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x10629bd40>, value = ':'
-mint_from_literal = False
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115ebfdd0>
+value = ':', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
         cfg: RDFSerializationHelper,[90m[39;49;00m
@@ -938,12 +1600,12 @@ mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] __________________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[31m[1m_____________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] ______________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_parse_drawio_rejects_malf3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1181/test_parse_drawio_rejects_malf3')
 case_key = 'no_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -959,27 +1621,27 @@ case_key = 'no_prefix'
                 metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
             )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:372: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x1065e8d10>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x11626c890>
 value = 'NoPrefixClass', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -1060,12 +1722,12 @@ value = 'NoPrefixClass', mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'NoPrefixClass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'NoPrefixClass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m_____________ test_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds] ______________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[31m[1m_________________ test_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds] __________________[0m
 
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/F 4711 Orville Wood fonds.nt')
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/baselines/F 4711 Orville Wood fonds.nt')
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
@@ -1083,27 +1745,27 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
             metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
         )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:443: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:446: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x106930cb0>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115f07b60>
 value = 'rico:Person rico:AgentName', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -1184,12 +1846,12 @@ value = 'rico:Person rico:AgentName', mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:Person rico:AgentName' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:Person rico:AgentName' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m___ test_parse_drawio_matches_baseline_graphs[General Authority to RiC-O Model_2025-06-25_PZ] ___[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[31m[1m_______ test_parse_drawio_matches_baseline_graphs[General Authority to RiC-O Model_2025-06-25_PZ] _______[0m
 
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt')
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/baselines/General Authority to RiC-O Model_2025-06-25_PZ.nt')
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
@@ -1212,15 +1874,15 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
     [90m[39;49;00m
 >       [94massert[39;49;00m actual_normalised.isomorphic(expected_normalised)[90m[39;49;00m
 [1m[31mE       AssertionError: assert False[0m
-[1m[31mE        +  where False = isomorphic(<Graph identifier=Nbd867bdbecdf4b62b7b64f2ef2ccc2b7 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE        +    where isomorphic = <Graph identifier=N66c9b3c1fa6f471f8626453a0c25bc99 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
+[1m[31mE        +  where False = isomorphic(<Graph identifier=Nfb18ffa3880a4463a7b074af4eba89b5 (<class 'rdflib.graph.Graph'>)>)[0m
+[1m[31mE        +    where isomorphic = <Graph identifier=N25ee8eaeadf947d1bb7f2474cb8453dc (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:452: AssertionError
-------------------------------------- Captured stdout call --------------------------------------
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:455: AssertionError
+----------------------------------------- Captured stdout call ------------------------------------------
 Warning: Skipping arrow due to error: Arrow 'rdfs:label' (Z80UwrU0Vu5smdOcJr8o-8) target 'Z80UwrU0Vu5smdOcJr8o-7' could not be found.
-[31m[1m__ test_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)] ___[0m
+[31m[1m______ test_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)] _______[0m
 
-baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt')
+baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt')
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
         [33m"[39;49;00m[33mbaseline_path[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
@@ -1238,27 +1900,27 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
             metacharacter_substitute=[[33m"[39;49;00m[33murl[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
         )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:443: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:446: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x1065ab500>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x115f0af00>
 value = 'rico:CorporateBody rico:AgentName', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -1339,10 +2001,10 @@ value = 'rico:CorporateBody rico:AgentName', mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:CorporateBody rico:AgentName' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:CorporateBody rico:AgentName' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m________________________ test_parse_drawio_rejects_unknown_literal_curie ________________________[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[31m[1m____________________________ test_parse_drawio_rejects_unknown_literal_curie ____________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_rejects_unknown_literal_curie[39;49;00m():[90m[39;49;00m
         fixture_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37-with-metadata-severely-mocked.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
@@ -1353,27 +2015,27 @@ value = 'rico:CorporateBody rico:AgentName', mint_from_literal = False
                 metacharacter_substitute=[[33m"[39;49;00m[33mremove[39;49;00m[33m"[39;49;00m],[90m[39;49;00m
             )[90m[39;49;00m
 
-[1m[31mlegacy/tests/test_patched_parser.py[0m:758: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mlegacy/draw_io_parser.py[0m:3024: in parse_drawio_to_graph
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:596: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+[1m[31mpython_core/src/draw_io_parser.py[0m:3039: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2820: in _build_graph_from_raw_xml
+[1m[31mpython_core/src/draw_io_parser.py[0m:2835: in _build_graph_from_raw_xml
     [0mgraph = serializer([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:2953: in serialise_to_graph
+[1m[31mpython_core/src/draw_io_parser.py[0m:2968: in serialise_to_graph
     [0mserializer.serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1227: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1243: in serialize_all_individuals
     [0m[96msuper[39;49;00m().serialize_all_individuals()[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1155: in serialize_all_individuals
+[1m[31mpython_core/src/draw_io_parser.py[0m:1171: in serialize_all_individuals
     [0m[96mself[39;49;00m.add_individual_triples([90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1187: in add_individual_triples
+[1m[31mpython_core/src/draw_io_parser.py[0m:1203: in add_individual_triples
     [0m(individual_uri, RDF.type, [96mself[39;49;00m.resolve_type(rdf_type))[90m[39;49;00m
                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-[1m[31mlegacy/draw_io_parser.py[0m:1109: in resolve_type
+[1m[31mpython_core/src/draw_io_parser.py[0m:1125: in resolve_type
     [0m[94mreturn[39;49;00m [96mself[39;49;00m.coerce_to_uriref([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-cfg = <draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x106593f50>
+cfg = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x1163e61b0>
 value = 'picoL:', mint_from_literal = False
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mcoerce_to_uriref[39;49;00m([90m[39;49;00m
@@ -1454,418 +2116,34 @@ value = 'picoL:', mint_from_literal = False
                         URIRef,[90m[39;49;00m
                         [33m"[39;49;00m[33mExhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
                     )[90m[39;49;00m
-[1m[31mE                   draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
+[1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
-[1m[31mlegacy/draw_io_parser.py[0m:1683: UnableToCoerceException
-[31m[1m_______________________ test_pipeline_symbols_and_overrides_exposed[True] _______________________[0m
-
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_pipeline_symbols_and_over1')
-use_overrides = True
-
-    [0m[37m@pytest[39;49;00m.mark.parametrize([33m"[39;49;00m[33muse_overrides[39;49;00m[33m"[39;49;00m, [[94mFalse[39;49;00m, [94mTrue[39;49;00m])[90m[39;49;00m
-    [94mdef[39;49;00m[90m [39;49;00m[92mtest_pipeline_symbols_and_overrides_exposed[39;49;00m(tmp_path, use_overrides):[90m[39;49;00m
-        [90m# 1) build the module source (captures any current overrides)[39;49;00m[90m[39;49;00m
-        src, overrides = builder.build_output([90m[39;49;00m
-            use_overrides=use_overrides, overrides_dir=[94mNone[39;49;00m[90m[39;49;00m
-        )[90m[39;49;00m
-        mod_path = tmp_path / [33m"[39;49;00m[33mdrawio_meta.py[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        mod_path.write_text(src, encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        [90m# 2) import generated module[39;49;00m[90m[39;49;00m
-        dm = _import_from_path(mod_path)[90m[39;49;00m
-    [90m[39;49;00m
-        [90m# 3) all mapped items exist in nested pipeline AND via module-level alias[39;49;00m[90m[39;49;00m
-        [94mfor[39;49;00m dotted, dt, dr, ph [95min[39;49;00m builder.MAPPING:[90m[39;49;00m
-            base = dotted.split([33m"[39;49;00m[33m.[39;49;00m[33m"[39;49;00m)[-[94m1[39;49;00m][90m[39;49;00m
-            [90m# nested[39;49;00m[90m[39;49;00m
-            nested_path = [33mf[39;49;00m[33m"[39;49;00m[33mpipeline.[39;49;00m[33m{[39;49;00mph[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdt[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdr[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mbase[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            [94massert[39;49;00m [96mhasattr[39;49;00m(dm.pipeline, ph), [33mf[39;49;00m[33m"[39;49;00m[33mmissing pipeline.[39;49;00m[33m{[39;49;00mph[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            [94massert[39;49;00m [96mhasattr[39;49;00m(_dotget(dm.pipeline, [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mph[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdt[33m}[39;49;00m[33m"[39;49;00m), dr), ([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mmissing [39;49;00m[33m{[39;49;00mph[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdt[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdr[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-            nested_obj = _dotget(dm, nested_path)[90m[39;49;00m
-            [90m# module-level alias points to same object[39;49;00m[90m[39;49;00m
-            alias_obj = [96mgetattr[39;49;00m(dm, base)[90m[39;49;00m
-            [94massert[39;49;00m nested_obj [95mis[39;49;00m alias_obj, [33mf[39;49;00m[33m"[39;49;00m[33malias mismatch for [39;49;00m[33m{[39;49;00mbase[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-    [90m[39;49;00m
-        [90m# 4) any *new* override additions (not in MAPPING) are available under pipeline.*.*.*.*[39;49;00m[90m[39;49;00m
-        [90m#    (module-level aliases for new items are intentionally OFF by default)[39;49;00m[90m[39;49;00m
-        [94mfor[39;49;00m (dt, dr, ph), records [95min[39;49;00m overrides.extras.items():[90m[39;49;00m
-            [94mfor[39;49;00m rec [95min[39;49;00m records:[90m[39;49;00m
-                path = [33mf[39;49;00m[33m"[39;49;00m[33mpipeline.[39;49;00m[33m{[39;49;00mph[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdt[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mdr[33m}[39;49;00m[33m.[39;49;00m[33m{[39;49;00mrec.name[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                obj = _dotget(dm, path)[90m[39;49;00m
-                [94massert[39;49;00m obj [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m, [33mf[39;49;00m[33m"[39;49;00m[33mmissing extra override at [39;49;00m[33m{[39;49;00mpath[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [90m# sanity: unless explicitly enabled in builder, no top-level alias for new[39;49;00m[90m[39;49;00m
->               [94massert[39;49;00m [95mnot[39;49;00m [96mhasattr[39;49;00m(dm, rec.name), ([90m[39;49;00m
-                    [33mf[39;49;00m[33m"[39;49;00m[33munexpected module-level alias for new override [39;49;00m[33m{[39;49;00mrec.name[33m}[39;49;00m[33m; [39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                    [33m"[39;49;00m[33mset MODULE_LEVEL_ALIASES_FOR_NEW=True if desired.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                )[90m[39;49;00m
-[1m[31mE               AssertionError: unexpected module-level alias for new override _add_individual_type; set MODULE_LEVEL_ALIASES_FOR_NEW=True if desired.[0m
-[1m[31mE               assert not True[0m
-[1m[31mE                +  where True = hasattr(<module 'drawio_meta' from '/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_pipeline_symbols_and_over1/drawio_meta.py'>, '_add_individual_type')[0m
-[1m[31mE                +    where '_add_individual_type' = OverrideRecord(name='_add_individual_type', spec=OverrideSpec(data_type='internal', data_role='control', phase='core').../home/anonymous/drawio/src/main/webapp/plugins/rdfexport/legacy/overrides/core/internal/control/individual_blocks.py')).name[0m
-
-[1m[31mmeta_builder/tests/test_drawio_meta_builder.py[0m:138: AssertionError
-[31m[1m_____________________________ test_map_schema_workflow_general_add ______________________________[0m
-
-rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_map_schema_workflow_gener0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_add[39;49;00m([90m[39;49;00m
-        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
-    ) -> [94mNone[39;49;00m:[90m[39;49;00m
-        config = MapSchemaFixtureConfig([90m[39;49;00m
-            name=[33m"[39;49;00m[33mgeneral-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            schema_code=[33m"[39;49;00m[33madd[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            scenario=SCENARIO_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mgeneral-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug=[33m"[39;49;00m[33mpytest-map-schema-general-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
->       result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)[90m[39;49;00m
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-
-[1m[31mrmlmapper_workflows/tests/test_map_schema_workflow.py[0m:96: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mrmlmapper_workflows/map_schema_workflow.py[0m:170: in run_map_schema_workflow
-    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/scenarios/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml')
-slug = 'pytest-map-schema-general-add'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
-        command = [[90m[39;49;00m
-            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
-            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
-            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug,[90m[39;49;00m
-            [33m"[39;49;00m[33m--skip-ts[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        ][90m[39;49;00m
-        process = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
-        [94mif[39;49;00m process.returncode != [94m0[39;49;00m:[90m[39;49;00m
->           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
-                [33m"[39;49;00m[33mDebugger scenario failed: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprocess.stderr.strip()[90m [39;49;00m[95mor[39;49;00m[90m [39;49;00mprocess.stdout.strip()[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           RuntimeError: Debugger scenario failed: ──────────────────────────── Scenario: pytest-map-schema-general-add ────────────────────────────[0m
-[1m[31mE           Fixture: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General [0m
-[1m[31mE           ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio[0m
-[1m[31mE           CSV path: gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O [0m
-[1m[31mE           Model_2025-06-20_PZ.csv[0m
-[1m[31mE           Base URI: https://data.archives.gov.on.test.gbad.ca[0m
-[1m[31mE           Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275[0m
-[1m[31mE           Format: turtle[0m
-[1m[31mE           ✓ Loaded 208 mxCells from XML[0m
-[1m[31mE           Starting cell classifications...[0m
-[1m[31mE           ✓ Classified 0 mxCells[0m
-[1m[31mE           Classifier stdout:[0m
-[1m[31mE           Warning: Failed to extract cell classifications: [0m
-[1m[31mE           pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument [0m
-[1m[31mE           'allow_template_types'[0m
-[1m[31mE           Traceback (most recent call last):[0m
-[1m[31mE             File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py", line[0m
-[1m[31mE           1014, in _extract_cell_classifications[0m
-[1m[31mE               classifier = classifier_cls([0m
-[1m[31mE                            ^^^^^^^^^^^^^^^[0m
-[1m[31mE           TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword [0m
-[1m[31mE           argument 'allow_template_types'[0m
-[1m[31mE           Injected 208 unclassified mxCells (using unprocessed values)[0m
-[1m[31mE           ✓ Extracted 208 cell classifications:[0m
-[1m[31mE             UNCLASSIFIED: 208[0m
-[1m[31mE                                                Debug scenario results                                      [0m
-[1m[31mE           ┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
-[1m[31mE           ┃ Graph     ┃ Triples ┃ Output                             ┃ N-Triples SHA256                   ┃[0m
-[1m[31mE           ┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩[0m
-[1m[31mE           │ py_legacy │     120 │ results/pytest-map-schema-general… │ 5b75152b93a6bea24f12ee048edc06a68… │[0m
-[1m[31mE           └───────────┴─────────┴────────────────────────────────────┴────────────────────────────────────┘[0m
-[1m[31mE           Isomorphism checks:[0m
-
-[1m[31mrmlmapper_workflows/map_schema_workflow.py[0m:280: RuntimeError
-[31m[1m__________________________ test_map_schema_workflow_general_authority ___________________________[0m
-
-rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_map_schema_workflow_gener1')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_map_schema_workflow_general_authority[39;49;00m([90m[39;49;00m
-        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
-    ) -> [94mNone[39;49;00m:[90m[39;49;00m
-        config = MapSchemaFixtureConfig([90m[39;49;00m
-            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug=[33m"[39;49;00m[33mpytest-map-schema-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
->       result = run_map_schema_workflow(config, rmlmapper_env, workspace_base=tmp_path)[90m[39;49;00m
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-
-[1m[31mrmlmapper_workflows/tests/test_map_schema_workflow.py[0m:116: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mrmlmapper_workflows/map_schema_workflow.py[0m:170: in run_map_schema_workflow
-    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz.yml')
-slug = 'pytest-map-schema-general-authority'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
-        command = [[90m[39;49;00m
-            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
-            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
-            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug,[90m[39;49;00m
-            [33m"[39;49;00m[33m--skip-ts[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        ][90m[39;49;00m
-        process = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
-        [94mif[39;49;00m process.returncode != [94m0[39;49;00m:[90m[39;49;00m
->           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
-                [33m"[39;49;00m[33mDebugger scenario failed: [39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33m{[39;49;00mprocess.stderr.strip()[90m [39;49;00m[95mor[39;49;00m[90m [39;49;00mprocess.stdout.strip()[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           RuntimeError: Debugger scenario failed: ───────────────────────── Scenario: pytest-map-schema-general-authority ─────────────────────────[0m
-[1m[31mE           Fixture: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/tests/fixtures/General [0m
-[1m[31mE           Authority to RiC-O Model_2025-06-25_PZ.drawio[0m
-[1m[31mE           CSV path: gbad/mapping/source/preprocessed/General Authority to RiC-O Model_2025-06-25_PZ.csv[0m
-[1m[31mE           Base URI: https://data.archives.gov.on.test.gbad.ca[0m
-[1m[31mE           Legacy commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275[0m
-[1m[31mE           Format: turtle[0m
-[1m[31mE           ✓ Loaded 164 mxCells from XML[0m
-[1m[31mE           Starting cell classifications...[0m
-[1m[31mE           ✓ Classified 0 mxCells[0m
-[1m[31mE           Classifier stdout:[0m
-[1m[31mE           Warning: Failed to extract cell classifications: [0m
-[1m[31mE           pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument [0m
-[1m[31mE           'allow_template_types'[0m
-[1m[31mE           Traceback (most recent call last):[0m
-[1m[31mE             File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py", line[0m
-[1m[31mE           1014, in _extract_cell_classifications[0m
-[1m[31mE               classifier = classifier_cls([0m
-[1m[31mE                            ^^^^^^^^^^^^^^^[0m
-[1m[31mE           TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword [0m
-[1m[31mE           argument 'allow_template_types'[0m
-[1m[31mE           Injected 164 unclassified mxCells (using unprocessed values)[0m
-[1m[31mE           ✓ Extracted 164 cell classifications:[0m
-[1m[31mE             UNCLASSIFIED: 164[0m
-[1m[31mE                                                Debug scenario results                                      [0m
-[1m[31mE           ┏━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
-[1m[31mE           ┃ Graph     ┃ Triples ┃ Output                             ┃ N-Triples SHA256                   ┃[0m
-[1m[31mE           ┡━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩[0m
-[1m[31mE           │ py_legacy │     116 │ results/pytest-map-schema-general… │ 39a982fcbe70a98c60604609ab13633a5… │[0m
-[1m[31mE           └───────────┴─────────┴────────────────────────────────────┴────────────────────────────────────┘[0m
-[1m[31mE           Isomorphism checks:[0m
-
-[1m[31mrmlmapper_workflows/map_schema_workflow.py[0m:280: RuntimeError
-[31m[1m______________________________ test_pipeline_workflow_general_add _______________________________[0m
-
-rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_pipeline_workflow_general0')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_pipeline_workflow_general_add[39;49;00m([90m[39;49;00m
-        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
-    ) -> [94mNone[39;49;00m:[90m[39;49;00m
-        map_schema_config = MapSchemaFixtureConfig([90m[39;49;00m
-            name=[33m"[39;49;00m[33mgeneral-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            schema_code=[33m"[39;49;00m[33madd[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            scenario=SCENARIO_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mgeneral-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug=[33m"[39;49;00m[33mpytest-pipeline-general-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
-        pipeline_config = MapSchemaFixtureConfig([90m[39;49;00m
-            name=[33m"[39;49;00m[33mgeneral-add[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            schema_code=[33m"[39;49;00m[33madd[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            scenario=SCENARIO_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mgeneral-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug=[33m"[39;49;00m[33mpytest-pipeline-general-add-no-rr[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            index_column=[33m"[39;49;00m[33mSISN[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
->       pipeline_result = run_pipeline_workflow([90m[39;49;00m
-            pipeline_config, rmlmapper_env, workspace_base=tmp_path[90m[39;49;00m
-        )[90m[39;49;00m
-
-[1m[31mrmlmapper_workflows/tests/test_pipeline_workflow.py[0m:110: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mrmlmapper_workflows/pipeline_workflow.py[0m:531: in run_pipeline_workflow
-    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/scenarios/general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr.yml')
-slug = 'pytest-pipeline-general-add-no-rr'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
-        command = [[90m[39;49;00m
-            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
-            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
-            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug,[90m[39;49;00m
-        ][90m[39;49;00m
-        result = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
-        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
-        [94mif[39;49;00m [95mnot[39;49;00m scenario_entry:[90m[39;49;00m
-            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded after command.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mstdout:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stdout[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stderr[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-    [90m[39;49;00m
-        errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {}) [95mor[39;49;00m {}[90m[39;49;00m
-        unexpected_errors = {[90m[39;49;00m
-            name: details[90m[39;49;00m
-            [94mfor[39;49;00m name, details [95min[39;49;00m errors.items()[90m[39;49;00m
-            [94mif[39;49;00m name != [33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m details[90m[39;49;00m
-        }[90m[39;49;00m
-    [90m[39;49;00m
-        [94mif[39;49;00m unexpected_errors:[90m[39;49;00m
->           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected debugger errors in scenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m: [39;49;00m[33m{[39;49;00munexpected_errors[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-add-no-rr': {'py_stdout': 'Warning: Failed to extract cell classifications: \npipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument \n\'allow_template_types\'\nTraceback (most recent call last):\n  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py", line\n1014, in _extract_cell_classifications\n    classifier = classifier_cls(\n                 ^^^^^^^^^^^^^^^\nTypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword \nargument \'allow_template_types\''}[0m
-
-[1m[31mrmlmapper_workflows/pipeline_workflow.py[0m:666: RuntimeError
-[31m[1m___________________________ test_pipeline_workflow_general_authority ____________________________[0m
-
-rmlmapper_env = RMLMapperEnvironment(manifest_path=PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/rmlmapper/manifest.json'))
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1150/test_pipeline_workflow_general1')
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_pipeline_workflow_general_authority[39;49;00m([90m[39;49;00m
-        rmlmapper_env: RMLMapperEnvironment, tmp_path: Path[90m[39;49;00m
-    ) -> [94mNone[39;49;00m:[90m[39;49;00m
-        map_schema_config = MapSchemaFixtureConfig([90m[39;49;00m
-            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            scenario=SCENARIO_DIR / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug=[33m"[39;49;00m[33mpytest-pipeline-general-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-        pipeline_config = MapSchemaFixtureConfig([90m[39;49;00m
-            name=[33m"[39;49;00m[33mgeneral-authority[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            schema_code=[33m"[39;49;00m[33mauth[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            scenario=SCENARIO_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mgeneral-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            csv_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            rml_fixture=RML_FIXTURES_DIR[90m[39;49;00m
-            / [33m"[39;49;00m[33mGeneral Authority to RiC-O Model_2025-06-25_PZ.rml[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug=[33m"[39;49;00m[33mpytest-pipeline-general-authority-no-rr[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            index_column=[33m"[39;49;00m[33mSISN[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-    [90m[39;49;00m
->       pipeline_result = run_pipeline_workflow([90m[39;49;00m
-            pipeline_config,[90m[39;49;00m
-            rmlmapper_env,[90m[39;49;00m
-            workspace_base=tmp_path,[90m[39;49;00m
-            correct_dateex_path=[33m"[39;49;00m[33mtmp/New-export-of-Government-authorities-with-correct-Dates-of-Existence-xlsx.csv[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-        )[90m[39;49;00m
-
-[1m[31mrmlmapper_workflows/tests/test_pipeline_workflow.py[0m:156: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-[1m[31mrmlmapper_workflows/pipeline_workflow.py[0m:531: in run_pipeline_workflow
-    [0mresults_dir = _run_debug_scenario(config.scenario, scenario_slug)[90m[39;49;00m
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-
-scenario_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/scenarios/general-authority-to-ric-o-model-2025-06-25-pz-no-rr.yml')
-slug = 'pytest-pipeline-general-authority-no-rr'
-
-    [0m[94mdef[39;49;00m[90m [39;49;00m[92m_run_debug_scenario[39;49;00m(scenario_path: Path, slug: [96mstr[39;49;00m) -> Path:[90m[39;49;00m
-        command = [[90m[39;49;00m
-            [96mstr[39;49;00m(PYTHON_BIN),[90m[39;49;00m
-            [33m"[39;49;00m[33m-m[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33mdebug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [33m"[39;49;00m[33m--scenario[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            [96mstr[39;49;00m(scenario_path),[90m[39;49;00m
-            [33m"[39;49;00m[33m--slug[39;49;00m[33m"[39;49;00m,[90m[39;49;00m
-            slug,[90m[39;49;00m
-        ][90m[39;49;00m
-        result = subprocess.run(command, capture_output=[94mTrue[39;49;00m, text=[94mTrue[39;49;00m)[90m[39;49;00m
-    [90m[39;49;00m
-        map_path = DEBUG_DIR / [33m"[39;49;00m[33mmap.json[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-        map_data = json.loads(map_path.read_text(encoding=[33m"[39;49;00m[33mutf-8[39;49;00m[33m"[39;49;00m))[90m[39;49;00m
-        scenario_entry = map_data[[33m"[39;49;00m[33mscenarios[39;49;00m[33m"[39;49;00m].get(slug)[90m[39;49;00m
-        [94mif[39;49;00m [95mnot[39;49;00m scenario_entry:[90m[39;49;00m
-            [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mScenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m not recorded after command.[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mstdout:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stdout[33m}[39;49;00m[33m\n[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mstderr:[39;49;00m[33m\n[39;49;00m[33m{[39;49;00mresult.stderr[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-    [90m[39;49;00m
-        errors = scenario_entry.get([33m"[39;49;00m[33merrors[39;49;00m[33m"[39;49;00m, {}) [95mor[39;49;00m {}[90m[39;49;00m
-        unexpected_errors = {[90m[39;49;00m
-            name: details[90m[39;49;00m
-            [94mfor[39;49;00m name, details [95min[39;49;00m errors.items()[90m[39;49;00m
-            [94mif[39;49;00m name != [33m"[39;49;00m[33mpy_legacy[39;49;00m[33m"[39;49;00m [95mand[39;49;00m details[90m[39;49;00m
-        }[90m[39;49;00m
-    [90m[39;49;00m
-        [94mif[39;49;00m unexpected_errors:[90m[39;49;00m
->           [94mraise[39;49;00m [96mRuntimeError[39;49;00m([90m[39;49;00m
-                [33mf[39;49;00m[33m"[39;49;00m[33mUnexpected debugger errors in scenario [39;49;00m[33m'[39;49;00m[33m{[39;49;00mslug[33m}[39;49;00m[33m'[39;49;00m[33m: [39;49;00m[33m{[39;49;00munexpected_errors[33m}[39;49;00m[33m"[39;49;00m[90m[39;49;00m
-            )[90m[39;49;00m
-[1m[31mE           RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-authority-no-rr': {'py_stdout': 'Warning: Failed to extract cell classifications: \npipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword argument \n\'allow_template_types\'\nTraceback (most recent call last):\n  File "/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/debug/__main__.py", line\n1014, in _extract_cell_classifications\n    classifier = classifier_cls(\n                 ^^^^^^^^^^^^^^^\nTypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword \nargument \'allow_template_types\''}[0m
-
-[1m[31mrmlmapper_workflows/pipeline_workflow.py[0m:666: RuntimeError
-[36m[1m==================================== short test summary info ====================================[0m
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m - AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', '...
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_top_level_rounded_text_treated_as_literal[0m - TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword ...
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_parent_cell_collects_child_type_tokens[0m - TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword ...
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_classifier_typed_individual_accepts_template_tokens[0m - TypeError: pipeline.core.xml.data.DrawIOCellClassifier.__init__() got an unexpected keyword ...
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_decorations_serialise_to_skos_note[0m - AssertionError: assert rdflib.term.Literal('Loose literal') in []
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_literal_as_arrow_source_raises[0m - draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space, but how...
-[31mFAILED[0m legacy/tests/test_cell_classifier.py::[1mtest_blank_node_used_for_decorations_without_ontology[0m - assert []
-[31mFAILED[0m legacy/tests/test_curie_validator.py::[1mtest_ensure_known_curie_accepts_bound_prefix[0m - TypeError: internal_data_core._split_curie() missing 1 required positional argument: 'prefixes'
-[31mFAILED[0m legacy/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_unknown_prefix[0m - TypeError: internal_data_core._split_curie() missing 1 required positional argument: 'prefixes'
-[31mFAILED[0m legacy/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_empty_reference[0m - TypeError: internal_data_core._split_curie() missing 1 required positional argument: 'prefixes'
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.t...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_without_known_prefix[0m - Failed: DID NOT RAISE <class 'draw_io_parser.rdf_data_core.NotInKnownException'>
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'Email Addre...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[unknown_prefix][0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':danglingCu...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':' to ['URI...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'NoPrefixCla...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds][0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:Person...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[General Authority to RiC-O Model_2025-06-25_PZ][0m - AssertionError: assert False
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)][0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:Corpor...
-[31mFAILED[0m legacy/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_unknown_literal_curie[0m - draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ...
-[31mFAILED[0m meta_builder/tests/test_drawio_meta_builder.py::[1mtest_pipeline_symbols_and_overrides_exposed[True][0m - AssertionError: unexpected module-level alias for new override _add_individual_type; set MOD...
-[31mFAILED[0m rmlmapper_workflows/tests/test_map_schema_workflow.py::[1mtest_map_schema_workflow_general_add[0m - RuntimeError: Debugger scenario failed: ──────────────────────────── Scenario: pytest-map-sc...
-[31mFAILED[0m rmlmapper_workflows/tests/test_map_schema_workflow.py::[1mtest_map_schema_workflow_general_authority[0m - RuntimeError: Debugger scenario failed: ───────────────────────── Scenario: pytest-map-schem...
-[31mFAILED[0m rmlmapper_workflows/tests/test_pipeline_workflow.py::[1mtest_pipeline_workflow_general_add[0m - RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-add-no-rr': {'...
-[31mFAILED[0m rmlmapper_workflows/tests/test_pipeline_workflow.py::[1mtest_pipeline_workflow_general_authority[0m - RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-authority-no-r...
-[31m=========================== [31m[1m26 failed[0m, [32m77 passed[0m, [33m2 xfailed[0m[31m in 12.69s[0m[31m ===========================[0m
+[1m[31mpython_core/src/draw_io_parser.py[0m:1699: UnableToCoerceException
+[36m[1m======================================== short test summary info ========================================[0m
+[31mFAILED[0m aicode/integration_tests/debug/tests/test_debug_cli.py::[1mtest_run_scenario_generates_artifacts_and_map_entry[AA37 Department of Health.drawio][0m - UnboundLocalError: cannot access local variable 'py_stdout' where it is not associated with a value
+[31mFAILED[0m aicode/integration_tests/debug/tests/test_debug_cli.py::[1mtest_outputs_are_isomorphic_across_sources[0m - UnboundLocalError: cannot access local variable 'py_stdout' where it is not associated with a value
+[31mFAILED[0m aicode/integration_tests/debug/tests/test_debug_cli.py::[1mtest_ts_stderr_captured_as_warning[0m - UnboundLocalError: cannot access local variable 'py_stdout' where it is not associated with a value
+[31mFAILED[0m aicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py::[1mtest_map_schema_workflow_general_add[0m - RuntimeError: Debugger scenario failed: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfex...
+[31mFAILED[0m aicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py::[1mtest_map_schema_workflow_general_authority[0m - RuntimeError: Debugger scenario failed: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfex...
+[31mFAILED[0m aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py::[1mtest_pipeline_workflow_general_add[0m - RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-add-no-rr': {'py_stdou...
+[31mFAILED[0m aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py::[1mtest_pipeline_workflow_general_authority[0m - RuntimeError: Unexpected debugger errors in scenario 'pytest-pipeline-general-authority-no-rr': {'py...
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m - AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', 'owl:Name...
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_decorations_serialise_to_skos_note[0m - AssertionError: assert rdflib.term.Literal('Loose literal') in []
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_literal_as_arrow_source_raises[0m - python_core.src.draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space,...
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_blank_node_used_for_decorations_without_ontology[0m - assert []
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIR...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_without_known_prefix[0m - Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownException'>
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'Ema...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[unknown_prefix][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'pic...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':da...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':' ...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'NoP...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'ric...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[General Authority to RiC-O Model_2025-06-25_PZ][0m - AssertionError: assert False
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'ric...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_unknown_literal_curie[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'pic...
+[31m=============================== [31m[1m22 failed[0m, [32m81 passed[0m, [33m2 xfailed[0m[31m in 3.48s[0m[31m ================================[0m
 [0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
 
 Command exit status: 1
-Script done on Tue Nov 18 04:42:00 2025
+Script done on Tue Nov 18 23:33:39 2025
