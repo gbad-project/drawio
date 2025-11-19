@@ -42,9 +42,18 @@ type RawGraphSummary = {
 const PYTHON_APP_ROOT = "/app";
 
 const PYTHON_MODULES: Array<{ path: string; source: string }> = [
-  { path: `${PYTHON_APP_ROOT}/legacy/draw_io_parser.py`, source: drawIoParserSource },
-  { path: `${PYTHON_APP_ROOT}/pyodide_pipeline/__init__.py`, source: pipelineInitSource },
-  { path: `${PYTHON_APP_ROOT}/pyodide_pipeline/drawio_pipeline.py`, source: drawioPipelineSource },
+  {
+    path: `${PYTHON_APP_ROOT}/legacy/draw_io_parser.py`,
+    source: drawIoParserSource,
+  },
+  {
+    path: `${PYTHON_APP_ROOT}/pyodide_pipeline/__init__.py`,
+    source: pipelineInitSource,
+  },
+  {
+    path: `${PYTHON_APP_ROOT}/pyodide_pipeline/drawio_pipeline.py`,
+    source: drawioPipelineSource,
+  },
 ];
 
 // Load the Emscripten-built Python 3.14
@@ -72,7 +81,11 @@ async function writePythonModules(py: any) {
   const FS = py.FS as any;
   for (const module of PYTHON_MODULES) {
     const dir = module.path.split("/").slice(0, -1).join("/") || "/";
-    try { FS.mkdirTree(dir); } catch (e) { /* ignore EEXIST */ }
+    try {
+      FS.mkdirTree(dir);
+    } catch (e) {
+      /* ignore EEXIST */
+    }
     FS.writeFile(module.path, module.source);
     logInfo(LOG_PREFIX.PIPELINE, `Injected Python module: ${module.path}`);
   }
@@ -97,7 +110,11 @@ reset_graph_store()
       await py.runPythonAsync(bootstrap);
       logInfo(LOG_PREFIX.PIPELINE, "Python environment bootstrapped");
     } catch (error) {
-      logError(LOG_PREFIX.PIPELINE, "Failed to bootstrap Python environment", error);
+      logError(
+        LOG_PREFIX.PIPELINE,
+        "Failed to bootstrap Python environment",
+        error,
+      );
       throw error;
     }
   })();
@@ -107,7 +124,11 @@ reset_graph_store()
 
 function decodeRawTurtle(raw: string | null): string | null {
   if (!raw) return null;
-  try { return JSON.parse(raw) as string; } catch { return raw; }
+  try {
+    return JSON.parse(raw) as string;
+  } catch {
+    return raw;
+  }
 }
 
 function mapRawSummary(raw: RawGraphSummary): DrawioParserResult {
@@ -124,12 +145,15 @@ function mapRawSummary(raw: RawGraphSummary): DrawioParserResult {
 // Main parser invocation
 export async function invokeDrawioParser(
   serializedXml: string,
-  config?: DrawioParserConfigPayload | null
+  config?: DrawioParserConfigPayload | null,
 ): Promise<DrawioParserResult> {
   await ensurePythonEnvironment();
   const py = await ensurePythonInstance();
 
-  logInfo(LOG_PREFIX.PIPELINE, `Invoking DrawIO parser (input length ${serializedXml.length})`);
+  logInfo(
+    LOG_PREFIX.PIPELINE,
+    `Invoking DrawIO parser (input length ${serializedXml.length})`,
+  );
 
   try {
     const quoted = JSON.stringify(serializedXml);
@@ -142,7 +166,10 @@ parse_drawio_xml_to_json(${quoted}, json.loads(${JSON.stringify(configJson)}))
 `);
     const rawSummary = JSON.parse(jsonResult) as RawGraphSummary;
     const mapped = mapRawSummary(rawSummary);
-    logInfo(LOG_PREFIX.PIPELINE, `Parser produced graph ${mapped.graphId} with ${mapped.tripleCount} triples`);
+    logInfo(
+      LOG_PREFIX.PIPELINE,
+      `Parser produced graph ${mapped.graphId} with ${mapped.tripleCount} triples`,
+    );
     return mapped;
   } catch (error) {
     logError(LOG_PREFIX.PIPELINE, "DrawIO parser invocation failed", error);

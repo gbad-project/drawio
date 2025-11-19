@@ -1056,7 +1056,9 @@ async function runScenario(config: ScenarioConfig) {
   const baseFilename =
     config.baseFilename ?? basename(config.xmlPath).replace(/\.[^.]+$/, "");
 
-  const mockBlackBoxModule = await import("../../typescript_plugin/src/mockBlackBox");
+  const mockBlackBoxModule = await import(
+    "../../typescript_plugin/src/mockBlackBox"
+  );
   //console.error(xml);
   const parserConfig = (config.parserConfig ??
     null) as DrawioParserConfigPayload | null;

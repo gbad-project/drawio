@@ -10,8 +10,12 @@ import { LOG_PREFIX, logInfo } from "../src/logging";
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
-const fixturesDir = fileURLToPath(new URL("../../../data/fixtures/drawio_fixtures", import.meta.url));
-const baselinesDir = fileURLToPath(new URL("../../../data/fixtures/baselines", import.meta.url));
+const fixturesDir = fileURLToPath(
+  new URL("../../../data/fixtures/drawio_fixtures", import.meta.url),
+);
+const baselinesDir = fileURLToPath(
+  new URL("../../../data/fixtures/baselines", import.meta.url),
+);
 
 const pyodideIndexPath = fileURLToPath(
   new URL("../../../node_modules/pyodide/", import.meta.url),
