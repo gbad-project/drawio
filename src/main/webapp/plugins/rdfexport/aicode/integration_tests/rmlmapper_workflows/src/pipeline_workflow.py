@@ -637,7 +637,7 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
     command = [
         str(PYTHON_BIN),
         "-m",
-        "debug",
+        "aicode.integration_tests.debug.src",
         "--scenario",
         str(scenario_path),
         "--slug",

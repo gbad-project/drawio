@@ -21,7 +21,7 @@ if str(RDFEXPORT_DIR) not in sys.path:
 from aicode.integration_tests.debug.src.__main__ import (
     estimate_triple_count_from_classifications,
 )
-from python_core.src import draw_io_parser
+import python_core.src.draw_io_parser as draw_io_parser
 
 
 FIXTURES_DIR = RDFEXPORT_DIR / "data" / "fixtures" / "drawio_fixtures"
@@ -246,7 +246,7 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     cmd = [
         sys.executable,
         "-m",
-        "debug",
+        "aicode.integration_tests.debug.src",
         "--drawio",
         str(fixture_path),
         "--slug",

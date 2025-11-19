@@ -17,7 +17,7 @@ interface ScenarioConfig {
 }
 
 const rdfexportUrl = fileURLToPath(
-  new URL("../../../src/rdfexport.ts", import.meta.url),
+  new URL("../../../typescript_plugin/src/rdfexport.ts", import.meta.url),
 );
 
 const pyodideIndexPath = fileURLToPath(
@@ -211,7 +211,7 @@ function normalisePreamble(
   return result;
 }
 
-type RdfExportModule = typeof import("../../typescript_plugin/src/rdfexport");
+type RdfExportModule = typeof import("../../../typescript_plugin/src/rdfexport");
 let loadedPluginModule: RdfExportModule | null = null;
 
 async function loadPluginModule(): Promise<RdfExportModule> {
@@ -1057,7 +1057,7 @@ async function runScenario(config: ScenarioConfig) {
     config.baseFilename ?? basename(config.xmlPath).replace(/\.[^.]+$/, "");
 
   const mockBlackBoxModule = await import(
-    "../../typescript_plugin/src/mockBlackBox"
+    "../../../typescript_plugin/src/mockBlackBox"
   );
   //console.error(xml);
   const parserConfig = (config.parserConfig ??

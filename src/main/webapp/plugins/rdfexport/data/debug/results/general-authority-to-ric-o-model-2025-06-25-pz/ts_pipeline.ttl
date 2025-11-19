@@ -1,9 +1,7 @@
-@prefix : <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#> .
 @prefix auth: <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix rr: <http://www.w3.org/ns/r2rml#> .
 
 rdfs:label a owl:DatatypeProperty .
 
@@ -13,135 +11,176 @@ auth:privateNote a owl:DatatypeProperty .
 
 auth:sourceNote a owl:DatatypeProperty .
 
-:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_CORPORATEBODY_1..2%7D%2F%7BHEADING%7D%22> a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "rr:template \"{HEADING} (Corporate Body)\"" ;
-    rico:hasOrHadCorporateBodyType :rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 .
+    rico:hasOrHadCorporateBodyType <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22> .
 
-:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_FAMILY_1..2%7D%2F%7BHEADING%7D%22> a owl:NamedIndividual,
         rico:Family ;
     rdfs:label "rr:template \"{HEADING} (Family)\"" .
 
-:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PERSON_1..2%7D%2F%7BHEADING%7D%22> a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "rr:template \"{HEADING} (Person)\"" .
 
-:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP_PLACE_1..2%7D%2F%7BHEADING%7D%22> a owl:NamedIndividual,
         rico:Place ;
     rdfs:label "rr:template \"{HEADING} (Place)\"" .
 
-:rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 a owl:NamedIndividual,
+rico:authorizedBy a owl:ObjectProperty .
+
+rico:hasBeginningDate a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasEndDate a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadAgentName a owl:ObjectProperty .
+
+rico:hasOrHadController a owl:ObjectProperty .
+
+rico:hasOrHadCorporateBodyType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasOrHadType a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:hasSuccessor a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:isEquivalentTo a owl:ObjectProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:isOrWasRegulatedBy a owl:ObjectProperty .
+
+rico:isSuccessorOf a owl:ObjectProperty .
+
+rico:lastModificationDate a owl:DatatypeProperty .
+
+rico:normalizedValue a owl:DatatypeProperty .
+
+rico:relationHasTarget a owl:ObjectProperty .
+
+rico:thingIsSourceOfRelation a owl:ObjectProperty .
+
+rico:title a owl:DatatypeProperty .
+
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22> a owl:NamedIndividual,
         rico:Rule ;
     rdfs:label "Rules for Archival Description" ;
     rico:title "rml:reference \"RULES\"" .
 
-:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22> a owl:NamedIndividual,
         rico:IdentifierType .
 
-:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22> a owl:NamedIndividual,
         rico:DocumentaryFormType .
 
-:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22> a owl:NamedIndividual,
         rico:Type .
 
-:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22> a owl:NamedIndividual,
         rico:Type .
 
-:rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22> a owl:NamedIndividual,
         rico:Type .
 
-:rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22> a owl:NamedIndividual,
         rico:Thing ;
-    rdfs:label "" ;
     auth:functionNote "rml:reference \"FUN\"" ;
     auth:privateNote "rml:reference \"CMTAU\"" ;
-    rico:authorizedBy :rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 ;
-    rico:hasBeginningDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22 ;
-    rico:hasEndDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22 ;
-    rico:hasOrHadAgentName :rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22,
-        :rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22,
-        :rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22 ;
-    rico:hasOrHadController :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22 ;
-    rico:hasOrHadIdentifier :rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22 ;
-    rico:hasSuccessor :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22 ;
+    rico:authorizedBy <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22> ;
+    rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22> ;
+    rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22> ;
+    rico:hasOrHadAgentName <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22>,
+        <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22>,
+        <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22> ;
+    rico:hasOrHadController <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22> ;
+    rico:hasOrHadIdentifier <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22> ;
+    rico:hasSuccessor <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22> ;
     rico:history "rml:reference \"ADM\"" ;
-    rico:isEquivalentTo :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22 ;
-    rico:isOrWasDescribedBy :rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22 ;
-    rico:isSuccessorOf :rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22 .
+    rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22> ;
+    rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22> ;
+    rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22> .
 
-:rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgencyReferenceCode%2F%7BREFA%7D%22> a owl:NamedIndividual,
         rico:Identifier ;
-    rico:hasIdentifierType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22 ;
+    rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAgencyReferenceCode%22> ;
     rico:normalizedValue "rml:reference \"REFA\"" .
 
-:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BCONTAG_1..14%7D%22> a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "rr:template \"{CONTAG_1..14} (Corporate Body)\"" ;
-    rico:thingIsSourceOfRelation :rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22 .
+    rico:thingIsSourceOfRelation <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22> .
 
-:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BPRED_1..5%7D%22> a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "rr:template \"{PRED_1..5} (Corporate Body)\"" .
 
-:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BREFA%7D%22> a owl:NamedIndividual,
         rico:CorporateBody .
 
-:rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgent%2F%7BSUC_1..4%7D%22> a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "rr:template \"{SUC_1..4} (Corporate Body)\"" .
 
-:rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAgentControlRelation%2F%7BCONTAG_1..14%7D%2F%7BHEADING%7D%2Furn%3Auuid%3A%7BUUID%7D%22> a owl:NamedIndividual,
         rico:AgentControlRelation ;
     rdfs:label "rr:template \"{CONTAG_1..14} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"" ;
-    rico:hasBeginningDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22 ;
-    rico:hasEndDate :rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22 ;
-    rico:relationHasTarget :rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22 .
+    rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22> ;
+    rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22> ;
+    rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2F%7BRICO_AUTHTP%7D%2F%7BHEADING%7D%22> .
 
-:rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FAuthorityRecord%2F%7BHEADING%7D%22> a owl:NamedIndividual,
         rico:Record ;
     auth:sourceNote "rml:reference \"SOURCE\"" ;
-    rico:hasDocumentaryFormType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22 ;
-    rico:hasRecordState :rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22,
-        :rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 ;
-    rico:isOrWasRegulatedBy :rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22 ;
+    rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FAuthorityRecord%22> ;
+    rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22>,
+        <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22> ;
+    rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FKB%2FRule%2FRulesForArchivalDescription%22> ;
     rico:lastModificationDate "rml:reference \"MOD_DATE\"" .
 
-:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_BEGINNING%7D%22> a owl:NamedIndividual,
         rico:Date .
 
-:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATECONT_1..14_END%7D%22> a owl:NamedIndividual,
         rico:Date .
 
-:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_BEGINNING%7D%22> a owl:NamedIndividual,
         rico:Date .
 
-:rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FDate%2F%7BDATEEX_END%7D%22> a owl:NamedIndividual,
         rico:Date .
 
-:rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FMandate%2F%7BAA%7D%22> a owl:NamedIndividual,
         rico:Mandate .
 
-:rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FNaturalAgentName%2F%7BNAME%7D%22> a owl:NamedIndividual,
         rico:AgentName ;
-    rico:hasOrHadType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22 ;
+    rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FNaturalAgentName%22> ;
     rico:normalizedValue "rml:reference \"NAME\"" .
 
-:rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FParallelAgentName%2F%7BPAR_1..4%7D%22> a owl:NamedIndividual,
         rico:AgentName ;
-    rico:hasOrHadType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22 .
+    rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FParallelAgentName%22> .
 
-:rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FKB%2FVariantAgentName%2F%7BVAR_1..11%7D%22> a owl:NamedIndividual,
         rico:AgentName ;
-    rico:hasOrHadType :rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22 .
+    rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Aconstant%20%22%2FSchema%2FAuthority%2FVariantAgentName%22> .
 
-:rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FSchema%2FAuthority%2FAuthorityType%23%7BAUTHTP_1..2%7D%22> a owl:NamedIndividual,
         rico:CorporateBodyType .
 
-:rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FSchema%2FAuthority%2FStatus%23%7BSTATUSA%7D%22> a owl:NamedIndividual,
         rico:RecordState .
 
-:rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22 a owl:NamedIndividual,
+<https://data.archives.gov.on.test.gbad.ca/Schema/Mapping#rr%3Atemplate%20%22%2FSchema%2FAuthority%2FWebReady%23%7BWEBA%7D%22> a owl:NamedIndividual,
         rico:RecordState .
-
-[] a rr:TriplesMap .
 

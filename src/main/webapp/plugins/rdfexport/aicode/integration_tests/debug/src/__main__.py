@@ -20,9 +20,11 @@ from rich.console import Console
 from rich.prompt import Prompt
 from rich.table import Table
 
-from aicode.python_core.tests.regenerate_baselines import (
+from aicode.python_core.scripts.regenerate_baselines import (
     PreviousParserLoader,
     _serialise_graph,
+    ORIGINAL_PARSER_RELATIVE_PATH,
+    CURRENT_PARSER_RELATIVE_PATH,
 )
 
 DEFAULT_CSV_PATH = "/mock/path/to/file.csv"
@@ -693,8 +695,12 @@ class Debugger:
         self, drawio_path: Path, commit: str, config: ScenarioConfig
     ) -> Graph:
         with (
-            PreviousParserLoader(commit) as py_legacy_parser,
-            PreviousParserLoader("HEAD") as py_current_parser,
+            PreviousParserLoader(
+                commit, ORIGINAL_PARSER_RELATIVE_PATH
+            ) as py_legacy_parser,
+            PreviousParserLoader(
+                "HEAD", CURRENT_PARSER_RELATIVE_PATH
+            ) as py_current_parser,
         ):
             parse_drawio = getattr(py_legacy_parser, "parse_drawio_to_graph", None)
             if parse_drawio is None:
@@ -990,11 +996,6 @@ class Debugger:
     ) -> dict[str, dict]:
         """Extract cell classifications using the refactored, self-contained classifier."""
         # Import directly from the generated parser
-        import sys
-
-        parser_dir = self.debug_dir.parent
-        if str(parser_dir) not in sys.path:
-            sys.path.insert(0, str(parser_dir))
 
         try:
             from python_core.src.draw_io_parser import (
@@ -1014,11 +1015,9 @@ class Debugger:
             # 2. Instantiate the new classifier directly with raw XML
             #    The MockTree is no longer needed.
             classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
-            allow_template_types = bool(config.parser_config.get("rml_enabled", False))
             classifier = classifier_cls(
                 xml_text,
                 prefixes,
-                allow_template_types=allow_template_types,
             )
 
             # 3. Format the stored classifications into the dictionary the script expects
@@ -1365,7 +1364,7 @@ def estimate_triple_count_from_classifications(
 ) -> int:
     """Predict the expected triple count for a DrawIO payload."""
 
-    from python_core.draw_io_parser import (  # type: ignore=imported-unused
+    from python_core.src.draw_io_parser import (  # type: ignore=imported-unused
         _extract_drawio_metadata,
         get_prefixes,
         pipeline,

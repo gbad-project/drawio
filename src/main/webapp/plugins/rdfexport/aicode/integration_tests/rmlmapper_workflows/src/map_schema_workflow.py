@@ -273,7 +273,7 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
     command = [
         str(PYTHON_BIN),
         "-m",
-        "debug",
+        "aicode.integration_tests.debug.src",
         "--scenario",
         str(scenario_path),
         "--slug",
@@ -293,7 +293,7 @@ def _run_map_schema_cli(
     schema_code: str, source_filename: str, workspace: Path
 ) -> Path:
     with _temporary_cwd(workspace):
-        import legacy.map_schema as map_schema  # type: ignore
+        import python_core.src.legacy.map_schema as map_schema  # type: ignore
 
         buf = StringIO()
         with redirect_stdout(buf):
