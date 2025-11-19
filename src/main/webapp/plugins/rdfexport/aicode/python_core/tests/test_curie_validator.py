@@ -6,11 +6,7 @@ import sys
 import pytest
 from rdflib.namespace import NamespaceManager
 
-LEGACY_DIR = Path(__file__).resolve().parents[1]
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
-
-import draw_io_parser  # noqa: E402
+import python_core.src.draw_io_parser as draw_io_parser  # noqa: E402
 
 
 def test_ensure_known_curie_accepts_bound_prefix(monkeypatch):

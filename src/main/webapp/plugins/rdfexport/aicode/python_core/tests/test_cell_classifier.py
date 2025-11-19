@@ -8,15 +8,10 @@ import pytest
 from rdflib import BNode, Literal, URIRef
 from rdflib.namespace import RDF, RDFS, SKOS, OWL
 
-LEGACY_DIR = Path(__file__).resolve().parents[1]
-PACKAGE_ROOT = LEGACY_DIR.parent
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
-if str(PACKAGE_ROOT) not in sys.path:
-    sys.path.insert(0, str(PACKAGE_ROOT))
+PLUGIN_DIR = Path(__file__).resolve().parents[3]
 
-import draw_io_parser  # noqa: E402
-import original.draw_io_parser as original_draw_io_parser  # noqa: E402
+import python_core.src.draw_io_parser as draw_io_parser  # noqa: E402
+import python_core.src.legacy.draw_io_parser as original_draw_io_parser  # noqa: E402
 
 DrawIOCellClassifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier
 DECORATION_REGISTRY_ATTR = getattr(
@@ -26,7 +21,7 @@ DEFAULT_STANDALONE_TYPE = getattr(
     DrawIOCellClassifier, "DEFAULT_STANDALONE_TYPE", "owl:NamedIndividual"
 )
 
-FIXTURES_DIR = PACKAGE_ROOT / "tests" / "fixtures"
+FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
 
 
 def _vertex_cell(

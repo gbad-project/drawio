@@ -4,7 +4,7 @@ import importlib.util
 
 import pytest
 
-from .. import drawio_meta_builder as builder
+import aicode.python_core.meta_builder as builder
 
 
 def write_override(tmp_path: Path, name: str, body: str) -> Path:
@@ -41,7 +41,7 @@ def individual_blocks_new():
     builder.MODULE_LEVEL_ALIASES_FOR_NEW = True
 
     try:
-        collection = builder.collect_overrides(overrides_dir=str(tmp_path))
+        collection = builder.collect_overrides(overrides_dirs=[str(tmp_path)])
 
         key = ("internal", "control", "core", "individual_blocks")
         assert key in collection.replacements

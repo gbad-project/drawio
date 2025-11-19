@@ -5,22 +5,21 @@ import sys
 from pathlib import Path
 from xml.etree import ElementTree
 
-LEGACY_TESTS_DIR = Path(__file__).resolve().parent
-RDFEXPORT_DIR = LEGACY_TESTS_DIR.parents[1]
+# ruff: noqa: E402
 
-if str(RDFEXPORT_DIR) not in sys.path:
-    sys.path.insert(0, str(RDFEXPORT_DIR))
+PLUGIN_DIR = Path(__file__).resolve().parents[3]
 
-from pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
+
+from aicode.python_core.pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
     get_graph_summary,
     list_graph_ids,
     parse_drawio_xml,
     parse_drawio_xml_to_json,
     reset_graph_store,
 )
-from rdflib.namespace import OWL, RDFS, XSD, RDF  # noqa: E402
+from rdflib.namespace import OWL, RDFS, XSD, RDF
 
-FIXTURES_DIR = RDFEXPORT_DIR / "tests" / "fixtures"
+FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
 
 
 def _load_fixture(name: str) -> str:

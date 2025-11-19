@@ -10,16 +10,14 @@ import pytest
 from rdflib import Graph, Namespace, Literal, URIRef
 from rdflib.namespace import OWL, RDF, RDFS
 
-LEGACY_DIR = Path(__file__).resolve().parents[1]
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
+PLUGIN_DIR = Path(__file__).resolve().parents[3]
 
-import draw_io_parser  # noqa: E402
+import python_core.src.draw_io_parser as draw_io_parser  # noqa: E402
 
-FIXTURES_DIR = LEGACY_DIR.parent / "tests" / "fixtures"
-BASELINES_DIR = LEGACY_DIR.parent / "tests" / "baselines"
+FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
+BASELINES_DIR = PLUGIN_DIR / "data" / "fixtures" / "baselines"
 PATCHER_MODULE_URI = (
-    (LEGACY_DIR.parent / "tests" / "utils" / "patchDrawioWithMetadata.ts")
+    (PLUGIN_DIR / "aicode" / "typescript_plugin" / "tests" / "utils" / "patchDrawioWithMetadata.ts")
     .resolve()
     .as_uri()
 )

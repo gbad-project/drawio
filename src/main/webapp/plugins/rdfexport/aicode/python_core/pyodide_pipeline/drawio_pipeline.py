@@ -11,9 +11,6 @@ from pathlib import Path
 from typing import Any, Dict, Iterable
 from xml.etree import ElementTree
 
-LEGACY_DIR = Path(__file__).resolve().parents[3] / "python_core" / "src" / "legacy"
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
 
 from python_core.src.draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     DrawIOParserGraph,

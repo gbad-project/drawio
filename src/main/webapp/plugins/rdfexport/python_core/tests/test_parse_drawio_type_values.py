@@ -6,11 +6,11 @@ import pytest
 from rdflib import Namespace, Literal, URIRef
 from rdflib.namespace import RDF
 
-LEGACY_DIR = Path(__file__).resolve().parents[1]
-if str(LEGACY_DIR) not in sys.path:
-    sys.path.insert(0, str(LEGACY_DIR))
+# ruff: noqa: E402
 
-import draw_io_parser  # noqa: E402
+PLUGIN_DIR = Path(__file__).resolve().parents[3]
+
+import python_core.src.draw_io_parser as draw_io_parser
 
 
 @pytest.mark.parametrize(
