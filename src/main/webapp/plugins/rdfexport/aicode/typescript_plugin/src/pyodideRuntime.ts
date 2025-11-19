@@ -1,9 +1,9 @@
 import { loadPyodide, type PyodideInterface } from "pyodide";
 
-import drawIoParserSource from "../legacy/draw_io_parser.py?raw";
-import pipelineInitSource from "../pyodide_pipeline/__init__.py?raw";
-import drawioPipelineSource from "../pyodide_pipeline/drawio_pipeline.py?raw";
-import rdflibWheelBase64 from "../pyodide/wheels/rdflib-7.2.1-py3-none-any.whl.base64?raw";
+import drawIoParserSource from "../../../python_core/src/draw_io_parser.py?raw";
+import pipelineInitSource from "../../../aicode/python_core/pyodide_pipeline/__init__.py?raw";
+import drawioPipelineSource from "../../../aicode/python_core/pyodide_pipeline/drawio_pipeline.py?raw";
+import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.2.1-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 export interface DrawioParserResult {
@@ -46,7 +46,7 @@ const PYODIDE_APP_ROOT = "/app";
 
 const PYTHON_MODULES: Array<{ path: string; source: string }> = [
   {
-    path: `${PYODIDE_APP_ROOT}/legacy/draw_io_parser.py`,
+    path: `${PYODIDE_APP_ROOT}/src/draw_io_parser.py`,
     source: drawIoParserSource,
   },
   {

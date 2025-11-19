@@ -5,12 +5,40 @@ from __future__ import annotations
 import hashlib
 import json
 import itertools
+import sys
+from pathlib import Path
 from copy import deepcopy
 from typing import Any, Dict, Iterable
 from xml.etree import ElementTree
+from typing import TYPE_CHECKING
+
+# ruff: noqa: F403
+
+if TYPE_CHECKING:
+    from python_core.src.draw_io_parser import *
+
+REAL_DRAW_IO_PARSER_DIR = Path()
+VIRTUAL_DRAW_IO_PARSER_DIR = Path()
+try:
+    REAL_DRAW_IO_PARSER_DIR = (
+        Path(__file__).resolve().parents[3] / "python_core" / "src"
+    )
+    if str(REAL_DRAW_IO_PARSER_DIR) not in sys.path:
+        sys.path.insert(0, str(REAL_DRAW_IO_PARSER_DIR))
+except IndexError:
+    # When resolve parents index out of bounds
+    pass
+try:
+    # Pyodide specific - on virtual FS (see `pyodideRuntime.ts` to change)
+    VIRTUAL_DRAW_IO_PARSER_DIR = Path(__file__).resolve().parents[1] / "src"
+    if str(VIRTUAL_DRAW_IO_PARSER_DIR) not in sys.path:
+        sys.path.insert(0, str(VIRTUAL_DRAW_IO_PARSER_DIR))
+except IndexError:
+    # When resolve parents index out of bounds
+    pass
 
 
-from python_core.src.draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
+from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     DrawIOParserGraph,
     DEFAULT_CAPITALISATION_SCHEME,
     DEFAULT_INDENTATION,

@@ -5,16 +5,16 @@ import { readFileSync, readdirSync, existsSync } from "fs";
 import type { BunPlugin } from "bun";
 import { join, extname, basename, normalize, dirname, resolve } from "path";
 import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
-import { LOG_PREFIX, logInfo } from "../typescript_plugin/src/logging";
+import { LOG_PREFIX, logInfo } from "../src/logging";
 
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
 );
-const fixturesDir = fileURLToPath(new URL("./fixtures", import.meta.url));
-const baselinesDir = fileURLToPath(new URL("./baselines", import.meta.url));
+const fixturesDir = fileURLToPath(new URL("../../../data/fixtures/drawio_fixtures", import.meta.url));
+const baselinesDir = fileURLToPath(new URL("../../../data/fixtures/baselines", import.meta.url));
 
 const pyodideIndexPath = fileURLToPath(
-  new URL("../node_modules/pyodide/", import.meta.url),
+  new URL("../../../node_modules/pyodide/", import.meta.url),
 );
 const pyodideIndexURL = normalize(pyodideIndexPath);
 (globalThis as any).__rdfexportPyodideIndexURL = pyodideIndexURL.endsWith("/")
@@ -23,7 +23,7 @@ const pyodideIndexURL = normalize(pyodideIndexPath);
 
 const pluginCallbacks: Array<(ui: any) => void> = [];
 
-type RdfExportModule = typeof import("../typescript_plugin/src/rdfexport");
+type RdfExportModule = typeof import("../src/rdfexport");
 
 let loadedPluginModule: RdfExportModule | null = null;
 
@@ -89,7 +89,7 @@ import {
   runMockBlackBox,
   type DrawioParserConfigPayload,
   type DrawioParserResult,
-} from "../typescript_plugin/src/mockBlackBox";
+} from "../src/mockBlackBox";
 
 const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
   infer_type_of_literals: true,

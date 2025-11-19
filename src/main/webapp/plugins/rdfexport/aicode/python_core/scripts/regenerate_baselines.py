@@ -19,16 +19,17 @@ REPO_ROOT = PLUGIN_DIR.resolve().parents[4]
 FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
 BASELINES_DIR = PLUGIN_DIR / "data" / "fixtures" / "baselines"
 TEST_PATH = PLUGIN_DIR / "aicode" / "python_core" / "tests" / "test_patched_parser.py"
-PARSER_RELATIVE_PATH = Path(
-    "src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.py"
-)
+
+ORIGINAL_PARSER_RELATIVE_PATH = PLUGIN_DIR / "legacy" / "draw_io_parser.py"
+CURRENT_PARSER_RELATIVE_PATH = PLUGIN_DIR / "python_core" / "src" / "draw_io_parser.py"
 
 
 class PreviousParserLoader:
     """Context manager that loads draw_io_parser.py from a specific commit."""
 
-    def __init__(self, commit: str) -> None:
+    def __init__(self, commit: str, parser_relative_path: Path) -> None:
         self.commit = commit
+        self.parser_path = parser_relative_path.relative_to(REPO_ROOT).as_posix()
         self._temp_dir: tempfile.TemporaryDirectory[str] | None = None
         self.module = None
 
@@ -56,7 +57,7 @@ class PreviousParserLoader:
             sys.modules.pop(self.module.__name__, None)
 
     def _read_parser_from_commit(self) -> str:
-        commit_path = f"{self.commit}:{PARSER_RELATIVE_PATH.as_posix()}"
+        commit_path = f"{self.commit}:{self.parser_path}"
         try:
             result = subprocess.run(
                 ["git", "show", commit_path],
@@ -64,7 +65,7 @@ class PreviousParserLoader:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                cwd=REPO_ROOT,
+                cwd=PLUGIN_DIR,
             )
         except subprocess.CalledProcessError as exc:
             raise RuntimeError(
@@ -107,7 +108,7 @@ def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            cwd=REPO_ROOT,
+            cwd=PLUGIN_DIR,
         )
     except subprocess.CalledProcessError as exc:
         raise RuntimeError(
@@ -130,8 +131,8 @@ def _generate_graphs_from_commit(
     Returns (successful_graphs, failed_fixtures).
     """
     with (
-        PreviousParserLoader(commit) as legacy_parser,
-        PreviousParserLoader("HEAD") as current_parser,
+        PreviousParserLoader(commit, ORIGINAL_PARSER_RELATIVE_PATH) as legacy_parser,
+        PreviousParserLoader("HEAD", CURRENT_PARSER_RELATIVE_PATH) as current_parser,
     ):
         # Patch needed so that add: and auth: URIs matches
         current_get_prefixes = getattr(current_parser, "get_prefixes", None)
@@ -214,7 +215,7 @@ def regenerate_baselines(
 def run_pytest(pytest_args: List[str]) -> None:
     """Execute pytest with the given arguments."""
     command = [sys.executable, "-m", "pytest"] + pytest_args
-    subprocess.run(command, check=True, cwd=REPO_ROOT)
+    subprocess.run(command, check=True, cwd=PLUGIN_DIR)
 
 
 def main() -> None:
@@ -272,8 +273,8 @@ def main() -> None:
 
     print(f"\n✅ Baselines regenerated using commit {chosen_commit}")
     for fixture, baseline in generated:
-        relative_fixture = fixture.relative_to(REPO_ROOT)
-        relative_baseline = baseline.relative_to(REPO_ROOT)
+        relative_fixture = fixture.relative_to(PLUGIN_DIR)
+        relative_baseline = baseline.relative_to(PLUGIN_DIR)
         action = "overwrote" if args.force_overwrite else "created"
         print(f"  {action}: {relative_fixture} -> {relative_baseline}")
 
@@ -282,13 +283,13 @@ def main() -> None:
             f"\n⚠️  Failed to generate baselines for {len(fixture_failures)} fixture(s):"
         )
         for fixture, exc in fixture_failures:
-            relative_fixture = fixture.relative_to(REPO_ROOT)
+            relative_fixture = fixture.relative_to(PLUGIN_DIR)
             print(f"  ❌ {relative_fixture}")
             print(f"     {exc}")
 
     if not args.skip_tests:
-        print(f"\n🧪 Running tests: {TEST_PATH.relative_to(REPO_ROOT)}")
-        run_pytest([str(TEST_PATH.relative_to(REPO_ROOT)), "-v"])
+        print(f"\n🧪 Running tests: {TEST_PATH.relative_to(PLUGIN_DIR)}")
+        run_pytest([str(TEST_PATH.relative_to(PLUGIN_DIR)), "-v"])
 
 
 if __name__ == "__main__":

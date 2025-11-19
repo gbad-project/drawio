@@ -6,7 +6,7 @@
 # This script runs first under `bun run:test:all`
 # ────────────────────────────────────────────────
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 VENV_ACTIVATE="${ROOT_DIR}/.venv/bin/activate"
 
 if [[ -f "${VENV_ACTIVATE}" ]]; then
@@ -23,6 +23,6 @@ cd "${ROOT_DIR}"
 # Rebuild legacy draw io parser from meta builder
 bun run build:py
 # Produce reliable, original draw io parser output artifacts
-cd ../../../../.. && bash src/main/webapp/plugins/rdfexport/legacy/scripts/run_regeneration.sh
+bash python_core/scripts/run_regeneration.sh
 # Test draw io parser patches applied for rdfexport plugin integration
-cd src/main/webapp/plugins/rdfexport && pytest -rA legacy/tests/ meta_builder/tests/
+pytest -rA aicode/python_core/tests/ python_core/tests/
