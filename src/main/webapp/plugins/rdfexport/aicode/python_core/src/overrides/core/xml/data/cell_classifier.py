@@ -14,7 +14,8 @@ from aicode.python_core.meta_builder.drawio_meta_builder import override
 class DrawIOXMLTree:
     """Deprecated. Use `DrawIOCellClassifier` instead."""
 
-    pass
+    def __init__(*args, **kwargs):
+        raise pipeline.core.internal.data.DeimplementedException(DrawIOXMLTree.__doc__)
 
 
 @override(phase="core", type="xml", role="data")

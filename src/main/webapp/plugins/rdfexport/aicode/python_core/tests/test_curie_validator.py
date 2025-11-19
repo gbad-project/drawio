@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
-import sys
 
 import pytest
 from rdflib.namespace import NamespaceManager
@@ -23,9 +21,7 @@ def test_ensure_known_curie_accepts_bound_prefix(monkeypatch):
 
     monkeypatch.setattr(NamespaceManager, "expand_curie", tracking_expand)
 
-    prefix, reference = draw_io_parser._ensure_known_curie(
-        "ex:Thing", prefixes, "expected to succeed"
-    )
+    prefix, reference = draw_io_parser._split_curie("ex:Thing", prefixes)
 
     assert called
     assert prefix == "ex"
@@ -36,14 +32,12 @@ def test_ensure_known_curie_rejects_unknown_prefix():
     prefixes = draw_io_parser.get_prefixes().copy()
 
     with pytest.raises(draw_io_parser.NotInKnownException):
-        draw_io_parser._ensure_known_curie(
-            "unknown:Thing", prefixes, "unknown prefix should fail"
-        )
+        draw_io_parser._split_curie("unknown:Thing", prefixes)
 
 
 def test_ensure_known_curie_rejects_empty_reference():
     prefixes = draw_io_parser.get_prefixes().copy()
     prefixes["ex"] = "https://example.org/"
 
-    with pytest.raises(draw_io_parser.NotInKnownException):
-        draw_io_parser._ensure_known_curie("ex:", prefixes, "missing reference")
+    with pytest.raises(ValueError):
+        draw_io_parser._split_curie("ex:", prefixes)

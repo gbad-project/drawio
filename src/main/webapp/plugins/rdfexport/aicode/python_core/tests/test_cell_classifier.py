@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-import sys
 from textwrap import dedent
 
 import pytest
@@ -153,7 +152,6 @@ def test_top_level_rounded_text_treated_as_literal():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
-        allow_template_types=True,
     )
 
     literal_ids = set(classifier._literals_by_id.keys())
@@ -178,7 +176,6 @@ def test_classifier_parent_cell_collects_child_type_tokens():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
-        allow_template_types=True,
     )
 
     observed = {
@@ -214,7 +211,6 @@ def test_classifier_typed_individual_accepts_template_tokens():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
-        allow_template_types=True,
     )
 
     observed = {

@@ -9,6 +9,25 @@ from aicode.python_core.meta_builder.drawio_meta_builder import override
 
 
 @override(phase="core", type="internal", role="data")
+class DeimplementedException(Exception):
+    """Can be raised when overrides invalidate."""
+
+    default_message = "This has been discontinued by an override"
+
+    def __init__(self, message: str | None = None) -> None:
+        self.default_message
+        self.message = (
+            f"{self.default_message}. {message}" if message else self.default_message
+        )
+        super().__init__(self.message)
+
+
+@override(phase="core", type="internal", role="data")
+def _ensure_known_curie(*args, **kwargs):
+    raise pipeline.core.internal.data.DeimplementedException
+
+
+@override(phase="core", type="internal", role="data")
 def _split_curie(curie: str, prefixes: dict[str, str]) -> tuple[str, str]:
     if ":" not in curie:
         raise ValueError(f"CURIE {curie!r} must include a prefix separator")

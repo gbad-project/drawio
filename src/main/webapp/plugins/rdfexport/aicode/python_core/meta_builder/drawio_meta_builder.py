@@ -402,7 +402,10 @@ def collect_overrides(
         module = importlib.util.module_from_spec(spec)
         sys.modules[module_name] = module
         spec.loader.exec_module(module)  # type: ignore[arg-type]
-        modules.append(str(path.relative_to(PLUGIN_DIR)))
+        try:  # show relative path in logs if possible
+            modules.append(str(path.relative_to(PLUGIN_DIR)))
+        except ValueError:  # is not in the subpath of PLUGIN_DIR, e.g., tempfile
+            modules.append(str(path))
 
         try:
             with open(path, "r", encoding="utf-8") as handle:

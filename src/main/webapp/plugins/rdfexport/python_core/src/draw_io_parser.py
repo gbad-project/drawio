@@ -842,6 +842,22 @@ class pipeline:
                     EMPTY_CELL = auto()
 
                 # END override cell_models.py.CellKind
+                # BEGIN override curie_validator.py.DeimplementedException
+                class DeimplementedException(Exception):
+                    """Can be raised when overrides invalidate."""
+
+                    default_message = "This has been discontinued by an override"
+
+                    def __init__(self, message: str | None = None) -> None:
+                        self.default_message
+                        self.message = (
+                            f"{self.default_message}. {message}"
+                            if message
+                            else self.default_message
+                        )
+                        super().__init__(self.message)
+
+                # END override curie_validator.py.DeimplementedException
                 # BEGIN override curie_validator.py.looks_like_iri
                 def looks_like_iri(candidate: str) -> str | bool:
                     """
@@ -2390,7 +2406,10 @@ class xml_data_core:
     class DrawIOXMLTree:
         """Deprecated. Use `DrawIOCellClassifier` instead."""
 
-        pass
+        def __init__(*args, **kwargs):
+            raise pipeline.core.internal.data.DeimplementedException(
+                DrawIOXMLTree.__doc__
+            )
 
     # END DrawIOXMLTree
 
@@ -2460,13 +2479,9 @@ class internal_data_core:
 
     # END _split_curie
     # BEGIN _ensure_known_curie
-    def _ensure_known_curie(
-        curie: str, prefixes: dict[str, str], error_message: str
-    ) -> tuple[str, str]:
-        prefix, reference = _split_curie(curie)
-        if prefix not in prefixes or not reference:
-            raise NotInKnownException(error_message)
-        return prefix, reference
+    # override from curie_validator.py
+    def _ensure_known_curie(*args, **kwargs):
+        raise pipeline.core.internal.data.DeimplementedException
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class

@@ -1,7 +1,6 @@
 import json
 import re
 import subprocess
-import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Optional
@@ -17,7 +16,14 @@ import python_core.src.draw_io_parser as draw_io_parser  # noqa: E402
 FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
 BASELINES_DIR = PLUGIN_DIR / "data" / "fixtures" / "baselines"
 PATCHER_MODULE_URI = (
-    (PLUGIN_DIR / "aicode" / "typescript_plugin" / "tests" / "utils" / "patchDrawioWithMetadata.ts")
+    (
+        PLUGIN_DIR
+        / "aicode"
+        / "typescript_plugin"
+        / "tests"
+        / "utils"
+        / "patchDrawioWithMetadata.ts"
+    )
     .resolve()
     .as_uri()
 )
