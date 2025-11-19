@@ -21,9 +21,9 @@ dev = [
 
 [tool.ruff]
 exclude = [
-    "legacy/map_schema.py",
+    "python_core/src/legacy/",
     "docs/",
-    "legacy/original/draw_io_parser_5d85cf0.py",
+    "aicode/docs/",
 ]
 
 [tool.pytest.ini_options]

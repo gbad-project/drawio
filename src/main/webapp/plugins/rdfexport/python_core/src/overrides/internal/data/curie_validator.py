@@ -1,0 +1,76 @@
+from __future__ import annotations
+
+from rdflib.namespace import NamespaceManager
+
+from python_core.src.draw_io_parser import *  # type: ignore=imported-unused, redefined-builtin
+from aicode.python_core.meta_builder.drawio_meta_builder import override
+
+# ruff: noqa: F403, F405
+
+
+@override(phase="core", type="internal", role="data")
+class DeimplementedException(Exception):
+    """Can be raised when overrides invalidate."""
+
+    default_message = "This has been discontinued by an override"
+
+    def __init__(self, message: str | None = None) -> None:
+        self.default_message
+        self.message = (
+            f"{self.default_message}. {message}" if message else self.default_message
+        )
+        super().__init__(self.message)
+
+
+@override(phase="core", type="internal", role="data")
+def _ensure_known_curie(*args, **kwargs):
+    raise pipeline.core.internal.data.DeimplementedException
+
+
+@override(phase="core", type="internal", role="data")
+def _split_curie(curie: str, prefixes: dict[str, str]) -> tuple[str, str]:
+    if ":" not in curie:
+        raise ValueError(f"CURIE {curie!r} must include a prefix separator")
+
+    prefix, remainder = curie.split(":", 1)
+    remainder = remainder.strip()
+
+    if not remainder:
+        raise ValueError(f"CURIE {curie!r} is missing a reference component")
+
+    try:
+        manager = NamespaceManager(Graph())
+        if isinstance(prefixes, dict):
+            for p, i in prefixes.items():
+                manager.bind(p, i, replace=True)
+        manager.expand_curie(curie)
+    except Exception as exc:  # pragma: no cover - defensive re-raise from rdflib
+        raise NotInKnownException(f"Failed to expand CURIE '{curie}'") from exc
+
+    return prefix, remainder
+
+
+@override(phase="core", type="internal", role="data")
+def looks_like_iri(candidate: str) -> str | bool:
+    """
+    Check if a string looks like an IRI.
+
+    Handles variants: [
+        "absolute-iri",
+        "curie",
+        "relative-iri",
+    ]
+    """
+    if not candidate or any(ch.isspace() for ch in candidate):
+        return False
+    if "://" in candidate:
+        return "absolute-iri"
+    scheme, _, remainder = candidate.partition(":")
+    if bool(remainder.strip()):
+        if scheme.lower() in {"urn", "tag", "ni"}:
+            return "absolute-iri"
+        elif len(remainder.split()) == 1:
+            return "curie"
+    if candidate.startswith(("/", "#")):
+        return "relative-iri"
+    return False
