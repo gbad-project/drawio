@@ -39,6 +39,7 @@
     "test:bun:all:log:linux": "LOGFILE=\"data/demo_logs/bun.log\" && script -c \"bun run test:bun:all\" \"$LOGFILE\"",
     "test:bun:all:log:show": "LOGFILE=\"data/demo_logs/bun.log\" && cat \"$LOGFILE\"",
     "debug:help": ".venv/bin/python -m aicode.integration_tests.debug.src -h",
+    "debug:repl": ".venv/bin/python -m aicode.integration_tests.debug.src",
     "debug:all": ".venv/bin/python -m aicode.integration_tests.debug.src.debug_cli_regression",
     "debug:all:log:macos": "LOGFILE=\"data/demo_logs/debug.log\" && script \"$LOGFILE\" bun run debug:all",
     "debug:all:log:linux": "LOGFILE=\"data/demo_logs/debug.log\" && script -c \"bun run debug:all\" \"$LOGFILE\"",
