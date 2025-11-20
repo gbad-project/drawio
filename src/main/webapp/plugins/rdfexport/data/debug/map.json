@@ -60,6 +60,11 @@
       "sha256": "46cac1efc60db2723965d2607a2dfa20854bad6612100f185dd697af7afc4b81",
       "size_bytes": 11913
     },
+    "Class_Diagram_tweaked_compliant.drawio": {
+      "path": "Class_Diagram_tweaked_compliant.drawio",
+      "sha256": "fd0572656fc0a4f9ac56dc16db23f7f7ee4cbaa5050f14d3c7318da3dc78f814",
+      "size_bytes": 12184
+    },
     "F 47 Simcoe Family fonds.drawio": {
       "path": "F 47 Simcoe Family fonds.drawio",
       "sha256": "2b83ac400783c15411e8e3df54cb0cf479bf8611c5314f1c486967943528838f",
@@ -981,6 +986,289 @@
         }
       ],
       "results": {}
+    },
+    "class-diagram-tweaked-compliant": {
+      "cell_classifications": {
+        "WIyWlLk6GJQsqaUBKTNV-1": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--0": {
+          "identifier": "rdf:Person",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rdf:Person",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--1": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "#Name",
+          "tokens": [
+            "#Name"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--10": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "#IsEligibleToEnroll",
+          "tokens": [
+            "#IsEligibleToEnroll"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--11": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "#GetSeminarsTaken",
+          "tokens": [
+            "#GetSeminarsTaken"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--12": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--13": {
+          "identifier": "Professor",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Professor",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--14": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Professor",
+          "raw_value": "mock:Salary",
+          "tokens": [
+            "mock:Salary"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--15": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--17": {
+          "identifier": "Address",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Address",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--18": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "#Street",
+          "tokens": [
+            "#Street"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--19": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "geo:City",
+          "tokens": [
+            "geo:City"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "#Phone%20Number",
+          "tokens": [
+            "#Phone%20Number"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--20": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "#State",
+          "tokens": [
+            "#State"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "/Postal%20Code",
+          "tokens": [
+            "/Postal%20Code"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--22": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "/Country",
+          "tokens": [
+            "/Country"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--23": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--24": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "/Validate",
+          "tokens": [
+            "/Validate"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--25": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "#OutputAsLabel",
+          "tokens": [
+            "#OutputAsLabel"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--26": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--29": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--3": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "#Email%20Address",
+          "tokens": [
+            "#Email%20Address"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--4": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--5": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "#Purchase%20Parking%20Pass",
+          "tokens": [
+            "#Purchase%20Parking%20Pass"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--6": {
+          "identifier": "Student",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Student",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--7": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "#StudentNumber",
+          "tokens": [
+            "#StudentNumber"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--8": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "/Average-Mark",
+          "tokens": [
+            "/Average-Mark"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--9": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 4,
+          "EMPTY_CELL": 4,
+          "STANDALONE_INDIVIDUAL": 4,
+          "TYPED_INDIVIDUAL": 16,
+          "UNCLASSIFIED": 1
+        },
+        "classified": 28,
+        "total_cells": 29,
+        "unclassified": 1
+      },
+      "drawio": "data/fixtures/drawio_fixtures/Class_Diagram_tweaked_compliant.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "183b306934c6b98d447476d4fe4b14615052193f10ab95f1436c0e202a8b6f0d",
+          "path": "results/class-diagram-tweaked-compliant/ts_pipeline.ttl",
+          "triples": 28
+        },
+        "ts_plugin": {
+          "nt_sha256": "183b306934c6b98d447476d4fe4b14615052193f10ab95f1436c0e202a8b6f0d",
+          "path": "results/class-diagram-tweaked-compliant/ts_plugin.ttl",
+          "triples": 28
+        }
+      }
     },
     "general-add-descriptions-and-listings-to-ric-o-model-2025-06-20-pz-no-rr": {
       "cell_classifications": {

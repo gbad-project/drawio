@@ -51,7 +51,16 @@ def coerce_to_uriref(
             return URIRef(candidate)
         elif iri_variant == "relative-iri":
             if cfg.prefix_iri:
-                return Namespace(cfg.prefix_iri)[candidate]
+                # Stripping is important, otherwise we get double chars at joint
+                base_iri = pipeline.core.rdf.data.prefix_iri_to_base(cfg.prefix_iri)
+                # While arbitrarily removing chars is not great from the data
+                # integrity perspective, but it makes sense that the starting
+                # char in rel IRI should override this? Might as well make it
+                # explicit in docs.
+                # Also, in regular Turtle this assumes that base IRI is used for
+                # the minting, but we replace base IRI with the empty prefix,
+                # so I guess this is the only relevant solution.
+                return Namespace(base_iri)[candidate]
             else:
                 if candidate == norm_value:  # try decoded value
                     continue

@@ -1,0 +1,40 @@
+@prefix geo1: <http://some-mock-site-for-geo.com> .
+@prefix mock: <mock://uri> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rdfs:mock a owl:ObjectProperty .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/Professor> a owl:NamedIndividual,
+        mock:Salary ;
+    rdfs:label "Professor" .
+
+<ontology://generated-from-draw-io/Student> a owl:NamedIndividual,
+        <ontology://generated-from-draw-io/GetSeminarsTaken>,
+        <ontology://generated-from-draw-io/IsEligibleToEnroll>,
+        <ontology://generated-from-draw-io/StudentNumber>,
+        <ontology://generated-from-draw-io/mock/Average-Mark> ;
+    rdfs:label "Student" .
+
+<ontology://generated-from-draw-io/rdf%3APerson> a owl:NamedIndividual,
+        <ontology://generated-from-draw-io/Email%20Address>,
+        <ontology://generated-from-draw-io/Name>,
+        <ontology://generated-from-draw-io/Phone%20Number>,
+        <ontology://generated-from-draw-io/Purchase%20Parking%20Pass> ;
+    rdfs:label "rdf:Person" ;
+    rdfs:mock <ontology://generated-from-draw-io/Address> .
+
+<ontology://generated-from-draw-io/Address> a geo1:City,
+        owl:NamedIndividual,
+        <ontology://generated-from-draw-io/OutputAsLabel>,
+        <ontology://generated-from-draw-io/State>,
+        <ontology://generated-from-draw-io/Street>,
+        <ontology://generated-from-draw-io/mock/Country>,
+        <ontology://generated-from-draw-io/mock/Postal%20Code>,
+        <ontology://generated-from-draw-io/mock/Validate> ;
+    rdfs:label "Address" .
+

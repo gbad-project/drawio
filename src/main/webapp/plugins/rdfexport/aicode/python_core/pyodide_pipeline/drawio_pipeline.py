@@ -287,21 +287,23 @@ def _sorted_namespaces(graph: DrawIOParserGraph) -> Iterable[tuple[str | None, A
 
 
 def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
-    base = getattr(graph, "base", None)
     csv_path = getattr(graph, "csv_path", None)
 
     namespaces = [
         {"prefix": prefix or "", "iri": str(iri)}
         for prefix, iri in _sorted_namespaces(graph)
     ]
+    base = next((ns["iri"] for ns in namespaces if ns.get("prefix") == ""), None)
+
+    raw_turtle = json.dumps(graph.serialize(format="turtle", base=base))
 
     return {
         "graph_id": graph_id,
         "triple_count": len(graph),
         "csv_path": csv_path,
-        "base_uri": str(base) if base else None,
+        "base_uri": base,
         "namespaces": namespaces,
-        "raw_turtle": json.dumps(graph.serialize(format="turtle"), sort_keys=True),
+        "raw_turtle": raw_turtle,
     }
 
 
