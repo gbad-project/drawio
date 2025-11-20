@@ -1,0 +1,14 @@
+slug: class-diagram-tweaked-compliant
+drawio: data/fixtures/drawio_fixtures/Class_Diagram_tweaked_compliant.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+# Just use metadata from xml - but may uncommment if need to tweak things
+# metadata:
+#   attributes:
+#     csvPath: /mock/path/to/file.csv
+#     baseUri: ontology://generated-from-draw-io/mock#
+#   preamble:
+#   - prefix: mock1
+#     iri: http://mock-uri.com
+# parser_config:
+#   ontology_iri: mock://debug-ontology

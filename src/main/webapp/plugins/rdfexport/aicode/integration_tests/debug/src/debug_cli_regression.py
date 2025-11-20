@@ -82,6 +82,16 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
             "aa37-with-metadata-even-more-severely-mocked-v2",
         ],
     },
+    "Class_Diagram_tweaked.drawio": {
+        "reason": "ts_plugin expectedly fails due to: \"Failed to coerce 'Purchase Parking Pass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE\". This is the correct behavior because 'Purchase Parking Pass' is put in a Type position in this diagram, and types intentionally refuse to mint individuals from literals. Another fixture, 'Class_Diagram_tweaked_compliant.drawio', has been crafted to illustrate one way to make this diagram compliant.",
+        "command": [
+            "python",
+            "-m",
+            "debug",
+            "--scenario",
+            "aa37-with-metadata-even-more-severely-mocked-v2",
+        ],
+    },
 }
 
 ALLOWED_XFAILS_FOLLOWUP = {
