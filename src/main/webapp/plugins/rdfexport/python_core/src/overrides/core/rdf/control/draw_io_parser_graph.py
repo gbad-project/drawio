@@ -27,6 +27,7 @@ class DrawIOParserGraph(Graph):
         super().__init__(*args, **kwargs)
         self.csv_path = csv_path
         self.metacharacter_mode = metacharacter_mode
+        self.namespace_manager = NamespaceManager(self, bind_namespaces="none")
 
     def addN1(
         self,
@@ -84,7 +85,7 @@ class DrawIOParserGraph(Graph):
         return cls._extract_base_from_inputsource(source)
 
     def _inject_base_from_parse_kwargs(self, **kwargs):
-        if self.base:
+        if getattr(self, "base", None):
             return
         self.base = self._extract_base_from_inputsource(
             create_input_source(

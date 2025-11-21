@@ -34,9 +34,7 @@ class RDFSerializationHelper:
         self.graph = graph
 
         self.prefix = serialisation_config.prefix
-        self.prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
-            serialisation_config.ontology_iri
-        )
+        self.prefix_iri = serialisation_config.prefix_iri
 
         self._should_decode_literals = False
 

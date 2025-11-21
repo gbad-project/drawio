@@ -1,42 +1,42 @@
-@base <ontology://generated-from-draw-io/mock-baseUri-set-with-trailing-slash-which-should-be-discarded> .
-@prefix : <mock://prefix-iri-set-from-scenario#> .
-@prefix geo1: <http://mock-geo.com-set-from-scenario> .
+@base <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded> .
+@prefix geo: <http://mock-geo.com-set-from-scenario> .
 @prefix mock: <http://mock-uri.com-set-from-scenario> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+<http://asdfgenerated-from-draw-io.com/Professor> a mock:Salary,
+        owl:NamedIndividual ;
+    rdfs:label "Professor" .
+
+<http://asdfgenerated-from-draw-io.com/Student> a <http://asdfgenerated-from-draw-io.com/Average-Mark>,
+        <#GetSeminarsTaken>,
+        <#IsEligibleToEnroll>,
+        <#StudentNumber>,
+        owl:NamedIndividual ;
+    rdfs:label "Student" .
+
+rdf:Person a <#Email%20Address>,
+        <#Name>,
+        <#Phone%20Number>,
+        <#Purchase%20Parking%20Pass>,
+        owl:NamedIndividual ;
+    rdfs:label "rdf:Person" ;
+    rdfs:mock <http://asdfgenerated-from-draw-io.com/Address> .
 
 rdfs:mock a owl:ObjectProperty .
 
 <mock://debug-ontology-set-from-scenario> a owl:Ontology ;
     owl:imports rico: .
 
-:Professor a mock:Salary,
+<http://asdfgenerated-from-draw-io.com/Address> a <http://asdfgenerated-from-draw-io.com/Country>,
+        <http://asdfgenerated-from-draw-io.com/Postal%20Code>,
+        <http://asdfgenerated-from-draw-io.com/Validate>,
+        <#OutputAsLabel>,
+        <#State>,
+        <#Street>,
+        geo:City,
         owl:NamedIndividual ;
-    rdfs:label "Professor" .
-
-:Student a owl:NamedIndividual,
-        :GetSeminarsTaken,
-        :IsEligibleToEnroll,
-        :StudentNumber,
-        <mock://prefix-iri-set-from-scenario/Average-Mark> ;
-    rdfs:label "Student" .
-
-:rdf%3APerson a owl:NamedIndividual,
-        :Email%20Address,
-        :Name,
-        :Phone%20Number,
-        :Purchase%20Parking%20Pass ;
-    rdfs:label "rdf:Person" ;
-    rdfs:mock :Address .
-
-:Address a geo1:City,
-        owl:NamedIndividual,
-        :OutputAsLabel,
-        :State,
-        :Street,
-        <mock://prefix-iri-set-from-scenario/Country>,
-        <mock://prefix-iri-set-from-scenario/Postal%20Code>,
-        <mock://prefix-iri-set-from-scenario/Validate> ;
-    rdfs:label "Address" .
+    rdfs:label ":Address" .
 

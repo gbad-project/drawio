@@ -18737,6 +18737,7 @@ from rdflib import BNode
 from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
+import typing
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
@@ -19611,6 +19612,27 @@ class pipeline:
                     return False
 
                 # END override curie_validator.py.looks_like_iri
+                # BEGIN override curie_validator.py.resolve_curie
+                def resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef:
+                    if ":" not in curie:
+                        raise ValueError(
+                            f"CURIE {curie!r} must include a prefix separator"
+                        )
+                    _, remainder = curie.split(":", 1)
+                    remainder = remainder.strip()
+                    if not remainder:
+                        raise ValueError(
+                            f"CURIE {curie!r} is missing a reference component"
+                        )
+                    try:
+                        expanded = ns_mgr.expand_curie(curie)
+                    except Exception as exc:
+                        raise NotInKnownException(
+                            f"Failed to expand CURIE '{curie}'"
+                        ) from exc
+                    return expanded
+
+                # END override curie_validator.py.resolve_curie
 
             class control:
                 # BEGIN override individual_blocks.py._add_individual_type
@@ -19799,45 +19821,66 @@ class pipeline:
                         self.prefixes = prefixes
                         self.graph = graph
                         self.prefix = serialisation_config.prefix
-                        self.prefix_iri = (
-                            serialisation_config.prefix_iri
-                            or get_prefix_iri(serialisation_config.ontology_iri)
-                        )
-                        self.namespace_map: dict[str, Namespace] = {}
-                        self.fallback_namespace: Namespace | None = None
-                        self.explicit_overrides: dict[str, URIRef] = {}
-                        self.metacharacter_substitution_mode = getattr(
-                            graph, "metacharacter_mode", None
-                        )
+                        self.prefix_iri = serialisation_config.prefix_iri
                         self._should_decode_literals = False
 
+                    def _set_default_prefix(self, ns: Namespace):
+                        """
+                        Sets either the actual default (\`:\`) prefix
+                        or whatever prefix is passed in parser config.
+                        """
+                        default_prefix = (
+                            self.prefix if getattr(self, "prefix", None) else ""
+                        )
+                        self.graph.bind(default_prefix, ns, replace=True)
+
                     def setup_namespaces(self) -> None:
-                        """Bind namespaces to the graph."""
+                        """
+                        Bind namespaces to the graph.
+
+                        Note that *no* IRI trailing check is performed for prefix IRIs,
+                        which is fully in line with how permissively rdflib (and Turtle
+                        1.1 also?) defines prefixes. For example:
+                        \`\`\`
+                        @prefix hi: <http://example.com/hi>
+                        hi:there [] [] .
+                        \`\`\`
+                        -> serializes as: <http://example.com/hithere>
+                        That is kept permissive intentionally to support cases
+                        where anyone might want to use prefixes in this way.
+                        """
                         looks_like_iri = pipeline.core.internal.data.looks_like_iri
-                        if (
-                            self.prefix_iri
-                            and looks_like_iri(self.prefix_iri) == "absolute-iri"
-                        ):
-                            self.fallback_namespace = Namespace(self.prefix_iri)
+                        if getattr(self, "prefix_iri", None):
+                            if looks_like_iri(self.prefix_iri) == "absolute-iri":
+                                self._set_default_prefix(Namespace(self.prefix_iri))
+                            else:
+                                raise ParseException(
+                                    f"Failed to apply parser settings: Prefix IRI '{self.prefix_iri}' looks invalid"
+                                )
+                        elif getattr(self.graph, "base", None):
+                            self._set_default_prefix(Namespace(self.graph.base))
+                        else:
+                            pass
                         for prefix_key, uri in self.prefixes.items():
                             if looks_like_iri(uri) == "absolute-iri":
                                 namespace = Namespace(uri)
-                            elif self.fallback_namespace is not None:
-                                namespace = self.fallback_namespace
                             else:
                                 raise ParseException(
-                                    f"Prefix IRI '{uri}' looks invalid"
+                                    f"Failed to bind prefixes: IRI '{uri}' looks invalid"
                                 )
                             self.graph.bind(prefix_key, namespace, replace=True)
-                            self.namespace_map[prefix_key] = namespace
-                        default_prefix = self.prefix if self.prefix else ""
-                        self.graph.bind(
-                            default_prefix, Namespace(self.prefix_iri), replace=True
-                        )
-                        if getattr(self.graph, "base") is None:
+                        if getattr(self.graph, "base", None) is None:
                             self.graph.base = pipeline.core.rdf.data.prefix_iri_to_base(
                                 self.prefix_iri
                             )
+
+                    def namespace_map(self):
+                        return {
+                            prefix or "": Namespace(iri)
+                            for prefix, iri in list(
+                                self.graph.namespace_manager.namespaces()
+                            )
+                        }
 
                     def add_preamble(self) -> None:
                         """Add ontology preamble if configured."""
@@ -20000,7 +20043,10 @@ class pipeline:
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
                         self.csv_path = csv_path
-                        if self.metacharacter_substitution_mode == "url":
+                        metacharacter_mode = getattr(
+                            self.graph, "metacharacter_mode", None
+                        )
+                        if metacharacter_mode == "url":
                             self._should_decode_literals = True
                         self.rr = Namespace("http://www.w3.org/ns/r2rml#")
                         self.rml_ns = Namespace("http://semweb.mmlab.be/ns/rml#")
@@ -20377,7 +20423,7 @@ class pipeline:
                     entity to default namespace unless mint_from_literal = False;
                     in the latter case raises UnableToCoerceException.
                     """
-                    _split_curie = pipeline.core.internal.data._split_curie
+                    resolve_curie = pipeline.core.internal.data.resolve_curie
                     looks_like_iri = pipeline.core.internal.data.looks_like_iri
                     UnableToCoerceException = (
                         pipeline.core.rdf.data.UnableToCoerceException
@@ -20395,41 +20441,48 @@ class pipeline:
                     norm_value, decoded_norm_value = normalize(value)
                     if not decoded_norm_value:
                         raise UnableToCoerceException(value, URIRef, "Entity is empty")
-                    for candidate in (norm_value, decoded_norm_value):
-                        if norm_value == decoded_norm_value:
-                            norm_value = object()
-                            continue
+
+                    def coerce_candidate(
+                        candidate: str,
+                    ) -> tuple[
+                        URIRef,
+                        typing.Literal[
+                            "absolute-iri", "relative-iri", "curie", "mint-from-literal"
+                        ],
+                    ]:
+                        """
+                        Returns a meaningful value or raises an appropriate exception.
+
+                        Note that \`mint-from-literal\` only occurs here as a value
+                        and not in \`pipeline.core.internal.data.looks_like_iri()\`
+                        """
                         iri_variant = looks_like_iri(candidate)
+                        namespace_map: dict[str, Namespace] = cfg.namespace_map()
+                        default_ns: Namespace = namespace_map.get("")
+                        coerced = None
                         if iri_variant == "absolute-iri":
-                            return URIRef(candidate)
+                            coerced = URIRef(candidate)
                         elif iri_variant == "relative-iri":
-                            if cfg.prefix_iri:
-                                base_iri = pipeline.core.rdf.data.prefix_iri_to_base(
-                                    cfg.prefix_iri
-                                )
-                                return Namespace(base_iri)[candidate]
+                            base_uri: str | None = getattr(cfg.graph, "base", None)
+                            if base_uri:
+                                coerced = Namespace(base_uri)[candidate]
                             else:
-                                if candidate == norm_value:
-                                    continue
                                 raise UnableToCoerceException(
                                     candidate,
                                     URIRef,
-                                    "Unable to resolve what looks like a relative IRI because prefix IRI is not set or could not pass through to the serializer",
+                                    "Unable to resolve what looks like a relative IRI because the base IRI is not set or could not pass it through to the serializer",
                                 )
                         elif iri_variant == "curie":
                             try:
-                                prefix, reference = _split_curie(
-                                    candidate, cfg.prefixes
+                                coerced = resolve_curie(
+                                    candidate, cfg.graph.namespace_manager
                                 )
-                                return cfg.namespace_map[prefix][reference]
                             except (
                                 ValueError,
                                 NotInKnownException,
                                 KeyError,
                                 TypeError,
                             ) as e:
-                                if candidate == norm_value:
-                                    continue
                                 raise UnableToCoerceException(
                                     candidate,
                                     URIRef,
@@ -20437,10 +20490,16 @@ class pipeline:
                                 )
                         elif isinstance(iri_variant, bool) and (not iri_variant):
                             if mint_from_literal:
-                                return Namespace(cfg.prefix_iri)[candidate]
+                                iri_variant = "mint-from-literal"
+                                if default_ns:
+                                    coerced = default_ns[candidate]
+                                else:
+                                    raise UnableToCoerceException(
+                                        candidate,
+                                        URIRef,
+                                        "Unable to mint an individual from literal because the default namespace is not set or could not pass it through to the serializer",
+                                    )
                             else:
-                                if candidate == norm_value:
-                                    continue
                                 raise UnableToCoerceException(
                                     candidate,
                                     URIRef,
@@ -20450,9 +20509,41 @@ class pipeline:
                             raise RuntimeError from UnableToCoerceException(
                                 iri_variant, URIRef, "Unhandled IRI variant"
                             )
-                    raise RuntimeError from UnableToCoerceException(
-                        value, URIRef, "Unhandled return"
-                    )
+                        return (coerced, iri_variant)
+
+                    def best_guess(norm_value, decoded_norm_value) -> URIRef:
+                        """Return our single best guess of an IRI,
+                        or raise an appropriate error."""
+                        norm_coerced = decoded_norm_coerced = err_norm = None
+                        norm_iri_variant = decoded_norm_iri_variant = None
+                        try:
+                            norm_coerced, norm_iri_variant = coerce_candidate(
+                                norm_value
+                            )
+                            if norm_value == decoded_norm_value:
+                                return norm_coerced
+                        except Exception as e:
+                            err_norm = e
+                        try:
+                            decoded_norm_coerced, decoded_norm_iri_variant = (
+                                coerce_candidate(decoded_norm_value)
+                            )
+                        except Exception:
+                            pass
+                        matched = (bool(norm_coerced), bool(decoded_norm_coerced))
+                        if matched == (False, False):
+                            raise err_norm
+                        elif matched == (False, True):
+                            return decoded_norm_coerced
+                        elif (
+                            decoded_norm_iri_variant == "curie"
+                            and norm_iri_variant == "mint-from-literal"
+                        ):
+                            return decoded_norm_coerced
+                        else:
+                            return norm_coerced
+
+                    return best_guess(norm_value, decoded_norm_value)
 
                 # END override coerce_to_uriref.py.coerce_to_uriref
                 # BEGIN override rml_serialiser.py.serialise_to_rml
@@ -20462,9 +20553,9 @@ class pipeline:
                     datatype_properties: set[str],
                     serialisation_config: SerialisationConfig,
                     prefixes: dict,
-                    graph_cls: type[Graph] = Graph,
+                    graph_cls: type = Graph,
                     graph_kwargs: dict[str, Any] | None = None,
-                ) -> Graph:
+                ) -> DrawIOParserGraph:
                     """Serialize blocks to RDF graph with RML mapping triples."""
                     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
                     if os.getenv("DEBUG") == "true":
@@ -21205,22 +21296,8 @@ class internal_data_core:
     # END Arrow
     # BEGIN _split_curie
     # override from curie_validator.py
-    def _split_curie(curie: str, prefixes: dict[str, str]) -> tuple[str, str]:
-        if ":" not in curie:
-            raise ValueError(f"CURIE {curie!r} must include a prefix separator")
-        prefix, remainder = curie.split(":", 1)
-        remainder = remainder.strip()
-        if not remainder:
-            raise ValueError(f"CURIE {curie!r} is missing a reference component")
-        try:
-            manager = NamespaceManager(Graph())
-            if isinstance(prefixes, dict):
-                for p, i in prefixes.items():
-                    manager.bind(p, i, replace=True)
-            manager.expand_curie(curie)
-        except Exception as exc:
-            raise NotInKnownException(f"Failed to expand CURIE '{curie}'") from exc
-        return (prefix, remainder)
+    def _split_curie(*args, **kwargs):
+        raise pipeline.core.internal.data.DeimplementedException
 
     # END _split_curie
     # BEGIN _ensure_known_curie
@@ -21586,6 +21663,7 @@ class internal_control_core:
             graph_kwargs={
                 "csv_path": csv_path,
                 "metacharacter_mode": metacharacter_mode,
+                "base": pipeline.core.rdf.data.prefix_iri_to_base(base_uri),
             },
         )
         return graph
@@ -21661,6 +21739,7 @@ class rdf_control_core:
             super().__init__(*args, **kwargs)
             self.csv_path = csv_path
             self.metacharacter_mode = metacharacter_mode
+            self.namespace_manager = NamespaceManager(self, bind_namespaces="none")
 
         def addN1(
             self,
@@ -21720,7 +21799,7 @@ class rdf_control_core:
             return cls._extract_base_from_inputsource(source)
 
         def _inject_base_from_parse_kwargs(self, **kwargs):
-            if self.base:
+            if getattr(self, "base", None):
                 return
             self.base = self._extract_base_from_inputsource(
                 create_input_source(
@@ -21753,9 +21832,9 @@ class rdf_control_core:
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
         prefixes: dict,
-        graph_cls: Type[Graph] = Graph,
+        graph_cls: Type = Graph,
         graph_kwargs: Optional[Dict[str, Any]] = None,
-    ) -> Graph:
+    ) -> DrawIOParserGraph:
         """Serialize blocks to RDF graph with regular triples."""
         RDFSerializer = pipeline.core.rdf.control.RDFSerializer
         if os.getenv("DEBUG") == "true":
@@ -22536,12 +22615,18 @@ def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
         )
         return namespaces
 
+    def namespace_dictl(graph: Graph):
+        return [
+            {"prefix": prefix or "", "iri": str(iri)}
+            for prefix, iri in sorted_namespaces(graph.namespace_manager)
+        ]
+
     payload = {
         "graph_id": graph_id,
         "triple_count": len(graph),
         "csv_path": getattr(graph, "csv_path", None),
         "base_uri": getattr(graph, "base", None),
-        "namespaces": sorted_namespaces(graph.namespace_manager),
+        "namespaces": namespace_dictl(graph),
         "raw_turtle": json.dumps(graph.serialize(format="turtle")),
     }
 

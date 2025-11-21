@@ -62,8 +62,8 @@
     },
     "Class_Diagram_tweaked_compliant.drawio": {
       "path": "Class_Diagram_tweaked_compliant.drawio",
-      "sha256": "fd0572656fc0a4f9ac56dc16db23f7f7ee4cbaa5050f14d3c7318da3dc78f814",
-      "size_bytes": 12184
+      "sha256": "9eedb665201a5a18aea5348b3af2d5ab856e55969c76b8109d61cce536013af0",
+      "size_bytes": 12185
     },
     "F 47 Simcoe Family fonds.drawio": {
       "path": "F 47 Simcoe Family fonds.drawio",
@@ -1068,16 +1068,16 @@
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--17": {
-          "identifier": "Address",
+          "identifier": ":Address",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
-          "raw_value": "Address",
+          "raw_value": ":Address",
           "tokens": []
         },
         "zkfFHV4jXpPFQw0GAbJ--18": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "#Street",
           "tokens": [
             "#Street"
@@ -1086,7 +1086,7 @@
         "zkfFHV4jXpPFQw0GAbJ--19": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "geo:City",
           "tokens": [
             "geo:City"
@@ -1104,7 +1104,7 @@
         "zkfFHV4jXpPFQw0GAbJ--20": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "#State",
           "tokens": [
             "#State"
@@ -1113,7 +1113,7 @@
         "zkfFHV4jXpPFQw0GAbJ--21": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "/Postal%20Code",
           "tokens": [
             "/Postal%20Code"
@@ -1122,7 +1122,7 @@
         "zkfFHV4jXpPFQw0GAbJ--22": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "/Country",
           "tokens": [
             "/Country"
@@ -1138,7 +1138,7 @@
         "zkfFHV4jXpPFQw0GAbJ--24": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "/Validate",
           "tokens": [
             "/Validate"
@@ -1147,7 +1147,7 @@
         "zkfFHV4jXpPFQw0GAbJ--25": {
           "identifier": null,
           "kind": "TYPED_INDIVIDUAL",
-          "parent_identifier": "Address",
+          "parent_identifier": ":Address",
           "raw_value": "#OutputAsLabel",
           "tokens": [
             "#OutputAsLabel"
@@ -1250,12 +1250,11 @@
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
-        "baseUri": "ontology://generated-from-draw-io/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/",
+        "baseUri": "http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/",
         "csvPath": "/mock/path/to/file.csv-set-from-scenario"
       },
       "parser_config": {
-        "ontology_iri": "mock://debug-ontology-set-from-scenario",
-        "prefix_iri": "mock://prefix-iri-set-from-scenario#"
+        "ontology_iri": "mock://debug-ontology-set-from-scenario"
       },
       "preamble": [
         {
@@ -1269,12 +1268,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "70c0a19c9e5517b478daaa655ac621a6d0c87c5f9ffcfd68aec296b7094bff2d",
+          "nt_sha256": "d3d89c283f1bc8fcec5ad67f4a782f833a5e0ea752e20dff17fee1251fdaafce",
           "path": "results/class-diagram-tweaked-compliant/ts_pipeline.ttl",
           "triples": 28
         },
         "ts_plugin": {
-          "nt_sha256": "70c0a19c9e5517b478daaa655ac621a6d0c87c5f9ffcfd68aec296b7094bff2d",
+          "nt_sha256": "d3d89c283f1bc8fcec5ad67f4a782f833a5e0ea752e20dff17fee1251fdaafce",
           "path": "results/class-diagram-tweaked-compliant/ts_plugin.ttl",
           "triples": 28
         }

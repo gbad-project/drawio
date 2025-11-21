@@ -23,31 +23,32 @@ class DeimplementedException(Exception):
 
 
 @override(phase="core", type="internal", role="data")
+def _split_curie(*args, **kwargs):
+    raise pipeline.core.internal.data.DeimplementedException
+
+
+@override(phase="core", type="internal", role="data")
 def _ensure_known_curie(*args, **kwargs):
     raise pipeline.core.internal.data.DeimplementedException
 
 
 @override(phase="core", type="internal", role="data")
-def _split_curie(curie: str, prefixes: dict[str, str]) -> tuple[str, str]:
+def resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef:
     if ":" not in curie:
         raise ValueError(f"CURIE {curie!r} must include a prefix separator")
 
-    prefix, remainder = curie.split(":", 1)
+    _, remainder = curie.split(":", 1)
     remainder = remainder.strip()
 
     if not remainder:
         raise ValueError(f"CURIE {curie!r} is missing a reference component")
 
     try:
-        manager = NamespaceManager(Graph())
-        if isinstance(prefixes, dict):
-            for p, i in prefixes.items():
-                manager.bind(p, i, replace=True)
-        manager.expand_curie(curie)
+        expanded = ns_mgr.expand_curie(curie)
     except Exception as exc:  # pragma: no cover - defensive re-raise from rdflib
         raise NotInKnownException(f"Failed to expand CURIE '{curie}'") from exc
 
-    return prefix, remainder
+    return expanded
 
 
 @override(phase="core", type="internal", role="data")

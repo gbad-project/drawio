@@ -6,7 +6,7 @@ format: turtle
 metadata:
   attributes:
     csvPath: /mock/path/to/file.csv-set-from-scenario
-    baseUri: ontology://generated-from-draw-io/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/
+    baseUri: http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/
   preamble:
     # Note that these fully override any prefixes set by serializers;
     # however, the default (empty) prefix (namespace) should still be
@@ -28,4 +28,4 @@ parser_config:
   # When we want particularly to override the default
   # minting process that relies on base URI from Turtle;
   # this way we can also force the trailing character we want
-  prefix_iri: mock://prefix-iri-set-from-scenario#
+  #prefix_iri: mock://prefix-iri-set-from-scenario#
