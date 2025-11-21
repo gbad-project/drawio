@@ -31,7 +31,8 @@ class RMLSerializer(RDFSerializationHelper):
         RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
         RDFSerializationHelper.__init__(self, *args, **kwargs)
         self.csv_path = csv_path
-        if self.metacharacter_substitution_mode == "url":
+        metacharacter_mode = getattr(self.graph, "metacharacter_mode", None)
+        if metacharacter_mode == "url":
             self._should_decode_literals = True
 
         # RML namespaces
@@ -348,9 +349,9 @@ def serialise_to_rml(
     datatype_properties: set[str],
     serialisation_config: SerialisationConfig,
     prefixes: dict,
-    graph_cls: type[Graph] = Graph,
+    graph_cls: type = Graph,
     graph_kwargs: dict[str, Any] | None = None,
-) -> Graph:
+) -> DrawIOParserGraph:
     """Serialize blocks to RDF graph with RML mapping triples."""
     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
 

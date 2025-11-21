@@ -18737,6 +18737,9 @@ from rdflib import BNode
 from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
+from io import StringIO
+from rdflib.parser import InputSource, create_input_source
+from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
 from rdflib.namespace import NamespaceManager
 
 
@@ -19018,7 +19021,7 @@ class pipeline:
                                             identifier
                                         )
                                     self._nodes_by_id[cell_id] = (cell, individual)
-                            elif kind_name in ("LITERAL", "DECORATION"):
+                            elif kind_name in ("LITERAL", "DECORATION", "EMPTY_CELL"):
                                 if cell_id:
                                     self._literals_by_id[cell_id] = cell
                                     self.decorations[cell_id] = {
@@ -19224,6 +19227,10 @@ class pipeline:
                         *,
                         require_individual: bool,
                     ) -> tuple[Element, str, bool]:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
+                        _NoCellCloseEnoughException = (
+                            pipeline.core.xml.data._NoCellCloseEnoughException
+                        )
                         if arrow_point is None:
                             raise _NoCellCloseEnoughException
                         for cell, individual in self._nodes_by_id.values():
@@ -19301,6 +19308,7 @@ class pipeline:
                         )
 
                     def _arrow_label(self, arrow_cell: Element) -> str:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         for cell in self._child_of(arrow_cell.attrib["id"]):
                             try:
                                 style = cell.attrib["style"]
@@ -19319,6 +19327,10 @@ class pipeline:
                         raise _NoValueException("No label found for arrow")
 
                     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
+                        _NoCellCloseEnoughException = (
+                            pipeline.core.xml.data._NoCellCloseEnoughException
+                        )
                         try:
                             arrow_label = self._arrow_label(arrow_cell)
                         except _NoValueException:
@@ -19423,6 +19435,7 @@ class pipeline:
                     def _resolve_parent(
                         self, cell: Element
                     ) -> tuple[Optional[Element], Optional[str]]:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         parent_id = cell.attrib.get("parent")
                         if parent_id in {None, "1"}:
                             return (None, None)
@@ -19467,6 +19480,7 @@ class pipeline:
                             return False
 
                     def _collect_child_tokens(self, cell: Element) -> list[str]:
+                        _NoValueException = pipeline.core.xml.data._NoValueException
                         cell_id = cell.attrib.get("id")
                         if not cell_id:
                             return []
@@ -19749,6 +19763,17 @@ class pipeline:
                     return Literal(literal)
 
                 # END override infer_type.py._infer_literal_type
+                # BEGIN override prefix_iri_to_base.py.prefix_iri_to_base
+                def prefix_iri_to_base(prefix_iri: str) -> str:
+                    """
+                    This removes one char from established prefix_iri, thus
+                    making it a base IRI-looking string.
+                    """
+                    if not prefix_iri:
+                        return
+                    return str(prefix_iri).rstrip("".join(("#", "/")))
+
+                # END override prefix_iri_to_base.py.prefix_iri_to_base
 
             class control:
                 # BEGIN override serialization_helper.py.RDFSerializationHelper
@@ -19805,9 +19830,13 @@ class pipeline:
                                 )
                             self.graph.bind(prefix_key, namespace, replace=True)
                             self.namespace_map[prefix_key] = namespace
-                        if self.prefix:
-                            self.graph.bind(
-                                self.prefix, Namespace(self.prefix_iri), replace=True
+                        default_prefix = self.prefix if self.prefix else ""
+                        self.graph.bind(
+                            default_prefix, Namespace(self.prefix_iri), replace=True
+                        )
+                        if getattr(self.graph, "base") is None:
+                            self.graph.base = pipeline.core.rdf.data.prefix_iri_to_base(
+                                self.prefix_iri
                             )
 
                     def add_preamble(self) -> None:
@@ -20375,7 +20404,10 @@ class pipeline:
                             return URIRef(candidate)
                         elif iri_variant == "relative-iri":
                             if cfg.prefix_iri:
-                                return Namespace(cfg.prefix_iri)[candidate]
+                                base_iri = pipeline.core.rdf.data.prefix_iri_to_base(
+                                    cfg.prefix_iri
+                                )
+                                return Namespace(base_iri)[candidate]
                             else:
                                 if candidate == norm_value:
                                     continue
@@ -21337,7 +21369,6 @@ class internal_control_core:
         capitalisation_scheme: str,
         prefixes: dict[str, str],
     ) -> tuple[Blocks, set[str], set[str]]:
-        _ensure_known_curie = pipeline.core.internal.data._ensure_known_curie
         _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
         _add_individual_type = pipeline.core.internal.control._add_individual_type
         blocks: Blocks = {}
@@ -21557,8 +21588,6 @@ class internal_control_core:
                 "metacharacter_mode": metacharacter_mode,
             },
         )
-        if base_uri:
-            graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
         return graph
 
     # END _build_graph_from_raw_xml
@@ -21645,6 +21674,75 @@ class rdf_control_core:
             """
             self.add(triple_1)
             self.addN(((s, p, o, self) for s, p, o in triples_N))
+
+        @staticmethod
+        def _extract_base_from_inputsource(source: InputSource):
+            """
+            Reuses some code from \`TurtleParser.parse()\`:
+            https://rdflib.readthedocs.io/en/7.1.1/_modules/rdflib/plugins/parsers/notation3.html#TurtleParser
+
+            The need for this function is dictated by the fact that
+            rdflib seems NOT to read @base with \`TurtleParser\`
+            into \`base\` property but rather resolves IRIs
+            using base upon serialization. This leads to problems
+            if graph is serialized and then parsed again repeatedly
+            (i.e., \`@base\` is lost on repeat serialization).
+
+            <https://stackoverflow.com/questions/43739259/how-do-i-get-the-base-uri-of-an-xml-file-using-rdflib>
+            """
+            graph = Graph()
+            sink = RDFSink(graph)
+            baseURI = graph.absolutize(
+                source.getPublicId() or source.getSystemId() or ""
+            )
+            p = SinkParser(
+                sink,
+                baseURI=graph.absolutize(
+                    source.getPublicId() or source.getSystemId() or ""
+                ),
+                turtle=True,
+            )
+            stream = source.getCharacterStream()
+            if not stream:
+                stream = source.getByteStream()
+            p.loadStream(stream)
+            baseURI = p._baseURI
+            return baseURI
+
+        @classmethod
+        def extract_base_from_turtle(cls, turtle_str: str) -> str:
+            """
+            Parse the given Turtle document (string) and return
+            the base URI used during parsing.
+            """
+            source = InputSource()
+            source.setCharacterStream(StringIO(turtle_str))
+            return cls._extract_base_from_inputsource(source)
+
+        def _inject_base_from_parse_kwargs(self, **kwargs):
+            if self.base:
+                return
+            self.base = self._extract_base_from_inputsource(
+                create_input_source(
+                    source=kwargs.get("source"),
+                    publicID=kwargs.get("publicID"),
+                    location=kwargs.get("location"),
+                    file=kwargs.get("file"),
+                    data=kwargs.get("data"),
+                    format=kwargs.get("format"),
+                )
+            )
+
+        def parse(self, *args, **kwargs):
+            """
+            Same as in \`super()\` but injects \`base\` from Turtle
+            if not already set and if available, thus making
+            it persist across reserialiation/parsing cycles.
+
+            Also see docstring for \`_extract_base_from_inputsource()\`.
+            """
+            super().parse(*args, **kwargs)
+            self._inject_base_from_parse_kwargs(**kwargs)
 
     # END DrawIOParserGraph
     # BEGIN serialise_to_graph
@@ -22160,7 +22258,7 @@ from typing import Any, Dict, Iterable
 from xml.etree import ElementTree
 from typing import TYPE_CHECKING
 
-# ruff: noqa: F403
+# ruff: noqa: F403, F405
 
 if TYPE_CHECKING:
     from python_core.src.draw_io_parser import *
@@ -22428,29 +22526,26 @@ def _normalize_drawio_xml(serialized_xml: str) -> str:
     return stripped
 
 
-def _sorted_namespaces(graph: DrawIOParserGraph) -> Iterable[tuple[str | None, Any]]:
-    namespaces = list(graph.namespace_manager.namespaces())
-    namespaces.sort(key=lambda item: ("" if item[0] is None else item[0]))
-    return namespaces
-
-
 def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
-    base = getattr(graph, "base", None)
-    csv_path = getattr(graph, "csv_path", None)
+    def sorted_namespaces(ns_mgr: NamespaceManager) -> Iterable[tuple[str | None, Any]]:
+        namespaces = list(ns_mgr.namespaces())
+        namespaces.sort(
+            key=lambda item: (
+                "" if item[0] is None else item[0]  # defensive
+            )
+        )
+        return namespaces
 
-    namespaces = [
-        {"prefix": prefix or "", "iri": str(iri)}
-        for prefix, iri in _sorted_namespaces(graph)
-    ]
-
-    return {
+    payload = {
         "graph_id": graph_id,
         "triple_count": len(graph),
-        "csv_path": csv_path,
-        "base_uri": str(base) if base else None,
-        "namespaces": namespaces,
-        "raw_turtle": json.dumps(graph.serialize(format="turtle"), sort_keys=True),
+        "csv_path": getattr(graph, "csv_path", None),
+        "base_uri": getattr(graph, "base", None),
+        "namespaces": sorted_namespaces(graph.namespace_manager),
+        "raw_turtle": json.dumps(graph.serialize(format="turtle")),
     }
+
+    return payload
 
 
 def get_graph_summary(graph_id: str) -> GraphSummary:

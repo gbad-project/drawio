@@ -27,6 +27,16 @@ from aicode.python_core.scripts.regenerate_baselines import (
     CURRENT_PARSER_RELATIVE_PATH,
 )
 
+# Import directly from the metabuilt parser
+from python_core.src.draw_io_parser import (
+    _extract_drawio_metadata,
+    get_prefixes,
+    pipeline,
+)
+
+DrawIOCellClassifier = pipeline.core.xml.data.DrawIOCellClassifier
+DrawIOParserGraph = pipeline.core.rdf.control.DrawIOParserGraph
+
 DEFAULT_CSV_PATH = "/mock/path/to/file.csv"
 DEFAULT_BASE_URI = "ontology://generated-from-draw-io/mock#"
 DEFAULT_PREFIXES = [("mock1", "http://mock-uri.com")]
@@ -693,7 +703,7 @@ class Debugger:
     # ------------------------------------------------------------------
     def _generate_py_legacy_graph(
         self, drawio_path: Path, commit: str, config: ScenarioConfig
-    ) -> Graph:
+    ) -> DrawIOParserGraph:
         with (
             PreviousParserLoader(
                 commit, ORIGINAL_PARSER_RELATIVE_PATH
@@ -749,13 +759,13 @@ class Debugger:
 
     def _generate_bun_graphs(
         self, serialized_xml: str, config: ScenarioConfig
-    ) -> tuple[Graph, Graph]:
+    ) -> tuple[DrawIOParserGraph, DrawIOParserGraph]:
         outputs = self._run_ts_pipeline(serialized_xml, config)
 
-        pipeline_graph = Graph()
+        pipeline_graph = DrawIOParserGraph()
         pipeline_graph.parse(data=outputs["pipeline"], format="turtle")
 
-        plugin_graph = Graph()
+        plugin_graph = DrawIOParserGraph()
         plugin_graph.parse(data=outputs["plugin"], format="turtle")
 
         stderr = outputs.get("stderr")
@@ -995,15 +1005,8 @@ class Debugger:
         self, xml_text: str, config: ScenarioConfig
     ) -> dict[str, dict]:
         """Extract cell classifications using the refactored, self-contained classifier."""
-        # Import directly from the generated parser
 
         try:
-            from python_core.src.draw_io_parser import (
-                _extract_drawio_metadata,
-                get_prefixes,
-                pipeline,
-            )
-
             # 1. Setup prefixes, same as before
             metadata_prefixes, _, _, _ = _extract_drawio_metadata(xml_text)
             prefixes = get_prefixes()
@@ -1014,8 +1017,7 @@ class Debugger:
 
             # 2. Instantiate the new classifier directly with raw XML
             #    The MockTree is no longer needed.
-            classifier_cls = pipeline.core.xml.data.DrawIOCellClassifier
-            classifier = classifier_cls(
+            classifier = DrawIOCellClassifier(
                 xml_text,
                 prefixes,
             )
@@ -1334,9 +1336,9 @@ class Debugger:
         return slug or "scenario"
 
     @staticmethod
-    def normalise(source: Graph) -> Graph:
+    def normalise(source: DrawIOParserGraph) -> DrawIOParserGraph:
         """Skip non-essential but differing triples."""
-        filtered = Graph()
+        filtered = DrawIOParserGraph()
         for s, p, o in source:
             if p == RDF.type and o in {
                 OWL.ObjectProperty,

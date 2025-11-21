@@ -46,6 +46,15 @@ class DrawIOParserGraph(Graph):
         """
         Reuses some code from `TurtleParser.parse()`:
         https://rdflib.readthedocs.io/en/7.1.1/_modules/rdflib/plugins/parsers/notation3.html#TurtleParser
+
+        The need for this function is dictated by the fact that
+        rdflib seems NOT to read @base with `TurtleParser`
+        into `base` property but rather resolves IRIs
+        using base upon serialization. This leads to problems
+        if graph is serialized and then parsed again repeatedly
+        (i.e., `@base` is lost on repeat serialization).
+
+        <https://stackoverflow.com/questions/43739259/how-do-i-get-the-base-uri-of-an-xml-file-using-rdflib>
         """
         graph = Graph()
         sink = RDFSink(graph)
@@ -69,15 +78,6 @@ class DrawIOParserGraph(Graph):
         """
         Parse the given Turtle document (string) and return
         the base URI used during parsing.
-
-        The need for this function is dictated by the fact that
-        rdflib seems NOT to read @base with `TurtleParser`
-        into `base` property but rather resolves IRIs
-        using base upon serialization. This leads to problems
-        if graph is serialized and then parsed again repeatedly
-        (i.e., `@base` is lost on repeat serialization).
-
-        <https://stackoverflow.com/questions/43739259/how-do-i-get-the-base-uri-of-an-xml-file-using-rdflib>
         """
         source = InputSource()
         source.setCharacterStream(StringIO(turtle_str))
@@ -103,7 +103,7 @@ class DrawIOParserGraph(Graph):
         if not already set and if available, thus making
         it persist across reserialiation/parsing cycles.
 
-        Also see docstring for `extract_base_from_turtle()`.
+        Also see docstring for `_extract_base_from_inputsource()`.
         """
         super().parse(*args, **kwargs)
         self._inject_base_from_parse_kwargs(**kwargs)

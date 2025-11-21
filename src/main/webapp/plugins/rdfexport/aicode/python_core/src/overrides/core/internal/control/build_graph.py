@@ -199,11 +199,16 @@ def _build_graph_from_raw_xml(
         graph_kwargs={
             "csv_path": csv_path,
             "metacharacter_mode": metacharacter_mode,
+            # So here, an important thing happens: for usability
+            # reasons, we interpret baseUri as the actual @base
+            # (always) *and* as default namespace aka `:` prefix
+            # (unless `prefix_iri` is set explicitly in parser config).
+            # With this in mind, we `rstrip` any trailing /[#/]*$/ here:
+            "base": pipeline.core.rdf.data.prefix_iri_to_base(base_uri),
         },
     )
 
-    # 5. Final post-processing (e.g., base URI binding)
-    if base_uri:
-        graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
+    # 5. Final post-processing
+    # nothing to do here
 
     return graph

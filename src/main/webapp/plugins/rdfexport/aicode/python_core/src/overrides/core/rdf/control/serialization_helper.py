@@ -38,34 +38,65 @@ class RDFSerializationHelper:
             serialisation_config.ontology_iri
         )
 
-        self.namespace_map: dict[str, Namespace] = {}
-        self.fallback_namespace: Namespace | None = None
-        self.explicit_overrides: dict[str, URIRef] = {}
-        self.metacharacter_substitution_mode = getattr(
-            graph, "metacharacter_mode", None
-        )
         self._should_decode_literals = False
 
+    def _set_default_prefix(self, ns: Namespace):
+        """
+        Sets either the actual default (`:`) prefix
+        or whatever prefix is passed in parser config.
+        """
+        default_prefix = self.prefix if getattr(self, "prefix", None) else ""
+        self.graph.bind(default_prefix, ns, replace=True)
+
     def setup_namespaces(self) -> None:
-        """Bind namespaces to the graph."""
+        """
+        Bind namespaces to the graph.
+
+        Note that *no* IRI trailing check is performed for prefix IRIs,
+        which is fully in line with how permissively rdflib (and Turtle
+        1.1 also?) defines prefixes. For example:
+        ```
+        @prefix hi: <http://example.com/hi>
+        hi:there [] [] .
+        ```
+        -> serializes as: <http://example.com/hithere>
+        That is kept permissive intentionally to support cases
+        where anyone might want to use prefixes in this way.
+        """
         looks_like_iri = pipeline.core.internal.data.looks_like_iri
 
-        if self.prefix_iri and looks_like_iri(self.prefix_iri) == "absolute-iri":
-            self.fallback_namespace = Namespace(self.prefix_iri)
+        # Movement #1
+        if getattr(self, "prefix_iri", None):
+            if looks_like_iri(self.prefix_iri) == "absolute-iri":
+                self._set_default_prefix(Namespace(self.prefix_iri))
+            else:
+                raise ParseException(
+                    f"Failed to apply parser settings: Prefix IRI '{self.prefix_iri}' looks invalid"
+                )
+        elif getattr(self.graph, "base", None):
+            self._set_default_prefix(Namespace(self.graph.base))
+        else:  # ok to have no default namespace
+            pass
 
+        # Movement #2
         for prefix_key, uri in self.prefixes.items():
             if looks_like_iri(uri) == "absolute-iri":
                 namespace = Namespace(uri)
-            elif self.fallback_namespace is not None:
-                namespace = self.fallback_namespace
             else:
-                raise ParseException(f"Prefix IRI '{uri}' looks invalid")
-
+                raise ParseException(
+                    f"Failed to bind prefixes: IRI '{uri}' looks invalid"
+                )
             self.graph.bind(prefix_key, namespace, replace=True)
-            self.namespace_map[prefix_key] = namespace
 
-        if self.prefix:
-            self.graph.bind(self.prefix, Namespace(self.prefix_iri), replace=True)
+        # Movement #3
+        if getattr(self.graph, "base", None) is None:
+            self.graph.base = pipeline.core.rdf.data.prefix_iri_to_base(self.prefix_iri)
+
+    def namespace_map(self):
+        return {
+            (prefix or ""): Namespace(iri)
+            for prefix, iri in list(self.graph.namespace_manager.namespaces())
+        }
 
     def add_preamble(self) -> None:
         """Add ontology preamble if configured."""

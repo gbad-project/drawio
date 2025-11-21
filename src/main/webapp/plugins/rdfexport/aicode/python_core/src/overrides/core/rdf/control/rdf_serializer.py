@@ -88,9 +88,9 @@ def serialise_to_graph(
     datatype_properties: set[str],
     serialisation_config: SerialisationConfig,
     prefixes: dict,
-    graph_cls: Type[Graph] = Graph,
+    graph_cls: Type = Graph,
     graph_kwargs: Optional[Dict[str, Any]] = None,
-) -> Graph:
+) -> DrawIOParserGraph:
     """Serialize blocks to RDF graph with regular triples."""
     RDFSerializer = pipeline.core.rdf.control.RDFSerializer
 

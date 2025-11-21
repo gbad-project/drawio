@@ -39,11 +39,10 @@ def test_base_extraction_on_parse(fixture):
     dpg1.parse(data=fixture.turtle, format="turtle")
     assert dpg1.base == fixture.base
 
-    # The next part is strictly not
-    # necessary because the assert above
-    # already checks out, but let's confirm:
+    # Finally, confirm that base is written into
+    # the serialized even if not passed explicitly
+    # to `serialize()` - it reads it from attr
     serialized = dpg1.serialize()
-    # parse again
     dpg2 = DrawIOParserGraph()
     dpg2.parse(data=serialized, format="turtle")
     assert dpg2.base == fixture.base

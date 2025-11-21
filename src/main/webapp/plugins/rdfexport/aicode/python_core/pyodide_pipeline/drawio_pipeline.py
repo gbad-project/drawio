@@ -12,7 +12,7 @@ from typing import Any, Dict, Iterable
 from xml.etree import ElementTree
 from typing import TYPE_CHECKING
 
-# ruff: noqa: F403
+# ruff: noqa: F403, F405
 
 if TYPE_CHECKING:
     from python_core.src.draw_io_parser import *
@@ -280,31 +280,32 @@ def _normalize_drawio_xml(serialized_xml: str) -> str:
     return stripped
 
 
-def _sorted_namespaces(graph: DrawIOParserGraph) -> Iterable[tuple[str | None, Any]]:
-    namespaces = list(graph.namespace_manager.namespaces())
-    namespaces.sort(key=lambda item: ("" if item[0] is None else item[0]))
-    return namespaces
-
-
 def _build_summary(graph_id: str, graph: DrawIOParserGraph) -> GraphSummary:
-    csv_path = getattr(graph, "csv_path", None)
+    def sorted_namespaces(ns_mgr: NamespaceManager) -> Iterable[tuple[str | None, Any]]:
+        namespaces = list(ns_mgr.namespaces())
+        namespaces.sort(
+            key=lambda item: (
+                "" if item[0] is None else item[0]  # defensive
+            )
+        )
+        return namespaces
 
-    namespaces = [
-        {"prefix": prefix or "", "iri": str(iri)}
-        for prefix, iri in _sorted_namespaces(graph)
-    ]
-    base = next((ns["iri"] for ns in namespaces if ns.get("prefix") == ""), None)
+    def namespace_dictl(graph: Graph):
+        return [
+            {"prefix": prefix or "", "iri": str(iri)}
+            for prefix, iri in sorted_namespaces(graph.namespace_manager)
+        ]
 
-    raw_turtle = json.dumps(graph.serialize(format="turtle", base=base))
-
-    return {
+    payload = {
         "graph_id": graph_id,
         "triple_count": len(graph),
-        "csv_path": csv_path,
-        "base_uri": base,
-        "namespaces": namespaces,
-        "raw_turtle": raw_turtle,
+        "csv_path": getattr(graph, "csv_path", None),
+        "base_uri": getattr(graph, "base", None),
+        "namespaces": namespace_dictl(graph),
+        "raw_turtle": json.dumps(graph.serialize(format="turtle")),
     }
+
+    return payload
 
 
 def get_graph_summary(graph_id: str) -> GraphSummary:

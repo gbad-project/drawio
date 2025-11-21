@@ -211,7 +211,8 @@ function normalisePreamble(
   return result;
 }
 
-type RdfExportModule = typeof import("../../../typescript_plugin/src/rdfexport");
+type RdfExportModule =
+  typeof import("../../../typescript_plugin/src/rdfexport");
 let loadedPluginModule: RdfExportModule | null = null;
 
 async function loadPluginModule(): Promise<RdfExportModule> {

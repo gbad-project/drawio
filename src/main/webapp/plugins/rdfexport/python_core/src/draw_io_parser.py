@@ -1090,37 +1090,65 @@ class pipeline:
                             serialisation_config.prefix_iri
                             or get_prefix_iri(serialisation_config.ontology_iri)
                         )
-                        self.namespace_map: dict[str, Namespace] = {}
-                        self.fallback_namespace: Namespace | None = None
-                        self.explicit_overrides: dict[str, URIRef] = {}
-                        self.metacharacter_substitution_mode = getattr(
-                            graph, "metacharacter_mode", None
-                        )
                         self._should_decode_literals = False
 
+                    def _set_default_prefix(self, ns: Namespace):
+                        """
+                        Sets either the actual default (`:`) prefix
+                        or whatever prefix is passed in parser config.
+                        """
+                        default_prefix = (
+                            self.prefix if getattr(self, "prefix", None) else ""
+                        )
+                        self.graph.bind(default_prefix, ns, replace=True)
+
                     def setup_namespaces(self) -> None:
-                        """Bind namespaces to the graph."""
+                        """
+                        Bind namespaces to the graph.
+
+                        Note that *no* IRI trailing check is performed for prefix IRIs,
+                        which is fully in line with how permissively rdflib (and Turtle
+                        1.1 also?) defines prefixes. For example:
+                        ```
+                        @prefix hi: <http://example.com/hi>
+                        hi:there [] [] .
+                        ```
+                        -> serializes as: <http://example.com/hithere>
+                        That is kept permissive intentionally to support cases
+                        where anyone might want to use prefixes in this way.
+                        """
                         looks_like_iri = pipeline.core.internal.data.looks_like_iri
-                        if (
-                            self.prefix_iri
-                            and looks_like_iri(self.prefix_iri) == "absolute-iri"
-                        ):
-                            self.fallback_namespace = Namespace(self.prefix_iri)
+                        if getattr(self, "prefix_iri", None):
+                            if looks_like_iri(self.prefix_iri) == "absolute-iri":
+                                self._set_default_prefix(Namespace(self.prefix_iri))
+                            else:
+                                raise ParseException(
+                                    f"Failed to apply parser settings: Prefix IRI '{self.prefix_iri}' looks invalid"
+                                )
+                        elif getattr(self.graph, "base", None):
+                            self._set_default_prefix(Namespace(self.graph.base))
+                        else:
+                            pass
                         for prefix_key, uri in self.prefixes.items():
                             if looks_like_iri(uri) == "absolute-iri":
                                 namespace = Namespace(uri)
-                            elif self.fallback_namespace is not None:
-                                namespace = self.fallback_namespace
                             else:
                                 raise ParseException(
-                                    f"Prefix IRI '{uri}' looks invalid"
+                                    f"Failed to bind prefixes: IRI '{uri}' looks invalid"
                                 )
                             self.graph.bind(prefix_key, namespace, replace=True)
-                            self.namespace_map[prefix_key] = namespace
-                        if self.prefix:
-                            self.graph.bind(
-                                self.prefix, Namespace(self.prefix_iri), replace=True
+                        if getattr(self.graph, "base", None) is None:
+                            self.graph.base = pipeline.core.rdf.data.prefix_iri_to_base(
+                                self.prefix_iri
                             )
+
+                    def namespace_map(self):
+                        return {
+                            prefix or "": Namespace(iri)
+                            for prefix, iri in list(
+                                self.graph.namespace_manager.namespaces()
+                            )
+                        }
 
                     def add_preamble(self) -> None:
                         """Add ontology preamble if configured."""
@@ -1283,7 +1311,10 @@ class pipeline:
                         )
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
                         self.csv_path = csv_path
-                        if self.metacharacter_substitution_mode == "url":
+                        metacharacter_mode = getattr(
+                            self.graph, "metacharacter_mode", None
+                        )
+                        if metacharacter_mode == "url":
                             self._should_decode_literals = True
                         self.rr = Namespace("http://www.w3.org/ns/r2rml#")
                         self.rml_ns = Namespace("http://semweb.mmlab.be/ns/rml#")
@@ -1704,7 +1735,8 @@ class pipeline:
                                 prefix, reference = _split_curie(
                                     candidate, cfg.prefixes
                                 )
-                                return cfg.namespace_map[prefix][reference]
+                                namespace_map = cfg.namespace_map()
+                                return namespace_map[prefix][reference]
                             except (
                                 ValueError,
                                 NotInKnownException,
@@ -1745,9 +1777,9 @@ class pipeline:
                     datatype_properties: set[str],
                     serialisation_config: SerialisationConfig,
                     prefixes: dict,
-                    graph_cls: type[Graph] = Graph,
+                    graph_cls: type = Graph,
                     graph_kwargs: dict[str, Any] | None = None,
-                ) -> Graph:
+                ) -> DrawIOParserGraph:
                     """Serialize blocks to RDF graph with RML mapping triples."""
                     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
                     if os.getenv("DEBUG") == "true":
@@ -2869,10 +2901,9 @@ class internal_control_core:
             graph_kwargs={
                 "csv_path": csv_path,
                 "metacharacter_mode": metacharacter_mode,
+                "base": pipeline.core.rdf.data.prefix_iri_to_base(base_uri),
             },
         )
-        if base_uri:
-            graph.namespace_manager.bind("", Namespace(base_uri), replace=True)
         return graph
 
     # END _build_graph_from_raw_xml
@@ -2965,6 +2996,15 @@ class rdf_control_core:
             """
             Reuses some code from `TurtleParser.parse()`:
             https://rdflib.readthedocs.io/en/7.1.1/_modules/rdflib/plugins/parsers/notation3.html#TurtleParser
+
+            The need for this function is dictated by the fact that
+            rdflib seems NOT to read @base with `TurtleParser`
+            into `base` property but rather resolves IRIs
+            using base upon serialization. This leads to problems
+            if graph is serialized and then parsed again repeatedly
+            (i.e., `@base` is lost on repeat serialization).
+
+            <https://stackoverflow.com/questions/43739259/how-do-i-get-the-base-uri-of-an-xml-file-using-rdflib>
             """
             graph = Graph()
             sink = RDFSink(graph)
@@ -2990,15 +3030,6 @@ class rdf_control_core:
             """
             Parse the given Turtle document (string) and return
             the base URI used during parsing.
-
-            The need for this function is dictated by the fact that
-            rdflib seems NOT to read @base with `TurtleParser`
-            into `base` property but rather resolves IRIs
-            using base upon serialization. This leads to problems
-            if graph is serialized and then parsed again repeatedly
-            (i.e., `@base` is lost on repeat serialization).
-
-            <https://stackoverflow.com/questions/43739259/how-do-i-get-the-base-uri-of-an-xml-file-using-rdflib>
             """
             source = InputSource()
             source.setCharacterStream(StringIO(turtle_str))
@@ -3024,7 +3055,7 @@ class rdf_control_core:
             if not already set and if available, thus making
             it persist across reserialiation/parsing cycles.
 
-            Also see docstring for `extract_base_from_turtle()`.
+            Also see docstring for `_extract_base_from_inputsource()`.
             """
             super().parse(*args, **kwargs)
             self._inject_base_from_parse_kwargs(**kwargs)
@@ -3038,9 +3069,9 @@ class rdf_control_core:
         datatype_properties: set[str],
         serialisation_config: SerialisationConfig,
         prefixes: dict,
-        graph_cls: Type[Graph] = Graph,
+        graph_cls: Type = Graph,
         graph_kwargs: Optional[Dict[str, Any]] = None,
-    ) -> Graph:
+    ) -> DrawIOParserGraph:
         """Serialize blocks to RDF graph with regular triples."""
         RDFSerializer = pipeline.core.rdf.control.RDFSerializer
         if os.getenv("DEBUG") == "true":

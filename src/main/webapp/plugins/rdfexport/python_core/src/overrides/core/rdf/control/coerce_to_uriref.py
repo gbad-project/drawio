@@ -72,7 +72,8 @@ def coerce_to_uriref(
         elif iri_variant == "curie":
             try:
                 prefix, reference = _split_curie(candidate, cfg.prefixes)
-                return cfg.namespace_map[prefix][reference]
+                namespace_map = cfg.namespace_map()
+                return namespace_map[prefix][reference]
             except (
                 ValueError,
                 NotInKnownException,
