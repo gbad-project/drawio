@@ -987,6 +987,284 @@
       ],
       "results": {}
     },
+    "class-diagram-tweaked": {
+      "cell_classifications": {
+        "WIyWlLk6GJQsqaUBKTNV-0": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": null,
+          "raw_value": null,
+          "tokens": []
+        },
+        "WIyWlLk6GJQsqaUBKTNV-1": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "WIyWlLk6GJQsqaUBKTNV-0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--0": {
+          "identifier": "rdf:Person",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rdf:Person",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--1": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "Name",
+          "tokens": [
+            "Name"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--10": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "Is Eligible To Enroll",
+          "tokens": [
+            "Is Eligible To Enroll"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--11": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "Get Seminars Taken",
+          "tokens": [
+            "Get Seminars Taken"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--12": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--13": {
+          "identifier": "Professor",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Professor",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--14": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Professor",
+          "raw_value": "Salary",
+          "tokens": [
+            "Salary"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--15": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--16": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--17": {
+          "identifier": "Address",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Address",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--18": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "Street",
+          "tokens": [
+            "Street"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--19": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "City",
+          "tokens": [
+            "City"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "Phone Number",
+          "tokens": [
+            "Phone Number"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--20": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "State",
+          "tokens": [
+            "State"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--21": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "Postal Code",
+          "tokens": [
+            "Postal Code"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--22": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "Country",
+          "tokens": [
+            "Country"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--23": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--24": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "Validate",
+          "tokens": [
+            "Validate"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--25": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Address",
+          "raw_value": "Output As Label",
+          "tokens": [
+            "Output As Label"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--26": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--29": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:mock",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--3": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "Email Address",
+          "tokens": [
+            "Email Address"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--4": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--5": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "rdf:Person",
+          "raw_value": "Purchase Parking Pass",
+          "tokens": [
+            "Purchase Parking Pass"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--6": {
+          "identifier": "Student",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Student",
+          "tokens": []
+        },
+        "zkfFHV4jXpPFQw0GAbJ--7": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "Student Number",
+          "tokens": [
+            "Student Number"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--8": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "Student",
+          "raw_value": "Average Mark",
+          "tokens": [
+            "Average Mark"
+          ]
+        },
+        "zkfFHV4jXpPFQw0GAbJ--9": {
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        }
+      },
+      "drawio": "data/fixtures/drawio_fixtures/Class_Diagram_tweaked.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value 'sourcePoint', but it does not: zkfFHV4jXpPFQw0GAbJ--0"
+        ],
+        "ts_pipeline": [
+          "TypeScript pipeline graph is None",
+          "CalledProcessError: Command '['bun', 'run', 'aicode/integration_tests/debug/src/run_scenario.ts', '/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/tmpxa5hepc7/config.json']' returned non-zero exit status 1."
+        ],
+        "ts_plugin": [
+          "TypeScript plugin graph is None",
+          "CalledProcessError: Command '['bun', 'run', 'aicode/integration_tests/debug/src/run_scenario.ts', '/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/tmpxa5hepc7/config.json']' returned non-zero exit status 1."
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {},
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {}
+    },
     "class-diagram-tweaked-compliant": {
       "cell_classifications": {
         "WIyWlLk6GJQsqaUBKTNV-1": {
@@ -1268,12 +1546,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "d3d89c283f1bc8fcec5ad67f4a782f833a5e0ea752e20dff17fee1251fdaafce",
+          "nt_sha256": "59b3a422bd5cdbdc309fae0b40bd267bdcea5dd1c068cf836b54aaf1bc2a32f8",
           "path": "results/class-diagram-tweaked-compliant/ts_pipeline.ttl",
           "triples": 28
         },
         "ts_plugin": {
-          "nt_sha256": "d3d89c283f1bc8fcec5ad67f4a782f833a5e0ea752e20dff17fee1251fdaafce",
+          "nt_sha256": "59b3a422bd5cdbdc309fae0b40bd267bdcea5dd1c068cf836b54aaf1bc2a32f8",
           "path": "results/class-diagram-tweaked-compliant/ts_plugin.ttl",
           "triples": 28
         }

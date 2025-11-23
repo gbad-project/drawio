@@ -1,4 +1,5 @@
 @base <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded> .
+@prefix : <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/> .
 @prefix geo: <http://mock-geo.com-set-from-scenario> .
 @prefix mock: <http://mock-uri.com-set-from-scenario> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -6,36 +7,36 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
-<http://asdfgenerated-from-draw-io.com/Professor> a mock:Salary,
+:Professor a mock:Salary,
         owl:NamedIndividual ;
     rdfs:label "Professor" .
 
-<http://asdfgenerated-from-draw-io.com/Student> a <http://asdfgenerated-from-draw-io.com/Average-Mark>,
-        <#GetSeminarsTaken>,
-        <#IsEligibleToEnroll>,
-        <#StudentNumber>,
+:Student a <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#GetSeminarsTaken>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#IsEligibleToEnroll>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#StudentNumber>,
+        :Average-Mark,
         owl:NamedIndividual ;
     rdfs:label "Student" .
 
-rdf:Person a <#Email%20Address>,
-        <#Name>,
-        <#Phone%20Number>,
-        <#Purchase%20Parking%20Pass>,
+rdf:Person a <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Email%20Address>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Name>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Phone%20Number>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Purchase%20Parking%20Pass>,
         owl:NamedIndividual ;
     rdfs:label "rdf:Person" ;
-    rdfs:mock <http://asdfgenerated-from-draw-io.com/Address> .
+    rdfs:mock :Address .
 
 rdfs:mock a owl:ObjectProperty .
 
 <mock://debug-ontology-set-from-scenario> a owl:Ontology ;
     owl:imports rico: .
 
-<http://asdfgenerated-from-draw-io.com/Address> a <http://asdfgenerated-from-draw-io.com/Country>,
-        <http://asdfgenerated-from-draw-io.com/Postal%20Code>,
-        <http://asdfgenerated-from-draw-io.com/Validate>,
-        <#OutputAsLabel>,
-        <#State>,
-        <#Street>,
+:Address a <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#OutputAsLabel>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#State>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Street>,
+        :Country,
+        :Postal%20Code,
+        :Validate,
         geo:City,
         owl:NamedIndividual ;
     rdfs:label ":Address" .
