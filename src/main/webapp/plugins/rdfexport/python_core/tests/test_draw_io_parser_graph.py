@@ -8,10 +8,10 @@ from python_core.src.overrides.core.rdf.control.draw_io_parser_graph import (
 
 
 class SampleTurtleWithBase:
-    def __init__(self):
-        self.base = URIRef("mock://base_uri_originally_has_two_terms_after_tld/no-trailing-slash/blank-prefix-is-same-but-with-trailing-slash")
-        self.blank_prefix = URIRef(f"{self.base}/")
-        self.turtle = """@base <{}> .
+    def __init__(self, base=None, blank_prefix=None, turtle=None):
+        self.base = base if base else URIRef("mock://base_uri_originally_has_two_terms_after_tld/no-trailing-slash/blank-prefix-is-same-but-with-trailing-slash")
+        self.blank_prefix = blank_prefix if blank_prefix else URIRef(f"{self.base}/")
+        self.turtle = turtle if turtle else """@base <{}> .
 @prefix : <{}> .
 </not_from_base_uri_rel_slash_subject> a <#not_from_base_uri_rel_hash_object> .
 :not_from_base_uri_blank_prefix_curie a <not_from_base_uri_rel_nothing_object> .
@@ -83,22 +83,34 @@ def test_base_blank_prefix_handling(fixture):
     # rel iris correctly resolved against base using RFC 3986
     assert "<mock://base_uri_originally_has_two_terms_after_tld/not_from_base_uri_rel_slash_subject>" in g2_serialized
     assert "<mock://base_uri_originally_has_two_terms_after_tld/no-trailing-slash/not_from_base_uri_rel_nothing_object>" in g2_serialized 
-    # blank prefix INCORRECTLY serialized as a relative IRI instead of 
-    # a curie, which leads to it being parsed with RFC 3986 upon re-parse
-    assert "</not_from_base_uri_blank_prefix_curie>" in g2_serialized
-    # ..as evidenced below:
+    # # blank prefix INCORRECTLY serialized as a relative IRI instead of 
+    # # a curie, which leads to it being parsed with RFC 3986 upon re-parse
+    # assert "</not_from_base_uri_blank_prefix_curie>" in g2_serialized
+    # # ..as evidenced below:
+    #
+    # g3 = DrawIOParserGraph()
+    # g3.parse(data=g2_serialized, format="turtle")
+    # g3_serialized = g3.serialize(format="turtle")
+    # print("\n\n-----RE-PARSED DRAW IO PARSER GRAPH: BEGIN TURTLE-----")
+    # print(g3_serialized)
+    # print("-----RE-PARSED DRAW IO PARSER GRAPH: END TURTLE-----\n\n")
+    # # no prefix directive anymore as no :prefixed values left in serialized
+    # assert "@prefix" not in g3_serialized
+    # # uri for not_from_base_uri_rel_nothing_object stays correct because
+    # # it has already been absolutized above - apparently key to success
+    # assert "<mock://base_uri_originally_has_two_terms_after_tld/no-trailing-slash/not_from_base_uri_rel_nothing_object>" in g3_serialized 
+    # # incorrect IRI originally from blank prefix but now with all terms trimmed
+    # assert "<mock://base_uri_originally_has_two_terms_after_tld/not_from_base_uri_blank_prefix_curie>" in g3_serialized
+    
+    # wow! in rdflib 7.4.0, it actually serializes this correcly now
+    assert ":not_from_base_uri_blank_prefix_curie" in g2_serialized
 
+    # ..and so upon parsing this also looks good!
     g3 = DrawIOParserGraph()
     g3.parse(data=g2_serialized, format="turtle")
     g3_serialized = g3.serialize(format="turtle")
     print("\n\n-----RE-PARSED DRAW IO PARSER GRAPH: BEGIN TURTLE-----")
     print(g3_serialized)
     print("-----RE-PARSED DRAW IO PARSER GRAPH: END TURTLE-----\n\n")
-    # no prefix directive anymore as no :prefixed values left in serialized
-    assert "@prefix" not in g3_serialized
-    # uri for not_from_base_uri_rel_nothing_object stays correct because
-    # it has already been absolutized above - apparently key to success
-    assert "<mock://base_uri_originally_has_two_terms_after_tld/no-trailing-slash/not_from_base_uri_rel_nothing_object>" in g3_serialized 
-    # incorrect IRI originally from blank prefix but now with all terms trimmed
-    assert "<mock://base_uri_originally_has_two_terms_after_tld/not_from_base_uri_blank_prefix_curie>" in g3_serialized
-    
+    # wow! works.. with rdflib 7.4.0 but not with 7.2.1
+    assert g3_serialized == g2_serialized
