@@ -56,61 +56,61 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#2000> a owl:NamedIndividual,
+:2000 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "2000" .
 
-<#2002> a owl:NamedIndividual,
+:2002 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "2002" .
 
-<#Accession%20Number> a owl:NamedIndividual,
+:Accession%20Number a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Accession Number" .
 
-<#Accession%20Number%3A%2045241.> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#Accession%20Number%3A%2045241.> a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "Accession number: 45241." ;
-    rico:hasIdentifierType <#Accession%20Number> .
+    rico:hasIdentifierType :Accession%20Number .
 
-<#Archival%20Description> a owl:NamedIndividual,
+:Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
     rdfs:label "Archival Description" .
 
-<#Archival%20Description%20Creation> a owl:NamedIndividual,
+:Archival%20Description%20Creation a owl:NamedIndividual,
         rico:Activity ;
     rdfs:label "Archival Description Creation" ;
-    rico:isOrWasPerformedBy <#Dale> .
+    rico:isOrWasPerformedBy :Dale .
 
-<#Current%20Reference%20Code> a owl:NamedIndividual,
+:Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
 
-<#Dale> a owl:NamedIndividual,
+:Dale a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Dale" .
 
-<#Electronic%20Records> a owl:NamedIndividual,
+:Electronic%20Records a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Electronic records" .
 
-<#Moving%20Images> a owl:NamedIndividual,
+:Moving%20Images a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Moving images" .
 
-<#Office%20Of%20Origin%20Relation> a owl:NamedIndividual,
+:Office%20Of%20Origin%20Relation a owl:NamedIndividual,
         rico:CreationRelation ;
     rdfs:label "Office of Origin Relation" ;
-    rico:hasBeginningDate <#2000> ;
-    rico:hasEndDate <#2002> ;
-    rico:relationHasTarget <#Ontario.%20Walkerton%20Inquiry> .
+    rico:hasBeginningDate :2000 ;
+    rico:hasEndDate :2002 ;
+    rico:relationHasTarget :Ontario.%20Walkerton%20Inquiry .
 
-<#RG%2018-210> a owl:NamedIndividual,
+:RG%2018-210 a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "RG 18-210" ;
-    rico:hasIdentifierType <#Current%20Reference%20Code> .
+    rico:hasIdentifierType :Current%20Reference%20Code .
 
-<#Records%20Of%20The%20Walkerton%20Inquiry> a owl:NamedIndividual,
+:Records%20Of%20The%20Walkerton%20Inquiry a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Records of the Walkerton Inquiry" ;
@@ -120,56 +120,56 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
     rico:creationDate "2000-2002" ;
     rico:generalDescription "Finding Aid Note: Please see sub-series descriptions for information about finding aids.",
         "Immediate Source of Acquisition: The records were acquired by the Archives of Ontario in a direct transfer from the Walkerton Inquiry in 2002." ;
-    rico:hasContentOfType <#Electronic%20Records>,
-        <#Moving%20Images>,
-        <#Sound%20Recordings>,
-        <#Textual%20Records> ;
-    rico:hasCreator <#Ontario.%20Walkerton%20Inquiry> ;
-    rico:hasOrHadIdentifier <#Accession%20Number%3A%2045241.>,
-        <#RG%2018-210> ;
-    rico:hasOrHadInstantiation <#Records%20Of%20The%20Walkerton%20Inquiry-i1> ;
-    rico:hasOrHadTitle <#Records%20Of%20The%20Walkerton%20Inquiry> ;
-    rico:hasRecordSetType <#Series> ;
-    rico:isOrWasDescribedBy <#Records%20Of%20The%20Walkerton%20Inquiry%20Archival%20Description> ;
+    rico:hasContentOfType :Electronic%20Records,
+        :Moving%20Images,
+        :Sound%20Recordings,
+        :Textual%20Records ;
+    rico:hasCreator :Ontario.%20Walkerton%20Inquiry ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#Accession%20Number%3A%2045241.>,
+        :RG%2018-210 ;
+    rico:hasOrHadInstantiation :Records%20Of%20The%20Walkerton%20Inquiry-i1 ;
+    rico:hasOrHadTitle :Records%20Of%20The%20Walkerton%20Inquiry ;
+    rico:hasRecordSetType :Series ;
+    rico:isOrWasDescribedBy :Records%20Of%20The%20Walkerton%20Inquiry%20Archival%20Description ;
     rico:scopeAndContent "Series consists of records generated during the course of the Walkerton Inquiry into the tainted water tragedy that occurred in Walkerton, Ontario in May 2000. At that time Walkerton’s   drinking water system became contaminated with deadly bacteria, primarily Escherichia coli O157:H7.1 Seven people died, and more than 2,300 became ill.  The Ontario government called the Inquiry to investigate what actually happened in Walkerton. The mandate of the Inquiry was to determine the causes of the E-coli outbreak, find out who was responsible, and to investigate if it could have been prevented.  Commissioner O'Connor divided the Inquiry into two Parts. The purpose of Part One was to fulfil the mandate of discovering what had happened in Walkerton, and why, and to make recommendations based on those findings. Part One involved a great deal of fact finding and included evidentiary hearings. Part Two of the Inquiry was broader in scope and dealt with policy issues related to safe drinking water. The primary purpose of Part Two was to make recommendations regarding Ontario's drinking water system.  The records in this series have been arranged into sub-series that broadly reflect Parts One and Two of the Inquiry, and also include general administrative records created by the Inquiry's   staff. Included in the sub-series are records connected with the hearings and meetings held by the Inquiry, commissioned research reports, correspondence, the reference database of   documents used by the Inquiry and the Inquiry's website." ;
-    rico:thingIsSourceOfRelation <#Office%20Of%20Origin%20Relation> .
+    rico:thingIsSourceOfRelation :Office%20Of%20Origin%20Relation .
 
-<#Records%20Of%20The%20Walkerton%20Inquiry%20Archival%20Description> a owl:NamedIndividual,
+:Records%20Of%20The%20Walkerton%20Inquiry%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Records of the Walkerton Inquiry Archival Description" ;
-    rico:hasDocumentaryFormType <#Archival%20Description> ;
-    rico:hasRecordState <#Status%3A%20Approved>,
-        <#Web%20Enabled%3A%20Y> ;
+    rico:hasDocumentaryFormType :Archival%20Description ;
+    rico:hasRecordState :Status%3A%20Approved,
+        :Web%20Enabled%3A%20Y ;
     rico:lastModificationDate "2011-01-11"^^xsd:date ;
-    rico:resultsOrResultedFrom <#Archival%20Description%20Creation> .
+    rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
-<#Records%20Of%20The%20Walkerton%20Inquiry-i1> a owl:NamedIndividual,
+:Records%20Of%20The%20Walkerton%20Inquiry-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Records of the Walkerton Inquiry-i1" ;
     rico:generalDescription "How to Order: See sub-series descriptions for information on how to access the records." ;
     rico:instantiationExtent "18.6 metres of textual records (62 boxes)  4 data sets of textual records (53.5 GB)  1 website (56.9 MB)  5 audio cassettes  3 videocassettes" .
 
-<#Series> a owl:NamedIndividual,
+:Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Series" .
 
-<#Sound%20Recordings> a owl:NamedIndividual,
+:Sound%20Recordings a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Sound recordings" .
 
-<#Status%3A%20Approved> a owl:NamedIndividual,
+:Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Status: Approved" .
 
-<#Textual%20Records> a owl:NamedIndividual,
+:Textual%20Records a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Textual records" .
 
-<#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+:Web%20Enabled%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Web Enabled: Y" .
 
-<#Ontario.%20Walkerton%20Inquiry> a owl:NamedIndividual,
+:Ontario.%20Walkerton%20Inquiry a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "Ontario. Walkerton Inquiry" .
 

@@ -89,123 +89,123 @@ rico:wasLastUpdatedAtDate a owl:ObjectProperty .
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#%2FKB%2FCreationRelation%2F%7BREFD_FILE%7D%2F%7BOFFICEABC%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FCreationRelation%2F%7BREFD_FILE%7D%2F%7BOFFICEABC%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
         rico:CreationRelation ;
     rdfs:label "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:{UUID}",
         "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>" ;
     rico:date "{DATEOFF}" ;
-    rico:hasBeginningDate <#%2FKB%2FDate%2F%7BDATEOFF_BEGINNING%7D> ;
-    rico:hasEndDate <#%2FKB%2FDate%2F%7BDATEOFF_END%7D> ;
-    rico:relationHasSource <#%2FKB%2FRecordSet%2F%7BREFD_FILE%7D> ;
-    rico:relationHasTarget <#%2FKB%2FAgent%2F%7BABC_REFA%7D> .
+    rico:hasBeginningDate <ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BDATEOFF_BEGINNING%7D> ;
+    rico:hasEndDate <ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BDATEOFF_END%7D> ;
+    rico:relationHasSource <ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREFD_FILE%7D> ;
+    rico:relationHasTarget <ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BABC_REFA%7D> .
 
-<#%2FKB%2FAgent%2F%7BABC_REFA%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BABC_REFA%7D> a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "/KB/Agent/{ABC_REFA}" ;
-    rico:isCreatorOf <#%2FKB%2FRecordSet%2F%7BREFD_FILE%7D> .
+    rico:isCreatorOf <ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREFD_FILE%7D> .
 
-<#%2FKB%2FAgent%2F%7BINDEXNAME%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BINDEXNAME%7D> a owl:NamedIndividual,
         rico:Agent ;
     rdfs:label "/KB/Agent/{INDEXNAME}" .
 
-<#%2FKB%2FAgent%2F%7BINDEXPROV%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BINDEXPROV%7D> a owl:NamedIndividual,
         rico:Agent ;
     rdfs:label "/KB/Agent/{INDEXPROV}" .
 
-<#%2FKB%2FAgent%2F%7BINDEXSUB%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BINDEXSUB%7D> a owl:NamedIndividual,
         rico:Agent ;
     rdfs:label "/KB/Agent/{INDEXSUB}" .
 
-<#%2FKB%2FArchivalDescriptionRecord%2F%7BREFD_FILE%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FArchivalDescriptionRecord%2F%7BREFD_FILE%7D> a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "/KB/ArchivalDescriptionRecord/{REFD_FILE}",
         "{REFD_FILE} - {TITLE} (Archival Description Record)" ;
-    rico:hasDocumentaryFormType <#%2FSchema%2FDescription-Listings%2FArchivalDescriptionRecord> ;
-    rico:hasRecordState <#%2FSchema%2FDescription-Listings%2FStatus%23%7BSTATUSD%7D>,
-        <#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBD%7D>,
-        <#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBL%7D> ;
-    rico:wasLastUpdatedAtDate <#%2FKB%2FDate%2F%7BMODDATE%7D> .
+    rico:hasDocumentaryFormType <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FArchivalDescriptionRecord> ;
+    rico:hasRecordState <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FStatus%23%7BSTATUSD%7D>,
+        <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBD%7D>,
+        <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBL%7D> ;
+    rico:wasLastUpdatedAtDate <ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BMODDATE%7D> .
 
-<#%2FKB%2FCurrentReferenceCode%2F%7BREFD_FILE%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FCurrentReferenceCode%2F%7BREFD_FILE%7D> a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "/KB/CurrentReferenceCode/{REFD_FILE}" ;
-    rico:hasIdentifierType <#%2FSchema%2FDescription-Listings%2FCurrentReferenceCode> .
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FCurrentReferenceCode> .
 
-<#%2FKB%2FDate%2F%7BDATEOFF_BEGINNING%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BDATEOFF_BEGINNING%7D> a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "/KB/Date/{DATEOFF_BEGINNING}" .
 
-<#%2FKB%2FDate%2F%7BDATEOFF_END%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BDATEOFF_END%7D> a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "/KB/Date/{DATEOFF_END}" .
 
-<#%2FKB%2FDate%2F%7BMODDATE%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FDate%2F%7BMODDATE%7D> a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "/KB/Date/{MODDATE}" ;
     rico:normalizedDateValue "{MODDATE}" .
 
-<#%2FKB%2FFormerCode%2F%7BFCODES%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FFormerCode%2F%7BFCODES%7D> a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "/KB/FormerCode/{FCODES}" ;
-    rico:hasIdentifierType <#%2FSchema%2FDescription-Listings%2FFormerCode> ;
+    rico:hasIdentifierType <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FFormerCode> ;
     rico:textualValue "{FCODES}" .
 
-<#%2FKB%2FInstantiation%2F%7BREFD_FILE%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FInstantiation%2F%7BREFD_FILE%7D%2Furn%3Auuid%3A%7BUUID%7D> a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}",
         "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>" ;
     add:howToOrder "{HOWTO}" ;
-    rico:hasOrHadTitle <#%2FKB%2FTitle%2F%7BTITLE%7D> ;
+    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#%2FKB%2FTitle%2F%7BTITLE%7D> ;
     rico:instantiationExtent "{PHDESC}" ;
     rico:physicalCharacteristicsNote "{PHYSCO}" .
 
-<#%2FKB%2FPlace%2F%7BINDEXGEO%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FPlace%2F%7BINDEXGEO%7D> a owl:NamedIndividual,
         rico:Place ;
     rdfs:label "/KB/Place/{INDEXGEO}" .
 
-<#%2FKB%2FRecordSet%2F%7BREFD_HIGHER%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREFD_HIGHER%7D> a owl:NamedIndividual,
         rico:RecordSet ;
     rdfs:label "/KB/RecordSet/{REFD_HIGHER}" .
 
-<#%2FKB%2FRecordSet%2F%7BREF_ADD%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREF_ADD%7D> a owl:NamedIndividual,
         rico:RecordSet ;
     rdfs:label "/KB/RecordSet/{REF_ADD}" .
 
-<#%2FSchema%2FDescription-Listings%2FArchivalDescriptionRecord> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FArchivalDescriptionRecord> a owl:NamedIndividual,
         rico:DocumentaryFormType ;
     rdfs:label "/Schema/Description-Listings/ArchivalDescriptionRecord" .
 
-<#%2FSchema%2FDescription-Listings%2FContentType%23%7BGMD%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FContentType%23%7BGMD%7D> a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "/Schema/Description-Listings/ContentType#{GMD}",
         "{GMD}" .
 
-<#%2FSchema%2FDescription-Listings%2FCurrentReferenceCode> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FCurrentReferenceCode> a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "/Schema/Description-Listings/CurrentReferenceCode" .
 
-<#%2FSchema%2FDescription-Listings%2FFormerCode> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FFormerCode> a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "/Schema/Description-Listings/FormerCode" .
 
-<#%2FSchema%2FDescription-Listings%2FLevel%23%7BLEVELDES%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FLevel%23%7BLEVELDES%7D> a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "/Schema/Description-Listings/Level#{LEVELDES}",
         "{LEVELDES}" .
 
-<#%2FSchema%2FDescription-Listings%2FStatus%23%7BSTATUSD%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FStatus%23%7BSTATUSD%7D> a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "/Schema/Description-Listings/Status#{STATUSD}" .
 
-<#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBD%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBD%7D> a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "/Schema/Description-Listings/WebEnabled#{WEBD}" .
 
-<#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBL%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FWebEnabled%23%7BWEBL%7D> a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "/Schema/Description-Listings/WebEnabled#{WEBL}" .
 
-<#%2FKB%2FRecordSet%2F%7BREFD_FILE%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREFD_FILE%7D> a owl:NamedIndividual,
         rico:RecordSet ;
     rdfs:label "/KB/RecordSet/{REFD_FILE}",
         "{REFD_FILE} - {TITLE} (Record Set)" ;
@@ -224,23 +224,23 @@ rico:wasLastUpdatedAtDate a owl:ObjectProperty .
         "{REST}" ;
     rico:conditionsOfUse "{TGU}" ;
     rico:creationDate "{DATECR}" ;
-    rico:hasContentOfType <#%2FSchema%2FDescription-Listings%2FContentType%23%7BGMD%7D> ;
-    rico:hasCreator <#%2FKB%2FAgent%2F%7BINDEXNAME%7D>,
-        <#%2FKB%2FAgent%2F%7BINDEXPROV%7D> ;
-    rico:hasOrHadIdentifier <#%2FKB%2FCurrentReferenceCode%2F%7BREFD_FILE%7D>,
-        <#%2FKB%2FFormerCode%2F%7BFCODES%7D> ;
-    rico:hasOrHadInstantiation <#%2FKB%2FInstantiation%2F%7BREFD_FILE%7D%2Furn%3Auuid%3A%7BUUID%7D> ;
-    rico:hasOrHadSubject <#%2FKB%2FAgent%2F%7BINDEXSUB%7D> ;
-    rico:hasOrHadTitle <#%2FKB%2FTitle%2F%7BTITLE%7D> ;
-    rico:hasRecordSetType <#%2FSchema%2FDescription-Listings%2FLevel%23%7BLEVELDES%7D> ;
+    rico:hasContentOfType <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FContentType%23%7BGMD%7D> ;
+    rico:hasCreator <ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BINDEXNAME%7D>,
+        <ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BINDEXPROV%7D> ;
+    rico:hasOrHadIdentifier <ontology://generated-from-draw-io/mock#%2FKB%2FCurrentReferenceCode%2F%7BREFD_FILE%7D>,
+        <ontology://generated-from-draw-io/mock#%2FKB%2FFormerCode%2F%7BFCODES%7D> ;
+    rico:hasOrHadInstantiation <ontology://generated-from-draw-io/mock#%2FKB%2FInstantiation%2F%7BREFD_FILE%7D%2Furn%3Auuid%3A%7BUUID%7D> ;
+    rico:hasOrHadSubject <ontology://generated-from-draw-io/mock#%2FKB%2FAgent%2F%7BINDEXSUB%7D> ;
+    rico:hasOrHadTitle <ontology://generated-from-draw-io/mock#%2FKB%2FTitle%2F%7BTITLE%7D> ;
+    rico:hasRecordSetType <ontology://generated-from-draw-io/mock#%2FSchema%2FDescription-Listings%2FLevel%23%7BLEVELDES%7D> ;
     rico:history "{ADMBIO}" ;
-    rico:isAssociatedWithPlace <#%2FKB%2FPlace%2F%7BINDEXGEO%7D> ;
-    rico:isDirectlyIncludedIn <#%2FKB%2FRecordSet%2F%7BREFD_HIGHER%7D>,
-        <#%2FKB%2FRecordSet%2F%7BREF_ADD%7D> ;
-    rico:isOrWasDescribedBy <#%2FKB%2FArchivalDescriptionRecord%2F%7BREFD_FILE%7D> ;
+    rico:isAssociatedWithPlace <ontology://generated-from-draw-io/mock#%2FKB%2FPlace%2F%7BINDEXGEO%7D> ;
+    rico:isDirectlyIncludedIn <ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREFD_HIGHER%7D>,
+        <ontology://generated-from-draw-io/mock#%2FKB%2FRecordSet%2F%7BREF_ADD%7D> ;
+    rico:isOrWasDescribedBy <ontology://generated-from-draw-io/mock#%2FKB%2FArchivalDescriptionRecord%2F%7BREFD_FILE%7D> ;
     rico:scopeAndContent "{SCOPE}" .
 
-<#%2FKB%2FTitle%2F%7BTITLE%7D> a owl:NamedIndividual,
+<ontology://generated-from-draw-io/mock#%2FKB%2FTitle%2F%7BTITLE%7D> a owl:NamedIndividual,
         rico:Title ;
     rdfs:label "/KB/Title/{TITLE}" .
 

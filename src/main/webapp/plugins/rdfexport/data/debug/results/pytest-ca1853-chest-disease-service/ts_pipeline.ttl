@@ -48,92 +48,92 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#Agent%20Identifier> a owl:NamedIndividual,
+:Agent%20Identifier a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Agent Identifier" .
 
-<#Authority%20Record> a owl:NamedIndividual,
+:Authority%20Record a owl:NamedIndividual,
         rico:DocumentaryFormType ;
     rdfs:label "Authority Record" .
 
-<#Authority%20Record%20Creation> a owl:NamedIndividual,
+:Authority%20Record%20Creation a owl:NamedIndividual,
         rico:Activity ;
     rdfs:label "Authority Record Creation" ;
-    rico:isOrWasPerformedBy <#Billinton> .
+    rico:isOrWasPerformedBy :Billinton .
 
-<#Billinton> a owl:NamedIndividual,
+:Billinton a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Billinton" .
 
-<#C%20Ontario%20Government%20Name> a owl:NamedIndividual,
+:C%20Ontario%20Government%20Name a owl:NamedIndividual,
         rico:CorporateBodyType ;
     rdfs:label "C Ontario Government Name" .
 
-<#CA1853> a owl:NamedIndividual,
+:CA1853 a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "CA1853" ;
-    rico:hasIdentifierType <#Agent%20Identifier> .
+    rico:hasIdentifierType :Agent%20Identifier .
 
-<#Controlling%20Agency%20Relation> a owl:NamedIndividual,
+:Controlling%20Agency%20Relation a owl:NamedIndividual,
         rico:AgentControlRelation ;
     rdfs:label "Controlling Agency Relation" ;
-    rico:hasBeginningDate <#1974> ;
-    rico:hasEndDate <#1982> ;
-    rico:relationHasTarget <#Ontario.%20Chest%20Disease%20Service> .
+    rico:hasBeginningDate :1974 ;
+    rico:hasEndDate :1982 ;
+    rico:relationHasTarget :Ontario.%20Chest%20Disease%20Service .
 
-<#Ontario.%20Chest%20Disease%20Service%20Authority%20Record> a owl:NamedIndividual,
+:Ontario.%20Chest%20Disease%20Service%20Authority%20Record a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Ontario. Chest Disease Service Authority Record" ;
     rico:generalDescription "Source Note: Not in Canadiana. Inventory for RG 10. Archivaria, Number 41, Spring 1996." ;
-    rico:hasDocumentaryFormType <#Authority%20Record> ;
-    rico:hasRecordState <#Status%3A%20Approved>,
-        <#Web%20Ready%3A%20Y> ;
-    rico:isOrWasRegulatedBy <#Rules%20For%20Archival%20Description> ;
+    rico:hasDocumentaryFormType :Authority%20Record ;
+    rico:hasRecordState :Status%3A%20Approved,
+        :Web%20Ready%3A%20Y ;
+    rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
     rico:lastModificationDate "2010-07-19"^^xsd:date ;
-    rico:resultsOrResultedFrom <#Authority%20Record%20Creation> .
+    rico:resultsOrResultedFrom :Authority%20Record%20Creation .
 
-<#Ontario.%20Division%20Of%20Tuberculosis%20Prevention> a owl:NamedIndividual,
+:Ontario.%20Division%20Of%20Tuberculosis%20Prevention a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "Ontario. Division of Tuberculosis Prevention" .
 
-<#Ontario.%20Ministry%20Of%20Health> a owl:NamedIndividual,
+:Ontario.%20Ministry%20Of%20Health a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "Ontario. Ministry of Health" ;
-    rico:thingIsSourceOfRelation <#Controlling%20Agency%20Relation> .
+    rico:thingIsSourceOfRelation :Controlling%20Agency%20Relation .
 
-<#Rules%20For%20Archival%20Description> a owl:NamedIndividual,
+:Rules%20For%20Archival%20Description a owl:NamedIndividual,
         rico:Rule ;
     rdfs:label "Rules for Archival Description" .
 
-<#Status%3A%20Approved> a owl:NamedIndividual,
+:Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Status: Approved" .
 
-<#Web%20Ready%3A%20Y> a owl:NamedIndividual,
+:Web%20Ready%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Web Ready: Y" .
 
-<#1974> a owl:NamedIndividual,
+:1974 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1974" .
 
-<#1982> a owl:NamedIndividual,
+:1982 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1982" .
 
-<#Ontario.%20Chest%20Disease%20Service> a owl:NamedIndividual,
+:Ontario.%20Chest%20Disease%20Service a owl:NamedIndividual,
         rico:AgentName,
         rico:CorporateBody ;
     rdfs:label "Ontario. Chest Disease Service" ;
     rico:generalDescription "Function Note: The Chest Disease Service was established to eradicate tuberculosis and to deal with other diseases of the chest and lungs." ;
-    rico:hasBeginningDate <#1974> ;
-    rico:hasEndDate <#1982> ;
-    rico:hasOrHadAgentName <#Ontario.%20Chest%20Disease%20Service> ;
-    rico:hasOrHadController <#Ontario.%20Ministry%20Of%20Health> ;
-    rico:hasOrHadCorporateBodyType <#C%20Ontario%20Government%20Name> ;
-    rico:hasOrHadIdentifier <#CA1853> ;
+    rico:hasBeginningDate :1974 ;
+    rico:hasEndDate :1982 ;
+    rico:hasOrHadAgentName :Ontario.%20Chest%20Disease%20Service ;
+    rico:hasOrHadController :Ontario.%20Ministry%20Of%20Health ;
+    rico:hasOrHadCorporateBodyType :C%20Ontario%20Government%20Name ;
+    rico:hasOrHadIdentifier :CA1853 ;
     rico:history "In 1974, in response to the continuing decline of the incidence of TB, the Tuberculosis Prevention Service was renamed Chest Disease Service, and was moved, within the Clinic Services Branch, to the Community Health Division.  Throughout the late 1970s and into the 1980s, the Chest Disease Service was transferred several times within the public health function to different offices. Finally in 1982 it was effectively shut down. Of the 23 chest clinics that the service operated, 18 were closed and the remaining 5, all located in Northern Ontario, were transferred to the Ministry of Labour for the purposes of screening miners." ;
-    rico:isOrWasDescribedBy <#Ontario.%20Chest%20Disease%20Service%20Authority%20Record> ;
-    rico:isSuccessorOf <#Ontario.%20Division%20Of%20Tuberculosis%20Prevention> ;
+    rico:isOrWasDescribedBy :Ontario.%20Chest%20Disease%20Service%20Authority%20Record ;
+    rico:isSuccessorOf :Ontario.%20Division%20Of%20Tuberculosis%20Prevention ;
     rico:normalizedValue "Chest Disease Service" .
 

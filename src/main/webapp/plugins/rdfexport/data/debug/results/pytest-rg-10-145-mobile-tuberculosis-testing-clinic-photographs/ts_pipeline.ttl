@@ -46,24 +46,24 @@ rico:scopeAndContent a owl:DatatypeProperty .
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#Archival%20Description> a owl:NamedIndividual,
+:Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
     rdfs:label "Archival Description" .
 
-<#Archival%20Description%20Creation> a owl:NamedIndividual,
+:Archival%20Description%20Creation a owl:NamedIndividual,
         rico:Activity ;
     rdfs:label "Archival Description Creation" ;
-    rico:isOrWasPerformedBy <#O%27Rourke> .
+    rico:isOrWasPerformedBy :O%27Rourke .
 
-<#Current%20Reference%20Code> a owl:NamedIndividual,
+:Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
 
-<#Graphic%20Materials> a owl:NamedIndividual,
+:Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Graphic materials" .
 
-<#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> a owl:NamedIndividual,
+:Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Mobile Tuberculosis Testing Clinic photographs" ;
@@ -71,52 +71,52 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rico:conditionsOfUse "Crown copyright exists in these photographs. Permission to publish is required from the Archives of Ontario. Submit a Request for Permission to Publish, Exhibit or Broadcast form." ;
     rico:creationDate "[ca. 1950]-1964" ;
     rico:generalDescription "Availability of Other Formats: Some of the photographs from this series are available in digital format in the Archives of Ontario Visual Database. Search using reference code RG 10-145." ;
-    rico:hasContentOfType <#Graphic%20Materials> ;
-    rico:hasCreator <#Ontario.%20Dept.%20Of%20Health> ;
-    rico:hasOrHadIdentifier <#RG%2010-145> ;
-    rico:hasOrHadInstantiation <#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> ;
-    rico:hasOrHadTitle <#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs> ;
-    rico:hasRecordSetType <#Series> ;
-    rico:isOrWasDescribedBy <#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> ;
+    rico:hasContentOfType :Graphic%20Materials ;
+    rico:hasCreator :Ontario.%20Dept.%20Of%20Health ;
+    rico:hasOrHadIdentifier :RG%2010-145 ;
+    rico:hasOrHadInstantiation :Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1 ;
+    rico:hasOrHadTitle :Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs ;
+    rico:hasRecordSetType :Series ;
+    rico:isOrWasDescribedBy :Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description ;
     rico:scopeAndContent "This series contains photographs of the mobile tuberculosis testing clinics administered by the Department of Health. This includes photographs of chest X-ray machinery, Community X-ray Survey trucks, the Chest X-ray train, information displays for fairs, TB testing equipment, department staff, and interior views of the clinics." .
 
-<#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description> a owl:NamedIndividual,
+:Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Mobile Tuberculosis Testing Clinic photographs archival description" ;
-    rico:hasDocumentaryFormType <#Archival%20Description> ;
-    rico:hasRecordState <#Status%3A%20Approved>,
-        <#Web%20Enabled%3A%20Y> ;
+    rico:hasDocumentaryFormType :Archival%20Description ;
+    rico:hasRecordState :Status%3A%20Approved,
+        :Web%20Enabled%3A%20Y ;
     rico:lastModificationDate "2002-08-20"^^xsd:date ;
-    rico:resultsOrResultedFrom <#Archival%20Description%20Creation> .
+    rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
-<#Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1> a owl:NamedIndividual,
+:Mobile%20Tuberculosis%20Testing%20Clinic%20Photographs-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Mobile Tuberculosis Testing Clinic photographs-i1" ;
     rico:generalDescription "How to Order: To view these records, order Series RG 10-145, container B 972." ;
     rico:instantiationExtent "ca. 200 photographs" .
 
-<#O%27Rourke> a owl:NamedIndividual,
+:O%27Rourke a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "O'Rourke" .
 
-<#Ontario.%20Dept.%20Of%20Health> a owl:NamedIndividual,
+:Ontario.%20Dept.%20Of%20Health a owl:NamedIndividual,
         rico:CorporateBody ;
     rdfs:label "Ontario. Dept. of Health" .
 
-<#RG%2010-145> a owl:NamedIndividual,
+:RG%2010-145 a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "RG 10-145" ;
-    rico:hasIdentifierType <#Current%20Reference%20Code> .
+    rico:hasIdentifierType :Current%20Reference%20Code .
 
-<#Series> a owl:NamedIndividual,
+:Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Series" .
 
-<#Status%3A%20Approved> a owl:NamedIndividual,
+:Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Status: Approved" .
 
-<#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+:Web%20Enabled%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Web Enabled: Y" .
 

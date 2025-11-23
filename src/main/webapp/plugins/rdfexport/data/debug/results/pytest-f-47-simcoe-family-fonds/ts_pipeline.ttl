@@ -52,49 +52,49 @@ rico:scopeAndContent a owl:DatatypeProperty .
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#Architectural%20And%20Technical%20Drawings> a owl:NamedIndividual,
+:Architectural%20And%20Technical%20Drawings a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Architectural and technical drawings" .
 
-<#Archival%20Description> a owl:NamedIndividual,
+:Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
     rdfs:label "Archival Description" .
 
-<#Archival%20Description%20Creation> a owl:NamedIndividual,
+:Archival%20Description%20Creation a owl:NamedIndividual,
         rico:Activity ;
     rdfs:label "Archival Description Creation" ;
-    rico:isOrWasPerformedBy <#Walz> .
+    rico:isOrWasPerformedBy :Walz .
 
-<#Artifacts> a owl:NamedIndividual,
+:Artifacts a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Artifacts" .
 
-<#Cartographic%20Materials> a owl:NamedIndividual,
+:Cartographic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Cartographic materials" .
 
-<#Current%20Reference%20Code> a owl:NamedIndividual,
+:Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
 
-<#F%2047> a owl:NamedIndividual,
+:F%2047 a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "F 47" ;
-    rico:hasIdentifierType <#Current%20Reference%20Code> .
+    rico:hasIdentifierType :Current%20Reference%20Code .
 
-<#Fonds> a owl:NamedIndividual,
+:Fonds a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Fonds" .
 
-<#Graphic%20Materials> a owl:NamedIndividual,
+:Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Graphic materials" .
 
-<#Simcoe%20%28family%29> a owl:NamedIndividual,
+:Simcoe%20%28family%29 a owl:NamedIndividual,
         rico:Family ;
     rdfs:label "Simcoe (family)" .
 
-<#Simcoe%20Family%20Fonds> a owl:NamedIndividual,
+:Simcoe%20Family%20Fonds a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Simcoe family fonds" ;
@@ -109,68 +109,68 @@ rico:scopeAndContent a owl:DatatypeProperty .
         "Finding Aid Note: Please see series and sub-series descriptions for listings.",
         "Related Material: Fonds F 1174 (John Ross Robertson fonds) contains 57 items of incoming and outgoing correspondence by John Graves Simcoe and Elizabeth Simcoe. Robertson was a biographer of the Simcoes.",
         "Related Material: MS 83 consists of a Letterbook dated January 1792 through July 1793.  Evidence points to this item being the missing volume from F 47-2-5, Brigade Majors Department." ;
-    rico:hasContentOfType <#Architectural%20And%20Technical%20Drawings>,
-        <#Artifacts>,
-        <#Cartographic%20Materials>,
-        <#Graphic%20Materials>,
-        <#Textual%20Records> ;
-    rico:hasCreator <#Simcoe%20%28family%29>,
-        <#Simcoe%2C%20Eliza%2C%20Ca.%201784-1865>,
-        <#Simcoe%2C%20Elizabeth%20Posthuma%2C%201762-1850>,
-        <#Simcoe%2C%20Francis%20Gwillim%2C%201791-1812>,
-        <#Simcoe%2C%20John%20Graves%2C%201752-1806> ;
-    rico:hasOrHadIdentifier <#F%2047> ;
-    rico:hasOrHadInstantiation <#Simcoe%20Family%20Fonds-i1> ;
-    rico:hasOrHadTitle <#Simcoe%20Family%20Fonds> ;
-    rico:hasRecordSetType <#Fonds> ;
+    rico:hasContentOfType :Architectural%20And%20Technical%20Drawings,
+        :Artifacts,
+        :Cartographic%20Materials,
+        :Graphic%20Materials,
+        :Textual%20Records ;
+    rico:hasCreator :Simcoe%20%28family%29,
+        :Simcoe%2C%20Eliza%2C%20Ca.%201784-1865,
+        :Simcoe%2C%20Elizabeth%20Posthuma%2C%201762-1850,
+        :Simcoe%2C%20Francis%20Gwillim%2C%201791-1812,
+        :Simcoe%2C%20John%20Graves%2C%201752-1806 ;
+    rico:hasOrHadIdentifier :F%2047 ;
+    rico:hasOrHadInstantiation :Simcoe%20Family%20Fonds-i1 ;
+    rico:hasOrHadTitle :Simcoe%20Family%20Fonds ;
+    rico:hasRecordSetType :Fonds ;
     rico:history "Custodial History: The Simcoe Family papers were held by descendants of John Graves and Elizabeth Simcoe until the mid to late-20th century. Eliza Simcoe, the eldest daughter of John Graves and Elizabeth Simcoe, retained possession of the records which make up this fonds until her death in 1865. Between 1859 and 1861, a portion of the records were loaned to the Canadian Library of Parliament for arrangement and partial copying. On the death of Eliza Simcoe, the records passed to the children of the Reverend Henry Addington Simcoe, Eliza's only surviving brother. Some time after this, part of the records came into the possession of the Vowler family and the Coles family, each related to the Simcoes through marriage to a daughter or granddaughter of Henry Addington Simcoe.  In the late 1940s Dr. S. McLaughlan purchased the records then held by the Coles family and donated the whole to the University of Toronto Library. In 1951 the University and the Ontario Department of Archives and Records opened negotiations to transfer the custody, but not ownership, of the Simcoe records to the province.  In 1952, an agreement was signed, and the Simcoe Papers were transferred to the Archives of Ontario in order that they might be preserved in more appropriate circumstances and to ease public access to the records. The records which came to the Archives under the terms of this long-term loan agreement represent the bulk of the fonds. A subsequent purchase by the Archives of records and artifacts from other Simcoe descendants in 1993, and a number of small donations from a variety of sources have since added to the fonds." ;
-    rico:isOrWasDescribedBy <#Simcoe%20Family%20Fonds%20Archival%20Description> ;
+    rico:isOrWasDescribedBy :Simcoe%20Family%20Fonds%20Archival%20Description ;
     rico:scopeAndContent "Fonds documents the official and private lives of several members of the Simcoe family in England and Upper Canada, predominantly in the late 18th and early 19th centuries. The fonds also contains records from John Graves Simcoe's Lieutenant-Governorship of Upper Canada 1792-1796. The records document the administrative and military careers of four generations of men of the Simcoe family, as well as the family's private life, including management of the family estate in Devonshire, financial matters, and genealogical research conducted by later generations of the family.  Family members represented in the fonds include Captain John Simcoe, John Graves Simcoe, Elizabeth Posthuma Simcoe, Francis Simcoe, Eliza Simcoe, and John K. Simcoe.  Records include personal and official correspondence, letter books, reports, returns, and commissions. The fonds contains a considerable quantity of graphic materials, including watercolour paintings, drawings and prints; maps and celestial charts; architectural and technical drawings; and artifacts attributed by Simcoe descendents to John Graves and Elizabeth Simcoe." .
 
-<#Simcoe%20Family%20Fonds%20Archival%20Description> a owl:NamedIndividual,
+:Simcoe%20Family%20Fonds%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Simcoe family fonds Archival Description" ;
-    rico:hasDocumentaryFormType <#Archival%20Description> ;
-    rico:hasRecordState <#Status%3A%20Approved>,
-        <#Web%20Enabled%3A%20Y> ;
+    rico:hasDocumentaryFormType :Archival%20Description ;
+    rico:hasRecordState :Status%3A%20Approved,
+        :Web%20Enabled%3A%20Y ;
     rico:lastModificationDate "2002-12-08"^^xsd:date ;
-    rico:resultsOrResultedFrom <#Archival%20Description%20Creation> .
+    rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
-<#Simcoe%20Family%20Fonds-i1> a owl:NamedIndividual,
+:Simcoe%20Family%20Fonds-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Simcoe family fonds-i1" ;
     rico:generalDescription "How to Order: Consult the online series or sub-series list to identify the records that you require. For microfilmed items, consult the appropriate reel of self-service microfilm. To access any other material, contact a Reference Archivist." ;
     rico:instantiationExtent "2.67 metres of textual records  63 volumes of textual records  353 watercolours  63 drawings  8 prints  4 photographs  1 sketchbook (63 watercolours and drawings)  98 maps  3 celestial charts  4 technical drawings  2 architectural drawings  1 sabre with scabbard  1 dress sword with scabbard  1 walking cane  1 wedding ring" .
 
-<#Simcoe%2C%20Eliza%2C%20Ca.%201784-1865> a owl:NamedIndividual,
+:Simcoe%2C%20Eliza%2C%20Ca.%201784-1865 a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Simcoe, Eliza, ca. 1784-1865" .
 
-<#Simcoe%2C%20Elizabeth%20Posthuma%2C%201762-1850> a owl:NamedIndividual,
+:Simcoe%2C%20Elizabeth%20Posthuma%2C%201762-1850 a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Simcoe, Elizabeth Posthuma, 1762-1850" .
 
-<#Simcoe%2C%20Francis%20Gwillim%2C%201791-1812> a owl:NamedIndividual,
+:Simcoe%2C%20Francis%20Gwillim%2C%201791-1812 a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Simcoe, Francis Gwillim, 1791-1812" .
 
-<#Simcoe%2C%20John%20Graves%2C%201752-1806> a owl:NamedIndividual,
+:Simcoe%2C%20John%20Graves%2C%201752-1806 a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Simcoe, John Graves, 1752-1806" .
 
-<#Status%3A%20Approved> a owl:NamedIndividual,
+:Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Status: Approved" .
 
-<#Textual%20Records> a owl:NamedIndividual,
+:Textual%20Records a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Textual records" .
 
-<#Walz> a owl:NamedIndividual,
+:Walz a owl:NamedIndividual,
         rico:Person ;
     rdfs:label "Walz" .
 
-<#Web%20Enabled%3A%20Y> a owl:NamedIndividual,
+:Web%20Enabled%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Web Enabled: Y" .
 

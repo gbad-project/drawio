@@ -8,36 +8,36 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
 rdf:Person a owl:NamedIndividual,
-        <#Email%20Address>,
-        <#Name>,
-        <#Phone%20Number>,
-        <#Purchase%20Parking%20Pass> ;
+        :Email%20Address,
+        :Name,
+        :Phone%20Number,
+        :Purchase%20Parking%20Pass ;
     rdfs:label "rdf:Person" ;
-    rdfs:mock <#Address> .
+    rdfs:mock :Address .
 
 rdfs:mock a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#Professor> a owl:NamedIndividual,
+:Professor a owl:NamedIndividual,
         mock:Salary ;
     rdfs:label "Professor" .
 
-<#Student> a owl:NamedIndividual,
-        <ontology://generated-from-draw-io/Average-Mark>,
-        <#GetSeminarsTaken>,
-        <#IsEligibleToEnroll>,
-        <#StudentNumber> ;
+:Student a owl:NamedIndividual,
+        :GetSeminarsTaken,
+        :IsEligibleToEnroll,
+        :StudentNumber,
+        <ontology://generated-from-draw-io/mock/Average-Mark> ;
     rdfs:label "Student" .
 
-<#Address> a geo:City,
+:Address a geo:City,
         owl:NamedIndividual,
-        <ontology://generated-from-draw-io/Country>,
-        <ontology://generated-from-draw-io/Postal%20Code>,
-        <ontology://generated-from-draw-io/Validate>,
-        <#OutputAsLabel>,
-        <#State>,
-        <#Street> ;
+        :OutputAsLabel,
+        :State,
+        :Street,
+        <ontology://generated-from-draw-io/mock/Country>,
+        <ontology://generated-from-draw-io/mock/Postal%20Code>,
+        <ontology://generated-from-draw-io/mock/Validate> ;
     rdfs:label ":Address" .
 

@@ -1,27 +1,27 @@
-Script started on Fri Nov 21 17:07:53 2025
+Script started on Sun Nov 23 04:37:46 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
-[1m==================================== test session starts ====================================[0m
-platform darwin -- Python 3.12.9, pytest-8.4.2, pluggy-1.6.0
+]9;4;3;\[1m====================================== test session starts ======================================[0m
+platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 93 items                                                                         [0m[1mcollected 107 items                                                                         [0m
+[1mcollecting ... [0m[1mcollecting 15 items                                                                             [0m[1mcollected 108 items                                                                             [0m
 
-aicode/integration_tests/debug/tests/test_debug_cli.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m                   [ 11%][0m
-aicode/integration_tests/debug/tests/test_dynamic_config.py [32m.[0m[33m                         [ 12%][0m
-aicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py [32m.[0m[32m.[0m[33m     [ 14%][0m
-aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py [33mx[0m[33mx[0m[33m       [ 15%][0m
-aicode/python_core/tests/test_cell_classifier.py [31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[31m                       [ 28%][0m
-aicode/python_core/tests/test_curie_validator.py [31mF[0m[31mF[0m[31mF[0m[31m                                  [ 31%][0m
-aicode/python_core/tests/test_drawio_meta_builder.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                           [ 37%][0m
-aicode/python_core/tests/test_patched_parser.py [32m.[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[31m [ 71%]
-[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[33mx[0m[31mF[0m[31m                                                                             [ 80%][0m
-aicode/python_core/tests/test_pyodide_pipeline.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31m                             [ 86%][0m
-python_core/tests/test_draw_io_parser_graph.py [32m.[0m[32m.[0m[31m                                     [ 88%][0m
-python_core/tests/test_parse_drawio_type_values.py [32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[32m.[0m[31m                       [100%][0m
+aicode/integration_tests/debug/tests/test_debug_cli.py ]9;4;1;0\[32m.[0m]9;4;1;0\[32m.[0m]9;4;1;1\[32m.[0m]9;4;1;2\[32m.[0m]9;4;1;3\[32m.[0m]9;4;1;4\[32m.[0m]9;4;1;5\[32m.[0m]9;4;1;6\[32m.[0m]9;4;1;7\[32m.[0m]9;4;1;8\[32m.[0m]9;4;1;9\[32m.[0m]9;4;1;10\[32m.[0m[33m                       [ 11%][0m
+aicode/integration_tests/debug/tests/test_dynamic_config.py ]9;4;1;11\[32m.[0m[33m                             [ 12%][0m
+aicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py ]9;4;1;12\[32m.[0m]9;4;1;12\[32m.[0m[33m         [ 13%][0m
+aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py ]9;4;1;13\[33mx[0m]9;4;1;14\[33mx[0m[33m           [ 15%][0m
+aicode/python_core/tests/test_cell_classifier.py ]9;4;2;15\[31mF[0m]9;4;2;16\[32m.[0m]9;4;2;17\[32m.[0m]9;4;2;18\[32m.[0m]9;4;2;19\[32m.[0m]9;4;2;20\[32m.[0m]9;4;2;21\[31mF[0m]9;4;2;22\[32m.[0m]9;4;2;23\[31mF[0m]9;4;2;24\[31mF[0m]9;4;2;25\[31mF[0m]9;4;2;25\[32m.[0m]9;4;2;26\[32m.[0m]9;4;2;27\[32m.[0m[31m                           [ 28%][0m
+aicode/python_core/tests/test_curie_validator.py ]9;4;2;28\[31mF[0m]9;4;2;29\[31mF[0m]9;4;2;30\[31mF[0m[31m                                      [ 31%][0m
+aicode/python_core/tests/test_drawio_meta_builder.py ]9;4;2;31\[32m.[0m]9;4;2;32\[32m.[0m]9;4;2;33\[32m.[0m]9;4;2;34\[32m.[0m]9;4;2;35\[32m.[0m]9;4;2;36\[32m.[0m[31m                               [ 37%][0m
+aicode/python_core/tests/test_patched_parser.py ]9;4;2;37\[32m.[0m]9;4;2;37\[32m.[0m]9;4;2;38\[31mF[0m]9;4;2;39\[31mF[0m]9;4;2;40\[31mF[0m]9;4;2;41\[31mF[0m]9;4;2;42\[31mF[0m]9;4;2;43\[32m.[0m]9;4;2;44\[31mF[0m]9;4;2;45\[31mF[0m]9;4;2;46\[31mF[0m]9;4;2;47\[31mF[0m]9;4;2;48\[32m.[0m]9;4;2;49\[32m.[0m]9;4;2;50\[32m.[0m]9;4;2;50\[32m.[0m]9;4;2;51\[32m.[0m]9;4;2;52\[32m.[0m]9;4;2;53\[32m.[0m]9;4;2;54\[32m.[0m]9;4;2;55\[32m.[0m]9;4;2;56\[32m.[0m]9;4;2;57\[32m.[0m]9;4;2;58\[32m.[0m]9;4;2;59\[32m.[0m]9;4;2;60\[32m.[0m]9;4;2;61\[31mF[0m]9;4;2;62\[32m.[0m]9;4;2;62\[32m.[0m]9;4;2;63\[32m.[0m]9;4;2;64\[32m.[0m]9;4;2;65\[32m.[0m]9;4;2;66\[32m.[0m]9;4;2;67\[32m.[0m]9;4;2;68\[31mF[0m]9;4;2;69\[32m.[0m]9;4;2;70\[32m.[0m]9;4;2;71\[31mF[0m]9;4;2;72\[32m.[0m]9;4;2;73\[32m.[0m]9;4;2;74\[32m.[0m[31m [ 75%]
+[0m]9;4;2;75\[32m.[0m]9;4;2;75\[31mF[0m]9;4;2;76\[31mF[0m]9;4;2;77\[33mx[0m]9;4;2;78\[31mF[0m[31m                                                                                     [ 79%][0m
+aicode/python_core/tests/test_pyodide_pipeline.py ]9;4;2;79\[32m.[0m]9;4;2;80\[32m.[0m]9;4;2;81\[32m.[0m]9;4;2;82\[32m.[0m]9;4;2;83\[32m.[0m]9;4;2;84\[32m.[0m]9;4;2;85\[32m.[0m[31m                                 [ 86%][0m
+python_core/tests/test_draw_io_parser_graph.py ]9;4;2;86\[32m.[0m]9;4;2;87\[32m.[0m]9;4;2;87\[32m.[0m[31m                                        [ 88%][0m
+python_core/tests/test_parse_drawio_type_values.py ]9;4;2;88\[32m.[0m]9;4;2;89\[31mF[0m]9;4;2;90\[31mF[0m]9;4;2;91\[31mF[0m]9;4;2;92\[31mF[0m]9;4;2;93\[32m.[0m]9;4;2;94\[31mF[0m]9;4;2;95\[31mF[0m]9;4;2;96\[31mF[0m]9;4;2;97\[31mF[0m]9;4;2;98\[31mF[0m]9;4;2;99\[32m.[0m[31m                           [100%][0m]9;4;0;\
 
-========================================= FAILURES ==========================================
-[31m[1m__________________ test_classifier_detects_typed_individuals_and_literals ___________________[0m
+=========================================== FAILURES ============================================
+[31m[1m____________________ test_classifier_detects_typed_individuals_and_literals _____________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_classifier_detects_typed_individuals_and_literals[39;49;00m():[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -43,9 +43,9 @@ python_core/tests/test_parse_drawio_type_values.py [32m.[0m[31mF[0m[31mF[0
 [1m[31mE       AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', 'owl:NamedIndividual')}[0m
 
 [1m[31maicode/python_core/tests/test_cell_classifier.py[0m:132: AssertionError
-[31m[1m__________________________ test_decorations_serialise_to_skos_note __________________________[0m
+[31m[1m____________________________ test_decorations_serialise_to_skos_note ____________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_decorations_serialise_to_0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_decorations_serialise_to_0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_decorations_serialise_to_skos_note[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -68,9 +68,9 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 [1m[31mE        +  where rdflib.term.Literal('Loose literal') = Literal('Loose literal')[0m
 
 [1m[31maicode/python_core/tests/test_cell_classifier.py[0m:250: AssertionError
-[31m[1m____________________________ test_literal_as_arrow_source_raises ____________________________[0m
+[31m[1m______________________________ test_literal_as_arrow_source_raises ______________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_literal_as_arrow_source_r0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_literal_as_arrow_source_r0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_literal_as_arrow_source_raises[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -87,7 +87,7 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 >           draw_io_parser.parse_drawio_to_graph([96mstr[39;49;00m(path))[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_cell_classifier.py[0m:290: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -97,7 +97,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m_add_individual_type([90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:936: in _add_individual_type
     [0mindividual_id = _replace_metacharacters([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 identifier = 'Literal source'
 metacharacter_substitutes = [('(', ''), (')', ''), ('[', ''), (']', ''), ('{', ''), ('}', ''), ...]
@@ -121,9 +121,9 @@ space_substitute = None, capitalisation_scheme = 'upper-camel'
 [1m[31mE               python_core.src.draw_io_parser.rdf_data_core.MetacharacterException: The following contains a space, but how to handle spaces in individual nodes has not been specified (spaces cannot be used in OWL IRIs): 'Literal source'. Use the -m/--metacharacter-substitute and -c/--capitalisation-scheme options to define how to handle spaces[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:2367: MetacharacterException
-[31m[1m___________________ test_arrow_label_without_edge_style_is_not_individual ___________________[0m
+[31m[1m_____________________ test_arrow_label_without_edge_style_is_not_individual _____________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_arrow_label_without_edge_0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_arrow_label_without_edge_0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_arrow_label_without_edge_style_is_not_individual[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -145,7 +145,7 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
         )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_cell_classifier.py[0m:304: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -167,7 +167,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'Source'
 
@@ -231,9 +231,9 @@ candidate = 'Source'
 [1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'Source' to ['URIRef']: Unable to mint an individual from literal because the default namespace is not set or could not pass it through to the serializer[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
-[31m[1m___________________ test_blank_node_used_for_decorations_without_ontology ___________________[0m
+[31m[1m_____________________ test_blank_node_used_for_decorations_without_ontology _____________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_blank_node_used_for_decor0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_blank_node_used_for_decor0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_blank_node_used_for_decorations_without_ontology[39;49;00m(tmp_path: Path):[90m[39;49;00m
         xml = _drawio_xml([90m[39;49;00m
@@ -253,9 +253,9 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 [1m[31mE       assert [][0m
 
 [1m[31maicode/python_core/tests/test_cell_classifier.py[0m:331: AssertionError
-[31m[1m_______________________ test_ensure_known_curie_accepts_bound_prefix ________________________[0m
+[31m[1m_________________________ test_ensure_known_curie_accepts_bound_prefix __________________________[0m
 
-monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106bf9280>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1142e87a0>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ensure_known_curie_accepts_bound_prefix[39;49;00m(monkeypatch):[90m[39;49;00m
         prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
@@ -275,7 +275,7 @@ monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106bf9280>
                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_curie_validator.py[0m:24: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ('ex:Thing', {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.a...ca/Schema/Authority/', 'ex': 'https://example.org/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', ...})
 kwargs = {}
@@ -285,7 +285,7 @@ kwargs = {}
 [1m[31mE       python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This has been discontinued by an override[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:2587: DeimplementedException
-[31m[1m______________________ test_ensure_known_curie_rejects_unknown_prefix _______________________[0m
+[31m[1m________________________ test_ensure_known_curie_rejects_unknown_prefix _________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ensure_known_curie_rejects_unknown_prefix[39;49;00m():[90m[39;49;00m
         prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
@@ -294,7 +294,7 @@ kwargs = {}
 >           draw_io_parser._split_curie([33m"[39;49;00m[33munknown:Thing[39;49;00m[33m"[39;49;00m, prefixes)[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_curie_validator.py[0m:35: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ('unknown:Thing', {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://d...uthority/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', 'owl': 'http://www.w3.org/2002/07/owl#', ...})
 kwargs = {}
@@ -304,7 +304,7 @@ kwargs = {}
 [1m[31mE       python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This has been discontinued by an override[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:2587: DeimplementedException
-[31m[1m______________________ test_ensure_known_curie_rejects_empty_reference ______________________[0m
+[31m[1m________________________ test_ensure_known_curie_rejects_empty_reference ________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_ensure_known_curie_rejects_empty_reference[39;49;00m():[90m[39;49;00m
         prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
@@ -314,7 +314,7 @@ kwargs = {}
 >           draw_io_parser._split_curie([33m"[39;49;00m[33mex:[39;49;00m[33m"[39;49;00m, prefixes)[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_curie_validator.py[0m:43: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 args = ('ex:', {'add': 'https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/', 'auth': 'https://data.archiv...ca/Schema/Authority/', 'ex': 'https://example.org/', 'gbad': 'https://data.archives.gov.on.test.gbad.ca/Schema/', ...})
 kwargs = {}
@@ -324,7 +324,7 @@ kwargs = {}
 [1m[31mE       python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This has been discontinued by an override[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:2587: DeimplementedException
-[31m[1m________________________ test_parse_drawio_preserves_literal_targets ________________________[0m
+[31m[1m__________________________ test_parse_drawio_preserves_literal_targets __________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_preserves_literal_targets[39;49;00m():[90m[39;49;00m
 >       graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
@@ -333,7 +333,7 @@ kwargs = {}
         )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:178: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -341,9 +341,9 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0mgraph = serializer([90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:3142: in serialise_to_graph
     [0mserializer.setup_namespaces()[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x10904c1a0>
+self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x11379a3c0>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92msetup_namespaces[39;49;00m([96mself[39;49;00m) -> [94mNone[39;49;00m:[90m[39;49;00m
     [90m    [39;49;00m[33m"""[39;49;00m
@@ -382,7 +382,7 @@ self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer o
 [1m[31mE               python_core.src.draw_io_parser.xml_data_core.ParseException: Failed to bind prefixes: IRI 'sdfsdf' looks invalid[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1155: ParseException
-[31m[1m________________________ test_parse_drawio_curie_cell_without_parent ________________________[0m
+[31m[1m__________________________ test_parse_drawio_curie_cell_without_parent __________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_cell_without_parent[39;49;00m():[90m[39;49;00m
         graph = draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
@@ -394,12 +394,12 @@ self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer o
         individual = kb[[33m"[39;49;00m[33mLampdoesntwork[39;49;00m[33m"[39;49;00m][90m[39;49;00m
     [90m[39;49;00m
 >       [94massert[39;49;00m (individual, RDF.type, OWL.NamedIndividual) [95min[39;49;00m graph[90m[39;49;00m
-[1m[31mE       AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N0760cdea9d37458c977a84bbebe7dc8c (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
+[1m[31mE       AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual')) in <Graph identifier=N39cefae248a44055a94311dcf38893bd (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>[0m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:198: AssertionError
-[31m[1m_______________________ test_parse_drawio_curie_without_known_prefix ________________________[0m
+[31m[1m_________________________ test_parse_drawio_curie_without_known_prefix __________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_curie_withou0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_curie_withou0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_curie_without_known_prefix[39;49;00m(tmp_path: Path):[90m[39;49;00m
         tree = ET.parse(FIXTURES_DIR / [33m"[39;49;00m[33mFlowchart_tweaked.drawio[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
@@ -424,9 +424,9 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
 [1m[31mE       Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownException'>[0m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:220: Failed
-[31m[1m_____________________________ test_curie_literal_style_rounding _____________________________[0m
+[31m[1m_______________________________ test_curie_literal_style_rounding _______________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_curie_literal_style_round0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_curie_literal_style_round0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_curie_literal_style_rounding[39;49;00m(tmp_path: Path):[90m[39;49;00m
         [94mdef[39;49;00m[90m [39;49;00m[92mparse[39;49;00m(path: Path) -> Graph:[90m[39;49;00m
@@ -446,7 +446,7 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:240: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:228: in parse
     [0m[94mreturn[39;49;00m draw_io_parser.parse_drawio_to_graph([90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
@@ -472,7 +472,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'Name'
 
@@ -542,7 +542,7 @@ candidate = 'Name'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'Name' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-[31m[1m_________________ test_serialise_to_graph_falls_back_for_relative_prefixes __________________[0m
+[31m[1m___________________ test_serialise_to_graph_falls_back_for_relative_prefixes ____________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_serialise_to_graph_falls_back_for_relative_prefixes[39;49;00m():[90m[39;49;00m
         prefixes = draw_io_parser.get_prefixes().copy()[90m[39;49;00m
@@ -587,12 +587,12 @@ candidate = 'Name'
         )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:297: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3142: in serialise_to_graph
     [0mserializer.setup_namespaces()[90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x109080800>
+self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer object at 0x114d072c0>
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92msetup_namespaces[39;49;00m([96mself[39;49;00m) -> [94mNone[39;49;00m:[90m[39;49;00m
     [90m    [39;49;00m[33m"""[39;49;00m
@@ -631,9 +631,9 @@ self = <python_core.src.draw_io_parser.pipeline.core.rdf.control.RDFSerializer o
 [1m[31mE               python_core.src.draw_io_parser.xml_data_core.ParseException: Failed to bind prefixes: IRI 'relative-prefix' looks invalid[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1155: ParseException
-[31m[1m_____________ test_parse_drawio_rejects_malformed_type_variants[unknown_prefix] _____________[0m
+[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[unknown_prefix] _______________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_rejects_malf0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_rejects_malf0')
 case_key = 'unknown_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -650,7 +650,7 @@ case_key = 'unknown_prefix'
             )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -674,7 +674,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'picoL:'
 
@@ -744,9 +744,9 @@ candidate = 'picoL:'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-[31m[1m_____________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _____________[0m
+[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[dangling_curie] _______________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_rejects_malf1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_rejects_malf1')
 case_key = 'dangling_curie'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -761,9 +761,9 @@ case_key = 'dangling_curie'
 [1m[31mE       Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownException'>[0m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:374: Failed
-[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[colon_only] _______________[0m
+[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[colon_only] _________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_rejects_malf2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_rejects_malf2')
 case_key = 'colon_only'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -780,7 +780,7 @@ case_key = 'colon_only'
             )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -804,7 +804,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = ':'
 
@@ -874,9 +874,9 @@ candidate = ':'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce ':' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-[31m[1m_______________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] ________________[0m
+[31m[1m_________________ test_parse_drawio_rejects_malformed_type_variants[no_prefix] __________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_rejects_malf3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_rejects_malf3')
 case_key = 'no_prefix'
 
     [0m[37m@pytest[39;49;00m.mark.parametrize([90m[39;49;00m
@@ -893,7 +893,7 @@ case_key = 'no_prefix'
             )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:375: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -917,7 +917,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'NoPrefixClass'
 
@@ -987,7 +987,7 @@ candidate = 'NoPrefixClass'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'NoPrefixClass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-[31m[1m___________ test_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds] ____________[0m
+[31m[1m_____________ test_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds] ______________[0m
 
 baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/baselines/F 4711 Orville Wood fonds.nt')
 
@@ -1008,7 +1008,7 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
         )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:446: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -1032,7 +1032,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'rico:Person rico:AgentName'
 
@@ -1102,9 +1102,9 @@ candidate = 'rico:Person rico:AgentName'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:Person rico:AgentName' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-------------------------------------- Captured log call -------------------------------------
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Orville Alan Wood does not look like a valid URI, trying to serialize this will break.
-[31m[1m_ test_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)] _[0m
+--------------------------------------- Captured log call ---------------------------------------
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Orville Alan Wood does not look like a valid URI, trying to serialize this will break.
+[31m[1m__ test_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)] ___[0m
 
 baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/baselines/RG 18-210 Walkerton Inquiry in RiC-O (original).nt')
 
@@ -1125,7 +1125,7 @@ baseline_path = PosixPath('/Volumes/home/anonymous/drawio/src/main/webapp/plugin
         )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:446: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -1149,7 +1149,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'rico:CorporateBody rico:AgentName'
 
@@ -1219,26 +1219,26 @@ candidate = 'rico:CorporateBody rico:AgentName'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'rico:CorporateBody rico:AgentName' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-------------------------------------- Captured log call -------------------------------------
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Records Of The Walkerton Inquiry (RG 18-210) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Walkerton E. Coli Outbreak does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Walkerton Inquiry (BA619) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Walkerton, Ontario does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#General Submissions To The Walkerton Inquiry (RG 18-210-5) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Subject Files Of The Walkerton Inquiry (RG 18-210-9) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Incoming Correspondence Files Of The Walkerton Inquiry (RG 18-210-11) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Administrative Files Of The Walkerton Inquiry (RG 18-210-10) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Transcripts Of Part One Hearings Of The Walkerton Inquiry (RG 18-210-4) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Search Warrants For The Walkerton Inquiry (RG 18-210-12) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Website Of The Walkerton Inquiry (RG 18-210-1) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Agendas, Submissions And Transcripts For The Public And Town Hall Meetings Of Part Two Of The Walkerton Inquiry (RG 18-210-6) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Reference Database Of The Walkerton Inquiry (RG 18-210-2) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Commissioned Issue Papers Prepared For Part Two Of The Walkerton Inquiry (RG 18-210-7) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Files Relating To Participants In Part Two Of The Walkerton Inquiry (RG 18-210-8) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Exhibits For Part One Hearings Of The Walkerton Inquiry (RG 18-210-3) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Archives Of Ontario (ON00009) does not look like a valid URI, trying to serialize this will break.
-[33mWARNING [0m rdflib.term:term.py:303 ontology://generated-from-draw-io/mock#Walkerton Inquiry (BA619) does not look like a valid URI, trying to serialize this will break.
-[31m[1m______________ test_parse_drawio_with_metadata_exposes_namespace_and_csv_path _______________[0m
+--------------------------------------- Captured log call ---------------------------------------
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Records Of The Walkerton Inquiry (RG 18-210) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Walkerton E. Coli Outbreak does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Walkerton Inquiry (BA619) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Walkerton, Ontario does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Commissioned Issue Papers Prepared For Part Two Of The Walkerton Inquiry (RG 18-210-7) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Files Relating To Participants In Part Two Of The Walkerton Inquiry (RG 18-210-8) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Administrative Files Of The Walkerton Inquiry (RG 18-210-10) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Subject Files Of The Walkerton Inquiry (RG 18-210-9) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Search Warrants For The Walkerton Inquiry (RG 18-210-12) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#General Submissions To The Walkerton Inquiry (RG 18-210-5) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Reference Database Of The Walkerton Inquiry (RG 18-210-2) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Exhibits For Part One Hearings Of The Walkerton Inquiry (RG 18-210-3) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Agendas, Submissions And Transcripts For The Public And Town Hall Meetings Of Part Two Of The Walkerton Inquiry (RG 18-210-6) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Incoming Correspondence Files Of The Walkerton Inquiry (RG 18-210-11) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Transcripts Of Part One Hearings Of The Walkerton Inquiry (RG 18-210-4) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Website Of The Walkerton Inquiry (RG 18-210-1) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Archives Of Ontario (ON00009) does not look like a valid URI, trying to serialize this will break.
+[33mWARNING [0m rdflib.term:term.py:296 ontology://generated-from-draw-io/mock#Walkerton Inquiry (BA619) does not look like a valid URI, trying to serialize this will break.
+[31m[1m________________ test_parse_drawio_with_metadata_exposes_namespace_and_csv_path _________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_with_metadata_exposes_namespace_and_csv_path[39;49;00m():[90m[39;49;00m
         fixture_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37 Department of Health-with-metadata.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
@@ -1258,10 +1258,10 @@ candidate = 'rico:CorporateBody rico:AgentName'
         [94massert[39;49;00m namespace_map.get([33m"[39;49;00m[33m"[39;49;00m) == [33m"[39;49;00m[33mhttp://mock-base-uri.com[39;49;00m[33m"[39;49;00m[90m[39;49;00m
 >       [94massert[39;49;00m graph.base [95mis[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
 [1m[31mE       AssertionError: assert 'http://mock-base-uri.com' is None[0m
-[1m[31mE        +  where 'http://mock-base-uri.com' = <Graph identifier=Ne8289ccb172845a4a2f97631448e6a91 (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.base[0m
+[1m[31mE        +  where 'http://mock-base-uri.com' = <Graph identifier=Ne6c350002cf543e09098b14591caf292 (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.base[0m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:492: AssertionError
-[31m[1m__________________ test_parse_drawio_without_metadata_sets_empty_metadata ___________________[0m
+[31m[1m____________________ test_parse_drawio_without_metadata_sets_empty_metadata _____________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_without_metadata_sets_empty_metadata[39;49;00m():[90m[39;49;00m
         fixture_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37 Department of Health.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
@@ -1273,11 +1273,11 @@ candidate = 'rico:CorporateBody rico:AgentName'
         [94massert[39;49;00m [96misinstance[39;49;00m(graph, draw_io_parser.DrawIOParserGraph)[90m[39;49;00m
         [94massert[39;49;00m graph.csv_path [95mis[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
 >       [94massert[39;49;00m graph.base [95mis[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
-[1m[31mE       AssertionError: assert 'ontology://generated-from-draw-io/2025-11-21T17-08-20' is None[0m
-[1m[31mE        +  where 'ontology://generated-from-draw-io/2025-11-21T17-08-20' = <Graph identifier=Nea5a9c9a26244a6fa6f2f066a3b419fa (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.base[0m
+[1m[31mE       AssertionError: assert 'ontology://generated-from-draw-io/2025-11-23T04-38-14' is None[0m
+[1m[31mE        +  where 'ontology://generated-from-draw-io/2025-11-23T04-38-14' = <Graph identifier=N4c384198dae94cb1b69be0dc33819a7e (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.base[0m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:589: AssertionError
-[31m[1m______________________ test_parse_drawio_rejects_unknown_literal_curie ______________________[0m
+[31m[1m________________________ test_parse_drawio_rejects_unknown_literal_curie ________________________[0m
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_parse_drawio_rejects_unknown_literal_curie[39;49;00m():[90m[39;49;00m
         fixture_path = FIXTURES_DIR / [33m"[39;49;00m[33mAA37-with-metadata-severely-mocked.drawio[39;49;00m[33m"[39;49;00m[90m[39;49;00m
@@ -1289,7 +1289,7 @@ candidate = 'rico:CorporateBody rico:AgentName'
             )[90m[39;49;00m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:596: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -1313,7 +1313,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'picoL:'
 
@@ -1383,9 +1383,9 @@ candidate = 'picoL:'
 [1m[31mE               python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'picoL:' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1790: UnableToCoerceException
-[31m[1m________________________ test_generated_metadata_fixtures_round_trip ________________________[0m
+[31m[1m__________________________ test_generated_metadata_fixtures_round_trip __________________________[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_generated_metadata_fixtur0')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_generated_metadata_fixtur0')
 
     [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_generated_metadata_fixtures_round_trip[39;49;00m(tmp_path: Path):[90m[39;49;00m
         fixture_paths = [96msorted[39;49;00m([90m[39;49;00m
@@ -1426,12 +1426,12 @@ tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/p
             [94massert[39;49;00m patched_graph.csv_path == metadata_options[[33m"[39;49;00m[33mcsvPath[39;49;00m[33m"[39;49;00m][90m[39;49;00m
 >           [94massert[39;49;00m patched_graph.base [95mis[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
 [1m[31mE           AssertionError: assert 'http://example.org/aa37-department-of-health' is None[0m
-[1m[31mE            +  where 'http://example.org/aa37-department-of-health' = <Graph identifier=N260f5f4740654da897df69cb7e8000e0 (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.base[0m
+[1m[31mE            +  where 'http://example.org/aa37-department-of-health' = <Graph identifier=N5d1065285fd5404aa60e3753c1f03fa8 (<class 'python_core.src.draw_io_parser.rdf_control_core.DrawIOParserGraph'>)>.base[0m
 
 [1m[31maicode/python_core/tests/test_patched_parser.py[0m:720: AssertionError
 [31m[1m_ test_parse_drawio_type_values[False-Template Individual URIRef Encoded-https://example.com/%7BRICO_AUTHTP_CLASS%7D-https://example.com/%7BRICO_AUTHTP_CLASS%7D-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_1')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_1')
 rml_enabled = False, individual_label = 'Template Individual URIRef Encoded'
 type_value = 'https://example.com/%7BRICO_AUTHTP_CLASS%7D'
 expected_type_term = rdflib.term.URIRef('https://example.com/%7BRICO_AUTHTP_CLASS%7D')
@@ -1586,7 +1586,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -1608,7 +1608,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'TemplateIndividualURIRefEncoded'
 
@@ -1674,7 +1674,7 @@ candidate = 'TemplateIndividualURIRefEncoded'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[False-Curie Individual-rdfs:Class-http://www.w3.org/2000/01/rdf-schema#Class-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_2')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_2')
 rml_enabled = False, individual_label = 'Curie Individual', type_value = 'rdfs:Class'
 expected_type_term = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
 expect_exception = False
@@ -1828,7 +1828,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -1850,7 +1850,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'CurieIndividual'
 
@@ -1916,7 +1916,7 @@ candidate = 'CurieIndividual'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[False-Abs IRI Individual-http://example.com/exampleClass-http://example.com/exampleClass-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_3')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_3')
 rml_enabled = False, individual_label = 'Abs IRI Individual'
 type_value = 'http://example.com/exampleClass'
 expected_type_term = rdflib.term.URIRef('http://example.com/exampleClass')
@@ -2071,7 +2071,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -2093,7 +2093,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'AbsIRIIndividual'
 
@@ -2159,7 +2159,7 @@ candidate = 'AbsIRIIndividual'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[False-Rel IRI Individual-/someClass-http://example.com//someClass-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_4')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_4')
 rml_enabled = False, individual_label = 'Rel IRI Individual', type_value = '/someClass'
 expected_type_term = rdflib.term.URIRef('http://example.com//someClass')
 expect_exception = False
@@ -2313,7 +2313,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -2335,7 +2335,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'RelIRIIndividual'
 
@@ -2401,7 +2401,7 @@ candidate = 'RelIRIIndividual'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[True-Template Individual Only Reference-{RICO_AUTHTP_CLASS}-{RICO_AUTHTP_CLASS}-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_6')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_6')
 rml_enabled = True, individual_label = 'Template Individual Only Reference'
 type_value = '{RICO_AUTHTP_CLASS}'
 expected_type_term = rdflib.term.Literal('{RICO_AUTHTP_CLASS}'), expect_exception = False
@@ -2555,7 +2555,7 @@ expected_type_term = rdflib.term.Literal('{RICO_AUTHTP_CLASS}'), expect_exceptio
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -2579,7 +2579,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'TemplateIndividualOnlyReference'
 
@@ -2645,7 +2645,7 @@ candidate = 'TemplateIndividualOnlyReference'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[True-Template Individual URIRef Encoded-https://example.com/%7BRICO_AUTHTP_CLASS%7D-https://example.com/{RICO_AUTHTP_CLASS}-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_7')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_7')
 rml_enabled = True, individual_label = 'Template Individual URIRef Encoded'
 type_value = 'https://example.com/%7BRICO_AUTHTP_CLASS%7D'
 expected_type_term = rdflib.term.Literal('https://example.com/{RICO_AUTHTP_CLASS}')
@@ -2800,7 +2800,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -2824,7 +2824,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'TemplateIndividualURIRefEncoded'
 
@@ -2890,7 +2890,7 @@ candidate = 'TemplateIndividualURIRefEncoded'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[True-Curie Individual-rdfs:Class-http://www.w3.org/2000/01/rdf-schema#Class-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_8')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_8')
 rml_enabled = True, individual_label = 'Curie Individual', type_value = 'rdfs:Class'
 expected_type_term = rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#Class')
 expect_exception = False
@@ -3044,7 +3044,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -3068,7 +3068,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'CurieIndividual'
 
@@ -3134,7 +3134,7 @@ candidate = 'CurieIndividual'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[True-Abs IRI Individual-http://example.com/exampleClass-http://example.com/exampleClass-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_9')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_9')
 rml_enabled = True, individual_label = 'Abs IRI Individual'
 type_value = 'http://example.com/exampleClass'
 expected_type_term = rdflib.term.URIRef('http://example.com/exampleClass')
@@ -3289,7 +3289,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -3313,7 +3313,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'AbsIRIIndividual'
 
@@ -3379,7 +3379,7 @@ candidate = 'AbsIRIIndividual'
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
 [31m[1m_ test_parse_drawio_type_values[True-Rel IRI Individual-/someClass-http://example.com//someClass-False] _[0m
 
-tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1214/test_parse_drawio_type_values_10')
+tmp_path = PosixPath('/private/var/folders/dr/h5f6hp6j20s6x8737ypcwxj40000gn/T/pytest-of-anonymous/pytest-1216/test_parse_drawio_type_values_10')
 rml_enabled = True, individual_label = 'Rel IRI Individual', type_value = '/someClass'
 expected_type_term = rdflib.term.URIRef('http://example.com//someClass')
 expect_exception = False
@@ -3533,7 +3533,7 @@ expect_exception = False
                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
 
 [1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:160: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 [1m[31mpython_core/src/draw_io_parser.py[0m:3216: in parse_drawio_to_graph
     [0m[94mreturn[39;49;00m _build_graph_from_raw_xml(raw_xml, config_args)[90m[39;49;00m
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
@@ -3557,7 +3557,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
     [0m[94mraise[39;49;00m err_norm[90m[39;49;00m
 [1m[31mpython_core/src/draw_io_parser.py[0m:1807: in best_guess
     [0mnorm_coerced, norm_iri_variant = coerce_candidate([90m[39;49;00m
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 candidate = 'RelIRIIndividual'
 
@@ -3621,11 +3621,11 @@ candidate = 'RelIRIIndividual'
 [1m[31mE                   python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coerce 'RelIRIIndividual' to ['URIRef']: Unable to mint an individual from literal because the default namespace is not set or could not pass it through to the serializer[0m
 
 [1m[31mpython_core/src/draw_io_parser.py[0m:1784: UnableToCoerceException
-[33m===================================== warnings summary ======================================[0m
+[33m======================================= warnings summary ========================================[0m
 aicode/integration_tests/debug/tests/test_debug_cli.py::test_run_scenario_generates_artifacts_and_map_entry[AA37 Department of Health.drawio]
 aicode/integration_tests/debug/tests/test_debug_cli.py::test_outputs_are_isomorphic_across_sources
 aicode/integration_tests/debug/tests/test_debug_cli.py::test_ts_stderr_captured_as_warning
-  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/lib/python3.12/site-packages/rdflib/plugins/serializers/nt.py:39: UserWarning: NTSerializer does not support base.
+  /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/lib/python3.12/site-packages/rdflib/plugins/serializers/nt.py:37: UserWarning: NTSerializer does not support base.
     warnings.warn("NTSerializer does not support base.")
 
 aicode/integration_tests/rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_add
@@ -3636,41 +3636,41 @@ aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py::te
     warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[36m[1m================================== short test summary info ==================================[0m
-[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m - AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal...
+[36m[1m==================================== short test summary info ====================================[0m
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_classifier_detects_typed_individuals_and_literals[0m - AssertionError: assert ('My Individual', 'owl:NamedIndividual') in {('Decoration literal', '...
 [31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_decorations_serialise_to_skos_note[0m - AssertionError: assert rdflib.term.Literal('Loose literal') in []
-[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_literal_as_arrow_source_raises[0m - python_core.src.draw_io_parser.rdf_data_core.MetacharacterException: The following conta...
-[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_arrow_label_without_edge_style_is_not_individual[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_literal_as_arrow_source_raises[0m - python_core.src.draw_io_parser.rdf_data_core.MetacharacterException: The following contains ...
+[31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_arrow_label_without_edge_style_is_not_individual[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
 [31mFAILED[0m aicode/python_core/tests/test_cell_classifier.py::[1mtest_blank_node_used_for_decorations_without_ontology[0m - assert []
-[31mFAILED[0m aicode/python_core/tests/test_curie_validator.py::[1mtest_ensure_known_curie_accepts_bound_prefix[0m - python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This ...
-[31mFAILED[0m aicode/python_core/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_unknown_prefix[0m - python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This ...
-[31mFAILED[0m aicode/python_core/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_empty_reference[0m - python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This ...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - python_core.src.draw_io_parser.xml_data_core.ParseException: Failed to bind prefixes: IR...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdfl...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_without_known_prefix[0m - Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownExc...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m - python_core.src.draw_io_parser.xml_data_core.ParseException: Failed to bind prefixes: IR...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[unknown_prefix][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownExc...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
+[31mFAILED[0m aicode/python_core/tests/test_curie_validator.py::[1mtest_ensure_known_curie_accepts_bound_prefix[0m - python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This has ...
+[31mFAILED[0m aicode/python_core/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_unknown_prefix[0m - python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This has ...
+[31mFAILED[0m aicode/python_core/tests/test_curie_validator.py::[1mtest_ensure_known_curie_rejects_empty_reference[0m - python_core.src.draw_io_parser.pipeline.core.internal.data.DeimplementedException: This has ...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_preserves_literal_targets[0m - python_core.src.draw_io_parser.xml_data_core.ParseException: Failed to bind prefixes: IRI 's...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_cell_without_parent[0m - AssertionError: assert (rdflib.term.URIRef('mock://knowledge-base/Lampdoesntwork'), rdflib.t...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_curie_without_known_prefix[0m - Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownExcepti...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_curie_literal_style_rounding[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_serialise_to_graph_falls_back_for_relative_prefixes[0m - python_core.src.draw_io_parser.xml_data_core.ParseException: Failed to bind prefixes: IRI 'r...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[unknown_prefix][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[dangling_curie][0m - Failed: DID NOT RAISE <class 'python_core.src.draw_io_parser.rdf_data_core.NotInKnownExcepti...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[colon_only][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_malformed_type_variants[no_prefix][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[F 4711 Orville Wood fonds][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
 [31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_with_metadata_exposes_namespace_and_csv_path[0m - AssertionError: assert 'http://mock-base-uri.com' is None
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_without_metadata_sets_empty_metadata[0m - AssertionError: assert 'ontology://generated-from-draw-io/2025-11-21T17-08-20' is None
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_unknown_literal_curie[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_without_metadata_sets_empty_metadata[0m - AssertionError: assert 'ontology://generated-from-draw-io/2025-11-23T04-38-14' is None
+[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_rejects_unknown_literal_curie[0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
 [31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - AssertionError: assert 'http://example.org/aa37-department-of-health' is None
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Template Individual URIRef Encoded-https://example.com/%7BRICO_AUTHTP_CLASS%7D-https://example.com/%7BRICO_AUTHTP_CLASS%7D-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Curie Individual-rdfs:Class-http://www.w3.org/2000/01/rdf-schema#Class-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Abs IRI Individual-http://example.com/exampleClass-http://example.com/exampleClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Rel IRI Individual-/someClass-http://example.com//someClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Template Individual Only Reference-{RICO_AUTHTP_CLASS}-{RICO_AUTHTP_CLASS}-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Template Individual URIRef Encoded-https://example.com/%7BRICO_AUTHTP_CLASS%7D-https://example.com/{RICO_AUTHTP_CLASS}-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Curie Individual-rdfs:Class-http://www.w3.org/2000/01/rdf-schema#Class-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Abs IRI Individual-http://example.com/exampleClass-http://example.com/exampleClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Rel IRI Individual-/someClass-http://example.com//someClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to...
-[31m=================== [31m[1m32 failed[0m, [32m72 passed[0m, [33m3 xfailed[0m, [33m7 warnings[0m[31m in 27.69s[0m[31m ===================[0m
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Template Individual URIRef Encoded-https://example.com/%7BRICO_AUTHTP_CLASS%7D-https://example.com/%7BRICO_AUTHTP_CLASS%7D-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Curie Individual-rdfs:Class-http://www.w3.org/2000/01/rdf-schema#Class-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Abs IRI Individual-http://example.com/exampleClass-http://example.com/exampleClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[False-Rel IRI Individual-/someClass-http://example.com//someClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Template Individual Only Reference-{RICO_AUTHTP_CLASS}-{RICO_AUTHTP_CLASS}-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Template Individual URIRef Encoded-https://example.com/%7BRICO_AUTHTP_CLASS%7D-https://example.com/{RICO_AUTHTP_CLASS}-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Curie Individual-rdfs:Class-http://www.w3.org/2000/01/rdf-schema#Class-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Abs IRI Individual-http://example.com/exampleClass-http://example.com/exampleClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31mFAILED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Rel IRI Individual-/someClass-http://example.com//someClass-False][0m - python_core.src.draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException: Failed to coe...
+[31m===================== [31m[1m32 failed[0m, [32m73 passed[0m, [33m3 xfailed[0m, [33m7 warnings[0m[31m in 28.92s[0m[31m =====================[0m
 [0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
 
 Command exit status: 1
-Script done on Fri Nov 21 17:08:21 2025
+Script done on Sun Nov 23 04:38:15 2025
