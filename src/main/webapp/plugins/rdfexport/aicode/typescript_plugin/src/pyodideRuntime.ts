@@ -3,7 +3,7 @@ import { loadPyodide, type PyodideInterface } from "pyodide";
 import drawIoParserSource from "../../../python_core/src/draw_io_parser.py?raw";
 import pipelineInitSource from "../../../aicode/python_core/pyodide_pipeline/__init__.py?raw";
 import drawioPipelineSource from "../../../aicode/python_core/pyodide_pipeline/drawio_pipeline.py?raw";
-import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.2.1-py3-none-any.whl.base64?raw";
+import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 export interface DrawioParserResult {
@@ -102,7 +102,7 @@ const rdflibWheelBytes = decodeBase64ToUint8Array(rdflibWheelBase64);
 
 const PYTHON_WHEELS: Array<{ path: string; data: Uint8Array }> = [
   {
-    path: `${PYODIDE_APP_ROOT}/wheels/rdflib-7.2.1-py3-none-any.whl`,
+    path: `${PYODIDE_APP_ROOT}/wheels/rdflib-7.4.0-py3-none-any.whl`,
     data: rdflibWheelBytes,
   },
 ];
@@ -333,7 +333,7 @@ if importlib.util.find_spec("rdflib") is None:
     import zipfile
     target = Path("${PYODIDE_APP_ROOT}/packages")
     target.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile("${PYODIDE_APP_ROOT}/wheels/rdflib-7.2.1-py3-none-any.whl") as archive:
+    with zipfile.ZipFile("${PYODIDE_APP_ROOT}/wheels/rdflib-7.4.0-py3-none-any.whl") as archive:
         archive.extractall(target)
     if str(target) not in sys.path:
         sys.path.insert(0, str(target))

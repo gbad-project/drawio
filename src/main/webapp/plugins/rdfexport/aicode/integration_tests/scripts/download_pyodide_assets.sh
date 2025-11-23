@@ -7,7 +7,7 @@ TARGET_DIR="${ROOT_DIR}/.pyodide"
 ARCHIVE="pyodide-${VERSION}.tar.bz2"
 ARCHIVE_URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${ARCHIVE}"
 WHEEL_FILE="rdflib-7.4.0-py3-none-any.whl"
-WHEEL_URL="https://files.pythonhosted.org/packages/18/ea/30bd9eb0d4a25dd0ab929153ed23698c907c6124389aa72eea5b7b703ab8/${WHEEL_FILE}"
+WHEEL_URL="https://files.pythonhosted.org/packages/a7/52/9d03e93f2e00d2a07749ee90f358d08c07822819d084f08c387b7ade8b56/${WHEEL_FILE}"
 
 TMP_DIR="$(mktemp -d)"
 cleanup() {
