@@ -140,6 +140,11 @@
       "sha256": "dba752a8a264308999678bdaedee065d4f663ff8fca10d66c3b83601271c9515",
       "size_bytes": 79613
     },
+    "List_typed_decorations.drawio": {
+      "path": "List_typed_decorations.drawio",
+      "sha256": "b851b4823023b62daf59add5bdbc5760cef08ed02b284110eaf924fd02fc97d5",
+      "size_bytes": 6957
+    },
     "RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio": {
       "path": "RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio",
       "sha256": "bb66568b19a29706c035a9c8607e7d90144ec07c7de7db484a9ba78bf90fbffb",
@@ -6944,6 +6949,220 @@
           "nt_sha256": "a396ca8cd7c0bd36f673834669cdeef96fa019e5203d32c02082a07446ab07c4",
           "path": "results/general-authority-to-ric-o-model-2025-06-25-pz-no-rr-reproduce-baseline/ts_plugin.nt",
           "triples": 135
+        }
+      }
+    },
+    "list-typed-decorations": {
+      "cell_classifications": {
+        "1": {
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "3Pax77aPJU0OIfwI_oWW-1": {
+          "identifier": "IndividualList",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "IndividualList",
+          "tokens": []
+        },
+        "3Pax77aPJU0OIfwI_oWW-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "IndividualList",
+          "raw_value": ":Item1",
+          "tokens": [
+            ":Item1"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-3": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "IndividualList",
+          "raw_value": ":Item2",
+          "tokens": [
+            ":Item2"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "IndividualList",
+          "raw_value": ":Item3",
+          "tokens": [
+            ":Item3"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-5": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "ConnectedLiteralizedList",
+          "tokens": [
+            "ConnectedLiteralizedList",
+            ":Item1",
+            ":Item2",
+            ":Item3"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-6": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "ConnectedLiteralizedList",
+          "raw_value": ":Item1",
+          "tokens": [
+            ":Item1"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-7": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "ConnectedLiteralizedList",
+          "raw_value": ":Item2",
+          "tokens": [
+            ":Item2"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-8": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "ConnectedLiteralizedList",
+          "raw_value": ":Item3",
+          "tokens": [
+            ":Item3"
+          ]
+        },
+        "3Pax77aPJU0OIfwI_oWW-9": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdfs:seeAlso",
+          "tokens": []
+        },
+        "BIgxN-90JxJ6G4pkkr8I-2": {
+          "identifier": "Just a literal",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Just a literal",
+          "tokens": []
+        },
+        "BIgxN-90JxJ6G4pkkr8I-3": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdf:type",
+          "tokens": []
+        },
+        "BIgxN-90JxJ6G4pkkr8I-5": {
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "rdf:type",
+          "tokens": []
+        },
+        "wNWMXQLe-EjqqHa3b5Mu-1": {
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "UnconnectedLiteralizedList",
+          "tokens": [
+            "UnconnectedLiteralizedList",
+            ":Item1",
+            ":Item2",
+            ":Item3"
+          ]
+        },
+        "wNWMXQLe-EjqqHa3b5Mu-2": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "UnconnectedLiteralizedList",
+          "raw_value": ":Item1",
+          "tokens": [
+            ":Item1"
+          ]
+        },
+        "wNWMXQLe-EjqqHa3b5Mu-3": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "UnconnectedLiteralizedList",
+          "raw_value": ":Item2",
+          "tokens": [
+            ":Item2"
+          ]
+        },
+        "wNWMXQLe-EjqqHa3b5Mu-4": {
+          "identifier": null,
+          "kind": "TYPED_INDIVIDUAL",
+          "parent_identifier": "UnconnectedLiteralizedList",
+          "raw_value": ":Item3",
+          "tokens": [
+            ":Item3"
+          ]
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 3,
+          "LITERAL": 2,
+          "STANDALONE_INDIVIDUAL": 2,
+          "TYPED_INDIVIDUAL": 9,
+          "UNCLASSIFIED": 1
+        },
+        "classified": 16,
+        "total_cells": 17,
+        "unclassified": 1
+      },
+      "drawio": "data/fixtures/drawio_fixtures/List_typed_decorations.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "mock.csv"
+      },
+      "parser_config": {
+        "capitalisation_scheme": "upper-camel",
+        "include_label": true,
+        "include_preamble": true,
+        "indentation": 2,
+        "infer_type_of_literals": true,
+        "max_gap": 10,
+        "metacharacter_substitute": [
+          "url"
+        ],
+        "ontology_iri": "mock://debug-ontology",
+        "prefix": null,
+        "prefix_iri": null,
+        "rml_enabled": false,
+        "strict_mode": false,
+        "strip_html": false
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "ae9b7f30961f734a4bef79c666dfc0a54da2395b41912060baea0493cedca0a6",
+          "path": "results/list-typed-decorations/ts_pipeline.ttl",
+          "triples": 22
+        },
+        "ts_plugin": {
+          "nt_sha256": "60ce93f64f7d569623f7ecaddf1f3ef056ae9f02b5a08a9eec464e5e2b5517eb",
+          "path": "results/list-typed-decorations/ts_plugin.ttl",
+          "triples": 22
         }
       }
     },

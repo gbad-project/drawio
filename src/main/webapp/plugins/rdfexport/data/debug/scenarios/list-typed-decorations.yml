@@ -1,0 +1,26 @@
+slug: list-typed-decorations
+drawio: data/fixtures/drawio_fixtures/List_typed_decorations.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: mock.csv
+    baseUri: ontology://generated-from-draw-io/mock#
+  preamble:
+  - prefix: mock1
+    iri: http://mock-uri.com
+parser_config:
+  ontology_iri: mock://debug-ontology
+  infer_type_of_literals: true
+  include_preamble: true
+  prefix: null
+  prefix_iri: null
+  indentation: 2
+  include_label: true
+  max_gap: 10
+  strict_mode: false
+  strip_html: false
+  metacharacter_substitute:
+    - "url"
+  capitalisation_scheme: upper-camel
+  rml_enabled: false
