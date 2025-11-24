@@ -33,7 +33,7 @@ class RDFSerializationHelper:
         self.prefixes = prefixes
         self.graph = graph
 
-        self.prefix = serialisation_config.prefix
+        self.prefix = serialisation_config.prefix or ""
         self.prefix_iri = serialisation_config.prefix_iri
 
         self._should_decode_literals = False
@@ -92,7 +92,7 @@ class RDFSerializationHelper:
 
     def namespace_map(self):
         return {
-            (prefix or ""): Namespace(iri)
+            prefix: Namespace(iri)
             for prefix, iri in list(self.graph.namespace_manager.namespaces())
         }
 

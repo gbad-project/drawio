@@ -59,7 +59,9 @@ def coerce_to_uriref(
         """
         iri_variant = looks_like_iri(candidate)
         namespace_map: dict[str, Namespace] = cfg.namespace_map()
-        default_ns: Namespace = namespace_map.get("")
+        # Note that this is set to empty string at RDFSerializationHelper
+        # init if is None, so the correct default prefix is always there
+        default_ns: Namespace = namespace_map.get(cfg.prefix)
         coerced = None
         if iri_variant == "absolute-iri":
             coerced = URIRef(candidate)
