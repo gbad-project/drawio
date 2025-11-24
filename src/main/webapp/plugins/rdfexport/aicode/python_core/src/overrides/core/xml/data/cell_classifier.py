@@ -700,8 +700,8 @@ class DrawIOCellClassifier:
             return False
         if "rounded=1" in style:
             return True
-        # if "ellipse" in style:
-        #     return True
+        if "ellipse" in style:
+            return True
 
     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
         if not raw_value:
