@@ -247,7 +247,7 @@ class RMLSerializer(RDFSerializationHelper):
                 self._build_type_predicate_object_map(class_term)
             )
             self.graph.addN1(
-                (subject_map, self.rr["predicateObjectMap"], type_predicate_object_map),
+                (triples_map, self.rr["predicateObjectMap"], type_predicate_object_map),
                 type_predicate_object_map_triples,
             )
 
