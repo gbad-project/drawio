@@ -8,7 +8,7 @@ import tempfile
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Sequence
+from typing import Iterable, Sequence, Any
 from xml.etree import ElementTree as ET
 import io
 import contextlib
@@ -446,6 +446,16 @@ class Debugger:
                 self.console.print(f"  {kind}: {count}")
         return counts
 
+    def _graph_diff(self, g1: Graph, g2: Graph):
+        ng1 = Debugger.normalise(g1)
+        ng2 = Debugger.normalise(g2)
+        only_in_g1 = ng1 - ng2
+        only_in_g2 = ng2 - ng1
+        return only_in_g1, only_in_g2
+
+    def _triples_to_json(self, triples: tuple[Any, Any, Any]):
+        return [[repr(s), repr(p), repr(o)] for s, p, o in triples]
+
     # ------------------------------------------------------------------
     # Execution
     # ------------------------------------------------------------------
@@ -697,6 +707,22 @@ class Debugger:
         for key, value in isomorphism.items():
             status = "✅" if value else "❌"
             self.console.print(f"  {status} {key}")
+            if not value:
+                g1_name, g2_name = key.split("_vs_")
+                g1, g2 = graphs[g1_name], graphs[g2_name]
+                only_in_g1, only_in_g2 = self._graph_diff(g1, g2)
+                only_in_g1_json = json.dumps(
+                    self._triples_to_json(only_in_g1), indent=2
+                )
+                only_in_g2_json = json.dumps(
+                    self._triples_to_json(only_in_g2), indent=2
+                )
+                self.console.print(
+                    f"    Triples only in {g1_name}:\n```json\n{only_in_g1_json}\n```"
+                )
+                self.console.print(
+                    f"    Triples only in {g2_name}:\n```json\n{only_in_g2_json}\n```"
+                )
 
         return had_errors
 
