@@ -7,14 +7,12 @@ from aicode.python_core.meta_builder.drawio_meta_builder import override
 
 
 @override(phase="core", type="internal", role="control")
-def dump_blocks(
+def blocks_to_json(
     blocks: Blocks,
     object_properties: set[str],
     datatype_properties: set[str],
-    dump_path: str,
-):
+) -> str:
     import json
-    from pathlib import Path
 
     def make_json_safe(obj):
         if isinstance(obj, dict):
@@ -34,7 +32,23 @@ def dump_blocks(
         "object_properties": make_json_safe(object_properties),
         "datatype_properties": make_json_safe(datatype_properties),
     }
+
+    return json.dumps(data, indent=4, ensure_ascii=False)
+
+
+@override(phase="core", type="internal", role="control")
+def dump_blocks(
+    blocks: Blocks,
+    object_properties: set[str],
+    datatype_properties: set[str],
+    dump_path: str,
+):
+    from pathlib import Path
+
+    json_blocks = pipeline.core.internal.control.blocks_to_json(
+        blocks, object_properties, datatype_properties
+    )
     Path(dump_path).write_text(
-        json.dumps(data, indent=4, ensure_ascii=False),
+        json_blocks,
         encoding="utf-8",
     )
