@@ -535,8 +535,9 @@ class Debugger:
         except Exception as exc:
             error_msg = f"{type(exc).__name__}: {exc}"
             self.console.print(
-                f"[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file\n"
-                f"[dim]{error_msg}[/dim]"
+                f"[yellow]Warning:[/yellow] Legacy Python parser failed to parse DrawIO file"
+                f"{'. Error message:' if error_msg else ''}\n"
+                f"[dim]{error_msg if error_msg else ''}[/dim]"
             )
             py_legacy_error = error_msg
             py_legacy_graph = None
