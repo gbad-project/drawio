@@ -14,7 +14,7 @@ from aicode.python_core.meta_builder.drawio_meta_builder import override
 class CellKind(Enum):
     ARROW = auto()
     ARROW_LABEL = auto()
-    TYPED_INDIVIDUAL = auto()
+    TYPE_TOKEN = auto()
     STANDALONE_INDIVIDUAL = auto()
     LITERAL = auto()
     DECORATION = auto()

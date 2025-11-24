@@ -18,12 +18,12 @@ from rdflib.namespace import RDF, RDFS, OWL, XSD
 from enum import Enum, auto
 import json
 from html import unescape
-from typing import TYPE_CHECKING
 import re
 from rdflib import BNode
 from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
+from rdflib.collection import Collection
 import typing
 import logging
 from io import StringIO
@@ -152,8 +152,6 @@ class pipeline:
 
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
-                    if TYPE_CHECKING:
-                        from legacy.draw_io_parser import pipeline
 
                     def __init__(
                         self,
@@ -212,6 +210,21 @@ class pipeline:
                         yield from self.individuals
                         yield from self.arrows
 
+                    def _record_literal_decorations(self, cell):
+                        cell_id = cell.attrib.get("id")
+                        classification = self.classifications[cell_id]
+                        self._literals_by_id[cell_id] = cell
+                        if len(classification.tokens) > 1:
+                            self.decorations[cell_id] = {
+                                "value": classification.tokens,
+                                "connected": False,
+                            }
+                        else:
+                            self.decorations[cell_id] = {
+                                "value": classification.raw_value,
+                                "connected": False,
+                            }
+
                     def _process_graph(self):
                         """
                         Main processing loop. First classifies all nodes (vertices), then
@@ -253,16 +266,17 @@ class pipeline:
                                 self.classifications[cell_id] = classification
                             kind_name = getattr(classification.kind, "name", "")
                             cell_id = cell.attrib.get("id")
-                            if kind_name == "TYPED_INDIVIDUAL":
+                            if kind_name == "TYPE_TOKEN":
                                 parent = classification.parent_cell
                                 parent_cell_id = parent.attrib.get("id")
                                 identifier = classification.parent_identifier
                                 if (
-                                    parent is None
-                                    or identifier is None
-                                    or cell_id is None
-                                    or (parent_cell_id in self._literals_by_id)
+                                    cell_id is None
+                                    or parent_cell_id in self._literals_by_id
                                 ):
+                                    continue
+                                elif parent is None or identifier is None:
+                                    self._record_literal_decorations(cell)
                                     continue
                                 for token in classification.tokens:
                                     individual = Individual(identifier, token)
@@ -312,11 +326,7 @@ class pipeline:
                                     self._nodes_by_id[cell_id] = (cell, individual)
                             elif kind_name in ("LITERAL", "DECORATION", "EMPTY_CELL"):
                                 if cell_id:
-                                    self._literals_by_id[cell_id] = cell
-                                    self.decorations[cell_id] = {
-                                        "value": classification.raw_value,
-                                        "connected": False,
-                                    }
+                                    self._record_literal_decorations(cell)
                         for cell in self.draw_io_xml_tree.findall(".//*[@edge='1']"):
                             try:
                                 arrow = self._resolve_arrow(cell)
@@ -377,21 +387,21 @@ class pipeline:
                                 parent_cell=parent_cell,
                                 parent_identifier=parent_identifier,
                             )
-                        if self._style_denotes_literal(cell, style):
-                            return build(CellKind.LITERAL)
                         tokens = self._tokenise(raw_value)
                         child_tokens = self._collect_child_tokens(cell)
                         if child_tokens:
                             tokens.extend((t for t in child_tokens if t not in tokens))
+                        if self._style_denotes_literal(cell, style):
+                            return build(CellKind.LITERAL, tokens=tokens)
                         if parent_cell is not None and parent_identifier:
                             return build(
-                                CellKind.TYPED_INDIVIDUAL,
+                                CellKind.TYPE_TOKEN,
                                 parent_cell=parent_cell,
                                 parent_identifier=parent_identifier,
                                 tokens=tokens,
                             )
                         elif self._is_decoration(cell, raw_value):
-                            return build(CellKind.DECORATION)
+                            return build(CellKind.DECORATION, tokens=tokens)
                         else:
                             declares_identifier = bool(child_tokens)
                             return build(
@@ -851,7 +861,7 @@ class pipeline:
                 class CellKind(Enum):
                     ARROW = auto()
                     ARROW_LABEL = auto()
-                    TYPED_INDIVIDUAL = auto()
+                    TYPE_TOKEN = auto()
                     STANDALONE_INDIVIDUAL = auto()
                     LITERAL = auto()
                     DECORATION = auto()
@@ -1210,6 +1220,9 @@ class pipeline:
 
                     def add_decoration_notes(self) -> None:
                         """Add decoration notes from the pipeline registry."""
+                        UnableToCoerceException = (
+                            pipeline.core.rdf.data.UnableToCoerceException
+                        )
                         decorations_attr = "__drawio_literal_registry"
                         decoration_registry = getattr(
                             pipeline.core.internal.data, decorations_attr, {}
@@ -1229,9 +1242,26 @@ class pipeline:
                             else:
                                 decoration_subject = BNode()
                             for note in decoration_values:
-                                self.graph.add(
-                                    (decoration_subject, SKOS.note, Literal(note))
-                                )
+                                if isinstance(note, str):
+                                    self.graph.add(
+                                        (decoration_subject, SKOS.note, Literal(note))
+                                    )
+                                elif isinstance(note, list):
+                                    list_node = BNode()
+                                    self.graph.add(
+                                        (decoration_subject, SKOS.note, list_node)
+                                    )
+                                    Collection(
+                                        self.graph,
+                                        list_node,
+                                        [Literal(item) for item in note],
+                                    )
+                                else:
+                                    raise UnableToCoerceException(
+                                        repr(note),
+                                        Literal,
+                                        "Decoration of an unsupported Python type",
+                                    )
                         if hasattr(pipeline.core.internal.data, decorations_attr):
                             delattr(pipeline.core.internal.data, decorations_attr)
 
@@ -1561,7 +1591,7 @@ class pipeline:
                             ) = self._build_type_predicate_object_map(class_term)
                             self.graph.addN1(
                                 (
-                                    subject_map,
+                                    triples_map,
                                     self.rr["predicateObjectMap"],
                                     type_predicate_object_map,
                                 ),

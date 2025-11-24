@@ -160,7 +160,7 @@ class DrawIOCellClassifier:
             kind_name = getattr(classification.kind, "name", "")
             cell_id = cell.attrib.get("id")
 
-            if kind_name == "TYPED_INDIVIDUAL":
+            if kind_name == "TYPE_TOKEN":
                 parent = classification.parent_cell
                 parent_cell_id = parent.attrib.get("id")
                 identifier = classification.parent_identifier
@@ -273,7 +273,7 @@ class DrawIOCellClassifier:
 
         if parent_cell is not None and parent_identifier:
             return build(
-                CellKind.TYPED_INDIVIDUAL,
+                CellKind.TYPE_TOKEN,
                 parent_cell=parent_cell,
                 parent_identifier=parent_identifier,
                 tokens=tokens,

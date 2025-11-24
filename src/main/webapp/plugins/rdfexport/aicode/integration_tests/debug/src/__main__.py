@@ -1413,7 +1413,7 @@ def estimate_triple_count_from_classifications(
             individuals.setdefault(identifier, set()).update(tokens)
             continue
 
-        if kind == "TYPED_INDIVIDUAL":
+        if kind == "TYPE_TOKEN":
             identifier = cell_data.get("parent_identifier") or cell_data.get(
                 "identifier"
             )

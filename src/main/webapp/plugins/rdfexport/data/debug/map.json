@@ -6970,7 +6970,7 @@
         },
         "3Pax77aPJU0OIfwI_oWW-2": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "IndividualList",
           "raw_value": ":Item1",
           "tokens": [
@@ -6979,7 +6979,7 @@
         },
         "3Pax77aPJU0OIfwI_oWW-3": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "IndividualList",
           "raw_value": ":Item2",
           "tokens": [
@@ -6988,7 +6988,7 @@
         },
         "3Pax77aPJU0OIfwI_oWW-4": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "IndividualList",
           "raw_value": ":Item3",
           "tokens": [
@@ -7009,7 +7009,7 @@
         },
         "3Pax77aPJU0OIfwI_oWW-6": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "ConnectedLiteralizedList",
           "raw_value": ":Item1",
           "tokens": [
@@ -7018,7 +7018,7 @@
         },
         "3Pax77aPJU0OIfwI_oWW-7": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "ConnectedLiteralizedList",
           "raw_value": ":Item2",
           "tokens": [
@@ -7027,7 +7027,7 @@
         },
         "3Pax77aPJU0OIfwI_oWW-8": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "ConnectedLiteralizedList",
           "raw_value": ":Item3",
           "tokens": [
@@ -7076,7 +7076,7 @@
         },
         "wNWMXQLe-EjqqHa3b5Mu-2": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "UnconnectedLiteralizedList",
           "raw_value": ":Item1",
           "tokens": [
@@ -7085,7 +7085,7 @@
         },
         "wNWMXQLe-EjqqHa3b5Mu-3": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "UnconnectedLiteralizedList",
           "raw_value": ":Item2",
           "tokens": [
@@ -7094,7 +7094,7 @@
         },
         "wNWMXQLe-EjqqHa3b5Mu-4": {
           "identifier": null,
-          "kind": "TYPED_INDIVIDUAL",
+          "kind": "TYPE_TOKEN",
           "parent_identifier": "UnconnectedLiteralizedList",
           "raw_value": ":Item3",
           "tokens": [
@@ -7107,7 +7107,7 @@
           "ARROW_LABEL": 3,
           "LITERAL": 2,
           "STANDALONE_INDIVIDUAL": 2,
-          "TYPED_INDIVIDUAL": 9,
+          "TYPE_TOKEN": 9,
           "UNCLASSIFIED": 1
         },
         "classified": 16,
@@ -7155,12 +7155,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "ae9b7f30961f734a4bef79c666dfc0a54da2395b41912060baea0493cedca0a6",
+          "nt_sha256": "c712a00a86bf36952c6c114ada331bb4519c3f628dc70cf2f277dc629f290b42",
           "path": "results/list-typed-decorations/ts_pipeline.ttl",
           "triples": 22
         },
         "ts_plugin": {
-          "nt_sha256": "60ce93f64f7d569623f7ecaddf1f3ef056ae9f02b5a08a9eec464e5e2b5517eb",
+          "nt_sha256": "e886e9f5ad0f0b38c6b485cb501ec484c6dd172a70ad3478794e44f83d97d81c",
           "path": "results/list-typed-decorations/ts_plugin.ttl",
           "triples": 22
         }

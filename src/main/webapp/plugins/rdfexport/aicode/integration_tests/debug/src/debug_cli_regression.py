@@ -159,7 +159,7 @@ def _ensure_graph_covers_classifications(
             identifier = cell_data.get("identifier") or raw_value
             if identifier and not _token_is_template(identifier):
                 identifiers.add(identifier)
-        if kind == "TYPED_INDIVIDUAL":
+        if kind == "TYPE_TOKEN":
             identifier = cell_data.get("parent_identifier") or cell_data.get(
                 "identifier"
             )
@@ -200,7 +200,7 @@ def _ensure_graph_covers_classifications(
                 ), f"Missing rdf:type '{token}' for '{identifier}'"
             continue
 
-        if kind == "TYPED_INDIVIDUAL":
+        if kind == "TYPE_TOKEN":
             identifier = cell_data.get("parent_identifier") or cell_data.get(
                 "identifier"
             )
