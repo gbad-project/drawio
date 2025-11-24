@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import typing
-
+import logging
 
 from python_core.src.draw_io_parser import *  # type: ignore=imported-unused
 from aicode.python_core.meta_builder.drawio_meta_builder import override
@@ -129,12 +129,18 @@ def coerce_to_uriref(
         except Exception as e:
             err_norm = e
 
+        # disable all logging to silence invalid URIRef warnings,
+        # as for decoded these are not expected to be valid anyway
+        logging.disable(logging.CRITICAL)
         try:
             decoded_norm_coerced, decoded_norm_iri_variant = coerce_candidate(
                 decoded_norm_value
             )
         except Exception:
             pass  # doesn't matter as any result of raw prevails
+        finally:
+            # restore logging
+            logging.disable(logging.NOTSET)
 
         matched = (bool(norm_coerced), bool(decoded_norm_coerced))
         if matched == (False, False):
