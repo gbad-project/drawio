@@ -10,8 +10,11 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Iterable, List, Sequence, Tuple
+import warnings
 
-from rdflib import Graph
+from python_core.src.overrides.core.rdf.control.draw_io_parser_graph import (
+    DrawIOParserGraph,
+)
 
 PLUGIN_DIR = Path(__file__).resolve().parents[3]
 REPO_ROOT = PLUGIN_DIR.resolve().parents[4]
@@ -90,9 +93,16 @@ def _discover_pristine_fixtures() -> Iterable[Path]:
         yield fixture
 
 
-def _serialise_graph(graph: Graph) -> str:
+def _serialise_graph(graph: DrawIOParserGraph) -> str:
     """Serialize a graph to N-Triples deterministically (sorted lexicographically)."""
-    raw = graph.serialize(format="nt")
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            category=UserWarning,
+            message="NTSerializer does not support base.",
+        )  # needed because DrawIOParserGraph always has base
+        # This warning doesn't affect anything, so silencing it is ok
+        raw = graph.serialize(format="nt")
     if isinstance(raw, bytes):
         raw = raw.decode("utf-8")
     lines = sorted(line for line in raw.splitlines() if line.strip())
@@ -124,7 +134,7 @@ def _candidate_commits(start_ref: str, limit: int) -> Sequence[str]:
 
 def _generate_graphs_from_commit(
     commit: str, substitute: List[str]
-) -> Tuple[List[Tuple[Path, Graph]], List[Tuple[Path, Exception]]]:
+) -> Tuple[List[Tuple[Path, DrawIOParserGraph]], List[Tuple[Path, Exception]]]:
     """Generate baseline graphs using the parser from a specific commit.
 
     This loads the historical parser code exactly as it was, with no modifications.
@@ -145,7 +155,7 @@ def _generate_graphs_from_commit(
         get_ontology_iri = getattr(current_parser, "get_ontology_iri", None)
         mock_ontology_iri = get_ontology_iri("mock")
 
-        graphs: List[Tuple[Path, Graph]] = []
+        graphs: List[Tuple[Path, DrawIOParserGraph]] = []
         failures: List[Tuple[Path, Exception]] = []
         for fixture in _discover_pristine_fixtures():
             try:
