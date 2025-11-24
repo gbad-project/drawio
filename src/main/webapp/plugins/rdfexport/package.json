@@ -30,7 +30,7 @@
     "test:log:macos": "LOGFILE=\"data/demo_logs/test.log\" && script \"$LOGFILE\" bun run test",
     "test:log:linux": "LOGFILE=\"data/demo_logs/test.log\" && script -c \"bun run test\" \"$LOGFILE\"",
     "test:log:show": "LOGFILE=\"data/demo_logs/test.log\" && cat \"$LOGFILE\"",
-    "test:pytest:all": ".venv/bin/pytest",
+    "test:pytest:all": "uv run pytest",
     "test:pytest:all:log:macos": "LOGFILE=\"data/demo_logs/pytest.log\" && script \"$LOGFILE\" bun run test:pytest:all",
     "test:pytest:all:log:linux": "LOGFILE=\"data/demo_logs/pytest.log\" && script -c \"bun run test:pytest:all\" \"$LOGFILE\"",
     "test:pytest:all:log:show": "LOGFILE=\"data/demo_logs/pytest.log\" && cat \"$LOGFILE\"",
