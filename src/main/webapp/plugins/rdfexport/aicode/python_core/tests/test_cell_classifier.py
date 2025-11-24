@@ -115,9 +115,18 @@ def _clear_literal_registry():
 
 def test_classifier_detects_typed_individuals_and_literals():
     xml = _drawio_xml(
-        _vertex_cell("parent", "My Individual", style="rounded=1"),
-        _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
-        _vertex_cell("decor", "Decoration literal"),
+        # This is a real individual
+        _vertex_cell("id_parent", "My Individual"),
+        _vertex_cell("id_type", "owl:NamedIndividual", parent="id_parent"),
+        # This is an individual forced into a literal via rounded=1
+        _vertex_cell("pseudo_id_parent", "Pseudo Individual", style="rounded=1"),
+        _vertex_cell(
+            "pseudo_id_type", "owl:NamedIndividual", parent="pseudo_id_parent"
+        ),
+        # Standalone individual to mint from literal
+        _vertex_cell("mint_decor", "Minted from decoration literal"),
+        # Forced into a literal via rounded=1
+        _vertex_cell("decor", "Decoration literal", style="rounded=1"),
     )
 
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
@@ -130,6 +139,7 @@ def test_classifier_detects_typed_individuals_and_literals():
         for individual in classifier.individuals
     }
     assert ("My Individual", "owl:NamedIndividual") in observed
+    assert ("Minted from decoration literal", "owl:NamedIndividual") in observed
 
     registry = getattr(
         draw_io_parser.pipeline.core.internal.data,
@@ -138,6 +148,10 @@ def test_classifier_detects_typed_individuals_and_literals():
     )
     assert registry["decor"]["value"] == "Decoration literal"
     assert registry["decor"]["connected"] is False
+
+    assert {"Pseudo Individual", "owl:NamedIndividual"} == set(
+        registry["pseudo_id_parent"]["value"]
+    )
 
 
 def test_top_level_rounded_text_treated_as_literal():

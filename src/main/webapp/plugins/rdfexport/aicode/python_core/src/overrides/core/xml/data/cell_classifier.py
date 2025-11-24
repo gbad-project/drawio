@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
 
 from python_core.src.draw_io_parser import *  # type: ignore=imported-unused
 from aicode.python_core.meta_builder.drawio_meta_builder import override
@@ -28,9 +27,6 @@ class DrawIOCellClassifier:
 
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
-
-    if TYPE_CHECKING:
-        from legacy.draw_io_parser import pipeline
 
     def __init__(
         self,
@@ -94,6 +90,29 @@ class DrawIOCellClassifier:
         yield from self.individuals
         yield from self.arrows
 
+    def _record_literal_decorations(self, cell):
+        cell_id = cell.attrib.get("id")
+        classification = self.classifications[cell_id]
+
+        # Record as a literal
+        self._literals_by_id[cell_id] = cell
+
+        # Record decorations
+        # 1. Any literalized typed individuals
+        if len(classification.tokens) > 1:
+            self.decorations[cell_id] = {
+                "value": classification.tokens,
+                "connected": False,
+            }
+        # 2. Standalone decoration
+        else:
+            self.decorations[cell_id] = {
+                # Note that raw_value is passed among tokens as
+                # a single-item list anyway, but using this for clarity
+                "value": classification.raw_value,
+                "connected": False,
+            }
+
     def _process_graph(self):
         """
         Main processing loop. First classifies all nodes (vertices), then
@@ -145,12 +164,11 @@ class DrawIOCellClassifier:
                 parent = classification.parent_cell
                 parent_cell_id = parent.attrib.get("id")
                 identifier = classification.parent_identifier
-                if (
-                    parent is None
-                    or identifier is None
-                    or cell_id is None
-                    or parent_cell_id in self._literals_by_id
-                ):
+                if cell_id is None or parent_cell_id in self._literals_by_id:
+                    # Truly nothing to collect
+                    continue
+                elif parent is None or identifier is None:
+                    self._record_literal_decorations(cell)
                     continue
                 for token in classification.tokens:
                     individual = Individual(identifier, token)
@@ -187,11 +205,7 @@ class DrawIOCellClassifier:
 
             elif kind_name in ("LITERAL", "DECORATION", "EMPTY_CELL"):
                 if cell_id:
-                    self._literals_by_id[cell_id] = cell
-                    self.decorations[cell_id] = {
-                        "value": classification.raw_value,
-                        "connected": False,
-                    }
+                    self._record_literal_decorations(cell)
 
         # Second pass: resolve all edges now that nodes are mapped
         for cell in self.draw_io_xml_tree.findall(".//*[@edge='1']"):
@@ -249,13 +263,13 @@ class DrawIOCellClassifier:
                 parent_identifier=parent_identifier,
             )
 
-        if self._style_denotes_literal(cell, style):
-            return build(CellKind.LITERAL)
-
         tokens = self._tokenise(raw_value)
         child_tokens = self._collect_child_tokens(cell)
         if child_tokens:
             tokens.extend(t for t in child_tokens if t not in tokens)
+
+        if self._style_denotes_literal(cell, style):
+            return build(CellKind.LITERAL, tokens=tokens)
 
         if parent_cell is not None and parent_identifier:
             return build(
@@ -265,7 +279,7 @@ class DrawIOCellClassifier:
                 tokens=tokens,
             )
         elif self._is_decoration(cell, raw_value):
-            return build(CellKind.DECORATION)
+            return build(CellKind.DECORATION, tokens=tokens)
         else:
             declares_identifier = bool(child_tokens)
             return build(
