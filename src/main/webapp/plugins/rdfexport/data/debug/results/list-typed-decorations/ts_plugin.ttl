@@ -6,7 +6,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-rdf:type a owl:DatatypeProperty .
+rdf:type a owl:ObjectProperty .
 
 rdfs:seeAlso a owl:DatatypeProperty .
 
@@ -18,7 +18,7 @@ rdfs:seeAlso a owl:DatatypeProperty .
         :Item1,
         :Item2,
         :Item3,
-        "Just a literal" ;
+        :Just%20A%20Literal ;
     rdfs:label "IndividualList" ;
     rdfs:seeAlso "ConnectedLiteralizedList" .
 

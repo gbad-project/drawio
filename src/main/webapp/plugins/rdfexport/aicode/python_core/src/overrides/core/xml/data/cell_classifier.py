@@ -281,12 +281,17 @@ class DrawIOCellClassifier:
         elif self._is_decoration(cell, raw_value):
             return build(CellKind.DECORATION, tokens=tokens)
         else:
-            declares_identifier = bool(child_tokens)
+            # This was originally used but probably does
+            # not make sense because untyped standalone
+            # individuals are to be considered declared
+            # anyway (this leads to arrows resolving as
+            # object and not datatype props, for example)
+            # declares_identifier = bool(child_tokens)
             return build(
                 CellKind.STANDALONE_INDIVIDUAL,
                 identifier=raw_value,
                 tokens=[],
-                declares_identifier=declares_identifier,
+                declares_identifier=True,
             )
 
     # region Helper Methods (Moved from DrawIOXMLTree)
