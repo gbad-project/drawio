@@ -371,11 +371,18 @@ def test_serialise_to_rml_decodes_url_templates():
 def test_parse_drawio_rejects_malformed_type_variants(tmp_path: Path, case_key: str):
     fixture_path = _mutate_fixture_for_case(tmp_path, case_key)
 
-    with pytest.raises(draw_io_parser.NotInKnownException):
-        draw_io_parser.parse_drawio_to_graph(
-            str(fixture_path),
-            metacharacter_substitute=["remove"],
-        )
+    kwargs = dict(
+        drawio_file_path=str(fixture_path),
+        metacharacter_substitute=["remove"],
+    )
+
+    if case_key == "dangling_curie":
+        # does not raise because empty prefixes are supported now
+        draw_io_parser.parse_drawio_to_graph(**kwargs)
+        return
+
+    with pytest.raises(draw_io_parser.pipeline.core.rdf.data.UnableToCoerceException):
+        draw_io_parser.parse_drawio_to_graph(**kwargs)
 
 
 def test_parse_drawio_accepts_corrected_mock_types(tmp_path: Path):
@@ -489,7 +496,7 @@ def test_parse_drawio_with_metadata_exposes_namespace_and_csv_path():
 
     assert namespace_map.get("mock1") == "http://mock-iri-ns.org"
     assert namespace_map.get("") == "http://mock-base-uri.com"
-    assert graph.base is None
+    assert graph.base == namespace_map.get("")
 
 
 def test_parse_drawio_with_rml_metadata_adds_triples_map():
@@ -586,7 +593,8 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
 
     assert isinstance(graph, draw_io_parser.DrawIOParserGraph)
     assert graph.csv_path is None
-    assert graph.base is None
+    # should be generated from default with timestamp as not passed
+    assert graph.base.startswith("ontology://generated-from-draw-io/")
 
 
 def test_parse_drawio_rejects_unknown_literal_curie():
@@ -717,7 +725,7 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
 
         assert isinstance(patched_graph, draw_io_parser.DrawIOParserGraph)
         assert patched_graph.csv_path == metadata_options["csvPath"]
-        assert patched_graph.base is None
+        assert patched_graph.base == draw_io_parser.pipeline.core.rdf.data.prefix_iri_to_base(metadata_options["baseUri"])
 
         namespace_map = {
             prefix: str(uri)
