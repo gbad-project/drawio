@@ -403,12 +403,11 @@ class pipeline:
                         elif self._is_decoration(cell, raw_value):
                             return build(CellKind.DECORATION, tokens=tokens)
                         else:
-                            declares_identifier = bool(child_tokens)
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
                                 identifier=raw_value,
                                 tokens=[],
-                                declares_identifier=declares_identifier,
+                                declares_identifier=True,
                             )
 
                     def _value_of(self, cell: Element, *, raw: bool = False) -> str:
@@ -822,6 +821,8 @@ class pipeline:
                             return False
                         if "rounded=1" in style:
                             return True
+                        if "ellipse" in style:
+                            return True
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:
@@ -964,15 +965,13 @@ class pipeline:
                         block["Types"] = {rdf_type}
 
                 # END override individual_blocks.py._add_individual_type
-                # BEGIN override dump_blocks.py.dump_blocks
-                def dump_blocks(
+                # BEGIN override dump_blocks.py.blocks_to_json
+                def blocks_to_json(
                     blocks: Blocks,
                     object_properties: set[str],
                     datatype_properties: set[str],
-                    dump_path: str,
-                ):
+                ) -> str:
                     import json
-                    from pathlib import Path
 
                     def make_json_safe(obj):
                         if isinstance(obj, dict):
@@ -992,9 +991,22 @@ class pipeline:
                         "object_properties": make_json_safe(object_properties),
                         "datatype_properties": make_json_safe(datatype_properties),
                     }
-                    Path(dump_path).write_text(
-                        json.dumps(data, indent=4, ensure_ascii=False), encoding="utf-8"
+                    return json.dumps(data, indent=4, ensure_ascii=False)
+
+                # END override dump_blocks.py.blocks_to_json
+                # BEGIN override dump_blocks.py.dump_blocks
+                def dump_blocks(
+                    blocks: Blocks,
+                    object_properties: set[str],
+                    datatype_properties: set[str],
+                    dump_path: str,
+                ):
+                    from pathlib import Path
+
+                    json_blocks = pipeline.core.internal.control.blocks_to_json(
+                        blocks, object_properties, datatype_properties
                     )
+                    Path(dump_path).write_text(json_blocks, encoding="utf-8")
 
                 # END override dump_blocks.py.dump_blocks
 
