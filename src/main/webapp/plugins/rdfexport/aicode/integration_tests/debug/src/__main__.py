@@ -404,6 +404,7 @@ class Debugger:
                 ),  # note that this is unprocessed by _value_of unlike classified cells
                 "identifier": None,
                 "parent_identifier": info.get("attrs", {}).get("parent"),
+                "declares_identifier": info.get("attrs", {}).get("declares_identifier"),
                 "tokens": [],
             }
 
@@ -1032,6 +1033,7 @@ class Debugger:
                     "raw_value": classification.raw_value,
                     "identifier": classification.identifier,
                     "parent_identifier": classification.parent_identifier,
+                    "declares_identifier": classification.declares_identifier,
                     "tokens": classification.tokens or [],
                 }
 

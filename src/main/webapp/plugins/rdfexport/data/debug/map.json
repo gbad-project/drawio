@@ -6955,6 +6955,7 @@
     "list-typed-decorations": {
       "cell_classifications": {
         "1": {
+          "declares_identifier": null,
           "identifier": null,
           "kind": "UNCLASSIFIED",
           "parent_identifier": "0",
@@ -6962,6 +6963,7 @@
           "tokens": []
         },
         "3Pax77aPJU0OIfwI_oWW-1": {
+          "declares_identifier": true,
           "identifier": "IndividualList",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
@@ -6969,6 +6971,7 @@
           "tokens": []
         },
         "3Pax77aPJU0OIfwI_oWW-2": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "IndividualList",
@@ -6978,6 +6981,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-3": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "IndividualList",
@@ -6987,6 +6991,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-4": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "IndividualList",
@@ -6996,6 +7001,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-5": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
@@ -7008,6 +7014,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-6": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "ConnectedLiteralizedList",
@@ -7017,6 +7024,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-7": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "ConnectedLiteralizedList",
@@ -7026,6 +7034,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-8": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "ConnectedLiteralizedList",
@@ -7035,6 +7044,7 @@
           ]
         },
         "3Pax77aPJU0OIfwI_oWW-9": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "ARROW_LABEL",
           "parent_identifier": null,
@@ -7042,6 +7052,7 @@
           "tokens": []
         },
         "BIgxN-90JxJ6G4pkkr8I-2": {
+          "declares_identifier": false,
           "identifier": "Just a literal",
           "kind": "STANDALONE_INDIVIDUAL",
           "parent_identifier": null,
@@ -7049,6 +7060,7 @@
           "tokens": []
         },
         "BIgxN-90JxJ6G4pkkr8I-3": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "ARROW_LABEL",
           "parent_identifier": null,
@@ -7056,6 +7068,7 @@
           "tokens": []
         },
         "BIgxN-90JxJ6G4pkkr8I-5": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "ARROW_LABEL",
           "parent_identifier": null,
@@ -7063,6 +7076,7 @@
           "tokens": []
         },
         "wNWMXQLe-EjqqHa3b5Mu-1": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "LITERAL",
           "parent_identifier": null,
@@ -7075,6 +7089,7 @@
           ]
         },
         "wNWMXQLe-EjqqHa3b5Mu-2": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "UnconnectedLiteralizedList",
@@ -7084,6 +7099,7 @@
           ]
         },
         "wNWMXQLe-EjqqHa3b5Mu-3": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "UnconnectedLiteralizedList",
@@ -7093,6 +7109,7 @@
           ]
         },
         "wNWMXQLe-EjqqHa3b5Mu-4": {
+          "declares_identifier": false,
           "identifier": null,
           "kind": "TYPE_TOKEN",
           "parent_identifier": "UnconnectedLiteralizedList",
@@ -7155,12 +7172,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "c712a00a86bf36952c6c114ada331bb4519c3f628dc70cf2f277dc629f290b42",
+          "nt_sha256": "2bb2ecfb6ec9194854ea656d8c781b7c8a89853327e3ce0582bcffc345367c99",
           "path": "results/list-typed-decorations/ts_pipeline.ttl",
           "triples": 22
         },
         "ts_plugin": {
-          "nt_sha256": "e886e9f5ad0f0b38c6b485cb501ec484c6dd172a70ad3478794e44f83d97d81c",
+          "nt_sha256": "19f7cf73494561ad24c4bb54058160173ef673a9b57ff4b02457cecd00d0f388",
           "path": "results/list-typed-decorations/ts_plugin.ttl",
           "triples": 22
         }
