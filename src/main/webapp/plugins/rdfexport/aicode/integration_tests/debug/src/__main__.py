@@ -22,7 +22,7 @@ from rich.table import Table
 
 from aicode.python_core.scripts.regenerate_baselines import (
     PreviousParserLoader,
-    _serialise_graph,
+    _serialise_graph as regenerate_baselines_serialise_graph,
     ORIGINAL_PARSER_RELATIVE_PATH,
     CURRENT_PARSER_RELATIVE_PATH,
 )
@@ -650,7 +650,7 @@ class Debugger:
             output_path.write_text(serialised, encoding="utf-8")
             serialised_paths[name] = output_path
 
-            nt_serialised = _serialise_graph(graph)
+            nt_serialised = regenerate_baselines_serialise_graph(graph)
             nt_hashes[name] = hashlib.sha256(nt_serialised.encode("utf-8")).hexdigest()
             triple_counts[name] = len(graph)
 
@@ -890,7 +890,7 @@ class Debugger:
     def _serialise_graph(self, graph: Graph, fmt: str) -> str:
         fmt_lower = fmt.lower()
         if fmt_lower in {"nt", "ntriples", "n-triples"}:
-            return _serialise_graph(graph)
+            return regenerate_baselines_serialise_graph(graph)
 
         serialised = graph.serialize(format=fmt_lower)
         if isinstance(serialised, bytes):
