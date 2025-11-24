@@ -57,8 +57,12 @@ import python_core.src.draw_io_parser as draw_io_parser
             False,
             "Rel IRI Individual",
             "/someClass",
-            # Note double slash - prefix IRI defined below with a trailing slash
-            URIRef("http://example.com//someClass"),
+            # # Note double slash - prefix IRI defined below with a trailing slash
+            # URIRef("http://example.com//someClass"),
+            # Note NO double slash since rigorous @base/default ns implementation -
+            # rdflib considers this a RFC 3986 rel IRI and appends to base which
+            # is derived from prefix IRI here by trimming its trailing slash/hash
+            URIRef("http://example.com/someClass"),
             False,
         ),
         (False, "Nefarious Individual", "Unexpected Literal As Type", None, True),
@@ -104,8 +108,12 @@ import python_core.src.draw_io_parser as draw_io_parser
             True,
             "Rel IRI Individual",
             "/someClass",
-            # Note double slash - prefix IRI defined below with a trailing slash
-            URIRef("http://example.com//someClass"),
+            # # Note double slash - prefix IRI defined below with a trailing slash
+            # URIRef("http://example.com//someClass"),
+            # Note NO double slash since rigorous @base/default ns implementation -
+            # rdflib considers this a RFC 3986 rel IRI and appends to base which
+            # is derived from prefix IRI here by trimming its trailing slash/hash
+            URIRef("http://example.com/someClass"),
             False,
         ),
         (True, "Nefarious Individual", "Unexpected Literal As Type", None, True),

@@ -25,6 +25,7 @@ from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
 import typing
+import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
@@ -1107,7 +1108,7 @@ class pipeline:
                         self.serialisation_config = serialisation_config
                         self.prefixes = prefixes
                         self.graph = graph
-                        self.prefix = serialisation_config.prefix
+                        self.prefix = serialisation_config.prefix or ""
                         self.prefix_iri = serialisation_config.prefix_iri
                         self._should_decode_literals = False
 
@@ -1163,7 +1164,7 @@ class pipeline:
 
                     def namespace_map(self):
                         return {
-                            prefix or "": Namespace(iri)
+                            prefix: Namespace(iri)
                             for prefix, iri in list(
                                 self.graph.namespace_manager.namespaces()
                             )
@@ -1745,7 +1746,7 @@ class pipeline:
                         """
                         iri_variant = looks_like_iri(candidate)
                         namespace_map: dict[str, Namespace] = cfg.namespace_map()
-                        default_ns: Namespace = namespace_map.get("")
+                        default_ns: Namespace = namespace_map.get(cfg.prefix)
                         coerced = None
                         if iri_variant == "absolute-iri":
                             coerced = URIRef(candidate)
@@ -1811,12 +1812,15 @@ class pipeline:
                                 return norm_coerced
                         except Exception as e:
                             err_norm = e
+                        logging.disable(logging.CRITICAL)
                         try:
                             decoded_norm_coerced, decoded_norm_iri_variant = (
                                 coerce_candidate(decoded_norm_value)
                             )
                         except Exception:
                             pass
+                        finally:
+                            logging.disable(logging.NOTSET)
                         matched = (bool(norm_coerced), bool(decoded_norm_coerced))
                         if matched == (False, False):
                             raise err_norm
