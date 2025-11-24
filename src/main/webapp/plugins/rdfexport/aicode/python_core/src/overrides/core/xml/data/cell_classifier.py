@@ -627,7 +627,7 @@ class DrawIOCellClassifier:
     @staticmethod
     def _tokenise(value: str) -> list[str]:
         "Split by any whitespace character and strip each token."
-        return [t.strip() for t in value.split("\n") if t.strip()]
+        return [t.strip() for t in value.split(" ") if t.strip()]
 
     def _token_is_template(self, token: str) -> bool:
         try:

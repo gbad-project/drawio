@@ -1,8 +1,55 @@
+@base <ontology://generated-from-draw-io/mock> .
 @prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rico:authorizedBy a owl:ObjectProperty .
+
+rico:hasBeginningDate a owl:ObjectProperty .
+
+rico:hasCreator a owl:ObjectProperty .
+
+rico:hasEndDate a owl:ObjectProperty .
+
+rico:hasExtent a owl:ObjectProperty .
+
+rico:hasExtentType a owl:ObjectProperty .
+
+rico:hasOrHadDigitalInstantiation a owl:ObjectProperty .
+
+rico:hasOrHadHolder a owl:ObjectProperty .
+
+rico:hasOrHadLeader a owl:ObjectProperty .
+
+rico:hasOrHadMandateType a owl:ObjectProperty .
+
+rico:hasOrHadPlaceType a owl:ObjectProperty .
+
+rico:hasRecordSetType a owl:ObjectProperty .
+
+rico:hasUnitOfMeasurement a owl:ObjectProperty .
+
+rico:includesOrIncluded a owl:ObjectProperty .
+
+rico:isAssociatedWithEvent a owl:ObjectProperty .
+
+rico:isAssociatedWithPlace a owl:ObjectProperty .
+
+rico:isOrWasRegulatedBy a owl:ObjectProperty .
+
+rico:normalizedDateValue a owl:DatatypeProperty .
+
+rico:occupiesOrOccupied a owl:ObjectProperty .
+
+rico:occurredAtDate a owl:ObjectProperty .
+
+rico:quantity a owl:DatatypeProperty .
+
+rico:regulatesOrRegulated a owl:ObjectProperty .
+
+rico:scopeAndContent a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .

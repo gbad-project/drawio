@@ -1,7 +1,58 @@
+@base <ontology://generated-from-draw-io/mock> .
 @prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rico:accruals a owl:DatatypeProperty .
+
+rico:conditionsOfAccess a owl:DatatypeProperty .
+
+rico:conditionsOfUse a owl:DatatypeProperty .
+
+rico:hasBirthDate a owl:ObjectProperty .
+
+rico:hasBirthPlace a owl:ObjectProperty .
+
+rico:hasCreationDate a owl:ObjectProperty .
+
+rico:hasCreator a owl:ObjectProperty .
+
+rico:hasDeathDate a owl:ObjectProperty .
+
+rico:hasGeneticLinkToRecordResource a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasOrHadPlaceType a owl:ObjectProperty .
+
+rico:hasOrHadSomeMembersWithContentType a owl:ObjectProperty .
+
+rico:hasOrHadSubject a owl:ObjectProperty .
+
+rico:hasRecordSetType a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:isAgentAssociatedWithPlace a owl:ObjectProperty .
+
+rico:isCreatorOf a owl:ObjectProperty .
+
+rico:isOrWasLeaderOf a owl:ObjectProperty .
+
+rico:isOrWasOwnerOf a owl:ObjectProperty .
+
+rico:isRelatedTo a owl:ObjectProperty .
+
+rico:normalizedDateValue a owl:DatatypeProperty .
+
+rico:occupiesOrOccupied a owl:ObjectProperty .
+
+rico:recordResourceExtent a owl:DatatypeProperty .
+
+rico:scopeAndContent a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
