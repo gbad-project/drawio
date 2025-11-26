@@ -65,18 +65,20 @@ def looks_like_iri(candidate: str) -> str | bool:
         "curie",
         "relative-iri",
     ]
+
+    Otherwise returns `False`.
     """
     if not candidate or any(ch.isspace() for ch in candidate):
         return False
     scheme, _, remainder = candidate.partition(":")
     if scheme and remainder.startswith("//"):
         return "absolute-iri"
+    if candidate.startswith(("/", "#")):
+        return "relative-iri"
     if bool(remainder.strip()):
         if scheme.lower() in {"urn", "tag", "ni"}:
             return "absolute-iri"
         # the below supposedly means no whitespaces
         elif len(remainder.split()) == 1:
             return "curie"
-    if candidate.startswith(("/", "#")):
-        return "relative-iri"
     return False
