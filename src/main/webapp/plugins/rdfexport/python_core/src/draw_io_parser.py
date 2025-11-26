@@ -898,7 +898,7 @@ class pipeline:
                         "relative-iri",
                     ]
 
-                    Othersise returns `False`.
+                    Otherwise returns `False`.
                     """
                     if not candidate or any((ch.isspace() for ch in candidate)):
                         return False
