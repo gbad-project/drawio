@@ -897,19 +897,21 @@ class pipeline:
                         "curie",
                         "relative-iri",
                     ]
+
+                    Othersise returns `False`.
                     """
                     if not candidate or any((ch.isspace() for ch in candidate)):
                         return False
                     scheme, _, remainder = candidate.partition(":")
                     if scheme and remainder.startswith("//"):
                         return "absolute-iri"
+                    if candidate.startswith(("/", "#")):
+                        return "relative-iri"
                     if bool(remainder.strip()):
                         if scheme.lower() in {"urn", "tag", "ni"}:
                             return "absolute-iri"
                         elif len(remainder.split()) == 1:
                             return "curie"
-                    if candidate.startswith(("/", "#")):
-                        return "relative-iri"
                     return False
 
                 # END override curie_validator.py.looks_like_iri

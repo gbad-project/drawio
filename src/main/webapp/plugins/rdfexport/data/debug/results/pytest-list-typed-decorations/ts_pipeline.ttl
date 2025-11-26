@@ -6,8 +6,7 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-rdf:type a owl:DatatypeProperty,
-        owl:ObjectProperty .
+rdf:type a owl:DatatypeProperty .
 
 rdfs:seeAlso a owl:DatatypeProperty .
 
@@ -15,29 +14,20 @@ rdfs:seeAlso a owl:DatatypeProperty .
     owl:imports rico: ;
     skos:note ( "UnconnectedLiteralizedList" ":Item1" ":Item2" ":Item3" ),
         ( "some" "other" "literal" ),
-        "Literal" .
+        "Literal",
+        "hello2",
+        "hello3",
+        "some" .
 
 :IndividualList a owl:NamedIndividual,
         :Item1,
         :Item2,
         :Item3,
-        :hi,
-        "Just a literal" ;
+        "Just a literal",
+        "hi" ;
     rdfs:label "IndividualList" ;
     rdfs:seeAlso "ConnectedLiteralizedList" .
 
 :hello a owl:NamedIndividual ;
     rdfs:label "hello" .
-
-:hello2 a owl:NamedIndividual ;
-    rdfs:label "hello2" .
-
-:hello3 a owl:NamedIndividual ;
-    rdfs:label "hello3" .
-
-:some a owl:NamedIndividual ;
-    rdfs:label "some" .
-
-:hi a owl:NamedIndividual ;
-    rdfs:label "hi" .
 

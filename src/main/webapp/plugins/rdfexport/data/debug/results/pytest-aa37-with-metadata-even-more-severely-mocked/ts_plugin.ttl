@@ -1,7 +1,9 @@
+@base <ontology://generated-from-draw-io/mock> .
 @prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix hellow: <some://helloworld> .
 @prefix lol: <http://something.com> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix picoL: <s://sdfsdf> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <rico://mock-rico> .
@@ -12,13 +14,14 @@
 
 somprefix:lol a owl:ObjectProperty .
 
-rdf:some-predicate a owl:DatatypeProperty .
+rdf:some-predicate a owl:ObjectProperty .
 
 rdf:type a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
-    skos:note "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual",
+    skos:note ( "Heading" "This" "diagram" "illustrates" "that" "the" "current" "implementation" "has" "a" "neat" "feature" "that" "any" "node" "that" "doesn't" "look" "like" "an" "individual" "(i.e.," "two-part" "stacked" "box)" "nor" "is" "connected" "to" "an" "individual" "via" "a" "labeled" "arrow," "is" "ignored." "This" "allows" "users" "to" "add" "arbitrary" "decorations" "to" "the" "diagram" "without" "risking" "to" "break" "the" "onotology." "Anything" "that" "is" "the" "target" "of" "a" "labeled" "arrow" "(by" "the" "way," "this" "does" "not" "require" "strict" "linking" "by" "default" "unless" "\"strict" "arrow" "parsing\"" "is" "enabled" "in" "parser" "settings)" "but" "doesn't" "look" "like" "an" "individual" ),
+        "hellothere",
         "hellothere2" .
 
 :List%20Pnnpni a lol:Item%203,
@@ -27,17 +30,8 @@ rdf:type a owl:ObjectProperty .
         :Vertical%20Container,
         rico:Item%201 ;
     rdfs:label "List pnnpni" ;
-    rdf:some-predicate "Some node" ;
+    rdf:some-predicate :Some%20Node ;
     hellow:there "lolabout" .
-
-:Some%20Node a owl:NamedIndividual ;
-    rdfs:label "Some node" .
-
-:hellothere a owl:NamedIndividual ;
-    rdfs:label "hellothere" .
-
-:lolabout a owl:NamedIndividual ;
-    rdfs:label "lolabout" .
 
 rico:authorizedBy a owl:ObjectProperty .
 
@@ -152,6 +146,9 @@ unknown:hey a owl:ObjectProperty .
         rico:Rule ;
     rdfs:label "Rules for Archival Description" .
 
+:Some%20Node a owl:NamedIndividual ;
+    rdfs:label "Some node" .
+
 :The%20Health%20Department%20Act%2C%20Statutes%20Of%20Ontario%201924%2C%20Chap.%2069 a owl:NamedIndividual,
         rico:Mandate ;
     rdfs:label "The Health Department Act, Statutes of Ontario 1924, Chap. 69" .
@@ -165,6 +162,6 @@ unknown:hey a owl:ObjectProperty .
     rdfs:label "Web Ready: Y" .
 
 :https%3A%2F%2Fexample.com a owl:NamedIndividual,
-        :j ;
+        picoL:j ;
     rdfs:label "https://example.com" .
 

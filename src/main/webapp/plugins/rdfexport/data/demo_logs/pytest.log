@@ -1,11 +1,11 @@
-Script started on Wed Nov 26 16:08:49 2025
+Script started on Wed Nov 26 16:18:07 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1muv run pytest[0m
 ]9;4;3;\[1m====================================== test session starts ======================================[0m
 platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0
 rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 15 items                                                                             [0m[1mcollected 108 items                                                                             [0m
+[1mcollecting ... [0m[1mcollected 108 items                                                                             [0m
 
 aicode/integration_tests/debug/tests/test_debug_cli.py ]9;4;1;0\[32m.[0m]9;4;1;0\[32m.[0m]9;4;1;1\[32m.[0m]9;4;1;2\[32m.[0m]9;4;1;3\[32m.[0m]9;4;1;4\[32m.[0m]9;4;1;5\[32m.[0m]9;4;1;6\[32m.[0m]9;4;1;7\[32m.[0m]9;4;1;8\[32m.[0m]9;4;1;9\[32m.[0m]9;4;1;10\[32m.[0m[32m                       [ 11%][0m
 aicode/integration_tests/debug/tests/test_dynamic_config.py ]9;4;1;11\[32m.[0m[32m                             [ 12%][0m
@@ -29,7 +29,7 @@ aicode/integration_tests/rmlmapper_workflows/tests/test_pipeline_workflow.py::te
     warnings.warn("RML canonicalization took too long and was skipped.", UserWarning)
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m========================== [32m104 passed[0m, [33m[1m4 xfailed[0m, [33m[1m4 warnings[0m[33m in 27.29s[0m[33m ==========================[0m
+[33m========================== [32m104 passed[0m, [33m[1m4 xfailed[0m, [33m[1m4 warnings[0m[33m in 27.97s[0m[33m ==========================[0m
 
 Command exit status: 0
-Script done on Wed Nov 26 16:09:17 2025
+Script done on Wed Nov 26 16:18:35 2025
