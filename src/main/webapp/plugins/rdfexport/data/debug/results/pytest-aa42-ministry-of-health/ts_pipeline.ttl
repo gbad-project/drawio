@@ -1,0 +1,162 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rico:authorizedBy a owl:ObjectProperty .
+
+rico:generalDescription a owl:DatatypeProperty .
+
+rico:hasBeginningDate a owl:ObjectProperty .
+
+rico:hasDocumentaryFormType a owl:ObjectProperty .
+
+rico:hasEndDate a owl:ObjectProperty .
+
+rico:hasIdentifierType a owl:ObjectProperty .
+
+rico:hasOrHadAgentName a owl:ObjectProperty .
+
+rico:hasOrHadCategory a owl:ObjectProperty .
+
+rico:hasOrHadCorporateBodyType a owl:ObjectProperty .
+
+rico:hasOrHadIdentifier a owl:ObjectProperty .
+
+rico:hasRecordState a owl:ObjectProperty .
+
+rico:hasSuccessor a owl:ObjectProperty .
+
+rico:history a owl:DatatypeProperty .
+
+rico:isOrWasDescribedBy a owl:ObjectProperty .
+
+rico:isOrWasPerformedBy a owl:ObjectProperty .
+
+rico:isOrWasRegulatedBy a owl:ObjectProperty .
+
+rico:isSuccessorOf a owl:ObjectProperty .
+
+rico:lastModificationDate a owl:DatatypeProperty .
+
+rico:normalizedValue a owl:DatatypeProperty .
+
+rico:resultsOrResultedFrom a owl:ObjectProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+:1972 a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1972" .
+
+:1999 a owl:NamedIndividual,
+        rico:Date ;
+    rdfs:label "1999" .
+
+:A%20Ontario%20Government%20Name a owl:NamedIndividual,
+        rico:CorporateBodyType ;
+    rdfs:label "A Ontario Government Name" .
+
+:AA42 a owl:NamedIndividual,
+        rico:Identifier ;
+    rdfs:label "AA42" ;
+    rico:hasIdentifierType :Agent%20Identifier .
+
+:Agent%20Identifier a owl:NamedIndividual,
+        rico:IdentifierType ;
+    rdfs:label "Agent Identifier" .
+
+:Authority%20Record a owl:NamedIndividual,
+        rico:DocumentaryFormType ;
+    rdfs:label "Authority Record" .
+
+:Authority%20Record%20Creation a owl:NamedIndividual,
+        rico:Activity ;
+    rdfs:label "Authority Record Creation" ;
+    rico:isOrWasPerformedBy :R.%20Anger .
+
+:MOH a owl:NamedIndividual,
+        rico:AgentName ;
+    rdfs:label "MOH" ;
+    rico:hasOrHadCategory :Variant%20Name .
+
+:MS a owl:NamedIndividual,
+        rico:AgentName ;
+    rdfs:label "MS" ;
+    rico:hasOrHadCategory :Variant%20Name .
+
+:Ministry%20Of%20Health%20Act%2C%20Statutes%20Of%20Ontario%201972%2C%20Chap.%2092 a owl:NamedIndividual,
+        rico:Mandate ;
+    rdfs:label "Ministry of Health Act, Statutes of Ontario 1972, Chap. 92" .
+
+:Ontario.%20Dept.%20Of%20Health a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Dept. of Health" .
+
+:Ontario.%20Ministry%20Of%20Health a owl:NamedIndividual,
+        rico:AgentName,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Ministry of Health" ;
+    rico:authorizedBy :Ministry%20Of%20Health%20Act%2C%20Statutes%20Of%20Ontario%201972%2C%20Chap.%2092 ;
+    rico:generalDescription "Function Note: The Ministry of Health is responsible for administering the health care system and providing services to the Ontario public through programs such as health insurance, care for the mentally ill, drug services, home care services, and the regulation of hospitals and nursing homes. The Ministry also operates psychiatric hospitals, medical laboratories and provides funding and leadership for local public health services." ;
+    rico:hasBeginningDate :1972 ;
+    rico:hasEndDate :1999 ;
+    rico:hasOrHadAgentName :MOH,
+        :MS,
+        :Ontario.%20Ministry%20Of%20Health,
+        :Ontario.%20Ministère%20De%20La%20Santé ;
+    rico:hasOrHadCorporateBodyType :A%20Ontario%20Government%20Name ;
+    rico:hasOrHadIdentifier :AA42 ;
+    rico:hasSuccessor :Ontario.%20Ministry%20Of%20Health%20And%20Long-Term%20Care ;
+    rico:history "The Department of Health was renamed the Ministry of Health in 1972.   Since 1972, the Ministry has been restructured often and a number of different divisions have existed within it.  They have, however, tended to focus around five primary areas: health insurance; community and public health services; institutional health (including administration of hospitals, ambulance services, nursing homes and psychiatric hospitals); administration and finance; and information systems.   Agencies which report to the Ministry include the Addiction Research Foundation, the Ontario Cancer Treatment and Research Foundation, the District Health Councils, and the Ontario Mental Health Foundation.   On June 17, 1999 the Ministry of Health was renamed the Ministry of Health and Long-Term Care." ;
+    rico:isOrWasDescribedBy :Ontario.%20Ministry%20Of%20Health%20Authority%20Record ;
+    rico:isSuccessorOf :Ontario.%20Dept.%20Of%20Health ;
+    rico:normalizedValue "Ministry of Health" .
+
+:Ontario.%20Ministry%20Of%20Health%20And%20Long-Term%20Care a owl:NamedIndividual,
+        rico:CorporateBody ;
+    rdfs:label "Ontario. Ministry of Health and Long-Term Care" .
+
+:Ontario.%20Ministry%20Of%20Health%20Authority%20Record a owl:NamedIndividual,
+        rico:Record ;
+    rdfs:label "Ontario. Ministry of Health Authority Record" ;
+    rico:generalDescription "Source Note: Government of Ontario Telephone Directory, 1995-96. KWIC Indexes, 1972-1995. Canadiana Name Authorities, 1996-12-24." ;
+    rico:hasDocumentaryFormType :Authority%20Record ;
+    rico:hasRecordState :Status%3A%20Approved,
+        :Web%20Ready%3A%20Y ;
+    rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
+    rico:lastModificationDate "2024-04-18"^^xsd:date ;
+    rico:resultsOrResultedFrom :Authority%20Record%20Creation .
+
+:Ontario.%20Ministère%20De%20La%20Santé a owl:NamedIndividual,
+        rico:AgentName ;
+    rdfs:label "Ontario. Ministère de la Santé" ;
+    rico:hasOrHadCategory :Parallel%20Name .
+
+:Parallel%20Name a owl:NamedIndividual,
+        rico:Type ;
+    rdfs:label "Parallel Name" .
+
+:R.%20Anger a owl:NamedIndividual,
+        rico:Person ;
+    rdfs:label "R. Anger" .
+
+:Rules%20For%20Archival%20Description a owl:NamedIndividual,
+        rico:Rule ;
+    rdfs:label "Rules for Archival Description" .
+
+:Status%3A%20Approved a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Status: Approved" .
+
+:Web%20Ready%3A%20Y a owl:NamedIndividual,
+        rico:RecordState ;
+    rdfs:label "Web Ready: Y" .
+
+:Variant%20Name a owl:NamedIndividual,
+        rico:Type ;
+    rdfs:label "Variant Name" .
+

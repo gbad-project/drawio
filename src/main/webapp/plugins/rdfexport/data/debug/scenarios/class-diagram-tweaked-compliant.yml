@@ -1,0 +1,31 @@
+slug: class-diagram-tweaked-compliant
+drawio: data/fixtures/drawio_fixtures/Class_Diagram_tweaked_compliant.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+# Just use metadata from xml - but may uncommment if need to tweak things
+metadata:
+  attributes:
+    csvPath: /mock/path/to/file.csv-set-from-scenario
+    baseUri: http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/
+  preamble:
+    # Note that these fully override any prefixes set by serializers;
+    # however, the default (empty) prefix (namespace) should still be
+    # preserved because it's set at the `DrawIOParserGraph` layer
+  - prefix: mock
+    iri: http://mock-uri.com-set-from-scenario
+  - prefix: geo
+    iri: http://mock-geo.com-set-from-scenario
+    # The empty prefix below should NOT work because UI won't
+    # let adding a prefix in Preamble if "Enter Prefix" is empty
+    # even if "Enter IRI" field has a value, and this is a good
+    # and expected behaviour
+  - prefix: ""
+    iri: http://mock-empty-prefix-from-scenario-should-not-load
+parser_config:
+  # When we want to particularly override the URI of the
+  # ontology itself while keeping base as it was
+  ontology_iri: mock://debug-ontology-set-from-scenario
+  # When we want particularly to override the default
+  # minting process that relies on base URI from Turtle;
+  # this way we can also force the trailing character we want
+  #prefix_iri: mock://prefix-iri-set-from-scenario#

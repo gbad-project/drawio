@@ -1,0 +1,43 @@
+@base <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded> .
+@prefix : <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded/> .
+@prefix geo: <http://mock-geo.com-set-from-scenario> .
+@prefix mock: <http://mock-uri.com-set-from-scenario> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+:Professor a mock:Salary,
+        owl:NamedIndividual ;
+    rdfs:label "Professor" .
+
+:Student a <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#GetSeminarsTaken>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#IsEligibleToEnroll>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#StudentNumber>,
+        :Average-Mark,
+        owl:NamedIndividual ;
+    rdfs:label "Student" .
+
+rdf:Person a <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Email%20Address>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Name>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Phone%20Number>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Purchase%20Parking%20Pass>,
+        owl:NamedIndividual ;
+    rdfs:label "rdf:Person" ;
+    rdfs:mock :Address .
+
+rdfs:mock a owl:ObjectProperty .
+
+<mock://debug-ontology-set-from-scenario> a owl:Ontology ;
+    owl:imports rico: .
+
+:Address a <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#OutputAsLabel>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#State>,
+        <http://asdfgenerated-from-draw-io.com/mock-baseUri-set-with-trailing-slash-which-should-be-discarded#Street>,
+        :Country,
+        :Postal%20Code,
+        :Validate,
+        geo:City,
+        owl:NamedIndividual ;
+    rdfs:label ":Address" .
+

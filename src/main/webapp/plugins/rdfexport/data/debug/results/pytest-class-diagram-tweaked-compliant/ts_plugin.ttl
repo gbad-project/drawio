@@ -1,0 +1,43 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix geo: <http://some-mock-site-for-geo.com> .
+@prefix mock: <mock://uri> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+rdf:Person a owl:NamedIndividual,
+        :Email%20Address,
+        :Name,
+        :Phone%20Number,
+        :Purchase%20Parking%20Pass ;
+    rdfs:label "rdf:Person" ;
+    rdfs:mock :Address .
+
+rdfs:mock a owl:ObjectProperty .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+:Professor a owl:NamedIndividual,
+        mock:Salary ;
+    rdfs:label "Professor" .
+
+:Student a owl:NamedIndividual,
+        :GetSeminarsTaken,
+        :IsEligibleToEnroll,
+        :StudentNumber,
+        <ontology://generated-from-draw-io/mock/Average-Mark> ;
+    rdfs:label "Student" .
+
+:Address a geo:City,
+        owl:NamedIndividual,
+        :OutputAsLabel,
+        :State,
+        :Street,
+        <ontology://generated-from-draw-io/mock/Country>,
+        <ontology://generated-from-draw-io/mock/Postal%20Code>,
+        <ontology://generated-from-draw-io/mock/Validate> ;
+    rdfs:label ":Address" .
+
