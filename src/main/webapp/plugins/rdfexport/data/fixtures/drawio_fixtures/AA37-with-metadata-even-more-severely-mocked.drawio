@@ -10,7 +10,7 @@
           <userObjectPreambleElement rdfPrefix="hellow" rdfIRI="some://helloworld" />
           <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="h://hello" />
           <userObjectPreambleElement rdfPrefix="unknown" rdfIRI="unknown://link" />
-          <userObjectPreambleElement rdfPrefix="picoL" rdfIRI="sdfsdf" />
+          <userObjectPreambleElement rdfPrefix="picoL" rdfIRI="s://sdfsdf" />
           <mxCell />
         </gbadMetadata>
         <mxCell id="1" parent="0" />

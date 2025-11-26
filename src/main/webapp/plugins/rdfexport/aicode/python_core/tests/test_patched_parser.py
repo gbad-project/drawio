@@ -193,10 +193,11 @@ def test_parse_drawio_curie_cell_without_parent():
     )
 
     kb = Namespace("mock://knowledge-base/")
-    individual = kb["Lampdoesntwork"]
-
-    assert (individual, RDF.type, OWL.NamedIndividual) in graph
-    assert (individual, RDF.type, kb["Lampdoesntwork"]) not in graph
+    assert (kb["Lamppluggedin"], RDF.type, OWL.NamedIndividual) in graph
+    # kb:Lampdoesntwork has "rounded=1"
+    assert (kb["Lampdoesntwork"], None, None) not in graph
+    assert (None, None, kb["Lampdoesntwork"]) not in graph
+    assert (None, None, Literal("kb:Lampdoesntwork")) in graph
 
 
 def test_parse_drawio_curie_without_known_prefix(tmp_path: Path):
