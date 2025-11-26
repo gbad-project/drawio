@@ -218,7 +218,9 @@ def test_parse_drawio_curie_without_known_prefix(tmp_path: Path):
     mutated = tmp_path / "Flowchart_bad.drawio"
     tree.write(mutated, encoding="unicode", xml_declaration=False)
 
-    with pytest.raises(draw_io_parser.NotInKnownException):
+    with pytest.raises(
+        draw_io_parser.pipeline.core.rdf.data.UnknownCuriePrefixException
+    ):
         draw_io_parser.parse_drawio_to_graph(
             str(mutated), metacharacter_substitute=["url"]
         )

@@ -25,6 +25,20 @@ class UnableToCoerceException(Exception):
             self.message += f": {message}"
         super().__init__(self.message)
 
+@override(phase="core", type="rdf", role="data")
+class UnknownCuriePrefixException(Exception):
+    """Can be raised when looks like a CURIE but prefix is unknown."""
+
+    def __init__(self, candidate: Any, target: set[type] | type, e: Any):
+        super().__init__()
+        # Raising from circumvents the inability to define a
+        # subclass of `UnableToCoerceException` at compile time
+        # while still being recognized by `isinstance()`
+        message = f"Unable to resolve what looks like a CURIE: {e}"
+        self.__cause__ = pipeline.core.rdf.data.UnableToCoerceException(
+            candidate=candidate, target=target, message=message
+        )
+
 
 @override(phase="core", type="rdf", role="data")
 def _infer_literal_type(literal: str | int | float) -> Literal:
