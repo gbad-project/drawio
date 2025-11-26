@@ -823,6 +823,8 @@ class pipeline:
                             return True
                         if "ellipse" in style:
                             return True
+                        if "shape=" in style:
+                            return True
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         if not raw_value:
@@ -898,9 +900,9 @@ class pipeline:
                     """
                     if not candidate or any((ch.isspace() for ch in candidate)):
                         return False
-                    if "://" in candidate:
-                        return "absolute-iri"
                     scheme, _, remainder = candidate.partition(":")
+                    if scheme and remainder.startswith("//"):
+                        return "absolute-iri"
                     if bool(remainder.strip()):
                         if scheme.lower() in {"urn", "tag", "ni"}:
                             return "absolute-iri"
@@ -1035,6 +1037,20 @@ class pipeline:
                         super().__init__(self.message)
 
                 # END override infer_type.py.UnableToCoerceException
+                # BEGIN override infer_type.py.UnknownCuriePrefixException
+                class UnknownCuriePrefixException(Exception):
+                    """Can be raised when looks like a CURIE but prefix is unknown."""
+
+                    def __init__(
+                        self, candidate: Any, target: set[type] | type, e: Any
+                    ):
+                        super().__init__()
+                        message = f"Unable to resolve what looks like a CURIE: {e}"
+                        self.__cause__ = pipeline.core.rdf.data.UnableToCoerceException(
+                            candidate=candidate, target=target, message=message
+                        )
+
+                # END override infer_type.py.UnknownCuriePrefixException
                 # BEGIN override infer_type.py._infer_literal_type
                 def _infer_literal_type(literal: str | int | float) -> Literal:
                     """
@@ -1758,6 +1774,9 @@ class pipeline:
                     UnableToCoerceException = (
                         pipeline.core.rdf.data.UnableToCoerceException
                     )
+                    UnknownCuriePrefixException = (
+                        pipeline.core.rdf.data.UnknownCuriePrefixException
+                    )
 
                     def normalize(value) -> tuple[str, str]:
                         if value is None:
@@ -1813,11 +1832,7 @@ class pipeline:
                                 KeyError,
                                 TypeError,
                             ) as e:
-                                raise UnableToCoerceException(
-                                    candidate,
-                                    URIRef,
-                                    f"Unable to resolve what looks like a CURIE: {e}",
-                                )
+                                raise UnknownCuriePrefixException(candidate, URIRef, e)
                         elif isinstance(iri_variant, bool) and (not iri_variant):
                             if mint_from_literal:
                                 iri_variant = "mint-from-literal"
@@ -1844,7 +1859,8 @@ class pipeline:
                     def best_guess(norm_value, decoded_norm_value) -> URIRef:
                         """Return our single best guess of an IRI,
                         or raise an appropriate error."""
-                        norm_coerced = decoded_norm_coerced = err_norm = None
+                        norm_coerced = decoded_norm_coerced = None
+                        err_norm = err_decoded_norm = None
                         norm_iri_variant = decoded_norm_iri_variant = None
                         try:
                             norm_coerced, norm_iri_variant = coerce_candidate(
@@ -1859,8 +1875,8 @@ class pipeline:
                             decoded_norm_coerced, decoded_norm_iri_variant = (
                                 coerce_candidate(decoded_norm_value)
                             )
-                        except Exception:
-                            pass
+                        except Exception as e:
+                            err_decoded_norm = e
                         finally:
                             logging.disable(logging.NOTSET)
                         matched = (bool(norm_coerced), bool(decoded_norm_coerced))
@@ -1868,12 +1884,14 @@ class pipeline:
                             raise err_norm
                         elif matched == (False, True):
                             return decoded_norm_coerced
-                        elif (
-                            decoded_norm_iri_variant == "curie"
-                            and norm_iri_variant == "mint-from-literal"
-                        ):
-                            return decoded_norm_coerced
                         else:
+                            if norm_iri_variant == "mint-from-literal":
+                                if isinstance(
+                                    err_decoded_norm, UnknownCuriePrefixException
+                                ):
+                                    raise err_decoded_norm
+                                elif decoded_norm_iri_variant == "curie":
+                                    return decoded_norm_coerced
                             return norm_coerced
 
                     return best_guess(norm_value, decoded_norm_value)

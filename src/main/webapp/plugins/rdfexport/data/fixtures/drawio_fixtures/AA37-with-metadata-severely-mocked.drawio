@@ -8,7 +8,7 @@
           <userObjectPreambleElement rdfPrefix="rico" rdfIRI="rico://mock-rico" />
           <userObjectPreambleElement rdfPrefix="lol" rdfIRI="http://something.com" />
           <userObjectPreambleElement rdfPrefix="hellow" rdfIRI="some://helloworld" />
-          <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="://hello" />
+          <userObjectPreambleElement rdfPrefix="somprefix" rdfIRI="s://hello" />
           <userObjectPreambleElement rdfPrefix="unknown" rdfIRI="unknown://link" />
           <mxCell />
         </gbadMetadata>

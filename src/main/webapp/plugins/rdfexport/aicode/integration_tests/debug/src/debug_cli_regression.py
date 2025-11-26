@@ -247,10 +247,13 @@ def _ensure_graph_covers_classifications(
                 for _, predicate, _ in graph.triples((None, None, None))
             ), f"Property '{raw_value}' not used in graph"
 
+
 RML_ENABLED_FIXTURE_NAMES = [
     "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio",
     "General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
 ]
+
+
 @pytest.mark.parametrize(
     "fixture_path",
     sorted(FIXTURES_DIR.glob("*.drawio"), key=lambda path: path.name),
@@ -273,10 +276,12 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     ]
 
     if fixture_path.name in RML_ENABLED_FIXTURE_NAMES:
-        cmd.extend([
-            "--parser-option",
-            "rml_enabled=true",
-        ])
+        cmd.extend(
+            [
+                "--parser-option",
+                "rml_enabled=true",
+            ]
+        )
 
     # This exits 1 on any error, so we set check=False
     subprocess.run(cmd, cwd=RDFEXPORT_DIR, check=False, capture_output=True)

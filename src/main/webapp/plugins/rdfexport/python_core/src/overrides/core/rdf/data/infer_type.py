@@ -25,6 +25,7 @@ class UnableToCoerceException(Exception):
             self.message += f": {message}"
         super().__init__(self.message)
 
+
 @override(phase="core", type="rdf", role="data")
 class UnknownCuriePrefixException(Exception):
     """Can be raised when looks like a CURIE but prefix is unknown."""
