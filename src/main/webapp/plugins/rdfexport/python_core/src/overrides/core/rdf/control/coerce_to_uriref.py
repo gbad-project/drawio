@@ -157,13 +157,12 @@ def coerce_to_uriref(
                     # ..then perhaps we did a great job decoding
                     # and caught a curie! Return it
                     return decoded_norm_coerced
-            else:
-                # whenever else we have coerced raw, return it
-                return norm_coerced
-                # Tentatively, for abs and rel IRIs
-                # as well as minted-from-literal, no
-                # decoding is required at serialization
-                # because the value will already have been
-                # appropriately metacharacter-replaced
+            # whenever else we have coerced raw, return it
+            return norm_coerced
+            # Tentatively, for abs and rel IRIs
+            # as well as minted-from-literal, no
+            # decoding is required at serialization
+            # because the value will already have been
+            # appropriately metacharacter-replaced
 
     return best_guess(norm_value, decoded_norm_value)
