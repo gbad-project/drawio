@@ -2648,13 +2648,17 @@ class internal_data_core:
     # BEGIN _split_curie
     # override from curie_validator.py
     def _split_curie(*args, **kwargs):
-        raise pipeline.core.internal.data.DeimplementedException
+        raise pipeline.core.internal.data.DeimplementedException(
+            "Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`"
+        )
 
     # END _split_curie
     # BEGIN _ensure_known_curie
     # override from curie_validator.py
     def _ensure_known_curie(*args, **kwargs):
-        raise pipeline.core.internal.data.DeimplementedException
+        raise pipeline.core.internal.data.DeimplementedException(
+            "Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`"
+        )
 
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class

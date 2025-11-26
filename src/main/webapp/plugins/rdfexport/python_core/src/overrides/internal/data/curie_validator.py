@@ -24,12 +24,16 @@ class DeimplementedException(Exception):
 
 @override(phase="core", type="internal", role="data")
 def _split_curie(*args, **kwargs):
-    raise pipeline.core.internal.data.DeimplementedException
+    raise pipeline.core.internal.data.DeimplementedException(
+        "Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`"
+    )
 
 
 @override(phase="core", type="internal", role="data")
 def _ensure_known_curie(*args, **kwargs):
-    raise pipeline.core.internal.data.DeimplementedException
+    raise pipeline.core.internal.data.DeimplementedException(
+        "Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`"
+    )
 
 
 @override(phase="core", type="internal", role="data")

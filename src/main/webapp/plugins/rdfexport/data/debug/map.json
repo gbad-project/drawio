@@ -27,13 +27,13 @@
     },
     "AA37-with-metadata-even-more-severely-mocked.drawio": {
       "path": "AA37-with-metadata-even-more-severely-mocked.drawio",
-      "sha256": "54215756709c876ec5eeee478acf6267a666934c334f24c52e4c0541d6fa30e0",
-      "size_bytes": 44276
+      "sha256": "c4c09782525c755c024bebaed9c3edc66889ecc20b3d4ad7898157e78367559d",
+      "size_bytes": 44280
     },
     "AA37-with-metadata-severely-mocked.drawio": {
       "path": "AA37-with-metadata-severely-mocked.drawio",
-      "sha256": "3017da138bcc30e7a6a92d1d7d7a99a9bffc3dfba610143a79a7e50e6ca36495",
-      "size_bytes": 39816
+      "sha256": "32adbc5782d31e74490c15afce7fc8cb0256931d3869c780bc4f79f85fc55fac",
+      "size_bytes": 39817
     },
     "AA42 Ministry of Health.drawio": {
       "path": "AA42 Ministry of Health.drawio",
@@ -43241,7 +43241,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-14": {
@@ -43267,7 +43271,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-17": {
@@ -43293,7 +43301,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-23": {
@@ -43319,7 +43331,12 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Archival",
+            "Description",
+            "Record)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-3": {
@@ -43345,7 +43362,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "3gA3fmld-IYxpeRIXyl3-3": {
@@ -43371,7 +43392,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"LEVELDES\"",
           "tokens": [
-            "rml:reference  \"LEVELDES\""
+            "rml:reference",
+            "\"LEVELDES\""
           ]
         },
         "CqqkDmUT1u8SLOdHSZvS-3": {
@@ -43397,7 +43419,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTD\"",
           "tokens": [
-            "rml:reference \"CMTD\""
+            "rml:reference",
+            "\"CMTD\""
           ]
         },
         "EzCOlmovBxoPGXJnYbDV-1": {
@@ -43407,7 +43430,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"FCODES\"",
           "tokens": [
-            "rml:reference \"FCODES\""
+            "rml:reference",
+            "\"FCODES\""
           ]
         },
         "EzCOlmovBxoPGXJnYbDV-2": {
@@ -43501,7 +43525,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATEACM\"",
           "tokens": [
-            "rml:reference \"DATEACM\""
+            "rml:reference",
+            "\"DATEACM\""
           ]
         },
         "EzCOlmovBxoPGXJnYbDV-56": {
@@ -43645,7 +43670,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"CUSTOD\"",
           "tokens": [
-            "rml:reference  \"CUSTOD\""
+            "rml:reference",
+            "\"CUSTOD\""
           ]
         },
         "K4QZWATomJR9_dxTVFmW-24": {
@@ -43655,7 +43681,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"ISA\"",
           "tokens": [
-            "rml:reference  \"ISA\""
+            "rml:reference",
+            "\"ISA\""
           ]
         },
         "K4QZWATomJR9_dxTVFmW-27": {
@@ -43713,7 +43740,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHDESC\"",
           "tokens": [
-            "rml:reference \"PHDESC\""
+            "rml:reference",
+            "\"PHDESC\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-1": {
@@ -43739,7 +43767,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"AVAIL\"",
           "tokens": [
-            "rml:reference  \"AVAIL\""
+            "rml:reference",
+            "\"AVAIL\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-4": {
@@ -43749,7 +43778,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"RELMAT\"",
           "tokens": [
-            "rml:reference \"RELMAT\""
+            "rml:reference",
+            "\"RELMAT\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-5": {
@@ -43759,7 +43789,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ASSMAT\"",
           "tokens": [
-            "rml:reference \"ASSMAT\""
+            "rml:reference",
+            "\"ASSMAT\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-6": {
@@ -43937,7 +43968,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"HIDDENNOTES\"",
           "tokens": [
-            "rml:reference \"HIDDENNOTES\""
+            "rml:reference",
+            "\"HIDDENNOTES\""
           ]
         },
         "Uwzefx5BK_WfCsw-JH24-2": {
@@ -43963,7 +43995,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"REST\"",
           "tokens": [
-            "rml:reference  \"REST\""
+            "rml:reference",
+            "\"REST\""
           ]
         },
         "Uwzefx5BK_WfCsw-JH24-5": {
@@ -44031,7 +44064,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"MODDATE\"",
           "tokens": [
-            "rml:reference \"MODDATE\""
+            "rml:reference",
+            "\"MODDATE\""
           ]
         },
         "YGqFNZoWXpBRJY-Ts6mn-5": {
@@ -44099,7 +44133,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATECR\"",
           "tokens": [
-            "rml:reference \"DATECR\""
+            "rml:reference",
+            "\"DATECR\""
           ]
         },
         "lszSfj4lrEIONad0Ssyt-1": {
@@ -44373,7 +44408,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template  \"{GMD_1..8}\"",
           "tokens": [
-            "rr:template  \"{GMD_1..8}\""
+            "rr:template",
+            "\"{GMD_1..8}\""
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-13": {
@@ -44425,7 +44461,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{DATEOFF_1..20}\"",
           "tokens": [
-            "rr:template \"{DATEOFF_1..20}\""
+            "rr:template",
+            "\"{DATEOFF_1..20}\""
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-4": {
@@ -44451,7 +44488,12 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Instantiation).",
+            "Context:",
+            "<urn:uuid:{UUID_INSTANTIATION_1}>\""
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-7": {
@@ -44477,7 +44519,13 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
           "tokens": [
-            "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\""
+            "rr:template",
+            "\"{TITLE}",
+            "-\u00a0{OFFICEABC_1..20}",
+            "(Creation",
+            "Relation).",
+            "Context:",
+            "<urn:uuid:{UUID_OFFICEABC}>\""
           ]
         },
         "qJwiYtpHSBwsKD2Hf-6o-1": {
@@ -44503,7 +44551,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADMBIO\"",
           "tokens": [
-            "rml:reference \"ADMBIO\""
+            "rml:reference",
+            "\"ADMBIO\""
           ]
         },
         "sWa0SD8Ajx1KSGOqKPP4-1": {
@@ -44521,7 +44570,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference   \"SCOPE\"",
           "tokens": [
-            "rml:reference   \"SCOPE\""
+            "rml:reference",
+            "\"SCOPE\""
           ]
         },
         "sWa0SD8Ajx1KSGOqKPP4-12": {
@@ -44625,7 +44675,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"RESTRTX\"",
           "tokens": [
-            "rml:reference  \"RESTRTX\""
+            "rml:reference",
+            "\"RESTRTX\""
           ]
         },
         "vEi_3DjQt7wcUmB-cSFn-4": {
@@ -44651,7 +44702,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"TGU\"",
           "tokens": [
-            "rml:reference \"TGU\""
+            "rml:reference",
+            "\"TGU\""
           ]
         },
         "vEi_3DjQt7wcUmB-cSFn-7": {
@@ -44677,7 +44729,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"FINDAID\"",
           "tokens": [
-            "rml:reference \"FINDAID\""
+            "rml:reference",
+            "\"FINDAID\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--11": {
@@ -44703,7 +44756,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ACCRUAL\"",
           "tokens": [
-            "rml:reference \"ACCRUAL\""
+            "rml:reference",
+            "\"ACCRUAL\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--14": {
@@ -44729,7 +44783,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"NOTES\"",
           "tokens": [
-            "rml:reference  \"NOTES\""
+            "rml:reference",
+            "\"NOTES\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--17": {
@@ -44755,7 +44810,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHYSCO\"",
           "tokens": [
-            "rml:reference \"PHYSCO\""
+            "rml:reference",
+            "\"PHYSCO\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--20": {
@@ -44781,7 +44837,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"HOWTO\"",
           "tokens": [
-            "rml:reference \"HOWTO\""
+            "rml:reference",
+            "\"HOWTO\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--23": {
@@ -45081,7 +45138,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"SOURCE\"",
           "tokens": [
-            "rml:reference \"SOURCE\""
+            "rml:reference",
+            "\"SOURCE\""
           ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
@@ -45599,7 +45657,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"FUN\"",
           "tokens": [
-            "rml:reference \"FUN\""
+            "rml:reference",
+            "\"FUN\""
           ]
         },
         "QoX8hO-0wcaPtYNZqJav-2": {
@@ -45721,7 +45780,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Family)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Family)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Family)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-17": {
@@ -45747,7 +45807,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Person)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Person)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Person)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-2": {
@@ -45783,7 +45844,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Place)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Place)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Place)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-23": {
@@ -45809,7 +45871,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{SUC_1..4}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-26": {
@@ -45835,7 +45899,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{PRED_1..5}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-29": {
@@ -45861,7 +45927,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{CONTAG_1..14}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-32": {
@@ -45887,7 +45955,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-5": {
@@ -45961,7 +46031,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADM\"",
           "tokens": [
-            "rml:reference \"ADM\""
+            "rml:reference",
+            "\"ADM\""
           ]
         },
         "_-RjwaxhbeTWfwVWe4ke-2": {
@@ -45997,7 +46068,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTAU\"",
           "tokens": [
-            "rml:reference \"CMTAU\""
+            "rml:reference",
+            "\"CMTAU\""
           ]
         },
         "cuPy41NEiSmLZpDvVlvN-2": {
@@ -46039,7 +46111,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"MOD_DATE\"",
           "tokens": [
-            "rml:reference \"MOD_DATE\""
+            "rml:reference",
+            "\"MOD_DATE\""
           ]
         },
         "gmwnegnUR_CNORKRYM6Y-1": {
@@ -46073,7 +46146,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"NAME\"",
           "tokens": [
-            "rml:reference \"NAME\""
+            "rml:reference",
+            "\"NAME\""
           ]
         },
         "gmwnegnUR_CNORKRYM6Y-13": {
@@ -46347,7 +46421,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"REFA\"",
           "tokens": [
-            "rml:reference \"REFA\""
+            "rml:reference",
+            "\"REFA\""
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-1": {
@@ -46373,7 +46448,10 @@
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": [
-            "Rules for Archival Description"
+            "Rules",
+            "for",
+            "Archival",
+            "Description"
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-2": {
@@ -46409,7 +46487,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"RULES\"",
           "tokens": [
-            "rml:reference \"RULES\""
+            "rml:reference",
+            "\"RULES\""
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-6": {
@@ -46419,7 +46498,14 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
           "tokens": [
-            "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\""
+            "rr:template",
+            "\"{CONTAG_1..14}",
+            "-\u00a0{HEADING}",
+            "(Agent",
+            "Control",
+            "Relation).",
+            "Context:",
+            "<urn:uuid:{UUID}>\""
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-7": {
@@ -46540,7 +46626,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-14": {
@@ -46566,7 +46656,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-17": {
@@ -46592,7 +46686,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-23": {
@@ -46618,7 +46716,12 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Archival",
+            "Description",
+            "Record)\""
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-3": {
@@ -46644,7 +46747,11 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)\""
           ]
         },
         "3gA3fmld-IYxpeRIXyl3-3": {
@@ -46670,7 +46777,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"LEVELDES\"",
           "tokens": [
-            "rml:reference  \"LEVELDES\""
+            "rml:reference",
+            "\"LEVELDES\""
           ]
         },
         "CqqkDmUT1u8SLOdHSZvS-3": {
@@ -46696,7 +46804,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTD\"",
           "tokens": [
-            "rml:reference \"CMTD\""
+            "rml:reference",
+            "\"CMTD\""
           ]
         },
         "EzCOlmovBxoPGXJnYbDV-1": {
@@ -46706,7 +46815,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"FCODES\"",
           "tokens": [
-            "rml:reference \"FCODES\""
+            "rml:reference",
+            "\"FCODES\""
           ]
         },
         "EzCOlmovBxoPGXJnYbDV-2": {
@@ -46800,7 +46910,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATEACM\"",
           "tokens": [
-            "rml:reference \"DATEACM\""
+            "rml:reference",
+            "\"DATEACM\""
           ]
         },
         "EzCOlmovBxoPGXJnYbDV-56": {
@@ -46944,7 +47055,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"CUSTOD\"",
           "tokens": [
-            "rml:reference  \"CUSTOD\""
+            "rml:reference",
+            "\"CUSTOD\""
           ]
         },
         "K4QZWATomJR9_dxTVFmW-24": {
@@ -46954,7 +47066,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"ISA\"",
           "tokens": [
-            "rml:reference  \"ISA\""
+            "rml:reference",
+            "\"ISA\""
           ]
         },
         "K4QZWATomJR9_dxTVFmW-27": {
@@ -47012,7 +47125,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHDESC\"",
           "tokens": [
-            "rml:reference \"PHDESC\""
+            "rml:reference",
+            "\"PHDESC\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-1": {
@@ -47038,7 +47152,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"AVAIL\"",
           "tokens": [
-            "rml:reference  \"AVAIL\""
+            "rml:reference",
+            "\"AVAIL\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-4": {
@@ -47048,7 +47163,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"RELMAT\"",
           "tokens": [
-            "rml:reference \"RELMAT\""
+            "rml:reference",
+            "\"RELMAT\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-5": {
@@ -47058,7 +47174,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ASSMAT\"",
           "tokens": [
-            "rml:reference \"ASSMAT\""
+            "rml:reference",
+            "\"ASSMAT\""
           ]
         },
         "NtwbBurvTleTFVB1CDUG-6": {
@@ -47236,7 +47353,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"HIDDENNOTES\"",
           "tokens": [
-            "rml:reference \"HIDDENNOTES\""
+            "rml:reference",
+            "\"HIDDENNOTES\""
           ]
         },
         "Uwzefx5BK_WfCsw-JH24-2": {
@@ -47262,7 +47380,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"REST\"",
           "tokens": [
-            "rml:reference  \"REST\""
+            "rml:reference",
+            "\"REST\""
           ]
         },
         "Uwzefx5BK_WfCsw-JH24-5": {
@@ -47330,7 +47449,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"MODDATE\"",
           "tokens": [
-            "rml:reference \"MODDATE\""
+            "rml:reference",
+            "\"MODDATE\""
           ]
         },
         "YGqFNZoWXpBRJY-Ts6mn-5": {
@@ -47398,7 +47518,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATECR\"",
           "tokens": [
-            "rml:reference \"DATECR\""
+            "rml:reference",
+            "\"DATECR\""
           ]
         },
         "lszSfj4lrEIONad0Ssyt-1": {
@@ -47672,7 +47793,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template  \"{GMD_1..8}\"",
           "tokens": [
-            "rr:template  \"{GMD_1..8}\""
+            "rr:template",
+            "\"{GMD_1..8}\""
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-13": {
@@ -47724,7 +47846,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{DATEOFF_1..20}\"",
           "tokens": [
-            "rr:template \"{DATEOFF_1..20}\""
+            "rr:template",
+            "\"{DATEOFF_1..20}\""
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-4": {
@@ -47750,7 +47873,12 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
           "tokens": [
-            "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\""
+            "rr:template",
+            "\"{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Instantiation).",
+            "Context:",
+            "<urn:uuid:{UUID_INSTANTIATION_1}>\""
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-7": {
@@ -47776,7 +47904,13 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
           "tokens": [
-            "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\""
+            "rr:template",
+            "\"{TITLE}",
+            "-\u00a0{OFFICEABC_1..20}",
+            "(Creation",
+            "Relation).",
+            "Context:",
+            "<urn:uuid:{UUID_OFFICEABC}>\""
           ]
         },
         "qJwiYtpHSBwsKD2Hf-6o-1": {
@@ -47802,7 +47936,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADMBIO\"",
           "tokens": [
-            "rml:reference \"ADMBIO\""
+            "rml:reference",
+            "\"ADMBIO\""
           ]
         },
         "sWa0SD8Ajx1KSGOqKPP4-1": {
@@ -47820,7 +47955,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference   \"SCOPE\"",
           "tokens": [
-            "rml:reference   \"SCOPE\""
+            "rml:reference",
+            "\"SCOPE\""
           ]
         },
         "sWa0SD8Ajx1KSGOqKPP4-12": {
@@ -47924,7 +48060,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"RESTRTX\"",
           "tokens": [
-            "rml:reference  \"RESTRTX\""
+            "rml:reference",
+            "\"RESTRTX\""
           ]
         },
         "vEi_3DjQt7wcUmB-cSFn-4": {
@@ -47950,7 +48087,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"TGU\"",
           "tokens": [
-            "rml:reference \"TGU\""
+            "rml:reference",
+            "\"TGU\""
           ]
         },
         "vEi_3DjQt7wcUmB-cSFn-7": {
@@ -47976,7 +48114,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"FINDAID\"",
           "tokens": [
-            "rml:reference \"FINDAID\""
+            "rml:reference",
+            "\"FINDAID\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--11": {
@@ -48002,7 +48141,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ACCRUAL\"",
           "tokens": [
-            "rml:reference \"ACCRUAL\""
+            "rml:reference",
+            "\"ACCRUAL\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--14": {
@@ -48028,7 +48168,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference  \"NOTES\"",
           "tokens": [
-            "rml:reference  \"NOTES\""
+            "rml:reference",
+            "\"NOTES\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--17": {
@@ -48054,7 +48195,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHYSCO\"",
           "tokens": [
-            "rml:reference \"PHYSCO\""
+            "rml:reference",
+            "\"PHYSCO\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--20": {
@@ -48080,7 +48222,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"HOWTO\"",
           "tokens": [
-            "rml:reference \"HOWTO\""
+            "rml:reference",
+            "\"HOWTO\""
           ]
         },
         "wiPwyt0miK05mvKJtJq--23": {
@@ -48380,7 +48523,10 @@
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": [
-            "{REFD_FILE} -\u00a0{TITLE} (Record Set)"
+            "{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)"
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-14": {
@@ -48406,7 +48552,10 @@
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": [
-            "{REFD_FILE} -\u00a0{TITLE} (Record Set)"
+            "{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)"
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-17": {
@@ -48432,7 +48581,10 @@
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": [
-            "{REFD_FILE} -\u00a0{TITLE} (Record Set)"
+            "{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)"
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-23": {
@@ -48458,7 +48610,11 @@
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)",
           "tokens": [
-            "{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)"
+            "{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Archival",
+            "Description",
+            "Record)"
           ]
         },
         "1HVjy-BaL8XtYFnHSrnf-3": {
@@ -48484,7 +48640,10 @@
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": [
-            "{REFD_FILE} -\u00a0{TITLE} (Record Set)"
+            "{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Record",
+            "Set)"
           ]
         },
         "3gA3fmld-IYxpeRIXyl3-3": {
@@ -49590,7 +49749,11 @@
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID}>",
           "tokens": [
-            "{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID}>"
+            "{REFD_FILE}",
+            "-\u00a0{TITLE}",
+            "(Instantiation).",
+            "Context:",
+            "<urn:uuid:{UUID}>"
           ]
         },
         "oJl3FkC9V9rQO8DduHPF-7": {
@@ -49616,7 +49779,12 @@
           "parent_identifier": null,
           "raw_value": "{TITLE} -\u00a0{OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>",
           "tokens": [
-            "{TITLE} -\u00a0{OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>"
+            "{TITLE}",
+            "-\u00a0{OFFICEABC}",
+            "(Creation",
+            "Relation).",
+            "Context:",
+            "<urn:uuid:{UUID}>"
           ]
         },
         "qJwiYtpHSBwsKD2Hf-6o-1": {
@@ -50182,12 +50350,12 @@
           "triples": 120
         },
         "ts_pipeline": {
-          "nt_sha256": "b167b76d43b3df5c93d1cdc0c7f07dd43c316a661162585329b5fe4809cb63a9",
+          "nt_sha256": "df2968bf1c8a094fa72dd0504f9d62ed61953bc56d7931fe455dd17f6e799e20",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
           "triples": 697
         },
         "ts_plugin": {
-          "nt_sha256": "1cd5041d1cb5bbc96455cf549718157b74a9285fa8c405dc1bdd3a030148f685",
+          "nt_sha256": "60595f4d4e54444c63dc1e5c1328cd6c3788ac2a63a0b6b663a319743ed5f14d",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
           "triples": 697
         }
@@ -50234,7 +50402,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"SOURCE\"",
           "tokens": [
-            "rml:reference \"SOURCE\""
+            "rml:reference",
+            "\"SOURCE\""
           ]
         },
         "I4GB3cVhTv-sTvJ7h0Jz-29": {
@@ -50752,7 +50921,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"FUN\"",
           "tokens": [
-            "rml:reference \"FUN\""
+            "rml:reference",
+            "\"FUN\""
           ]
         },
         "QoX8hO-0wcaPtYNZqJav-2": {
@@ -50874,7 +51044,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Family)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Family)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Family)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-17": {
@@ -50900,7 +51071,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Person)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Person)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Person)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-2": {
@@ -50936,7 +51108,8 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Place)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Place)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Place)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-23": {
@@ -50962,7 +51135,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{SUC_1..4}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-26": {
@@ -50988,7 +51163,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{PRED_1..5}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-29": {
@@ -51014,7 +51191,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{CONTAG_1..14}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-32": {
@@ -51040,7 +51219,9 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Corporate Body)\"",
           "tokens": [
-            "rr:template \"{HEADING}\u00a0(Corporate Body)\""
+            "rr:template",
+            "\"{HEADING}\u00a0(Corporate",
+            "Body)\""
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-5": {
@@ -51114,7 +51295,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADM\"",
           "tokens": [
-            "rml:reference \"ADM\""
+            "rml:reference",
+            "\"ADM\""
           ]
         },
         "_-RjwaxhbeTWfwVWe4ke-2": {
@@ -51150,7 +51332,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTAU\"",
           "tokens": [
-            "rml:reference \"CMTAU\""
+            "rml:reference",
+            "\"CMTAU\""
           ]
         },
         "cuPy41NEiSmLZpDvVlvN-2": {
@@ -51192,7 +51375,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"MOD_DATE\"",
           "tokens": [
-            "rml:reference \"MOD_DATE\""
+            "rml:reference",
+            "\"MOD_DATE\""
           ]
         },
         "gmwnegnUR_CNORKRYM6Y-1": {
@@ -51226,7 +51410,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"NAME\"",
           "tokens": [
-            "rml:reference \"NAME\""
+            "rml:reference",
+            "\"NAME\""
           ]
         },
         "gmwnegnUR_CNORKRYM6Y-13": {
@@ -51500,7 +51685,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"REFA\"",
           "tokens": [
-            "rml:reference \"REFA\""
+            "rml:reference",
+            "\"REFA\""
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-1": {
@@ -51526,7 +51712,10 @@
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": [
-            "Rules for Archival Description"
+            "Rules",
+            "for",
+            "Archival",
+            "Description"
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-2": {
@@ -51562,7 +51751,8 @@
           "parent_identifier": null,
           "raw_value": "rml:reference \"RULES\"",
           "tokens": [
-            "rml:reference \"RULES\""
+            "rml:reference",
+            "\"RULES\""
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-6": {
@@ -51572,7 +51762,14 @@
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
           "tokens": [
-            "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\""
+            "rr:template",
+            "\"{CONTAG_1..14}",
+            "-\u00a0{HEADING}",
+            "(Agent",
+            "Control",
+            "Relation).",
+            "Context:",
+            "<urn:uuid:{UUID}>\""
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-7": {
@@ -52421,7 +52618,8 @@
           "parent_identifier": null,
           "raw_value": "{SUC}\u00a0(Corporate Body)",
           "tokens": [
-            "{SUC}\u00a0(Corporate Body)"
+            "{SUC}\u00a0(Corporate",
+            "Body)"
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-26": {
@@ -52447,7 +52645,8 @@
           "parent_identifier": null,
           "raw_value": "{PRED}\u00a0(Corporate Body)",
           "tokens": [
-            "{PRED}\u00a0(Corporate Body)"
+            "{PRED}\u00a0(Corporate",
+            "Body)"
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-29": {
@@ -52473,7 +52672,8 @@
           "parent_identifier": null,
           "raw_value": "{CONTAG}\u00a0(Corporate Body)",
           "tokens": [
-            "{CONTAG}\u00a0(Corporate Body)"
+            "{CONTAG}\u00a0(Corporate",
+            "Body)"
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-32": {
@@ -52499,7 +52699,8 @@
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Corporate Body)",
           "tokens": [
-            "{HEADING}\u00a0(Corporate Body)"
+            "{HEADING}\u00a0(Corporate",
+            "Body)"
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-5": {
@@ -52985,7 +53186,10 @@
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": [
-            "Rules for Archival Description"
+            "Rules",
+            "for",
+            "Archival",
+            "Description"
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-2": {
@@ -53031,7 +53235,13 @@
           "parent_identifier": null,
           "raw_value": "{CONTAG} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>",
           "tokens": [
-            "{CONTAG} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>"
+            "{CONTAG}",
+            "-\u00a0{HEADING}",
+            "(Agent",
+            "Control",
+            "Relation).",
+            "Context:",
+            "<urn:uuid:{UUID}>"
           ]
         },
         "mXWEuhzCrtuQsP6tQl7L-7": {
@@ -53113,12 +53323,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "d6dc9cbfacb7efe188b0191a76ca539f76733794379ba31d8a3a677cef7e29d5",
+          "nt_sha256": "c7da3b8010062b6a9549f7bdc92d90b137e0f5c2a9758efdaedf303e3d377f03",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
           "triples": 702
         },
         "ts_plugin": {
-          "nt_sha256": "463d8c75c9da04c3918c6941723582dca29f56d6690179f4723643a3cd8c670e",
+          "nt_sha256": "dd330b4221a5732258b3c3155b93621c99cf3e6d60816a231db2efbf160b1764",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
           "triples": 702
         }
