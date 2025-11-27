@@ -7,409 +7,388 @@
 @prefix rml: <http://semweb.mmlab.be/ns/rml#> .
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Highways - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Highways - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1954>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Justice - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Justice - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1969>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1944>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1957>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Division of Reforestation (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Division of Reforestation (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1941>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1957>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Division%20of%20Reforestation> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Forest Protection Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Forest Protection Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1960>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Forest%20Protection%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Land Management Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Land Management Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Land%20Management%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Tourism and Information - Ontario. Dept. of Tourism and Information. Advertising Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Tourism and Information - Ontario. Dept. of Tourism and Information. Advertising Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1964>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Transportation and Communications - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of Transportation and Communications - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of University Affairs - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of University Affairs - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1966>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario%20Committee%20on%20Student%20Awards> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1968>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1969>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1897>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1914>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Community%20Information%20Services> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Provincial Secretary - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Dept. of the Provincial Secretary - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1914>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1917> .
 
-</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1868>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1869>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools> .
 
-</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Standing Committee on the Legislative Assembly (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Standing Committee on the Legislative Assembly (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1986>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly> .
 
-</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Legislative Assembly - War Memorial Committee of Ontario (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Legislative Assembly - War Memorial Committee of Ontario (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1920>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1923>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/War%20Memorial%20Committee%20of%20Ontario> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Citizenship and Culture - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Citizenship and Culture - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1982>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1974> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1981>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1983> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1975> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1986>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Culture and Communications - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Culture and Communications - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1989> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Culture and Recreation - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Culture and Recreation - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1975>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1982> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1993>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1995>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1995>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1996> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Education (1972-1993) - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Education (1972-1993) - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1981>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1983>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Energy (2003-2008) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Energy (2003-2008) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2002>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2008> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Energy, Science and Technology - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Energy, Science and Technology - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1997>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2002>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Energy%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Environment and Energy (2002) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Environment and Energy (2002) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2002> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Industry and Tourism - Ontario. Travel Services Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Industry and Tourism - Ontario. Travel Services Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1974>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Travel%20Services%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Industry and Trade - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Industry and Trade - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1982>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1985>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Industry, Trade and Technology - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Industry, Trade and Technology - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1985>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1986> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Labour - Ontario. Occupational Health and Safety Branch (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Labour - Ontario. Occupational Health and Safety Branch (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1991>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Transportation and Communications - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Transportation and Communications - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1976>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Transportation%20Regulation%20Operations%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Transportation - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of Transportation - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1991> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>";
+  rdfs:label "Ontario. Ministry of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
-
-<https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription>
-  a owl:NamedIndividual, rico:Rule;
-  rdfs:label "Rules for Archival Description";
-  rico:title "NAM  4.10B", "NAM  4.5", "NAM 4.1", "NAM 4.10B", "NAM 4.3", "NAM 4.4",
-    "Nam 4.4", "RAD 23.4C2", "RAD. 24.3E1.", "Rules for Archival Description" .
-
-<https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>
-  a owl:NamedIndividual, rico:IdentifierType .
-
-<https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>
-  a owl:NamedIndividual, rico:DocumentaryFormType .
-
-<https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>
-  a owl:NamedIndividual, rico:Type .
-
-<https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FParallelAgentName>
-  a owl:NamedIndividual, rico:Type .
-
-<https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName>
-  a owl:NamedIndividual, rico:Type .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/AA131> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "AA131" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/AA52> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "AA52" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/BA409> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "BA409" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/BA483> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "BA483" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/BA592> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "BA592" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/BA611> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "BA611" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/BA700> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "BA700" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/BA94> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "BA94" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA11> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA11" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA1113> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA1113" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA1144> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA1144" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA1383> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA1383" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA147> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA147" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA1635> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA1635" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA1796> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA1796" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA2181> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA2181" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA26> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA26" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA262> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA262" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA293> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA293" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA38> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA38" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA383> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA383" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA436> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA436" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA445> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA445" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA447> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA447" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA509> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA509" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA673> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA673" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA931> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA931" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA933> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA933" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/CA952> a owl:NamedIndividual,
     rico:Identifier;
-  rico:hasIdentifierType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAgencyReferenceCode>;
+  rico:hasIdentifierType auth:AgencyReferenceCode;
   rico:normalizedValue "CA952" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/AA131> a owl:NamedIndividual,
@@ -761,12 +740,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Colleges%20and%20Universities>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Colleges and Universities (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Highways>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Highways (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -788,7 +767,7 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Justice>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Justice (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -805,10 +784,10 @@
   rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca/KB/Agent/AA52>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%2C%20Forests%20and%20Mines>;
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -838,7 +817,7 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Tourism and Information (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -857,28 +836,28 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Transportation%20and%20Communications>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Transportation and Communications (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20University%20Affairs>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of University Affairs (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of the Attorney General (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of the Provincial Secretary (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Division%20of%20Forest%20Protection>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -965,9 +944,9 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Legislative Assembly (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1014,19 +993,19 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Citizenship and Culture (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Colleges%20and%20Universities>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Colleges and Universities (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Community and Social Services (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d>,
-    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23>,
+    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Information%20Systems%20and%20Applied%20Technology%20Division>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1052,17 +1031,17 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Communications>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Culture and Communications (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Recreation>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Culture and Recreation (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281999-2002%29>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1075,12 +1054,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Education (1972-1993) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1105,12 +1084,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Energy (2003-2008) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Energy, Science and Technology (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1131,17 +1110,17 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Environment and Energy (2002) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Tourism>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Industry and Tourism (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Industry and Trade (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1160,12 +1139,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Industry, Trade and Technology (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Labour>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Labour (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1182,12 +1161,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Transportation>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Transportation (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Transportation and Communications (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications.%20Operations%20Division>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1196,7 +1175,7 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20the%20Attorney%20General>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of the Attorney General (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:f5a41458-52ee-5fe1-a2e8-9255a667bd5d> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:d42ea738-c10e-5aac-9292-ca8b24e8de23> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1392,779 +1371,779 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Birchard%20%28family%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 294";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Brock%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 49";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Campbellville%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazettteer of Ontario, Ontario, 1974 ed., p. 114";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Canniff%2C%20William%2C%201830-1910>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 1390. Canadiana";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Churchill%20%28Man.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada, Manitoba";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Clear%20Lake%20%28Haliburton%20County%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974, p. 144; 1988, p. 75";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Colenso%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 78";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Cygnet%20Lake%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974, p. 176; 1988, p. 91";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Dennie%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 97";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Devon%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, v. 1, p. 307; Gazetteer of Canada: Ontario, 1988, 4th ed., p. 99.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Employment%20Service%20Council%20of%20Ontario>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Inventory 7";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Fallingsnow%20Lake%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974, p. 235; 1988, p. 121";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Fraser%2C%20Frederick%20George%20Mackenzie%2C%20fl.%201878-1889>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 1034";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Gilling%2C%20Walter%20J.%2C%201906-1993>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Fonds F 4645";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Greenwater%20Lake%20%28South%20of%20Lac%20des%20Milles%20Lacs%2C%20Thunder%20Bay%20District%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974, p. 292; 1988, p. 152";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Grobb%2C%20Reita%20Margaret%20%281910-1988%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "F 4648, Love, Linton. \"Grobb History - 7th Generation.\" Internet Archive. https://web.archive.org/web/20090930062533/http://www.grobb-grubb-genealogy.com/grobb-grubb-genealogy-generation-07.htm (accessed January 9, 2014).";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Halton%20Hills%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Mika, Place Names of Ontario, vol. 1, p. 501; Gazetteer of Canada: Ontario, 4th ed., 1988, p. 158.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Hamilton%20Normal%20School%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario Inventory Number 2, Education Records";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Harmony%20%28Oshawa%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada Ontario, 1988, page 160";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Harrow%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, v. 1, p. 512; Gazetteer of Canada: Ontario, 1988, 4th ed., p. 161.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Henvey%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 238.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Herschel%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 239.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Hoy%2C%20Claire%2C%201940->
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Canadiana Authorities, 1996-12-24";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Hunter%2C%20Donald%20F.%2C%201911-1976>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Inventory for F 138 Maclean Hunter fonds, Archives of Ontario.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Canadiana Name Authorities, 1996-12- 24. Archives of Ontario, Series RG18-544";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Inwood%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1973, p. 343.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Jessup%2C%20Edward%2C%201735-1816>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "AO fonds F 485";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Jessup%2C%20Hamilton%20Dibble%2C%201806-1892>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "AO fonds F 485.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Joffre%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 182";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Killraine%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, v. 1, p. 611; Gazetteer of Canada: Ontario, 1988, 4th ed., p. 196";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Kirkfield%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Mika, Place Names of Ontario, vol. 1, p. 621; Gazetteer of Canada: Ontario, 4th ed., 1988, p. 198.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Law%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, v. 1, p. 650; Gazetteer of Canada: Ontario, 1988, 4th ed., p. 205";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Longbow%20Lake%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974, p. 424; 1988, p. 221";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Lyndoch%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 329.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/MacGregor%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 230";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Martin%2C%20William%20L.%2C%2019th%20cent.>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 701";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/McMullen%2C%20W.%20T.%2C%20fl.%201891-1928>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 1313";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Medora%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 358.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Middle%20Shebandowan%20Lake%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, Ontario, 1988, p. 252";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Milton%20Jail%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Reports of the Board of Inspectors of Asylums, Prisons &c. 1859-1866. Inspector of Asylums, Prisons and Public Charities. Report upon the Common Gaols, Prisons and Reformatories, 1867-1934. Reformatories and Prisons Branch, Annual Report Upon Prisons and Reformatories, 1934-1946. Annual Reports of the Department of Reform Institutions, 1946-1968. Annual Report of the Ministry of Correctional Services, 1972-1978.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Minden%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 255";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Montaigne%2C%20Bill%2C%201915-1988>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Fonds C 239.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Morin%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, v. 1, p. 791; Gazetteer of Canada: Ontario, 1988, 4th ed., p. 263";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Musgrove%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada Ontario, 1988, p. 268";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/New%20York%20City%2C%20%28NY%29>
   a owl:NamedIndividual, rico:Record;
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Annual Reports of the Ministry of Health [and Long Term Care]; Web site for North Bay Psychiatric Hospital";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Northern%20Telephone%20Company>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Fonds F 133";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Oneida%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazeteer of Ontario.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario%20Association%20of%20Registered%20Nursing%20Assistants>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 879. Canadiana";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario%20Committee%20on%20Student%20Awards>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Ministry of Colleges and Universities Annual Reports. Government of Ontario Telephone Directories. Internal materials in RG 32-53";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario%20Concentrated%20Milk%20Producers%27%20Marketing%20Board>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "McCormick, Veronica, A hundred years in the dairy industry, 1968. Archives of Ontario, F 4464";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario%20Telephone%20Services%20Commission>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Canadiana Name Authorities, 1996-12- 24. Government of Ontario Telephone Directories. KWIC Indexes. MacTaggart, Hazel. Publications of the Government of Ontario 1956-1971 (1975)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Armstrong, Frederick. Handbook of Upper Canadian Chronology (1985). Riddell, William. The Bar and the Courts of the Province of Upper Canada, or Ontario (1928)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Community%20Information%20Services>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Inventory 47 - Culture (July 1996). Ontario Government Telephone Directories, 1971-1989. Canadiana Name Authorities, 1996-12- 24";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Department of Highways/Ministry of Transportation and Communications Annual Reports, 1954-1972.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "MacTaggart, Hazel I. Publications of the Government of Ontario, 1901-1955 (1964). MacTaggart, Hazel I. Publications of the Government of Ontario, 1956-1971 (1975). Directory and Guide to Services of the Ontario Government, 1950. Canadiana Name Authorities, 1996-12-24";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Annual Reports of the Department of Lands and Forests. Canadian Almanacs. Canadiana Name Authorities, 1996-12-24. MacTaggart, Hazel. Publications of the Government of Ontario, 1901-1955 (1964)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Annual Reports of the Department of Tourism and the Department of Public Records and Archives, 1964-1971. Canadiana Name Authorities, 1995-03-15";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Division%20of%20Reforestation>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Publications of the Government of Ontario, 1901- 1955. Annual Reports of the Minister of Lands and Forests, 1942, 1943, 1953. Canadiana Authorities, 1996-12-24";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Energy%20Division>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "KWIK indexes";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Forest%20Protection%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Annual Reports of the Minister of Lands and Forests";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Land%20Management%20Division>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Telephone Directory:  Ontario Government, June 1971. Annual Report of the Minister of Lands and Forests, 1972. Canadiana Authorities, 1996-12-24.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Sage, Richard; Weir, Aileen. Select Committees of the Assemblies of the Provinces of Upper Canada, Canada and Ontario, 1792-1991: A Checklist of Reports. Toronto: Ontario Legislative Library, 1992.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Ontario. Clerk of the Legislative Assembly. Standing Committee Procedures: A Guide for Committee Chairmen. Queen's Printer, Toronto, 1985. Records of the Archives of Ontario, series RG 49-236. Canadiana name authorities, 1996-12- 24";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Review>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "COMSOC Annual Reports, 1982-1984. Government of Ontario Telephone Directories, 1982-1986";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Inventory of the Ministry of Education";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "KWIC Index 2001-2004";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Review>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario. Inventory 9 - Records of the Ministry of Economic Development and Trade (February 1997)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "KWIC Index to Government Services 1997; RG 7 inventory. KWIC Index to Services, 2002.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Bishop, Olga. Publications of the Ontario Government, 1867-1900 (1976)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario. Inventory 9 - Records of the Ministry of Economic Development and Trade (February 1997)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Transportation%20Regulation%20Operations%20Division>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Ministry of Transportation and Communications Annual Reports 1979-1987. KWIC Index to Government Services, 1986-1993; Ministry of Transportation Intranet.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Travel%20Services%20Branch>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Canadiana Name Authorities, 1996-12- 24. Government of Ontario Telephone Directory,  June 1973.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Opasatika%20River%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Order%20Sons%20of%20Italy%20of%20Canada.%20Principe%20Umberto%20Lodge%20%28St.%20Catharines%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Within Our Temple: A History of the Order Sons of Italy in Ontario, by Gabriele P. Scardellato";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Rebecca%20Lake%20%28Muskoka%20District%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1974, p. 614; 1988, p. 321";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Roosevelt%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, v. 2, p. 1010; Gazetteer of Canada: Ontario, 1988, 4th ed., p. 330";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ryde%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 480";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Saint%20Lawrence%20Permanent%20Building%20Society>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario fonds F 4201. Rules and Regulations, Saint Lawrence Permanent Building Society. (Brockville, Ontario: J. M'Mullen, 1858)";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Sanborn%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada Ontario, 1988, p. 339";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Schoolcraft%2C%20John>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 1070";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Shearer%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 349";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Shoal%20Lake%20%28Rainy%20River%20District%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario. 1974.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Silver%20Lake%20%28Lanark%20and%20Frontenac%20Counties%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, Ontario, 1988, p. 355";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Solski%2C%20Mike%2C%201918-1999>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 1280. Canadiana";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Sombra%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 360";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Sons%20of%20Temperance%20of%20North%20America.%20Ameliasburgh%20Division%20No.%2092>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 803. Canadiana";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/St.%20Raphaels%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Sutcliffe%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 378";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Tichborne%20%28Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Carter, Place Names of Ontario, vol. 2, p. 902; Gazetteer of Canada: Ontario, 4th ed., 1988, p. 387.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Tiny%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 556";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Troster%2C%20David%2C%201949-1995>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Records of the Archives of Ontario, David Troster fonds.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Walmsley%2C%20Thomas%2C%201859-ca.%201929>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "1881, 1901, 1911 Ontario census; Ontario marriage registration #11087-96";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/War%20Memorial%20Committee%20of%20Ontario>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Sage, Richard; Weir, Aileen. Select Committees of the Assemblies of the Provinces of Upper Canada, Canada and Ontario, 1792-1991: A Checklist of Reports. Toronto: Ontario Legislative Library, 1992.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ware%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Ontario, 1962,  p. 586";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/West%2C%20William%20A.%20N.%2C%20fl.%201872>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Archives of Ontario, fonds 1243";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Whitney%20Lake%20%28Smellie%20Township%2C%20Kenora%20District%2C%20Ont.%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, Ontario, 1988, p. 418";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Wood%2C%20Orville%20Alvin%2C%201912-2006>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Correspondence with donor. Ancestry.ca";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Wyse%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "Gazetteer of Canada: Ontario, 1988, p. 426";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved>,
     <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/York%20%28Upper%20Canada%29>
   a owl:NamedIndividual, rico:Record;
   auth:sourceNote "F 47.";
-  rico:hasDocumentaryFormType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FAuthorityRecord>;
+  rico:hasDocumentaryFormType auth:AuthorityRecord;
   rico:hasRecordState <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y>;
-  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/%2FKB%2FRule%2FRulesForArchivalDescription> .
+  rico:isOrWasRegulatedBy <https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Date/1863> a owl:NamedIndividual, rico:Date .
 
@@ -2266,127 +2245,127 @@
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Department%20of%20Lands%20and%20Forests>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Department of Lands and Forests" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Division%20of%20Reforestation>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Division of Reforestation" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Division%20of%20Surveys%20and%20Engineering>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Division of Surveys and Engineering" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Employment%20Service%20Council%20of%20Ontario>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Employment Service Council of Ontario" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Forest%20Protection%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Forest Protection Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Hamilton%20Normal%20School>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Hamilton Normal School" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Inquiry%20into%20Motor%20Vehicle%20Accident%20Compensation%20in%20Ontario>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Inquiry into Motor Vehicle Accident Compensation in Ontario" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Land%20Management%20Division>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Land Management Division" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Management%20Information%20Systems%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Management Information Systems Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Milton%20Jail> a owl:NamedIndividual,
     rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Milton Jail" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Ministry of Enterprise, Opportunity and Innovation" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/North%20Bay%20Psychiatric%20Hospital%20%28Ont.%29>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "North Bay Psychiatric Hospital (Ont.)" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Occupational%20Health%20and%20Safety%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Occupational Health and Safety Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Office%20of%20the%20Provincial%20Municipal%20Auditor>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Office of the Provincial Municipal Auditor" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Ontario%20Committee%20on%20Student%20Awards>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Ontario Committee on Student Awards" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Ontario%20Telephone%20Services%20Commission>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Ontario Telephone Services Commission" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Operations%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Operations Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Research%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Research Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Select Committee on Common and Grammar Schools" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Standing%20Committee%20on%20the%20Legislative%20Assembly>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Standing Committee on the Legislative Assembly" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Trade%20Development%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Trade Development Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Trade%20Division> a
     owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Trade Division" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Transportation%20Regulation%20Operations%20Division>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Transportation Regulation Operations Division" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/Travel%20Services%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "Travel Services Branch" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/NaturalAgentName/War%20Memorial%20Committee%20of%20Ontario>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FNaturalAgentName>;
+  rico:hasOrHadType auth:NaturalAgentName;
   rico:normalizedValue "War Memorial Committee of Ontario" .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Place/Brock%20%28Ont.%20%3A%20Township%29>
@@ -2712,105 +2691,115 @@
   rico:history "Use for material relating to the Town of York, 1793-1834, provincial capital and military centre.";
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/York%20%28Upper%20Canada%29> .
 
+<https://data.archives.gov.on.test.gbad.ca/KB/Rule/RulesForArchivalDescription> a
+    owl:NamedIndividual, rico:Rule;
+  rdfs:label "Rules for Archival Description";
+  rico:title "NAM  4.10B", "NAM  4.5", "NAM 4.1", "NAM 4.10B", "NAM 4.3", "NAM 4.4",
+    "Nam 4.4", "RAD 23.4C2", "RAD. 24.3E1.", "Rules for Archival Description" .
+
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Canada%20%28Province%29.%20Clerks%20of%20the%20Peace>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Fraser%2C%20Frederick%20G.%20M.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Hamilton%20Teachers%20College.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Macgregor%20%28Ont.%20%3A%20Township%29>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Milton%20Gaol%20%28Ont.%29>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Montaigne%2C%20William%20J.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/OCSA.> a owl:NamedIndividual,
     rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/OSAC> a owl:NamedIndividual,
     rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario%20Concentrated%20Producers%27%20Association>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario%20Manufactured%20Milk%20Producers%27%20Association%20.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario%20Student%20Awards%20Committee.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario%20Teacher%20Education%20College%20Hamilton%20Campus>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Committee%20on%20a%20Memorial%20of%20the%20Recent%20War.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Dept.%20of%20Transportation%20and%20Communications.%20Operations%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Division%20of%20Reforestation%20and%20Conservation>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Common%20and%20Grammar%20Schools%20Committee>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20Standing%20Legislative%20Assembly%20Committee>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Legislative%20Assembly.%20War%20Memorial%20Committee%20of%20Ontario>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20and%20Financial%20Consulting%20Services%20Branch>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20and%20Financial%20Services%20Branch.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Transportation%20Regulation%20Division.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20Transportation%20and%20Regulation%20Division>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Ontario.%20War%20Memorial%20Committee.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Temiskaming%20Telephone%20Company>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/VariantAgentName/Upper%20Canada.%20Clerks%20of%20the%20Peace.>
   a owl:NamedIndividual, rico:AgentName;
-  rico:hasOrHadType <https://data.archives.gov.on.test.gbad.ca/%2FSchema%2FAuthority%2FVariantAgentName> .
+  rico:hasOrHadType auth:VariantAgentName .
+
+auth:AgencyReferenceCode a owl:NamedIndividual, rico:IdentifierType .
+
+auth:AuthorityRecord a owl:NamedIndividual, rico:DocumentaryFormType .
 
 <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/AuthorityType#A%20Ontario%20Government%20Name>
   a owl:NamedIndividual, rico:CorporateBodyType .
@@ -2833,11 +2822,17 @@
 <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/AuthorityType#Personal%20Name>
   a owl:NamedIndividual, rico:CorporateBodyType .
 
+auth:NaturalAgentName a owl:NamedIndividual, rico:Type .
+
+auth:ParallelAgentName a owl:NamedIndividual, rico:Type .
+
 <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Approved> a owl:NamedIndividual,
     rico:RecordState .
 
 <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/Status#Review> a owl:NamedIndividual,
     rico:RecordState .
+
+auth:VariantAgentName a owl:NamedIndividual, rico:Type .
 
 <https://data.archives.gov.on.test.gbad.ca/Schema/Authority/WebReady#Y> a owl:NamedIndividual,
     rico:RecordState .

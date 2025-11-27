@@ -1,4 +1,4 @@
-Script started on Wed Nov 26 16:18:35 2025
+Script started on Wed Nov 26 22:33:23 2025
 Command: bun run test:bun:all
 [0m[2m[35m$[0m [2m[1mbun run aicode/integration_tests/scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
@@ -7,7 +7,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m
 
 
 [32m35 passed[0m, [33m14 skipped[0m
-Ran 49 tests across 1 file. [4.40s]
+Ran 49 tests across 1 file. [4.53s]
 
 Command exit status: 0
-Script done on Wed Nov 26 16:18:39 2025
+Script done on Wed Nov 26 22:33:27 2025

@@ -1,4 +1,4 @@
-Script started on Wed Nov 26 16:17:08 2025
+Script started on Wed Nov 26 22:31:58 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1muv run python -m aicode.integration_tests.debug.src.debug_cli_regression[0m
 ]9;4;3;\[1m====================================== test session starts ======================================[0m
@@ -85,7 +85,7 @@ aicode/integration_tests/debug/src/debug_cli_regression.py::test_run_manual_scen
 [33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio][0m - ts_plugin expectedly fails due to: "Failed to coerce 'Purchase Parking Pass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE". This is the correct behavior because 'Purchase Parking Pass' is put in a Type position in this diagram, and types intentionally refuse to mint individuals from literals. Another fixture, 'Class_Diagram_tweaked_compliant.drawio', has been crafted to illustrate one way to make this diagram compliant.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
 [33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m================================ [32m[1m32 passed[0m, [33m5 xfailed[0m[32m in 58.68s[0m[32m =================================[0m
+[32m================================ [32m[1m32 passed[0m, [33m5 xfailed[0m[32m in 57.36s[0m[32m =================================[0m
 
 Command exit status: 0
-Script done on Wed Nov 26 16:18:07 2025
+Script done on Wed Nov 26 22:32:55 2025

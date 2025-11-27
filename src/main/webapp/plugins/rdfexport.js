@@ -19944,7 +19944,7 @@ class pipeline:
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
                         return self.coerce_to_uriref(
-                            cfg=self, value=prop, mint_from_literal=False
+                            cfg=self, value=prop, mint_from_literal=True
                         )
 
                     def resolve_type(self, rdf_type: str) -> Any:

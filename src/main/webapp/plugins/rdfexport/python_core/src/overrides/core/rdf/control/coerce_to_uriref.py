@@ -153,10 +153,14 @@ def coerce_to_uriref(
                 if isinstance(err_decoded_norm, UnknownCuriePrefixException):
                     # looks like a curie but could not expand - deny to coerce
                     raise err_decoded_norm
-                elif decoded_norm_iri_variant == "curie":
+                elif decoded_norm_iri_variant in {
+                    "absolute-iri",
+                    "relative-iri",
+                    "curie",
+                }:
                     # ..then perhaps we did a great job decoding
-                    # and caught a curie! Return it
-                    return decoded_norm_coerced
+                    # and caught a curie or IRI! Urlencode and return it
+                    return pipeline.core.rdf.data.urlencode(decoded_norm_coerced)
             # whenever else we have coerced raw, return it
             return norm_coerced
             # Tentatively, for abs and rel IRIs

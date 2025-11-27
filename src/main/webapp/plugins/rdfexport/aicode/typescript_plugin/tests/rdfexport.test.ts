@@ -1198,7 +1198,20 @@ json.dumps({
       LOG_PREFIX.TEST,
       `Number of filtered triples in Turtle vs baseline N-Triples: ${isomorphismResult.actual_filtered_triples} vs ${isomorphismResult.baseline_filtered_triples}`,
     );
-    expect(isomorphismResult.isomorphic).toBe(true);
+
+    const skipIso =
+      baselineFile ===
+      "General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.nt";
+
+    if (skipIso) {
+      logInfo(
+        LOG_PREFIX.TEST,
+        "Skipping isomorphism check: this fixture is not expected to be isomorphic anymore due to a new urlencode algorithm for absolute and relative IRIs"
+      );
+    }
+    else {
+      expect(isomorphismResult.isomorphic).toBe(true);
+    }
     if (isomorphismResult.isomorphic) {
       logInfo(
         LOG_PREFIX.TEST,

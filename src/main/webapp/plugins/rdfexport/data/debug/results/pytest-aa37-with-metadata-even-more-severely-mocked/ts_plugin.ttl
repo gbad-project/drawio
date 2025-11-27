@@ -72,6 +72,10 @@ hellow:there a owl:DatatypeProperty,
 
 unknown:hey a owl:ObjectProperty .
 
+<https://example.com> a owl:NamedIndividual,
+        picoL:j ;
+    rdfs:label "https://example.com" .
+
 :1924 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1924" .
@@ -128,7 +132,7 @@ unknown:hey a owl:ObjectProperty .
     rico:lastModificationDate "2007-06-16"^^xsd:date ;
     rico:resultsOrResultedFrom :Authority%20Record%20Creation ;
     hellow:there :Authority%20Record ;
-    unknown:hey :https%3A%2F%2Fexample.com .
+    unknown:hey <https://example.com> .
 
 :Ontario.%20Ministry%20Of%20Health a owl:NamedIndividual,
         rico:CorporateBody ;
@@ -160,8 +164,4 @@ unknown:hey a owl:ObjectProperty .
 :Web%20Ready%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Web Ready: Y" .
-
-:https%3A%2F%2Fexample.com a owl:NamedIndividual,
-        picoL:j ;
-    rdfs:label "https://example.com" .
 
