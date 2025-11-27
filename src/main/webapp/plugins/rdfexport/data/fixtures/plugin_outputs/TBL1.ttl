@@ -1,0 +1,19 @@
+@base <ontology://generated-from-draw-io/2025-11-26T22-38-02> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix yago: <http://yago-knowledge.org/resource/> .
+
+dbo:created a owl:ObjectProperty .
+
+yago:Tim_Berners-Lee a owl:NamedIndividual ;
+    rdfs:label "yago:Tim_Berners-Lee" ;
+    dbo:created <https://www.google.com/search?kgmid=/m/0828v> .
+
+<> a owl:Ontology ;
+    owl:imports rico: .
+
+<https://www.google.com/search?kgmid=/m/0828v> a owl:NamedIndividual ;
+    rdfs:label "https://www.google.com/search?kgmid=/m/0828v" .
+

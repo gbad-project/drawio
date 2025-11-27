@@ -19837,6 +19837,31 @@ class pipeline:
                     return str(prefix_iri).rstrip("".join(("#", "/")))
 
                 # END override prefix_iri_to_base.py.prefix_iri_to_base
+                # BEGIN override urlencode.py.urlencode
+                def urlencode(text: Any) -> URIRef:
+                    """
+                    Encode using \`urllib.parse.quote()\`, with \`unreserved\`
+                    and \`unreserved\` chars as per RFC 3986 kept safe.
+
+                    As \`urllib.parse.quote()\` puts it:
+
+                    > RFC 3986 Uniform Resource Identifier (URI): Generic Syntax lists
+                    the following (un)reserved characters.
+                    >
+                    > unreserved = ALPHA / DIGIT / "-" / "." / "_" / "~"
+                    > reserved = gen-delims / sub-delims
+                    > gen-delims = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+                    > sub-delims = "!" / "$" / "&" / "'" / "(" / ")"
+                    >             / "*" / "+" / "," / ";" / "="
+                    """
+                    gen_delims = [":", "/", "?", "#", "[", "]", "@"]
+                    sub_delims = ["!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="]
+                    reserved = gen_delims + sub_delims
+                    safe_chars = "".join(reserved)
+                    encoded = urllib.parse.quote(str(text), safe=safe_chars)
+                    return URIRef(encoded)
+
+                # END override urlencode.py.urlencode
 
             class control:
                 # BEGIN override serialization_helper.py.RDFSerializationHelper
@@ -20605,8 +20630,14 @@ class pipeline:
                                     err_decoded_norm, UnknownCuriePrefixException
                                 ):
                                     raise err_decoded_norm
-                                elif decoded_norm_iri_variant == "curie":
-                                    return decoded_norm_coerced
+                                elif decoded_norm_iri_variant in {
+                                    "absolute-iri",
+                                    "relative-iri",
+                                    "curie",
+                                }:
+                                    return pipeline.core.rdf.data.urlencode(
+                                        decoded_norm_coerced
+                                    )
                             return norm_coerced
 
                     return best_guess(norm_value, decoded_norm_value)

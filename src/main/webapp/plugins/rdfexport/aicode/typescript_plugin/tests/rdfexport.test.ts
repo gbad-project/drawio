@@ -1206,10 +1206,9 @@ json.dumps({
     if (skipIso) {
       logInfo(
         LOG_PREFIX.TEST,
-        "Skipping isomorphism check: this fixture is not expected to be isomorphic anymore due to a new urlencode algorithm for absolute and relative IRIs"
+        "Skipping isomorphism check: this fixture is not expected to be isomorphic anymore due to a new urlencode algorithm for absolute and relative IRIs",
       );
-    }
-    else {
+    } else {
       expect(isomorphismResult.isomorphic).toBe(true);
     }
     if (isomorphismResult.isomorphic) {

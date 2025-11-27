@@ -1,0 +1,29 @@
+<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="24.7.5">
+  <diagram name="Page-1" id="cMgKV-XPXGdGce2DsmWq">
+    <mxGraphModel dx="794" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <gbadMetadata id="0">
+          <mxCell />
+          <userObjectPreambleElement rdfPrefix="dbo" rdfIRI="http://dbpedia.org/ontology/" />
+          <userObjectPreambleElement rdfPrefix="yago" rdfIRI="http://yago-knowledge.org/resource/" />
+          <mxCell />
+        </gbadMetadata>
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZojVrLWr7QVSXUzW-Ien-1" target="ZojVrLWr7QVSXUzW-Ien-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-4" value="dbo:created" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="ZojVrLWr7QVSXUzW-Ien-3">
+          <mxGeometry x="-0.1867" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-1" value="yago:Tim_Berners-Lee" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-2" value="https://www.google.com/search?kgmid=/m/0828v" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="210" width="220" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

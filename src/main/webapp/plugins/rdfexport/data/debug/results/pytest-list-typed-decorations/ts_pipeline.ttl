@@ -12,8 +12,8 @@ rdfs:seeAlso a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
-    skos:note ( "some" "other" "literal" ),
-        ( "UnconnectedLiteralizedList" ":Item1" ":Item2" ":Item3" ),
+    skos:note ( "UnconnectedLiteralizedList" ":Item1" ":Item2" ":Item3" ),
+        ( "some" "other" "literal" ),
         "Literal",
         "hello2",
         "hello3",
