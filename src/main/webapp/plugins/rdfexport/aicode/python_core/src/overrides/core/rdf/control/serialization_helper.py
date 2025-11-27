@@ -111,7 +111,7 @@ class RDFSerializationHelper:
         return self.coerce_to_uriref(
             cfg=self,
             value=prop,
-            mint_from_literal=False,
+            mint_from_literal=True,
         )
 
     def resolve_type(self, rdf_type: str) -> Any:
