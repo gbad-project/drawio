@@ -6,28 +6,42 @@
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-rdf:type a owl:DatatypeProperty .
+rdf:type a owl:ObjectProperty .
 
 rdfs:seeAlso a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
     skos:note ( "UnconnectedLiteralizedList" ":Item1" ":Item2" ":Item3" ),
-        ( "some" "other" "literal" ),
-        "Literal",
-        "hello2",
-        "hello3",
-        "some" .
+        "Literal" .
 
 :IndividualList a owl:NamedIndividual,
         :Item1,
         :Item2,
         :Item3,
-        "Just a literal",
-        "hi" ;
+        :Just%20A%20Literal,
+        :hi ;
     rdfs:label "IndividualList" ;
     rdfs:seeAlso "ConnectedLiteralizedList" .
 
+:Some%20Other%20Literal a owl:NamedIndividual ;
+    rdfs:label "some other literal" .
+
 :hello a owl:NamedIndividual ;
     rdfs:label "hello" .
+
+:hello2 a owl:NamedIndividual ;
+    rdfs:label "hello2" .
+
+:hello3 a owl:NamedIndividual ;
+    rdfs:label "hello3" .
+
+:some a owl:NamedIndividual ;
+    rdfs:label "some" .
+
+:Just%20A%20Literal a owl:NamedIndividual ;
+    rdfs:label "Just a literal" .
+
+:hi a owl:NamedIndividual ;
+    rdfs:label "hi" .
 

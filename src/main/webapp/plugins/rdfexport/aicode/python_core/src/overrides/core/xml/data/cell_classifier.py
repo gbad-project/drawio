@@ -65,7 +65,7 @@ class DrawIOCellClassifier:
         self._strip_html = bool(strip_html)
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
-        self._child_token_cache: dict[str, list[str]] = {}
+        self._child_value_cache: dict[str, list[str]] = {}
 
         self.classifications: dict[str, Any] = {}
 
@@ -97,21 +97,17 @@ class DrawIOCellClassifier:
         # Record as a literal
         self._literals_by_id[cell_id] = cell
 
-        # Record decorations
-        # 1. Any literalized typed individuals
-        if len(classification.tokens) > 1:
-            self.decorations[cell_id] = {
-                "value": classification.tokens,
-                "connected": False,
-            }
-        # 2. Standalone decoration
-        else:
-            self.decorations[cell_id] = {
-                # Note that raw_value is passed among tokens as
-                # a single-item list anyway, but using this for clarity
-                "value": classification.raw_value,
-                "connected": False,
-            }
+        # Note that raw_value is NOT passed among tokens,
+        # so it must be explicitly added here for all cases
+        value = (
+            [classification.raw_value] + classification.tokens
+            if len(classification.tokens) > 0
+            else classification.raw_value
+        )  # tokens here actually contain literalized typed individuals (from `_collect_child_values()`), untokenized
+        self.decorations[cell_id] = {
+            "value": value,
+            "connected": False,
+        }
 
     def _process_graph(self):
         """
@@ -243,7 +239,9 @@ class DrawIOCellClassifier:
             **kwargs,
         ) -> CellClassification:
             selected_value: str = value.strip() if isinstance(value, str) else value
-            if kind == CellKind.LITERAL and isinstance(literal_value, str):
+            if (kind == CellKind.LITERAL or kind == CellKind.DECORATION) and isinstance(
+                literal_value, str
+            ):
                 selected_value = literal_value
             return CellClassification(kind, selected_value, cell, **kwargs)
 
@@ -278,12 +276,14 @@ class DrawIOCellClassifier:
             )
 
         tokens = self._tokenise(raw_value)
-        child_tokens = self._collect_child_tokens(cell)
+        child_values = self._collect_child_values(cell)
+        child_tokens = [self._tokenise(t) for t in child_values]
         if child_tokens:
             tokens.extend(t for t in child_tokens if t not in tokens)
 
         if self._style_denotes_literal(cell, style):
-            return build(CellKind.LITERAL, tokens=tokens)
+            # using untokenized values
+            return build(CellKind.LITERAL, tokens=child_values)
 
         if parent_cell is not None and parent_identifier:
             return build(
@@ -293,7 +293,8 @@ class DrawIOCellClassifier:
                 tokens=tokens,
             )
         elif self._is_decoration(cell, raw_value):
-            return build(CellKind.DECORATION, tokens=tokens)
+            # using untokenized values
+            return build(CellKind.DECORATION, tokens=child_values)
         else:
             # This was originally used but probably does
             # not make sense because untyped standalone
@@ -671,24 +672,23 @@ class DrawIOCellClassifier:
         except Exception:
             return False
 
-    def _collect_child_tokens(self, cell: Element) -> list[str]:
+    def _collect_child_values(self, cell: Element) -> list[str]:
         _NoValueException = pipeline.core.xml.data._NoValueException
         cell_id = cell.attrib.get("id")
         if not cell_id:
             return []
-        if cell_id in self._child_token_cache:
-            return list(self._child_token_cache[cell_id])
+        if cell_id in self._child_value_cache:
+            return list(self._child_value_cache[cell_id])
 
-        tokens = []
+        values = []
         for child in self._child_of(cell_id):
             try:
                 child_value = self._value_of(child).strip()
-                child_tokens = self._tokenise(child_value)
-                tokens.extend(t for t in child_tokens if t not in tokens)
+                values.append(child_value)
             except (_NoValueException, ParseException):
                 continue
-        self._child_token_cache[cell_id] = tokens
-        return tokens
+        self._child_value_cache[cell_id] = values
+        return values
 
     def _build_edge_incidence(self) -> set[str]:
         return {
@@ -704,9 +704,15 @@ class DrawIOCellClassifier:
 
     @staticmethod
     def _style_suggests_decoration(style: str) -> bool:
-        if not style:
+        if not style:  # is None or empty string
+            # Draw IO always seems to always set style when
+            # creating elements, but let's say programmatically
+            # created elements without style are even more minimal
+            # and thus qualify for minting individuals
             return False
-        return "text;" in style or "shape=text" in style
+        # Original treatment by Codex, but feels restrictive
+        # return "text;" in style or "shape=text" in style
+        return False
 
     @staticmethod
     def _style_denotes_literal(cell: Element, style: str) -> bool:
@@ -714,18 +720,23 @@ class DrawIOCellClassifier:
             return False
         if "rounded=1" in style:
             return True
-        if "ellipse" in style:
-            return True
-        if "shape=" in style:
-            return True
+        # Not restricting any other toggles
+        # if "ellipse" in style:
+        #     return True
+        # if "shape=" in style:
+        #     return True
 
     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
+        """Currently always returns False. Yet standalone literals
+        are still treated as decorations (added to registry) downstream."""
         if not raw_value:
             return False
         return (
-            not self._collect_child_tokens(cell)
-            and not self._has_incident_edge(cell)
-            and self._style_suggests_decoration(cell.attrib.get("style", ""))
+            # not self._collect_child_values(cell)
+            # and not self._has_incident_edge(cell)
+            # and self._style_suggests_decoration(cell.attrib.get("style", ""))
+            self._style_suggests_decoration(cell.attrib.get("style", ""))
         )
+
     def _is_layer(self, cell: Element) -> bool:
         return cell.attrib.get("parent") == "0"

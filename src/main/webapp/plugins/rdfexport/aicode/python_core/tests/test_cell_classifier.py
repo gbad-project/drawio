@@ -146,9 +146,10 @@ def test_classifier_detects_typed_individuals_and_literals():
         classifier.DECORATION_REGISTRY_ATTR,
         {},
     )
-    # a bit strange that it's broken by token, but expected and ok
-    assert registry["decor"]["value"] == ["Decoration", "literal"]
-    assert {"Pseudo", "Individual", "owl:NamedIndividual"} == set(
+    # Not anymore - tries to mint from anything unless rounded=1
+    # assert registry["decor"]["value"] == ["Decoration literal"]
+    print(registry["pseudo_id_parent"]["value"])
+    assert {"Pseudo Individual", "owl:NamedIndividual"} == set(
         registry["pseudo_id_parent"]["value"]
     )
 
@@ -248,7 +249,7 @@ def test_decorations_serialise_to_skos_note(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),
         _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
-        _vertex_cell("decor", "Loose literal", style="shape=weird"),
+        _vertex_cell("decor", "Loose literal", style="rounded=1"),
     )
     path = tmp_path / "decorations.drawio"
     path.write_text(xml, encoding="utf-8")
@@ -258,8 +259,7 @@ def test_decorations_serialise_to_skos_note(tmp_path: Path):
         ontology_iri="ontology://test",  # ensure deterministic attachment
         metacharacter_substitute=["remove"],
     )
-    # a bit strange that broken down by token, but expected and ok
-    assert 'skos:note ( "Loose" "literal" )' in graph.serialize()
+    assert 'skos:note "Loose literal"' in graph.serialize()
 
 
 def test_connected_literal_not_treated_as_decoration(tmp_path: Path):
@@ -309,7 +309,7 @@ def test_arrow_label_without_edge_style_is_not_individual(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("source", "Source"),
         _vertex_cell("source_type", "rico:Record", parent="source"),
-        _vertex_cell("literal", "Address", style="ellipse"),
+        _vertex_cell("literal", "Address", style="rounded=1"),
         _edge_cell("arrow", "", source="source", target="literal"),
         _edge_label_without_edge_style("label", parent="arrow", value="rdfs:mock"),
     )
@@ -333,7 +333,7 @@ def test_blank_node_used_for_decorations_without_ontology(tmp_path: Path):
     xml = _drawio_xml(
         _vertex_cell("parent", "Subject"),
         _vertex_cell("type", "owl:NamedIndividual", parent="parent"),
-        _vertex_cell("decor", "Detached", style="shape=cylinder"),
+        _vertex_cell("decor", "Detached", style="rounded=1"),
     )
     path = tmp_path / "blank.drawio"
     path.write_text(xml, encoding="utf-8")

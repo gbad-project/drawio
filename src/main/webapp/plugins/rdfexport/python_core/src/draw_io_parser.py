@@ -188,7 +188,7 @@ class pipeline:
                         self._strip_html = bool(strip_html)
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
-                        self._child_token_cache: dict[str, list[str]] = {}
+                        self._child_value_cache: dict[str, list[str]] = {}
                         self.classifications: dict[str, Any] = {}
                         self.individuals: list[Individual] = []
                         self.arrows: list[Arrow] = []
@@ -214,16 +214,12 @@ class pipeline:
                         cell_id = cell.attrib.get("id")
                         classification = self.classifications[cell_id]
                         self._literals_by_id[cell_id] = cell
-                        if len(classification.tokens) > 1:
-                            self.decorations[cell_id] = {
-                                "value": classification.tokens,
-                                "connected": False,
-                            }
-                        else:
-                            self.decorations[cell_id] = {
-                                "value": classification.raw_value,
-                                "connected": False,
-                            }
+                        value = (
+                            [classification.raw_value] + classification.tokens
+                            if len(classification.tokens) > 0
+                            else classification.raw_value
+                        )
+                        self.decorations[cell_id] = {"value": value, "connected": False}
 
                     def _process_graph(self):
                         """
@@ -266,10 +262,16 @@ class pipeline:
                                 self.classifications[cell_id] = classification
                             kind_name = getattr(classification.kind, "name", "")
                             cell_id = cell.attrib.get("id")
+                            parent = classification.parent_cell
+                            parent_identifier = parent_cell_id = None
+                            if parent is not None:
+                                if self._is_layer(parent):
+                                    pass
+                                else:
+                                    parent_identifier = classification.parent_identifier
+                                    parent_cell_id = parent.attrib.get("id")
                             if kind_name == "TYPE_TOKEN":
-                                parent = classification.parent_cell
-                                parent_cell_id = parent.attrib.get("id")
-                                identifier = classification.parent_identifier
+                                identifier = parent_identifier
                                 if (
                                     cell_id is None
                                     or parent_cell_id in self._literals_by_id
@@ -361,9 +363,9 @@ class pipeline:
                             selected_value: str = (
                                 value.strip() if isinstance(value, str) else value
                             )
-                            if kind == CellKind.LITERAL and isinstance(
-                                literal_value, str
-                            ):
+                            if (
+                                kind == CellKind.LITERAL or kind == CellKind.DECORATION
+                            ) and isinstance(literal_value, str):
                                 selected_value = literal_value
                             return CellClassification(
                                 kind, selected_value, cell, **kwargs
@@ -376,7 +378,11 @@ class pipeline:
                             return build(CellKind.ARROW_LABEL)
                         if not raw_value:
                             return build(CellKind.EMPTY_CELL)
+                        if self._is_layer(cell):
+                            return build(CellKind.LAYER)
                         parent_cell, parent_identifier = self._resolve_parent(cell)
+                        if parent_cell is not None and self._is_layer(parent_cell):
+                            parent_cell = parent_identifier = None
                         if (
                             parent_cell is not None
                             and parent_cell.attrib.get("edge") == "1"
@@ -388,11 +394,12 @@ class pipeline:
                                 parent_identifier=parent_identifier,
                             )
                         tokens = self._tokenise(raw_value)
-                        child_tokens = self._collect_child_tokens(cell)
+                        child_values = self._collect_child_values(cell)
+                        child_tokens = [self._tokenise(t) for t in child_values]
                         if child_tokens:
                             tokens.extend((t for t in child_tokens if t not in tokens))
                         if self._style_denotes_literal(cell, style):
-                            return build(CellKind.LITERAL, tokens=tokens)
+                            return build(CellKind.LITERAL, tokens=child_values)
                         if parent_cell is not None and parent_identifier:
                             return build(
                                 CellKind.TYPE_TOKEN,
@@ -401,7 +408,7 @@ class pipeline:
                                 tokens=tokens,
                             )
                         elif self._is_decoration(cell, raw_value):
-                            return build(CellKind.DECORATION, tokens=tokens)
+                            return build(CellKind.DECORATION, tokens=child_values)
                         else:
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
@@ -777,25 +784,22 @@ class pipeline:
                         except Exception:
                             return False
 
-                    def _collect_child_tokens(self, cell: Element) -> list[str]:
+                    def _collect_child_values(self, cell: Element) -> list[str]:
                         _NoValueException = pipeline.core.xml.data._NoValueException
                         cell_id = cell.attrib.get("id")
                         if not cell_id:
                             return []
-                        if cell_id in self._child_token_cache:
-                            return list(self._child_token_cache[cell_id])
-                        tokens = []
+                        if cell_id in self._child_value_cache:
+                            return list(self._child_value_cache[cell_id])
+                        values = []
                         for child in self._child_of(cell_id):
                             try:
                                 child_value = self._value_of(child).strip()
-                                child_tokens = self._tokenise(child_value)
-                                tokens.extend(
-                                    (t for t in child_tokens if t not in tokens)
-                                )
+                                values.append(child_value)
                             except (_NoValueException, ParseException):
                                 continue
-                        self._child_token_cache[cell_id] = tokens
-                        return tokens
+                        self._child_value_cache[cell_id] = values
+                        return values
 
                     def _build_edge_incidence(self) -> set[str]:
                         return {
@@ -813,7 +817,7 @@ class pipeline:
                     def _style_suggests_decoration(style: str) -> bool:
                         if not style:
                             return False
-                        return "text;" in style or "shape=text" in style
+                        return False
 
                     @staticmethod
                     def _style_denotes_literal(cell: Element, style: str) -> bool:
@@ -821,21 +825,18 @@ class pipeline:
                             return False
                         if "rounded=1" in style:
                             return True
-                        if "ellipse" in style:
-                            return True
-                        if "shape=" in style:
-                            return True
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
+                        """Currently always returns False. Yet standalone literals
+                        are still treated as decorations (added to registry) downstream."""
                         if not raw_value:
                             return False
-                        return (
-                            not self._collect_child_tokens(cell)
-                            and (not self._has_incident_edge(cell))
-                            and self._style_suggests_decoration(
-                                cell.attrib.get("style", "")
-                            )
+                        return self._style_suggests_decoration(
+                            cell.attrib.get("style", "")
                         )
+
+                    def _is_layer(self, cell: Element) -> bool:
+                        return cell.attrib.get("parent") == "0"
 
                 # END override cell_classifier.py.DrawIOCellClassifier
 
@@ -869,6 +870,7 @@ class pipeline:
                     LITERAL = auto()
                     DECORATION = auto()
                     EMPTY_CELL = auto()
+                    LAYER = auto()
 
                 # END override cell_models.py.CellKind
                 # BEGIN override curie_validator.py.DeimplementedException

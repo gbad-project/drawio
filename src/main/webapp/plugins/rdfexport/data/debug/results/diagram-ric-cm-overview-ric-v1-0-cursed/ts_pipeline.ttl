@@ -1,0 +1,136 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "#Topic",
+        "Heading Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "RiC-E22    Place" .
+
+:Actor a owl:NamedIndividual ;
+    rdfs:label "Actor" .
+
+<ontology://generated-from-draw-io/mock#Created%20By%20ICA-EGAD%20In%20September%202023.> a owl:NamedIndividual ;
+    rdfs:label "Created by ICA-EGAD in September 2023." .
+
+:Mindmap a owl:NamedIndividual,
+        :Branch,
+        :Central%20Idea ;
+    rdfs:label "Mindmap" .
+
+:RiC-CM%20V1.0%3A%20A%20Global%20Overview a owl:NamedIndividual ;
+    rdfs:label "RiC-CM v1.0: a global overview" .
+
+:RiC-E02%20Record%20Resource a owl:NamedIndividual ;
+    rdfs:label "RiC-E02 Record Resource" .
+
+:RiC-E03%20Record%20Set a owl:NamedIndividual ;
+    rdfs:label "RiC-E03 Record Set" .
+
+:RiC-E04%20Record a owl:NamedIndividual ;
+    rdfs:label "RiC-E04 Record" .
+
+:RiC-E05%20Record%20Part a owl:NamedIndividual ;
+    rdfs:label "RiC-E05 Record Part" .
+
+:RiC-E06%20Instantiation a owl:NamedIndividual ;
+    rdfs:label "RiC-E06 Instantiation" .
+
+:RiC-E07%20Agent a owl:NamedIndividual ;
+    rdfs:label "RiC-E07 Agent" .
+
+:RiC-E08%20Person a owl:NamedIndividual ;
+    rdfs:label "RiC-E08 Person" .
+
+:RiC-E09%20Group a owl:NamedIndividual ;
+    rdfs:label "RiC-E09 Group" .
+
+:RiC-E10%20Family a owl:NamedIndividual ;
+    rdfs:label "RiC-E10 Family" .
+
+:RiC-E11%20Corporate%20Body a owl:NamedIndividual ;
+    rdfs:label "RiC-E11 Corporate Body" .
+
+:RiC-E12%20Position a owl:NamedIndividual ;
+    rdfs:label "RiC-E12 Position" .
+
+:RiC-E13%20Mechanism a owl:NamedIndividual ;
+    rdfs:label "RiC-E13 Mechanism" .
+
+:RiC-E14%20Event a owl:NamedIndividual ;
+    rdfs:label "RiC-E14 Event" .
+
+:RiC-E15%20Activity a owl:NamedIndividual ;
+    rdfs:label "RiC-E15 Activity" .
+
+:RiC-E16%20Rule a owl:NamedIndividual ;
+    rdfs:label "RiC-E16 Rule" .
+
+:RiC-E17%20Mandate a owl:NamedIndividual ;
+    rdfs:label "RiC-E17 Mandate" .
+
+:RiC-E18%20Date a owl:NamedIndividual ;
+    rdfs:label "RiC-E18 Date" .
+
+:RiC-R019%20Has%20Or%20Had%20Subject a owl:NamedIndividual ;
+    rdfs:label "RiC-R019 has or had subject" .
+
+:RiC-R019i%20Is%20Or%20Was%20Subject%20Of a owl:NamedIndividual ;
+    rdfs:label "RiC-R019i is or was subject of" .
+
+:RiC-R025%20Has%20Or%20Had%20Instantiation a owl:NamedIndividual ;
+    rdfs:label "RiC-R025 has or had instantiation" .
+
+:RiC-R025i%20Is%20Or%20Was%20Instantiation%20Of a owl:NamedIndividual ;
+    rdfs:label "RiC-R025i is or was instantiation of" .
+
+:RiC-R026%20Has%20Provenance a owl:NamedIndividual ;
+    rdfs:label "RiC-R026 has provenance" ;
+    :sos "s" .
+
+:RiC-R026i%20Is%20Provenance%20Of a owl:NamedIndividual ;
+    rdfs:label "RiC-R026i is provenance of" .
+
+:RiC-R033%20Documents a owl:NamedIndividual ;
+    rdfs:label "RiC-R033 documents" .
+
+:RiC-R033i%20Documented%20By a owl:NamedIndividual ;
+    rdfs:label "RiC-R033i documented by" .
+
+:RiC-R060%20Is%20Or%20Was%20Performed%20By a owl:NamedIndividual ;
+    rdfs:label "RiC-R060 is or was performed by" .
+
+:RiC-R060i%20Performs%20Or%20Performed a owl:NamedIndividual ;
+    rdfs:label "RiC-R060i performs or performed" .
+
+:RiC-R063%20Regulates%20Or%20Regulated a owl:NamedIndividual ;
+    rdfs:label "RiC-R063 regulates or regulated",
+        "RiC-R063 regulates or regulated" .
+
+:RiC-R063i%20Is%20Or%20Was%20Regutated%20By a owl:NamedIndividual ;
+    rdfs:label "RiC-R063i   is or was regutated by" .
+
+:RiC-R080%20Is%20Creation%20Date%20Of a owl:NamedIndividual ;
+    rdfs:label "RiC-R080 is creation date of" .
+
+:RiC-R080i%20Has%20Creation%20Date a owl:NamedIndividual ;
+    rdfs:label "RiC-R080i has creation date" .
+
+:Simple%20Box a owl:NamedIndividual ;
+    rdfs:label "simple box" .
+
+<ontology://generated-from-draw-io/mock#This%20Diagram%20Is%20Licensed%20Under%20A%20Creative%20Commons%20Attribution%204.0%20International%20License.> a owl:NamedIndividual ;
+    rdfs:label "This diagram is licensed under a Creative Commons Attribution 4.0 International License." .
+
+:Vertical%20Container a owl:NamedIndividual ;
+    rdfs:label "Vertical Container" .
+
+:joh a owl:NamedIndividual ;
+    rdfs:label ":joh" .
+
+:sos a owl:DatatypeProperty .
+
