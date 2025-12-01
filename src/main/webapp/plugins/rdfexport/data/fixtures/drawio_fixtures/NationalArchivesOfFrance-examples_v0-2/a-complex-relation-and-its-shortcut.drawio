@@ -1,0 +1,130 @@
+<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="24.7.5">
+  <diagram id="KoaF4IJ3k0KfqPe1wrhF" name="Page-1">
+    <mxGraphModel dx="794" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <gbadMetadata id="0">
+          <mxCell />
+          <mxCell />
+        </gbadMetadata>
+        <mxCell id="1" parent="0" />
+        <mxCell id="kZPpBHSunfDXtntdQoen-1" value="&lt;i&gt;&lt;b&gt;Jean-Noël Jeanneney (1942-....)&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;i&gt;RiC-E08&amp;nbsp; Person&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="255" y="190" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-2" value="&lt;b&gt;Radio France (1975-....)&lt;/b&gt;&lt;br&gt;&lt;i&gt;RiC-E11&amp;nbsp; Corporate Body&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="720" y="190" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-3" value="&lt;b&gt;Relation de direction (leadership)&lt;br&gt;entre J-N.Jeanneney et Radio France&lt;/b&gt;&lt;br&gt;&lt;i&gt;rico:LeadershipRelation&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="500" y="390" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-4" value="&lt;b&gt;Radio France. Président&lt;/b&gt;&lt;br&gt;&lt;i&gt;RiC-E12&amp;nbsp; Position&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#d0cee2;strokeColor=#56517e;" parent="1" vertex="1">
+          <mxGeometry x="870" y="570" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-21" value="&lt;div align=&quot;left&quot;&gt;rico:beginningDate: 1982&lt;br&gt;rico:endDate: 1986&lt;br&gt;certainty: &quot;certain&quot;&lt;br&gt;rico:relationState: &quot;past&quot;&lt;br&gt;descriptiveNote: &quot;....&quot;&lt;br&gt;source: &quot;...&quot;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="485" y="520" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-22" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;strokeWidth=2;direction=south;opacity=50;" parent="1" vertex="1">
+          <mxGeometry x="485" y="500" width="180" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-30" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeWidth=2;" parent="1" source="kZPpBHSunfDXtntdQoen-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="750" y="390" as="sourcePoint" />
+            <mxPoint x="860" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="860" y="410" />
+              <mxPoint x="870" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-31" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;entryX=0.304;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;fillColor=#dae8fc;strokeColor=#6C8EBF;strokeWidth=2;gradientColor=#7ea6e0;" parent="1" source="kZPpBHSunfDXtntdQoen-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="390" as="sourcePoint" />
+            <mxPoint x="339.9200000000001" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="340" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-32" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.667;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="kZPpBHSunfDXtntdQoen-3" target="kZPpBHSunfDXtntdQoen-4" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="760" y="400" as="sourcePoint" />
+            <mxPoint x="850" y="490" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="830" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-33" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeWidth=2;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="270" as="sourcePoint" />
+            <mxPoint x="496" y="410" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="370" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-34" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6C8EBF;strokeWidth=2;" parent="1" target="kZPpBHSunfDXtntdQoen-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="920" y="269" as="sourcePoint" />
+            <mxPoint x="906.02" y="352.03999999999996" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="920" y="435" />
+              <mxPoint x="930" y="340" />
+              <mxPoint x="840" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-35" value="" style="endArrow=classic;html=1;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="kZPpBHSunfDXtntdQoen-1" target="kZPpBHSunfDXtntdQoen-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="490" y="230" as="sourcePoint" />
+            <mxPoint x="490" y="229.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-40" value="" style="line;strokeWidth=2;html=1;perimeter=backbonePerimeter;points=[];outlineConnect=0;opacity=50;direction=south;" parent="1" vertex="1">
+          <mxGeometry x="574" y="480" width="2" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-43" value="&lt;i&gt;&lt;b&gt;is or was leader of&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="200" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-44" value="" style="endArrow=classic;html=1;strokeColor=#6C8EBF;strokeWidth=2;exitX=0.004;exitY=0.875;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="kZPpBHSunfDXtntdQoen-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="715" y="260" as="sourcePoint" />
+            <mxPoint x="485" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-45" value="&lt;i&gt;&lt;b&gt;has or had leader&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="480" y="270" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-46" value="&lt;i&gt;&lt;b&gt;rico:leadershipWithPosition&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="840" y="530" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-47" value="&lt;i&gt;&lt;b&gt;rico:personIsSourceOfLeadershipRelation&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="365" y="360" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-49" value="&lt;b&gt;&lt;i&gt;rico:leadershipRelationHasSource&lt;/i&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#6C8EBF;" parent="1" vertex="1">
+          <mxGeometry x="130" y="290" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-51" value="&lt;i&gt;&lt;b&gt;rico:leadershipRelationHasTarget&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="650" y="300" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="kZPpBHSunfDXtntdQoen-52" value="&lt;i&gt;&lt;b&gt;&lt;font color=&quot;#6C8EBF&quot;&gt;rico:groupIsTargetOfLeadershipRelation&lt;/font&gt;&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="840" y="440" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GWeJxX-FnaOWpWteAYzn-1" value="&lt;div align=&quot;right&quot;&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Représentation conforme à RiC-O d&#39;une des relations de direction (rico:LeadershipRelation) &lt;br&gt;spécifiée dans la notice EAC-CPF de J.-N. Jeanneney aux Archives nationales&lt;br&gt;(https://www.siv.archives-nationales.culture.gouv.fr/siv/NP/FRAN_NP_050789).&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div align=&quot;right&quot;&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Cette relation relie trois entités (une personne, une collectivité et un poste).&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;b&gt;&lt;/b&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="430" y="630" width="660" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GWeJxX-FnaOWpWteAYzn-3" value="&lt;div align=&quot;right&quot;&gt;&lt;b&gt;&lt;font color=&quot;#6C8EBF&quot;&gt;Le préfixe rico: indique que le composant (classe ou propriété) n&#39;existe que dans RiC-O.&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div align=&quot;right&quot;&gt;&lt;b&gt;&lt;font color=&quot;#6C8EBF&quot;&gt;Lorsqu&#39;il n&#39;y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O.&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=right;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="580" y="720" width="510" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GWeJxX-FnaOWpWteAYzn-4" value="&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;b&gt;&lt;span&gt;©&amp;nbsp;&lt;/span&gt;&lt;span&gt;Archives nationales de France, septembre 2020&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="755" y="760" width="330" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GWeJxX-FnaOWpWteAYzn-5" value="&lt;div align=&quot;right&quot;&gt;&lt;b&gt;Document mis à disposition selon les termes&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;b&gt;de la  &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="730" y="781" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GWeJxX-FnaOWpWteAYzn-6" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;align=right;image=data:image/png,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAYAAABjyArgAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAdnJLH8AAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAABTpJREFUaN7tWk1PG0cY9jlSLO5cOIYbbZUeU6T0B5AfkIh/UNRbJKqgiFSKVAlZrqLm0FCptyawxubDX3gNa2N71/Z6IeTKT+AnvNXzrt9ldlnwB84aE0Yasd6ZnR2efeZ5P2ZiRBSPxWJ0X0dfifCn+2Mnv017xV3KlbJUPChQySjRQbVMRt2gI7NK9WaNGq0GWW2TmrZFzU7TrbZFlm2S2WpwH/St1A1+VjdKPFaulOOx8Y5MNk1beylK7Wi0ub1BG5lPXD+lP9LHrf/uTFWAvgA3r+do/7BI5YpORu2QwWq06gxg22lR58Qm53OHjk+P6eSLW3HtfHa4DX0s2+Jn8CzGKFd1HhNjB0HWdjY9kAHwHQU55ge3WmYG1qwasxWgAdTVN6v09Oen9DD+8NJSwD20rf6+yn3bx23+KGB0pVFhNu8f7vtATme3KLWruSBnNkbG4pfLL2l2dvbSHHEPbWMBGLKgggtgmh2LWZlIJmh6erpv3UHfxJ8JfhYSAjZXPZCLnlxs5zKU3nNBHgWLk38l6dHsI28e8/PztLS0xBXXch990DdSgKGTkIULcJvMxIVnCz7wpqamaHFxkVZWVkjXda64xj20qX3xbKVmUMtxQQaTIReuJmdpt7Djl4obsHj93w8Uj8fd9y4s0NnZGQUL7qENfdA3CpA9gGHQoJeQBTA3CC7AA5Dn5+d0XVlfX/cBDbYAZHwwfDi8A4avUM5Tdn/PlYoQFg/6jwhz8aHVolhz3xxlbpEBjOULowTNxdJWwZ2bmwtlxFUFHwHPqEzGmNBkvONCKhQW76ZI294cSiagq8LcL6enPQFGESZ/bU32ADZYGups0KC5Kri9WNsPyNBkGD6WirpBesVlMWtx3tVikYlBARaDNggJ0FcMXyQAM3ttk6VBDBqWum3bNGwByCIXGBNjw4UTFhcPXBarHsUwMiEGLVggF/KBg9KBIoYvEoChjy2nxa6YTAqae9MieocKFw4rRLS41HXbVJkYFmB4CsESElX5Cp6JDGBEaPaJzb6ssFeVBngL0C18dVQV/GDb2tqa7x8RFmNsaDEivksykcu43oSiw3cKYBg3LGEJItQlBQDD/F2AqWlaaJv6vCxVjI2ID1JU7bpshXKBvQnosLhrd1IikE84PnW8CaksFGM1MzPDxgGA4xrLX9rE0wDg0hYmEwirmz4dLvjctWEAvs7IXcXeyI0cfF/kFWRCADE4yTBN7kev1RWAd8AnPjKPRgaw6qb1C3DkbtokAzxooCHaG2mg0a9EwPDBdcM1QFUlItgWlURMRKh8nZG7zpD1Y+SEMa6R6/C7RmnkVJDVZA8+OuaB96tBz1iSPeKmSYgM1yq4zK9y0wCy3A+2oYDRqpvWUNy0vH5zN20i0pUSaKhhctCfHWWgcdgNNJC6lEDjpgmfW51wrzbCQ+VB4vtxhcoTAbCa7Pnwz9+jT/YkEzw2kj14l6Qs1cT7sMmeiQAYdfnVspeufP7iuQ/kQZI+YH1ourJt0us3r7/F3eWLH0u//sJuVGeIhDva0EdNuD/+8TFLA/xsfMBvdPvef+O3V8scDABklcnDbBkB3FanSe/ev4vqHEJokBHsM1aAPZBtd9MTmjzwpmdSNj2tyMANghd2PQZwwwEWuVC37QFar2177Fzwtj3OR7TNyGWhV7ryVkiEWr//4TvS0hq7cPCTbe/giaMcPHH4nnrwJJXR6MlPT8ZxVOk2SUNvgKUCrLd/vKViuagcnepWHJ1qm9yGPuMAdmIZfF9HUInowT0QX+905f/GIzQzf2iprAAAAABJRU5ErkJggg==;" parent="1" vertex="1">
+          <mxGeometry x="616" y="780" width="88" height="31" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
