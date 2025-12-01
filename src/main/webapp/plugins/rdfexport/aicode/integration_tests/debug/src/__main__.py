@@ -707,22 +707,23 @@ class Debugger:
         for key, value in isomorphism.items():
             status = "✅" if value else "❌"
             self.console.print(f"  {status} {key}")
-            if not value:
-                g1_name, g2_name = key.split("_vs_")
-                g1, g2 = graphs[g1_name], graphs[g2_name]
-                only_in_g1, only_in_g2 = self._graph_diff(g1, g2)
-                only_in_g1_json = json.dumps(
-                    self._triples_to_json(only_in_g1), indent=2
-                )
-                only_in_g2_json = json.dumps(
-                    self._triples_to_json(only_in_g2), indent=2
-                )
-                self.console.print(
-                    f"    Triples only in {g1_name}:\n```json\n{only_in_g1_json}\n```"
-                )
-                self.console.print(
-                    f"    Triples only in {g2_name}:\n```json\n{only_in_g2_json}\n```"
-                )
+            # Commented out the below because not informative in practice
+            # if not value:
+            #     g1_name, g2_name = key.split("_vs_")
+            #     g1, g2 = graphs[g1_name], graphs[g2_name]
+            #     only_in_g1, only_in_g2 = self._graph_diff(g1, g2)
+            #     only_in_g1_json = json.dumps(
+            #         self._triples_to_json(only_in_g1), indent=2
+            #     )
+            #     only_in_g2_json = json.dumps(
+            #         self._triples_to_json(only_in_g2), indent=2
+            #     )
+            #     self.console.print(
+            #         f"    Triples only in {g1_name}:\n```json\n{only_in_g1_json}\n```"
+            #     )
+            #     self.console.print(
+            #         f"    Triples only in {g2_name}:\n```json\n{only_in_g2_json}\n```"
+            #     )
 
         return had_errors
 
