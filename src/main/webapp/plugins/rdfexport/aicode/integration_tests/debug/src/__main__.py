@@ -53,6 +53,20 @@ UNCLASSIFIED_KIND = "UNCLASSIFIED"  # not found among classifications
 UNKNOWN_KIND = "UNKNOWN"  # "kind" not found in classification entry
 
 
+def sorted_fixture_paths(root_dir: Path) -> list[Path]:
+    """Search for "*.drawio" recursively in `root_dir`
+    and any other dirs as defined in this function."""
+    default_fixtures = list(root_dir.rglob("*.drawio"))
+    additional_fixtures = list(
+        (root_dir / "external" / "ICA-EGAD" / "RiC-O" / "diagrams").rglob("*.xml")
+    )
+    fixtures = sorted(
+        set(default_fixtures + additional_fixtures),
+        key=lambda p: p.name,
+    )
+    return fixtures
+
+
 @dataclass
 class ScenarioConfig:
     slug: str
@@ -85,6 +99,7 @@ class Debugger:
         self.console = Console()
         self.debug_data_dir = Path(__file__).resolve().parents[4] / "data" / "debug"
         self.fixtures_dir = fixtures_dir.resolve()
+        self.fixture_paths = sorted_fixture_paths(self.fixtures_dir)
         self.scenarios_dir = self.debug_data_dir / "scenarios"
         self.results_dir = self.debug_data_dir / "results"
         self.map_path = self.debug_data_dir / "map.json"
@@ -138,7 +153,7 @@ class Debugger:
 
     def _refresh_fixture_inventory(self) -> None:
         fixtures_info: dict[str, dict[str, object]] = {}
-        for fixture in sorted(self.fixtures_dir.glob("*.drawio")):
+        for fixture in sorted(self.fixture_paths):
             content = fixture.read_bytes()
             fixtures_info[fixture.name] = {
                 "path": str(fixture.relative_to(self.fixtures_dir)),
@@ -255,7 +270,7 @@ class Debugger:
         return config
 
     def _run_repl(self) -> ScenarioConfig:
-        fixtures = list(sorted(self.fixtures_dir.glob("*.drawio")))
+        fixtures = self.fixture_paths
         if not fixtures:
             raise RuntimeError(f"No .drawio fixtures found in {self.fixtures_dir}")
 
@@ -1594,7 +1609,7 @@ def main() -> None:
     args = parser.parse_args()
 
     debug_data_dir = Path(__file__).resolve().parents[4]
-    default_fixtures = debug_data_dir / "data" / "fixtures" / "drawio_fixtures"
+    default_fixtures = debug_data_dir / "data" / "fixtures"
     fixtures_dir = (
         Path(args.fixtures).expanduser() if args.fixtures else default_fixtures
     )

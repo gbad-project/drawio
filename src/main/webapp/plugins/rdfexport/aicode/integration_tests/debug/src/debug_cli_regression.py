@@ -20,11 +20,12 @@ if str(RDFEXPORT_DIR) not in sys.path:
 
 from aicode.integration_tests.debug.src.__main__ import (
     estimate_triple_count_from_classifications,
+    sorted_fixture_paths,
 )
 import python_core.src.draw_io_parser as draw_io_parser
 
 
-FIXTURES_DIR = RDFEXPORT_DIR / "data" / "fixtures" / "drawio_fixtures"
+FIXTURES_DIR = RDFEXPORT_DIR / "data" / "fixtures"
 DEBUG_DATA_DIR = RDFEXPORT_DIR / "data" / "debug"
 
 EXPECTED_TS_PLUGIN = {
@@ -256,7 +257,7 @@ RML_ENABLED_FIXTURE_NAMES = [
 
 @pytest.mark.parametrize(
     "fixture_path",
-    sorted(FIXTURES_DIR.glob("*.drawio"), key=lambda path: path.name),
+    sorted_fixture_paths(FIXTURES_DIR),
     ids=lambda path: path.name,
 )
 def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
