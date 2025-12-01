@@ -24,6 +24,7 @@ exclude = [
     "python_core/src/legacy/",
     "docs/",
     "aicode/docs/",
+    "data/",
 ]
 
 [tool.pytest.ini_options]
