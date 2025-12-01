@@ -1,0 +1,3 @@
+[submodule "src/main/webapp/plugins/rdfexport/data/fixtures/external/ICA-EGAD/RiC-O"]
+	path = src/main/webapp/plugins/rdfexport/data/fixtures/external/ICA-EGAD/RiC-O
+	url = https://github.com/ICA-EGAD/RiC-O.git
