@@ -160,10 +160,17 @@ class DrawIOCellClassifier:
             kind_name = getattr(classification.kind, "name", "")
             cell_id = cell.attrib.get("id")
 
+            parent = classification.parent_cell
+            parent_identifier = parent_cell_id = None
+            if parent is not None:
+                if self._is_layer(parent):
+                    pass  # for now; later good to implement named graphs
+                else:
+                    parent_identifier = classification.parent_identifier
+                    parent_cell_id = parent.attrib.get("id")
+
             if kind_name == "TYPE_TOKEN":
-                parent = classification.parent_cell
-                parent_cell_id = parent.attrib.get("id")
-                identifier = classification.parent_identifier
+                identifier = parent_identifier
                 if cell_id is None or parent_cell_id in self._literals_by_id:
                     # Truly nothing to collect
                     continue
@@ -250,7 +257,14 @@ class DrawIOCellClassifier:
         if not raw_value:
             return build(CellKind.EMPTY_CELL)
 
+        if self._is_layer(cell):
+            return build(CellKind.LAYER)
+
         parent_cell, parent_identifier = self._resolve_parent(cell)
+
+        # the below line is cursed in that just `if parent_cell` does not work
+        if parent_cell is not None and self._is_layer(parent_cell):
+            parent_cell = parent_identifier = None
 
         if (
             parent_cell is not None
@@ -713,3 +727,5 @@ class DrawIOCellClassifier:
             and not self._has_incident_edge(cell)
             and self._style_suggests_decoration(cell.attrib.get("style", ""))
         )
+    def _is_layer(self, cell: Element) -> bool:
+        return cell.attrib.get("parent") == "0"
