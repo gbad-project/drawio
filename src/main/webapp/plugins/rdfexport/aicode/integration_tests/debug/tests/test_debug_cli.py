@@ -30,7 +30,9 @@ from aicode.integration_tests.debug.src.__main__ import (  # noqa: E402
 
 import aicode.integration_tests.debug.src.__main__ as debug_main  # noqa: E402
 
-FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
+FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures"
+
+DEFAULT_FIXTURES_DIR = FIXTURES_DIR / "drawio_fixtures"
 
 
 @pytest.mark.parametrize(
@@ -56,7 +58,7 @@ def test_parse_prefix_string_supports_colon(raw: str, expected: list[tuple[str, 
 def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
     debugger = Debugger(FIXTURES_DIR)
     slug = f"pytest-{uuid4().hex[:8]}"
-    drawio_path = FIXTURES_DIR / fixture_name
+    drawio_path = DEFAULT_FIXTURES_DIR / fixture_name
 
     config = build_config(slug, drawio_path)
 
@@ -102,7 +104,7 @@ def test_run_scenario_generates_artifacts_and_map_entry(fixture_name: str):
 def test_outputs_are_isomorphic_across_sources():
     debugger = Debugger(FIXTURES_DIR)
     slug = f"pytest-{uuid4().hex[:8]}"
-    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    drawio_path = DEFAULT_FIXTURES_DIR / "AA37 Department of Health.drawio"
 
     config = build_config(slug, drawio_path)
 
@@ -250,7 +252,7 @@ def test_ts_stderr_captured_as_warning(monkeypatch):
     """Test that TypeScript stderr is captured as a warning even when graphs generate successfully."""
     debugger = Debugger(FIXTURES_DIR)
     slug = f"pytest-{uuid4().hex[:8]}"
-    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    drawio_path = DEFAULT_FIXTURES_DIR / "AA37 Department of Health.drawio"
 
     config = build_config(slug, drawio_path)
 
@@ -318,7 +320,7 @@ def test_stdout_stderr_captured_from_extract_cell_classifications(
 ):
     debugger = Debugger(FIXTURES_DIR)
     slug = f"pytest-{uuid4().hex[:8]}"
-    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    drawio_path = DEFAULT_FIXTURES_DIR / "AA37 Department of Health.drawio"
     config = build_config(slug, drawio_path)
 
     # Mock _extract_cell_classifications to emit stdout/stderr
@@ -355,7 +357,7 @@ def test_stdout_stderr_captured_from_extract_cell_classifications(
 def test_run_reports_map_errors(monkeypatch):
     debugger = Debugger(FIXTURES_DIR)
     slug = f"pytest-{uuid4().hex[:8]}"
-    drawio_path = FIXTURES_DIR / "AA37 Department of Health.drawio"
+    drawio_path = DEFAULT_FIXTURES_DIR / "AA37 Department of Health.drawio"
     config = build_config(slug, drawio_path)
 
     args = argparse.Namespace(

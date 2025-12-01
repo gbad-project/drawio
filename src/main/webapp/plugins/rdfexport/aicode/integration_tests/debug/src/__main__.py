@@ -53,13 +53,17 @@ UNCLASSIFIED_KIND = "UNCLASSIFIED"  # not found among classifications
 UNKNOWN_KIND = "UNKNOWN"  # "kind" not found in classification entry
 
 
-def sorted_fixture_paths(root_dir: Path) -> list[Path]:
-    """Search for "*.drawio" recursively in `root_dir`
-    and any other dirs as defined in this function."""
-    default_fixtures = list(root_dir.rglob("*.drawio"))
+def sorted_fixture_paths(root_dir: Path, default_dir: str | Path = "drawio_fixtures", extra: bool = True) -> list[Path]:
+    """
+    Search for "*.drawio" recursively in `root_dir / default_dir`
+
+    If `extra` is True, also search in any other dirs
+    as defined in this function.
+    """
+    default_fixtures = list((root_dir / default_dir).rglob("*.drawio"))
     additional_fixtures = list(
         (root_dir / "external" / "ICA-EGAD" / "RiC-O" / "diagrams").rglob("*.xml")
-    )
+    ) if extra is True else []
     fixtures = sorted(
         set(default_fixtures + additional_fixtures),
         key=lambda p: p.name,

@@ -257,7 +257,10 @@ RML_ENABLED_FIXTURE_NAMES = [
 
 @pytest.mark.parametrize(
     "fixture_path",
-    sorted_fixture_paths(FIXTURES_DIR),
+    # External fixtures not run by default because,
+    # as of 2025-12-01, they are all serialized and
+    # therefore only raise `NothingToParseException`
+    sorted_fixture_paths(FIXTURES_DIR, extra=False),
     ids=lambda path: path.name,
 )
 def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
