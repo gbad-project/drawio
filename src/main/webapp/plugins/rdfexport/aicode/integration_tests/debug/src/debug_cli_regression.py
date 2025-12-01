@@ -93,6 +93,16 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
             "aa37-with-metadata-even-more-severely-mocked-v2",
         ],
     },
+    "a-place.drawio": {
+        "reason": "ts_plugin expectedly fails due to: draw_io_parser.internal_data_core.\"ArrowWithoutIndividualAsSourceException: Arrow \'owl:sameAs\' (1QzVoJSBnvUrHcRH2k3W-53) has a literal (\'Ambérieux-en-Dombes (Ain) RiC E-22 Place\') as source.\" This is the correct behavior because the source node has `rounded=1`; once this is fixed, this works - see `a-place-fixed.drawio`.",
+        "command": [
+            "python",
+            "-m",
+            "debug",
+            "--scenario",
+            "a-place-fixed",
+        ],
+    },
 }
 
 ALLOWED_XFAILS_FOLLOWUP = {

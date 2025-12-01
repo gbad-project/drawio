@@ -210,6 +210,11 @@
       "sha256": "d8a81db442c83ecbae0da129757ca351647727c4b03eb6afa05cf3f137089d45",
       "size_bytes": 7093
     },
+    "a-place-fixed.drawio": {
+      "path": "drawio_fixtures/a-place-fixed.drawio",
+      "sha256": "6fd47b4d2d619d9a9ec6317ea2faa5151345eed9d2387d0c6d175ac3fd624315",
+      "size_bytes": 20891
+    },
     "a-place.drawio": {
       "path": "drawio_fixtures/NationalArchivesOfFrance-examples_v0-2/a-place.drawio",
       "sha256": "795f0d7a9465371dc87126989cd29b8db4bd45f622f0392e89a5343f5206aeee",
@@ -277,6 +282,419 @@
     }
   },
   "scenarios": {
+    "a-place-fixed": {
+      "cell_classifications": {
+        "1": {
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-1": {
+          "declares_identifier": true,
+          "identifier": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-16": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "https://sws.geonames.org/3037941/ geonames:Feature",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-19": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "rico:Coordinates",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-2": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-21": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-22": {
+          "declares_identifier": true,
+          "identifier": "name: \"Amb\u00e9rieux-en-Dombes (Ain)  identifier: \"FRAN_RI_005.xml# d3ntcnghfn-zgpbme3jri6v\" history: \"...\" rico:beginningDate: \"1793\"",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "name: \"Amb\u00e9rieux-en-Dombes (Ain)  identifier: \"FRAN_RI_005.xml# d3ntcnghfn-zgpbme3jri6v\" history: \"...\" rico:beginningDate: \"1793\"",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-23": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Savigneux (Ain) RiC E-22 Place",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-31": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-36": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-37": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-38": {
+          "declares_identifier": true,
+          "identifier": "rico:latitude:45.99894 rico:longitude:4.90126 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 rico:geodesicSystem:\"WGS84\"",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:latitude:45.99894 rico:longitude:4.90126 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 rico:geodesicSystem:\"WGS84\"",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-4": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "Localisation physique d'Amb\u00e9rieux-en-Dombes  rico:PhysicalLocation",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-40": {
+          "declares_identifier": true,
+          "identifier": "rico:measure: \"MULTIPOLYGON  (((4.895580369402351 45.979916181223366,   4.880940268964116 45.98591608321336, [...])))\"  rico:geodesicSystem:\"WGS84\"",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:measure: \"MULTIPOLYGON  (((4.895580369402351 45.979916181223366,   4.880940268964116 45.98591608321336, [...])))\"  rico:geodesicSystem:\"WGS84\"",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-41": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-46": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-47": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-5": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "rico:Coordinates",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-51": {
+          "declares_identifier": true,
+          "identifier": "rico:date descriptiveNote etc.",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:date descriptiveNote etc.",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-52": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-53": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "owl:sameAs",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-55": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-57": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-6": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "commune fran\u00e7aise   rico:PlaceType skos:Concept",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-61": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-62": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-63": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-66": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-67": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-68": {
+          "declares_identifier": true,
+          "identifier": "is or was contained by",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "is or was contained by",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-69": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "owl:sameAs",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-7": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "http://data.ign.fr/id/geofla/commune/01005   ign:commune",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-70": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "owl:sameAs",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-71": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "owl:sameAs",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-72": {
+          "declares_identifier": true,
+          "identifier": "rico:hasOrHadPlaceType",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadPlaceType",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-74": {
+          "declares_identifier": true,
+          "identifier": "rico:hasOrHadCoordinates",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadCoordinates",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-75": {
+          "declares_identifier": true,
+          "identifier": "rico:hasOrHadCoordinates",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadCoordinates",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-76": {
+          "declares_identifier": true,
+          "identifier": "rico:hasOrHadPhysicalLocation",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "rico:hasOrHadPhysicalLocation",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-77": {
+          "declares_identifier": true,
+          "identifier": "is or was adjacent to",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "is or was adjacent to",
+          "tokens": []
+        },
+        "1QzVoJSBnvUrHcRH2k3W-8": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
+          "parent_identifier": null,
+          "raw_value": "http://id.insee.fr/geo/commune/01005 insee:commune",
+          "tokens": []
+        },
+        "UyXdzqnkReWlVqN5aeVa-1": {
+          "declares_identifier": true,
+          "identifier": "Description partielle, conforme \u00e0 RiC-O,  d'un lieu (la commune d'Amb\u00e9rieux-en-Dombes) dans la version RDF du r\u00e9f\u00e9rentiel des lieux des Archives nationales.",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Description partielle, conforme \u00e0 RiC-O,  d'un lieu (la commune d'Amb\u00e9rieux-en-Dombes) dans la version RDF du r\u00e9f\u00e9rentiel des lieux des Archives nationales.",
+          "tokens": []
+        },
+        "UyXdzqnkReWlVqN5aeVa-4": {
+          "declares_identifier": true,
+          "identifier": "Les relations sont pr\u00e9sent\u00e9es uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le pr\u00e9fixe rico: indique que le composant (classe ou propri\u00e9t\u00e9) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de pr\u00e9fixe, le composant existe dans RiC-CM et dans RiC-O.",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Les relations sont pr\u00e9sent\u00e9es uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le pr\u00e9fixe rico: indique que le composant (classe ou propri\u00e9t\u00e9) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de pr\u00e9fixe, le composant existe dans RiC-CM et dans RiC-O.",
+          "tokens": []
+        },
+        "UyXdzqnkReWlVqN5aeVa-5": {
+          "declares_identifier": true,
+          "identifier": "\u00a9\u00a0Archives nationales de France, janvier 2021",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "\u00a9\u00a0Archives nationales de France, janvier 2021",
+          "tokens": []
+        },
+        "UyXdzqnkReWlVqN5aeVa-7": {
+          "declares_identifier": true,
+          "identifier": "Document mis \u00e0 disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Document mis \u00e0 disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
+          "tokens": []
+        },
+        "UyXdzqnkReWlVqN5aeVa-8": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "EMPTY_CELL",
+          "parent_identifier": null,
+          "raw_value": "",
+          "tokens": []
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 12,
+          "EMPTY_CELL": 8,
+          "LITERAL": 9,
+          "STANDALONE_INDIVIDUAL": 15,
+          "UNCLASSIFIED": 1
+        },
+        "classified": 44,
+        "total_cells": 45,
+        "unclassified": 1
+      },
+      "drawio": "data/fixtures/drawio_fixtures/a-place-fixed.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "9f6749ffbf065bae34feb41299e5e783e10992a84d1b8b0a68fef920e83cd998",
+          "path": "results/a-place-fixed/ts_pipeline.ttl",
+          "triples": 39
+        },
+        "ts_plugin": {
+          "nt_sha256": "9f6749ffbf065bae34feb41299e5e783e10992a84d1b8b0a68fef920e83cd998",
+          "path": "results/a-place-fixed/ts_plugin.ttl",
+          "triples": 39
+        }
+      }
+    },
     "a-series-of-albums-of-aerial-photographs": {
       "cell_classifications": {
         "1": {
@@ -14475,14 +14893,14 @@
           "Legacy Python graph is None",
           "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
         ],
-        "py_stdout": "Warning: Failed to extract cell classifications: Arrow 'owl:sameAs' \n(1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place')\nas source.\nTraceback (most recent call last):\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integration\n_tests/debug/src/__main__.py\", line 1068, in _extract_cell_classifications\n    classifier = DrawIOCellClassifier(\n                 ^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/python_core/src/dr\naw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/python_core/src/dr\naw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/python_core/src/dr\naw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\npython_core.src.draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceExce\nption: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal \n('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.",
+        "py_stdout": "Warning: Failed to extract cell classifications: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has\na literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\nTraceback (most recent call last):\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integration_tests/debug/\nsrc/__main__.py\", line 1072, in _extract_cell_classifications\n    classifier = DrawIOCellClassifier(\n                 ^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.\npy\", line 204, in __init__\n    self._process_graph()\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.\npy\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/python_core/src/draw_io_parser.\npy\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\npython_core.src.draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \n'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place')\nas source.",
         "ts_pipeline": [
           "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 18131432,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 18131432,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.22 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 23782480,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 23782480,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.22 (macOS arm64)"
         ],
         "ts_plugin": [
           "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 18131432,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 18131432,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.22 (macOS arm64)"
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 23782480,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 338, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 329, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3009, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<3 lines>...\n        strip_html=strip_html_enabled,\n    )\n  File \"/app/src/draw_io_parser.py\", line 204, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 334, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 660, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 23782480,\n\n      at new_error (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.2.22 (macOS arm64)"
         ]
       },
       "format": "turtle",
