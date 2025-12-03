@@ -24,12 +24,12 @@ from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
 from rdflib.collection import Collection
-from rdflib.namespace import NamespaceManager
+import typing
+import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
-import typing
-import logging
+from rdflib.namespace import NamespaceManager
 
 
 class pipeline:
