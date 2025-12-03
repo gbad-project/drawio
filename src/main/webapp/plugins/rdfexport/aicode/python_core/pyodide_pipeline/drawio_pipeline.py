@@ -90,7 +90,7 @@ def _default_parser_config() -> dict[str, Any]:
         "mint_from_literals": True,
         "mint_from_types": False,
         "mint_from_arrows": True,
-        "literal_definitions": [{"key": "style", "value": "rounded=1"}],
+        "literal_definitions": [],
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -157,18 +157,18 @@ def _normalise_metacharacters(value: Any) -> list[str]:
 
 
 def _normalise_literal_definitions(value: Any) -> list[dict[str, str]]:
-    """Normalize literal definitions to list of dicts with 'key' and 'value'."""
+    """Normalize literal definitions to list of dicts with 'attrKey' and 'attrVal'."""
     if value is None:
         return []
 
     try:
         result = []
         for item in value:
-            if isinstance(item, dict) and "key" in item and "value" in item:
-                key = str(item["key"]).strip()
-                val = str(item["value"]).strip()
+            if isinstance(item, dict) and "attrKey" in item and "attrVal" in item:
+                key = str(item["attrKey"]).strip()
+                val = str(item["attrVal"]).strip()
                 if key and val:
-                    result.append({"key": key, "value": val})
+                    result.append({"attrKey": key, "attrVal": val})
         return result
     except (TypeError, KeyError):
         return []

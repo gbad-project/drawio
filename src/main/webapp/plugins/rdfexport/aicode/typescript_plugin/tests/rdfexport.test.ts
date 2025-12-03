@@ -110,7 +110,7 @@ const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
   mint_from_types: false,
   mint_from_arrows: true,
   metacharacter_substitute: ["url"],
-  literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
+  literal_definitions: [],
   capitalisation_scheme: "upper-camel",
   rml_enabled: false,
 };
@@ -1308,7 +1308,7 @@ test(
       mint_from_types: false,
       mint_from_arrows: true,
       metacharacter_substitute: ["url"],
-      literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
+      literal_definitions: [],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
     };
@@ -1367,7 +1367,7 @@ test(
       mint_from_types: false,
       mint_from_arrows: true,
       metacharacter_substitute: ["url"],
-      literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
+      literal_definitions: [],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
     };
@@ -1426,7 +1426,7 @@ test(
       mint_from_types: false,
       mint_from_arrows: true,
       metacharacter_substitute: ["url"],
-      literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
+      literal_definitions: [],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
     };

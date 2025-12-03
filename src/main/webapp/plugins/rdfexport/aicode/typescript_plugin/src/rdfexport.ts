@@ -315,7 +315,7 @@ function createDefaultParserSettings(): ParserSettings {
     capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
     metacharacterEntries: [],
-    literalDefinitions: [{ attrKey: "style", attrVal: "rounded=1" }],
+    literalDefinitions: [],
   };
 }
 

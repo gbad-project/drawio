@@ -826,8 +826,8 @@ class pipeline:
                     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
                         """Check if cell matches any literal definition."""
                         for definition in self._literal_definitions:
-                            attr_name = definition.get("key", "")
-                            pattern = definition.get("value", "")
+                            attr_name = definition.get("attrKey", "")
+                            pattern = definition.get("attrVal", "")
                             if not attr_name or not pattern:
                                 continue
                             attr_value = cell.attrib.get(attr_name, "")
