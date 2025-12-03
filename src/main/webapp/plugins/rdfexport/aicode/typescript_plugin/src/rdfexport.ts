@@ -156,6 +156,12 @@ const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
 const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
   "data-rdfexport-parser-strict-mode";
 const PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
+const PARSER_SETTINGS_MINT_FROM_LITERALS_ATTRIBUTE =
+  "data-rdfexport-parser-mint-from-literals";
+const PARSER_SETTINGS_MINT_FROM_TYPES_ATTRIBUTE =
+  "data-rdfexport-parser-mint-from-types";
+const PARSER_SETTINGS_MINT_FROM_ARROWS_ATTRIBUTE =
+  "data-rdfexport-parser-mint-from-arrows";
 const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
@@ -179,6 +185,18 @@ const PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE =
   "data-rdfexport-parser-metachar-remove";
 const PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE =
   "data-rdfexport-parser-metachar-add";
+const PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE =
+  "data-rdfexport-parser-literal-def-list";
+const PARSER_SETTINGS_LITERAL_DEF_ENTRY_ATTRIBUTE =
+  "data-rdfexport-parser-literal-def-entry";
+const PARSER_SETTINGS_LITERAL_DEF_KEY_ATTRIBUTE =
+  "data-rdfexport-parser-literal-def-key";
+const PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE =
+  "data-rdfexport-parser-literal-def-value";
+const PARSER_SETTINGS_LITERAL_DEF_REMOVE_ATTRIBUTE =
+  "data-rdfexport-parser-literal-def-remove";
+const PARSER_SETTINGS_LITERAL_DEF_ADD_ATTRIBUTE =
+  "data-rdfexport-parser-literal-def-add";
 const PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 const PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 
@@ -255,6 +273,9 @@ interface ParserSettings {
   includeLabel: boolean;
   strictMode: boolean;
   stripHtml: boolean;
+  mintFromLiterals: boolean;
+  mintFromTypes: boolean;
+  mintFromArrows: boolean;
   indentation: number;
   maxGap: number;
   ontologyIri: string | null;
@@ -263,6 +284,7 @@ interface ParserSettings {
   capitalisationScheme: CapitalisationScheme;
   metacharacterStrategy: MetacharacterStrategy;
   metacharacterEntries: ParserSettingsEntry[];
+  literalDefinitions: ParserSettingsEntry[];
 }
 
 interface StoredParserSettings {
@@ -277,6 +299,9 @@ function createDefaultParserSettings(): ParserSettings {
     includeLabel: true,
     strictMode: false,
     stripHtml: true,
+    mintFromLiterals: true,
+    mintFromTypes: false,
+    mintFromArrows: true,
     indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
     maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
     ontologyIri: null,
@@ -285,6 +310,7 @@ function createDefaultParserSettings(): ParserSettings {
     capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
     metacharacterEntries: [],
+    literalDefinitions: [{ character: "style", replacement: "rounded=1" }],
   };
 }
 
@@ -418,6 +444,18 @@ function normaliseParserSettings(
     ),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
     stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
+    mintFromLiterals: normalizeBoolean(
+      partial?.mintFromLiterals,
+      defaults.mintFromLiterals,
+    ),
+    mintFromTypes: normalizeBoolean(
+      partial?.mintFromTypes,
+      defaults.mintFromTypes,
+    ),
+    mintFromArrows: normalizeBoolean(
+      partial?.mintFromArrows,
+      defaults.mintFromArrows,
+    ),
     indentation: normalizeIndentation(
       partial?.indentation,
       defaults.indentation,
@@ -443,6 +481,9 @@ function normaliseParserSettings(
     ),
     metacharacterEntries: normalizeMetacharacterEntries(
       partial?.metacharacterEntries,
+    ),
+    literalDefinitions: normalizeMetacharacterEntries(
+      partial?.literalDefinitions,
     ),
   };
 }
@@ -502,6 +543,11 @@ function buildParserConfigPayloadFromSettings(
     substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
   }
 
+  const literalDefs = normalized.literalDefinitions.map((def) => ({
+    key: def.character,
+    value: def.replacement,
+  }));
+
   return {
     infer_type_of_literals: normalized.inferTypeOfLiterals,
     include_preamble: normalized.includePreamble,
@@ -513,6 +559,10 @@ function buildParserConfigPayloadFromSettings(
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
+    mint_from_literals: normalized.mintFromLiterals,
+    mint_from_types: normalized.mintFromTypes,
+    mint_from_arrows: normalized.mintFromArrows,
+    literal_definitions: literalDefs,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false,
@@ -1888,6 +1938,30 @@ function createParserSettingsDialog(
   generalSection.appendChild(stripHtmlRow.container);
   const stripHtmlCheckbox = stripHtmlRow.input;
 
+  const mintFromLiteralsRow = createCheckboxRow(
+    "Mint URIs from literals",
+    settings.mintFromLiterals,
+    PARSER_SETTINGS_MINT_FROM_LITERALS_ATTRIBUTE,
+  );
+  generalSection.appendChild(mintFromLiteralsRow.container);
+  const mintFromLiteralsCheckbox = mintFromLiteralsRow.input;
+
+  const mintFromTypesRow = createCheckboxRow(
+    "Mint URIs from types",
+    settings.mintFromTypes,
+    PARSER_SETTINGS_MINT_FROM_TYPES_ATTRIBUTE,
+  );
+  generalSection.appendChild(mintFromTypesRow.container);
+  const mintFromTypesCheckbox = mintFromTypesRow.input;
+
+  const mintFromArrowsRow = createCheckboxRow(
+    "Mint URIs from arrows",
+    settings.mintFromArrows,
+    PARSER_SETTINGS_MINT_FROM_ARROWS_ATTRIBUTE,
+  );
+  generalSection.appendChild(mintFromArrowsRow.container);
+  const mintFromArrowsCheckbox = mintFromArrowsRow.input;
+
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
 
@@ -2095,6 +2169,133 @@ function createParserSettingsDialog(
   addButtonContainer.appendChild(addButton);
   metacharSection.appendChild(addButtonContainer);
 
+  const literalDefSection = createSection("Literal definitions");
+  scrollArea.appendChild(literalDefSection);
+
+  type LiteralDefEntryState = {
+    container: HTMLElement;
+    keyInput: HTMLInputElement;
+    valueInput: HTMLInputElement;
+  };
+
+  const literalDefList = document.createElement("div");
+  literalDefList.style.display = "flex";
+  literalDefList.style.flexDirection = "column";
+  literalDefList.style.gap = "6px";
+  literalDefList.setAttribute(PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE, "true");
+  literalDefSection.appendChild(literalDefList);
+
+  const literalDefEntries: LiteralDefEntryState[] = [];
+
+  const addLiteralDefEntry = (key: string, value: string) => {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.setAttribute(PARSER_SETTINGS_LITERAL_DEF_ENTRY_ATTRIBUTE, "true");
+
+    const keyInput = document.createElement("input");
+    keyInput.type = "text";
+    keyInput.value = key;
+    keyInput.placeholder = "Attribute key (e.g., style)";
+    keyInput.style.flex = "1 1 auto";
+    keyInput.style.height = "26px";
+    keyInput.style.padding = "4px 6px";
+    keyInput.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    keyInput.style.borderRadius = "2px";
+    keyInput.style.fontSize = "12px";
+    keyInput.setAttribute(PARSER_SETTINGS_LITERAL_DEF_KEY_ATTRIBUTE, "true");
+
+    const valueInput = document.createElement("input");
+    valueInput.type = "text";
+    valueInput.value = value;
+    valueInput.placeholder = "Attribute value (e.g., rounded=1)";
+    valueInput.style.flex = "1 1 auto";
+    valueInput.style.height = "26px";
+    valueInput.style.padding = "4px 6px";
+    valueInput.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    valueInput.style.borderRadius = "2px";
+    valueInput.style.fontSize = "12px";
+    valueInput.setAttribute(PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE, "true");
+
+    let state: LiteralDefEntryState;
+
+    const removeLiteralDefEntry = () => {
+      const index = literalDefEntries.indexOf(state);
+      if (index >= 0) {
+        literalDefEntries.splice(index, 1);
+      }
+      if (row.parentNode) {
+        row.parentNode.removeChild(row);
+      }
+    };
+
+    const removeButton = ((): HTMLElement => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button("Remove", () => {
+          removeLiteralDefEntry();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = "Remove";
+      button.addEventListener("click", () => {
+        removeLiteralDefEntry();
+      });
+      return button;
+    })();
+    removeButton.setAttribute(
+      PARSER_SETTINGS_LITERAL_DEF_REMOVE_ATTRIBUTE,
+      "true",
+    );
+    removeButton.className =
+      (removeButton as HTMLElement).className || "geButton";
+
+    state = {
+      container: row,
+      keyInput: keyInput,
+      valueInput: valueInput,
+    };
+
+    row.appendChild(keyInput);
+    row.appendChild(valueInput);
+    row.appendChild(removeButton);
+    literalDefList.appendChild(row);
+    literalDefEntries.push(state);
+  };
+
+  if (settings.literalDefinitions.length > 0) {
+    for (const def of settings.literalDefinitions) {
+      addLiteralDefEntry(def.character, def.replacement);
+    }
+  }
+
+  const literalDefAddButtonContainer = document.createElement("div");
+  literalDefAddButtonContainer.style.display = "flex";
+  literalDefAddButtonContainer.style.justifyContent = "flex-end";
+
+  const literalDefAddButton = ((): HTMLElement => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button("Add literal definition", () => {
+        addLiteralDefEntry("", "");
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = "Add literal definition";
+    button.addEventListener("click", () => {
+      addLiteralDefEntry("", "");
+    });
+    return button;
+  })();
+
+  literalDefAddButton.setAttribute(
+    PARSER_SETTINGS_LITERAL_DEF_ADD_ATTRIBUTE,
+    "true",
+  );
+  literalDefAddButton.className =
+    (literalDefAddButton as HTMLElement).className || "geButton";
+  literalDefAddButtonContainer.appendChild(literalDefAddButton);
+  literalDefSection.appendChild(literalDefAddButtonContainer);
+
   const buttons = document.createElement("div");
   buttons.style.position = "absolute";
   buttons.style.left = "30px";
@@ -2138,6 +2339,9 @@ function createParserSettingsDialog(
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
       stripHtml: stripHtmlCheckbox.checked,
+      mintFromLiterals: mintFromLiteralsCheckbox.checked,
+      mintFromTypes: mintFromTypesCheckbox.checked,
+      mintFromArrows: mintFromArrowsCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,
@@ -2146,6 +2350,10 @@ function createParserSettingsDialog(
       metacharacterEntries: entries.map((entry) => ({
         character: entry.select.value,
         replacement: entry.replacement.value,
+      })),
+      literalDefinitions: literalDefEntries.map((entry) => ({
+        character: entry.keyInput.value,
+        replacement: entry.valueInput.value,
       })),
     };
 

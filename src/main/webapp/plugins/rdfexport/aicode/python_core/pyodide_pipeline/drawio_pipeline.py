@@ -87,6 +87,10 @@ def _default_parser_config() -> dict[str, Any]:
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
         "strip_html": True,
+        "mint_from_literals": True,
+        "mint_from_types": False,
+        "mint_from_arrows": True,
+        "literal_definitions": [{"key": "style", "value": "rounded=1"}],
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -152,6 +156,24 @@ def _normalise_metacharacters(value: Any) -> list[str]:
         return []
 
 
+def _normalise_literal_definitions(value: Any) -> list[dict[str, str]]:
+    """Normalize literal definitions to list of dicts with 'key' and 'value'."""
+    if value is None:
+        return []
+
+    try:
+        result = []
+        for item in value:
+            if isinstance(item, dict) and "key" in item and "value" in item:
+                key = str(item["key"]).strip()
+                val = str(item["value"]).strip()
+                if key and val:
+                    result.append({"key": key, "value": val})
+        return result
+    except (TypeError, KeyError):
+        return []
+
+
 def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
     config = _default_parser_config()
 
@@ -180,6 +202,25 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             config["strip_html"] = _coerce_bool(
                 overrides["strip_html"],
                 config["strip_html"],
+            )
+        if "mint_from_literals" in overrides:
+            config["mint_from_literals"] = _coerce_bool(
+                overrides["mint_from_literals"],
+                config["mint_from_literals"],
+            )
+        if "mint_from_types" in overrides:
+            config["mint_from_types"] = _coerce_bool(
+                overrides["mint_from_types"],
+                config["mint_from_types"],
+            )
+        if "mint_from_arrows" in overrides:
+            config["mint_from_arrows"] = _coerce_bool(
+                overrides["mint_from_arrows"],
+                config["mint_from_arrows"],
+            )
+        if "literal_definitions" in overrides:
+            config["literal_definitions"] = _normalise_literal_definitions(
+                overrides["literal_definitions"],
             )
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
@@ -214,6 +255,9 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]
+    )
+    config["literal_definitions"] = _normalise_literal_definitions(
+        config["literal_definitions"]
     )
 
     global _LAST_PARSER_CONFIG

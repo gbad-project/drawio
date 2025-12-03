@@ -36,6 +36,7 @@ class DrawIOCellClassifier:
         strict_mode: bool = False,
         max_gap: float | None = None,
         strip_html: bool = True,
+        literal_definitions: list[dict[str, str]] | None = None,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -63,6 +64,9 @@ class DrawIOCellClassifier:
         self._max_gap = coerced_gap
 
         self._strip_html = bool(strip_html)
+        self._literal_definitions = literal_definitions or [
+            {"key": "style", "value": "rounded=1"}
+        ]
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_value_cache: dict[str, list[str]] = {}
@@ -714,17 +718,25 @@ class DrawIOCellClassifier:
         # return "text;" in style or "shape=text" in style
         return False
 
-    @staticmethod
-    def _style_denotes_literal(cell: Element, style: str) -> bool:
-        if not style:
-            return False
-        if "rounded=1" in style:
-            return True
-        # Not restricting any other toggles
-        # if "ellipse" in style:
-        #     return True
-        # if "shape=" in style:
-        #     return True
+    def _style_denotes_literal(self, cell: Element, style: str) -> bool:
+        """Check if cell matches any literal definition."""
+        # Check each literal definition
+        for definition in self._literal_definitions:
+            attr_name = definition.get("key", "")
+            pattern = definition.get("value", "")
+            if not attr_name or not pattern:
+                continue
+
+            # Get the attribute value from the cell
+            attr_value = cell.attrib.get(attr_name, "")
+            if not attr_value:
+                continue
+
+            # Check if the pattern exists in the attribute value
+            if pattern in attr_value:
+                return True
+
+        return False
 
     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
         """Currently always returns False. Yet standalone literals
