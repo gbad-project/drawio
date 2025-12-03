@@ -15,21 +15,21 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-from enum import Enum, auto
 import json
 from html import unescape
+from enum import Enum, auto
 import re
 from rdflib import BNode
 from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
 from rdflib.collection import Collection
+from rdflib.namespace import NamespaceManager
 import typing
 import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
-from rdflib.namespace import NamespaceManager
 
 
 class pipeline:
@@ -826,8 +826,8 @@ class pipeline:
                     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
                         """Check if cell matches any literal definition."""
                         for definition in self._literal_definitions:
-                            attr_name = definition.get("attrKey", "")
-                            pattern = definition.get("attrVal", "")
+                            attr_name = definition.get("key", "")
+                            pattern = definition.get("value", "")
                             if not attr_name or not pattern:
                                 continue
                             attr_value = cell.attrib.get(attr_name, "")

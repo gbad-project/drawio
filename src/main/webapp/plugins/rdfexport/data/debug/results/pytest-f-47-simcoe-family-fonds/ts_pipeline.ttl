@@ -3,19 +3,18 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:accruals a owl:DatatypeProperty .
+rico:accruals a owl:ObjectProperty .
 
-rico:conditionsOfAccess a owl:DatatypeProperty .
+rico:conditionsOfAccess a owl:ObjectProperty .
 
-rico:conditionsOfUse a owl:DatatypeProperty .
+rico:conditionsOfUse a owl:ObjectProperty .
 
-rico:creationDate a owl:DatatypeProperty .
+rico:creationDate a owl:ObjectProperty .
 
-rico:date a owl:DatatypeProperty .
+rico:date a owl:ObjectProperty .
 
-rico:generalDescription a owl:DatatypeProperty .
+rico:generalDescription a owl:ObjectProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -35,22 +34,34 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:DatatypeProperty .
+rico:history a owl:ObjectProperty .
 
-rico:instantiationExtent a owl:DatatypeProperty .
+rico:instantiationExtent a owl:ObjectProperty .
 
 rico:isOrWasDescribedBy a owl:ObjectProperty .
 
 rico:isOrWasPerformedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:DatatypeProperty .
+rico:lastModificationDate a owl:ObjectProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:DatatypeProperty .
+rico:scopeAndContent a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#%5Bca.%201750-1918%5D> a owl:NamedIndividual ;
+    rdfs:label "[ca. 1750-1918]" .
+
+:1665-%5Bca.%201918%5D%20%28predominant%201762-1848%29 a owl:NamedIndividual ;
+    rdfs:label "1665-[ca. 1918] (predominant 1762-1848)" .
+
+:2.67%20Metres%20Of%20Textual%20Records%2063%20Volumes%20Of%20Textual%20Records%20353%20Watercolours%2063%20Drawings%208%20Prints%204%20Photographs%201%20Sketchbook%20%2863%20Watercolours%20And%20Drawings%29%2098%20Maps%203%20Celestial%20Charts%204%20Technical%20Drawings%202%20Architectural%20Drawings%201%20Sabre%20With%20Scabbard%201%20Dress%20Sword%20With%20Scabbard%201%20Walking%20Cane%201%20Wedding%20Ring a owl:NamedIndividual ;
+    rdfs:label "2.67 metres of textual records  63 volumes of textual records  353 watercolours  63 drawings  8 prints  4 photographs  1 sketchbook (63 watercolours and drawings)  98 maps  3 celestial charts  4 technical drawings  2 architectural drawings  1 sabre with scabbard  1 dress sword with scabbard  1 walking cane  1 wedding ring" .
+
+:2002-12-08 a owl:NamedIndividual ;
+    rdfs:label "2002-12-08" .
 
 :Architectural%20And%20Technical%20Drawings a owl:NamedIndividual,
         rico:ContentType ;
@@ -69,6 +80,15 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:ContentType ;
     rdfs:label "Artifacts" .
 
+<ontology://generated-from-draw-io/mock#Associated%20Material%3A%20Library%20And%20Archives%20Canada%20Holds%20A%20Large%20Series%20Of%20Transcriptions%20From%20The%20Simcoe%20Family%20Records.%20See%20The%20Correspondence%20Of%20Eliza%20Simcoe%20And%20The%20Coles%20Family%20For%20Details%20On%20These%20Copying%20Projects.%20The%20Originals%20From%20Which%20These%20Transcriptions%20Were%20Made%20Are%20Largely%20Contained%20In%20This%20Fonds.> a owl:NamedIndividual ;
+    rdfs:label "Associated Material: Library and Archives Canada holds a large series of transcriptions from the Simcoe family records. See the correspondence of Eliza Simcoe and the Coles family for details on these copying projects. The originals from which these transcriptions were made are largely contained in this fonds." .
+
+<ontology://generated-from-draw-io/mock#Associated%20Material%3A%20The%20Clements%20Library%20Of%20The%20University%20Of%20Michigan%20In%20Ann%20Arbor%2C%20Michigan%2C%20Holds%20A%20Collection%20Of%20Correspondence%20From%20John%20Graves%20And%20Elizabeth%20Simcoe%20Dating%20From%20The%201770s%20Through%201810.%20The%20Archives%20Of%20Ontario%20Possesses%20A%20Microfilm%20Copy%20Of%20This%20Collection.> a owl:NamedIndividual ;
+    rdfs:label "Associated Material: The Clements Library of the University of Michigan in Ann Arbor, Michigan, holds a collection of correspondence from John Graves and Elizabeth Simcoe dating from the 1770s through 1810. The Archives of Ontario possesses a microfilm copy of this collection." .
+
+<ontology://generated-from-draw-io/mock#Availability%20Of%20Other%20Formats%3A%20Refer%20To%20Series%20And%20Sub-series%20Descriptions%20For%20Information%20On%20The%20Availability%20Of%20Other%20Formats.> a owl:NamedIndividual ;
+    rdfs:label "Availability of Other Formats: Refer to series and sub-series descriptions for information on the availability of other formats." .
+
 :Cartographic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Cartographic materials" .
@@ -77,18 +97,45 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
 
+<ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Simcoe%20Family%20Papers%20Were%20Held%20By%20Descendants%20Of%20John%20Graves%20And%20Elizabeth%20Simcoe%20Until%20The%20Mid%20To%20Late-20th%20Century.%20Eliza%20Simcoe%2C%20The%20Eldest%20Daughter%20Of%20John%20Graves%20And%20Elizabeth%20Simcoe%2C%20Retained%20Possession%20Of%20The%20Records%20Which%20Make%20Up%20This%20Fonds%20Until%20Her%20Death%20In%201865.%20Between%201859%20And%201861%2C%20A%20Portion%20Of%20The%20Records%20Were%20Loaned%20To%20The%20Canadian%20Library%20Of%20Parliament%20For%20Arrangement%20And%20Partial%20Copying.%20On%20The%20Death%20Of%20Eliza%20Simcoe%2C%20The%20Records%20Passed%20To%20The%20Children%20Of%20The%20Reverend%20Henry%20Addington%20Simcoe%2C%20Eliza%27s%20Only%20Surviving%20Brother.%20Some%20Time%20After%20This%2C%20Part%20Of%20The%20Records%20Came%20Into%20The%20Possession%20Of%20The%20Vowler%20Family%20And%20The%20Coles%20Family%2C%20Each%20Related%20To%20The%20Simcoes%20Through%20Marriage%20To%20A%20Daughter%20Or%20Granddaughter%20Of%20Henry%20Addington%20Simcoe.%20In%20The%20Late%201940s%20Dr.%20S.%20McLaughlan%20Purchased%20The%20Records%20Then%20Held%20By%20The%20Coles%20Family%20And%20Donated%20The%20Whole%20To%20The%20University%20Of%20Toronto%20Library.%20In%201951%20The%20University%20And%20The%20Ontario%20Department%20Of%20Archives%20And%20Records%20Opened%20Negotiations%20To%20Transfer%20The%20Custody%2C%20But%20Not%20Ownership%2C%20Of%20The%20Simcoe%20Records%20To%20The%20Province.%20In%201952%2C%20An%20Agreement%20Was%20Signed%2C%20And%20The%20Simcoe%20Papers%20Were%20Transferred%20To%20The%20Archives%20Of%20Ontario%20In%20Order%20That%20They%20Might%20Be%20Preserved%20In%20More%20Appropriate%20Circumstances%20And%20To%20Ease%20Public%20Access%20To%20The%20Records.%20The%20Records%20Which%20Came%20To%20The%20Archives%20Under%20The%20Terms%20Of%20This%20Long-term%20Loan%20Agreement%20Represent%20The%20Bulk%20Of%20The%20Fonds.%20A%20Subsequent%20Purchase%20By%20The%20Archives%20Of%20Records%20And%20Artifacts%20From%20Other%20Simcoe%20Descendants%20In%201993%2C%20And%20A%20Number%20Of%20Small%20Donations%20From%20A%20Variety%20Of%20Sources%20Have%20Since%20Added%20To%20The%20Fonds.> a owl:NamedIndividual ;
+    rdfs:label "Custodial History: The Simcoe Family papers were held by descendants of John Graves and Elizabeth Simcoe until the mid to late-20th century. Eliza Simcoe, the eldest daughter of John Graves and Elizabeth Simcoe, retained possession of the records which make up this fonds until her death in 1865. Between 1859 and 1861, a portion of the records were loaned to the Canadian Library of Parliament for arrangement and partial copying. On the death of Eliza Simcoe, the records passed to the children of the Reverend Henry Addington Simcoe, Eliza's only surviving brother. Some time after this, part of the records came into the possession of the Vowler family and the Coles family, each related to the Simcoes through marriage to a daughter or granddaughter of Henry Addington Simcoe.  In the late 1940s Dr. S. McLaughlan purchased the records then held by the Coles family and donated the whole to the University of Toronto Library. In 1951 the University and the Ontario Department of Archives and Records opened negotiations to transfer the custody, but not ownership, of the Simcoe records to the province.  In 1952, an agreement was signed, and the Simcoe Papers were transferred to the Archives of Ontario in order that they might be preserved in more appropriate circumstances and to ease public access to the records. The records which came to the Archives under the terms of this long-term loan agreement represent the bulk of the fonds. A subsequent purchase by the Archives of records and artifacts from other Simcoe descendants in 1993, and a number of small donations from a variety of sources have since added to the fonds." .
+
 :F%2047 a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "F 47" ;
     rico:hasIdentifierType :Current%20Reference%20Code .
 
+<ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20Please%20See%20Series%20And%20Sub-series%20Descriptions%20For%20Listings.> a owl:NamedIndividual ;
+    rdfs:label "Finding Aid Note: Please see series and sub-series descriptions for listings." .
+
 :Fonds a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Fonds" .
 
+<ontology://generated-from-draw-io/mock#Fonds%20Documents%20The%20Official%20And%20Private%20Lives%20Of%20Several%20Members%20Of%20The%20Simcoe%20Family%20In%20England%20And%20Upper%20Canada%2C%20Predominantly%20In%20The%20Late%2018th%20And%20Early%2019th%20Centuries.%20The%20Fonds%20Also%20Contains%20Records%20From%20John%20Graves%20Simcoe%27s%20Lieutenant-Governorship%20Of%20Upper%20Canada%201792-1796.%20The%20Records%20Document%20The%20Administrative%20And%20Military%20Careers%20Of%20Four%20Generations%20Of%20Men%20Of%20The%20Simcoe%20Family%2C%20As%20Well%20As%20The%20Family%27s%20Private%20Life%2C%20Including%20Management%20Of%20The%20Family%20Estate%20In%20Devonshire%2C%20Financial%20Matters%2C%20And%20Genealogical%20Research%20Conducted%20By%20Later%20Generations%20Of%20The%20Family.%20Family%20Members%20Represented%20In%20The%20Fonds%20Include%20Captain%20John%20Simcoe%2C%20John%20Graves%20Simcoe%2C%20Elizabeth%20Posthuma%20Simcoe%2C%20Francis%20Simcoe%2C%20Eliza%20Simcoe%2C%20And%20John%20K.%20Simcoe.%20Records%20Include%20Personal%20And%20Official%20Correspondence%2C%20Letter%20Books%2C%20Reports%2C%20Returns%2C%20And%20Commissions.%20The%20Fonds%20Contains%20A%20Considerable%20Quantity%20Of%20Graphic%20Materials%2C%20Including%20Watercolour%20Paintings%2C%20Drawings%20And%20Prints;%20Maps%20And%20Celestial%20Charts;%20Architectural%20And%20Technical%20Drawings;%20And%20Artifacts%20Attributed%20By%20Simcoe%20Descendents%20To%20John%20Graves%20And%20Elizabeth%20Simcoe.> a owl:NamedIndividual ;
+    rdfs:label "Fonds documents the official and private lives of several members of the Simcoe family in England and Upper Canada, predominantly in the late 18th and early 19th centuries. The fonds also contains records from John Graves Simcoe's Lieutenant-Governorship of Upper Canada 1792-1796. The records document the administrative and military careers of four generations of men of the Simcoe family, as well as the family's private life, including management of the family estate in Devonshire, financial matters, and genealogical research conducted by later generations of the family.  Family members represented in the fonds include Captain John Simcoe, John Graves Simcoe, Elizabeth Posthuma Simcoe, Francis Simcoe, Eliza Simcoe, and John K. Simcoe.  Records include personal and official correspondence, letter books, reports, returns, and commissions. The fonds contains a considerable quantity of graphic materials, including watercolour paintings, drawings and prints; maps and celestial charts; architectural and technical drawings; and artifacts attributed by Simcoe descendents to John Graves and Elizabeth Simcoe." .
+
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Graphic materials" .
+
+<ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20Series%20Or%20Sub-series%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20For%20Microfilmed%20Items%2C%20Consult%20The%20Appropriate%20Reel%20Of%20Self-service%20Microfilm.%20To%20Access%20Any%20Other%20Material%2C%20Contact%20A%20Reference%20Archivist.> a owl:NamedIndividual ;
+    rdfs:label "How to Order: Consult the online series or sub-series list to identify the records that you require. For microfilmed items, consult the appropriate reel of self-service microfilm. To access any other material, contact a Reference Archivist." .
+
+<ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> a owl:NamedIndividual ;
+    rdfs:label "No further accruals are expected." .
+
+<ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> a owl:NamedIndividual ;
+    rdfs:label "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
+
+<ontology://generated-from-draw-io/mock#Refer%20To%20Series%20And%20Sub-series%20Descriptions%20For%20Information%20On%20Access%20Restrictions.> a owl:NamedIndividual ;
+    rdfs:label "Refer to series and sub-series descriptions for information on access restrictions." .
+
+<ontology://generated-from-draw-io/mock#Related%20Material%3A%20Fonds%20F%201174%20%28John%20Ross%20Robertson%20Fonds%29%20Contains%2057%20Items%20Of%20Incoming%20And%20Outgoing%20Correspondence%20By%20John%20Graves%20Simcoe%20And%20Elizabeth%20Simcoe.%20Robertson%20Was%20A%20Biographer%20Of%20The%20Simcoes.> a owl:NamedIndividual ;
+    rdfs:label "Related Material: Fonds F 1174 (John Ross Robertson fonds) contains 57 items of incoming and outgoing correspondence by John Graves Simcoe and Elizabeth Simcoe. Robertson was a biographer of the Simcoes." .
+
+<ontology://generated-from-draw-io/mock#Related%20Material%3A%20MS%2083%20Consists%20Of%20A%20Letterbook%20Dated%20January%201792%20Through%20July%201793.%20Evidence%20Points%20To%20This%20Item%20Being%20The%20Missing%20Volume%20From%20F%2047-2-5%2C%20Brigade%20Majors%20Department.> a owl:NamedIndividual ;
+    rdfs:label "Related Material: MS 83 consists of a Letterbook dated January 1792 through July 1793.  Evidence points to this item being the missing volume from F 47-2-5, Brigade Majors Department." .
 
 :Simcoe%20%28family%29 a owl:NamedIndividual,
         rico:Family ;
@@ -98,17 +145,17 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Simcoe family fonds" ;
-    rico:accruals "No further accruals are expected." ;
-    rico:conditionsOfAccess "Refer to series and sub-series descriptions for information on access restrictions." ;
-    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
-    rico:creationDate "1665-[ca. 1918] (predominant 1762-1848)" ;
-    rico:date "[ca. 1750-1918]" ;
-    rico:generalDescription "Associated Material: Library and Archives Canada holds a large series of transcriptions from the Simcoe family records. See the correspondence of Eliza Simcoe and the Coles family for details on these copying projects. The originals from which these transcriptions were made are largely contained in this fonds.",
-        "Associated Material: The Clements Library of the University of Michigan in Ann Arbor, Michigan, holds a collection of correspondence from John Graves and Elizabeth Simcoe dating from the 1770s through 1810. The Archives of Ontario possesses a microfilm copy of this collection.",
-        "Availability of Other Formats: Refer to series and sub-series descriptions for information on the availability of other formats.",
-        "Finding Aid Note: Please see series and sub-series descriptions for listings.",
-        "Related Material: Fonds F 1174 (John Ross Robertson fonds) contains 57 items of incoming and outgoing correspondence by John Graves Simcoe and Elizabeth Simcoe. Robertson was a biographer of the Simcoes.",
-        "Related Material: MS 83 consists of a Letterbook dated January 1792 through July 1793.  Evidence points to this item being the missing volume from F 47-2-5, Brigade Majors Department." ;
+    rico:accruals <ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> ;
+    rico:conditionsOfAccess <ontology://generated-from-draw-io/mock#Refer%20To%20Series%20And%20Sub-series%20Descriptions%20For%20Information%20On%20Access%20Restrictions.> ;
+    rico:conditionsOfUse <ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> ;
+    rico:creationDate :1665-%5Bca.%201918%5D%20%28predominant%201762-1848%29 ;
+    rico:date <ontology://generated-from-draw-io/mock#%5Bca.%201750-1918%5D> ;
+    rico:generalDescription <ontology://generated-from-draw-io/mock#Associated%20Material%3A%20Library%20And%20Archives%20Canada%20Holds%20A%20Large%20Series%20Of%20Transcriptions%20From%20The%20Simcoe%20Family%20Records.%20See%20The%20Correspondence%20Of%20Eliza%20Simcoe%20And%20The%20Coles%20Family%20For%20Details%20On%20These%20Copying%20Projects.%20The%20Originals%20From%20Which%20These%20Transcriptions%20Were%20Made%20Are%20Largely%20Contained%20In%20This%20Fonds.>,
+        <ontology://generated-from-draw-io/mock#Associated%20Material%3A%20The%20Clements%20Library%20Of%20The%20University%20Of%20Michigan%20In%20Ann%20Arbor%2C%20Michigan%2C%20Holds%20A%20Collection%20Of%20Correspondence%20From%20John%20Graves%20And%20Elizabeth%20Simcoe%20Dating%20From%20The%201770s%20Through%201810.%20The%20Archives%20Of%20Ontario%20Possesses%20A%20Microfilm%20Copy%20Of%20This%20Collection.>,
+        <ontology://generated-from-draw-io/mock#Availability%20Of%20Other%20Formats%3A%20Refer%20To%20Series%20And%20Sub-series%20Descriptions%20For%20Information%20On%20The%20Availability%20Of%20Other%20Formats.>,
+        <ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20Please%20See%20Series%20And%20Sub-series%20Descriptions%20For%20Listings.>,
+        <ontology://generated-from-draw-io/mock#Related%20Material%3A%20Fonds%20F%201174%20%28John%20Ross%20Robertson%20Fonds%29%20Contains%2057%20Items%20Of%20Incoming%20And%20Outgoing%20Correspondence%20By%20John%20Graves%20Simcoe%20And%20Elizabeth%20Simcoe.%20Robertson%20Was%20A%20Biographer%20Of%20The%20Simcoes.>,
+        <ontology://generated-from-draw-io/mock#Related%20Material%3A%20MS%2083%20Consists%20Of%20A%20Letterbook%20Dated%20January%201792%20Through%20July%201793.%20Evidence%20Points%20To%20This%20Item%20Being%20The%20Missing%20Volume%20From%20F%2047-2-5%2C%20Brigade%20Majors%20Department.> ;
     rico:hasContentOfType :Architectural%20And%20Technical%20Drawings,
         :Artifacts,
         :Cartographic%20Materials,
@@ -123,9 +170,9 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rico:hasOrHadInstantiation :Simcoe%20Family%20Fonds-i1 ;
     rico:hasOrHadTitle :Simcoe%20Family%20Fonds ;
     rico:hasRecordSetType :Fonds ;
-    rico:history "Custodial History: The Simcoe Family papers were held by descendants of John Graves and Elizabeth Simcoe until the mid to late-20th century. Eliza Simcoe, the eldest daughter of John Graves and Elizabeth Simcoe, retained possession of the records which make up this fonds until her death in 1865. Between 1859 and 1861, a portion of the records were loaned to the Canadian Library of Parliament for arrangement and partial copying. On the death of Eliza Simcoe, the records passed to the children of the Reverend Henry Addington Simcoe, Eliza's only surviving brother. Some time after this, part of the records came into the possession of the Vowler family and the Coles family, each related to the Simcoes through marriage to a daughter or granddaughter of Henry Addington Simcoe.  In the late 1940s Dr. S. McLaughlan purchased the records then held by the Coles family and donated the whole to the University of Toronto Library. In 1951 the University and the Ontario Department of Archives and Records opened negotiations to transfer the custody, but not ownership, of the Simcoe records to the province.  In 1952, an agreement was signed, and the Simcoe Papers were transferred to the Archives of Ontario in order that they might be preserved in more appropriate circumstances and to ease public access to the records. The records which came to the Archives under the terms of this long-term loan agreement represent the bulk of the fonds. A subsequent purchase by the Archives of records and artifacts from other Simcoe descendants in 1993, and a number of small donations from a variety of sources have since added to the fonds." ;
+    rico:history <ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Simcoe%20Family%20Papers%20Were%20Held%20By%20Descendants%20Of%20John%20Graves%20And%20Elizabeth%20Simcoe%20Until%20The%20Mid%20To%20Late-20th%20Century.%20Eliza%20Simcoe%2C%20The%20Eldest%20Daughter%20Of%20John%20Graves%20And%20Elizabeth%20Simcoe%2C%20Retained%20Possession%20Of%20The%20Records%20Which%20Make%20Up%20This%20Fonds%20Until%20Her%20Death%20In%201865.%20Between%201859%20And%201861%2C%20A%20Portion%20Of%20The%20Records%20Were%20Loaned%20To%20The%20Canadian%20Library%20Of%20Parliament%20For%20Arrangement%20And%20Partial%20Copying.%20On%20The%20Death%20Of%20Eliza%20Simcoe%2C%20The%20Records%20Passed%20To%20The%20Children%20Of%20The%20Reverend%20Henry%20Addington%20Simcoe%2C%20Eliza%27s%20Only%20Surviving%20Brother.%20Some%20Time%20After%20This%2C%20Part%20Of%20The%20Records%20Came%20Into%20The%20Possession%20Of%20The%20Vowler%20Family%20And%20The%20Coles%20Family%2C%20Each%20Related%20To%20The%20Simcoes%20Through%20Marriage%20To%20A%20Daughter%20Or%20Granddaughter%20Of%20Henry%20Addington%20Simcoe.%20In%20The%20Late%201940s%20Dr.%20S.%20McLaughlan%20Purchased%20The%20Records%20Then%20Held%20By%20The%20Coles%20Family%20And%20Donated%20The%20Whole%20To%20The%20University%20Of%20Toronto%20Library.%20In%201951%20The%20University%20And%20The%20Ontario%20Department%20Of%20Archives%20And%20Records%20Opened%20Negotiations%20To%20Transfer%20The%20Custody%2C%20But%20Not%20Ownership%2C%20Of%20The%20Simcoe%20Records%20To%20The%20Province.%20In%201952%2C%20An%20Agreement%20Was%20Signed%2C%20And%20The%20Simcoe%20Papers%20Were%20Transferred%20To%20The%20Archives%20Of%20Ontario%20In%20Order%20That%20They%20Might%20Be%20Preserved%20In%20More%20Appropriate%20Circumstances%20And%20To%20Ease%20Public%20Access%20To%20The%20Records.%20The%20Records%20Which%20Came%20To%20The%20Archives%20Under%20The%20Terms%20Of%20This%20Long-term%20Loan%20Agreement%20Represent%20The%20Bulk%20Of%20The%20Fonds.%20A%20Subsequent%20Purchase%20By%20The%20Archives%20Of%20Records%20And%20Artifacts%20From%20Other%20Simcoe%20Descendants%20In%201993%2C%20And%20A%20Number%20Of%20Small%20Donations%20From%20A%20Variety%20Of%20Sources%20Have%20Since%20Added%20To%20The%20Fonds.> ;
     rico:isOrWasDescribedBy :Simcoe%20Family%20Fonds%20Archival%20Description ;
-    rico:scopeAndContent "Fonds documents the official and private lives of several members of the Simcoe family in England and Upper Canada, predominantly in the late 18th and early 19th centuries. The fonds also contains records from John Graves Simcoe's Lieutenant-Governorship of Upper Canada 1792-1796. The records document the administrative and military careers of four generations of men of the Simcoe family, as well as the family's private life, including management of the family estate in Devonshire, financial matters, and genealogical research conducted by later generations of the family.  Family members represented in the fonds include Captain John Simcoe, John Graves Simcoe, Elizabeth Posthuma Simcoe, Francis Simcoe, Eliza Simcoe, and John K. Simcoe.  Records include personal and official correspondence, letter books, reports, returns, and commissions. The fonds contains a considerable quantity of graphic materials, including watercolour paintings, drawings and prints; maps and celestial charts; architectural and technical drawings; and artifacts attributed by Simcoe descendents to John Graves and Elizabeth Simcoe." .
+    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Fonds%20Documents%20The%20Official%20And%20Private%20Lives%20Of%20Several%20Members%20Of%20The%20Simcoe%20Family%20In%20England%20And%20Upper%20Canada%2C%20Predominantly%20In%20The%20Late%2018th%20And%20Early%2019th%20Centuries.%20The%20Fonds%20Also%20Contains%20Records%20From%20John%20Graves%20Simcoe%27s%20Lieutenant-Governorship%20Of%20Upper%20Canada%201792-1796.%20The%20Records%20Document%20The%20Administrative%20And%20Military%20Careers%20Of%20Four%20Generations%20Of%20Men%20Of%20The%20Simcoe%20Family%2C%20As%20Well%20As%20The%20Family%27s%20Private%20Life%2C%20Including%20Management%20Of%20The%20Family%20Estate%20In%20Devonshire%2C%20Financial%20Matters%2C%20And%20Genealogical%20Research%20Conducted%20By%20Later%20Generations%20Of%20The%20Family.%20Family%20Members%20Represented%20In%20The%20Fonds%20Include%20Captain%20John%20Simcoe%2C%20John%20Graves%20Simcoe%2C%20Elizabeth%20Posthuma%20Simcoe%2C%20Francis%20Simcoe%2C%20Eliza%20Simcoe%2C%20And%20John%20K.%20Simcoe.%20Records%20Include%20Personal%20And%20Official%20Correspondence%2C%20Letter%20Books%2C%20Reports%2C%20Returns%2C%20And%20Commissions.%20The%20Fonds%20Contains%20A%20Considerable%20Quantity%20Of%20Graphic%20Materials%2C%20Including%20Watercolour%20Paintings%2C%20Drawings%20And%20Prints;%20Maps%20And%20Celestial%20Charts;%20Architectural%20And%20Technical%20Drawings;%20And%20Artifacts%20Attributed%20By%20Simcoe%20Descendents%20To%20John%20Graves%20And%20Elizabeth%20Simcoe.> .
 
 :Simcoe%20Family%20Fonds%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
@@ -133,14 +180,14 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rico:hasDocumentaryFormType :Archival%20Description ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate "2002-12-08"^^xsd:date ;
+    rico:lastModificationDate :2002-12-08 ;
     rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
 :Simcoe%20Family%20Fonds-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Simcoe family fonds-i1" ;
-    rico:generalDescription "How to Order: Consult the online series or sub-series list to identify the records that you require. For microfilmed items, consult the appropriate reel of self-service microfilm. To access any other material, contact a Reference Archivist." ;
-    rico:instantiationExtent "2.67 metres of textual records  63 volumes of textual records  353 watercolours  63 drawings  8 prints  4 photographs  1 sketchbook (63 watercolours and drawings)  98 maps  3 celestial charts  4 technical drawings  2 architectural drawings  1 sabre with scabbard  1 dress sword with scabbard  1 walking cane  1 wedding ring" .
+    rico:generalDescription <ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20Series%20Or%20Sub-series%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20For%20Microfilmed%20Items%2C%20Consult%20The%20Appropriate%20Reel%20Of%20Self-service%20Microfilm.%20To%20Access%20Any%20Other%20Material%2C%20Contact%20A%20Reference%20Archivist.> ;
+    rico:instantiationExtent :2.67%20Metres%20Of%20Textual%20Records%2063%20Volumes%20Of%20Textual%20Records%20353%20Watercolours%2063%20Drawings%208%20Prints%204%20Photographs%201%20Sketchbook%20%2863%20Watercolours%20And%20Drawings%29%2098%20Maps%203%20Celestial%20Charts%204%20Technical%20Drawings%202%20Architectural%20Drawings%201%20Sabre%20With%20Scabbard%201%20Dress%20Sword%20With%20Scabbard%201%20Walking%20Cane%201%20Wedding%20Ring .
 
 :Simcoe%2C%20Eliza%2C%20Ca.%201784-1865 a owl:NamedIndividual,
         rico:Person ;
