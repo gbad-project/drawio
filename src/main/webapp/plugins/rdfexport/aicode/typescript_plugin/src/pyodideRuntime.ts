@@ -26,7 +26,11 @@ export interface DrawioParserConfigPayload {
   max_gap: number;
   strict_mode: boolean;
   strip_html: boolean;
+  mint_from_literals: boolean;
+  mint_from_types: boolean;
+  mint_from_arrows: boolean;
   metacharacter_substitute: string[];
+  literal_definitions: { attrKey: string; attrVal: string }[];
   capitalisation_scheme: string;
   rml_enabled: boolean;
 }
@@ -274,7 +278,7 @@ function writeBinaryFile(
     mkdirTree: (dir: string) => void;
     analyzePath: (target: string) => { exists: boolean };
     readFile: (target: string) => Uint8Array;
-    writeFile: (target: string, content: ArrayBuffer) => void;
+    writeFile: (target: string, content: Uint8Array | ArrayBuffer) => void;
   };
 
   const directory = path.split("/").slice(0, -1).join("/") || "/";

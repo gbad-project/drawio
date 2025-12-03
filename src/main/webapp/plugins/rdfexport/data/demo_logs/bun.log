@@ -1,13 +1,21 @@
-Script started on Wed Dec  3 14:39:44 2025
+Script started on Wed Dec  3 15:59:19 2025
 Command: bun run test:bun:all
 [0m[2m[35m$[0m [2m[1mbun run aicode/integration_tests/scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
 
-aicode/typescript_plugin/tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
+aicode/typescript_plugin/tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m [90m[100%][0m
 
 
-[32m36 passed[0m, [33m19 skipped[0m
-Ran 55 tests across 1 file. [4.31s]
+[31m[1mFAILURES[0m
+================================================================================
+[31mFAILED[0m parser settings dialog updates stored configuration and pipeline
+--------------------------------------------------------------------------------
+[31mFAILED[0m parser settings dialog stores and passes new minting knobs to pipeline
+================================================================================
 
-Command exit status: 0
-Script done on Wed Dec  3 14:39:48 2025
+[32m34 passed[0m, [31m2 failed[0m, [33m20 skipped[0m
+Ran 56 tests across 1 file. [4.07s]
+[0m[31merror[0m[2m:[0m script [1m"test:bun:all"[0m exited with code 1[0m
+
+Command exit status: 1
+Script done on Wed Dec  3 15:59:24 2025

@@ -262,9 +262,14 @@ const METACHARACTER_STRATEGY_OPTIONS: Array<{
   },
 ];
 
-interface ParserSettingsEntry {
+interface MetacharParserSettingsEntry {
   character: string;
   replacement: string;
+}
+
+interface LiteralParserSettingsEntry {
+  attrKey: string;
+  attrVal: string;
 }
 
 interface ParserSettings {
@@ -283,8 +288,8 @@ interface ParserSettings {
   prefixIri: string | null;
   capitalisationScheme: CapitalisationScheme;
   metacharacterStrategy: MetacharacterStrategy;
-  metacharacterEntries: ParserSettingsEntry[];
-  literalDefinitions: ParserSettingsEntry[];
+  metacharacterEntries: MetacharParserSettingsEntry[];
+  literalDefinitions: LiteralParserSettingsEntry[];
 }
 
 interface StoredParserSettings {
@@ -310,7 +315,7 @@ function createDefaultParserSettings(): ParserSettings {
     capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
     metacharacterEntries: [],
-    literalDefinitions: [{ character: "style", replacement: "rounded=1" }],
+    literalDefinitions: [{ attrKey: "style", attrVal: "rounded=1" }],
   };
 }
 
@@ -392,12 +397,12 @@ function normalizeMetacharacterStrategy(
 
 function normalizeMetacharacterEntries(
   entries: unknown,
-): ParserSettingsEntry[] {
+): MetacharParserSettingsEntry[] {
   if (!Array.isArray(entries)) {
     return [];
   }
 
-  const normalized: ParserSettingsEntry[] = [];
+  const normalized: MetacharParserSettingsEntry[] = [];
 
   for (const entry of entries) {
     if (!entry || typeof entry !== "object") {
@@ -405,8 +410,8 @@ function normalizeMetacharacterEntries(
     }
 
     const character =
-      typeof (entry as ParserSettingsEntry).character === "string"
-        ? (entry as ParserSettingsEntry).character
+      typeof (entry as MetacharParserSettingsEntry).character === "string"
+        ? (entry as MetacharParserSettingsEntry).character
         : "";
 
     if (character.length === 0) {
@@ -414,11 +419,45 @@ function normalizeMetacharacterEntries(
     }
 
     const replacement =
-      typeof (entry as ParserSettingsEntry).replacement === "string"
-        ? (entry as ParserSettingsEntry).replacement
+      typeof (entry as MetacharParserSettingsEntry).replacement === "string"
+        ? (entry as MetacharParserSettingsEntry).replacement
         : "";
 
     normalized.push({ character, replacement });
+  }
+
+  return normalized;
+}
+
+function normalizeLiteralEntries(
+  entries: unknown,
+): LiteralParserSettingsEntry[] {
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+
+  const normalized: LiteralParserSettingsEntry[] = [];
+
+  for (const entry of entries) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+
+    const attrKey =
+      typeof (entry as LiteralParserSettingsEntry).attrKey === "string"
+        ? (entry as LiteralParserSettingsEntry).attrKey
+        : "";
+
+    if (attrKey.length === 0) {
+      continue;
+    }
+
+    const attrVal =
+      typeof (entry as LiteralParserSettingsEntry).attrVal === "string"
+        ? (entry as LiteralParserSettingsEntry).attrVal
+        : "";
+
+    normalized.push({ attrKey, attrVal });
   }
 
   return normalized;
@@ -482,7 +521,7 @@ function normaliseParserSettings(
     metacharacterEntries: normalizeMetacharacterEntries(
       partial?.metacharacterEntries,
     ),
-    literalDefinitions: normalizeMetacharacterEntries(
+    literalDefinitions: normalizeLiteralEntries(
       partial?.literalDefinitions,
     ),
   };
@@ -543,10 +582,7 @@ function buildParserConfigPayloadFromSettings(
     substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
   }
 
-  const literalDefs = normalized.literalDefinitions.map((def) => ({
-    key: def.character,
-    value: def.replacement,
-  }));
+  const literalDefs = normalized.literalDefinitions;
 
   return {
     infer_type_of_literals: normalized.inferTypeOfLiterals,
@@ -2182,12 +2218,15 @@ function createParserSettingsDialog(
   literalDefList.style.display = "flex";
   literalDefList.style.flexDirection = "column";
   literalDefList.style.gap = "6px";
-  literalDefList.setAttribute(PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE, "true");
+  literalDefList.setAttribute(
+    PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE,
+    "true",
+  );
   literalDefSection.appendChild(literalDefList);
 
   const literalDefEntries: LiteralDefEntryState[] = [];
 
-  const addLiteralDefEntry = (key: string, value: string) => {
+  const addLiteralDefEntry = (attrKey: string, attrVal: string) => {
     const row = document.createElement("div");
     row.style.display = "flex";
     row.style.alignItems = "center";
@@ -2196,7 +2235,7 @@ function createParserSettingsDialog(
 
     const keyInput = document.createElement("input");
     keyInput.type = "text";
-    keyInput.value = key;
+    keyInput.value = attrKey;
     keyInput.placeholder = "Attribute key (e.g., style)";
     keyInput.style.flex = "1 1 auto";
     keyInput.style.height = "26px";
@@ -2208,7 +2247,7 @@ function createParserSettingsDialog(
 
     const valueInput = document.createElement("input");
     valueInput.type = "text";
-    valueInput.value = value;
+    valueInput.value = attrVal;
     valueInput.placeholder = "Attribute value (e.g., rounded=1)";
     valueInput.style.flex = "1 1 auto";
     valueInput.style.height = "26px";
@@ -2216,7 +2255,10 @@ function createParserSettingsDialog(
     valueInput.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
     valueInput.style.borderRadius = "2px";
     valueInput.style.fontSize = "12px";
-    valueInput.setAttribute(PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE, "true");
+    valueInput.setAttribute(
+      PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE,
+      "true",
+    );
 
     let state: LiteralDefEntryState;
 
@@ -2265,7 +2307,7 @@ function createParserSettingsDialog(
 
   if (settings.literalDefinitions.length > 0) {
     for (const def of settings.literalDefinitions) {
-      addLiteralDefEntry(def.character, def.replacement);
+      addLiteralDefEntry(def.attrKey, def.attrVal);
     }
   }
 
@@ -2352,8 +2394,8 @@ function createParserSettingsDialog(
         replacement: entry.replacement.value,
       })),
       literalDefinitions: literalDefEntries.map((entry) => ({
-        character: entry.keyInput.value,
-        replacement: entry.valueInput.value,
+        attrKey: entry.keyInput.value,
+        attrVal: entry.valueInput.value,
       })),
     };
 
@@ -2756,7 +2798,14 @@ Draw.loadPlugin(function (editorUi: any): void {
     const stripHtml = options?.stripHtml ?? true;
     applyStripHtmlMetadata(workingGraphXml, stripHtml);
 
-    return mxUtils.getPrettyXml(workingGraphXml);
+    function elementToDocument(el: Element): Document {
+      if (el.ownerDocument) return el.ownerDocument; // usually fine
+      const doc = document.implementation.createDocument(null, null, null);
+      doc.appendChild(doc.importNode(el, true));
+      return doc;
+    }
+
+    return mxUtils.getPrettyXml(elementToDocument(workingGraphXml));
   }
 
   mxResources.parse(

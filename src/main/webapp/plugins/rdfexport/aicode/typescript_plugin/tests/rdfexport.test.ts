@@ -106,7 +106,11 @@ const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
   max_gap: 10,
   strict_mode: false,
   strip_html: true,
+  mint_from_literals: true,
+  mint_from_types: false,
+  mint_from_arrows: true,
   metacharacter_substitute: ["url"],
+  literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
   capitalisation_scheme: "upper-camel",
   rml_enabled: false,
 };
@@ -1300,7 +1304,11 @@ test(
       max_gap: 10,
       strict_mode: false,
       strip_html: true,
+      mint_from_literals: true,
+      mint_from_types: false,
+      mint_from_arrows: true,
       metacharacter_substitute: ["url"],
+      literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
     };
@@ -1355,7 +1363,11 @@ test(
       max_gap: 10,
       strict_mode: false,
       strip_html: true,
+      mint_from_literals: true,
+      mint_from_types: false,
+      mint_from_arrows: true,
       metacharacter_substitute: ["url"],
+      literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
     };
@@ -1410,7 +1422,11 @@ test(
       max_gap: 10,
       strict_mode: false,
       strip_html: false,
+      mint_from_literals: true,
+      mint_from_types: false,
+      mint_from_arrows: true,
       metacharacter_substitute: ["url"],
+      literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
       capitalisation_scheme: "upper-camel",
       rml_enabled: true,
     };
@@ -2178,8 +2194,9 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(config.metacharacter_substitute).toEqual(["remove", "(=square"]);
 });
 
-
-test("parser settings dialog stores and passes new minting knobs to pipeline", async () => {
+test(
+  "parser settings dialog stores and passes new minting knobs to pipeline",
+  async () => {
   await loadPluginModule();
 
   const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
@@ -2300,11 +2317,17 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   expect(mintFromLiteralsCheckbox?.checked).toBe(true);
   expect(mintFromTypesCheckbox?.checked).toBe(false);
   expect(mintFromArrowsCheckbox?.checked).toBe(true);
-  logInfo(LOG_PREFIX.TEST, "Verified default minting knob states: literals=true, types=false, arrows=true");
+    logInfo(
+      LOG_PREFIX.TEST,
+      "Verified default minting knob states: literals=true, types=false, arrows=true",
+    );
 
   // Toggle mintFromTypes to true (keep the others at their defaults to avoid breaking the fixture)
   mintFromTypesCheckbox.checked = true;
-  logInfo(LOG_PREFIX.TEST, "Updated minting knobs: mintFromTypes set to true");
+    logInfo(
+      LOG_PREFIX.TEST,
+      "Updated minting knobs: mintFromTypes set to true",
+    );
 
   // Find the literal definitions add button
   const addLiteralDefButton = findChildByAttribute(
@@ -2388,10 +2411,13 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   expect(Array.isArray(stored.literalDefinitions)).toBe(true);
   expect(stored.literalDefinitions.length).toBeGreaterThan(0);
   expect(stored.literalDefinitions[0]).toEqual({
-    character: "style",
-    replacement: "ellipse",
+    attrKey: "style",
+    attrVal: "ellipse",
   });
-  logInfo(LOG_PREFIX.TEST, "Verified minting knobs stored in graph: literals=true, types=true, arrows=true, literalDefinitions=[{style:ellipse}]");
+    logInfo(
+      LOG_PREFIX.TEST,
+      "Verified minting knobs stored in graph: literals=true, types=true, arrows=true, literalDefinitions=[{style:ellipse}]",
+    );
 
   // Export and verify the config was passed to Python
   const exportAction = actions.exportRdfXml;
@@ -2408,13 +2434,16 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   expect(Array.isArray(config.literal_definitions)).toBe(true);
   expect(config.literal_definitions.length).toBeGreaterThan(0);
   expect(config.literal_definitions[0]).toEqual({
-    key: "style",
-    value: "ellipse",
+    attrKey: "style",
+    attrVal: "ellipse",
   });
-  logInfo(LOG_PREFIX.TEST, "Verified minting knobs passed to Python pipeline: mint_from_literals=true, mint_from_types=true, mint_from_arrows=true, literal_definitions=[{style:ellipse}]");
-}, { timeout: 60000 });
-
-
+    logInfo(
+      LOG_PREFIX.TEST,
+      "Verified minting knobs passed to Python pipeline: mint_from_literals=true, mint_from_types=true, mint_from_arrows=true, literal_definitions=[{style:ellipse}]",
+    );
+  },
+  { timeout: 60000 },
+);
 
 test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
   const baseFixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
