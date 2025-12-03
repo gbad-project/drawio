@@ -53797,9 +53797,9 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-28": {
-          "declares_identifier": true,
-          "identifier": "{SOURCE}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{SOURCE}",
           "tokens": []
@@ -54313,9 +54313,9 @@
           ]
         },
         "QoX8hO-0wcaPtYNZqJav-1": {
-          "declares_identifier": true,
-          "identifier": "{FUN}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{FUN}",
           "tokens": []
@@ -54433,9 +54433,9 @@
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-16": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Family)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Family)",
           "tokens": []
@@ -54457,9 +54457,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-19": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Person)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Person)",
           "tokens": []
@@ -54491,9 +54491,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-22": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Place)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Place)",
           "tokens": []
@@ -54515,9 +54515,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-25": {
-          "declares_identifier": true,
-          "identifier": "{SUC}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{SUC}\u00a0(Corporate Body)",
           "tokens": []
@@ -54539,9 +54539,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-28": {
-          "declares_identifier": true,
-          "identifier": "{PRED}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{PRED}\u00a0(Corporate Body)",
           "tokens": []
@@ -54563,9 +54563,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-31": {
-          "declares_identifier": true,
-          "identifier": "{CONTAG}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CONTAG}\u00a0(Corporate Body)",
           "tokens": []
@@ -54587,9 +54587,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-4": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Corporate Body)",
           "tokens": []
@@ -54659,9 +54659,9 @@
           "tokens": []
         },
         "_-RjwaxhbeTWfwVWe4ke-15": {
-          "declares_identifier": true,
-          "identifier": "{ADM}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{ADM}",
           "tokens": []
@@ -54693,9 +54693,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-1": {
-          "declares_identifier": true,
-          "identifier": "{CMTAU}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CMTAU}",
           "tokens": []
@@ -54733,9 +54733,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-6": {
-          "declares_identifier": true,
-          "identifier": "{MOD_DATE}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{MOD_DATE}",
           "tokens": []
@@ -54765,9 +54765,9 @@
           "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-12": {
-          "declares_identifier": true,
-          "identifier": "{NAME}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{NAME}",
           "tokens": []
@@ -55037,9 +55037,9 @@
           "tokens": []
         },
         "lstVy3rX84DfsURla7Zy-32": {
-          "declares_identifier": true,
-          "identifier": "{REFA}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFA}",
           "tokens": []
@@ -55061,9 +55061,9 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-11": {
-          "declares_identifier": true,
-          "identifier": "Rules for Archival Description",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": []
@@ -55095,17 +55095,17 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-5": {
-          "declares_identifier": true,
-          "identifier": "{RULES}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{RULES}",
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-6": {
-          "declares_identifier": true,
-          "identifier": "{CONTAG} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CONTAG} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>",
           "tokens": []
@@ -55135,23 +55135,30 @@
           "tokens": []
         }
       },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 86,
+          "EMPTY_CELL": 1,
+          "LITERAL": 17,
+          "STANDALONE_INDIVIDUAL": 29,
+          "TYPE_TOKEN": 29,
+          "UNCLASSIFIED": 2
+        },
+        "classified": 162,
+        "total_cells": 164,
+        "unclassified": 2
+      },
       "drawio": "data/fixtures/drawio_fixtures/General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
           "ArrowWithoutIndividualAsSourceException: The arrow with id gmwnegnUR_CNORKRYM6Y-16 and label rico:hasOrHadIdentifier has a source which appears not to be a node defining a RiC-O individual"
-        ],
-        "ts_pipeline": [
-          "TypeScript pipeline graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 382, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 373, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3016, in _build_graph_from_raw_xml\n    serialisation_config = SerialisationConfig(\n        infer_type_of_literals=infer_type_of_literals,\n    ...<8 lines>...\n        mint_from_arrows=mint_from_arrows,\n    )\nTypeError: internal_metadata_pre.SerialisationConfig.__init__() got an unexpected keyword argument 'mint_from_literals'\n\n       type: \"TypeError\",\n __error_address: 19075888,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 382, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 373, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3016, in _build_graph_from_raw_xml\n    serialisation_config = SerialisationConfig(\n        infer_type_of_literals=infer_type_of_literals,\n    ...<8 lines>...\n        mint_from_arrows=mint_from_arrows,\n    )\nTypeError: internal_metadata_pre.SerialisationConfig.__init__() got an unexpected keyword argument 'mint_from_literals'\n\n       type: \"TypeError\",\n __error_address: 19075888,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.3.2 (Linux x64)"
-        ],
-        "ts_plugin": [
-          "TypeScript plugin graph is None",
-          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 382, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 373, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3016, in _build_graph_from_raw_xml\n    serialisation_config = SerialisationConfig(\n        infer_type_of_literals=infer_type_of_literals,\n    ...<8 lines>...\n        mint_from_arrows=mint_from_arrows,\n    )\nTypeError: internal_metadata_pre.SerialisationConfig.__init__() got an unexpected keyword argument 'mint_from_literals'\n\n       type: \"TypeError\",\n __error_address: 19075888,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 382, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 373, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3016, in _build_graph_from_raw_xml\n    serialisation_config = SerialisationConfig(\n        infer_type_of_literals=infer_type_of_literals,\n    ...<8 lines>...\n        mint_from_arrows=mint_from_arrows,\n    )\nTypeError: internal_metadata_pre.SerialisationConfig.__init__() got an unexpected keyword argument 'mint_from_literals'\n\n       type: \"TypeError\",\n __error_address: 19075888,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.3.2 (Linux x64)"
         ]
       },
       "format": "turtle",
-      "isomorphism": {},
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
         "baseUri": "https://data.archives.gov.on.test.gbad.ca",
@@ -55180,7 +55187,18 @@
           "prefix": "mock1"
         }
       ],
-      "results": {}
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "104b0b937d11c0b3a6fed7c7d05fc560b3e5a498e32c76918201cf547b645f0a",
+          "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
+          "triples": 702
+        },
+        "ts_plugin": {
+          "nt_sha256": "238528227f78c5acc6f4708ca6b98fb1b0adc95ae3e307eabbfc595fc7ff5bd8",
+          "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
+          "triples": 702
+        }
+      }
     },
     "pytest-rg-1-659-northern-pike-lamprey-mark-rondeau-park-april-20-1955": {
       "cell_classifications": {
