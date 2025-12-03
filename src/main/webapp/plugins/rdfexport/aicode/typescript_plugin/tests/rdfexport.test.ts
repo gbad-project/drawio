@@ -2300,9 +2300,11 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   expect(mintFromLiteralsCheckbox?.checked).toBe(true);
   expect(mintFromTypesCheckbox?.checked).toBe(false);
   expect(mintFromArrowsCheckbox?.checked).toBe(true);
+  logInfo(LOG_PREFIX.TEST, "Verified default minting knob states: literals=true, types=false, arrows=true");
 
   // Toggle mintFromTypes to true (keep the others at their defaults to avoid breaking the fixture)
   mintFromTypesCheckbox.checked = true;
+  logInfo(LOG_PREFIX.TEST, "Updated minting knobs: mintFromTypes set to true");
 
   // Find the literal definitions add button
   const addLiteralDefButton = findChildByAttribute(
@@ -2353,6 +2355,7 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
 
   keyInput.value = "style";
   valueInput.value = "ellipse";
+  logInfo(LOG_PREFIX.TEST, "Added custom literal definition: style=ellipse");
 
   // Apply the settings
   const applyButton = findChildByAttribute(
@@ -2362,6 +2365,7 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   );
   expect(applyButton).toBeDefined();
   applyButton?.click();
+  logInfo(LOG_PREFIX.TEST, "Applied parser settings via dialog");
 
   expect(hideDialogCalls).toBe(1);
 
@@ -2387,6 +2391,7 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
     character: "style",
     replacement: "ellipse",
   });
+  logInfo(LOG_PREFIX.TEST, "Verified minting knobs stored in graph: literals=true, types=true, arrows=true, literalDefinitions=[{style:ellipse}]");
 
   // Export and verify the config was passed to Python
   const exportAction = actions.exportRdfXml;
@@ -2406,6 +2411,7 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
     key: "style",
     value: "ellipse",
   });
+  logInfo(LOG_PREFIX.TEST, "Verified minting knobs passed to Python pipeline: mint_from_literals=true, mint_from_types=true, mint_from_arrows=true, literal_definitions=[{style:ellipse}]");
 }, { timeout: 60000 });
 
 
