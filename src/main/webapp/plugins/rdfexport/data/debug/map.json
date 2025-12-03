@@ -52281,7 +52281,7 @@
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": false,
         "py_legacy_vs_ts_plugin": false,
-        "ts_pipeline_vs_ts_plugin": false
+        "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -52318,12 +52318,12 @@
           "triples": 120
         },
         "ts_pipeline": {
-          "nt_sha256": "f5820dcc63ac5087638fc5089888a5d547fca56f36d6f6f10ee05a20f1efd214",
+          "nt_sha256": "f42a10b4b6464a37022b1fe00abd71b02157686c0649fe411bf72862c87edc80",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
-          "triples": 1045
+          "triples": 697
         },
         "ts_plugin": {
-          "nt_sha256": "8ab6c543233eff78b54058b8751bbf9b8dd20b7931a4d5d0f960597b3b262fdb",
+          "nt_sha256": "4895b7872f835232a9bb5596c5c2d01afe7adc99bec1678ceb8db3ecdb9f7159",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
           "triples": 697
         }
@@ -55149,7 +55149,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": false
+        "ts_pipeline_vs_ts_plugin": true
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -55181,12 +55181,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "ad64eb67d761d5e897d0a4378389082f8480def0f1353cb45a2a32167ba727dd",
+          "nt_sha256": "422a4da882593f40941887e908dffd0b7f127ba78579ab20e0be5cf7e0a29d70",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
-          "triples": 905
+          "triples": 702
         },
         "ts_plugin": {
-          "nt_sha256": "bf4a3579f5c15eedb1062cfb2e20ce42a365be1c6facec65df96103ae4238d25",
+          "nt_sha256": "b45790de12a44c8f520eb470c2d149509d87297be4b7178b9af77d2eef8f7b4a",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
           "triples": 702
         }
