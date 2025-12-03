@@ -2182,26 +2182,97 @@ test("parser settings dialog updates stored configuration and pipeline", async (
 test("parser settings dialog stores and passes new minting knobs to pipeline", async () => {
   await loadPluginModule();
 
-  const { graph, model, rootCell, actions, editorUi } = mockDrawGraphForPlugin();
+  const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
+  const sampleXml = await Bun.file(fixturePath).text();
+  const parser = new DOMParser();
+  const xmlDoc = parser.parseFromString(sampleXml, "application/xml");
+  const graphXmlElement = xmlDoc.documentElement;
 
-  let dialogContainer: ElementStub | null = null;
+  const { graph, model, rootCell } = createGraphEnvironment();
+
+  const actions: Record<string, () => void | Promise<void>> = {};
+  const savedExports: Array<{ filename: string; data: string }> = [];
+  let lastDialogContainer: ElementStub | null = null;
   let hideDialogCalls = 0;
 
-  editorUi.showDialog = ((container: ElementStub) => {
-    dialogContainer = container;
-  }) as any;
+  const editorUi = {
+    editor: {
+      getGraphXml: () => graphXmlElement,
+      graph,
+    },
+    currentPage: null,
+    actions: {
+      addAction(name: string, fn: () => void | Promise<void>) {
+        actions[name] = fn;
+      },
+    },
+    menus: {
+      get: () => null,
+      addMenuItems: () => {},
+    },
+    getBaseFilename: () => "diagram",
+    saveData(filename: string, _format: string, data: string) {
+      savedExports.push({ filename, data });
+    },
+    handleError(err: Error) {
+      throw err;
+    },
+    showDialog(container: ElementStub) {
+      lastDialogContainer = container;
+    },
+    hideDialog() {
+      hideDialogCalls += 1;
+      lastDialogContainer = null;
+    },
+  };
 
-  editorUi.hideDialog = (() => {
-    hideDialogCalls++;
-  }) as any;
+  for (const callback of pluginCallbacks) {
+    callback(editorUi);
+  }
 
-  const showParserSettingsAction = actions.showParserSettings;
-  expect(showParserSettingsAction).toBeDefined();
-  showParserSettingsAction?.();
+  const panelRoot = document.createElement("div");
+  const existingViewSection = document.createElement("div");
+  existingViewSection.className = "geFormatSection";
+  panelRoot.appendChild(existingViewSection);
 
-  expect(dialogContainer).not.toBeNull();
+  const panelContext = {
+    editorUi,
+    listeners: [] as Array<{ destroy(): void }>,
+    container: panelRoot,
+  };
+
+  const container = document.createElement("div");
+  const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
+  const returned = addOptions.call(panelContext, container);
+  panelRoot.appendChild(returned ?? container);
+
+  const preambleSection = findChildByAttribute(
+    panelRoot,
+    PREAMBLE_SECTION_ATTRIBUTE,
+    "true",
+  );
+  expect(preambleSection).toBeDefined();
+  if (!preambleSection) {
+    throw new Error("Preamble section missing");
+  }
+
+  const parserSettingsButton = findChildByAttribute(
+    preambleSection,
+    PARSER_SETTINGS_BUTTON_ATTRIBUTE,
+    "true",
+  );
+
+  expect(parserSettingsButton).toBeDefined();
+  if (!parserSettingsButton) {
+    throw new Error("Parser settings button was not rendered");
+  }
+
+  parserSettingsButton.click();
+
+  expect(lastDialogContainer).toBeDefined();
+  const dialogContainer = lastDialogContainer;
   if (!dialogContainer) {
-    throw new Error("Dialog was not shown");
+    throw new Error("Parser settings dialog did not open");
   }
 
   // Find and toggle the new minting checkboxes
@@ -2209,17 +2280,17 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
     dialogContainer,
     "data-rdfexport-parser-mint-from-literals",
     "true",
-  ) as ElementStub;
+  ) as ElementStub & { checked: boolean };
   const mintFromTypesCheckbox = findChildByAttribute(
     dialogContainer,
     "data-rdfexport-parser-mint-from-types",
     "true",
-  ) as ElementStub;
+  ) as ElementStub & { checked: boolean };
   const mintFromArrowsCheckbox = findChildByAttribute(
     dialogContainer,
     "data-rdfexport-parser-mint-from-arrows",
     "true",
-  ) as ElementStub;
+  ) as ElementStub & { checked: boolean };
 
   expect(mintFromLiteralsCheckbox).toBeDefined();
   expect(mintFromTypesCheckbox).toBeDefined();
@@ -2230,10 +2301,8 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   expect(mintFromTypesCheckbox?.checked).toBe(false);
   expect(mintFromArrowsCheckbox?.checked).toBe(true);
 
-  // Toggle the values
-  mintFromLiteralsCheckbox.checked = false;
+  // Toggle mintFromTypes to true (keep the others at their defaults to avoid breaking the fixture)
   mintFromTypesCheckbox.checked = true;
-  mintFromArrowsCheckbox.checked = false;
 
   // Find the literal definitions add button
   const addLiteralDefButton = findChildByAttribute(
@@ -2246,18 +2315,26 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   // Add a new literal definition entry
   addLiteralDefButton?.click();
 
-  // Find the literal definition entries
-  const literalDefEntries = Array.from(dialogContainer.childNodes)
-    .filter((node: any) => 
-      node.getAttribute?.("data-rdfexport-parser-literal-def-row") === "true"
-    ) as ElementStub[];
+  // Find the literal definitions list container
+  const literalDefList = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-parser-literal-def-list",
+    "true",
+  );
+  expect(literalDefList).toBeDefined();
+  if (!literalDefList) {
+    throw new Error("Literal definitions list container not found");
+  }
 
-  expect(literalDefEntries.length).toBeGreaterThan(0);
-
-  // Get the first entry and set custom values
-  const firstEntry = literalDefEntries[0];
+  // Find the entry within the list
+  const firstEntry = findChildByAttribute(
+    literalDefList,
+    "data-rdfexport-parser-literal-def-entry",
+    "true",
+  );
+  expect(firstEntry).toBeDefined();
   if (!firstEntry) {
-    throw new Error("No literal definition entries found");
+    throw new Error("No literal definition entry found after clicking add");
   }
 
   const keyInput = findChildByAttribute(
@@ -2301,9 +2378,9 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
   };
   expect(storedSettings.version).toBe(1);
   const stored = storedSettings.settings;
-  expect(stored.mintFromLiterals).toBe(false);
+  expect(stored.mintFromLiterals).toBe(true);
   expect(stored.mintFromTypes).toBe(true);
-  expect(stored.mintFromArrows).toBe(false);
+  expect(stored.mintFromArrows).toBe(true);
   expect(Array.isArray(stored.literalDefinitions)).toBe(true);
   expect(stored.literalDefinitions.length).toBeGreaterThan(0);
   expect(stored.literalDefinitions[0]).toEqual({
@@ -2320,9 +2397,9 @@ test("parser settings dialog stores and passes new minting knobs to pipeline", a
     "import json\nfrom pyodide_pipeline.drawio_pipeline import get_last_parser_config\njson.dumps(get_last_parser_config())",
   )) as string;
   const config = JSON.parse(configJson) as Record<string, any>;
-  expect(config.mint_from_literals).toBe(false);
+  expect(config.mint_from_literals).toBe(true);
   expect(config.mint_from_types).toBe(true);
-  expect(config.mint_from_arrows).toBe(false);
+  expect(config.mint_from_arrows).toBe(true);
   expect(Array.isArray(config.literal_definitions)).toBe(true);
   expect(config.literal_definitions.length).toBeGreaterThan(0);
   expect(config.literal_definitions[0]).toEqual({

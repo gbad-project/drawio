@@ -233,7 +233,9 @@ class RMLSerializer(RDFSerializationHelper):
 
         # Add subject map
         subject_uri = self.coerce_to_uriref(
-            self, individual_id, mint_from_literal=self.serialisation_config.mint_from_literals
+            self,
+            individual_id,
+            mint_from_literal=self.serialisation_config.mint_from_literals,
         )
         subject_map, subject_map_triples = self._build_subject_map(subject_uri)
         self.graph.addN1(
@@ -297,7 +299,9 @@ class RMLSerializer(RDFSerializationHelper):
                 if not is_literal:
                     # Object property
                     target_uri = self.coerce_to_uriref(
-                        self, value, mint_from_literal=self.serialisation_config.mint_from_literals
+                        self,
+                        value,
+                        mint_from_literal=self.serialisation_config.mint_from_literals,
                     )
                     fact_predicate_object_map, fact_predicate_object_map_triples = (
                         self._build_fact_predicate_object_map(prop_uri, target_uri)

@@ -15,21 +15,21 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-import json
-from html import unescape
-from enum import Enum, auto
 import re
 from rdflib import BNode
 from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
 from rdflib.collection import Collection
-from rdflib.namespace import NamespaceManager
+import json
+from html import unescape
+from enum import Enum, auto
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
 import typing
 import logging
+from rdflib.namespace import NamespaceManager
 
 
 class pipeline:
@@ -1653,7 +1653,11 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_uri = self.coerce_to_uriref(self, individual_id)
+                        subject_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
@@ -1715,7 +1719,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,

@@ -638,7 +638,6 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert graph.base.startswith("ontology://generated-from-draw-io/")
 
 
-
 def test_parse_drawio_respects_mint_from_literals_flag(tmp_path: Path):
     """Test that mint_from_literals=False prevents minting URIs from literal values."""
     # Create a simple diagram with individuals using proper CURIEs
@@ -822,7 +821,6 @@ def test_parse_drawio_respects_custom_literal_definitions(tmp_path: Path):
     # At minimum, we should have the "Normal Individual"
     assert len(subjects_ellipse) >= 1
     assert len(subjects_rounded) >= 1
-
 
 
 def test_parse_drawio_rejects_unknown_literal_curie():
