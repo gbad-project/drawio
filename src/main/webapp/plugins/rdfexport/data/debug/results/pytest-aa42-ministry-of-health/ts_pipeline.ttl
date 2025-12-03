@@ -3,10 +3,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 rico:authorizedBy a owl:ObjectProperty .
 
-rico:generalDescription a owl:ObjectProperty .
+rico:generalDescription a owl:DatatypeProperty .
 
 rico:hasBeginningDate a owl:ObjectProperty .
 
@@ -28,7 +29,7 @@ rico:hasRecordState a owl:ObjectProperty .
 
 rico:hasSuccessor a owl:ObjectProperty .
 
-rico:history a owl:ObjectProperty .
+rico:history a owl:DatatypeProperty .
 
 rico:isOrWasDescribedBy a owl:ObjectProperty .
 
@@ -38,9 +39,9 @@ rico:isOrWasRegulatedBy a owl:ObjectProperty .
 
 rico:isSuccessorOf a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:ObjectProperty .
+rico:lastModificationDate a owl:DatatypeProperty .
 
-rico:normalizedValue a owl:ObjectProperty .
+rico:normalizedValue a owl:DatatypeProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
@@ -54,9 +55,6 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
 :1999 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1999" .
-
-:2024-04-18 a owl:NamedIndividual ;
-    rdfs:label "2024-04-18" .
 
 :A%20Ontario%20Government%20Name a owl:NamedIndividual,
         rico:CorporateBodyType ;
@@ -80,9 +78,6 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
     rdfs:label "Authority Record Creation" ;
     rico:isOrWasPerformedBy :R.%20Anger .
 
-<ontology://generated-from-draw-io/mock#Function%20Note%3A%20The%20Ministry%20Of%20Health%20Is%20Responsible%20For%20Administering%20The%20Health%20Care%20System%20And%20Providing%20Services%20To%20The%20Ontario%20Public%20Through%20Programs%20Such%20As%20Health%20Insurance%2C%20Care%20For%20The%20Mentally%20Ill%2C%20Drug%20Services%2C%20Home%20Care%20Services%2C%20And%20The%20Regulation%20Of%20Hospitals%20And%20Nursing%20Homes.%20The%20Ministry%20Also%20Operates%20Psychiatric%20Hospitals%2C%20Medical%20Laboratories%20And%20Provides%20Funding%20And%20Leadership%20For%20Local%20Public%20Health%20Services.> a owl:NamedIndividual ;
-    rdfs:label "Function Note: The Ministry of Health is responsible for administering the health care system and providing services to the Ontario public through programs such as health insurance, care for the mentally ill, drug services, home care services, and the regulation of hospitals and nursing homes. The Ministry also operates psychiatric hospitals, medical laboratories and provides funding and leadership for local public health services." .
-
 :MOH a owl:NamedIndividual,
         rico:AgentName ;
     rdfs:label "MOH" ;
@@ -92,9 +87,6 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
         rico:AgentName ;
     rdfs:label "MS" ;
     rico:hasOrHadCategory :Variant%20Name .
-
-:Ministry%20Of%20Health a owl:NamedIndividual ;
-    rdfs:label "Ministry of Health" .
 
 :Ministry%20Of%20Health%20Act%2C%20Statutes%20Of%20Ontario%201972%2C%20Chap.%2092 a owl:NamedIndividual,
         rico:Mandate ;
@@ -109,7 +101,7 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
         rico:CorporateBody ;
     rdfs:label "Ontario. Ministry of Health" ;
     rico:authorizedBy :Ministry%20Of%20Health%20Act%2C%20Statutes%20Of%20Ontario%201972%2C%20Chap.%2092 ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Function%20Note%3A%20The%20Ministry%20Of%20Health%20Is%20Responsible%20For%20Administering%20The%20Health%20Care%20System%20And%20Providing%20Services%20To%20The%20Ontario%20Public%20Through%20Programs%20Such%20As%20Health%20Insurance%2C%20Care%20For%20The%20Mentally%20Ill%2C%20Drug%20Services%2C%20Home%20Care%20Services%2C%20And%20The%20Regulation%20Of%20Hospitals%20And%20Nursing%20Homes.%20The%20Ministry%20Also%20Operates%20Psychiatric%20Hospitals%2C%20Medical%20Laboratories%20And%20Provides%20Funding%20And%20Leadership%20For%20Local%20Public%20Health%20Services.> ;
+    rico:generalDescription "Function Note: The Ministry of Health is responsible for administering the health care system and providing services to the Ontario public through programs such as health insurance, care for the mentally ill, drug services, home care services, and the regulation of hospitals and nursing homes. The Ministry also operates psychiatric hospitals, medical laboratories and provides funding and leadership for local public health services." ;
     rico:hasBeginningDate :1972 ;
     rico:hasEndDate :1999 ;
     rico:hasOrHadAgentName :MOH,
@@ -119,10 +111,10 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
     rico:hasOrHadCorporateBodyType :A%20Ontario%20Government%20Name ;
     rico:hasOrHadIdentifier :AA42 ;
     rico:hasSuccessor :Ontario.%20Ministry%20Of%20Health%20And%20Long-Term%20Care ;
-    rico:history <ontology://generated-from-draw-io/mock#The%20Department%20Of%20Health%20Was%20Renamed%20The%20Ministry%20Of%20Health%20In%201972.%20Since%201972%2C%20The%20Ministry%20Has%20Been%20Restructured%20Often%20And%20A%20Number%20Of%20Different%20Divisions%20Have%20Existed%20Within%20It.%20They%20Have%2C%20However%2C%20Tended%20To%20Focus%20Around%20Five%20Primary%20Areas%3A%20Health%20Insurance;%20Community%20And%20Public%20Health%20Services;%20Institutional%20Health%20%28including%20Administration%20Of%20Hospitals%2C%20Ambulance%20Services%2C%20Nursing%20Homes%20And%20Psychiatric%20Hospitals%29;%20Administration%20And%20Finance;%20And%20Information%20Systems.%20Agencies%20Which%20Report%20To%20The%20Ministry%20Include%20The%20Addiction%20Research%20Foundation%2C%20The%20Ontario%20Cancer%20Treatment%20And%20Research%20Foundation%2C%20The%20District%20Health%20Councils%2C%20And%20The%20Ontario%20Mental%20Health%20Foundation.%20On%20June%2017%2C%201999%20The%20Ministry%20Of%20Health%20Was%20Renamed%20The%20Ministry%20Of%20Health%20And%20Long-Term%20Care.> ;
+    rico:history "The Department of Health was renamed the Ministry of Health in 1972.   Since 1972, the Ministry has been restructured often and a number of different divisions have existed within it.  They have, however, tended to focus around five primary areas: health insurance; community and public health services; institutional health (including administration of hospitals, ambulance services, nursing homes and psychiatric hospitals); administration and finance; and information systems.   Agencies which report to the Ministry include the Addiction Research Foundation, the Ontario Cancer Treatment and Research Foundation, the District Health Councils, and the Ontario Mental Health Foundation.   On June 17, 1999 the Ministry of Health was renamed the Ministry of Health and Long-Term Care." ;
     rico:isOrWasDescribedBy :Ontario.%20Ministry%20Of%20Health%20Authority%20Record ;
     rico:isSuccessorOf :Ontario.%20Dept.%20Of%20Health ;
-    rico:normalizedValue :Ministry%20Of%20Health .
+    rico:normalizedValue "Ministry of Health" .
 
 :Ontario.%20Ministry%20Of%20Health%20And%20Long-Term%20Care a owl:NamedIndividual,
         rico:CorporateBody ;
@@ -131,12 +123,12 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
 :Ontario.%20Ministry%20Of%20Health%20Authority%20Record a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Ontario. Ministry of Health Authority Record" ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Source%20Note%3A%20Government%20Of%20Ontario%20Telephone%20Directory%2C%201995-96.%20KWIC%20Indexes%2C%201972-1995.%20Canadiana%20Name%20Authorities%2C%201996-12-24.> ;
+    rico:generalDescription "Source Note: Government of Ontario Telephone Directory, 1995-96. KWIC Indexes, 1972-1995. Canadiana Name Authorities, 1996-12-24." ;
     rico:hasDocumentaryFormType :Authority%20Record ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Ready%3A%20Y ;
     rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
-    rico:lastModificationDate :2024-04-18 ;
+    rico:lastModificationDate "2024-04-18"^^xsd:date ;
     rico:resultsOrResultedFrom :Authority%20Record%20Creation .
 
 :Ontario.%20Ministère%20De%20La%20Santé a owl:NamedIndividual,
@@ -156,15 +148,9 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
         rico:Rule ;
     rdfs:label "Rules for Archival Description" .
 
-<ontology://generated-from-draw-io/mock#Source%20Note%3A%20Government%20Of%20Ontario%20Telephone%20Directory%2C%201995-96.%20KWIC%20Indexes%2C%201972-1995.%20Canadiana%20Name%20Authorities%2C%201996-12-24.> a owl:NamedIndividual ;
-    rdfs:label "Source Note: Government of Ontario Telephone Directory, 1995-96. KWIC Indexes, 1972-1995. Canadiana Name Authorities, 1996-12-24." .
-
 :Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Status: Approved" .
-
-<ontology://generated-from-draw-io/mock#The%20Department%20Of%20Health%20Was%20Renamed%20The%20Ministry%20Of%20Health%20In%201972.%20Since%201972%2C%20The%20Ministry%20Has%20Been%20Restructured%20Often%20And%20A%20Number%20Of%20Different%20Divisions%20Have%20Existed%20Within%20It.%20They%20Have%2C%20However%2C%20Tended%20To%20Focus%20Around%20Five%20Primary%20Areas%3A%20Health%20Insurance;%20Community%20And%20Public%20Health%20Services;%20Institutional%20Health%20%28including%20Administration%20Of%20Hospitals%2C%20Ambulance%20Services%2C%20Nursing%20Homes%20And%20Psychiatric%20Hospitals%29;%20Administration%20And%20Finance;%20And%20Information%20Systems.%20Agencies%20Which%20Report%20To%20The%20Ministry%20Include%20The%20Addiction%20Research%20Foundation%2C%20The%20Ontario%20Cancer%20Treatment%20And%20Research%20Foundation%2C%20The%20District%20Health%20Councils%2C%20And%20The%20Ontario%20Mental%20Health%20Foundation.%20On%20June%2017%2C%201999%20The%20Ministry%20Of%20Health%20Was%20Renamed%20The%20Ministry%20Of%20Health%20And%20Long-Term%20Care.> a owl:NamedIndividual ;
-    rdfs:label "The Department of Health was renamed the Ministry of Health in 1972.   Since 1972, the Ministry has been restructured often and a number of different divisions have existed within it.  They have, however, tended to focus around five primary areas: health insurance; community and public health services; institutional health (including administration of hospitals, ambulance services, nursing homes and psychiatric hospitals); administration and finance; and information systems.   Agencies which report to the Ministry include the Addiction Research Foundation, the Ontario Cancer Treatment and Research Foundation, the District Health Councils, and the Ontario Mental Health Foundation.   On June 17, 1999 the Ministry of Health was renamed the Ministry of Health and Long-Term Care." .
 
 :Web%20Ready%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;

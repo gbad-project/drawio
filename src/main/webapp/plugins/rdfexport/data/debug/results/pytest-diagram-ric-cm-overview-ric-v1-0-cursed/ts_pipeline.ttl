@@ -3,9 +3,13 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
+    owl:imports rico: ;
+    skos:note "#Topic",
+        "Heading Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "RiC-E22    Place" .
 
 :Actor a owl:NamedIndividual ;
     rdfs:label "Actor" .
@@ -13,13 +17,9 @@
 <ontology://generated-from-draw-io/mock#Created%20By%20ICA-EGAD%20In%20September%202023.> a owl:NamedIndividual ;
     rdfs:label "Created by ICA-EGAD in September 2023." .
 
-<ontology://generated-from-draw-io/mock#Heading%20Lorem%20Ipsum%20Dolor%20Sit%20Amet%2C%20Consectetur%20Adipisicing%20Elit%2C%20Sed%20Do%20Eiusmod%20Tempor%20Incididunt%20Ut%20Labore%20Et%20Dolore%20Magna%20Aliqua.> a owl:NamedIndividual ;
-    rdfs:label "Heading Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." .
-
 :Mindmap a owl:NamedIndividual,
         :Branch,
-        :Central%20Idea,
-        :Topic ;
+        :Central%20Idea ;
     rdfs:label "Mindmap" .
 
 :RiC-CM%20V1.0%3A%20A%20Global%20Overview a owl:NamedIndividual ;
@@ -76,9 +76,6 @@
 :RiC-E18%20Date a owl:NamedIndividual ;
     rdfs:label "RiC-E18 Date" .
 
-:RiC-E22%20Place a owl:NamedIndividual ;
-    rdfs:label "RiC-E22    Place" .
-
 :RiC-R019%20Has%20Or%20Had%20Subject a owl:NamedIndividual ;
     rdfs:label "RiC-R019 has or had subject" .
 
@@ -93,7 +90,7 @@
 
 :RiC-R026%20Has%20Provenance a owl:NamedIndividual ;
     rdfs:label "RiC-R026 has provenance" ;
-    :sos :s .
+    :sos "s" .
 
 :RiC-R026i%20Is%20Provenance%20Of a owl:NamedIndividual ;
     rdfs:label "RiC-R026i is provenance of" .
@@ -135,8 +132,5 @@
 :joh a owl:NamedIndividual ;
     rdfs:label ":joh" .
 
-:sos a owl:ObjectProperty .
-
-:s a owl:NamedIndividual ;
-    rdfs:label "s" .
+:sos a owl:DatatypeProperty .
 

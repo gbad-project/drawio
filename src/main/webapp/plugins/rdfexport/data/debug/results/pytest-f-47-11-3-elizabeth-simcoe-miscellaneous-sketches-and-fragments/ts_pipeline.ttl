@@ -3,16 +3,17 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:accruals a owl:ObjectProperty .
+rico:accruals a owl:DatatypeProperty .
 
-rico:conditionsOfAccess a owl:ObjectProperty .
+rico:conditionsOfAccess a owl:DatatypeProperty .
 
-rico:conditionsOfUse a owl:ObjectProperty .
+rico:conditionsOfUse a owl:DatatypeProperty .
 
-rico:creationDate a owl:ObjectProperty .
+rico:creationDate a owl:DatatypeProperty .
 
-rico:generalDescription a owl:ObjectProperty .
+rico:generalDescription a owl:DatatypeProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -30,9 +31,9 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:ObjectProperty .
+rico:history a owl:DatatypeProperty .
 
-rico:instantiationExtent a owl:ObjectProperty .
+rico:instantiationExtent a owl:DatatypeProperty .
 
 rico:isDirectlyIncludedIn a owl:ObjectProperty .
 
@@ -40,23 +41,14 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
 
 rico:isOrWasPerformedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:ObjectProperty .
+rico:lastModificationDate a owl:DatatypeProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:ObjectProperty .
+rico:scopeAndContent a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
-
-<ontology://generated-from-draw-io/mock#%5Bca.%201790-1840%5D> a owl:NamedIndividual ;
-    rdfs:label "[ca. 1790-1840]" .
-
-:2009-07-17 a owl:NamedIndividual ;
-    rdfs:label "2009-07-17" .
-
-:35%20Watercolours%205%20Drawings a owl:NamedIndividual ;
-    rdfs:label "35 watercolours 5 drawings" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -67,35 +59,29 @@ rico:scopeAndContent a owl:ObjectProperty .
     rdfs:label "Archival Description Creation" ;
     rico:isOrWasPerformedBy :Walz .
 
-<ontology://generated-from-draw-io/mock#Availability%20Of%20Other%20Formats%3A%20Some%20Of%20This%20Material%20Is%20Available%20Through%20The%20Archives%27%20On-line%20Visual%20Database.> a owl:NamedIndividual ;
-    rdfs:label "Availability of Other Formats: Some of this material is available through the Archives' on-line Visual Database." .
-
 :Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
-
-<ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Sub-series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> a owl:NamedIndividual ;
-    rdfs:label "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." .
 
 :Elizabeth%20Simcoe%20Miscellaneous%20Sketches%20And%20Fragments a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Elizabeth Simcoe miscellaneous sketches and fragments" ;
-    rico:accruals <ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> ;
-    rico:conditionsOfAccess <ontology://generated-from-draw-io/mock#No%20Restrictions%20On%20Access.> ;
-    rico:conditionsOfUse <ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> ;
-    rico:creationDate <ontology://generated-from-draw-io/mock#%5Bca.%201790-1840%5D> ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Availability%20Of%20Other%20Formats%3A%20Some%20Of%20This%20Material%20Is%20Available%20Through%20The%20Archives%27%20On-line%20Visual%20Database.>,
-        <ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> ;
+    rico:accruals "No further accruals are expected." ;
+    rico:conditionsOfAccess "No restrictions on access." ;
+    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
+    rico:creationDate "[ca. 1790-1840]" ;
+    rico:generalDescription "Availability of Other Formats: Some of this material is available through the Archives' on-line Visual Database.",
+        "Finding Aid Note: An online list is available for this sub-series." ;
     rico:hasContentOfType :Graphic%20Materials ;
     rico:hasOrHadIdentifier :F%2047-11-3 ;
     rico:hasOrHadInstantiation :Elizabeth%20Simcoe%20Miscellaneous%20Sketches%20And%20Fragments-i1 ;
     rico:hasOrHadTitle :Elizabeth%20Simcoe%20Miscellaneous%20Sketches%20And%20Fragments ;
     rico:hasRecordSetType :Sub-Series ;
-    rico:history <ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Sub-series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> ;
+    rico:history "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." ;
     rico:isDirectlyIncludedIn :Elizabeth%20Simcoe%20Sketches ;
     rico:isOrWasDescribedBy :Elizabeth%20Simcoe%20Miscellaneous%20Sketches%20And%20Fragments%20Archival%20Description ;
-    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Of%20Miscellaneous%20Watercolour%20And%20Drawing%20Fragments%2C%20Which%20Were%20Kept%20Separately%20From%20The%20Completed%20Pieces%20Contained%20In%20Sub-series%20F%2047-11-1.%20The%20First%20Group%2C%20F%2047-11-3-1%2C%20Contains%20Fragments%20Of%20Views%20Of%20What%20Appears%20To%20Be%20Upper%20Canada;%20Most%20Are%20Smudged%20And%20Unidentified.%20Two%20Fragments%20Contain%20No%20Sketch%20But%20Identity%20Kingston%2C%20And%20%22near%20Queenston%22%2C%20Which%20Suggests%20These%20May%20Have%20Been%20Backing%20Paper%20For%20A%20Smaller%20Mounted%20Drawing.%20The%20Second%20Group%2C%20F%2047-11-3-2%2C%20Contains%20Watercolour%20And%20Drawing%20Fragments%20Of%20Places%20In%20England%20And%20Europe%2C%20Drawn%20After%20Mrs.%20Simcoe%27s%20Return%20To%20England.%20Many%20Of%20These%20Have%20Some%20Identification.%20Differences%20In%20Style%20Suggest%20That%20Some%20Were%20Not%20Created%20By%20Mrs.%20Simcoe.> .
+    rico:scopeAndContent "Sub-series consists of miscellaneous watercolour and drawing fragments, which were kept separately from the completed pieces contained in sub-series F 47-11-1.  The first group, F 47-11-3-1, contains fragments of views of what appears to be Upper Canada; most are smudged and unidentified. Two fragments contain no sketch but identity Kingston, and \"near Queenston\", which suggests these may have been backing paper for a smaller mounted drawing. The second group, F 47-11-3-2, contains watercolour and drawing fragments of places in England and Europe, drawn after Mrs. Simcoe's return to England. Many of these have some identification. Differences in style suggest that some were not created by Mrs. Simcoe." .
 
 :Elizabeth%20Simcoe%20Miscellaneous%20Sketches%20And%20Fragments%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
@@ -103,14 +89,14 @@ rico:scopeAndContent a owl:ObjectProperty .
     rico:hasDocumentaryFormType :Archival%20Description ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate :2009-07-17 ;
+    rico:lastModificationDate "2009-07-17"^^xsd:date ;
     rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
 :Elizabeth%20Simcoe%20Miscellaneous%20Sketches%20And%20Fragments-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Elizabeth Simcoe miscellaneous sketches and fragments-i1" ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20Order%20Using%20Reference%20Code%20And%20Barcode%20Number.> ;
-    rico:instantiationExtent :35%20Watercolours%205%20Drawings .
+    rico:generalDescription "How to Order: Consult the online list to identify the records that you require. Order using reference code and barcode number." ;
+    rico:instantiationExtent "35 watercolours 5 drawings" .
 
 :Elizabeth%20Simcoe%20Sketches a owl:NamedIndividual,
         rico:RecordSet ;
@@ -127,24 +113,9 @@ rico:scopeAndContent a owl:ObjectProperty .
     rdfs:label "F 47-11-3" ;
     rico:hasIdentifierType :Current%20Reference%20Code .
 
-<ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> a owl:NamedIndividual ;
-    rdfs:label "Finding Aid Note: An online list is available for this sub-series." .
-
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Graphic materials" .
-
-<ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20Order%20Using%20Reference%20Code%20And%20Barcode%20Number.> a owl:NamedIndividual ;
-    rdfs:label "How to Order: Consult the online list to identify the records that you require. Order using reference code and barcode number." .
-
-<ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> a owl:NamedIndividual ;
-    rdfs:label "No further accruals are expected." .
-
-<ontology://generated-from-draw-io/mock#No%20Restrictions%20On%20Access.> a owl:NamedIndividual ;
-    rdfs:label "No restrictions on access." .
-
-<ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> a owl:NamedIndividual ;
-    rdfs:label "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
 
 :Series a owl:NamedIndividual,
         rico:RecordSetType ;
@@ -157,9 +128,6 @@ rico:scopeAndContent a owl:ObjectProperty .
 :Sub-Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Sub-Series" .
-
-<ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Of%20Miscellaneous%20Watercolour%20And%20Drawing%20Fragments%2C%20Which%20Were%20Kept%20Separately%20From%20The%20Completed%20Pieces%20Contained%20In%20Sub-series%20F%2047-11-1.%20The%20First%20Group%2C%20F%2047-11-3-1%2C%20Contains%20Fragments%20Of%20Views%20Of%20What%20Appears%20To%20Be%20Upper%20Canada;%20Most%20Are%20Smudged%20And%20Unidentified.%20Two%20Fragments%20Contain%20No%20Sketch%20But%20Identity%20Kingston%2C%20And%20%22near%20Queenston%22%2C%20Which%20Suggests%20These%20May%20Have%20Been%20Backing%20Paper%20For%20A%20Smaller%20Mounted%20Drawing.%20The%20Second%20Group%2C%20F%2047-11-3-2%2C%20Contains%20Watercolour%20And%20Drawing%20Fragments%20Of%20Places%20In%20England%20And%20Europe%2C%20Drawn%20After%20Mrs.%20Simcoe%27s%20Return%20To%20England.%20Many%20Of%20These%20Have%20Some%20Identification.%20Differences%20In%20Style%20Suggest%20That%20Some%20Were%20Not%20Created%20By%20Mrs.%20Simcoe.> a owl:NamedIndividual ;
-    rdfs:label "Sub-series consists of miscellaneous watercolour and drawing fragments, which were kept separately from the completed pieces contained in sub-series F 47-11-1.  The first group, F 47-11-3-1, contains fragments of views of what appears to be Upper Canada; most are smudged and unidentified. Two fragments contain no sketch but identity Kingston, and \"near Queenston\", which suggests these may have been backing paper for a smaller mounted drawing. The second group, F 47-11-3-2, contains watercolour and drawing fragments of places in England and Europe, drawn after Mrs. Simcoe's return to England. Many of these have some identification. Differences in style suggest that some were not created by Mrs. Simcoe." .
 
 :Walz a owl:NamedIndividual,
         rico:Person ;

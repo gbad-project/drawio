@@ -4,9 +4,9 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
-rico:creationDate a owl:ObjectProperty .
+rico:creationDate a owl:DatatypeProperty .
 
-rico:generalDescription a owl:ObjectProperty .
+rico:generalDescription a owl:DatatypeProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -32,25 +32,16 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:instantiationExtent a owl:ObjectProperty .
+rico:instantiationExtent a owl:DatatypeProperty .
 
 rico:isDirectlyIncludedIn a owl:ObjectProperty .
 
 rico:isOrWasDescribedBy a owl:ObjectProperty .
 
-rico:qualityOfRepresentationNote a owl:ObjectProperty .
+rico:qualityOfRepresentationNote a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
-
-:02-2002 a owl:NamedIndividual ;
-    rdfs:label "02-2002" .
-
-:1%20Digital%20Image%20%2866.1%20KB%29%20%3A%20Colour%20%28jpeg%29 a owl:NamedIndividual ;
-    rdfs:label "1 digital image (66.1 KB) : colour (jpeg)" .
-
-:1%20Watercolour%20On%20Paper a owl:NamedIndividual ;
-    rdfs:label "1 watercolour on paper" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -96,18 +87,12 @@ rico:qualityOfRepresentationNote a owl:ObjectProperty .
     rdfs:label "I0006853.jpg" ;
     rico:hasIdentifierType :File%20Name .
 
-:Notes%3A%20Old%20Code%3A%201 a owl:NamedIndividual ;
-    rdfs:label "Notes: Old Code: 1" .
-
-:Oct.%2029%2C%201791 a owl:NamedIndividual ;
-    rdfs:label "Oct. 29, 1791" .
-
 <ontology://generated-from-draw-io/mock#October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.> a owl:NamedIndividual,
         rico:Record,
         rico:Title ;
     rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I." ;
-    rico:creationDate :Oct.%2029%2C%201791 ;
-    rico:generalDescription :Notes%3A%20Old%20Code%3A%201 ;
+    rico:creationDate "Oct. 29, 1791" ;
+    rico:generalDescription "Notes: Old Code: 1" ;
     rico:hasContentOfType :Graphic%20Materials ;
     rico:hasOrHadDigitalInstantiation :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i2 ;
     rico:hasOrHadIdentifier :F%2047-11-1-0-1 ;
@@ -130,10 +115,7 @@ rico:qualityOfRepresentationNote a owl:ObjectProperty .
         rico:Instantiation ;
     rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i1" ;
     rico:hasOrHadDerivedInstantiation :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i2 ;
-    rico:instantiationExtent :1%20Watercolour%20On%20Paper .
-
-:Resolution%20%28DPI%29%3A%20300 a owl:NamedIndividual ;
-    rdfs:label "Resolution (DPI): 300" .
+    rico:instantiationExtent "1 watercolour on paper" .
 
 :Sailboats a owl:NamedIndividual,
         rico:Thing ;
@@ -158,9 +140,9 @@ rico:qualityOfRepresentationNote a owl:ObjectProperty .
 :October%2029th%201791%2C%204%20O%27clock%20P.M.%20Richmond%20I%20Or%20Isle%20Madame%20Near%20The%20Gut%20Of%20Canso.%20Vessel%20Coming%20Out%20Of%20Arishart%20Harbour%2C%20Green%20I.-i2 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "October 29th 1791, 4 o'clock P.M. Richmond I or  Isle Madame near the Gut of Canso. Vessel coming out of Arishart Harbour, Green I.-i2" ;
-    rico:creationDate :02-2002 ;
+    rico:creationDate "02-2002" ;
     rico:hasOrHadIdentifier :I0006853.jpg ;
     rico:hasProductionTechniqueType :Scanned%20Digital%20Image ;
-    rico:instantiationExtent :1%20Digital%20Image%20%2866.1%20KB%29%20%3A%20Colour%20%28jpeg%29 ;
-    rico:qualityOfRepresentationNote :Resolution%20%28DPI%29%3A%20300 .
+    rico:instantiationExtent "1 digital image (66.1 KB) : colour (jpeg)" ;
+    rico:qualityOfRepresentationNote "Resolution (DPI): 300" .
 
