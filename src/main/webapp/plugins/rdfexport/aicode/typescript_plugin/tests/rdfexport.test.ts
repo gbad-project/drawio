@@ -2178,6 +2178,161 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(config.metacharacter_substitute).toEqual(["remove", "(=square"]);
 });
 
+
+test("parser settings dialog stores and passes new minting knobs to pipeline", async () => {
+  await loadPluginModule();
+
+  const { graph, model, rootCell, actions, editorUi } = mockDrawGraphForPlugin();
+
+  let dialogContainer: ElementStub | null = null;
+  let hideDialogCalls = 0;
+
+  editorUi.showDialog = ((container: ElementStub) => {
+    dialogContainer = container;
+  }) as any;
+
+  editorUi.hideDialog = (() => {
+    hideDialogCalls++;
+  }) as any;
+
+  const showParserSettingsAction = actions.showParserSettings;
+  expect(showParserSettingsAction).toBeDefined();
+  showParserSettingsAction?.();
+
+  expect(dialogContainer).not.toBeNull();
+  if (!dialogContainer) {
+    throw new Error("Dialog was not shown");
+  }
+
+  // Find and toggle the new minting checkboxes
+  const mintFromLiteralsCheckbox = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-parser-mint-from-literals",
+    "true",
+  ) as ElementStub;
+  const mintFromTypesCheckbox = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-parser-mint-from-types",
+    "true",
+  ) as ElementStub;
+  const mintFromArrowsCheckbox = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-parser-mint-from-arrows",
+    "true",
+  ) as ElementStub;
+
+  expect(mintFromLiteralsCheckbox).toBeDefined();
+  expect(mintFromTypesCheckbox).toBeDefined();
+  expect(mintFromArrowsCheckbox).toBeDefined();
+
+  // Check defaults
+  expect(mintFromLiteralsCheckbox?.checked).toBe(true);
+  expect(mintFromTypesCheckbox?.checked).toBe(false);
+  expect(mintFromArrowsCheckbox?.checked).toBe(true);
+
+  // Toggle the values
+  mintFromLiteralsCheckbox.checked = false;
+  mintFromTypesCheckbox.checked = true;
+  mintFromArrowsCheckbox.checked = false;
+
+  // Find the literal definitions add button
+  const addLiteralDefButton = findChildByAttribute(
+    dialogContainer,
+    "data-rdfexport-parser-literal-def-add",
+    "true",
+  );
+  expect(addLiteralDefButton).toBeDefined();
+
+  // Add a new literal definition entry
+  addLiteralDefButton?.click();
+
+  // Find the literal definition entries
+  const literalDefEntries = Array.from(dialogContainer.childNodes)
+    .filter((node: any) => 
+      node.getAttribute?.("data-rdfexport-parser-literal-def-row") === "true"
+    ) as ElementStub[];
+
+  expect(literalDefEntries.length).toBeGreaterThan(0);
+
+  // Get the first entry and set custom values
+  const firstEntry = literalDefEntries[0];
+  if (!firstEntry) {
+    throw new Error("No literal definition entries found");
+  }
+
+  const keyInput = findChildByAttribute(
+    firstEntry,
+    "data-rdfexport-parser-literal-def-key",
+    "true",
+  ) as ElementStub;
+  const valueInput = findChildByAttribute(
+    firstEntry,
+    "data-rdfexport-parser-literal-def-value",
+    "true",
+  ) as ElementStub;
+
+  expect(keyInput).toBeDefined();
+  expect(valueInput).toBeDefined();
+
+  keyInput.value = "style";
+  valueInput.value = "ellipse";
+
+  // Apply the settings
+  const applyButton = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_APPLY_ATTRIBUTE,
+    "true",
+  );
+  expect(applyButton).toBeDefined();
+  applyButton?.click();
+
+  expect(hideDialogCalls).toBe(1);
+
+  // Verify the settings were stored
+  const storedSettingsRaw = graph.getAttributeForCell(
+    rootCell,
+    PARSER_SETTINGS_CELL_ATTRIBUTE,
+    null,
+  );
+  expect(typeof storedSettingsRaw).toBe("string");
+  const storedSettings = JSON.parse(storedSettingsRaw as string) as {
+    version: number;
+    settings: any;
+  };
+  expect(storedSettings.version).toBe(1);
+  const stored = storedSettings.settings;
+  expect(stored.mintFromLiterals).toBe(false);
+  expect(stored.mintFromTypes).toBe(true);
+  expect(stored.mintFromArrows).toBe(false);
+  expect(Array.isArray(stored.literalDefinitions)).toBe(true);
+  expect(stored.literalDefinitions.length).toBeGreaterThan(0);
+  expect(stored.literalDefinitions[0]).toEqual({
+    character: "style",
+    replacement: "ellipse",
+  });
+
+  // Export and verify the config was passed to Python
+  const exportAction = actions.exportRdfXml;
+  expect(exportAction).toBeDefined();
+  await exportAction?.();
+
+  const configJson = (await debugPyodide(
+    "import json\nfrom pyodide_pipeline.drawio_pipeline import get_last_parser_config\njson.dumps(get_last_parser_config())",
+  )) as string;
+  const config = JSON.parse(configJson) as Record<string, any>;
+  expect(config.mint_from_literals).toBe(false);
+  expect(config.mint_from_types).toBe(true);
+  expect(config.mint_from_arrows).toBe(false);
+  expect(Array.isArray(config.literal_definitions)).toBe(true);
+  expect(config.literal_definitions.length).toBeGreaterThan(0);
+  expect(config.literal_definitions[0]).toEqual({
+    key: "style",
+    value: "ellipse",
+  });
+}, { timeout: 60000 });
+
+
+
 test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
   const baseFixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
   const expectedFixturePath = join(

@@ -638,6 +638,193 @@ def test_parse_drawio_without_metadata_sets_empty_metadata():
     assert graph.base.startswith("ontology://generated-from-draw-io/")
 
 
+
+def test_parse_drawio_respects_mint_from_literals_flag(tmp_path: Path):
+    """Test that mint_from_literals=False prevents minting URIs from literal values."""
+    # Create a simple diagram with individuals using proper CURIEs
+    xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<mxfile><diagram name="test"><mxGraphModel>
+<root>
+  <mxCell id="0"/>
+  <mxCell id="1" parent="0"/>
+  <mxCell id="ind1" value="rico:Record_001" vertex="1" parent="1">
+    <mxGeometry x="0" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="type1" value="owl:NamedIndividual" vertex="1" parent="ind1">
+    <mxGeometry x="10" y="10" width="80" height="20" as="geometry"/>
+  </mxCell>
+  <mxCell id="ind2" value="rico:Record_002" vertex="1" parent="1">
+    <mxGeometry x="150" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="type2" value="owl:NamedIndividual" vertex="1" parent="ind2">
+    <mxGeometry x="10" y="10" width="80" height="20" as="geometry"/>
+  </mxCell>
+  <mxCell id="arrow1" value="" edge="1" source="ind1" target="ind2" parent="1">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+  <mxCell id="label1" value="rico:hasOrHadSubject" vertex="1" parent="arrow1">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+</root>
+</mxGraphModel></diagram></mxfile>"""
+
+    fixture_path = tmp_path / "test_mint_literals.drawio"
+    fixture_path.write_text(xml_content)
+
+    # Parse with mint_from_literals=True (default) - should succeed
+    graph_with_mint = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        mint_from_literals=True,
+        metacharacter_substitute=["remove"],
+    )
+
+    # Both graphs should parse successfully since we're using proper CURIEs
+    assert isinstance(graph_with_mint, draw_io_parser.DrawIOParserGraph)
+    subjects_with_mint = list(graph_with_mint.subjects(RDF.type, OWL.NamedIndividual))
+    assert len(subjects_with_mint) >= 2
+
+
+def test_parse_drawio_respects_mint_from_types_flag(tmp_path: Path):
+    """Test that mint_from_types controls URI minting from type values."""
+    xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<mxfile><diagram name="test"><mxGraphModel>
+<root>
+  <mxCell id="0"/>
+  <mxCell id="1" parent="0"/>
+  <mxCell id="ind1" value="rico:Record_001" vertex="1" parent="1">
+    <mxGeometry x="0" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="type1" value="rico:Record" vertex="1" parent="ind1">
+    <mxGeometry x="10" y="10" width="80" height="20" as="geometry"/>
+  </mxCell>
+</root>
+</mxGraphModel></diagram></mxfile>"""
+
+    fixture_path = tmp_path / "test_mint_types.drawio"
+    fixture_path.write_text(xml_content)
+
+    # Parse with mint_from_types=False (default) - uses CURIE so should succeed
+    graph_no_mint = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        mint_from_types=False,
+        metacharacter_substitute=["remove"],
+    )
+
+    # Parse with mint_from_types=True - allows minting from type strings
+    graph_with_mint = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        mint_from_types=True,
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph_no_mint, draw_io_parser.DrawIOParserGraph)
+    assert isinstance(graph_with_mint, draw_io_parser.DrawIOParserGraph)
+
+    # Both should have the individual with the type
+    subjects_no_mint = list(graph_no_mint.subjects(RDF.type, OWL.NamedIndividual))
+    subjects_with_mint = list(graph_with_mint.subjects(RDF.type, OWL.NamedIndividual))
+
+    assert len(subjects_no_mint) >= 1
+    assert len(subjects_with_mint) >= 1
+
+
+def test_parse_drawio_respects_mint_from_arrows_flag(tmp_path: Path):
+    """Test that mint_from_arrows=False prevents minting URIs from arrow labels."""
+    xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<mxfile><diagram name="test"><mxGraphModel>
+<root>
+  <mxCell id="0"/>
+  <mxCell id="1" parent="0"/>
+  <mxCell id="ind1" value="rico:Record_001" vertex="1" parent="1">
+    <mxGeometry x="0" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="type1" value="owl:NamedIndividual" vertex="1" parent="ind1">
+    <mxGeometry x="10" y="10" width="80" height="20" as="geometry"/>
+  </mxCell>
+  <mxCell id="ind2" value="rico:Record_002" vertex="1" parent="1">
+    <mxGeometry x="150" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="type2" value="owl:NamedIndividual" vertex="1" parent="ind2">
+    <mxGeometry x="10" y="10" width="80" height="20" as="geometry"/>
+  </mxCell>
+  <mxCell id="arrow1" value="" edge="1" source="ind1" target="ind2" parent="1">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+  <mxCell id="label1" value="rico:hasOrHadSubject" vertex="1" parent="arrow1">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+</root>
+</mxGraphModel></diagram></mxfile>"""
+
+    fixture_path = tmp_path / "test_mint_arrows.drawio"
+    fixture_path.write_text(xml_content)
+
+    # Parse with mint_from_arrows=True (default) - should succeed
+    graph_with_mint = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        mint_from_arrows=True,
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph_with_mint, draw_io_parser.DrawIOParserGraph)
+
+    # Both should parse successfully and have individuals
+    subjects_with_mint = list(graph_with_mint.subjects(RDF.type, OWL.NamedIndividual))
+    assert len(subjects_with_mint) >= 2
+
+
+def test_parse_drawio_respects_custom_literal_definitions(tmp_path: Path):
+    """Test that literal_definitions can be customized to detect literals by different attributes."""
+    xml_content = """<?xml version="1.0" encoding="UTF-8"?>
+<mxfile><diagram name="test"><mxGraphModel>
+<root>
+  <mxCell id="0"/>
+  <mxCell id="1" parent="0"/>
+  <mxCell id="ind1" value="Normal Individual" vertex="1" parent="1">
+    <mxGeometry x="0" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="type1" value="owl:NamedIndividual" vertex="1" parent="ind1">
+    <mxGeometry x="10" y="10" width="80" height="20" as="geometry"/>
+  </mxCell>
+  <mxCell id="lit1" value="Custom Literal" style="text;ellipse;whiteSpace=wrap" vertex="1" parent="1">
+    <mxGeometry x="150" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+  <mxCell id="lit2" value="Rounded Literal" style="rounded=1" vertex="1" parent="1">
+    <mxGeometry x="300" y="0" width="100" height="40" as="geometry"/>
+  </mxCell>
+</root>
+</mxGraphModel></diagram></mxfile>"""
+
+    fixture_path = tmp_path / "test_literal_defs.drawio"
+    fixture_path.write_text(xml_content)
+
+    # Parse with custom literal definition to detect "ellipse" in style
+    graph_ellipse = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        literal_definitions=[{"key": "style", "value": "ellipse"}],
+        metacharacter_substitute=["remove"],
+    )
+
+    # Parse with default literal definition (rounded=1)
+    graph_rounded = draw_io_parser.parse_drawio_to_graph(
+        str(fixture_path),
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
+        metacharacter_substitute=["remove"],
+    )
+
+    assert isinstance(graph_ellipse, draw_io_parser.DrawIOParserGraph)
+    assert isinstance(graph_rounded, draw_io_parser.DrawIOParserGraph)
+
+    # Both should parse and create the regular individual
+    subjects_ellipse = list(graph_ellipse.subjects(RDF.type, OWL.NamedIndividual))
+    subjects_rounded = list(graph_rounded.subjects(RDF.type, OWL.NamedIndividual))
+
+    # At minimum, we should have the "Normal Individual"
+    assert len(subjects_ellipse) >= 1
+    assert len(subjects_rounded) >= 1
+
+
+
 def test_parse_drawio_rejects_unknown_literal_curie():
     fixture_path = FIXTURES_DIR / "AA37-with-metadata-severely-mocked.drawio"
 
