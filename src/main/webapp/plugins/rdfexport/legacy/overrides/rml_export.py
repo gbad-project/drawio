@@ -149,6 +149,10 @@ def _build_graph_from_raw_xml(
     else:
         strip_html_enabled = _is_flag_enabled(config_strip_html)
 
+    literal_definitions = config_args.get("literal_definitions", [])
+    if not isinstance(literal_definitions, list):
+        literal_definitions = []
+
     classifier = DrawIOCellClassifier(
         working_xml,
         prefixes,
@@ -156,6 +160,7 @@ def _build_graph_from_raw_xml(
         max_gap=max_gap,
         strip_html=strip_html_enabled,
         allow_template_types=rml_enabled,
+        literal_definitions=literal_definitions,
     )
 
     # 3. Generate Intermediate Blocks from Classifier's results
@@ -179,6 +184,10 @@ def _build_graph_from_raw_xml(
     )
 
     # 4. Serialize to Final Graph
+    mint_from_literals = config_args.get("mint_from_literals", True)
+    mint_from_types = config_args.get("mint_from_types", False)
+    mint_from_arrows = config_args.get("mint_from_arrows", True)
+
     serializer = (
         pipeline.core.rdf.control.serialise_to_rml
         if rml_enabled
@@ -192,6 +201,9 @@ def _build_graph_from_raw_xml(
         prefixes,
         graph_cls=DrawIOParserGraph,
         graph_kwargs={"csv_path": csv_path},
+        mint_from_literals=mint_from_literals,
+        mint_from_types=mint_from_types,
+        mint_from_arrows=mint_from_arrows,
     )
 
     # 5. Final post-processing (e.g., base URI binding)

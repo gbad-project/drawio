@@ -55,6 +55,7 @@ class DrawIOCellClassifier:
         max_gap: float | None = None,
         strip_html: bool = True,
         allow_template_types: bool = False,
+        literal_definitions: list[dict[str, str]] | None = None,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -95,6 +96,7 @@ class DrawIOCellClassifier:
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_token_cache: dict[str, list[str]] = {}
+        self._literal_definitions = literal_definitions if literal_definitions else []
 
         self.classifications: dict[str, Any] = {}
 
@@ -762,17 +764,19 @@ class DrawIOCellClassifier:
             return False
         return "text;" in style or "shape=text" in style
 
-    @staticmethod
     def _style_denotes_literal(
-        cell: Element, style: str, tokens_are_valid: bool
+        self, cell: Element, style: str, tokens_are_valid: bool
     ) -> bool:
         if not style:
             return False
-        if "rounded=1" in style:
-            parent_is_root = cell.attrib.get("parent") == "1"
-            has_swimlane_style = "swimlane" in style
-            if parent_is_root or has_swimlane_style:
-                return True
+        for literal_def in self._literal_definitions:
+            key = literal_def.get("key", "")
+            value = literal_def.get("value", "")
+            if key and f"{key}={value}" in style:
+                parent_is_root = cell.attrib.get("parent") == "1"
+                has_swimlane_style = "swimlane" in style
+                if parent_is_root or has_swimlane_style:
+                    return True
         if cell.attrib.get("parent") != "1":
             return False
         if tokens_are_valid:

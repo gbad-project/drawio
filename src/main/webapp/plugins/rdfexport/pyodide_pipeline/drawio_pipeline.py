@@ -67,6 +67,10 @@ def _default_parser_config() -> dict[str, Any]:
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
+        "mint_from_literals": True,
+        "mint_from_types": False,
+        "mint_from_arrows": True,
+        "literal_definitions": [{"key": "style", "value": "rounded=1"}],
     }
 
 
@@ -188,6 +192,29 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 overrides["rml_enabled"],
                 config["rml_enabled"],
             )
+        if "mint_from_literals" in overrides:
+            config["mint_from_literals"] = _coerce_bool(
+                overrides["mint_from_literals"],
+                config["mint_from_literals"],
+            )
+        if "mint_from_types" in overrides:
+            config["mint_from_types"] = _coerce_bool(
+                overrides["mint_from_types"],
+                config["mint_from_types"],
+            )
+        if "mint_from_arrows" in overrides:
+            config["mint_from_arrows"] = _coerce_bool(
+                overrides["mint_from_arrows"],
+                config["mint_from_arrows"],
+            )
+        if "literal_definitions" in overrides and isinstance(
+            overrides["literal_definitions"], list
+        ):
+            config["literal_definitions"] = [
+                {"key": str(entry.get("key", "")), "value": str(entry.get("value", ""))}
+                for entry in overrides["literal_definitions"]
+                if isinstance(entry, dict)
+            ]
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]

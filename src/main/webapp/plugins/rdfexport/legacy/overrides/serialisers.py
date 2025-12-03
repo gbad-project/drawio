@@ -21,6 +21,9 @@ class RDFSerializationHelper:
         serialisation_config,
         prefixes: dict,
         graph: Graph,
+        mint_from_literals: bool = True,
+        mint_from_types: bool = False,
+        mint_from_arrows: bool = True,
     ):
         self.blocks = blocks
         self.object_properties = object_properties
@@ -28,6 +31,9 @@ class RDFSerializationHelper:
         self.serialisation_config = serialisation_config
         self.prefixes = prefixes
         self.graph = graph
+        self.mint_from_literals = mint_from_literals
+        self.mint_from_types = mint_from_types
+        self.mint_from_arrows = mint_from_arrows
 
         self.prefix = serialisation_config.prefix
         self.prefix_iri = serialisation_config.prefix_iri or get_prefix_iri(
@@ -642,6 +648,9 @@ def serialise_to_graph(
     prefixes: dict,
     graph_cls: Type[Graph] = Graph,
     graph_kwargs: Optional[Dict[str, Any]] = None,
+    mint_from_literals: bool = True,
+    mint_from_types: bool = False,
+    mint_from_arrows: bool = True,
 ) -> Graph:
     """Serialize blocks to RDF graph with regular triples."""
     RDFSerializer = pipeline.core.rdf.control.RDFSerializer
@@ -656,6 +665,9 @@ def serialise_to_graph(
         serialisation_config,
         prefixes,
         graph,
+        mint_from_literals=mint_from_literals,
+        mint_from_types=mint_from_types,
+        mint_from_arrows=mint_from_arrows,
     )
 
     serializer.setup_namespaces()
@@ -676,6 +688,9 @@ def serialise_to_rml(
     prefixes: dict,
     graph_cls: type[Graph] = Graph,
     graph_kwargs: dict[str, Any] | None = None,
+    mint_from_literals: bool = True,
+    mint_from_types: bool = False,
+    mint_from_arrows: bool = True,
 ) -> Graph:
     """Serialize blocks to RDF graph with RML mapping triples."""
     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
@@ -722,6 +737,9 @@ def serialise_to_rml(
         prefixes,
         graph,
         csv_path=csv_path,
+        mint_from_literals=mint_from_literals,
+        mint_from_types=mint_from_types,
+        mint_from_arrows=mint_from_arrows,
     )
 
     serializer.setup_namespaces()
