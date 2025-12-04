@@ -722,18 +722,18 @@ class DrawIOCellClassifier:
         """Check if cell matches any literal definition.
 
         - None: Use DEFAULT_LITERAL_DEFINITIONS
-        - []: Return True (treat everything as literal)
+        - []: Return False (no literal definitions)
         - [...]: Use provided definitions
         """
         # Handle None - use default
         if self._literal_definitions is None:
             definitions_to_use = self.DEFAULT_LITERAL_DEFINITIONS
-        # Handle explicit empty list - everything is literal
+        # Handle explicit empty list - no literal definitions
         elif (
             isinstance(self._literal_definitions, list)
             and len(self._literal_definitions) == 0
         ):
-            return True
+            return False
         # Use provided definitions
         else:
             definitions_to_use = self._literal_definitions

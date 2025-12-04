@@ -15,20 +15,20 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-from enum import Enum, auto
-import json
-from html import unescape
 from typing import Callable
 from rdflib import BNode, SKOS
 from rdflib.collection import Collection
 import re
 from rdflib.term import Node
-from rdflib.namespace import NamespaceManager
+from enum import Enum, auto
+import json
+from html import unescape
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
 import typing
 import logging
+from rdflib.namespace import NamespaceManager
 
 
 class pipeline:
@@ -827,7 +827,7 @@ class pipeline:
                         """Check if cell matches any literal definition.
 
                         - None: Use DEFAULT_LITERAL_DEFINITIONS
-                        - []: Return True (treat everything as literal)
+                        - []: Return False (no literal definitions)
                         - [...]: Use provided definitions
                         """
                         if self._literal_definitions is None:
@@ -836,7 +836,7 @@ class pipeline:
                             isinstance(self._literal_definitions, list)
                             and len(self._literal_definitions) == 0
                         ):
-                            return True
+                            return False
                         else:
                             definitions_to_use = self._literal_definitions
                         for definition in definitions_to_use:
