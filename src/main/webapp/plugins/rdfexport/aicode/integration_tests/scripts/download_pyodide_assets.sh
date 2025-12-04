@@ -9,6 +9,9 @@ ARCHIVE_URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${A
 WHEEL_FILE="rdflib-7.4.0-py3-none-any.whl"
 WHEEL_URL="https://files.pythonhosted.org/packages/a7/52/9d03e93f2e00d2a07749ee90f358d08c07822819d084f08c387b7ade8b56/${WHEEL_FILE}"
 
+PYYAML_WHEEL_FILE="PyYAML-6.0.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+PYYAML_WHEEL_URL="https://files.pythonhosted.org/packages/11/d2/6ad1c5e8ffc00b44ea7ab6c48e23f39e62fc30afe37ab89abad1c0cfa95c/${PYYAML_WHEEL_FILE}"
+
 TMP_DIR="$(mktemp -d)"
 cleanup() {
   rm -rf "${TMP_DIR}"
@@ -50,6 +53,18 @@ else
 
   echo "[rdfexport] Converting wheel to base64..."
   base64 < "${TMP_DIR}/${WHEEL_FILE}" > "${TARGET_DIR}/wheels/${WHEEL_FILE}.base64"
+fi
+
+# Check if PyYAML wheel is already downloaded
+if [[ -f "${TARGET_DIR}/wheels/${PYYAML_WHEEL_FILE}.base64" ]]; then
+  echo "[rdfexport] PyYAML wheel already exists, skipping download..."
+else
+  echo "[rdfexport] Downloading PyYAML wheel..."
+  mkdir -p "${TARGET_DIR}/wheels"
+  curl -L "${PYYAML_WHEEL_URL}" -o "${TMP_DIR}/${PYYAML_WHEEL_FILE}"
+
+  echo "[rdfexport] Converting wheel to base64..."
+  base64 < "${TMP_DIR}/${PYYAML_WHEEL_FILE}" > "${TARGET_DIR}/wheels/${PYYAML_WHEEL_FILE}.base64"
 fi
 
 echo "[rdfexport] Pyodide assets available at ${TARGET_DIR}"

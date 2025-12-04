@@ -297,26 +297,131 @@ interface StoredParserSettings {
   settings: ParserSettings;
 }
 
+// Parse simple YAML values from default.yml
+// This is a minimal parser for our specific YAML structure
+function parseDefaultYaml(yamlText: string): any {
+  const lines = yamlText.split("\n");
+  const result: any = { parser_config: {} };
+  let currentSection: string | null = null;
+  let currentArray: any[] | null = null;
+  let currentArrayKey: string | null = null;
+
+  for (const line of lines) {
+    // Skip comments and empty lines
+    if (line.trim().startsWith("#") || line.trim() === "") continue;
+
+    // Section headers
+    if (line.match(/^[a-z_]+:/) && !line.includes("  ")) {
+      currentSection = line.split(":")[0].trim();
+      currentArray = null;
+      currentArrayKey = null;
+      continue;
+    }
+
+    if (currentSection === "parser_config") {
+      // Array start
+      if (
+        line.includes(":") &&
+        !line.includes("  -") &&
+        !line.includes("    -")
+      ) {
+        const key = line.split(":")[0].trim();
+        const value = line.split(":")[1]?.trim();
+
+        if (value === "" || value === "null") {
+          result.parser_config[key] = value === "null" ? null : undefined;
+          currentArrayKey = key;
+          currentArray = [];
+        } else if (value === "true") {
+          result.parser_config[key] = true;
+        } else if (value === "false") {
+          result.parser_config[key] = false;
+        } else if (value && !isNaN(Number(value))) {
+          result.parser_config[key] = Number(value);
+        } else if (value) {
+          result.parser_config[key] = value.replace(/^["']|["']$/g, "");
+        }
+        continue;
+      }
+
+      // Array items
+      if (line.includes("  -") || line.includes("    -")) {
+        const value = line.split("-")[1]?.trim();
+        if (value && currentArray && currentArrayKey) {
+          // Check if it's a simple string or an object
+          if (value.startsWith('"') || !value.includes(":")) {
+            currentArray.push(value.replace(/^["']|["']$/g, ""));
+          } else {
+            // Parse object (e.g., attr_key: style)
+            const match = line.match(/attr_key:\s*(.+)/);
+            if (match) {
+              const keyValue = match[1].trim();
+              // Look for the attr_value on the next line or same line
+              currentArray.push({ pending_key: keyValue });
+            } else {
+              const attrMatch = line.match(/attr_value:\s*(.+)/);
+              if (attrMatch && currentArray.length > 0) {
+                const lastItem = currentArray[currentArray.length - 1];
+                if (lastItem.pending_key) {
+                  currentArray[currentArray.length - 1] = {
+                    attr_key: lastItem.pending_key,
+                    attr_value: attrMatch[1].trim(),
+                  };
+                }
+              }
+            }
+          }
+          result.parser_config[currentArrayKey] = currentArray;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+// Load and parse defaults from YAML at module load time
+import defaultConfigYamlRaw from "../../../aicode/integration_tests/config/default.yml?raw";
+const YAML_DEFAULTS = parseDefaultYaml(defaultConfigYamlRaw).parser_config;
+
 function createDefaultParserSettings(): ParserSettings {
-  // Default values from aicode/integration_tests/config/default.yml
+  // Read all defaults dynamically from YAML - single source of truth
+  const literalDefs = (YAML_DEFAULTS.literal_definitions || []).map(
+    (def: any) => ({
+      character: def.attr_key,
+      replacement: def.attr_value,
+    }),
+  );
+
+  const metacharEntries = (YAML_DEFAULTS.metacharacter_substitute || []).map(
+    (item: any) => {
+      if (typeof item === "string") {
+        return { character: item, replacement: "" };
+      }
+      return { character: item.character, replacement: item.replacement };
+    },
+  );
+
   return {
-    includePreamble: true,
-    inferTypeOfLiterals: true,
-    includeLabel: true,
-    strictMode: false,
-    stripHtml: false,  // YAML default: false
-    mintFromLiterals: true,
-    mintFromTypes: false,
-    mintFromArrows: true,
-    indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
-    maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
-    ontologyIri: null,
-    prefix: null,
-    prefixIri: null,
-    capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
+    includePreamble: YAML_DEFAULTS.include_preamble ?? true,
+    inferTypeOfLiterals: YAML_DEFAULTS.infer_type_of_literals ?? true,
+    includeLabel: YAML_DEFAULTS.include_label ?? true,
+    strictMode: YAML_DEFAULTS.strict_mode ?? false,
+    stripHtml: YAML_DEFAULTS.strip_html ?? false,
+    mintFromLiterals: YAML_DEFAULTS.mint_from_literals ?? true,
+    mintFromTypes: YAML_DEFAULTS.mint_from_types ?? false,
+    mintFromArrows: YAML_DEFAULTS.mint_from_arrows ?? true,
+    indentation: YAML_DEFAULTS.indentation ?? DRAWIO_PARSER_DEFAULT_INDENTATION,
+    maxGap: YAML_DEFAULTS.max_gap ?? DRAWIO_PARSER_DEFAULT_MAX_GAP,
+    ontologyIri: YAML_DEFAULTS.ontology_iri ?? null,
+    prefix: YAML_DEFAULTS.prefix ?? null,
+    prefixIri: YAML_DEFAULTS.prefix_iri ?? null,
+    capitalisationScheme:
+      YAML_DEFAULTS.capitalisation_scheme ??
+      DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
-    metacharacterEntries: [{ character: "url", replacement: "" }],  // YAML default: ["url"]
-    literalDefinitions: [{ character: "style", replacement: "rounded=1" }],  // YAML default
+    metacharacterEntries: metacharEntries,
+    literalDefinitions: literalDefs,
   };
 }
 
@@ -522,9 +627,7 @@ function normaliseParserSettings(
     metacharacterEntries: normalizeMetacharacterEntries(
       partial?.metacharacterEntries,
     ),
-    literalDefinitions: normalizeLiteralEntries(
-      partial?.literalDefinitions,
-    ),
+    literalDefinitions: normalizeLiteralEntries(partial?.literalDefinitions),
   };
 }
 

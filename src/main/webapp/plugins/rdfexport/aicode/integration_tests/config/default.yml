@@ -26,7 +26,7 @@ parser_config:
     # - character:   "("
     #   replacement: ""
   literal_definitions:
-    - attr_key:   style
+    - attr_key: style
       attr_value: rounded=1
     # - attr_key:   someattr
     #   attr_value: someval
