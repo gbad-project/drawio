@@ -281,7 +281,7 @@ function writeBinaryFile(
     mkdirTree: (dir: string) => void;
     analyzePath: (target: string) => { exists: boolean };
     readFile: (target: string) => Uint8Array;
-    writeFile: (target: string, content: ArrayBuffer) => void;
+    writeFile: (target: string, content: Uint8Array | ArrayBuffer) => void;
   };
 
   const directory = path.split("/").slice(0, -1).join("/") || "/";
