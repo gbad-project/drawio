@@ -9,8 +9,8 @@ ARCHIVE_URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${A
 WHEEL_FILE="rdflib-7.4.0-py3-none-any.whl"
 WHEEL_URL="https://files.pythonhosted.org/packages/a7/52/9d03e93f2e00d2a07749ee90f358d08c07822819d084f08c387b7ade8b56/${WHEEL_FILE}"
 
-PYYAML_WHEEL_FILE="PyYAML-6.0.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-PYYAML_WHEEL_URL="https://files.pythonhosted.org/packages/11/d2/6ad1c5e8ffc00b44ea7ab6c48e23f39e62fc30afe37ab89abad1c0cfa95c/${PYYAML_WHEEL_FILE}"
+PYYAML_WHEEL_FILE="PyYAML-6.0.2-py3-none-any.whl"
+PYYAML_WHEEL_URL="https://files.pythonhosted.org/packages/7d/39/472f2554a0f1e825bd7c5afc11c817cd7a2f3657460f7159f691fbb37c51/${PYYAML_WHEEL_FILE}"
 
 TMP_DIR="$(mktemp -d)"
 cleanup() {

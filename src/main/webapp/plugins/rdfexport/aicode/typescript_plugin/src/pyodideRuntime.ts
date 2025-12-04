@@ -5,7 +5,7 @@ import pipelineInitSource from "../../../aicode/python_core/pyodide_pipeline/__i
 import drawioPipelineSource from "../../../aicode/python_core/pyodide_pipeline/drawio_pipeline.py?raw";
 import defaultConfigYaml from "../../../aicode/integration_tests/config/default.yml?raw";
 import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
-import pyyamlWheelBase64 from "../../../.pyodide/wheels/PyYAML-6.0.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.base64?raw";
+import pyyamlWheelBase64 from "../../../.pyodide/wheels/PyYAML-6.0.2-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 export interface DrawioParserResult {
@@ -117,7 +117,7 @@ const PYTHON_WHEELS: Array<{ path: string; data: Uint8Array }> = [
     data: rdflibWheelBytes,
   },
   {
-    path: `${PYODIDE_APP_ROOT}/wheels/PyYAML-6.0.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl`,
+    path: `${PYODIDE_APP_ROOT}/wheels/PyYAML-6.0.2-py3-none-any.whl`,
     data: pyyamlWheelBytes,
   },
 ];
@@ -356,7 +356,7 @@ if importlib.util.find_spec("yaml") is None:
     import zipfile
     target = Path("${PYODIDE_APP_ROOT}/packages")
     target.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile("${PYODIDE_APP_ROOT}/wheels/PyYAML-6.0.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl") as archive:
+    with zipfile.ZipFile("${PYODIDE_APP_ROOT}/wheels/PyYAML-6.0.2-py3-none-any.whl") as archive:
         archive.extractall(target)
     if str(target) not in sys.path:
         sys.path.insert(0, str(target))
