@@ -24,4 +24,25 @@ aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_match
 aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] ]9;4;1;29\[32mPASSED[0m[32m [ 31%][0m
 aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] ]9;4;1;31\[32mPASSED[0m[32m [ 33%][0m
 aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] ]9;4;1;33\[32mPASSED[0m[32m [ 35%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] ]9;4;1;35
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] ]9;4;1;35\[32mPASSED[0m[32m [ 37%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] ]9;4;1;37\[32mPASSED[0m[32m [ 39%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] ]9;4;1;39\[32mPASSED[0m[32m [ 41%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] ]9;4;1;41\[32mPASSED[0m[32m [ 43%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] ]9;4;1;43\[32mPASSED[0m[32m [ 45%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] ]9;4;1;45\[32mPASSED[0m[32m [ 47%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] ]9;4;2;47\[31mFAILED[0m[31m [ 50%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] ]9;4;2;50\[32mPASSED[0m[31m [ 52%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] ]9;4;2;52\[31mFAILED[0m[31m [ 54%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] ]9;4;2;54\[32mPASSED[0m[31m [ 56%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] ]9;4;2;56\[33mXFAIL[0m[31m [ 58%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[List_typed_decorations.drawio] ]9;4;2;58\[32mPASSED[0m[31m [ 60%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] ]9;4;2;60\[32mPASSED[0m[31m [ 62%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] ]9;4;2;62\[32mPASSED[0m[31m [ 64%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] ]9;4;2;64\[32mPASSED[0m[31m [ 66%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] ]9;4;2;66\[32mPASSED[0m[31m [ 68%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] ]9;4;2;68\[32mPASSED[0m[31m [ 70%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL.drawio] ]9;4;2;70\[32mPASSED[0m[31m [ 72%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL1.drawio] ]9;4;2;72\[32mPASSED[0m[31m [ 75%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-complex-relation-and-its-shortcut.drawio] ]9;4;2;75\[32mPASSED[0m[31m [ 77%][0m
+aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-documentary-form-type.drawio] ]9;4;2;77\[32mPASSED[0m[31m [ 79%][0m
+aicode/integration_

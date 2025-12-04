@@ -3,39 +3,24 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 rico:hasDocumentaryFormType a owl:NamedIndividual ;
     rdfs:label "rico:hasDocumentaryFormType" .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
-
-<ontology://generated-from-draw-io/mock#%22Inventaire%20Des%20Chartes%20De%20L%27abbaye%20De%20Saint-Denis%20%5B...%5D%20Commencé%20En%20L%27année%201688%22%20RiC-E04%20Record> a owl:NamedIndividual ;
-    rdfs:label "\"Inventaire des chartes de l'abbaye de Saint-Denis [...] commencé en l'année 1688\" RiC-E04 Record" .
-
-<ontology://generated-from-draw-io/mock#%22VII.%20De%20Quadam%20Pace%20Facta%20Inter%20Nos%20Et%20Ernaudum%20Ermenoudi%22%20RiC-E05%20Record%20Part> a owl:NamedIndividual ;
-    rdfs:label "\"VII. De quadam pace facta inter nos et Ernaudum Ermenoudi\"     RiC-E05 Record Part" .
-
-:Acte%20Original%20%28non%20Retrouvé%29%20RiC-E06%20Instantiation a owl:NamedIndividual ;
-    rdfs:label "Acte original (non retrouvé) RiC-E06 Instantiation" .
-
-<ontology://generated-from-draw-io/mock#Acte%20Pierrefitte%20N°%207%20%3A%20Édition%20Numérique%20RiC-E04%20Record%20Part> a owl:NamedIndividual ;
-    rdfs:label "Acte Pierrefitte n° 7 :  édition numérique  RiC-E04 Record Part" .
-
-:Arbitrage%20Entre%20L%27abbaye%20De%20Saint-Denis%20Et%20Ernaud%20Ermenoud%20Au%20Sujet%20Du%20Pressoir%20Et%20Du%20Manoir%20Édifiés%20Par%20Ce%20Dernier%20À%20Pierrefitte%20RiC-E04%20Record a owl:NamedIndividual ;
-    rdfs:label "Arbitrage entre l'abbaye de Saint-Denis et Ernaud Ermenoud au sujet du pressoir et du manoir édifiés par ce dernier à Pierrefitte RiC-E04 Record" .
-
-:Archives%20Nationales%2C%20LL%201157%2C%20P.371b-372a%20RiC-E06%20Instantiation a owl:NamedIndividual ;
-    rdfs:label "Archives nationales, LL 1157, p.371b-372a  RiC-E06 Instantiation" .
-
-:Archives%20Nationales%2C%20LL1190%20RiC-E06%20Instantiation a owl:NamedIndividual ;
-    rdfs:label "Archives nationales, LL1190 RiC-E06 Instantiation" .
-
-<ontology://generated-from-draw-io/mock#Archives%20Nationales;%20LL1157%20RiC-E06%20Instantiation> a owl:NamedIndividual ;
-    rdfs:label "Archives nationales; LL1157 RiC-E06 Instantiation" .
-
-:Cartulaire%20Blanc%20De%20L%27abbaye%20De%20Saint-Denis%20%28tome%201%29%20RiC-E04%20Record a owl:NamedIndividual ;
-    rdfs:label "Cartulaire blanc de l'abbaye  de Saint-Denis (tome 1)   RiC-E04 Record" .
+    owl:imports rico: ;
+    skos:note "\"Inventaire des chartes de l'abbaye de Saint-Denis [...] commencé en l'année 1688\" RiC-E04 Record",
+        "\"VII. De quadam pace facta inter nos et Ernaudum Ermenoudi\"     RiC-E05 Record Part",
+        "Acte Pierrefitte n° 7 :  édition numérique  RiC-E04 Record Part",
+        "Acte original (non retrouvé) RiC-E06 Instantiation",
+        "Arbitrage entre l'abbaye de Saint-Denis et Ernaud Ermenoud au sujet du pressoir et du manoir édifiés par ce dernier à Pierrefitte RiC-E04 Record",
+        "Archives nationales, LL 1157, p.371b-372a  RiC-E06 Instantiation",
+        "Archives nationales, LL1190 RiC-E06 Instantiation",
+        "Archives nationales; LL1157 RiC-E06 Instantiation",
+        "Cartulaire blanc de l'abbaye  de Saint-Denis (tome 1)   RiC-E04 Record",
+        "Version XML/TEI de l'édition numérique  RiC-E06 Instantiation",
+        "finding aid  rico:DocumentaryFormType" .
 
 :Date%3A1232-05%20ScopeAndContent%3A%22...%5D%20Language%3A%27latin%27 a owl:NamedIndividual ;
     rdfs:label "date:1232-05  scopeAndContent:\"...]  language:'latin'" .
@@ -45,9 +30,6 @@ rico:hasDocumentaryFormType a owl:NamedIndividual ;
 
 :Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License a owl:NamedIndividual ;
     rdfs:label "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License" .
-
-:Finding%20Aid%20Rico%3ADocumentaryFormType a owl:NamedIndividual ;
-    rdfs:label "finding aid  rico:DocumentaryFormType" .
 
 :Has%20Genetic%20Link%20To%20Record%20Resource a owl:NamedIndividual ;
     rdfs:label "has genetic link to record resource" .
@@ -81,9 +63,6 @@ rico:hasDocumentaryFormType a owl:NamedIndividual ;
 
 :Rico%3Atitle%3A%22VII.%20De%20Quadam%20Pace%20Facta%20Inter...%22%20Rico%3AbeginningDate%3A%201250%20Rico%3AendDate%3A%201300%20Language%3A%27latin%27 a owl:NamedIndividual ;
     rdfs:label "rico:title:\"VII. De quadam pace facta inter...\"  rico:beginningDate: 1250 rico:endDate: 1300 language:'latin'" .
-
-:Version%20XML%2FTEI%20De%20L%27édition%20Numérique%20RiC-E06%20Instantiation a owl:NamedIndividual ;
-    rdfs:label "Version XML/TEI de l'édition numérique  RiC-E06 Instantiation" .
 
 <ontology://generated-from-draw-io/mock#©%20Archives%20Nationales%20De%20France%2C%20Septembre%202020> a owl:NamedIndividual ;
     rdfs:label "© Archives nationales de France, septembre 2020" .

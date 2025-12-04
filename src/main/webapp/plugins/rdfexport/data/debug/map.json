@@ -13546,17 +13546,17 @@
           "tokens": []
         },
         "kZPpBHSunfDXtntdQoen-1": {
-          "declares_identifier": true,
-          "identifier": "Jean-No\u00ebl Jeanneney (1942-....) RiC-E08\u00a0 Person",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Jean-No\u00ebl Jeanneney (1942-....) RiC-E08\u00a0 Person",
           "tokens": []
         },
         "kZPpBHSunfDXtntdQoen-2": {
-          "declares_identifier": true,
-          "identifier": "Radio France (1975-....) RiC-E11\u00a0 Corporate Body",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Radio France (1975-....) RiC-E11\u00a0 Corporate Body",
           "tokens": []
@@ -13578,9 +13578,9 @@
           "tokens": []
         },
         "kZPpBHSunfDXtntdQoen-3": {
-          "declares_identifier": true,
-          "identifier": "Relation de direction (leadership) entre J-N.Jeanneney et Radio France rico:LeadershipRelation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Relation de direction (leadership) entre J-N.Jeanneney et Radio France rico:LeadershipRelation",
           "tokens": []
@@ -13634,9 +13634,9 @@
           "tokens": []
         },
         "kZPpBHSunfDXtntdQoen-4": {
-          "declares_identifier": true,
-          "identifier": "Radio France. Pr\u00e9sident RiC-E12\u00a0 Position",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Radio France. Pr\u00e9sident RiC-E12\u00a0 Position",
           "tokens": []
@@ -13718,7 +13718,8 @@
         "by_kind": {
           "ARROW_LABEL": 7,
           "EMPTY_CELL": 3,
-          "STANDALONE_INDIVIDUAL": 16,
+          "LITERAL": 4,
+          "STANDALONE_INDIVIDUAL": 12,
           "UNCLASSIFIED": 1
         },
         "classified": 26,
@@ -13734,7 +13735,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -13747,9 +13748,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "4ca32e03ab788d4f29cf7773a85651d25082a399f535d25d572d986286f7538b",
+          "nt_sha256": "ca282b0fd92b0c9111e7512b291591d4e6eabe0f23b2108b578ed69c6317d1dc",
           "path": "results/pytest-a-complex-relation-and-its-shortcut/ts_pipeline.ttl",
-          "triples": 34
+          "triples": 30
         },
         "ts_plugin": {
           "nt_sha256": "4ca32e03ab788d4f29cf7773a85651d25082a399f535d25d572d986286f7538b",
@@ -13785,9 +13786,9 @@
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-28": {
-          "declares_identifier": true,
-          "identifier": "Document photographique  rico:DocumentaryFormType  skos:Concept",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Document photographique  rico:DocumentaryFormType  skos:Concept",
           "tokens": []
@@ -13825,9 +13826,9 @@
           "tokens": []
         },
         "VvKMp8i1Q4lRMExAoW_6-1": {
-          "declares_identifier": true,
-          "identifier": "document \"graphique\" rico:DocumentaryFormType skos:Concept",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "document \"graphique\" rico:DocumentaryFormType skos:Concept",
           "tokens": []
@@ -13865,9 +13866,9 @@
           "tokens": []
         },
         "VvKMp8i1Q4lRMExAoW_6-31": {
-          "declares_identifier": true,
-          "identifier": "Vocabulaire des types de documents des Archives nationales skos:ConceptScheme",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Vocabulaire des types de documents des Archives nationales skos:ConceptScheme",
           "tokens": []
@@ -13905,9 +13906,9 @@
           "tokens": []
         },
         "t8CTZzge2s8uQhyUlLNi-1": {
-          "declares_identifier": true,
-          "identifier": "Document photographique  skos:Concept",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Document photographique  skos:Concept",
           "tokens": []
@@ -13945,9 +13946,9 @@
           "tokens": []
         },
         "t8CTZzge2s8uQhyUlLNi-4": {
-          "declares_identifier": true,
-          "identifier": "Liste d'autorit\u00e9 Typologie documentaire pour l'indexation des archives locales du SIAF skos:ConceptScheme",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Liste d'autorit\u00e9 Typologie documentaire pour l'indexation des archives locales du SIAF skos:ConceptScheme",
           "tokens": []
@@ -13997,7 +13998,8 @@
         "by_kind": {
           "ARROW_LABEL": 6,
           "EMPTY_CELL": 4,
-          "STANDALONE_INDIVIDUAL": 18,
+          "LITERAL": 5,
+          "STANDALONE_INDIVIDUAL": 13,
           "UNCLASSIFIED": 1
         },
         "classified": 28,
@@ -14013,7 +14015,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -14026,9 +14028,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "5c3fbce5d40ea8241cf0f2fafb4d29cb89399fb1a31133b5b0df98c36f8b7376",
+          "nt_sha256": "573fd28619d781e758663ab1d2bf7ce25fc62aa45a96fe301e5d1d812c71deac",
           "path": "results/pytest-a-documentary-form-type/ts_pipeline.ttl",
-          "triples": 34
+          "triples": 29
         },
         "ts_plugin": {
           "nt_sha256": "5c3fbce5d40ea8241cf0f2fafb4d29cb89399fb1a31133b5b0df98c36f8b7376",
@@ -14088,41 +14090,41 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-1": {
-          "declares_identifier": true,
-          "identifier": "Arbitrage entre l'abbaye de Saint-Denis et Ernaud Ermenoud au sujet du pressoir et du manoir \u00e9difi\u00e9s par ce dernier \u00e0 Pierrefitte RiC-E04 Record",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Arbitrage entre l'abbaye de Saint-Denis et Ernaud Ermenoud au sujet du pressoir et du manoir \u00e9difi\u00e9s par ce dernier \u00e0 Pierrefitte RiC-E04 Record",
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-10": {
-          "declares_identifier": true,
-          "identifier": "Acte Pierrefitte n\u00b0 7 :  \u00e9dition num\u00e9rique  RiC-E04 Record Part",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Acte Pierrefitte n\u00b0 7 :  \u00e9dition num\u00e9rique  RiC-E04 Record Part",
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-11": {
-          "declares_identifier": true,
-          "identifier": "Version XML/TEI de l'\u00e9dition num\u00e9rique  RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Version XML/TEI de l'\u00e9dition num\u00e9rique  RiC-E06 Instantiation",
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-13": {
-          "declares_identifier": true,
-          "identifier": "Cartulaire blanc de l'abbaye  de Saint-Denis (tome 1)   RiC-E04 Record",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Cartulaire blanc de l'abbaye  de Saint-Denis (tome 1)   RiC-E04 Record",
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-14": {
-          "declares_identifier": true,
-          "identifier": "Archives nationales; LL1157 RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Archives nationales; LL1157 RiC-E06 Instantiation",
           "tokens": []
@@ -14144,9 +14146,9 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-2": {
-          "declares_identifier": true,
-          "identifier": "Acte original (non retrouv\u00e9) RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Acte original (non retrouv\u00e9) RiC-E06 Instantiation",
           "tokens": []
@@ -14232,9 +14234,9 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-4": {
-          "declares_identifier": true,
-          "identifier": "\"VII. De quadam pace facta inter nos et Ernaudum Ermenoudi\"     RiC-E05 Record Part",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "\"VII. De quadam pace facta inter nos et Ernaudum Ermenoudi\"     RiC-E05 Record Part",
           "tokens": []
@@ -14280,9 +14282,9 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-5": {
-          "declares_identifier": true,
-          "identifier": "\"Inventaire des chartes de l'abbaye de Saint-Denis [...] commenc\u00e9 en l'ann\u00e9e 1688\" RiC-E04 Record",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "\"Inventaire des chartes de l'abbaye de Saint-Denis [...] commenc\u00e9 en l'ann\u00e9e 1688\" RiC-E04 Record",
           "tokens": []
@@ -14312,9 +14314,9 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-6": {
-          "declares_identifier": true,
-          "identifier": "finding aid  rico:DocumentaryFormType",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "finding aid  rico:DocumentaryFormType",
           "tokens": []
@@ -14352,9 +14354,9 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-7": {
-          "declares_identifier": true,
-          "identifier": "Archives nationales, LL1190 RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Archives nationales, LL1190 RiC-E06 Instantiation",
           "tokens": []
@@ -14400,9 +14402,9 @@
           "tokens": []
         },
         "gM6wrAoRFjNMHqexDxIw-8": {
-          "declares_identifier": true,
-          "identifier": "Archives nationales, LL 1157, p.371b-372a  RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Archives nationales, LL 1157, p.371b-372a  RiC-E06 Instantiation",
           "tokens": []
@@ -14436,7 +14438,8 @@
         "by_kind": {
           "ARROW_LABEL": 11,
           "EMPTY_CELL": 6,
-          "STANDALONE_INDIVIDUAL": 31,
+          "LITERAL": 11,
+          "STANDALONE_INDIVIDUAL": 20,
           "UNCLASSIFIED": 1
         },
         "classified": 48,
@@ -14452,7 +14455,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -14465,9 +14468,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "956fd5e7765064eae630c763eabb1c6ba9e4e8b7c9e271c5aa6d7ed2f15602bd",
+          "nt_sha256": "41f95b35f5db1121ba257cc75e49dc32ef6dffe227fa1b3ab4aa6a5870fda50c",
           "path": "results/pytest-a-medieval-act-in-a-cartulary/ts_pipeline.ttl",
-          "triples": 56
+          "triples": 45
         },
         "ts_plugin": {
           "nt_sha256": "956fd5e7765064eae630c763eabb1c6ba9e4e8b7c9e271c5aa6d7ed2f15602bd",
@@ -14487,380 +14490,376 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-1": {
-          "declares_identifier": true,
-          "identifier": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<b>Amb\u00e9rieux-en-Dombes (Ain)</b><br><i>RiC E-22 Place</i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-16": {
-          "declares_identifier": true,
-          "identifier": "https://sws.geonames.org/3037941/ geonames:Feature",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "https://sws.geonames.org/3037941/ geonames:Feature",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<b>https://sws.geonames.org/3037941/</b><br><i>geonames:Feature</i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-19": {
-          "declares_identifier": true,
-          "identifier": "rico:Coordinates",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:Coordinates",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<br><br><i>rico:Coordinates</i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-2": {
-          "declares_identifier": true,
-          "identifier": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<div align=\"center\"><b>Ain (Rh\u00f4ne-Alpes, d\u00e9partement)</b><br><i>RiC E-22 Place</i><br></div>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-21": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-22": {
-          "declares_identifier": true,
-          "identifier": "name: \"Amb\u00e9rieux-en-Dombes (Ain)  identifier: \"FRAN_RI_005.xml# d3ntcnghfn-zgpbme3jri6v\" history: \"...\" rico:beginningDate: \"1793\"",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "name: \"Amb\u00e9rieux-en-Dombes (Ain)  identifier: \"FRAN_RI_005.xml# d3ntcnghfn-zgpbme3jri6v\" history: \"...\" rico:beginningDate: \"1793\"",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<br>name: \"Amb\u00e9rieux-en-Dombes (Ain)<br><div>identifier: \"FRAN_RI_005.xml#<br>d3ntcnghfn-zgpbme3jri6v\"<br>history: \"...\"<br>rico:beginningDate: \"1793\"<br></div><br>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-23": {
-          "declares_identifier": true,
-          "identifier": "Savigneux (Ain) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Savigneux (Ain) RiC E-22 Place",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<b>Savigneux (Ain)</b><br><i>RiC E-22 Place</i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-31": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-36": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-37": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-38": {
-          "declares_identifier": true,
-          "identifier": "rico:latitude:45.99894 rico:longitude:4.90126 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 rico:geodesicSystem:\"WGS84\"",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:latitude:45.99894 rico:longitude:4.90126 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 rico:geodesicSystem:\"WGS84\"",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:latitude:45.99894<br>rico:longitude:4.90126<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rico:geodesicSystem:\"WGS84\"",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-4": {
-          "declares_identifier": true,
-          "identifier": "Localisation physique d'Amb\u00e9rieux-en-Dombes  rico:PhysicalLocation",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Localisation physique d'Amb\u00e9rieux-en-Dombes  rico:PhysicalLocation",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<b>Localisation physique d'Amb\u00e9rieux-en-Dombes</b><i><br><br>rico:PhysicalLocation</i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-40": {
-          "declares_identifier": true,
-          "identifier": "rico:measure: \"MULTIPOLYGON  (((4.895580369402351 45.979916181223366,   4.880940268964116 45.98591608321336, [...])))\"  rico:geodesicSystem:\"WGS84\"",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:measure: \"MULTIPOLYGON  (((4.895580369402351 45.979916181223366,   4.880940268964116 45.98591608321336, [...])))\"  rico:geodesicSystem:\"WGS84\"",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:measure: \"MULTIPOLYGON<br> (((4.895580369402351 45.979916181223366, <br><div align=\"left\">4.880940268964116 45.98591608321336, [...])))\"</div><div align=\"left\">rico:geodesicSystem:\"WGS84\"</div>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-41": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-46": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-47": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-5": {
-          "declares_identifier": true,
-          "identifier": "rico:Coordinates",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:Coordinates",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<br><br><i>rico:Coordinates</i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-51": {
-          "declares_identifier": true,
-          "identifier": "rico:date descriptiveNote etc.",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:date descriptiveNote etc.",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "rico:date<br>descriptiveNote<br>etc.",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-52": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-53": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
-          "raw_value": "owl:sameAs",
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-55": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-57": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-6": {
-          "declares_identifier": true,
-          "identifier": "commune fran\u00e7aise   rico:PlaceType skos:Concept",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "commune fran\u00e7aise   rico:PlaceType skos:Concept",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<div><b>commune</b><b> fran\u00e7aise</b><i><b><br></b></i></div><div><i>rico:PlaceType<br>skos:Concept<br></i></div>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-61": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-62": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-63": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-66": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-67": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-68": {
-          "declares_identifier": true,
-          "identifier": "is or was contained by",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "is or was contained by",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<i><b>is or was contained by</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-69": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
-          "raw_value": "owl:sameAs",
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1QzVoJSBnvUrHcRH2k3W-53",
+          "raw_value": "<i><b>owl:sameAs</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-7": {
-          "declares_identifier": true,
-          "identifier": "http://data.ign.fr/id/geofla/commune/01005   ign:commune",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "http://data.ign.fr/id/geofla/commune/01005   ign:commune",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<div><b>http://data.ign.fr/id/geofla/commune/01005</b><br></div><div><i>ign:commune</i></div>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-70": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
-          "raw_value": "owl:sameAs",
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1QzVoJSBnvUrHcRH2k3W-53",
+          "raw_value": "<i><b>owl:sameAs</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-71": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "ARROW_LABEL",
-          "parent_identifier": null,
-          "raw_value": "owl:sameAs",
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1QzVoJSBnvUrHcRH2k3W-53",
+          "raw_value": "<i><b>owl:sameAs</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-72": {
-          "declares_identifier": true,
-          "identifier": "rico:hasOrHadPlaceType",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:hasOrHadPlaceType",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<i><b>rico:hasOrHadPlaceType</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-74": {
-          "declares_identifier": true,
-          "identifier": "rico:hasOrHadCoordinates",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:hasOrHadCoordinates",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<i><b>rico:hasOrHadCoordinates</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-75": {
-          "declares_identifier": true,
-          "identifier": "rico:hasOrHadCoordinates",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:hasOrHadCoordinates",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<i><b>rico:hasOrHadCoordinates</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-76": {
-          "declares_identifier": true,
-          "identifier": "rico:hasOrHadPhysicalLocation",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "rico:hasOrHadPhysicalLocation",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<i><b>rico:hasOrHadPhysicalLocation</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-77": {
-          "declares_identifier": true,
-          "identifier": "is or was adjacent to",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "is or was adjacent to",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<i><b>is or was adjacent to</b></i>",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-8": {
-          "declares_identifier": true,
-          "identifier": "http://id.insee.fr/geo/commune/01005 insee:commune",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "http://id.insee.fr/geo/commune/01005 insee:commune",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<b>http://id.insee.fr/geo/commune/01005</b><br><i>insee:commune</i>",
           "tokens": []
         },
         "UyXdzqnkReWlVqN5aeVa-1": {
-          "declares_identifier": true,
-          "identifier": "Description partielle, conforme \u00e0 RiC-O,  d'un lieu (la commune d'Amb\u00e9rieux-en-Dombes) dans la version RDF du r\u00e9f\u00e9rentiel des lieux des Archives nationales.",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Description partielle, conforme \u00e0 RiC-O,  d'un lieu (la commune d'Amb\u00e9rieux-en-Dombes) dans la version RDF du r\u00e9f\u00e9rentiel des lieux des Archives nationales.",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<div align=\"right\"><font style=\"font-size: 14px\"><b>Description partielle, conforme \u00e0 RiC-O, </b></font><br><font style=\"font-size: 14px\"><b>d'un lieu (la commune d'Amb\u00e9rieux-en-Dombes) dans la version RDF du r\u00e9f\u00e9rentiel des lieux des Archives nationales</b></font><b>.</b><br></div>",
           "tokens": []
         },
         "UyXdzqnkReWlVqN5aeVa-4": {
-          "declares_identifier": true,
-          "identifier": "Les relations sont pr\u00e9sent\u00e9es uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le pr\u00e9fixe rico: indique que le composant (classe ou propri\u00e9t\u00e9) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de pr\u00e9fixe, le composant existe dans RiC-CM et dans RiC-O.",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Les relations sont pr\u00e9sent\u00e9es uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le pr\u00e9fixe rico: indique que le composant (classe ou propri\u00e9t\u00e9) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de pr\u00e9fixe, le composant existe dans RiC-CM et dans RiC-O.",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<div><b><font color=\"#6C8EBF\">Les relations sont pr\u00e9sent\u00e9es uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme).<br>Le pr\u00e9fixe rico: indique que le composant (classe ou propri\u00e9t\u00e9) n'existe que dans RiC-O.</font></b></div><div><b><font color=\"#6C8EBF\">Lorsqu'il n'y a pas de pr\u00e9fixe, le composant existe dans RiC-CM et dans RiC-O.<br></font></b></div>",
           "tokens": []
         },
         "UyXdzqnkReWlVqN5aeVa-5": {
-          "declares_identifier": true,
-          "identifier": "\u00a9\u00a0Archives nationales de France, janvier 2021",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "\u00a9\u00a0Archives nationales de France, janvier 2021",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<font style=\"font-size: 13px\"><b><span>\u00a9&nbsp;</span><span>Archives nationales de France, janvier 2021</span></b></font>",
           "tokens": []
         },
         "UyXdzqnkReWlVqN5aeVa-7": {
-          "declares_identifier": true,
-          "identifier": "Document mis \u00e0 disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
-          "kind": "STANDALONE_INDIVIDUAL",
-          "parent_identifier": null,
-          "raw_value": "Document mis \u00e0 disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
+          "raw_value": "<div align=\"right\"><b>Document mis \u00e0 disposition selon les termes<br></b></div><b>de la  <a href=\"https://creativecommons.org/licenses/by/4.0/\">Creative Commons Attribution 4.0 International License</a></b>",
           "tokens": []
         },
         "UyXdzqnkReWlVqN5aeVa-8": {
-          "declares_identifier": false,
+          "declares_identifier": null,
           "identifier": null,
-          "kind": "EMPTY_CELL",
-          "parent_identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "1",
           "raw_value": "",
           "tokens": []
         }
-      },
-      "classification_counts": {
-        "by_kind": {
-          "ARROW_LABEL": 12,
-          "EMPTY_CELL": 8,
-          "STANDALONE_INDIVIDUAL": 24,
-          "UNCLASSIFIED": 1
-        },
-        "classified": 44,
-        "total_cells": 45,
-        "unclassified": 1
       },
       "drawio": "data/fixtures/drawio_fixtures/NationalArchivesOfFrance-examples_v0-2/a-place.drawio",
       "errors": {
         "py_legacy": [
           "Legacy Python graph is None",
           "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ],
+        "py_stdout": "Warning: Failed to extract cell classifications: Arrow 'owl:sameAs' \n(1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 \nPlace') as source.\nTraceback (most recent call last):\n  File \n\"/home/user/drawio/src/main/webapp/plugins/rdfexport/aicode/integration_tests/de\nbug/src/__main__.py\", line 1072, in _extract_cell_classifications\n    classifier = DrawIOCellClassifier(\n                 ^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/home/user/drawio/src/main/webapp/plugins/rdfexport/python_core/src/draw_io_par\nser.py\", line 212, in __init__\n    self._process_graph()\n  File \n\"/home/user/drawio/src/main/webapp/plugins/rdfexport/python_core/src/draw_io_par\nser.py\", line 342, in _process_graph\n    arrow = self._resolve_arrow(cell)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \n\"/home/user/drawio/src/main/webapp/plugins/rdfexport/python_core/src/draw_io_par\nser.py\", line 668, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\npython_core.src.draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSource\nException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal \n('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.",
+        "ts_pipeline": [
+          "TypeScript pipeline graph is None",
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 392, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 383, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3059, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<4 lines>...\n        literal_definitions=literal_definitions,\n    )\n  File \"/app/src/draw_io_parser.py\", line 212, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 342, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 668, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 22669584,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 392, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 383, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3059, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<4 lines>...\n        literal_definitions=literal_definitions,\n    )\n  File \"/app/src/draw_io_parser.py\", line 212, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 342, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 668, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 22669584,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.3.2 (Linux x64)"
+        ],
+        "ts_plugin": [
+          "TypeScript plugin graph is None",
+          "RuntimeError: Bun scenario execution failed: [PIPELINE] Pyodide DrawIO parser invocation failed 3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 392, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 383, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3059, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<4 lines>...\n        literal_definitions=literal_definitions,\n    )\n  File \"/app/src/draw_io_parser.py\", line 212, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 342, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 668, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 22669584,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\n3 |   var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;\n4 |   return (\n5 | async function(moduleArg = {}) {\n6 |   var moduleRtn;\n7 | \n8 | var Module=moduleArg;var readyPromiseResolve,readyPromiseReject;var readyPromise=new Promise((resolve,reject)=>{readyPromiseResolve=resolve;readyPromiseReject=reject});var ENVIRONMENT_IS_WEB=typeof window==\"object\";var ENVIRONMENT_IS_WORKER=typeof WorkerGlobalScope!=\"undefined\";var ENVIRONMENT_IS_NODE=typeof process==\"object\"&&process.versions?.node&&process.type!=\"renderer\";var ENVIRONMENT_IS_SHELL=!ENVIRONMENT_IS_WEB&&!ENVIRONMENT_IS_NODE&&!ENVIRONMENT_IS_WORKER;if(ENVIRONMENT_IS_NODE){}var arguments_=[];var thisProgram=\"./this.program\";var quit_=(status,toThrow)=>{throw toThrow};if(typeof __filename!=\"undefined\"){_scriptName=__filename}else if(ENVIRONMENT_IS_WORKER){_scriptName=self.location.href}var scriptDirectory=\"\";function locateFile(path){if(Module[\"locateFile\"]){return Module[\"locateFile\"](path,scriptDirectory)}return scriptDirectory+path}var readAsync,readBinary;if(ENVIRONMENT_IS_NODE){var fs=require(\"fs\");var nodePath=require(\"path\");scriptDirectory=__dirname+\"/\";readBinary=filename=>{filename=isF\n\nPythonError: Traceback (most recent call last):\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 597, in eval_code_async\n    await CodeRunner(\n    ...<9 lines>...\n    .run_async(globals, locals)\n  File \"/lib/python313.zip/_pyodide/_base.py\", line 411, in run_async\n    coroutine = eval(self.code, globals, locals)\n  File \"<exec>\", line 3, in <module>\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 392, in parse_drawio_xml_to_json\n    graph_id, graph = parse_drawio_xml(serialized_xml, parser_config)\n                      ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/app/pyodide_pipeline/drawio_pipeline.py\", line 383, in parse_drawio_xml\n    graph = _build_graph_from_raw_xml(normalized_xml, config)\n  File \"/app/src/draw_io_parser.py\", line 3059, in _build_graph_from_raw_xml\n    classifier = DrawIOCellClassifier(\n        working_xml,\n    ...<4 lines>...\n        literal_definitions=literal_definitions,\n    )\n  File \"/app/src/draw_io_parser.py\", line 212, in __init__\n    self._process_graph()\n    ~~~~~~~~~~~~~~~~~~~^^\n  File \"/app/src/draw_io_parser.py\", line 342, in _process_graph\n    arrow = self._resolve_arrow(cell)\n  File \"/app/src/draw_io_parser.py\", line 668, in _resolve_arrow\n    raise ArrowWithoutIndividualAsSourceException(\n        f\"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.\"\n    )\ndraw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place') as source.\n\n       type: \"internal_data_core.ArrowWithoutIndividualAsSourceException\",\n __error_address: 22669584,\n\n      at new_error (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:578922)\n      at callPyObjectKwargs (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:632622)\n      at <anonymous> (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:633781)\n      at wrapper (/home/user/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/pyodide.asm.js:8:596545)\n\nBun v1.3.2 (Linux x64)"
         ]
       },
       "format": "turtle",
-      "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
-      },
+      "isomorphism": {},
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
         "baseUri": "ontology://generated-from-draw-io/mock#",
@@ -14870,18 +14869,7 @@
         "ontology_iri": "mock://pytest-debug-ontology"
       },
       "preamble": [],
-      "results": {
-        "ts_pipeline": {
-          "nt_sha256": "fdf151c5ecb95f8ffe323aad5e9bdb101bb94f4f3fe9ae953acfe32ee2d24a2e",
-          "path": "results/pytest-a-place/ts_pipeline.ttl",
-          "triples": 48
-        },
-        "ts_plugin": {
-          "nt_sha256": "fdf151c5ecb95f8ffe323aad5e9bdb101bb94f4f3fe9ae953acfe32ee2d24a2e",
-          "path": "results/pytest-a-place/ts_plugin.ttl",
-          "triples": 48
-        }
-      }
+      "results": {}
     },
     "pytest-a-place-fixed": {
       "cell_classifications": {
@@ -14902,25 +14890,25 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-16": {
-          "declares_identifier": true,
-          "identifier": "https://sws.geonames.org/3037941/ geonames:Feature",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "https://sws.geonames.org/3037941/ geonames:Feature",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-19": {
-          "declares_identifier": true,
-          "identifier": "rico:Coordinates",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rico:Coordinates",
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-2": {
-          "declares_identifier": true,
-          "identifier": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
           "tokens": []
@@ -14942,9 +14930,9 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-23": {
-          "declares_identifier": true,
-          "identifier": "Savigneux (Ain) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Savigneux (Ain) RiC E-22 Place",
           "tokens": []
@@ -14982,9 +14970,9 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-4": {
-          "declares_identifier": true,
-          "identifier": "Localisation physique d'Amb\u00e9rieux-en-Dombes  rico:PhysicalLocation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Localisation physique d'Amb\u00e9rieux-en-Dombes  rico:PhysicalLocation",
           "tokens": []
@@ -15022,9 +15010,9 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-5": {
-          "declares_identifier": true,
-          "identifier": "rico:Coordinates",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rico:Coordinates",
           "tokens": []
@@ -15070,9 +15058,9 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-6": {
-          "declares_identifier": true,
-          "identifier": "commune fran\u00e7aise   rico:PlaceType skos:Concept",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "commune fran\u00e7aise   rico:PlaceType skos:Concept",
           "tokens": []
@@ -15134,9 +15122,9 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-7": {
-          "declares_identifier": true,
-          "identifier": "http://data.ign.fr/id/geofla/commune/01005   ign:commune",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "http://data.ign.fr/id/geofla/commune/01005   ign:commune",
           "tokens": []
@@ -15198,9 +15186,9 @@
           "tokens": []
         },
         "1QzVoJSBnvUrHcRH2k3W-8": {
-          "declares_identifier": true,
-          "identifier": "http://id.insee.fr/geo/commune/01005 insee:commune",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "http://id.insee.fr/geo/commune/01005 insee:commune",
           "tokens": []
@@ -15250,7 +15238,8 @@
         "by_kind": {
           "ARROW_LABEL": 12,
           "EMPTY_CELL": 8,
-          "STANDALONE_INDIVIDUAL": 24,
+          "LITERAL": 9,
+          "STANDALONE_INDIVIDUAL": 15,
           "UNCLASSIFIED": 1
         },
         "classified": 44,
@@ -15266,7 +15255,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -15279,9 +15268,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "fdf151c5ecb95f8ffe323aad5e9bdb101bb94f4f3fe9ae953acfe32ee2d24a2e",
+          "nt_sha256": "063c05b52c54435614ed31e2ae99c382110576e890ff7392c2bed08c5bfb7a4c",
           "path": "results/pytest-a-place-fixed/ts_pipeline.ttl",
-          "triples": 48
+          "triples": 39
         },
         "ts_plugin": {
           "nt_sha256": "fdf151c5ecb95f8ffe323aad5e9bdb101bb94f4f3fe9ae953acfe32ee2d24a2e",
@@ -57513,9 +57502,9 @@
           "tokens": []
         },
         "ccQ81NhYz9qmqgse-E7F-10": {
-          "declares_identifier": true,
-          "identifier": "Series consists of records generated during the course of the Walkerton Inquiry into the tainted water tragedy that occurred in Walkerton, Ontario in May 2000. At that time Walkerton\u2019s\u00a0  drinking water system became contaminated with deadly bacteria, primarily Escherichia coli O157:H7.1 Seven people died, and more than 2,300 became ill.  The Ontario government called the Inquiry to investigate what actually happened in Walkerton. The mandate of the Inquiry was to determine the causes of the E-coli outbreak, find out who was responsible, and to investigate if it could have been prevented.  Commissioner O'Connor divided the Inquiry into two Parts. The purpose of Part One was to fulfil the mandate of discovering what had happened in Walkerton, and why, and to make recommendations based on those findings. Part One involved a great deal of fact finding and included evidentiary hearings. Part Two of the Inquiry was broader in scope and dealt with policy issues related to safe drinking water. The primary purpose of Part Two was to make recommendations regarding Ontario's drinking water system.  The records in this series have been arranged into sub-series that broadly reflect Parts One and Two of the Inquiry, and also include general administrative records created by the Inquiry's\u00a0  staff. Included in the sub-series are records connected with the hearings and meetings held by the Inquiry, commissioned research reports, correspondence, the reference database of\u00a0  documents used by the Inquiry and the Inquiry's website.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Series consists of records generated during the course of the Walkerton Inquiry into the tainted water tragedy that occurred in Walkerton, Ontario in May 2000. At that time Walkerton\u2019s\u00a0  drinking water system became contaminated with deadly bacteria, primarily Escherichia coli O157:H7.1 Seven people died, and more than 2,300 became ill.  The Ontario government called the Inquiry to investigate what actually happened in Walkerton. The mandate of the Inquiry was to determine the causes of the E-coli outbreak, find out who was responsible, and to investigate if it could have been prevented.  Commissioner O'Connor divided the Inquiry into two Parts. The purpose of Part One was to fulfil the mandate of discovering what had happened in Walkerton, and why, and to make recommendations based on those findings. Part One involved a great deal of fact finding and included evidentiary hearings. Part Two of the Inquiry was broader in scope and dealt with policy issues related to safe drinking water. The primary purpose of Part Two was to make recommendations regarding Ontario's drinking water system.  The records in this series have been arranged into sub-series that broadly reflect Parts One and Two of the Inquiry, and also include general administrative records created by the Inquiry's\u00a0  staff. Included in the sub-series are records connected with the hearings and meetings held by the Inquiry, commissioned research reports, correspondence, the reference database of\u00a0  documents used by the Inquiry and the Inquiry's website.",
           "tokens": []
@@ -57811,9 +57800,9 @@
           ]
         },
         "lcfxYehIKdb4-HDjwdr9-23": {
-          "declares_identifier": true,
-          "identifier": "2000-2002",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2000-2002",
           "tokens": []
@@ -58113,9 +58102,9 @@
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-58": {
-          "declares_identifier": true,
-          "identifier": "2011-01-11",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2011-01-11",
           "tokens": []
@@ -58147,17 +58136,17 @@
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-61": {
-          "declares_identifier": true,
-          "identifier": "No further accruals are expected.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "No further accruals are expected.",
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-62": {
-          "declares_identifier": true,
-          "identifier": "Finding Aid Note:\u00a0Please see sub-series descriptions for information about finding aids.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Finding Aid Note:\u00a0Please see sub-series descriptions for information about finding aids.",
           "tokens": []
@@ -58211,9 +58200,9 @@
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-69": {
-          "declares_identifier": true,
-          "identifier": "Some of the records are closed until 2022. See sub-series descriptions for details.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Some of the records are closed until 2022. See sub-series descriptions for details.",
           "tokens": []
@@ -58227,9 +58216,9 @@
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-70": {
-          "declares_identifier": true,
-          "identifier": "See sub-series descriptions for terms governing use.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "See sub-series descriptions for terms governing use.",
           "tokens": []
@@ -58251,9 +58240,9 @@
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-73": {
-          "declares_identifier": true,
-          "identifier": "Immediate Source of Acquisition:\u00a0The records were acquired by the Archives of Ontario in a direct transfer from the Walkerton Inquiry in 2002.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Immediate Source of Acquisition:\u00a0The records were acquired by the Archives of Ontario in a direct transfer from the Walkerton Inquiry in 2002.",
           "tokens": []
@@ -58461,17 +58450,17 @@
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-96": {
-          "declares_identifier": true,
-          "identifier": "18.6 metres of textual records (62 boxes)  4 data sets of textual records (53.5 GB)  1 website (56.9 MB)  5 audio cassettes  3 videocassettes",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "18.6 metres of textual records (62 boxes)  4 data sets of textual records (53.5 GB)  1 website (56.9 MB)  5 audio cassettes  3 videocassettes",
           "tokens": []
         },
         "lcfxYehIKdb4-HDjwdr9-97": {
-          "declares_identifier": true,
-          "identifier": "How to Order:\u00a0See sub-series descriptions for information on how to access the records.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "How to Order:\u00a0See sub-series descriptions for information on how to access the records.",
           "tokens": []
@@ -58496,7 +58485,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 64,
-          "STANDALONE_INDIVIDUAL": 32,
+          "LITERAL": 10,
+          "STANDALONE_INDIVIDUAL": 22,
           "TYPE_TOKEN": 22,
           "UNCLASSIFIED": 2
         },
@@ -58507,9 +58497,9 @@
       "drawio": "data/fixtures/drawio_fixtures/RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio",
       "format": "turtle",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
+        "py_legacy_vs_ts_pipeline": true,
         "py_legacy_vs_ts_plugin": false,
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -58527,9 +58517,9 @@
           "triples": 113
         },
         "ts_pipeline": {
-          "nt_sha256": "05ac1062faa858028fb40cb2a254f5bd05d30601710e1d00e392e177eed67e2f",
+          "nt_sha256": "8d2659a5630d6fcdd0db2f450257a3cebf795b1da6594b3f722745443c5b8f52",
           "path": "results/pytest-rg-18-210-records-of-the-walkerton-inquiry-revised-to-add-mapping/ts_pipeline.ttl",
-          "triples": 142
+          "triples": 122
         },
         "ts_plugin": {
           "nt_sha256": "05ac1062faa858028fb40cb2a254f5bd05d30601710e1d00e392e177eed67e2f",
@@ -58896,9 +58886,9 @@
           "tokens": []
         },
         "HLbPBR5fNmHbn4HrSuu7-130": {
-          "declares_identifier": true,
-          "identifier": "57200000",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "57200000",
           "tokens": []
@@ -59614,9 +59604,9 @@
           "tokens": []
         },
         "ccQ81NhYz9qmqgse-E7F-10": {
-          "declares_identifier": true,
-          "identifier": "Series consists of records generated during the course of the Walkerton Inquiry into the tainted water tragedy that occurred in Walkerton, Ontario in May 2000. At that time Walkerton\u2019s\u00a0  drinking water system became contaminated with deadly bacteria, primarily Escherichia coli O157:H7.1 Seven people died, and more than 2,300 became ill.     The Ontario government called the Inquiry to investigate what actually happened in Walkerton. The mandate of the Inquiry was to determine the causes of the E-coli outbreak, find out who was responsible, and to investigate if it could have been prevented.     Commissioner O'Connor divided the Inquiry into two Parts. The purpose of Part One was to fulfil the mandate of discovering what had happened in Walkerton, and why, and to make recommendations based on those findings. Part One involved a great deal of fact finding and included evidentiary hearings. Part Two of the Inquiry was broader in scope and dealt with policy issues related to safe drinking water. The primary purpose of Part Two was to make recommendations regarding Ontario's drinking water system.     The records in this series have been arranged into sub-series that broadly reflect Parts One and Two of the Inquiry, and also include general administrative records created by the Inquiry's\u00a0  staff. Included in the sub-series are records connected with the hearings and meetings held by the Inquiry, commissioned research reports, correspondence, the reference database of\u00a0  documents used by the Inquiry and the Inquiry's website.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Series consists of records generated during the course of the Walkerton Inquiry into the tainted water tragedy that occurred in Walkerton, Ontario in May 2000. At that time Walkerton\u2019s\u00a0  drinking water system became contaminated with deadly bacteria, primarily Escherichia coli O157:H7.1 Seven people died, and more than 2,300 became ill.     The Ontario government called the Inquiry to investigate what actually happened in Walkerton. The mandate of the Inquiry was to determine the causes of the E-coli outbreak, find out who was responsible, and to investigate if it could have been prevented.     Commissioner O'Connor divided the Inquiry into two Parts. The purpose of Part One was to fulfil the mandate of discovering what had happened in Walkerton, and why, and to make recommendations based on those findings. Part One involved a great deal of fact finding and included evidentiary hearings. Part Two of the Inquiry was broader in scope and dealt with policy issues related to safe drinking water. The primary purpose of Part Two was to make recommendations regarding Ontario's drinking water system.     The records in this series have been arranged into sub-series that broadly reflect Parts One and Two of the Inquiry, and also include general administrative records created by the Inquiry's\u00a0  staff. Included in the sub-series are records connected with the hearings and meetings held by the Inquiry, commissioned research reports, correspondence, the reference database of\u00a0  documents used by the Inquiry and the Inquiry's website.",
           "tokens": []
@@ -59885,17 +59875,17 @@
           "tokens": []
         },
         "ccQ81NhYz9qmqgse-E7F-40": {
-          "declares_identifier": true,
-          "identifier": "2000-05-12",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2000-05-12",
           "tokens": []
         },
         "ccQ81NhYz9qmqgse-E7F-41": {
-          "declares_identifier": true,
-          "identifier": "2000-05-24",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2000-05-24",
           "tokens": []
@@ -60172,17 +60162,17 @@
           "tokens": []
         },
         "ccQ81NhYz9qmqgse-E7F-80": {
-          "declares_identifier": true,
-          "identifier": "2000-06-13",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2000-06-13",
           "tokens": []
         },
         "ccQ81NhYz9qmqgse-E7F-81": {
-          "declares_identifier": true,
-          "identifier": "2002-05-23",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2002-05-23",
           "tokens": []
@@ -60191,7 +60181,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 112,
-          "STANDALONE_INDIVIDUAL": 44,
+          "LITERAL": 6,
+          "STANDALONE_INDIVIDUAL": 38,
           "TYPE_TOKEN": 38,
           "UNCLASSIFIED": 2
         },
@@ -60202,9 +60193,9 @@
       "drawio": "data/fixtures/drawio_fixtures/RG 18-210 Walkerton Inquiry in RiC-O (original).drawio",
       "format": "turtle",
       "isomorphism": {
-        "py_legacy_vs_ts_pipeline": false,
+        "py_legacy_vs_ts_pipeline": true,
         "py_legacy_vs_ts_plugin": false,
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -60222,9 +60213,9 @@
           "triples": 187
         },
         "ts_pipeline": {
-          "nt_sha256": "33eb8059c4ee01313b8147b45eccdb512ba7be796a7da98350cb9783adbcddf6",
+          "nt_sha256": "d141188cd8480e9a6da891df86c22e3483ead181c9f528ae6e036543b6814327",
           "path": "results/pytest-rg-18-210-walkerton-inquiry-in-ric-o-original/ts_pipeline.ttl",
-          "triples": 207
+          "triples": 195
         },
         "ts_plugin": {
           "nt_sha256": "33eb8059c4ee01313b8147b45eccdb512ba7be796a7da98350cb9783adbcddf6",
