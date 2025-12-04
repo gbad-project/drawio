@@ -3,6 +3,7 @@ import { loadPyodide, type PyodideInterface } from "pyodide";
 import drawIoParserSource from "../../../python_core/src/draw_io_parser.py?raw";
 import pipelineInitSource from "../../../aicode/python_core/pyodide_pipeline/__init__.py?raw";
 import drawioPipelineSource from "../../../aicode/python_core/pyodide_pipeline/drawio_pipeline.py?raw";
+import defaultConfigYamlSource from "../../../integration/config/default.yml?raw"; 
 import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
@@ -57,6 +58,10 @@ const PYTHON_MODULES: Array<{ path: string; source: string }> = [
     path: `${PYODIDE_APP_ROOT}/pyodide_pipeline/drawio_pipeline.py`,
     source: drawioPipelineSource,
   },
+  {
+    path: `${PYODIDE_APP_ROOT}/config/default.yml`,
+    source: defaultConfigYamlSource,
+  }, 
 ];
 
 function normalizeBase64(value: string): string {
@@ -342,6 +347,7 @@ reset_graph_store()
 `;
 
     try {
+      await pyodide.loadPackage("pyyaml");
       await pyodide.runPythonAsync(bootstrapScript);
       logInfo(LOG_PREFIX.PIPELINE, "Pyodide Python environment ready");
     } catch (error) {

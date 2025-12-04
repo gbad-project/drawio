@@ -11,38 +11,55 @@ from copy import deepcopy
 from typing import Any, Dict, Iterable
 from xml.etree import ElementTree
 from typing import TYPE_CHECKING
+import yaml
 
 # ruff: noqa: F403, F405
 
 if TYPE_CHECKING:
     from python_core.src.draw_io_parser import *
 
-REAL_DRAW_IO_PARSER_DIR = Path()
-VIRTUAL_DRAW_IO_PARSER_DIR = Path()
+
+class NonexistentPath(Path):
+    """Dummy whose `Path.exists()` is always False."""
+
+    def exists(self):
+        return False
+
+
+REAL_ROOT_DIR = NonexistentPath()
+REAL_DRAW_IO_PARSER_DIR = NonexistentPath()
+VIRTUAL_ROOT_DIR = NonexistentPath()
+VIRTUAL_DRAW_IO_PARSER_DIR = NonexistentPath()
+
 try:
-    REAL_DRAW_IO_PARSER_DIR = (
-        Path(__file__).resolve().parents[3] / "python_core" / "src"
-    )
+    REAL_ROOT_DIR = Path(__file__).resolve().parents[3]
+    REAL_DRAW_IO_PARSER_DIR = REAL_ROOT_DIR / "python_core" / "src"
+    if not REAL_DRAW_IO_PARSER_DIR.exists():
+        raise FileNotFoundError
+    else:
+        pass  # global vars now point to existing paths
     if str(REAL_DRAW_IO_PARSER_DIR) not in sys.path:
         sys.path.insert(0, str(REAL_DRAW_IO_PARSER_DIR))
-except IndexError:
-    # When resolve parents index out of bounds
+except (IndexError, FileNotFoundError):
+    # When resolve parents index out of bounds or parser dir not exists
     pass
 try:
     # Pyodide specific - on virtual FS (see `pyodideRuntime.ts` to change)
-    VIRTUAL_DRAW_IO_PARSER_DIR = Path(__file__).resolve().parents[1] / "src"
+    VIRTUAL_ROOT_DIR = Path(__file__).resolve().parents[1]
+    VIRTUAL_DRAW_IO_PARSER_DIR = VIRTUAL_ROOT_DIR / "src"
+    if not VIRTUAL_DRAW_IO_PARSER_DIR.exists():
+        raise FileNotFoundError
+    else:
+        pass  # global vars now point to existing paths
     if str(VIRTUAL_DRAW_IO_PARSER_DIR) not in sys.path:
         sys.path.insert(0, str(VIRTUAL_DRAW_IO_PARSER_DIR))
-except IndexError:
-    # When resolve parents index out of bounds
+except (IndexError, FileNotFoundError):
+    # When resolve parents index out of bounds or parser dir not exists
     pass
 
 
 from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     DrawIOParserGraph,
-    DEFAULT_CAPITALISATION_SCHEME,
-    DEFAULT_INDENTATION,
-    DEFAULT_MAX_GAP,
     _build_graph_from_raw_xml,
 )
 
@@ -55,6 +72,22 @@ GraphSummary = Dict[str, Any]
 _GRAPH_STORE: dict[str, DrawIOParserGraph] = {}
 _GRAPH_CACHE: dict[str, str] = {}
 _GRAPH_ID_COUNTER = itertools.count()
+
+
+class RootPathNotFound(Exception):
+    def __init__(self, message="[drawio_pipeline.py]: Root path not found"):
+        super().__init__(message)
+
+
+def _get_root_dir() -> tuple[Path, str]:
+    # Note: REAL_DRAW_IO_PARSER_DIR comes first in source code
+    # because we yield to virtual iif real does not exist
+    if REAL_DRAW_IO_PARSER_DIR.exists():
+        return REAL_ROOT_DIR, "real"
+    elif VIRTUAL_DRAW_IO_PARSER_DIR.exists():
+        return VIRTUAL_ROOT_DIR, "virtual"
+    else:
+        raise RootPathNotFound
 
 
 def _next_graph_id() -> str:
@@ -75,22 +108,20 @@ def list_graph_ids() -> list[str]:
 
 
 def _default_parser_config() -> dict[str, Any]:
-    """Return parser defaults matching the CLI behaviour."""
-    return {
-        "infer_type_of_literals": True,
-        "include_preamble": True,
-        "ontology_iri": None,
-        "prefix": None,
-        "prefix_iri": None,
-        "indentation": DEFAULT_INDENTATION,
-        "include_label": True,
-        "max_gap": DEFAULT_MAX_GAP,
-        "strict_mode": False,
-        "strip_html": True,
-        "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
-        "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
-        "rml_enabled": False,
-    }
+    """Read default YAML config and return parser defaults."""
+    root_dir, fs_type = _get_root_dir()
+    if fs_type == "virtual":
+        config_path = root_dir / "config" / "default.yml"
+    elif fs_type == "real":
+        config_path = root_dir / "integration" / "config" / "default.yml"
+    else:
+        raise RootPathNotFound
+    try:
+        with open(config_path, "r") as f:
+            config = yaml.safe_load(f)
+            return config.get("parser_config", {})
+    except:
+        raise
 
 
 def _coerce_bool(value: Any, fallback: bool) -> bool:

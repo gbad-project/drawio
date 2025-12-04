@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from xml.etree import ElementTree
 
+
 # ruff: noqa: E402
 
 PLUGIN_DIR = Path(__file__).resolve().parents[3]
@@ -23,6 +24,17 @@ FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures" / "drawio_fixtures"
 
 def _load_fixture(name: str) -> str:
     return (FIXTURES_DIR / name).read_text(encoding="utf-8")
+
+
+def test_default_parser_config():
+    """Implicitly also tests `_get_root_dir()` for `"real"` scenario"""
+    from aicode.python_core.pyodide_pipeline.drawio_pipeline import (
+        _default_parser_config,
+    )
+
+    config = _default_parser_config()
+    assert isinstance(config, dict)
+    print(json.dumps(config, indent=2))
 
 
 def test_parse_drawio_xml_to_json_produces_summary() -> None:
