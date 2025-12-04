@@ -15,7 +15,7 @@ PLUGIN_ROOT = Path(__file__).resolve().parents[4]
 if str(PLUGIN_ROOT) not in sys.path:
     sys.path.insert(0, str(PLUGIN_ROOT))
 
-from aicode.integration_tests.rmlmapper_workflows.src import (  # noqa: E402
+from aicode.integration.rmlmapper_workflows.src import (  # noqa: E402
     MapSchemaFixtureConfig,
     RMLMapperEnvironment,
     run_map_schema_workflow,

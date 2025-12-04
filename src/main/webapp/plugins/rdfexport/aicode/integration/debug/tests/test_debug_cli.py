@@ -18,7 +18,7 @@ for candidate in (REPO_ROOT, PLUGIN_DIR):
     if path_str not in sys.path:
         sys.path.insert(0, path_str)
 
-from aicode.integration_tests.debug.src.__main__ import (  # noqa: E402
+from aicode.integration.debug.src.__main__ import (  # noqa: E402
     DEFAULT_BASE_URI,
     DEFAULT_CSV_PATH,
     DEFAULT_LEGACY_COMMIT,
@@ -28,7 +28,7 @@ from aicode.integration_tests.debug.src.__main__ import (  # noqa: E402
     ScenarioConfig,
 )
 
-import aicode.integration_tests.debug.src.__main__ as debug_main  # noqa: E402
+import aicode.integration.debug.src.__main__ as debug_main  # noqa: E402
 
 FIXTURES_DIR = PLUGIN_DIR / "data" / "fixtures"
 
@@ -167,11 +167,9 @@ def test_repl_run_persists_scenario_file(monkeypatch):
 
     captured: dict[str, ScenarioConfig] = {}
 
+    monkeypatch.setattr("aicode.integration.debug.src.__main__.Prompt.ask", fake_prompt)
     monkeypatch.setattr(
-        "aicode.integration_tests.debug.src.__main__.Prompt.ask", fake_prompt
-    )
-    monkeypatch.setattr(
-        "aicode.integration_tests.debug.src.__main__.Debugger._run_scenario",
+        "aicode.integration.debug.src.__main__.Debugger._run_scenario",
         lambda self, config, skip_ts=False: captured.setdefault("config", config),
     )
 
@@ -219,11 +217,9 @@ def test_repl_run_does_not_overwrite_existing_scenario(monkeypatch):
             return kwargs.get("default")
         return value
 
+    monkeypatch.setattr("aicode.integration.debug.src.__main__.Prompt.ask", fake_prompt)
     monkeypatch.setattr(
-        "aicode.integration_tests.debug.src.__main__.Prompt.ask", fake_prompt
-    )
-    monkeypatch.setattr(
-        "aicode.integration_tests.debug.src.__main__.Debugger._run_scenario",
+        "aicode.integration.debug.src.__main__.Debugger._run_scenario",
         lambda self, config, skip_ts=False: None,
     )
 
