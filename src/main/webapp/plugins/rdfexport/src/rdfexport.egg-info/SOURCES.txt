@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+src/rdfexport.egg-info/PKG-INFO
+src/rdfexport.egg-info/SOURCES.txt
+src/rdfexport.egg-info/dependency_links.txt
+src/rdfexport.egg-info/requires.txt
+src/rdfexport.egg-info/top_level.txt
