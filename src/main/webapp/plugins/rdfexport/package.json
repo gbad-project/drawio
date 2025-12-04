@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "pyodide": "^0.28.3"
+    "pyodide": "^0.29.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",

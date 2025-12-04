@@ -41,7 +41,7 @@ Installation instructions (Linux or macOS):
   - `bun install`
   - `bun run setup` (installs Python dependencies via uv and procures Pyodide runtime with an rdflib wheel)
     - If this command gives you an error because Python is not installed or not found, try installing Python via uv: `uv python install`
-    - If the Pyodide assets are missing at runtime, the plugin should fall back to the public Pyodide CDN (`https://cdn.pyodide.org/v0.28.3/full/`), although this fallback is untested
+    - If the Pyodide assets are missing at runtime, the plugin should fall back to the public Pyodide CDN (`https://cdn.jsdelivr.net/pyodide/v0.29.0/full/`), although this fallback is untested
   - `bun run test` (optional, test coverage for both the Python and TypeScript codebase using diverse ground truth fixtures and artifacts obtained from a [fork](https://github.com/gbad-project/drawio/blob/cf8f84bb84ff83843b6726ac96aff3a2055f4275/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py) of the [original](https://github.com/williamsonrichard/records_in_contexts_draw_io_parser) Records in Contexts parser for draw\.io)
   - `bun run build` (optional, rebuilds the extension bundle [rdfexport.js](../rdfexport.js))
   - `bun run serve`

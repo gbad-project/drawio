@@ -40,7 +40,7 @@ type RawGraphSummary = {
   raw_turtle: string | null;
 };
 
-const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.28.3/full/";
+const CDN_FALLBACK_INDEX_URL = "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/";
 const LOCAL_RELATIVE_PYODIDE_PATH = "../plugins/rdfexport/.pyodide/";
 const PYODIDE_APP_ROOT = "/app";
 

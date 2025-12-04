@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VERSION="0.28.3"
+VERSION="0.29.0"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 TARGET_DIR="${ROOT_DIR}/.pyodide"
 ARCHIVE="pyodide-${VERSION}.tar.bz2"
