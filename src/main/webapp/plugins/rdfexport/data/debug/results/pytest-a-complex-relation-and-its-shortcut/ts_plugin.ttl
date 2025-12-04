@@ -1,24 +1,57 @@
 @base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+rico:groupIsTargetOfLeadershipRelation a owl:NamedIndividual ;
+    rdfs:label "rico:groupIsTargetOfLeadershipRelation" .
+
+rico:leadershipRelationHasSource a owl:NamedIndividual ;
+    rdfs:label "rico:leadershipRelationHasSource" .
+
+rico:leadershipRelationHasTarget a owl:NamedIndividual ;
+    rdfs:label "rico:leadershipRelationHasTarget" .
+
+rico:leadershipWithPosition a owl:NamedIndividual ;
+    rdfs:label "rico:leadershipWithPosition" .
+
+rico:personIsSourceOfLeadershipRelation a owl:NamedIndividual ;
+    rdfs:label "rico:personIsSourceOfLeadershipRelation" .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
-        "Jean-Noël Jeanneney (1942-....) RiC-E08  Person",
-        "Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O.",
-        "Radio France (1975-....) RiC-E11  Corporate Body",
-        "Radio France. Président RiC-E12  Position",
-        "Relation de direction (leadership) entre J-N.Jeanneney et Radio France rico:LeadershipRelation",
-        "Représentation conforme à RiC-O d'une des relations de direction (rico:LeadershipRelation)  spécifiée dans la notice EAC-CPF de J.-N. Jeanneney aux Archives nationales (https://www.siv.archives-nationales.culture.gouv.fr/siv/NP/FRAN_NP_050789).  Cette relation relie trois entités (une personne, une collectivité et un poste).",
-        "has or had leader",
-        "is or was leader of",
-        "rico:beginningDate: 1982 rico:endDate: 1986 certainty: \"certain\" rico:relationState: \"past\" descriptiveNote: \"....\" source: \"...\"",
-        "rico:groupIsTargetOfLeadershipRelation",
-        "rico:leadershipRelationHasSource",
-        "rico:leadershipRelationHasTarget",
-        "rico:leadershipWithPosition",
-        "rico:personIsSourceOfLeadershipRelation",
-        "© Archives nationales de France, septembre 2020" .
+    owl:imports rico: .
+
+:Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License a owl:NamedIndividual ;
+    rdfs:label "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License" .
+
+:Has%20Or%20Had%20Leader a owl:NamedIndividual ;
+    rdfs:label "has or had leader" .
+
+:Is%20Or%20Was%20Leader%20Of a owl:NamedIndividual ;
+    rdfs:label "is or was leader of" .
+
+:Jean-Noël%20Jeanneney%20%281942-....%29%20RiC-E08%20Person a owl:NamedIndividual ;
+    rdfs:label "Jean-Noël Jeanneney (1942-....) RiC-E08  Person" .
+
+<ontology://generated-from-draw-io/mock#Le%20Préfixe%20Rico%3A%20Indique%20Que%20Le%20Composant%20%28classe%20Ou%20Propriété%29%20N%27existe%20Que%20Dans%20RiC-O.%20Lorsqu%27il%20N%27y%20A%20Pas%20De%20Préfixe%2C%20Le%20Composant%20Existe%20Dans%20RiC-CM%20Et%20Dans%20RiC-O.> a owl:NamedIndividual ;
+    rdfs:label "Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O." .
+
+:Radio%20France%20%281975-....%29%20RiC-E11%20Corporate%20Body a owl:NamedIndividual ;
+    rdfs:label "Radio France (1975-....) RiC-E11  Corporate Body" .
+
+:Radio%20France.%20Président%20RiC-E12%20Position a owl:NamedIndividual ;
+    rdfs:label "Radio France. Président RiC-E12  Position" .
+
+:Relation%20De%20Direction%20%28leadership%29%20Entre%20J-N.Jeanneney%20Et%20Radio%20France%20Rico%3ALeadershipRelation a owl:NamedIndividual ;
+    rdfs:label "Relation de direction (leadership) entre J-N.Jeanneney et Radio France rico:LeadershipRelation" .
+
+<ontology://generated-from-draw-io/mock#Représentation%20Conforme%20À%20RiC-O%20D%27une%20Des%20Relations%20De%20Direction%20%28rico%3ALeadershipRelation%29%20Spécifiée%20Dans%20La%20Notice%20EAC-CPF%20De%20J.-N.%20Jeanneney%20Aux%20Archives%20Nationales%20%28https%3A%2F%2Fwww.siv.archives-nationales.culture.gouv.fr%2Fsiv%2FNP%2FFRAN_NP_050789%29.%20Cette%20Relation%20Relie%20Trois%20Entités%20%28une%20Personne%2C%20Une%20Collectivité%20Et%20Un%20Poste%29.> a owl:NamedIndividual ;
+    rdfs:label "Représentation conforme à RiC-O d'une des relations de direction (rico:LeadershipRelation)  spécifiée dans la notice EAC-CPF de J.-N. Jeanneney aux Archives nationales (https://www.siv.archives-nationales.culture.gouv.fr/siv/NP/FRAN_NP_050789).  Cette relation relie trois entités (une personne, une collectivité et un poste)." .
+
+:Rico%3AbeginningDate%3A%201982%20Rico%3AendDate%3A%201986%20Certainty%3A%20%22certain%22%20Rico%3ArelationState%3A%20%22past%22%20DescriptiveNote%3A%20%22....%22%20Source%3A%20%22...%22 a owl:NamedIndividual ;
+    rdfs:label "rico:beginningDate: 1982 rico:endDate: 1986 certainty: \"certain\" rico:relationState: \"past\" descriptiveNote: \"....\" source: \"...\"" .
+
+<ontology://generated-from-draw-io/mock#©%20Archives%20Nationales%20De%20France%2C%20Septembre%202020> a owl:NamedIndividual ;
+    rdfs:label "© Archives nationales de France, septembre 2020" .
 

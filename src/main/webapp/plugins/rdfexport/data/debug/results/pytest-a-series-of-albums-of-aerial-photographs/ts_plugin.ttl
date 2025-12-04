@@ -1,33 +1,84 @@
 @base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+rico:hasDocumentaryFormType a owl:NamedIndividual ;
+    rdfs:label "rico:hasDocumentaryFormType" .
+
+rico:hasRecordSetType a owl:NamedIndividual ;
+    rdfs:label "rico:hasRecordSetType" .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "\"Amberieux en Dombes\" RiC-E03 Record Set",
-        "\"C.T. 104\",   tirage numéroté \"1K\"   RiC-E04 Record",
-        "Ain (Rhône-Alpes, département) RiC E-22 Place",
-        "Album n° 1 : département de l’Ain, Ambérieux-en-Dombes à Loyettes RiC-E03 Record Set",
-        "Album n° 2 : département de l’Ain, Maillat à Villieu RiC-E03 Record Set",
-        "Ambérieux-en-Dombes (Ain) RiC E-22 Place",
-        "Description partielle, conforme à RiC, de la série d'albums de tirages en couleur du fonds de la société LAPIE (A.N. 1PH/C/1 à 1PH/C/158)  (instrument de recherche en cours de réalisation).",
-        "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
-        "Fonds LAPIE.   Albums de tirages en couleur  RiC-E03 Record Set",
-        "Fonds Lapie. Inventaire des albums de tirages couleur RiC-E04 Record",
-        "Les applications photographiques d'industrie et d'édition (France ; 1948-1970) RiC-E11 Corporate Body",
-        "Les relations sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O.",
-        "album   rico:RecordSetType",
-        "finding aid  rico:DocumentaryFormType",
-        "has or had main subject",
-        "has provenance",
-        "includes or included",
-        "is or was contained by",
-        "is or was described by",
-        "rico:beginningDate: 1948-07-01   rico:endDate: 1970-12-14   history: \"....\" etc.",
-        "rico:beginningDate: 1955   rico:endDate: 1965   history: \"....\" conditionsOfAccess: \"...\" conditionsOfUse: \"...\" etc.",
-        "rico:hasDocumentaryFormType",
-        "rico:hasRecordSetType",
-        "series  rico:RecordSetType",
-        "© Archives nationales de France, septembre 2020" .
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#%22Amberieux%20En%20Dombes%22%20RiC-E03%20Record%20Set> a owl:NamedIndividual ;
+    rdfs:label "\"Amberieux en Dombes\" RiC-E03 Record Set" .
+
+<ontology://generated-from-draw-io/mock#%22C.T.%20104%22%2C%20Tirage%20Numéroté%20%221K%22%20RiC-E04%20Record> a owl:NamedIndividual ;
+    rdfs:label "\"C.T. 104\",   tirage numéroté \"1K\"   RiC-E04 Record" .
+
+:Ain%20%28Rhône-Alpes%2C%20Département%29%20RiC%20E-22%20Place a owl:NamedIndividual ;
+    rdfs:label "Ain (Rhône-Alpes, département) RiC E-22 Place" .
+
+<ontology://generated-from-draw-io/mock#Album%20N°%201%20%3A%20Département%20De%20L’Ain%2C%20Ambérieux-en-Dombes%20À%20Loyettes%20RiC-E03%20Record%20Set> a owl:NamedIndividual ;
+    rdfs:label "Album n° 1 : département de l’Ain, Ambérieux-en-Dombes à Loyettes RiC-E03 Record Set" .
+
+<ontology://generated-from-draw-io/mock#Album%20N°%202%20%3A%20Département%20De%20L’Ain%2C%20Maillat%20À%20Villieu%20RiC-E03%20Record%20Set> a owl:NamedIndividual ;
+    rdfs:label "Album n° 2 : département de l’Ain, Maillat à Villieu RiC-E03 Record Set" .
+
+:Album%20Rico%3ARecordSetType a owl:NamedIndividual ;
+    rdfs:label "album   rico:RecordSetType" .
+
+:Ambérieux-en-Dombes%20%28Ain%29%20RiC%20E-22%20Place a owl:NamedIndividual ;
+    rdfs:label "Ambérieux-en-Dombes (Ain) RiC E-22 Place" .
+
+<ontology://generated-from-draw-io/mock#Description%20Partielle%2C%20Conforme%20À%20RiC%2C%20De%20La%20Série%20D%27albums%20De%20Tirages%20En%20Couleur%20Du%20Fonds%20De%20La%20Société%20LAPIE%20%28A.N.%201PH%2FC%2F1%20À%201PH%2FC%2F158%29%20%28instrument%20De%20Recherche%20En%20Cours%20De%20Réalisation%29.> a owl:NamedIndividual ;
+    rdfs:label "Description partielle, conforme à RiC, de la série d'albums de tirages en couleur du fonds de la société LAPIE (A.N. 1PH/C/1 à 1PH/C/158)  (instrument de recherche en cours de réalisation)." .
+
+:Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License a owl:NamedIndividual ;
+    rdfs:label "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License" .
+
+:Finding%20Aid%20Rico%3ADocumentaryFormType a owl:NamedIndividual ;
+    rdfs:label "finding aid  rico:DocumentaryFormType" .
+
+:Fonds%20LAPIE.%20Albums%20De%20Tirages%20En%20Couleur%20RiC-E03%20Record%20Set a owl:NamedIndividual ;
+    rdfs:label "Fonds LAPIE.   Albums de tirages en couleur  RiC-E03 Record Set" .
+
+:Fonds%20Lapie.%20Inventaire%20Des%20Albums%20De%20Tirages%20Couleur%20RiC-E04%20Record a owl:NamedIndividual ;
+    rdfs:label "Fonds Lapie. Inventaire des albums de tirages couleur RiC-E04 Record" .
+
+:Has%20Or%20Had%20Main%20Subject a owl:NamedIndividual ;
+    rdfs:label "has or had main subject" .
+
+:Has%20Provenance a owl:NamedIndividual ;
+    rdfs:label "has provenance" .
+
+:Includes%20Or%20Included a owl:NamedIndividual ;
+    rdfs:label "includes or included" .
+
+:Is%20Or%20Was%20Contained%20By a owl:NamedIndividual ;
+    rdfs:label "is or was contained by" .
+
+:Is%20Or%20Was%20Described%20By a owl:NamedIndividual ;
+    rdfs:label "is or was described by" .
+
+<ontology://generated-from-draw-io/mock#Les%20Applications%20Photographiques%20D%27industrie%20Et%20D%27édition%20%28France%20;%201948-1970%29%20RiC-E11%20Corporate%20Body> a owl:NamedIndividual ;
+    rdfs:label "Les applications photographiques d'industrie et d'édition (France ; 1948-1970) RiC-E11 Corporate Body" .
+
+<ontology://generated-from-draw-io/mock#Les%20Relations%20Sont%20Présentées%20Uniquement%20Dans%20Un%20Sens%20%28les%20Relations%20Inverses%20Existent%20Mais%20Ne%20Figurent%20Pas%20Dans%20Le%20Diagramme%29.%20Le%20Préfixe%20Rico%3A%20Indique%20Que%20Le%20Composant%20%28classe%20Ou%20Propriété%29%20N%27existe%20Que%20Dans%20RiC-O.%20Lorsqu%27il%20N%27y%20A%20Pas%20De%20Préfixe%2C%20Le%20Composant%20Existe%20Dans%20RiC-CM%20Et%20Dans%20RiC-O.> a owl:NamedIndividual ;
+    rdfs:label "Les relations sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O." .
+
+<ontology://generated-from-draw-io/mock#Rico%3AbeginningDate%3A%201948-07-01%20Rico%3AendDate%3A%201970-12-14%20History%3A%20%22....%22%20Etc.> a owl:NamedIndividual ;
+    rdfs:label "rico:beginningDate: 1948-07-01   rico:endDate: 1970-12-14   history: \"....\" etc." .
+
+<ontology://generated-from-draw-io/mock#Rico%3AbeginningDate%3A%201955%20Rico%3AendDate%3A%201965%20History%3A%20%22....%22%20ConditionsOfAccess%3A%20%22...%22%20ConditionsOfUse%3A%20%22...%22%20Etc.> a owl:NamedIndividual ;
+    rdfs:label "rico:beginningDate: 1955   rico:endDate: 1965   history: \"....\" conditionsOfAccess: \"...\" conditionsOfUse: \"...\" etc." .
+
+:Series%20Rico%3ARecordSetType a owl:NamedIndividual ;
+    rdfs:label "series  rico:RecordSetType" .
+
+<ontology://generated-from-draw-io/mock#©%20Archives%20Nationales%20De%20France%2C%20Septembre%202020> a owl:NamedIndividual ;
+    rdfs:label "© Archives nationales de France, septembre 2020" .
 

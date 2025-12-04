@@ -1,0 +1,182 @@
+Script started on 2025-12-04 16:26:52+00:00 [COMMAND="bun run test:pytest:all" <not executed on terminal>]
+[0m[2m[35m$[0m [2m[1muv run pytest[0m
+]9;4;3;\[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.12.3, pytest-9.0.1, pluggy-1.6.0
+rootdir: /home/user/drawio/src/main/webapp/plugins/rdfexport
+configfile: pyproject.toml
+[1mcollecting ... [0m[1mcollecting 0 items / 1 error                                                   [0m[1mcollecting 2 items / 2 errors                                                  [0m[1mcollecting 4 items / 3 errors                                                  [0m[1mcollecting 10 items / 6 errors                                                 [0m[1mcollecting 10 items / 6 errors                                                 [0m[1mcollected 10 items / 8 errors                                                  [0m
+]9;4;0;\
+==================================== ERRORS ====================================
+[31m[1m___ ERROR collecting aicode/integration_tests/debug/tests/test_debug_cli.py ____[0m
+[1m[31maicode/integration_tests/debug/tests/test_debug_cli.py[0m:21: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96maicode[39;49;00m[04m[96m.[39;49;00m[04m[96mintegration_tests[39;49;00m[04m[96m.[39;49;00m[04m[96mdebug[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96m__main__[39;49;00m[90m [39;49;00m[94mimport[39;49;00m (  [90m# noqa: E402[39;49;00m[90m[39;49;00m
+[1m[31maicode/integration_tests/debug/src/__main__.py[0m:23: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96maicode[39;49;00m[04m[96m.[39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96mscripts[39;49;00m[04m[96m.[39;49;00m[04m[96mregenerate_baselines[39;49;00m[90m [39;49;00m[94mimport[39;49;00m ([90m[39;49;00m
+[1m[31maicode/python_core/scripts/regenerate_baselines.py[0m:15: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96moverrides[39;49;00m[04m[96m.[39;49;00m[04m[96mcore[39;49;00m[04m[96m.[39;49;00m[04m[96mrdf[39;49;00m[04m[96m.[39;49;00m[04m[96mcontrol[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser_graph[39;49;00m[90m [39;49;00m[94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mpython_core/src/overrides/core/rdf/control/draw_io_parser_graph.py[0m:5: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mimport[39;49;00m *  [90m# type: ignore=imported-unused[39;49;00m[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m_ ERROR collecting aicode/integration_tests/debug/tests/test_dynamic_config.py _[0m
+[1m[31maicode/integration_tests/debug/tests/test_dynamic_config.py[0m:16: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96maicode[39;49;00m[04m[96m.[39;49;00m[04m[96mintegration_tests[39;49;00m[04m[96m.[39;49;00m[04m[96mdebug[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96m__main__[39;49;00m[90m [39;49;00m[94mimport[39;49;00m (  [90m# noqa: E402[39;49;00m[90m[39;49;00m
+[1m[31maicode/integration_tests/debug/src/__main__.py[0m:23: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96maicode[39;49;00m[04m[96m.[39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96mscripts[39;49;00m[04m[96m.[39;49;00m[04m[96mregenerate_baselines[39;49;00m[90m [39;49;00m[94mimport[39;49;00m ([90m[39;49;00m
+[1m[31maicode/python_core/scripts/regenerate_baselines.py[0m:15: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96moverrides[39;49;00m[04m[96m.[39;49;00m[04m[96mcore[39;49;00m[04m[96m.[39;49;00m[04m[96mrdf[39;49;00m[04m[96m.[39;49;00m[04m[96mcontrol[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser_graph[39;49;00m[90m [39;49;00m[94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mpython_core/src/overrides/core/rdf/control/draw_io_parser_graph.py[0m:5: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mimport[39;49;00m *  [90m# type: ignore=imported-unused[39;49;00m[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m______ ERROR collecting aicode/python_core/tests/test_cell_classifier.py _______[0m
+[1m[31maicode/python_core/tests/test_cell_classifier.py[0m:12: in <module>
+    [0m[94mimport[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mas[39;49;00m[90m [39;49;00m[04m[96mdraw_io_parser[39;49;00m  [90m# noqa: E402[39;49;00m[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m______ ERROR collecting aicode/python_core/tests/test_curie_validator.py _______[0m
+[1m[31maicode/python_core/tests/test_curie_validator.py[0m:8: in <module>
+    [0m[94mimport[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mas[39;49;00m[90m [39;49;00m[04m[96mdraw_io_parser[39;49;00m  [90m# noqa: E402[39;49;00m[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m_______ ERROR collecting aicode/python_core/tests/test_patched_parser.py _______[0m
+[1m[31maicode/python_core/tests/test_patched_parser.py[0m:15: in <module>
+    [0m[94mimport[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mas[39;49;00m[90m [39;49;00m[04m[96mdraw_io_parser[39;49;00m  [90m# noqa: E402[39;49;00m[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m______ ERROR collecting aicode/python_core/tests/test_pyodide_pipeline.py ______[0m
+[1m[31maicode/python_core/tests/test_pyodide_pipeline.py[0m:12: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96maicode[39;49;00m[04m[96m.[39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96mpyodide_pipeline[39;49;00m[90m [39;49;00m[94mimport[39;49;00m (  [90m# type: ignore[attr-defined]  # noqa: E402[39;49;00m[90m[39;49;00m
+[1m[31maicode/python_core/pyodide_pipeline/__init__.py[0m:3: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96m.[39;49;00m[04m[96mdrawio_pipeline[39;49;00m[90m [39;49;00m[94mimport[39;49;00m ([90m[39;49;00m
+[1m[31maicode/python_core/pyodide_pipeline/drawio_pipeline.py[0m:42: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mimport[39;49;00m (  [90m# type: ignore[attr-defined]  # noqa: E402[39;49;00m[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m_______ ERROR collecting python_core/tests/test_draw_io_parser_graph.py ________[0m
+[1m[31mpython_core/tests/test_draw_io_parser_graph.py[0m:5: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96moverrides[39;49;00m[04m[96m.[39;49;00m[04m[96mcore[39;49;00m[04m[96m.[39;49;00m[04m[96mrdf[39;49;00m[04m[96m.[39;49;00m[04m[96mcontrol[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser_graph[39;49;00m[90m [39;49;00m[94mimport[39;49;00m ([90m[39;49;00m
+[1m[31mpython_core/src/overrides/core/rdf/control/draw_io_parser_graph.py[0m:5: in <module>
+    [0m[94mfrom[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mimport[39;49;00m *  [90m# type: ignore=imported-unused[39;49;00m[90m[39;49;00m
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[31m[1m_____ ERROR collecting python_core/tests/test_parse_drawio_type_values.py ______[0m
+[1m[31mpython_core/tests/test_parse_drawio_type_values.py[0m:12: in <module>
+    [0m[94mimport[39;49;00m[90m [39;49;00m[04m[96mpython_core[39;49;00m[04m[96m.[39;49;00m[04m[96msrc[39;49;00m[04m[96m.[39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m [39;49;00m[94mas[39;49;00m[90m [39;49;00m[04m[96mdraw_io_parser[39;49;00m[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:37: in <module>
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mpipeline[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:112: in pipeline
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mcore[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:113: in core
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mxml[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:117: in xml
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mdata[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:119: in data
+    [0m[94mclass[39;49;00m[90m [39;49;00m[04m[92mDrawIOCellClassifier[39;49;00m:[90m[39;49;00m
+[1m[31mpython_core/src/draw_io_parser.py[0m:127: in DrawIOCellClassifier
+    [0mDEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS[90m[39;49;00m
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE   NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined[0m
+[36m[1m=========================== short test summary info ============================[0m
+[31mERROR[0m aicode/integration_tests/debug/tests/test_debug_cli.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m aicode/integration_tests/debug/tests/test_dynamic_config.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m aicode/python_core/tests/test_cell_classifier.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m aicode/python_core/tests/test_curie_validator.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m aicode/python_core/tests/test_patched_parser.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m aicode/python_core/tests/test_pyodide_pipeline.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m python_core/tests/test_draw_io_parser_graph.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+[31mERROR[0m python_core/tests/test_parse_drawio_type_values.py - NameError: name '_DEFAULT_LITERAL_DEFINITIONS' is not defined
+!!!!!!!!!!!!!!!!!!! Interrupted: 8 errors during collection !!!!!!!!!!!!!!!!!!!!
+[31m============================== [31m[1m8 errors[0m[31m in 7.62s[0m[31m ===============================[0m
+
+Script done on 2025-12-04 16:27:00+00:00 [COMMAND_EXIT_CODE="2"]
