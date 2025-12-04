@@ -298,12 +298,13 @@ interface StoredParserSettings {
 }
 
 function createDefaultParserSettings(): ParserSettings {
+  // Default values from aicode/integration_tests/config/default.yml
   return {
     includePreamble: true,
     inferTypeOfLiterals: true,
     includeLabel: true,
     strictMode: false,
-    stripHtml: true,
+    stripHtml: false,  // YAML default: false
     mintFromLiterals: true,
     mintFromTypes: false,
     mintFromArrows: true,
@@ -314,8 +315,8 @@ function createDefaultParserSettings(): ParserSettings {
     prefixIri: null,
     capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
-    metacharacterEntries: [],
-    literalDefinitions: [],
+    metacharacterEntries: [{ character: "url", replacement: "" }],  // YAML default: ["url"]
+    literalDefinitions: [{ character: "style", replacement: "rounded=1" }],  // YAML default
   };
 }
 

@@ -6,6 +6,7 @@ import hashlib
 import json
 import itertools
 import sys
+import yaml
 from pathlib import Path
 from copy import deepcopy
 from typing import Any, Dict, Iterable
@@ -46,8 +47,42 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
     _build_graph_from_raw_xml,
 )
 
-DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
-DEFAULT_LITERAL_DEFINITIONS = [{"attrKey": "style", "attrVal": "rounded=1"}]
+
+def _load_defaults_from_yaml() -> dict[str, Any]:
+    """Load default parser configuration from default.yml."""
+    try:
+        # Try to find default.yml in the integration_tests/config directory
+        config_path = Path(__file__).resolve().parents[2] / "integration_tests" / "config" / "default.yml"
+        if not config_path.exists():
+            # Fallback: return hardcoded defaults
+            return {}
+
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)
+            return config.get('parser_config', {})
+    except Exception:
+        # On any error, return empty dict to use hardcoded fallbacks
+        return {}
+
+
+# Load defaults from YAML
+_YAML_DEFAULTS = _load_defaults_from_yaml()
+
+# Extract defaults with fallbacks
+DEFAULT_METACHARACTER_SUBSTITUTE = _YAML_DEFAULTS.get('metacharacter_substitute', ["url"])
+
+# Convert literal_definitions from YAML format (attr_key/attr_value) to TypeScript format (attrKey/attrVal)
+_yaml_literal_defs = _YAML_DEFAULTS.get('literal_definitions', [])
+DEFAULT_LITERAL_DEFINITIONS = []
+for item in _yaml_literal_defs:
+    if isinstance(item, dict) and 'attr_key' in item and 'attr_value' in item:
+        DEFAULT_LITERAL_DEFINITIONS.append({
+            "attrKey": item['attr_key'],
+            "attrVal": item['attr_value']
+        })
+if not DEFAULT_LITERAL_DEFINITIONS:
+    # Fallback if YAML not loaded
+    DEFAULT_LITERAL_DEFINITIONS = [{"attrKey": "style", "attrVal": "rounded=1"}]
 
 _LAST_PARSER_CONFIG: dict[str, Any] | None = None
 
@@ -76,25 +111,25 @@ def list_graph_ids() -> list[str]:
 
 
 def _default_parser_config() -> dict[str, Any]:
-    """Return parser defaults matching the CLI behaviour."""
+    """Return parser defaults from default.yml."""
     return {
-        "infer_type_of_literals": True,
-        "include_preamble": True,
-        "ontology_iri": None,
-        "prefix": None,
-        "prefix_iri": None,
-        "indentation": DEFAULT_INDENTATION,
-        "include_label": True,
-        "max_gap": DEFAULT_MAX_GAP,
-        "strict_mode": False,
-        "strip_html": True,
-        "mint_from_literals": True,
-        "mint_from_types": False,
-        "mint_from_arrows": True,
-        "literal_definitions": [],  # Empty by default (None → use DEFAULT_LITERAL_DEFINITIONS)
+        "infer_type_of_literals": _YAML_DEFAULTS.get("infer_type_of_literals", True),
+        "include_preamble": _YAML_DEFAULTS.get("include_preamble", True),
+        "ontology_iri": _YAML_DEFAULTS.get("ontology_iri", None),
+        "prefix": _YAML_DEFAULTS.get("prefix", None),
+        "prefix_iri": _YAML_DEFAULTS.get("prefix_iri", None),
+        "indentation": _YAML_DEFAULTS.get("indentation", DEFAULT_INDENTATION),
+        "include_label": _YAML_DEFAULTS.get("include_label", True),
+        "max_gap": _YAML_DEFAULTS.get("max_gap", DEFAULT_MAX_GAP),
+        "strict_mode": _YAML_DEFAULTS.get("strict_mode", False),
+        "strip_html": _YAML_DEFAULTS.get("strip_html", False),  # YAML default is False
+        "mint_from_literals": _YAML_DEFAULTS.get("mint_from_literals", True),
+        "mint_from_types": _YAML_DEFAULTS.get("mint_from_types", False),
+        "mint_from_arrows": _YAML_DEFAULTS.get("mint_from_arrows", True),
+        "literal_definitions": None,  # None → use DEFAULT_LITERAL_DEFINITIONS from YAML
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
-        "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
-        "rml_enabled": False,
+        "capitalisation_scheme": _YAML_DEFAULTS.get("capitalisation_scheme", DEFAULT_CAPITALISATION_SCHEME),
+        "rml_enabled": _YAML_DEFAULTS.get("rml_enabled", None),
     }
 
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, InitVar
 from datetime import datetime
 from html.parser import HTMLParser
 from sys import exit as sys_exit, stdin
@@ -15,21 +15,24 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
+import json
+from html import unescape
+from enum import Enum, auto
+import re
+from rdflib import BNode
+from rdflib.term import Node
 from typing import Callable
 from rdflib import BNode, SKOS
 from rdflib.collection import Collection
-import re
-from rdflib.term import Node
-from enum import Enum, auto
-import json
-from html import unescape
-from io import StringIO
-from rdflib.parser import InputSource, create_input_source
-from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
+import yaml
+from pathlib import Path
 import typing
 import logging
+from io import StringIO
+from rdflib import Graph
+from rdflib.parser import InputSource, create_input_source
+from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
 from rdflib.namespace import NamespaceManager
-
 
 class pipeline:
     class pre:
@@ -38,7 +41,6 @@ class pipeline:
                 # BEGIN override metadata_extraction.py.MetadataNodeNotFoundError
                 class MetadataNodeNotFoundError(Exception):
                     """Raised when no metadata node is found in the provided Draw.io XML."""
-
                 # END override metadata_extraction.py.MetadataNodeNotFoundError
                 # BEGIN override metadata_extraction.py._find_metadata_node
                 def _find_metadata_node(raw_xml: str) -> tuple[Element, Element]:
@@ -55,58 +57,30 @@ class pipeline:
                     Raises:
                         MetadataNodeNotFoundError: If no metadata node is found within the provided XML.
                     """
-                    MetadataNodeNotFoundError = (
-                        pipeline.pre.xml.metadata.MetadataNodeNotFoundError
-                    )
+                    MetadataNodeNotFoundError = pipeline.pre.xml.metadata.MetadataNodeNotFoundError
                     root = fromstring(raw_xml)
-                    metadata_node = root.find(
-                        ".//mxGraphModel/root/gbadMetadata[@id='0']"
-                    )
+                    metadata_node = root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
                     if metadata_node is None:
-                        metadata_node = root.find(".//mxGraphModel/root/gbadMetadata")
+                        metadata_node = root.find('.//mxGraphModel/root/gbadMetadata')
                     if metadata_node is None:
-                        metadata_node = root.find(
-                            ".//mxGraphModel/root/UserObject[@id='0']"
-                        )
+                        metadata_node = root.find(".//mxGraphModel/root/UserObject[@id='0']")
                     if metadata_node is None:
-                        metadata_node = root.find(".//mxGraphModel/root/UserObject")
+                        metadata_node = root.find('.//mxGraphModel/root/UserObject')
                     if metadata_node is None:
-                        metadata_node = root.find(
-                            ".//mxGraphModel/root/object[@id='0']"
-                        )
+                        metadata_node = root.find(".//mxGraphModel/root/object[@id='0']")
                     if metadata_node is None:
-                        graph_root = root.find(".//mxGraphModel/root")
+                        graph_root = root.find('.//mxGraphModel/root')
                         if graph_root is not None:
                             for candidate in list(graph_root):
                                 tag_lower = candidate.tag.lower()
-                                if tag_lower not in {
-                                    "gbadmetadata",
-                                    "userobject",
-                                    "object",
-                                }:
+                                if tag_lower not in {'gbadmetadata', 'userobject', 'object'}:
                                     continue
-                                has_metadata_payload = bool(
-                                    candidate.attrib.get("csvPath")
-                                    or candidate.attrib.get("baseUri")
-                                    or any(
-                                        (
-                                            child.tag
-                                            in {
-                                                "userObjectPreambleElement",
-                                                "UserObjectPreambleElement",
-                                            }
-                                            for child in list(candidate)
-                                        )
-                                    )
-                                )
+                                has_metadata_payload = bool(candidate.attrib.get('csvPath') or candidate.attrib.get('baseUri') or any((child.tag in {'userObjectPreambleElement', 'UserObjectPreambleElement'} for child in list(candidate))))
                                 if has_metadata_payload:
                                     metadata_node = candidate
                                     return (metadata_node, root)
-                        raise MetadataNodeNotFoundError(
-                            "No metadata node found in this raw XML"
-                        )
+                        raise MetadataNodeNotFoundError('No metadata node found in this raw XML')
                     return (metadata_node, root)
-
                 # END override metadata_extraction.py._find_metadata_node
 
             class data:
@@ -148,29 +122,17 @@ class pipeline:
                     It supersedes DrawIOXMLTree by handling XML parsing, cell classification,
                     and graph element generation in a single place.
                     """
+                    DECORATION_REGISTRY_ATTR = '__drawio_literal_registry'
+                    DEFAULT_STANDALONE_TYPE = 'owl:NamedIndividual'
+                    DEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS
 
-                    DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
-                    DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
-                    DEFAULT_LITERAL_DEFINITIONS = [
-                        {"key": "style", "value": "rounded=1"}
-                    ]
-
-                    def __init__(
-                        self,
-                        raw_xml: Any,
-                        prefixes: dict[str, str],
-                        *,
-                        strict_mode: bool = False,
-                        max_gap: float | None = None,
-                        strip_html: bool = True,
-                        literal_definitions: list[dict[str, str]] | None = None,
-                    ):
-                        source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
+                    def __init__(self, raw_xml: Any, prefixes: dict[str, str], *, strict_mode: bool=False, max_gap: float | None=None, strip_html: bool=True, literal_definitions: list[dict[str, str]] | None=None):
+                        source_tree = getattr(raw_xml, 'draw_io_xml_tree', None)
                         if isinstance(source_tree, Element):
                             self.draw_io_xml_tree = source_tree
                         else:
                             if isinstance(raw_xml, bytes):
-                                parsed_xml = raw_xml.decode("utf-8")
+                                parsed_xml = raw_xml.decode('utf-8')
                             else:
                                 parsed_xml = str(raw_xml)
                             self.draw_io_xml_tree = fromstring(parsed_xml)
@@ -200,30 +162,20 @@ class pipeline:
                         self._nodes_by_id: dict[str, tuple[Element, Individual]] = {}
                         self._literals_by_id: dict[str, Element] = {}
                         self._declared_individual_identifiers: set[str] = set()
-                        setattr(
-                            pipeline.core.internal.data,
-                            self.DECORATION_REGISTRY_ATTR,
-                            self.decorations,
-                        )
+                        setattr(pipeline.core.internal.data, self.DECORATION_REGISTRY_ATTR, self.decorations)
                         self._process_graph()
 
-                    def get_graph_elements(
-                        self,
-                    ) -> Generator[Individual | Arrow, None, None]:
+                    def get_graph_elements(self) -> Generator[Individual | Arrow, None, None]:
                         """Yields all parsed Individual and Arrow objects."""
                         yield from self.individuals
                         yield from self.arrows
 
                     def _record_literal_decorations(self, cell):
-                        cell_id = cell.attrib.get("id")
+                        cell_id = cell.attrib.get('id')
                         classification = self.classifications[cell_id]
                         self._literals_by_id[cell_id] = cell
-                        value = (
-                            [classification.raw_value] + classification.tokens
-                            if len(classification.tokens) > 0
-                            else classification.raw_value
-                        )
-                        self.decorations[cell_id] = {"value": value, "connected": False}
+                        value = [classification.raw_value] + classification.tokens if len(classification.tokens) > 0 else classification.raw_value
+                        self.decorations[cell_id] = {'value': value, 'connected': False}
 
                     def _process_graph(self):
                         """
@@ -232,28 +184,22 @@ class pipeline:
                         """
                         _NoValueException = pipeline.core.xml.data._NoValueException
                         CellKind = pipeline.core.internal.data.CellKind
-                        CellClassification = (
-                            pipeline.core.internal.data.CellClassification
-                        )
+                        CellClassification = pipeline.core.internal.data.CellClassification
                         try:
-                            cells = self.draw_io_xml_tree.findall(".//mxCell")
+                            cells = self.draw_io_xml_tree.findall('.//mxCell')
                             if not cells:
                                 raise NothingToParseException
                         except (IndexError, NothingToParseException) as e:
                             raise NothingToParseException from e
                         for cell in cells:
-                            if cell.attrib.get("edge") == "1":
-                                cell_id = cell.attrib.get("id")
+                            if cell.attrib.get('edge') == '1':
+                                cell_id = cell.attrib.get('id')
                                 if cell_id:
                                     try:
                                         arrow_value = self._arrow_label(cell)
                                     except _NoValueException:
-                                        arrow_value = cell.attrib.get(
-                                            "value", ""
-                                        ).strip()
-                                    self.classifications[cell_id] = CellClassification(
-                                        CellKind.ARROW_LABEL, arrow_value, cell
-                                    )
+                                        arrow_value = cell.attrib.get('value', '').strip()
+                                    self.classifications[cell_id] = CellClassification(CellKind.ARROW_LABEL, arrow_value, cell)
                                 continue
                             try:
                                 cell_value = self._value_of(cell)
@@ -261,11 +207,11 @@ class pipeline:
                                 continue
                             raw_html = self._html_parser.raw_html()
                             classification = self.classify(cell, cell_value, raw_html)
-                            cell_id = cell.attrib.get("id")
+                            cell_id = cell.attrib.get('id')
                             if cell_id:
                                 self.classifications[cell_id] = classification
-                            kind_name = getattr(classification.kind, "name", "")
-                            cell_id = cell.attrib.get("id")
+                            kind_name = getattr(classification.kind, 'name', '')
+                            cell_id = cell.attrib.get('id')
                             parent = classification.parent_cell
                             parent_identifier = parent_cell_id = None
                             if parent is not None:
@@ -273,64 +219,34 @@ class pipeline:
                                     pass
                                 else:
                                     parent_identifier = classification.parent_identifier
-                                    parent_cell_id = parent.attrib.get("id")
-                            if kind_name == "TYPE_TOKEN":
+                                    parent_cell_id = parent.attrib.get('id')
+                            if kind_name == 'TYPE_TOKEN':
                                 identifier = parent_identifier
-                                if (
-                                    cell_id is None
-                                    or parent_cell_id in self._literals_by_id
-                                ):
+                                if cell_id is None or parent_cell_id in self._literals_by_id:
                                     continue
                                 elif parent is None or identifier is None:
                                     self._record_literal_decorations(cell)
                                     continue
                                 for token in classification.tokens:
                                     individual = Individual(identifier, token)
-                                    if not any(
-                                        (
-                                            ind == individual
-                                            for ind in self.individuals
-                                            if ind.identifier == identifier
-                                        )
-                                    ):
+                                    if not any((ind == individual for ind in self.individuals if ind.identifier == identifier)):
                                         self.individuals.append(individual)
-                                    self._declared_individual_identifiers.add(
-                                        identifier
-                                    )
-                                    self._nodes_by_id[parent.attrib["id"]] = (
-                                        parent,
-                                        individual,
-                                    )
+                                    self._declared_individual_identifiers.add(identifier)
+                                    self._nodes_by_id[parent.attrib['id']] = (parent, individual)
                                     self._nodes_by_id[cell_id] = (cell, individual)
-                            elif kind_name == "STANDALONE_INDIVIDUAL":
-                                identifier = (
-                                    classification.identifier
-                                    or classification.raw_value
-                                )
+                            elif kind_name == 'STANDALONE_INDIVIDUAL':
+                                identifier = classification.identifier or classification.raw_value
                                 if not cell_id:
                                     continue
-                                types = classification.tokens or [
-                                    self.DEFAULT_STANDALONE_TYPE
-                                ]
+                                types = classification.tokens or [self.DEFAULT_STANDALONE_TYPE]
                                 for rdf_type in types:
                                     individual = Individual(identifier, rdf_type)
-                                    if not any(
-                                        (
-                                            ind == individual
-                                            for ind in self.individuals
-                                            if ind.identifier == identifier
-                                        )
-                                    ):
+                                    if not any((ind == individual for ind in self.individuals if ind.identifier == identifier)):
                                         self.individuals.append(individual)
-                                    if (
-                                        classification.tokens
-                                        or classification.declares_identifier
-                                    ):
-                                        self._declared_individual_identifiers.add(
-                                            identifier
-                                        )
+                                    if classification.tokens or classification.declares_identifier:
+                                        self._declared_individual_identifiers.add(identifier)
                                     self._nodes_by_id[cell_id] = (cell, individual)
-                            elif kind_name in ("LITERAL", "DECORATION", "EMPTY_CELL"):
+                            elif kind_name in ('LITERAL', 'DECORATION', 'EMPTY_CELL'):
                                 if cell_id:
                                     self._record_literal_decorations(cell)
                         for cell in self.draw_io_xml_tree.findall(".//*[@edge='1']"):
@@ -343,42 +259,26 @@ class pipeline:
                             except (NoSourceException, NoTargetException) as e:
                                 if self._strict_mode:
                                     raise
-                                print(f"Warning: Skipping arrow due to error: {e}")
+                                print(f'Warning: Skipping arrow due to error: {e}')
 
-                    def classify(
-                        self,
-                        cell: Element,
-                        cell_value: str,
-                        raw_html: str | None = None,
-                    ):
+                    def classify(self, cell: Element, cell_value: str, raw_html: str | None=None):
                         """Determines the role of a given mxCell in the graph."""
                         CellKind = pipeline.core.internal.data.CellKind
-                        CellClassification = (
-                            pipeline.core.internal.data.CellClassification
-                        )
+                        CellClassification = pipeline.core.internal.data.CellClassification
                         raw_value = cell_value.strip()
                         literal_value = raw_value
                         if raw_html is not None and (not self._strip_html):
                             literal_value = raw_html
 
-                        def build(
-                            kind: CellKind, value: str = raw_value, **kwargs
-                        ) -> CellClassification:
-                            selected_value: str = (
-                                value.strip() if isinstance(value, str) else value
-                            )
-                            if (
-                                kind == CellKind.LITERAL or kind == CellKind.DECORATION
-                            ) and isinstance(literal_value, str):
+                        def build(kind: CellKind, value: str=raw_value, **kwargs) -> CellClassification:
+                            selected_value: str = value.strip() if isinstance(value, str) else value
+                            if (kind == CellKind.LITERAL or kind == CellKind.DECORATION) and isinstance(literal_value, str):
                                 selected_value = literal_value
-                            return CellClassification(
-                                kind, selected_value, cell, **kwargs
-                            )
-
-                        if cell.attrib.get("edge") == "1":
+                            return CellClassification(kind, selected_value, cell, **kwargs)
+                        if cell.attrib.get('edge') == '1':
                             return build(CellKind.ARROW)
-                        style = cell.attrib.get("style", "")
-                        if "edgeLabel" in style:
+                        style = cell.attrib.get('style', '')
+                        if 'edgeLabel' in style:
                             return build(CellKind.ARROW_LABEL)
                         if not raw_value:
                             return build(CellKind.EMPTY_CELL)
@@ -387,16 +287,8 @@ class pipeline:
                         parent_cell, parent_identifier = self._resolve_parent(cell)
                         if parent_cell is not None and self._is_layer(parent_cell):
                             parent_cell = parent_identifier = None
-                        if (
-                            parent_cell is not None
-                            and parent_cell.attrib.get("edge") == "1"
-                            and raw_value
-                        ):
-                            return build(
-                                CellKind.ARROW_LABEL,
-                                parent_cell=parent_cell,
-                                parent_identifier=parent_identifier,
-                            )
+                        if parent_cell is not None and parent_cell.attrib.get('edge') == '1' and raw_value:
+                            return build(CellKind.ARROW_LABEL, parent_cell=parent_cell, parent_identifier=parent_identifier)
                         tokens = self._tokenise(raw_value)
                         child_values = self._collect_child_values(cell)
                         child_tokens = [self._tokenise(t) for t in child_values]
@@ -405,25 +297,15 @@ class pipeline:
                         if self._style_denotes_literal(cell, style):
                             return build(CellKind.LITERAL, tokens=child_values)
                         if parent_cell is not None and parent_identifier:
-                            return build(
-                                CellKind.TYPE_TOKEN,
-                                parent_cell=parent_cell,
-                                parent_identifier=parent_identifier,
-                                tokens=tokens,
-                            )
+                            return build(CellKind.TYPE_TOKEN, parent_cell=parent_cell, parent_identifier=parent_identifier, tokens=tokens)
                         elif self._is_decoration(cell, raw_value):
                             return build(CellKind.DECORATION, tokens=child_values)
                         else:
-                            return build(
-                                CellKind.STANDALONE_INDIVIDUAL,
-                                identifier=raw_value,
-                                tokens=[],
-                                declares_identifier=True,
-                            )
+                            return build(CellKind.STANDALONE_INDIVIDUAL, identifier=raw_value, tokens=[], declares_identifier=True)
 
-                    def _value_of(self, cell: Element, *, raw: bool = False) -> str:
+                    def _value_of(self, cell: Element, *, raw: bool=False) -> str:
                         _NoValueException = pipeline.core.xml.data._NoValueException
-                        value = cell.attrib.get("value")
+                        value = cell.attrib.get('value')
                         if value is None:
                             raise _NoValueException
                         self._html_parser.clear()
@@ -435,111 +317,74 @@ class pipeline:
                     def _cell_with_id(self, _id: str) -> Element:
                         cell = self.draw_io_xml_tree.find(f".//*[@id='{_id}']")
                         if cell is None:
-                            raise ValueError(f"No cell with id: {_id}")
+                            raise ValueError(f'No cell with id: {_id}')
                         return cell
 
                     def _parent_of(self, cell: Element) -> Element:
-                        parent_id = cell.attrib.get("parent")
+                        parent_id = cell.attrib.get('parent')
                         if not parent_id:
-                            raise ParseException(
-                                f"Cell {cell.attrib.get('id')} has no parent attribute."
-                            )
+                            raise ParseException(f'Cell {cell.attrib.get('id')} has no parent attribute.')
                         return self._cell_with_id(parent_id)
 
-                    def _child_of(
-                        self, parent_id: str
-                    ) -> Generator[Element, None, None]:
-                        yield from self.draw_io_xml_tree.findall(
-                            f".//*[@parent='{parent_id}']"
-                        )
+                    def _child_of(self, parent_id: str) -> Generator[Element, None, None]:
+                        yield from self.draw_io_xml_tree.findall(f".//*[@parent='{parent_id}']")
 
                     @staticmethod
                     def _geometry(cell: Element) -> Element:
-                        geom = cell.find("mxGeometry")
+                        geom = cell.find('mxGeometry')
                         if geom is None:
-                            raise ParseException(
-                                f"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element."
-                            )
+                            raise ParseException(f"Cell {cell.attrib.get('id')} (value='{cell.attrib.get('value')}') has no mxGeometry sub-element.")
                         return geom
 
                     @staticmethod
-                    def _has_correct_as_attribute(
-                        element: Element, as_attribute: str, cell_id: str
-                    ) -> bool:
+                    def _has_correct_as_attribute(element: Element, as_attribute: str, cell_id: str) -> bool:
                         try:
-                            return element.attrib["as"] == as_attribute
+                            return element.attrib['as'] == as_attribute
                         except KeyError as key_error:
-                            raise ParseException(
-                                f"Encountered an mxPoint element of the cell with the following id without an 'as' attribute: {cell_id}"
-                            ) from key_error
+                            raise ParseException(f"Encountered an mxPoint element of the cell with the following id without an 'as' attribute: {cell_id}") from key_error
 
                     @staticmethod
                     def _is_locked(cell: Element, as_attribute: str) -> bool:
-                        if as_attribute == "sourcePoint" and "source" in cell.attrib:
+                        if as_attribute == 'sourcePoint' and 'source' in cell.attrib:
                             return True
-                        if as_attribute == "targetPoint" and "target" in cell.attrib:
+                        if as_attribute == 'targetPoint' and 'target' in cell.attrib:
                             return True
                         return False
 
                     @staticmethod
-                    def _x_and_y_in_geometry(
-                        geometry: Element, cell_id: str
-                    ) -> tuple[float, float]:
+                    def _x_and_y_in_geometry(geometry: Element, cell_id: str) -> tuple[float, float]:
                         try:
-                            x = float(geometry.attrib["x"])
+                            x = float(geometry.attrib['x'])
                         except KeyError as key_error:
-                            raise ParseException(
-                                f"Encountered an mxGeometry element of the cell with the following id without an 'x' attribute: {cell_id}"
-                            ) from key_error
+                            raise ParseException(f"Encountered an mxGeometry element of the cell with the following id without an 'x' attribute: {cell_id}") from key_error
                         try:
-                            y = float(geometry.attrib["y"])
+                            y = float(geometry.attrib['y'])
                         except KeyError as key_error:
-                            raise ParseException(
-                                f"Encountered an mxGeometry element of the cell with the following id without a 'y' attribute: {cell_id}"
-                            ) from key_error
+                            raise ParseException(f"Encountered an mxGeometry element of the cell with the following id without a 'y' attribute: {cell_id}") from key_error
                         return (x, y)
 
                     def _dimensions(self, cell: Element) -> Dimensions:
                         geom = self._geometry(cell)
-                        return (
-                            float(geom.attrib.get("x", 0.0)),
-                            float(geom.attrib.get("y", 0.0)),
-                            float(geom.attrib.get("width", 0.0)),
-                            float(geom.attrib.get("height", 0.0)),
-                        )
+                        return (float(geom.attrib.get('x', 0.0)), float(geom.attrib.get('y', 0.0)), float(geom.attrib.get('width', 0.0)), float(geom.attrib.get('height', 0.0)))
 
                     def _absolute_dimensions(self, cell: Element) -> Dimensions:
                         geom = self._geometry(cell)
-                        width = float(geom.attrib.get("width", 0.0))
-                        height = float(geom.attrib.get("height", 0.0))
+                        width = float(geom.attrib.get('width', 0.0))
+                        height = float(geom.attrib.get('height', 0.0))
                         x, y = self._start_or_end(cell, None)
                         return (x, y, width, height)
 
-                    def _close_enough(
-                        self, arrow_point: tuple[float, float], cell: Element
-                    ) -> bool:
+                    def _close_enough(self, arrow_point: tuple[float, float], cell: Element) -> bool:
                         try:
                             x, y, width, height = self._absolute_dimensions(cell)
                         except ParseException:
                             return False
                         arrow_x, arrow_y = arrow_point
-                        return (
-                            x - self._max_gap <= arrow_x <= x + width + self._max_gap
-                            and y - self._max_gap
-                            <= arrow_y
-                            <= y + height + self._max_gap
-                        )
+                        return x - self._max_gap <= arrow_x <= x + width + self._max_gap and y - self._max_gap <= arrow_y <= y + height + self._max_gap
 
-                    def _resolve_nearby_cell(
-                        self,
-                        arrow_point: tuple[float, float] | None,
-                        *,
-                        require_individual: bool,
-                    ) -> tuple[Element, str, bool]:
+                    def _resolve_nearby_cell(self, arrow_point: tuple[float, float] | None, *, require_individual: bool) -> tuple[Element, str, bool]:
                         _NoValueException = pipeline.core.xml.data._NoValueException
-                        _NoCellCloseEnoughException = (
-                            pipeline.core.xml.data._NoCellCloseEnoughException
-                        )
+                        _NoCellCloseEnoughException = pipeline.core.xml.data._NoCellCloseEnoughException
                         if arrow_point is None:
                             raise _NoCellCloseEnoughException
                         for cell, individual in self._nodes_by_id.values():
@@ -551,9 +396,7 @@ class pipeline:
                             if not self._close_enough(arrow_point, literal_cell):
                                 continue
                             try:
-                                literal_value = self._value_of(
-                                    literal_cell, raw=not self._strip_html
-                                )
+                                literal_value = self._value_of(literal_cell, raw=not self._strip_html)
                             except _NoValueException as exc:
                                 raise _NoCellCloseEnoughException from exc
                             return (literal_cell, literal_value, True)
@@ -562,191 +405,128 @@ class pipeline:
                     def _defines_individual(self, identifier: str) -> bool:
                         return identifier in self._declared_individual_identifiers
 
-                    def _start_or_end(
-                        self, cell: Element, as_attribute: str | None
-                    ) -> tuple[float, float] | None:
+                    def _start_or_end(self, cell: Element, as_attribute: str | None) -> tuple[float, float] | None:
                         try:
                             geometry = self._geometry(cell)
                         except ParseException as exc:
                             if as_attribute is None:
                                 return (0.0, 0.0)
                             raise exc
-                        cell_id = cell.attrib.get("id", "")
+                        cell_id = cell.attrib.get('id', '')
                         if as_attribute is None:
                             return self._x_and_y_in_geometry(geometry, cell_id)
                         if len(geometry) == 0:
-                            raise ParseException(
-                                f"Expecting the mxGeometry element of the cell with the following id to have sub-elements, but has no sub-elements at all: {cell_id}"
-                            )
+                            raise ParseException(f'Expecting the mxGeometry element of the cell with the following id to have sub-elements, but has no sub-elements at all: {cell_id}')
                         for element in geometry:
-                            if (
-                                element.tag != "mxPoint"
-                                or not self._has_correct_as_attribute(
-                                    element, as_attribute, cell_id
-                                )
-                            ):
+                            if element.tag != 'mxPoint' or not self._has_correct_as_attribute(element, as_attribute, cell_id):
                                 continue
                             try:
-                                x = float(element.attrib["x"])
+                                x = float(element.attrib['x'])
                             except KeyError as key_error:
                                 if self._is_locked(cell, as_attribute):
                                     return None
-                                raise ParseException(
-                                    f"Encountered an mxPoint element of the cell with the following id without an 'x' attribute: {cell_id}"
-                                ) from key_error
+                                raise ParseException(f"Encountered an mxPoint element of the cell with the following id without an 'x' attribute: {cell_id}") from key_error
                             try:
-                                y = float(element.attrib["y"])
+                                y = float(element.attrib['y'])
                             except KeyError as key_error:
                                 if self._is_locked(cell, as_attribute):
                                     return None
-                                raise ParseException(
-                                    f"Encountered an mxPoint element of the cell with the following id without a 'y' attribute: {cell_id}"
-                                ) from key_error
-                            parent_id = cell.attrib.get("parent")
-                            if parent_id == "1" or parent_id is None:
+                                raise ParseException(f"Encountered an mxPoint element of the cell with the following id without a 'y' attribute: {cell_id}") from key_error
+                            parent_id = cell.attrib.get('parent')
+                            if parent_id == '1' or parent_id is None:
                                 return (x, y)
-                            parent_coordinates = self._start_or_end(
-                                self._parent_of(cell), None
-                            )
+                            parent_coordinates = self._start_or_end(self._parent_of(cell), None)
                             if parent_coordinates is None:
                                 raise ValueError
                             parent_x, parent_y = parent_coordinates
                             return (x + parent_x, y + parent_y)
-                        raise ParseException(
-                            f"Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value '{as_attribute}', but it does not: {cell_id}"
-                        )
+                        raise ParseException(f"Expecting the mxGeometry element of the cell with the following id to have an mxPoint sub-element with 'as' attribute having value '{as_attribute}', but it does not: {cell_id}")
 
                     def _arrow_label(self, arrow_cell: Element) -> str:
                         _NoValueException = pipeline.core.xml.data._NoValueException
-                        for cell in self._child_of(arrow_cell.attrib["id"]):
+                        for cell in self._child_of(arrow_cell.attrib['id']):
                             try:
-                                style = cell.attrib["style"]
+                                style = cell.attrib['style']
                             except KeyError:
-                                style = ""
-                            has_value = bool(cell.attrib.get("value"))
-                            if "edgeLabel" in style or has_value:
+                                style = ''
+                            has_value = bool(cell.attrib.get('value'))
+                            if 'edgeLabel' in style or has_value:
                                 try:
                                     return self._value_of(cell)
                                 except _NoValueException:
                                     if has_value:
-                                        return cell.attrib.get("value", "").strip()
-                        fallback = arrow_cell.attrib.get("value", "").strip()
+                                        return cell.attrib.get('value', '').strip()
+                        fallback = arrow_cell.attrib.get('value', '').strip()
                         if fallback:
                             return fallback
-                        raise _NoValueException("No label found for arrow")
+                        raise _NoValueException('No label found for arrow')
 
                     def _resolve_arrow(self, arrow_cell: Element) -> Arrow | None:
                         _NoValueException = pipeline.core.xml.data._NoValueException
-                        _NoCellCloseEnoughException = (
-                            pipeline.core.xml.data._NoCellCloseEnoughException
-                        )
+                        _NoCellCloseEnoughException = pipeline.core.xml.data._NoCellCloseEnoughException
                         try:
                             arrow_label = self._arrow_label(arrow_cell)
                         except _NoValueException:
                             return None
-                        arrow_id = arrow_cell.attrib["id"]
-                        source_id = arrow_cell.attrib.get("source")
-                        target_id = arrow_cell.attrib.get("target")
+                        arrow_id = arrow_cell.attrib['id']
+                        source_id = arrow_cell.attrib.get('source')
+                        target_id = arrow_cell.attrib.get('target')
                         try:
-                            arrow_start = self._start_or_end(arrow_cell, "sourcePoint")
+                            arrow_start = self._start_or_end(arrow_cell, 'sourcePoint')
                         except ParseException:
                             arrow_start = None
                         try:
-                            arrow_end = self._start_or_end(arrow_cell, "targetPoint")
+                            arrow_end = self._start_or_end(arrow_cell, 'targetPoint')
                         except ParseException:
                             arrow_end = None
                         if source_id and source_id in self._nodes_by_id:
-                            source_cell, source_individual = self._nodes_by_id[
-                                source_id
-                            ]
+                            source_cell, source_individual = self._nodes_by_id[source_id]
                             source_identifier = source_individual.identifier
                         elif source_id and source_id in self._literals_by_id:
-                            raise ArrowWithoutIndividualAsSourceException(
-                                f"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source."
-                            )
+                            raise ArrowWithoutIndividualAsSourceException(f"Arrow '{arrow_label}' ({arrow_id}) has a literal ('{self._value_of(self._cell_with_id(source_id))}') as source.")
                         else:
                             if self._strict_mode:
-                                raise NoSourceException(
-                                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
-                                )
+                                raise NoSourceException(f"Arrow '{arrow_label}' ({arrow_id}) has no valid source.")
                             try:
-                                _, source_identifier, _ = self._resolve_nearby_cell(
-                                    arrow_start, require_individual=True
-                                )
+                                _, source_identifier, _ = self._resolve_nearby_cell(arrow_start, require_individual=True)
                             except _NoCellCloseEnoughException as exc:
-                                raise NoSourceException(
-                                    f"Arrow '{arrow_label}' ({arrow_id}) has no valid source."
-                                ) from exc
+                                raise NoSourceException(f"Arrow '{arrow_label}' ({arrow_id}) has no valid source.") from exc
                         target_cell = None
                         is_datatype = False
                         if target_id:
                             if target_id in self._nodes_by_id:
-                                target_cell, target_individual = self._nodes_by_id[
-                                    target_id
-                                ]
+                                target_cell, target_individual = self._nodes_by_id[target_id]
                                 target_identifier = target_individual.identifier
                             elif target_id in self._literals_by_id:
                                 target_cell = self._literals_by_id[target_id]
-                                target_identifier = self._value_of(
-                                    target_cell, raw=not self._strip_html
-                                )
+                                target_identifier = self._value_of(target_cell, raw=not self._strip_html)
                                 is_datatype = True
                             else:
                                 if self._strict_mode:
-                                    raise NoTargetException(
-                                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
-                                    )
+                                    raise NoTargetException(f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found.")
                                 try:
-                                    candidate_cell, target_identifier, is_datatype = (
-                                        self._resolve_nearby_cell(
-                                            arrow_end, require_individual=False
-                                        )
-                                    )
+                                    candidate_cell, target_identifier, is_datatype = self._resolve_nearby_cell(arrow_end, require_individual=False)
                                     target_cell = candidate_cell
                                 except _NoCellCloseEnoughException as exc:
-                                    raise NoTargetException(
-                                        f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found."
-                                    ) from exc
+                                    raise NoTargetException(f"Arrow '{arrow_label}' ({arrow_id}) target '{target_id}' could not be found.") from exc
                         else:
                             if self._strict_mode:
-                                raise NoTargetException(
-                                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
-                                )
+                                raise NoTargetException(f"Arrow '{arrow_label}' ({arrow_id}) has no target.")
                             try:
-                                candidate_cell, target_identifier, is_datatype = (
-                                    self._resolve_nearby_cell(
-                                        arrow_end, require_individual=False
-                                    )
-                                )
+                                candidate_cell, target_identifier, is_datatype = self._resolve_nearby_cell(arrow_end, require_individual=False)
                                 target_cell = candidate_cell
                             except _NoCellCloseEnoughException as exc:
-                                raise NoTargetException(
-                                    f"Arrow '{arrow_label}' ({arrow_id}) has no target."
-                                ) from exc
-                        if (
-                            target_cell is not None
-                            and target_cell.attrib.get("id") in self.decorations
-                        ):
-                            self.decorations[target_cell.attrib["id"]]["connected"] = (
-                                True
-                            )
-                        if not is_datatype and (
-                            not self._defines_individual(target_identifier)
-                        ):
+                                raise NoTargetException(f"Arrow '{arrow_label}' ({arrow_id}) has no target.") from exc
+                        if target_cell is not None and target_cell.attrib.get('id') in self.decorations:
+                            self.decorations[target_cell.attrib['id']]['connected'] = True
+                        if not is_datatype and (not self._defines_individual(target_identifier)):
                             is_datatype = True
-                        return Arrow(
-                            str(arrow_label.strip()),
-                            source_identifier,
-                            target_identifier,
-                            is_datatype,
-                        )
+                        return Arrow(str(arrow_label.strip()), source_identifier, target_identifier, is_datatype)
 
-                    def _resolve_parent(
-                        self, cell: Element
-                    ) -> tuple[Optional[Element], Optional[str]]:
+                    def _resolve_parent(self, cell: Element) -> tuple[Optional[Element], Optional[str]]:
                         _NoValueException = pipeline.core.xml.data._NoValueException
-                        parent_id = cell.attrib.get("parent")
-                        if parent_id in {None, "1"}:
+                        parent_id = cell.attrib.get('parent')
+                        if parent_id in {None, '1'}:
                             return (None, None)
                         try:
                             parent = self._parent_of(cell)
@@ -758,7 +538,7 @@ class pipeline:
                     @staticmethod
                     def _tokenise(value: str) -> list[str]:
                         """Split by any whitespace character and strip each token."""
-                        return [t.strip() for t in value.split(" ") if t.strip()]
+                        return [t.strip() for t in value.split(' ') if t.strip()]
 
                     def _token_is_template(self, token: str) -> bool:
                         try:
@@ -768,14 +548,14 @@ class pipeline:
 
                     @staticmethod
                     def _looks_like_curie_candidate(value: str) -> bool:
-                        if not value or ":" not in value or "://" in value:
+                        if not value or ':' not in value or '://' in value:
                             return False
-                        prefix, remainder = value.split(":", 1)
+                        prefix, remainder = value.split(':', 1)
                         if not prefix or not remainder:
                             return False
-                        if not (prefix[0].isalpha() or prefix[0] == "_"):
+                        if not (prefix[0].isalpha() or prefix[0] == '_'):
                             return False
-                        if not all((ch.isalnum() or ch in "._-" for ch in prefix[1:])):
+                        if not all((ch.isalnum() or ch in '._-' for ch in prefix[1:])):
                             return False
                         return not any((char.isspace() for char in remainder))
 
@@ -784,13 +564,13 @@ class pipeline:
                         if not value or any((ch.isspace() for ch in value)):
                             return False
                         try:
-                            return str(URIRef(value)) == value and "://" in value
+                            return str(URIRef(value)) == value and '://' in value
                         except Exception:
                             return False
 
                     def _collect_child_values(self, cell: Element) -> list[str]:
                         _NoValueException = pipeline.core.xml.data._NoValueException
-                        cell_id = cell.attrib.get("id")
+                        cell_id = cell.attrib.get('id')
                         if not cell_id:
                             return []
                         if cell_id in self._child_value_cache:
@@ -806,15 +586,10 @@ class pipeline:
                         return values
 
                     def _build_edge_incidence(self) -> set[str]:
-                        return {
-                            id
-                            for edge in self.draw_io_xml_tree.findall(".//*[@edge='1']")
-                            for key in ("source", "target")
-                            if (id := edge.attrib.get(key))
-                        }
+                        return {id for edge in self.draw_io_xml_tree.findall(".//*[@edge='1']") for key in ('source', 'target') if (id := edge.attrib.get(key))}
 
                     def _has_incident_edge(self, cell: Element) -> bool:
-                        cell_id = cell.attrib.get("id")
+                        cell_id = cell.attrib.get('id')
                         return cell_id in self._edge_incidence if cell_id else False
 
                     @staticmethod
@@ -826,25 +601,22 @@ class pipeline:
                     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
                         """Check if cell matches any literal definition.
 
-                        - None: Use DEFAULT_LITERAL_DEFINITIONS
-                        - []: Return False (no literal definitions)
+                        - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
+                        - []: Return True (treat everything as literal)
                         - [...]: Use provided definitions
                         """
                         if self._literal_definitions is None:
                             definitions_to_use = self.DEFAULT_LITERAL_DEFINITIONS
-                        elif (
-                            isinstance(self._literal_definitions, list)
-                            and len(self._literal_definitions) == 0
-                        ):
-                            return False
+                        elif isinstance(self._literal_definitions, list) and len(self._literal_definitions) == 0:
+                            return True
                         else:
                             definitions_to_use = self._literal_definitions
                         for definition in definitions_to_use:
-                            attr_name = definition.get("key", "")
-                            pattern = definition.get("value", "")
+                            attr_name = definition.get('key', '')
+                            pattern = definition.get('value', '')
                             if not attr_name or not pattern:
                                 continue
-                            attr_value = cell.attrib.get(attr_name, "")
+                            attr_value = cell.attrib.get(attr_name, '')
                             if not attr_value:
                                 continue
                             if pattern in attr_value:
@@ -856,13 +628,10 @@ class pipeline:
                         are still treated as decorations (added to registry) downstream."""
                         if not raw_value:
                             return False
-                        return self._style_suggests_decoration(
-                            cell.attrib.get("style", "")
-                        )
+                        return self._style_suggests_decoration(cell.attrib.get('style', ''))
 
                     def _is_layer(self, cell: Element) -> bool:
-                        return cell.attrib.get("parent") == "0"
-
+                        return cell.attrib.get('parent') == '0'
                 # END override cell_classifier.py.DrawIOCellClassifier
 
             class control:
@@ -884,7 +653,6 @@ class pipeline:
                     identifier: Optional[str] = None
                     tokens: list[str] = field(default_factory=list)
                     declares_identifier: bool = False
-
                 # END override cell_models.py.CellClassification
                 # BEGIN override cell_models.py.CellKind
                 class CellKind(Enum):
@@ -896,23 +664,16 @@ class pipeline:
                     DECORATION = auto()
                     EMPTY_CELL = auto()
                     LAYER = auto()
-
                 # END override cell_models.py.CellKind
                 # BEGIN override curie_validator.py.DeimplementedException
                 class DeimplementedException(Exception):
                     """Can be raised when overrides invalidate."""
+                    default_message = 'This has been discontinued by an override'
 
-                    default_message = "This has been discontinued by an override"
-
-                    def __init__(self, message: str | None = None) -> None:
+                    def __init__(self, message: str | None=None) -> None:
                         self.default_message
-                        self.message = (
-                            f"{self.default_message}. {message}"
-                            if message
-                            else self.default_message
-                        )
+                        self.message = f'{self.default_message}. {message}' if message else self.default_message
                         super().__init__(self.message)
-
                 # END override curie_validator.py.DeimplementedException
                 # BEGIN override curie_validator.py.looks_like_iri
                 def looks_like_iri(candidate: str) -> str | bool:
@@ -929,116 +690,68 @@ class pipeline:
                     """
                     if not candidate or any((ch.isspace() for ch in candidate)):
                         return False
-                    scheme, _, remainder = candidate.partition(":")
-                    if scheme and remainder.startswith("//"):
-                        return "absolute-iri"
-                    if candidate.startswith(("/", "#")):
-                        return "relative-iri"
+                    scheme, _, remainder = candidate.partition(':')
+                    if scheme and remainder.startswith('//'):
+                        return 'absolute-iri'
+                    if candidate.startswith(('/', '#')):
+                        return 'relative-iri'
                     if bool(remainder.strip()):
-                        if scheme.lower() in {"urn", "tag", "ni"}:
-                            return "absolute-iri"
+                        if scheme.lower() in {'urn', 'tag', 'ni'}:
+                            return 'absolute-iri'
                         elif len(remainder.split()) == 1:
-                            return "curie"
+                            return 'curie'
                     return False
-
                 # END override curie_validator.py.looks_like_iri
                 # BEGIN override curie_validator.py.resolve_curie
                 def resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef:
-                    if ":" not in curie:
-                        raise ValueError(
-                            f"CURIE {curie!r} must include a prefix separator"
-                        )
-                    _, remainder = curie.split(":", 1)
+                    if ':' not in curie:
+                        raise ValueError(f'CURIE {curie!r} must include a prefix separator')
+                    _, remainder = curie.split(':', 1)
                     remainder = remainder.strip()
                     if not remainder:
-                        raise ValueError(
-                            f"CURIE {curie!r} is missing a reference component"
-                        )
+                        raise ValueError(f'CURIE {curie!r} is missing a reference component')
                     try:
                         expanded = ns_mgr.expand_curie(curie)
                     except Exception as exc:
-                        raise NotInKnownException(
-                            f"Failed to expand CURIE '{curie}'"
-                        ) from exc
+                        raise NotInKnownException(f"Failed to expand CURIE '{curie}'") from exc
                     return expanded
-
                 # END override curie_validator.py.resolve_curie
 
             class control:
                 # BEGIN override individual_blocks.py._add_individual_type
-                def _add_individual_type(
-                    blocks: Blocks,
-                    individual: Individual,
-                    metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-                    space_substitute: Replacement | None,
-                    capitalisation_scheme: str,
-                ) -> None:
-                    _replace_metacharacters = (
-                        pipeline.pre.rdf.data._replace_metacharacters
-                    )
-                    individual_id = _replace_metacharacters(
-                        individual.identifier,
-                        metacharacter_substitutes,
-                        space_substitute,
-                        capitalisation_scheme,
-                    )
+                def _add_individual_type(blocks: Blocks, individual: Individual, metacharacter_substitutes: list[tuple[Metacharacter, Replacement]], space_substitute: Replacement | None, capitalisation_scheme: str) -> None:
+                    _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
+                    individual_id = _replace_metacharacters(individual.identifier, metacharacter_substitutes, space_substitute, capitalisation_scheme)
                     rdf_type = individual.ric_class
                     try:
                         block = blocks[individual_id, individual.identifier]
                     except KeyError:
-                        blocks[individual_id, individual.identifier] = {
-                            "Types": {rdf_type}
-                        }
+                        blocks[individual_id, individual.identifier] = {'Types': {rdf_type}}
                         return
                     try:
-                        block["Types"].add(rdf_type)
+                        block['Types'].add(rdf_type)
                     except KeyError:
-                        block["Types"] = {rdf_type}
-
+                        block['Types'] = {rdf_type}
                 # END override individual_blocks.py._add_individual_type
                 # BEGIN override dump_blocks.py.blocks_to_json
-                def blocks_to_json(
-                    blocks: Blocks,
-                    object_properties: set[str],
-                    datatype_properties: set[str],
-                ) -> str:
+                def blocks_to_json(blocks: Blocks, object_properties: set[str], datatype_properties: set[str]) -> str:
                     import json
 
                     def make_json_safe(obj):
                         if isinstance(obj, dict):
-                            return {
-                                k
-                                if isinstance(k, (str, int, float, bool, type(None)))
-                                else str(k): make_json_safe(v)
-                                for k, v in obj.items()
-                            }
+                            return {k if isinstance(k, (str, int, float, bool, type(None))) else str(k): make_json_safe(v) for k, v in obj.items()}
                         elif isinstance(obj, (list, tuple, set)):
                             return [make_json_safe(i) for i in obj]
                         else:
                             return obj
-
-                    data = {
-                        "blocks": make_json_safe(blocks),
-                        "object_properties": make_json_safe(object_properties),
-                        "datatype_properties": make_json_safe(datatype_properties),
-                    }
+                    data = {'blocks': make_json_safe(blocks), 'object_properties': make_json_safe(object_properties), 'datatype_properties': make_json_safe(datatype_properties)}
                     return json.dumps(data, indent=4, ensure_ascii=False)
-
                 # END override dump_blocks.py.blocks_to_json
                 # BEGIN override dump_blocks.py.dump_blocks
-                def dump_blocks(
-                    blocks: Blocks,
-                    object_properties: set[str],
-                    datatype_properties: set[str],
-                    dump_path: str,
-                ):
+                def dump_blocks(blocks: Blocks, object_properties: set[str], datatype_properties: set[str], dump_path: str):
                     from pathlib import Path
-
-                    json_blocks = pipeline.core.internal.control.blocks_to_json(
-                        blocks, object_properties, datatype_properties
-                    )
-                    Path(dump_path).write_text(json_blocks, encoding="utf-8")
-
+                    json_blocks = pipeline.core.internal.control.blocks_to_json(blocks, object_properties, datatype_properties)
+                    Path(dump_path).write_text(json_blocks, encoding='utf-8')
                 # END override dump_blocks.py.dump_blocks
 
         class rdf:
@@ -1051,34 +764,23 @@ class pipeline:
                     """
                     Can be raised on any attempted coercion to any set of target types.
                     """
+                    default_message = 'Failed to coerce {0!r} to {1!s}'
 
-                    default_message = "Failed to coerce {0!r} to {1!s}"
-
-                    def __init__(
-                        self, candidate: Any, target: set[type] | type, message: str
-                    ) -> None:
+                    def __init__(self, candidate: Any, target: set[type] | type, message: str) -> None:
                         target_types = target if isinstance(target, set) else {target}
-                        self.message = self.default_message.format(
-                            candidate, str([t.__name__ for t in target_types])
-                        )
+                        self.message = self.default_message.format(candidate, str([t.__name__ for t in target_types]))
                         if message:
-                            self.message += f": {message}"
+                            self.message += f': {message}'
                         super().__init__(self.message)
-
                 # END override infer_type.py.UnableToCoerceException
                 # BEGIN override infer_type.py.UnknownCuriePrefixException
                 class UnknownCuriePrefixException(Exception):
                     """Can be raised when looks like a CURIE but prefix is unknown."""
 
-                    def __init__(
-                        self, candidate: Any, target: set[type] | type, e: Any
-                    ):
+                    def __init__(self, candidate: Any, target: set[type] | type, e: Any):
                         super().__init__()
-                        message = f"Unable to resolve what looks like a CURIE: {e}"
-                        self.__cause__ = pipeline.core.rdf.data.UnableToCoerceException(
-                            candidate=candidate, target=target, message=message
-                        )
-
+                        message = f'Unable to resolve what looks like a CURIE: {e}'
+                        self.__cause__ = pipeline.core.rdf.data.UnableToCoerceException(candidate=candidate, target=target, message=message)
                 # END override infer_type.py.UnknownCuriePrefixException
                 # BEGIN override infer_type.py._infer_literal_type
                 def _infer_literal_type(literal: str | int | float) -> Literal:
@@ -1094,9 +796,7 @@ class pipeline:
                     - Added support for int | float inputs in addition to str.
                     - Raises UnableToCoerceException if input is of unexpected type.
                     """
-                    UnableToCoerceException = (
-                        pipeline.core.rdf.data.UnableToCoerceException
-                    )
+                    UnableToCoerceException = pipeline.core.rdf.data.UnableToCoerceException
                     expected_types = {str, int, float}
                     if isinstance(literal, int) or literal.isnumeric():
                         return Literal(literal, datatype=XSD.integer)
@@ -1105,40 +805,35 @@ class pipeline:
                     elif isinstance(literal, str):
                         pass
                     elif not any((isinstance(literal, t) for t in expected_types)):
-                        raise UnableToCoerceException(
-                            literal,
-                            expected_types,
-                            "Not any of expected Python types for a Literal candidate",
-                        )
+                        raise UnableToCoerceException(literal, expected_types, 'Not any of expected Python types for a Literal candidate')
                     try:
-                        datetime.strptime(literal, "%Y-%m-%d")
+                        datetime.strptime(literal, '%Y-%m-%d')
                         return Literal(literal, datatype=XSD.date)
                     except ValueError:
                         pass
                     try:
-                        if literal[-1] == "Z":
+                        if literal[-1] == 'Z':
                             try:
-                                datetime.strptime(literal[-1], "%Y-%m-%dT%H-%M-%S")
+                                datetime.strptime(literal[-1], '%Y-%m-%dT%H-%M-%S')
                                 return Literal(literal, datatype=XSD.dateTime)
                             except ValueError:
                                 pass
-                        elif literal[-6] == "+" or literal[-6] == "-":
+                        elif literal[-6] == '+' or literal[-6] == '-':
                             try:
-                                datetime.strptime(literal[:-6], "%Y-%m-%dT%H-%M-%S")
-                                datetime.strptime(literal[-5:], "%H:%M")
+                                datetime.strptime(literal[:-6], '%Y-%m-%dT%H-%M-%S')
+                                datetime.strptime(literal[-5:], '%H:%M')
                                 return Literal(literal, datatype=XSD.dateTime)
                             except ValueError:
                                 pass
                         else:
                             try:
-                                datetime.strptime("%Y-%m-%dT%H-%M-%S", literal)
+                                datetime.strptime('%Y-%m-%dT%H-%M-%S', literal)
                                 return Literal(literal, datatype=XSD.dateTime)
                             except ValueError:
                                 pass
                     except IndexError:
                         pass
                     return Literal(literal)
-
                 # END override infer_type.py._infer_literal_type
                 # BEGIN override prefix_iri_to_base.py.prefix_iri_to_base
                 def prefix_iri_to_base(prefix_iri: str) -> str:
@@ -1148,8 +843,7 @@ class pipeline:
                     """
                     if not prefix_iri:
                         return
-                    return str(prefix_iri).rstrip("".join(("#", "/")))
-
+                    return str(prefix_iri).rstrip(''.join(('#', '/')))
                 # END override prefix_iri_to_base.py.prefix_iri_to_base
                 # BEGIN override urlencode.py.urlencode
                 def urlencode(text: Any) -> URIRef:
@@ -1168,39 +862,29 @@ class pipeline:
                     > sub-delims = "!" / "$" / "&" / "'" / "(" / ")"
                     >             / "*" / "+" / "," / ";" / "="
                     """
-                    gen_delims = [":", "/", "?", "#", "[", "]", "@"]
-                    sub_delims = ["!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "="]
+                    gen_delims = [':', '/', '?', '#', '[', ']', '@']
+                    sub_delims = ['!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=']
                     reserved = gen_delims + sub_delims
-                    safe_chars = "".join(reserved)
+                    safe_chars = ''.join(reserved)
                     encoded = urllib.parse.quote(str(text), safe=safe_chars)
                     return URIRef(encoded)
-
                 # END override urlencode.py.urlencode
 
             class control:
                 # BEGIN override serialization_helper.py.RDFSerializationHelper
                 class RDFSerializationHelper:
                     """Shared helper methods for RDF and RML serialization."""
-
                     coerce_to_uriref: Callable
                     coerce_to_literal: Callable
 
-                    def __init__(
-                        self,
-                        blocks,
-                        object_properties: set[str],
-                        datatype_properties: set[str],
-                        serialisation_config,
-                        prefixes: dict,
-                        graph: Graph,
-                    ):
+                    def __init__(self, blocks, object_properties: set[str], datatype_properties: set[str], serialisation_config, prefixes: dict, graph: Graph):
                         self.blocks = blocks
                         self.object_properties = object_properties
                         self.datatype_properties = datatype_properties
                         self.serialisation_config = serialisation_config
                         self.prefixes = prefixes
                         self.graph = graph
-                        self.prefix = serialisation_config.prefix or ""
+                        self.prefix = serialisation_config.prefix or ''
                         self.prefix_iri = serialisation_config.prefix_iri
                         self._should_decode_literals = False
 
@@ -1209,9 +893,7 @@ class pipeline:
                         Sets either the actual default (`:`) prefix
                         or whatever prefix is passed in parser config.
                         """
-                        default_prefix = (
-                            self.prefix if getattr(self, "prefix", None) else ""
-                        )
+                        default_prefix = self.prefix if getattr(self, 'prefix', None) else ''
                         self.graph.bind(default_prefix, ns, replace=True)
 
                     def setup_namespaces(self) -> None:
@@ -1230,70 +912,40 @@ class pipeline:
                         where anyone might want to use prefixes in this way.
                         """
                         looks_like_iri = pipeline.core.internal.data.looks_like_iri
-                        if getattr(self, "prefix_iri", None):
-                            if looks_like_iri(self.prefix_iri) == "absolute-iri":
+                        if getattr(self, 'prefix_iri', None):
+                            if looks_like_iri(self.prefix_iri) == 'absolute-iri':
                                 self._set_default_prefix(Namespace(self.prefix_iri))
                             else:
-                                raise ParseException(
-                                    f"Failed to apply parser settings: Prefix IRI '{self.prefix_iri}' looks invalid"
-                                )
-                        elif getattr(self.graph, "base", None):
+                                raise ParseException(f"Failed to apply parser settings: Prefix IRI '{self.prefix_iri}' looks invalid")
+                        elif getattr(self.graph, 'base', None):
                             self._set_default_prefix(Namespace(self.graph.base))
                         else:
                             pass
                         for prefix_key, uri in self.prefixes.items():
-                            if looks_like_iri(uri) == "absolute-iri":
+                            if looks_like_iri(uri) == 'absolute-iri':
                                 namespace = Namespace(uri)
                             else:
-                                raise ParseException(
-                                    f"Failed to bind prefixes: IRI '{uri}' looks invalid"
-                                )
+                                raise ParseException(f"Failed to bind prefixes: IRI '{uri}' looks invalid")
                             self.graph.bind(prefix_key, namespace, replace=True)
-                        if getattr(self.graph, "base", None) is None:
-                            self.graph.base = pipeline.core.rdf.data.prefix_iri_to_base(
-                                self.prefix_iri
-                            )
+                        if getattr(self.graph, 'base', None) is None:
+                            self.graph.base = pipeline.core.rdf.data.prefix_iri_to_base(self.prefix_iri)
 
                     def namespace_map(self):
-                        return {
-                            prefix: Namespace(iri)
-                            for prefix, iri in list(
-                                self.graph.namespace_manager.namespaces()
-                            )
-                        }
+                        return {prefix: Namespace(iri) for prefix, iri in list(self.graph.namespace_manager.namespaces())}
 
                     def add_preamble(self) -> None:
                         """Add ontology preamble if configured."""
                         if self.serialisation_config.include_preamble:
-                            ontology_iri = (
-                                self.serialisation_config.ontology_iri
-                                or get_ontology_iri()
-                            )
-                            self.graph.add(
-                                (URIRef(ontology_iri), RDF.type, OWL.Ontology)
-                            )
-                            self.graph.add(
-                                (
-                                    URIRef(ontology_iri),
-                                    OWL.imports,
-                                    URIRef(self.prefixes["rico"]),
-                                )
-                            )
+                            ontology_iri = self.serialisation_config.ontology_iri or get_ontology_iri()
+                            self.graph.add((URIRef(ontology_iri), RDF.type, OWL.Ontology))
+                            self.graph.add((URIRef(ontology_iri), OWL.imports, URIRef(self.prefixes['rico'])))
 
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
-                        return self.coerce_to_uriref(
-                            cfg=self,
-                            value=prop,
-                            mint_from_literal=self.serialisation_config.mint_from_arrows,
-                        )
+                        return self.coerce_to_uriref(cfg=self, value=prop, mint_from_literal=self.serialisation_config.mint_from_arrows)
 
                     def resolve_type(self, rdf_type: str) -> Any:
-                        return self.coerce_to_uriref(
-                            cfg=self,
-                            value=rdf_type,
-                            mint_from_literal=self.serialisation_config.mint_from_types,
-                        )
+                        return self.coerce_to_uriref(cfg=self, value=rdf_type, mint_from_literal=self.serialisation_config.mint_from_types)
 
                     def declare_properties(self) -> None:
                         """Declare object and datatype properties in the graph."""
@@ -1306,130 +958,66 @@ class pipeline:
 
                     def add_decoration_notes(self) -> None:
                         """Add decoration notes from the pipeline registry."""
-                        UnableToCoerceException = (
-                            pipeline.core.rdf.data.UnableToCoerceException
-                        )
-                        decorations_attr = "__drawio_literal_registry"
-                        decoration_registry = getattr(
-                            pipeline.core.internal.data, decorations_attr, {}
-                        )
-                        decoration_values = [
-                            entry.get("value")
-                            for entry in decoration_registry.values()
-                            if isinstance(entry, dict)
-                            and entry.get("value")
-                            and (not entry.get("connected"))
-                        ]
+                        UnableToCoerceException = pipeline.core.rdf.data.UnableToCoerceException
+                        decorations_attr = '__drawio_literal_registry'
+                        decoration_registry = getattr(pipeline.core.internal.data, decorations_attr, {})
+                        decoration_values = [entry.get('value') for entry in decoration_registry.values() if isinstance(entry, dict) and entry.get('value') and (not entry.get('connected'))]
                         if decoration_values:
                             if self.serialisation_config.ontology_iri:
-                                decoration_subject = URIRef(
-                                    self.serialisation_config.ontology_iri
-                                )
+                                decoration_subject = URIRef(self.serialisation_config.ontology_iri)
                             else:
                                 decoration_subject = BNode()
                             for note in decoration_values:
                                 if isinstance(note, str):
-                                    self.graph.add(
-                                        (decoration_subject, SKOS.note, Literal(note))
-                                    )
+                                    self.graph.add((decoration_subject, SKOS.note, Literal(note)))
                                 elif isinstance(note, list):
                                     list_node = BNode()
-                                    self.graph.add(
-                                        (decoration_subject, SKOS.note, list_node)
-                                    )
-                                    Collection(
-                                        self.graph,
-                                        list_node,
-                                        [Literal(item) for item in note],
-                                    )
+                                    self.graph.add((decoration_subject, SKOS.note, list_node))
+                                    Collection(self.graph, list_node, [Literal(item) for item in note])
                                 else:
-                                    raise UnableToCoerceException(
-                                        repr(note),
-                                        Literal,
-                                        "Decoration of an unsupported Python type",
-                                    )
+                                    raise UnableToCoerceException(repr(note), Literal, 'Decoration of an unsupported Python type')
                         if hasattr(pipeline.core.internal.data, decorations_attr):
                             delattr(pipeline.core.internal.data, decorations_attr)
 
                     def serialize_all_individuals(self) -> None:
                         """Serialize all individuals in blocks."""
-                        for (
-                            individual_id,
-                            individual_label,
-                        ), types_and_facts in self.blocks.items():
-                            self.add_individual_triples(
-                                individual_id, individual_label, types_and_facts
-                            )
-
+                        for (individual_id, individual_label), types_and_facts in self.blocks.items():
+                            self.add_individual_triples(individual_id, individual_label, types_and_facts)
                 # END override serialization_helper.py.RDFSerializationHelper
                 # BEGIN override rdf_serializer.py.RDFSerializer
                 class RDFSerializer(RDFSerializationHelper):
                     """Standard RDF serialization (regular triples)."""
 
                     def __init__(self, *args, **kwargs):
-                        RDFSerializationHelper = (
-                            pipeline.core.rdf.control.RDFSerializationHelper
-                        )
+                        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
-                        self.coerce_to_uriref = (
-                            pipeline.core.rdf.control.coerce_to_uriref
-                        )
-                        self.coerce_to_literal = (
-                            pipeline.core.rdf.control.coerce_to_literal
-                        )
+                        self.coerce_to_uriref = pipeline.core.rdf.control.coerce_to_uriref
+                        self.coerce_to_literal = pipeline.core.rdf.control.coerce_to_literal
 
-                    def add_individual_triples(
-                        self,
-                        individual_id: str,
-                        individual_label: str,
-                        types_and_facts: dict,
-                    ) -> None:
+                    def add_individual_triples(self, individual_id: str, individual_label: str, types_and_facts: dict) -> None:
                         """Add triples for a single individual."""
-                        individual_uri = self.coerce_to_uriref(
-                            self,
-                            individual_id,
-                            mint_from_literal=self.serialisation_config.mint_from_literals,
-                        )
+                        individual_uri = self.coerce_to_uriref(self, individual_id, mint_from_literal=self.serialisation_config.mint_from_literals)
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
-                        for rdf_type in types_and_facts.get("Types", set()):
-                            self.graph.add(
-                                (individual_uri, RDF.type, self.resolve_type(rdf_type))
-                            )
+                        for rdf_type in types_and_facts.get('Types', set()):
+                            self.graph.add((individual_uri, RDF.type, self.resolve_type(rdf_type)))
                         if self.serialisation_config.include_label:
-                            self.graph.add(
-                                (individual_uri, RDFS.label, Literal(individual_label))
-                            )
+                            self.graph.add((individual_uri, RDFS.label, Literal(individual_label)))
                         for prop, values in types_and_facts.items():
-                            if prop == "Types":
+                            if prop == 'Types':
                                 continue
                             prop_uri = self.resolve_predicate(prop)
                             for raw_value in values:
-                                if (
-                                    isinstance(raw_value, tuple)
-                                    and len(raw_value) == 2
-                                    and isinstance(raw_value[1], bool)
-                                ):
+                                if isinstance(raw_value, tuple) and len(raw_value) == 2 and isinstance(raw_value[1], bool):
                                     value, is_literal = raw_value
                                 else:
                                     value = raw_value
-                                    is_literal = (
-                                        prop in self.datatype_properties
-                                        and prop not in self.object_properties
-                                    )
+                                    is_literal = prop in self.datatype_properties and prop not in self.object_properties
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(
-                                        self,
-                                        value,
-                                        mint_from_literal=self.serialisation_config.mint_from_literals,
-                                    )
-                                    self.graph.add(
-                                        (individual_uri, prop_uri, target_uri)
-                                    )
+                                    target_uri = self.coerce_to_uriref(self, value, mint_from_literal=self.serialisation_config.mint_from_literals)
+                                    self.graph.add((individual_uri, prop_uri, target_uri))
                                 else:
                                     literal_value = self.coerce_to_literal(self, value)
-                                    self.graph.add(
-                                        (individual_uri, prop_uri, literal_value)
-                                    )
+                                    self.graph.add((individual_uri, prop_uri, literal_value))
 
                     def serialize_all_individuals(self) -> None:
                         """
@@ -1438,7 +1026,6 @@ class pipeline:
                         Will pick up this subclass's `add_individual_triples` at runtime.
                         """
                         super().serialize_all_individuals()
-
                 # END override rdf_serializer.py.RDFSerializer
                 # BEGIN override rml_serialiser.py.RMLSerializer
                 class RMLSerializer(RDFSerializationHelper):
@@ -1446,35 +1033,28 @@ class pipeline:
 
                     class FakeURIRef(Literal):
                         """Helpful for temporary labeling."""
-
                         pass
 
-                    def __init__(self, *args, csv_path: Optional[str] = None, **kwargs):
-                        RDFSerializationHelper = (
-                            pipeline.core.rdf.control.RDFSerializationHelper
-                        )
+                    def __init__(self, *args, csv_path: Optional[str]=None, **kwargs):
+                        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
                         RDFSerializationHelper.__init__(self, *args, **kwargs)
                         self.csv_path = csv_path
-                        metacharacter_mode = getattr(
-                            self.graph, "metacharacter_mode", None
-                        )
-                        if metacharacter_mode == "url":
+                        metacharacter_mode = getattr(self.graph, 'metacharacter_mode', None)
+                        if metacharacter_mode == 'url':
                             self._should_decode_literals = True
-                        self.rr = Namespace("http://www.w3.org/ns/r2rml#")
-                        self.rml_ns = Namespace("http://semweb.mmlab.be/ns/rml#")
-                        self.ql = Namespace("http://semweb.mmlab.be/ns/ql#")
+                        self.rr = Namespace('http://www.w3.org/ns/r2rml#')
+                        self.rml_ns = Namespace('http://semweb.mmlab.be/ns/rml#')
+                        self.ql = Namespace('http://semweb.mmlab.be/ns/ql#')
                         self.graph: pipeline.core.internal.control.DrawIOParserGraph
 
                     def setup_namespaces(self) -> None:
                         """Bind namespaces including RML-specific ones."""
-                        RDFSerializationHelper = (
-                            pipeline.core.rdf.control.RDFSerializationHelper
-                        )
+                        RDFSerializationHelper = pipeline.core.rdf.control.RDFSerializationHelper
                         RDFSerializationHelper.setup_namespaces(self)
-                        self.graph.bind("rr", self.rr, replace=False)
-                        self.graph.bind("rml", self.rml_ns, replace=False)
-                        self.graph.bind("ql", self.ql, replace=False)
-                        self.graph.bind("rdfs", RDFS, replace=False)
+                        self.graph.bind('rr', self.rr, replace=False)
+                        self.graph.bind('rml', self.rml_ns, replace=False)
+                        self.graph.bind('ql', self.ql, replace=False)
+                        self.graph.bind('rdfs', RDFS, replace=False)
 
                     @staticmethod
                     def detect_string_template(template: str) -> list[str | None]:
@@ -1493,7 +1073,7 @@ class pipeline:
                             return []
                         if not isinstance(template, str):
                             template = str(template)
-                        pattern = re.compile("(?<!\\\\)(?<!{){([^{}]+)}(?!})(?!\\\\)")
+                        pattern = re.compile('(?<!\\\\)(?<!{){([^{}]+)}(?!})(?!\\\\)')
                         matches = []
                         spans = []
                         for match in pattern.finditer(template):
@@ -1508,9 +1088,7 @@ class pipeline:
                             start_next = spans[i + 1][0]
                             separator = template[end_prev:start_next]
                             if not separator.strip():
-                                raise ValueError(
-                                    f"Unsafe template: adjacent references not separated — '{template}'"
-                                )
+                                raise ValueError(f"Unsafe template: adjacent references not separated — '{template}'")
                         return matches
 
                     def _resolve_template(self, candidate: str) -> Node | bool:
@@ -1529,9 +1107,7 @@ class pipeline:
                         """Checks `detect_string_template` on raw and unquoted candidate."""
                         return bool(self._resolve_template(candidate))
 
-                    def _build_fact_predicate_object_map(
-                        self, predicate_uri: URIRef, fact: Any
-                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                    def _build_fact_predicate_object_map(self, predicate_uri: URIRef, fact: Any) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
                         """
                         Build a predicateObjectMap BNode for a fact and return it with all related triples.
 
@@ -1540,34 +1116,16 @@ class pipeline:
                         predicate_object_map = BNode()
                         object_map = BNode()
                         has_template = self._is_template_string(fact)
-                        fact_predicate = (
-                            self.rr["template"] if has_template else self.rr["constant"]
-                        )
-                        triples = [
-                            (predicate_object_map, self.rr["predicate"], predicate_uri),
-                            (predicate_object_map, self.rr["objectMap"], object_map),
-                            (object_map, fact_predicate, fact),
-                        ]
+                        fact_predicate = self.rr['template'] if has_template else self.rr['constant']
+                        triples = [(predicate_object_map, self.rr['predicate'], predicate_uri), (predicate_object_map, self.rr['objectMap'], object_map), (object_map, fact_predicate, fact)]
                         if isinstance(fact, self.FakeURIRef):
-                            triples.append(
-                                (object_map, self.rr["termType"], self.rr["IRI"])
-                            )
+                            triples.append((object_map, self.rr['termType'], self.rr['IRI']))
                         elif isinstance(fact, Literal):
-                            triples.append(
-                                (object_map, self.rr["termType"], self.rr["Literal"])
-                            )
+                            triples.append((object_map, self.rr['termType'], self.rr['Literal']))
                             if fact.datatype:
-                                triples.append(
-                                    (object_map, self.rr["datatype"], fact.datatype)
-                                )
+                                triples.append((object_map, self.rr['datatype'], fact.datatype))
                             if fact.language:
-                                triples.append(
-                                    (
-                                        object_map,
-                                        self.rr["language"],
-                                        Literal(fact.language),
-                                    )
-                                )
+                                triples.append((object_map, self.rr['language'], Literal(fact.language)))
                         return (predicate_object_map, triples)
 
                     def _get_logical_source_value(self) -> Literal:
@@ -1577,11 +1135,9 @@ class pipeline:
                         elif self.serialisation_config.ontology_iri:
                             return Literal(self.serialisation_config.ontology_iri)
                         else:
-                            return Literal("drawio")
+                            return Literal('drawio')
 
-                    def _build_type_predicate_object_map(
-                        self, class_term: Any
-                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                    def _build_type_predicate_object_map(self, class_term: Any) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
                         """
                         Build predicateObjectMap BNode for rdf:type mapping and
                         return all related triples for direct graph insertion.
@@ -1589,25 +1145,12 @@ class pipeline:
                         object_map = BNode()
                         predicate_object_map = BNode()
                         has_template = self._is_template_string(class_term)
-                        class_predicate = (
-                            self.rr["template"] if has_template else self.rr["constant"]
-                        )
-                        class_object = (
-                            Literal(class_term)
-                            if isinstance(class_term, self.FakeURIRef)
-                            else URIRef(class_term)
-                        )
-                        triples = [
-                            (object_map, class_predicate, class_object),
-                            (object_map, self.rr["termType"], self.rr["IRI"]),
-                            (predicate_object_map, self.rr["predicate"], RDF["type"]),
-                            (predicate_object_map, self.rr["objectMap"], object_map),
-                        ]
+                        class_predicate = self.rr['template'] if has_template else self.rr['constant']
+                        class_object = Literal(class_term) if isinstance(class_term, self.FakeURIRef) else URIRef(class_term)
+                        triples = [(object_map, class_predicate, class_object), (object_map, self.rr['termType'], self.rr['IRI']), (predicate_object_map, self.rr['predicate'], RDF['type']), (predicate_object_map, self.rr['objectMap'], object_map)]
                         return (predicate_object_map, triples)
 
-                    def _build_subject_map(
-                        self, subject_uri
-                    ) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
+                    def _build_subject_map(self, subject_uri) -> tuple[tuple[Node, Node, Node], list[tuple[Node, Node, Node]]]:
                         """
                         Build a subjectMap BNode and return it with its triples.
 
@@ -1616,158 +1159,55 @@ class pipeline:
                         """
                         subject_map = BNode()
                         has_template = self._is_template_string(subject_uri)
-                        subject_predicate = (
-                            self.rr["template"] if has_template else self.rr["constant"]
-                        )
-                        triples = [
-                            (subject_map, self.rr["termType"], self.rr["IRI"]),
-                            (subject_map, subject_predicate, Literal(subject_uri)),
-                        ]
+                        subject_predicate = self.rr['template'] if has_template else self.rr['constant']
+                        triples = [(subject_map, self.rr['termType'], self.rr['IRI']), (subject_map, subject_predicate, Literal(subject_uri))]
                         return (subject_map, triples)
 
                     def coerce_to_literal(self, *args, **kwargs):
-                        return pipeline.core.rdf.control.coerce_to_literal(
-                            *args, **kwargs
-                        )
+                        return pipeline.core.rdf.control.coerce_to_literal(*args, **kwargs)
 
-                    def coerce_to_uriref(
-                        self, cfg, value: str, mint_from_literal: bool = True
-                    ) -> Node:
+                    def coerce_to_uriref(self, cfg, value: str, mint_from_literal: bool=True) -> Node:
                         fake_uriref = self._resolve_template(value)
                         if fake_uriref:
                             return fake_uriref
-                        return pipeline.core.rdf.control.coerce_to_uriref(
-                            cfg, value, mint_from_literal
-                        )
+                        return pipeline.core.rdf.control.coerce_to_uriref(cfg, value, mint_from_literal)
 
-                    def add_individual_triples(
-                        self,
-                        individual_id: str,
-                        individual_label: str,
-                        types_and_facts: dict,
-                    ) -> None:
+                    def add_individual_triples(self, individual_id: str, individual_label: str, types_and_facts: dict) -> None:
                         """Add RML triples for a single individual."""
                         triples_map = BNode()
                         self.graph.add((triples_map, RDF.type, self.rr.TriplesMap))
                         logical_source = BNode()
-                        self.graph.add(
-                            (triples_map, self.rml_ns.logicalSource, logical_source)
-                        )
-                        self.graph.add(
-                            (
-                                logical_source,
-                                self.rml_ns.source,
-                                self._get_logical_source_value(),
-                            )
-                        )
-                        self.graph.add(
-                            (
-                                logical_source,
-                                self.rml_ns.referenceFormulation,
-                                self.ql.CSV,
-                            )
-                        )
-                        subject_uri = self.coerce_to_uriref(
-                            self,
-                            individual_id,
-                            mint_from_literal=self.serialisation_config.mint_from_literals,
-                        )
-                        subject_map, subject_map_triples = self._build_subject_map(
-                            subject_uri
-                        )
-                        self.graph.addN1(
-                            (triples_map, self.rr["subjectMap"], subject_map),
-                            subject_map_triples,
-                        )
-                        for rdf_type in sorted(
-                            types_and_facts.get("Types", set()), key=lambda value: value
-                        ):
+                        self.graph.add((triples_map, self.rml_ns.logicalSource, logical_source))
+                        self.graph.add((logical_source, self.rml_ns.source, self._get_logical_source_value()))
+                        self.graph.add((logical_source, self.rml_ns.referenceFormulation, self.ql.CSV))
+                        subject_uri = self.coerce_to_uriref(self, individual_id, mint_from_literal=self.serialisation_config.mint_from_literals)
+                        subject_map, subject_map_triples = self._build_subject_map(subject_uri)
+                        self.graph.addN1((triples_map, self.rr['subjectMap'], subject_map), subject_map_triples)
+                        for rdf_type in sorted(types_and_facts.get('Types', set()), key=lambda value: value):
                             class_term = self.resolve_type(rdf_type)
-                            (
-                                type_predicate_object_map,
-                                type_predicate_object_map_triples,
-                            ) = self._build_type_predicate_object_map(class_term)
-                            self.graph.addN1(
-                                (
-                                    triples_map,
-                                    self.rr["predicateObjectMap"],
-                                    type_predicate_object_map,
-                                ),
-                                type_predicate_object_map_triples,
-                            )
+                            type_predicate_object_map, type_predicate_object_map_triples = self._build_type_predicate_object_map(class_term)
+                            self.graph.addN1((triples_map, self.rr['predicateObjectMap'], type_predicate_object_map), type_predicate_object_map_triples)
                         if self.serialisation_config.include_label:
-                            (
-                                label_predicate_object_map,
-                                label_predicate_object_map_triples,
-                            ) = self._build_fact_predicate_object_map(
-                                RDFS.label, Literal(individual_label)
-                            )
-                            self.graph.addN1(
-                                (
-                                    triples_map,
-                                    self.rr["predicateObjectMap"],
-                                    label_predicate_object_map,
-                                ),
-                                label_predicate_object_map_triples,
-                            )
+                            label_predicate_object_map, label_predicate_object_map_triples = self._build_fact_predicate_object_map(RDFS.label, Literal(individual_label))
+                            self.graph.addN1((triples_map, self.rr['predicateObjectMap'], label_predicate_object_map), label_predicate_object_map_triples)
                         for prop, values in sorted(types_and_facts.items()):
-                            if prop == "Types":
+                            if prop == 'Types':
                                 continue
                             prop_uri = self.resolve_predicate(prop)
-                            for raw_value in sorted(
-                                values,
-                                key=lambda v: (0, f"{v[0]}")
-                                if isinstance(v, tuple)
-                                else (1, f"{v}"),
-                            ):
-                                if (
-                                    isinstance(raw_value, tuple)
-                                    and len(raw_value) == 2
-                                    and isinstance(raw_value[1], bool)
-                                ):
+                            for raw_value in sorted(values, key=lambda v: (0, f'{v[0]}') if isinstance(v, tuple) else (1, f'{v}')):
+                                if isinstance(raw_value, tuple) and len(raw_value) == 2 and isinstance(raw_value[1], bool):
                                     value, is_literal = raw_value
                                 else:
                                     value = raw_value
-                                    is_literal = (
-                                        prop in self.datatype_properties
-                                        and prop not in self.object_properties
-                                    )
+                                    is_literal = prop in self.datatype_properties and prop not in self.object_properties
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(
-                                        self,
-                                        value,
-                                        mint_from_literal=self.serialisation_config.mint_from_literals,
-                                    )
-                                    (
-                                        fact_predicate_object_map,
-                                        fact_predicate_object_map_triples,
-                                    ) = self._build_fact_predicate_object_map(
-                                        prop_uri, target_uri
-                                    )
-                                    self.graph.addN1(
-                                        (
-                                            triples_map,
-                                            self.rr["predicateObjectMap"],
-                                            fact_predicate_object_map,
-                                        ),
-                                        fact_predicate_object_map_triples,
-                                    )
+                                    target_uri = self.coerce_to_uriref(self, value, mint_from_literal=self.serialisation_config.mint_from_literals)
+                                    fact_predicate_object_map, fact_predicate_object_map_triples = self._build_fact_predicate_object_map(prop_uri, target_uri)
+                                    self.graph.addN1((triples_map, self.rr['predicateObjectMap'], fact_predicate_object_map), fact_predicate_object_map_triples)
                                 else:
                                     literal_value = self.coerce_to_literal(self, value)
-                                    (
-                                        fact_predicate_object_map,
-                                        fact_predicate_object_map_triples,
-                                    ) = self._build_fact_predicate_object_map(
-                                        prop_uri, literal_value
-                                    )
-                                    self.graph.addN1(
-                                        (
-                                            triples_map,
-                                            self.rr["predicateObjectMap"],
-                                            fact_predicate_object_map,
-                                        ),
-                                        fact_predicate_object_map_triples,
-                                    )
+                                    fact_predicate_object_map, fact_predicate_object_map_triples = self._build_fact_predicate_object_map(prop_uri, literal_value)
+                                    self.graph.addN1((triples_map, self.rr['predicateObjectMap'], fact_predicate_object_map), fact_predicate_object_map_triples)
 
                     def serialize_all_individuals(self) -> None:
                         """
@@ -1788,26 +1228,19 @@ class pipeline:
                     def add_decoration_notes(self) -> None:
                         """RML doesn't include decoration notes."""
                         pass
-
                 # END override rml_serialiser.py.RMLSerializer
                 # BEGIN override coerce_to_literal.py.coerce_to_literal
-                def coerce_to_literal(
-                    cfg: RDFSerializationHelper, value: str | int | float
-                ) -> Literal:
+                def coerce_to_literal(cfg: RDFSerializationHelper, value: str | int | float) -> Literal:
                     """
                     Convert a value to a typed Literal.
 
                     Invalid input types raise an UnableToCoerceException.
                     """
-                    UnableToCoerceException = (
-                        pipeline.core.rdf.data.UnableToCoerceException
-                    )
+                    UnableToCoerceException = pipeline.core.rdf.data.UnableToCoerceException
                     try:
 
                         def normalize(value) -> Literal:
-                            _infer_literal_type = (
-                                pipeline.core.rdf.data._infer_literal_type
-                            )
+                            _infer_literal_type = pipeline.core.rdf.data._infer_literal_type
                             if cfg._should_decode_literals:
                                 if isinstance(value, str):
                                     value = urllib.parse.unquote(value)
@@ -1815,27 +1248,17 @@ class pipeline:
                                 literal_object = _infer_literal_type(value)
                             else:
                                 if value is None:
-                                    raise UnableToCoerceException(
-                                        value,
-                                        Literal,
-                                        "Unexpected for a Literal candidate",
-                                    )
+                                    raise UnableToCoerceException(value, Literal, 'Unexpected for a Literal candidate')
                                 literal_object = Literal(str(value).strip())
                             return literal_object
-
                         return normalize(value)
                     except UnableToCoerceException:
                         raise
                     except Exception as e:
                         raise UnableToCoerceException(value, Literal, e)
-
                 # END override coerce_to_literal.py.coerce_to_literal
                 # BEGIN override coerce_to_uriref.py.coerce_to_uriref
-                def coerce_to_uriref(
-                    cfg: RDFSerializationHelper,
-                    value: str,
-                    mint_from_literal: bool = True,
-                ) -> URIRef:
+                def coerce_to_uriref(cfg: RDFSerializationHelper, value: str, mint_from_literal: bool=True) -> URIRef:
                     """
                     Resolve an individual ID/type/object fact to its URI.
 
@@ -1845,34 +1268,20 @@ class pipeline:
                     """
                     resolve_curie = pipeline.core.internal.data.resolve_curie
                     looks_like_iri = pipeline.core.internal.data.looks_like_iri
-                    UnableToCoerceException = (
-                        pipeline.core.rdf.data.UnableToCoerceException
-                    )
-                    UnknownCuriePrefixException = (
-                        pipeline.core.rdf.data.UnknownCuriePrefixException
-                    )
+                    UnableToCoerceException = pipeline.core.rdf.data.UnableToCoerceException
+                    UnknownCuriePrefixException = pipeline.core.rdf.data.UnknownCuriePrefixException
 
                     def normalize(value) -> tuple[str, str]:
                         if value is None:
-                            raise UnableToCoerceException(
-                                value, Literal, "Unexpected for a URIRef candidate"
-                            )
+                            raise UnableToCoerceException(value, Literal, 'Unexpected for a URIRef candidate')
                         norm_value = str(value).strip()
                         decoded_norm_value = urllib.parse.unquote(norm_value)
                         return (norm_value, decoded_norm_value)
-
                     norm_value, decoded_norm_value = normalize(value)
                     if not decoded_norm_value:
-                        raise UnableToCoerceException(value, URIRef, "Entity is empty")
+                        raise UnableToCoerceException(value, URIRef, 'Entity is empty')
 
-                    def coerce_candidate(
-                        candidate: str,
-                    ) -> tuple[
-                        URIRef,
-                        typing.Literal[
-                            "absolute-iri", "relative-iri", "curie", "mint-from-literal"
-                        ],
-                    ]:
+                    def coerce_candidate(candidate: str) -> tuple[URIRef, typing.Literal['absolute-iri', 'relative-iri', 'curie', 'mint-from-literal']]:
                         """
                         Returns a meaningful value or raises an appropriate exception.
 
@@ -1883,51 +1292,30 @@ class pipeline:
                         namespace_map: dict[str, Namespace] = cfg.namespace_map()
                         default_ns: Namespace = namespace_map.get(cfg.prefix)
                         coerced = None
-                        if iri_variant == "absolute-iri":
+                        if iri_variant == 'absolute-iri':
                             coerced = URIRef(candidate)
-                        elif iri_variant == "relative-iri":
-                            base_uri: str | None = getattr(cfg.graph, "base", None)
+                        elif iri_variant == 'relative-iri':
+                            base_uri: str | None = getattr(cfg.graph, 'base', None)
                             if base_uri:
                                 coerced = Namespace(base_uri)[candidate]
                             else:
-                                raise UnableToCoerceException(
-                                    candidate,
-                                    URIRef,
-                                    "Unable to resolve what looks like a relative IRI because the base IRI is not set or could not pass it through to the serializer",
-                                )
-                        elif iri_variant == "curie":
+                                raise UnableToCoerceException(candidate, URIRef, 'Unable to resolve what looks like a relative IRI because the base IRI is not set or could not pass it through to the serializer')
+                        elif iri_variant == 'curie':
                             try:
-                                coerced = resolve_curie(
-                                    candidate, cfg.graph.namespace_manager
-                                )
-                            except (
-                                ValueError,
-                                NotInKnownException,
-                                KeyError,
-                                TypeError,
-                            ) as e:
+                                coerced = resolve_curie(candidate, cfg.graph.namespace_manager)
+                            except (ValueError, NotInKnownException, KeyError, TypeError) as e:
                                 raise UnknownCuriePrefixException(candidate, URIRef, e)
                         elif isinstance(iri_variant, bool) and (not iri_variant):
                             if mint_from_literal:
-                                iri_variant = "mint-from-literal"
+                                iri_variant = 'mint-from-literal'
                                 if default_ns:
                                     coerced = default_ns[candidate]
                                 else:
-                                    raise UnableToCoerceException(
-                                        candidate,
-                                        URIRef,
-                                        "Unable to mint an individual from literal because the default namespace is not set or could not pass it through to the serializer",
-                                    )
+                                    raise UnableToCoerceException(candidate, URIRef, 'Unable to mint an individual from literal because the default namespace is not set or could not pass it through to the serializer')
                             else:
-                                raise UnableToCoerceException(
-                                    candidate,
-                                    URIRef,
-                                    "Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE",
-                                )
+                                raise UnableToCoerceException(candidate, URIRef, 'Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE')
                         else:
-                            raise RuntimeError from UnableToCoerceException(
-                                iri_variant, URIRef, "Unhandled IRI variant"
-                            )
+                            raise RuntimeError from UnableToCoerceException(iri_variant, URIRef, 'Unhandled IRI variant')
                         return (coerced, iri_variant)
 
                     def best_guess(norm_value, decoded_norm_value) -> URIRef:
@@ -1937,18 +1325,14 @@ class pipeline:
                         err_norm = err_decoded_norm = None
                         norm_iri_variant = decoded_norm_iri_variant = None
                         try:
-                            norm_coerced, norm_iri_variant = coerce_candidate(
-                                norm_value
-                            )
+                            norm_coerced, norm_iri_variant = coerce_candidate(norm_value)
                             if norm_value == decoded_norm_value:
                                 return norm_coerced
                         except Exception as e:
                             err_norm = e
                         logging.disable(logging.CRITICAL)
                         try:
-                            decoded_norm_coerced, decoded_norm_iri_variant = (
-                                coerce_candidate(decoded_norm_value)
-                            )
+                            decoded_norm_coerced, decoded_norm_iri_variant = coerce_candidate(decoded_norm_value)
                         except Exception as e:
                             err_decoded_norm = e
                         finally:
@@ -1959,64 +1343,32 @@ class pipeline:
                         elif matched == (False, True):
                             return decoded_norm_coerced
                         else:
-                            if norm_iri_variant == "mint-from-literal":
-                                if isinstance(
-                                    err_decoded_norm, UnknownCuriePrefixException
-                                ):
+                            if norm_iri_variant == 'mint-from-literal':
+                                if isinstance(err_decoded_norm, UnknownCuriePrefixException):
                                     raise err_decoded_norm
-                                elif decoded_norm_iri_variant in {
-                                    "absolute-iri",
-                                    "relative-iri",
-                                    "curie",
-                                }:
-                                    return pipeline.core.rdf.data.urlencode(
-                                        decoded_norm_coerced
-                                    )
+                                elif decoded_norm_iri_variant in {'absolute-iri', 'relative-iri', 'curie'}:
+                                    return pipeline.core.rdf.data.urlencode(decoded_norm_coerced)
                             return norm_coerced
-
                     return best_guess(norm_value, decoded_norm_value)
-
                 # END override coerce_to_uriref.py.coerce_to_uriref
                 # BEGIN override rml_serialiser.py.serialise_to_rml
-                def serialise_to_rml(
-                    blocks: Blocks,
-                    object_properties: set[str],
-                    datatype_properties: set[str],
-                    serialisation_config: SerialisationConfig,
-                    prefixes: dict,
-                    graph_cls: type = Graph,
-                    graph_kwargs: dict[str, Any] | None = None,
-                ) -> DrawIOParserGraph:
+                def serialise_to_rml(blocks: Blocks, object_properties: set[str], datatype_properties: set[str], serialisation_config: SerialisationConfig, prefixes: dict, graph_cls: type=Graph, graph_kwargs: dict[str, Any] | None=None) -> DrawIOParserGraph:
                     """Serialize blocks to RDF graph with RML mapping triples."""
                     RMLSerializer = pipeline.core.rdf.control.RMLSerializer
-                    if os.getenv("DEBUG") == "true":
+                    if os.getenv('DEBUG') == 'true':
                         dump_blocks = pipeline.core.internal.control.dump_blocks
-                        dump_blocks(
-                            blocks,
-                            object_properties,
-                            datatype_properties,
-                            "tmp/blocks.json",
-                        )
+                        dump_blocks(blocks, object_properties, datatype_properties, 'tmp/blocks.json')
                     graph_kwargs = graph_kwargs or {}
                     graph = graph_cls(**graph_kwargs)
-                    csv_path = graph_kwargs.get("csv_path")
-                    if csv_path is None and hasattr(graph, "csv_path"):
-                        csv_path = getattr(graph, "csv_path")
-                    serializer = RMLSerializer(
-                        blocks,
-                        object_properties,
-                        datatype_properties,
-                        serialisation_config,
-                        prefixes,
-                        graph,
-                        csv_path=csv_path,
-                    )
+                    csv_path = graph_kwargs.get('csv_path')
+                    if csv_path is None and hasattr(graph, 'csv_path'):
+                        csv_path = getattr(graph, 'csv_path')
+                    serializer = RMLSerializer(blocks, object_properties, datatype_properties, serialisation_config, prefixes, graph, csv_path=csv_path)
                     serializer.setup_namespaces()
                     serializer.serialize_all_individuals()
-                    if os.getenv("DEBUG") == "true":
-                        graph.serialize("tmp/graph.ttl", format="turtle")
+                    if os.getenv('DEBUG') == 'true':
+                        graph.serialize('tmp/graph.ttl', format='turtle')
                     return graph
-
                 # END override rml_serialiser.py.serialise_to_rml
 
     class post:
@@ -2053,29 +1405,25 @@ class pipeline:
 
 # ===== pre.xml.metadata =====
 
-
 class xml_metadata_pre:
     # BEGIN _extract_drawio_metadata
     # override from metadata_extraction.py
-    def _extract_drawio_metadata(
-        raw_xml: str,
-    ) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
+    def _extract_drawio_metadata(raw_xml: str) -> tuple[dict[str, str], Optional[str], Optional[str], Optional[Element]]:
         """Extract CSV path, base URI, prefixes, and return the parsed XML root."""
         try:
             metadata_node, root = pipeline.pre.xml.metadata._find_metadata_node(raw_xml)
         except Exception:
             return ({}, None, None, None)
-        csv_path = (metadata_node.attrib.get("csvPath") or "").strip() or None
-        base_uri = (metadata_node.attrib.get("baseUri") or "").strip() or None
+        csv_path = (metadata_node.attrib.get('csvPath') or '').strip() or None
+        base_uri = (metadata_node.attrib.get('baseUri') or '').strip() or None
         prefixes: dict[str, str] = {}
-        for tag in ("userObjectPreambleElement", "UserObjectPreambleElement"):
+        for tag in ('userObjectPreambleElement', 'UserObjectPreambleElement'):
             for preamble in metadata_node.findall(tag):
-                prefix = (preamble.attrib.get("rdfPrefix") or "").strip()
-                iri = (preamble.attrib.get("rdfIRI") or "").strip()
+                prefix = (preamble.attrib.get('rdfPrefix') or '').strip()
+                iri = (preamble.attrib.get('rdfIRI') or '').strip()
                 if prefix and iri:
                     prefixes[prefix] = iri
         return (prefixes, base_uri, csv_path, root)
-
     # END _extract_drawio_metadata
     # BEGIN _strip_metadata_user_object
     def _strip_metadata_user_object(raw_xml: str, root: Optional[Element]) -> str:
@@ -2106,13 +1454,11 @@ class xml_metadata_pre:
 
 # ===== pre.xml.data =====
 
-
 class xml_data_pre:
     pass
 
 
 # ===== pre.xml.control =====
-
 
 class xml_control_pre:
     pass
@@ -2120,10 +1466,9 @@ class xml_control_pre:
 
 # ===== pre.internal.metadata =====
 
-
 class internal_metadata_pre:
     # BEGIN DEFAULT_CAPITALISATION_SCHEME
-    DEFAULT_CAPITALISATION_SCHEME = "upper-camel"
+    DEFAULT_CAPITALISATION_SCHEME = 'upper-camel'
 
     # END DEFAULT_CAPITALISATION_SCHEME
     # BEGIN DEFAULT_INDENTATION
@@ -2135,22 +1480,7 @@ class internal_metadata_pre:
 
     # END DEFAULT_MAX_GAP
     # BEGIN OWL_METACHARACTERS
-    OWL_METACHARACTERS = [
-        "(",
-        ")",
-        "[",
-        "]",
-        "{",
-        "}",
-        "/",
-        ",",
-        ":",
-        ".",
-        "'",
-        '"',
-        "\xa0",
-        "#",
-    ]
+    OWL_METACHARACTERS = ['(', ')', '[', ']', '{', '}', '/', ',', ':', '.', "'", '"', '\xa0', '#']
 
     # END OWL_METACHARACTERS
     # BEGIN Blocks
@@ -2249,7 +1579,6 @@ class internal_metadata_pre:
         Holds various user-configurable parameters for configuring the serialisation
         to OWL outputted by the 'serialise' function
         """
-
         infer_type_of_literals: bool
         include_preamble: bool
         ontology_iri: str | None
@@ -2260,19 +1589,16 @@ class internal_metadata_pre:
         mint_from_literals: bool = True
         mint_from_types: bool = False
         mint_from_arrows: bool = True
-
     # END SerialisationConfig
 
 
 # ===== pre.internal.data =====
-
 
 class internal_data_pre:
     pass
 
 
 # ===== pre.internal.control =====
-
 
 class internal_control_pre:
     # BEGIN _arguments_parser
@@ -2452,13 +1778,11 @@ class internal_control_pre:
 
 # ===== pre.rdf.metadata =====
 
-
 class rdf_metadata_pre:
     pass
 
 
 # ===== pre.rdf.data =====
-
 
 class rdf_data_pre:
     # BEGIN _handle_spaces
@@ -2519,9 +1843,7 @@ class rdf_data_pre:
                     "-m/--metacharacter-substitute and -c/--capitalisation-scheme "
                     "options to define how to handle spaces"
                 )
-            identifier = _handle_spaces(
-                identifier, space_substitute, capitalisation_scheme
-            )
+            identifier = _handle_spaces(identifier, space_substitute, capitalisation_scheme)
         elif capitalisation_scheme in ["lower-camel", "flat"]:
             identifier = identifier[0].lower() + identifier[1:]
         for metacharacter in OWL_METACHARACTERS:
@@ -2534,7 +1856,6 @@ class rdf_data_pre:
 
 
 # ===== pre.rdf.control =====
-
 
 class rdf_control_pre:
     # BEGIN _parse_capitalisation_scheme
@@ -2552,13 +1873,11 @@ class rdf_control_pre:
 
 # ===== core.xml.metadata =====
 
-
 class xml_metadata_core:
     pass
 
 
 # ===== core.xml.data =====
-
 
 class xml_data_core:
     # BEGIN NothingToParseException
@@ -2620,36 +1939,35 @@ class xml_data_core:
         def __init__(self) -> None:
             super().__init__()
             self._chunks: list[str] = []
-            self._raw_html = ""
+            self._raw_html = ''
 
         def handle_starttag(self, tag: str, _: list[tuple[str, str | None]]) -> None:
-            if tag in ["div", "blockquote", "p", "br"]:
-                self._chunks.append(" ")
+            if tag in ['div', 'blockquote', 'p', 'br']:
+                self._chunks.append(' ')
 
         def handle_endtag(self, tag: str) -> None:
-            if tag in ["div", "blockquote", "p"]:
-                self._chunks.append(" ")
+            if tag in ['div', 'blockquote', 'p']:
+                self._chunks.append(' ')
 
         def handle_data(self, data: str) -> None:
             self._chunks.append(data)
 
         def feed(self, data: str) -> None:
             from html import unescape
-
             self._raw_html = unescape(data)
             super().feed(data)
 
         def _prettify_linebreaks(self) -> Generator[Paragraph, None, None]:
             previous_was_empty = False
             paragraph_already_handled = False
-            current = ""
+            current = ''
             for chunk in self._chunks:
                 if not chunk:
                     if current:
                         yield current
-                    current = ""
+                    current = ''
                     if previous_was_empty and (not paragraph_already_handled):
-                        yield "\n\n"
+                        yield '\n\n'
                         paragraph_already_handled = True
                     else:
                         previous_was_empty = True
@@ -2661,16 +1979,15 @@ class xml_data_core:
                 yield current
 
         def content(self) -> str:
-            return "".join(self._prettify_linebreaks()).strip()
+            return ''.join(self._prettify_linebreaks()).strip()
 
         def raw_html(self) -> str:
             return self._raw_html
 
         def clear(self) -> None:
             self._chunks = []
-            self._raw_html = ""
+            self._raw_html = ''
             self.reset()
-
     # END NodeHTMLParser
     # BEGIN DrawIOXMLTree
     # override from cell_classifier.py
@@ -2678,15 +1995,11 @@ class xml_data_core:
         """Deprecated. Use `DrawIOCellClassifier` instead."""
 
         def __init__(*args, **kwargs):
-            raise pipeline.core.internal.data.DeimplementedException(
-                DrawIOXMLTree.__doc__
-            )
-
+            raise pipeline.core.internal.data.DeimplementedException(DrawIOXMLTree.__doc__)
     # END DrawIOXMLTree
 
 
 # ===== core.xml.control =====
-
 
 class xml_control_core:
     pass
@@ -2694,13 +2007,11 @@ class xml_control_core:
 
 # ===== core.internal.metadata =====
 
-
 class internal_metadata_core:
     pass
 
 
 # ===== core.internal.data =====
-
 
 class internal_data_core:
     # BEGIN Individual
@@ -2732,18 +2043,12 @@ class internal_data_core:
     # BEGIN _split_curie
     # override from curie_validator.py
     def _split_curie(*args, **kwargs):
-        raise pipeline.core.internal.data.DeimplementedException(
-            "Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`"
-        )
-
+        raise pipeline.core.internal.data.DeimplementedException('Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`')
     # END _split_curie
     # BEGIN _ensure_known_curie
     # override from curie_validator.py
     def _ensure_known_curie(*args, **kwargs):
-        raise pipeline.core.internal.data.DeimplementedException(
-            "Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`"
-        )
-
+        raise pipeline.core.internal.data.DeimplementedException('Use `pipeline.core.internal.data.resolve_curie(curie: str, ns_mgr: NamespaceManager) -> URIRef`')
     # END _ensure_known_curie
     # BEGIN _verify_is_ric_class
     def _verify_is_ric_class(ric_class: str, prefixes: dict[str, str]):
@@ -2796,7 +2101,6 @@ class internal_data_core:
 
 
 # ===== core.internal.control =====
-
 
 class internal_control_core:
     # BEGIN _parse_space_substitute
@@ -2878,13 +2182,7 @@ class internal_control_core:
     # END _parse_metacharacter_substitutes
     # BEGIN individual_blocks
     # override from individual_blocks.py
-    def individual_blocks(
-        individuals_and_arrows: Iterator[Individual | Arrow],
-        metacharacter_substitutes: list[tuple[Metacharacter, Replacement]],
-        space_substitute: Replacement | None,
-        capitalisation_scheme: str,
-        prefixes: dict[str, str],
-    ) -> tuple[Blocks, set[str], set[str]]:
+    def individual_blocks(individuals_and_arrows: Iterator[Individual | Arrow], metacharacter_substitutes: list[tuple[Metacharacter, Replacement]], space_substitute: Replacement | None, capitalisation_scheme: str, prefixes: dict[str, str]) -> tuple[Blocks, set[str], set[str]]:
         _replace_metacharacters = pipeline.pre.rdf.data._replace_metacharacters
         _add_individual_type = pipeline.core.internal.control._add_individual_type
         blocks: Blocks = {}
@@ -2892,13 +2190,7 @@ class internal_control_core:
         datatype_properties: set[str] = set()
         for individual_or_arrow in individuals_and_arrows:
             if isinstance(individual_or_arrow, Individual):
-                _add_individual_type(
-                    blocks,
-                    individual_or_arrow,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    capitalisation_scheme,
-                )
+                _add_individual_type(blocks, individual_or_arrow, metacharacter_substitutes, space_substitute, capitalisation_scheme)
                 continue
             identifier = individual_or_arrow.identifier
             normalized_identifier = identifier
@@ -2908,25 +2200,13 @@ class internal_control_core:
                 property_value = (target_identifier, True)
             else:
                 object_properties.add(normalized_identifier)
-                target_identifier = _replace_metacharacters(
-                    individual_or_arrow.target,
-                    metacharacter_substitutes,
-                    space_substitute,
-                    capitalisation_scheme,
-                )
+                target_identifier = _replace_metacharacters(individual_or_arrow.target, metacharacter_substitutes, space_substitute, capitalisation_scheme)
                 property_value = (target_identifier, False)
-            source_identifier = _replace_metacharacters(
-                individual_or_arrow.source,
-                metacharacter_substitutes,
-                space_substitute,
-                capitalisation_scheme,
-            )
+            source_identifier = _replace_metacharacters(individual_or_arrow.source, metacharacter_substitutes, space_substitute, capitalisation_scheme)
             try:
                 block = blocks[source_identifier, individual_or_arrow.source]
             except KeyError:
-                blocks[source_identifier, individual_or_arrow.source] = {
-                    normalized_identifier: {property_value}
-                }
+                blocks[source_identifier, individual_or_arrow.source] = {normalized_identifier: {property_value}}
                 continue
             values = block.get(normalized_identifier)
             if values is None:
@@ -2934,27 +2214,20 @@ class internal_control_core:
             else:
                 values.add(property_value)
         return (blocks, object_properties, datatype_properties)
-
     # END individual_blocks
     # BEGIN _build_graph_from_raw_xml
     # override from build_graph.py
-    def _build_graph_from_raw_xml(
-        raw_xml: str, config_args: dict[str, Any]
-    ) -> DrawIOParserGraph:
+    def _build_graph_from_raw_xml(raw_xml: str, config_args: dict[str, Any]) -> DrawIOParserGraph:
         """
         Builds an RDF graph from raw Draw.io XML using the new self-contained
         DrawIOCellClassifier, completely bypassing DrawIOXMLTree.
         """
-        DrawIOCellClassifier = getattr(
-            pipeline.core.xml.data, "DrawIOCellClassifier", None
-        )
-        _parse_capitalisation_scheme = (
-            pipeline.pre.rdf.control._parse_capitalisation_scheme
-        )
+        DrawIOCellClassifier = getattr(pipeline.core.xml.data, 'DrawIOCellClassifier', None)
+        _parse_capitalisation_scheme = pipeline.pre.rdf.control._parse_capitalisation_scheme
 
         def _is_flag_enabled(value: Any) -> bool:
             if isinstance(value, str):
-                return value.strip().lower() in {"true", "1", "yes", "on"}
+                return value.strip().lower() in {'true', '1', 'yes', 'on'}
             return bool(value)
 
         def _coerce_optional_flag(value: Any) -> bool | None:
@@ -2962,173 +2235,92 @@ class internal_control_core:
                 return None
             return _is_flag_enabled(value)
 
-        def _resolve_enabled_flag(
-            config: dict[str, Any], enable_key: str, disable_key: str, default: bool
-        ) -> bool:
+        def _resolve_enabled_flag(config: dict[str, Any], enable_key: str, disable_key: str, default: bool) -> bool:
             if disable_key in config:
                 return not _is_flag_enabled(config[disable_key])
             if enable_key in config:
                 return _is_flag_enabled(config[enable_key])
             return default
-
-        metadata_prefixes, base_uri, csv_path, parsed_root = (
-            pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
-        )
-        metadata_node = (
-            parsed_root.find(".//mxGraphModel/root/gbadMetadata[@id='0']")
-            if parsed_root is not None
-            else None
-        )
+        metadata_prefixes, base_uri, csv_path, parsed_root = pipeline.pre.xml.metadata._extract_drawio_metadata(raw_xml)
+        metadata_node = parsed_root.find(".//mxGraphModel/root/gbadMetadata[@id='0']") if parsed_root is not None else None
         if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/gbadMetadata")
+            metadata_node = parsed_root.find('.//mxGraphModel/root/gbadMetadata')
         if metadata_node is None and parsed_root is not None:
             metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject[@id='0']")
         if metadata_node is None and parsed_root is not None:
-            metadata_node = parsed_root.find(".//mxGraphModel/root/UserObject")
+            metadata_node = parsed_root.find('.//mxGraphModel/root/UserObject')
         if metadata_node is None and parsed_root is not None:
             metadata_node = parsed_root.find(".//mxGraphModel/root/object[@id='0']")
         prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
-        working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
-            raw_xml, parsed_root
-        )
-        ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
-        prefix = config_args["prefix"] or get_prefix()
-        prefix_iri = (
-            config_args["prefix_iri"] or base_uri or get_prefix_iri(ontology_iri)
-        )
-        include_label = _resolve_enabled_flag(
-            config_args, "include_label", "label_disable", True
-        )
-        include_preamble = _resolve_enabled_flag(
-            config_args, "include_preamble", "preamble_disable", True
-        )
-        infer_type_of_literals = _resolve_enabled_flag(
-            config_args, "infer_type_of_literals", "infer_types_disable", True
-        )
-        rml_enabled = _resolve_enabled_flag(config_args, "rml_enabled", None, False)
-        config_args["include_label"] = include_label
-        config_args["label_disable"] = not include_label
-        config_args["include_preamble"] = include_preamble
-        config_args["preamble_disable"] = not include_preamble
-        config_args["infer_type_of_literals"] = infer_type_of_literals
-        config_args["infer_types_disable"] = not infer_type_of_literals
-        config_args["rml_enabled"] = rml_enabled
-        mint_from_literals = _is_flag_enabled(
-            config_args.get("mint_from_literals", True)
-        )
-        mint_from_types = _is_flag_enabled(config_args.get("mint_from_types", False))
-        mint_from_arrows = _is_flag_enabled(config_args.get("mint_from_arrows", True))
-        serialisation_config = SerialisationConfig(
-            infer_type_of_literals=infer_type_of_literals,
-            include_preamble=include_preamble,
-            ontology_iri=ontology_iri,
-            prefix=prefix,
-            prefix_iri=prefix_iri,
-            indentation=config_args["indentation"],
-            include_label=include_label,
-            mint_from_literals=mint_from_literals,
-            mint_from_types=mint_from_types,
-            mint_from_arrows=mint_from_arrows,
-        )
-        _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
-        strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
+        working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(raw_xml, parsed_root)
+        ontology_iri = config_args['ontology_iri'] or get_ontology_iri()
+        prefix = config_args['prefix'] or get_prefix()
+        prefix_iri = config_args['prefix_iri'] or base_uri or get_prefix_iri(ontology_iri)
+        include_label = _resolve_enabled_flag(config_args, 'include_label', 'label_disable', True)
+        include_preamble = _resolve_enabled_flag(config_args, 'include_preamble', 'preamble_disable', True)
+        infer_type_of_literals = _resolve_enabled_flag(config_args, 'infer_type_of_literals', 'infer_types_disable', True)
+        rml_enabled = _resolve_enabled_flag(config_args, 'rml_enabled', None, False)
+        config_args['include_label'] = include_label
+        config_args['label_disable'] = not include_label
+        config_args['include_preamble'] = include_preamble
+        config_args['preamble_disable'] = not include_preamble
+        config_args['infer_type_of_literals'] = infer_type_of_literals
+        config_args['infer_types_disable'] = not infer_type_of_literals
+        config_args['rml_enabled'] = rml_enabled
+        mint_from_literals = _is_flag_enabled(config_args.get('mint_from_literals', True))
+        mint_from_types = _is_flag_enabled(config_args.get('mint_from_types', False))
+        mint_from_arrows = _is_flag_enabled(config_args.get('mint_from_arrows', True))
+        serialisation_config = SerialisationConfig(infer_type_of_literals=infer_type_of_literals, include_preamble=include_preamble, ontology_iri=ontology_iri, prefix=prefix, prefix_iri=prefix_iri, indentation=config_args['indentation'], include_label=include_label, mint_from_literals=mint_from_literals, mint_from_types=mint_from_types, mint_from_arrows=mint_from_arrows)
+        _parse_capitalisation_scheme(config_args['capitalisation_scheme'])
+        strict_mode = _is_flag_enabled(config_args.get('strict_mode'))
         try:
-            max_gap = float(config_args.get("max_gap", DEFAULT_MAX_GAP))
+            max_gap = float(config_args.get('max_gap', DEFAULT_MAX_GAP))
         except (TypeError, ValueError):
             max_gap = float(DEFAULT_MAX_GAP)
-        explicit_strip_html = "strip_html" in config_args
-        config_strip_html = config_args.get("strip_html", True)
+        explicit_strip_html = 'strip_html' in config_args
+        config_strip_html = config_args.get('strip_html', True)
         metadata_strip_html: bool | None = None
         if metadata_node is not None:
-            metadata_strip_html = _coerce_optional_flag(
-                metadata_node.attrib.get("stripHtml")
-            )
+            metadata_strip_html = _coerce_optional_flag(metadata_node.attrib.get('stripHtml'))
             if metadata_strip_html is None:
-                settings_attr = metadata_node.attrib.get("rdfParserSettings")
+                settings_attr = metadata_node.attrib.get('rdfParserSettings')
                 if settings_attr:
                     try:
                         settings_payload = json.loads(unescape(settings_attr))
                     except json.JSONDecodeError:
                         settings_payload = {}
                     if isinstance(settings_payload, dict):
-                        settings_section = settings_payload.get("settings")
+                        settings_section = settings_payload.get('settings')
                         if isinstance(settings_section, dict):
-                            metadata_strip_html = _coerce_optional_flag(
-                                settings_section.get("stripHtml")
-                            )
+                            metadata_strip_html = _coerce_optional_flag(settings_section.get('stripHtml'))
         if explicit_strip_html:
             strip_html_enabled = _is_flag_enabled(config_strip_html)
         elif metadata_strip_html is not None:
             strip_html_enabled = metadata_strip_html
         else:
             strip_html_enabled = _is_flag_enabled(config_strip_html)
-        literal_definitions = config_args.get("literal_definitions")
-        classifier = DrawIOCellClassifier(
-            working_xml,
-            prefixes,
-            strict_mode=strict_mode,
-            max_gap=max_gap,
-            strip_html=strip_html_enabled,
-            literal_definitions=literal_definitions,
-        )
-        space_substitute = internal_control_core._parse_space_substitute(
-            config_args["metacharacter_substitute"]
-        )
-        metacharacter_substitutes = list(
-            internal_control_core._parse_metacharacter_substitutes(
-                config_args["metacharacter_substitute"]
-            )
-        )
+        literal_definitions = config_args.get('literal_definitions')
+        classifier = DrawIOCellClassifier(working_xml, prefixes, strict_mode=strict_mode, max_gap=max_gap, strip_html=strip_html_enabled, literal_definitions=literal_definitions)
+        space_substitute = internal_control_core._parse_space_substitute(config_args['metacharacter_substitute'])
+        metacharacter_substitutes = list(internal_control_core._parse_metacharacter_substitutes(config_args['metacharacter_substitute']))
         metacharacter_mode: str | None = None
-        if any(
-            (
-                definition == "url"
-                for definition in config_args["metacharacter_substitute"]
-            )
-        ):
-            metacharacter_mode = "url"
-        blocks, object_properties, datatype_properties = (
-            internal_control_core.individual_blocks(
-                classifier.get_graph_elements(),
-                metacharacter_substitutes,
-                space_substitute,
-                config_args["capitalisation_scheme"],
-                prefixes,
-            )
-        )
-        serializer = (
-            pipeline.core.rdf.control.serialise_to_rml
-            if rml_enabled
-            else serialise_to_graph
-        )
-        graph = serializer(
-            blocks,
-            object_properties,
-            datatype_properties,
-            serialisation_config,
-            prefixes,
-            graph_cls=DrawIOParserGraph,
-            graph_kwargs={
-                "csv_path": csv_path,
-                "metacharacter_mode": metacharacter_mode,
-                "base": pipeline.core.rdf.data.prefix_iri_to_base(base_uri),
-            },
-        )
+        if any((definition == 'url' for definition in config_args['metacharacter_substitute'])):
+            metacharacter_mode = 'url'
+        blocks, object_properties, datatype_properties = internal_control_core.individual_blocks(classifier.get_graph_elements(), metacharacter_substitutes, space_substitute, config_args['capitalisation_scheme'], prefixes)
+        serializer = pipeline.core.rdf.control.serialise_to_rml if rml_enabled else serialise_to_graph
+        graph = serializer(blocks, object_properties, datatype_properties, serialisation_config, prefixes, graph_cls=DrawIOParserGraph, graph_kwargs={'csv_path': csv_path, 'metacharacter_mode': metacharacter_mode, 'base': pipeline.core.rdf.data.prefix_iri_to_base(base_uri)})
         return graph
-
     # END _build_graph_from_raw_xml
 
 
 # ===== core.rdf.metadata =====
-
 
 class rdf_metadata_core:
     pass
 
 
 # ===== core.rdf.data =====
-
 
 class rdf_data_core:
     # BEGIN NotInKnownException
@@ -3171,30 +2363,19 @@ class rdf_data_core:
 
 # ===== core.rdf.control =====
 
-
 class rdf_control_core:
     # BEGIN DrawIOParserGraph
     # override from draw_io_parser_graph.py
     class DrawIOParserGraph(Graph):
         """Graph subclass that records Draw.io specific metadata."""
 
-        def __init__(
-            self,
-            *args,
-            csv_path: Optional[str] = None,
-            metacharacter_mode: str | None = None,
-            **kwargs,
-        ):
+        def __init__(self, *args, csv_path: Optional[str]=None, metacharacter_mode: str | None=None, **kwargs):
             super().__init__(*args, **kwargs)
             self.csv_path = csv_path
             self.metacharacter_mode = metacharacter_mode
-            self.namespace_manager = NamespaceManager(self, bind_namespaces="none")
+            self.namespace_manager = NamespaceManager(self, bind_namespaces='none')
 
-        def addN1(
-            self,
-            triple_1: tuple[Node, Node, Node],
-            triples_N: list[tuple[Node, Node, Node]],
-        ):
+        def addN1(self, triple_1: tuple[Node, Node, Node], triples_N: list[tuple[Node, Node, Node]]):
             """
             Add N+1: a triple and some other triples to the graph.
 
@@ -3220,16 +2401,8 @@ class rdf_control_core:
             """
             graph = Graph()
             sink = RDFSink(graph)
-            baseURI = graph.absolutize(
-                source.getPublicId() or source.getSystemId() or ""
-            )
-            p = SinkParser(
-                sink,
-                baseURI=graph.absolutize(
-                    source.getPublicId() or source.getSystemId() or ""
-                ),
-                turtle=True,
-            )
+            baseURI = graph.absolutize(source.getPublicId() or source.getSystemId() or '')
+            p = SinkParser(sink, baseURI=graph.absolutize(source.getPublicId() or source.getSystemId() or ''), turtle=True)
             stream = source.getCharacterStream()
             if not stream:
                 stream = source.getByteStream()
@@ -3248,18 +2421,9 @@ class rdf_control_core:
             return cls._extract_base_from_inputsource(source)
 
         def _inject_base_from_parse_kwargs(self, **kwargs):
-            if getattr(self, "base", None):
+            if getattr(self, 'base', None):
                 return
-            self.base = self._extract_base_from_inputsource(
-                create_input_source(
-                    source=kwargs.get("source"),
-                    publicID=kwargs.get("publicID"),
-                    location=kwargs.get("location"),
-                    file=kwargs.get("file"),
-                    data=kwargs.get("data"),
-                    format=kwargs.get("format"),
-                )
-            )
+            self.base = self._extract_base_from_inputsource(create_input_source(source=kwargs.get('source'), publicID=kwargs.get('publicID'), location=kwargs.get('location'), file=kwargs.get('file'), data=kwargs.get('data'), format=kwargs.get('format')))
 
         def parse(self, *args, **kwargs):
             """
@@ -3271,50 +2435,30 @@ class rdf_control_core:
             """
             super().parse(*args, **kwargs)
             self._inject_base_from_parse_kwargs(**kwargs)
-
     # END DrawIOParserGraph
     # BEGIN serialise_to_graph
     # override from rdf_serializer.py
-    def serialise_to_graph(
-        blocks: Blocks,
-        object_properties: set[str],
-        datatype_properties: set[str],
-        serialisation_config: SerialisationConfig,
-        prefixes: dict,
-        graph_cls: Type = Graph,
-        graph_kwargs: Optional[Dict[str, Any]] = None,
-    ) -> DrawIOParserGraph:
+    def serialise_to_graph(blocks: Blocks, object_properties: set[str], datatype_properties: set[str], serialisation_config: SerialisationConfig, prefixes: dict, graph_cls: Type=Graph, graph_kwargs: Optional[Dict[str, Any]]=None) -> DrawIOParserGraph:
         """Serialize blocks to RDF graph with regular triples."""
         RDFSerializer = pipeline.core.rdf.control.RDFSerializer
-        if os.getenv("DEBUG") == "true":
+        if os.getenv('DEBUG') == 'true':
             dump_blocks = pipeline.core.internal.control.dump_blocks
-            dump_blocks(
-                blocks, object_properties, datatype_properties, "tmp/blocks.json"
-            )
+            dump_blocks(blocks, object_properties, datatype_properties, 'tmp/blocks.json')
         graph_kwargs = graph_kwargs or {}
         graph = graph_cls(**graph_kwargs)
-        serializer = RDFSerializer(
-            blocks,
-            object_properties,
-            datatype_properties,
-            serialisation_config,
-            prefixes,
-            graph,
-        )
+        serializer = RDFSerializer(blocks, object_properties, datatype_properties, serialisation_config, prefixes, graph)
         serializer.setup_namespaces()
         serializer.add_preamble()
         serializer.declare_properties()
         serializer.serialize_all_individuals()
         serializer.add_decoration_notes()
-        if os.getenv("DEBUG") == "true":
-            graph.serialize("tmp/graph.ttl", format="turtle")
+        if os.getenv('DEBUG') == 'true':
+            graph.serialize('tmp/graph.ttl', format='turtle')
         return graph
-
     # END serialise_to_graph
 
 
 # ===== post.xml.metadata =====
-
 
 class xml_metadata_post:
     pass
@@ -3322,13 +2466,11 @@ class xml_metadata_post:
 
 # ===== post.xml.data =====
 
-
 class xml_data_post:
     pass
 
 
 # ===== post.xml.control =====
-
 
 class xml_control_post:
     pass
@@ -3336,20 +2478,17 @@ class xml_control_post:
 
 # ===== post.internal.metadata =====
 
-
 class internal_metadata_post:
     pass
 
 
 # ===== post.internal.data =====
 
-
 class internal_data_post:
     pass
 
 
 # ===== post.internal.control =====
-
 
 class internal_control_post:
     # BEGIN parse_drawio_to_graph
@@ -3459,20 +2598,17 @@ class internal_control_post:
 
 # ===== post.rdf.metadata =====
 
-
 class rdf_metadata_post:
     pass
 
 
 # ===== post.rdf.data =====
 
-
 class rdf_data_post:
     pass
 
 
 # ===== post.rdf.control =====
-
 
 class rdf_control_post:
     pass
@@ -3483,13 +2619,10 @@ class DrawIOParser:
     __data_type__ = "internal"
     __data_role__ = "metadata"
     __phase__ = "core"
-
     def __init__(self):
         self.pipeline = pipeline
-
     def to_graph_from_file(self, path, **kw):
         return pipeline.post.internal.control.parse_drawio_to_graph(path, **kw)
-
     def run_cli(self, argv=None):
         return pipeline.post.internal.control.main(argv)
 
@@ -3539,24 +2672,16 @@ _split_curie = internal_data_core._split_curie
 _ensure_known_curie = internal_data_core._ensure_known_curie
 _verify_is_ric_class = internal_data_core._verify_is_ric_class
 _SourceNotIndividualException = internal_data_core._SourceNotIndividualException
-ArrowWithoutIndividualAsSourceException = (
-    internal_data_core.ArrowWithoutIndividualAsSourceException
-)
+ArrowWithoutIndividualAsSourceException = internal_data_core.ArrowWithoutIndividualAsSourceException
 _add_individual_type = internal_data_core._add_individual_type
 _parse_space_substitute = internal_control_core._parse_space_substitute
-_parse_metacharacter_substitutes = (
-    internal_control_core._parse_metacharacter_substitutes
-)
+_parse_metacharacter_substitutes = internal_control_core._parse_metacharacter_substitutes
 individual_blocks = internal_control_core.individual_blocks
 _build_graph_from_raw_xml = internal_control_core._build_graph_from_raw_xml
 NotInKnownException = rdf_data_core.NotInKnownException
-_MetacharacterSubstituteParseException = (
-    rdf_data_core._MetacharacterSubstituteParseException
-)
+_MetacharacterSubstituteParseException = rdf_data_core._MetacharacterSubstituteParseException
 MetacharacterException = rdf_data_core.MetacharacterException
-_InvalidCapitalisationSchemeException = (
-    rdf_data_core._InvalidCapitalisationSchemeException
-)
+_InvalidCapitalisationSchemeException = rdf_data_core._InvalidCapitalisationSchemeException
 DrawIOParserGraph = rdf_control_core.DrawIOParserGraph
 serialise_to_graph = rdf_control_core.serialise_to_graph
 parse_drawio_to_graph = internal_control_post.parse_drawio_to_graph
@@ -3564,188 +2689,62 @@ _run = internal_control_post._run
 main = internal_control_post.main
 
 # ===== attach to nested namespaces =====
-setattr(
-    pipeline.pre.xml.metadata,
-    "_extract_drawio_metadata",
-    xml_metadata_pre._extract_drawio_metadata,
-)
-setattr(
-    pipeline.pre.xml.metadata,
-    "_strip_metadata_user_object",
-    xml_metadata_pre._strip_metadata_user_object,
-)
-setattr(
-    pipeline.pre.internal.metadata,
-    "DEFAULT_CAPITALISATION_SCHEME",
-    internal_metadata_pre.DEFAULT_CAPITALISATION_SCHEME,
-)
-setattr(
-    pipeline.pre.internal.metadata,
-    "DEFAULT_INDENTATION",
-    internal_metadata_pre.DEFAULT_INDENTATION,
-)
-setattr(
-    pipeline.pre.internal.metadata,
-    "DEFAULT_MAX_GAP",
-    internal_metadata_pre.DEFAULT_MAX_GAP,
-)
-setattr(
-    pipeline.pre.internal.metadata,
-    "OWL_METACHARACTERS",
-    internal_metadata_pre.OWL_METACHARACTERS,
-)
-setattr(pipeline.pre.internal.metadata, "Blocks", internal_metadata_pre.Blocks)
-setattr(pipeline.pre.internal.metadata, "CellID", internal_metadata_pre.CellID)
-setattr(
-    pipeline.pre.internal.metadata, "XCoordinate", internal_metadata_pre.XCoordinate
-)
-setattr(
-    pipeline.pre.internal.metadata, "YCoordinate", internal_metadata_pre.YCoordinate
-)
-setattr(pipeline.pre.internal.metadata, "Width", internal_metadata_pre.Width)
-setattr(pipeline.pre.internal.metadata, "Height", internal_metadata_pre.Height)
-setattr(pipeline.pre.internal.metadata, "ArrowStart", internal_metadata_pre.ArrowStart)
-setattr(pipeline.pre.internal.metadata, "ArrowEnd", internal_metadata_pre.ArrowEnd)
-setattr(pipeline.pre.internal.metadata, "Label", internal_metadata_pre.Label)
-setattr(pipeline.pre.internal.metadata, "ArrowData", internal_metadata_pre.ArrowData)
-setattr(pipeline.pre.internal.metadata, "Dimensions", internal_metadata_pre.Dimensions)
-setattr(pipeline.pre.internal.metadata, "Paragraph", internal_metadata_pre.Paragraph)
-setattr(
-    pipeline.pre.internal.metadata, "Metacharacter", internal_metadata_pre.Metacharacter
-)
-setattr(
-    pipeline.pre.internal.metadata, "Replacement", internal_metadata_pre.Replacement
-)
-setattr(
-    pipeline.pre.internal.metadata, "get_prefixes", internal_metadata_pre.get_prefixes
-)
-setattr(
-    pipeline.pre.internal.metadata,
-    "get_ontology_iri",
-    internal_metadata_pre.get_ontology_iri,
-)
-setattr(pipeline.pre.internal.metadata, "get_prefix", internal_metadata_pre.get_prefix)
-setattr(
-    pipeline.pre.internal.metadata,
-    "get_prefix_iri",
-    internal_metadata_pre.get_prefix_iri,
-)
-setattr(
-    pipeline.pre.internal.metadata,
-    "SerialisationConfig",
-    internal_metadata_pre.SerialisationConfig,
-)
-setattr(
-    pipeline.pre.internal.control,
-    "_arguments_parser",
-    internal_control_pre._arguments_parser,
-)
-setattr(pipeline.pre.rdf.data, "_handle_spaces", rdf_data_pre._handle_spaces)
-setattr(
-    pipeline.pre.rdf.data, "_replace_metacharacter", rdf_data_pre._replace_metacharacter
-)
-setattr(
-    pipeline.pre.rdf.data,
-    "_replace_metacharacters",
-    rdf_data_pre._replace_metacharacters,
-)
-setattr(
-    pipeline.pre.rdf.control,
-    "_parse_capitalisation_scheme",
-    rdf_control_pre._parse_capitalisation_scheme,
-)
-setattr(
-    pipeline.core.xml.data,
-    "NothingToParseException",
-    xml_data_core.NothingToParseException,
-)
-setattr(pipeline.core.xml.data, "NoSourceException", xml_data_core.NoSourceException)
-setattr(pipeline.core.xml.data, "NoTargetException", xml_data_core.NoTargetException)
-setattr(pipeline.core.xml.data, "_NoValueException", xml_data_core._NoValueException)
-setattr(
-    pipeline.core.xml.data,
-    "_NoCellCloseEnoughException",
-    xml_data_core._NoCellCloseEnoughException,
-)
-setattr(pipeline.core.xml.data, "ParseException", xml_data_core.ParseException)
-setattr(pipeline.core.xml.data, "NodeHTMLParser", xml_data_core.NodeHTMLParser)
-setattr(pipeline.core.xml.data, "DrawIOXMLTree", xml_data_core.DrawIOXMLTree)
-setattr(pipeline.core.internal.data, "Individual", internal_data_core.Individual)
-setattr(pipeline.core.internal.data, "Arrow", internal_data_core.Arrow)
-setattr(pipeline.core.internal.data, "_split_curie", internal_data_core._split_curie)
-setattr(
-    pipeline.core.internal.data,
-    "_ensure_known_curie",
-    internal_data_core._ensure_known_curie,
-)
-setattr(
-    pipeline.core.internal.data,
-    "_verify_is_ric_class",
-    internal_data_core._verify_is_ric_class,
-)
-setattr(
-    pipeline.core.internal.data,
-    "_SourceNotIndividualException",
-    internal_data_core._SourceNotIndividualException,
-)
-setattr(
-    pipeline.core.internal.data,
-    "ArrowWithoutIndividualAsSourceException",
-    internal_data_core.ArrowWithoutIndividualAsSourceException,
-)
-setattr(
-    pipeline.core.internal.data,
-    "_add_individual_type",
-    internal_data_core._add_individual_type,
-)
-setattr(
-    pipeline.core.internal.control,
-    "_parse_space_substitute",
-    internal_control_core._parse_space_substitute,
-)
-setattr(
-    pipeline.core.internal.control,
-    "_parse_metacharacter_substitutes",
-    internal_control_core._parse_metacharacter_substitutes,
-)
-setattr(
-    pipeline.core.internal.control,
-    "individual_blocks",
-    internal_control_core.individual_blocks,
-)
-setattr(
-    pipeline.core.internal.control,
-    "_build_graph_from_raw_xml",
-    internal_control_core._build_graph_from_raw_xml,
-)
-setattr(
-    pipeline.core.rdf.data, "NotInKnownException", rdf_data_core.NotInKnownException
-)
-setattr(
-    pipeline.core.rdf.data,
-    "_MetacharacterSubstituteParseException",
-    rdf_data_core._MetacharacterSubstituteParseException,
-)
-setattr(
-    pipeline.core.rdf.data,
-    "MetacharacterException",
-    rdf_data_core.MetacharacterException,
-)
-setattr(
-    pipeline.core.rdf.data,
-    "_InvalidCapitalisationSchemeException",
-    rdf_data_core._InvalidCapitalisationSchemeException,
-)
-setattr(
-    pipeline.core.rdf.control, "DrawIOParserGraph", rdf_control_core.DrawIOParserGraph
-)
-setattr(
-    pipeline.core.rdf.control, "serialise_to_graph", rdf_control_core.serialise_to_graph
-)
-setattr(
-    pipeline.post.internal.control,
-    "parse_drawio_to_graph",
-    internal_control_post.parse_drawio_to_graph,
-)
-setattr(pipeline.post.internal.control, "_run", internal_control_post._run)
-setattr(pipeline.post.internal.control, "main", internal_control_post.main)
+setattr(pipeline.pre.xml.metadata, '_extract_drawio_metadata', xml_metadata_pre._extract_drawio_metadata)
+setattr(pipeline.pre.xml.metadata, '_strip_metadata_user_object', xml_metadata_pre._strip_metadata_user_object)
+setattr(pipeline.pre.internal.metadata, 'DEFAULT_CAPITALISATION_SCHEME', internal_metadata_pre.DEFAULT_CAPITALISATION_SCHEME)
+setattr(pipeline.pre.internal.metadata, 'DEFAULT_INDENTATION', internal_metadata_pre.DEFAULT_INDENTATION)
+setattr(pipeline.pre.internal.metadata, 'DEFAULT_MAX_GAP', internal_metadata_pre.DEFAULT_MAX_GAP)
+setattr(pipeline.pre.internal.metadata, 'OWL_METACHARACTERS', internal_metadata_pre.OWL_METACHARACTERS)
+setattr(pipeline.pre.internal.metadata, 'Blocks', internal_metadata_pre.Blocks)
+setattr(pipeline.pre.internal.metadata, 'CellID', internal_metadata_pre.CellID)
+setattr(pipeline.pre.internal.metadata, 'XCoordinate', internal_metadata_pre.XCoordinate)
+setattr(pipeline.pre.internal.metadata, 'YCoordinate', internal_metadata_pre.YCoordinate)
+setattr(pipeline.pre.internal.metadata, 'Width', internal_metadata_pre.Width)
+setattr(pipeline.pre.internal.metadata, 'Height', internal_metadata_pre.Height)
+setattr(pipeline.pre.internal.metadata, 'ArrowStart', internal_metadata_pre.ArrowStart)
+setattr(pipeline.pre.internal.metadata, 'ArrowEnd', internal_metadata_pre.ArrowEnd)
+setattr(pipeline.pre.internal.metadata, 'Label', internal_metadata_pre.Label)
+setattr(pipeline.pre.internal.metadata, 'ArrowData', internal_metadata_pre.ArrowData)
+setattr(pipeline.pre.internal.metadata, 'Dimensions', internal_metadata_pre.Dimensions)
+setattr(pipeline.pre.internal.metadata, 'Paragraph', internal_metadata_pre.Paragraph)
+setattr(pipeline.pre.internal.metadata, 'Metacharacter', internal_metadata_pre.Metacharacter)
+setattr(pipeline.pre.internal.metadata, 'Replacement', internal_metadata_pre.Replacement)
+setattr(pipeline.pre.internal.metadata, 'get_prefixes', internal_metadata_pre.get_prefixes)
+setattr(pipeline.pre.internal.metadata, 'get_ontology_iri', internal_metadata_pre.get_ontology_iri)
+setattr(pipeline.pre.internal.metadata, 'get_prefix', internal_metadata_pre.get_prefix)
+setattr(pipeline.pre.internal.metadata, 'get_prefix_iri', internal_metadata_pre.get_prefix_iri)
+setattr(pipeline.pre.internal.metadata, 'SerialisationConfig', internal_metadata_pre.SerialisationConfig)
+setattr(pipeline.pre.internal.control, '_arguments_parser', internal_control_pre._arguments_parser)
+setattr(pipeline.pre.rdf.data, '_handle_spaces', rdf_data_pre._handle_spaces)
+setattr(pipeline.pre.rdf.data, '_replace_metacharacter', rdf_data_pre._replace_metacharacter)
+setattr(pipeline.pre.rdf.data, '_replace_metacharacters', rdf_data_pre._replace_metacharacters)
+setattr(pipeline.pre.rdf.control, '_parse_capitalisation_scheme', rdf_control_pre._parse_capitalisation_scheme)
+setattr(pipeline.core.xml.data, 'NothingToParseException', xml_data_core.NothingToParseException)
+setattr(pipeline.core.xml.data, 'NoSourceException', xml_data_core.NoSourceException)
+setattr(pipeline.core.xml.data, 'NoTargetException', xml_data_core.NoTargetException)
+setattr(pipeline.core.xml.data, '_NoValueException', xml_data_core._NoValueException)
+setattr(pipeline.core.xml.data, '_NoCellCloseEnoughException', xml_data_core._NoCellCloseEnoughException)
+setattr(pipeline.core.xml.data, 'ParseException', xml_data_core.ParseException)
+setattr(pipeline.core.xml.data, 'NodeHTMLParser', xml_data_core.NodeHTMLParser)
+setattr(pipeline.core.xml.data, 'DrawIOXMLTree', xml_data_core.DrawIOXMLTree)
+setattr(pipeline.core.internal.data, 'Individual', internal_data_core.Individual)
+setattr(pipeline.core.internal.data, 'Arrow', internal_data_core.Arrow)
+setattr(pipeline.core.internal.data, '_split_curie', internal_data_core._split_curie)
+setattr(pipeline.core.internal.data, '_ensure_known_curie', internal_data_core._ensure_known_curie)
+setattr(pipeline.core.internal.data, '_verify_is_ric_class', internal_data_core._verify_is_ric_class)
+setattr(pipeline.core.internal.data, '_SourceNotIndividualException', internal_data_core._SourceNotIndividualException)
+setattr(pipeline.core.internal.data, 'ArrowWithoutIndividualAsSourceException', internal_data_core.ArrowWithoutIndividualAsSourceException)
+setattr(pipeline.core.internal.data, '_add_individual_type', internal_data_core._add_individual_type)
+setattr(pipeline.core.internal.control, '_parse_space_substitute', internal_control_core._parse_space_substitute)
+setattr(pipeline.core.internal.control, '_parse_metacharacter_substitutes', internal_control_core._parse_metacharacter_substitutes)
+setattr(pipeline.core.internal.control, 'individual_blocks', internal_control_core.individual_blocks)
+setattr(pipeline.core.internal.control, '_build_graph_from_raw_xml', internal_control_core._build_graph_from_raw_xml)
+setattr(pipeline.core.rdf.data, 'NotInKnownException', rdf_data_core.NotInKnownException)
+setattr(pipeline.core.rdf.data, '_MetacharacterSubstituteParseException', rdf_data_core._MetacharacterSubstituteParseException)
+setattr(pipeline.core.rdf.data, 'MetacharacterException', rdf_data_core.MetacharacterException)
+setattr(pipeline.core.rdf.data, '_InvalidCapitalisationSchemeException', rdf_data_core._InvalidCapitalisationSchemeException)
+setattr(pipeline.core.rdf.control, 'DrawIOParserGraph', rdf_control_core.DrawIOParserGraph)
+setattr(pipeline.core.rdf.control, 'serialise_to_graph', rdf_control_core.serialise_to_graph)
+setattr(pipeline.post.internal.control, 'parse_drawio_to_graph', internal_control_post.parse_drawio_to_graph)
+setattr(pipeline.post.internal.control, '_run', internal_control_post._run)
+setattr(pipeline.post.internal.control, 'main', internal_control_post.main)

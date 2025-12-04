@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import yaml
+from pathlib import Path
 
 from python_core.src.draw_io_parser import *  # type: ignore=imported-unused
 from aicode.python_core.meta_builder.drawio_meta_builder import override
@@ -7,6 +9,29 @@ from aicode.python_core.meta_builder.drawio_meta_builder import override
 # ruff: noqa: F403, F405
 
 # IMPORTANT! Module-level constants are not picked up by meta builder
+
+
+# Load default literal definitions from YAML at module load time
+try:
+    _config_path = Path(__file__).resolve().parents[5] / "integration_tests" / "config" / "default.yml"
+    if _config_path.exists():
+        with open(_config_path, 'r') as _f:
+            _config = yaml.safe_load(_f)
+            _yaml_defs = _config.get('parser_config', {}).get('literal_definitions', [])
+            # Convert from YAML format (attr_key/attr_value) to Python format (key/value)
+            _DEFAULT_LITERAL_DEFINITIONS = []
+            for _item in _yaml_defs:
+                if isinstance(_item, dict) and 'attr_key' in _item and 'attr_value' in _item:
+                    _DEFAULT_LITERAL_DEFINITIONS.append({
+                        "key": _item['attr_key'],
+                        "value": _item['attr_value']
+                    })
+            if not _DEFAULT_LITERAL_DEFINITIONS:
+                _DEFAULT_LITERAL_DEFINITIONS = [{"key": "style", "value": "rounded=1"}]
+    else:
+        _DEFAULT_LITERAL_DEFINITIONS = [{"key": "style", "value": "rounded=1"}]
+except Exception:
+    _DEFAULT_LITERAL_DEFINITIONS = [{"key": "style", "value": "rounded=1"}]
 
 
 @override(phase="core", type="xml", role="data")
@@ -27,7 +52,7 @@ class DrawIOCellClassifier:
 
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
-    DEFAULT_LITERAL_DEFINITIONS = [{"key": "style", "value": "rounded=1"}]
+    DEFAULT_LITERAL_DEFINITIONS = _DEFAULT_LITERAL_DEFINITIONS
 
     def __init__(
         self,
@@ -721,19 +746,19 @@ class DrawIOCellClassifier:
     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
         """Check if cell matches any literal definition.
 
-        - None: Use DEFAULT_LITERAL_DEFINITIONS
-        - []: Return False (no literal definitions)
+        - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
+        - []: Return True (treat everything as literal)
         - [...]: Use provided definitions
         """
         # Handle None - use default
         if self._literal_definitions is None:
             definitions_to_use = self.DEFAULT_LITERAL_DEFINITIONS
-        # Handle explicit empty list - no literal definitions
+        # Handle explicit empty list - everything is literal
         elif (
             isinstance(self._literal_definitions, list)
             and len(self._literal_definitions) == 0
         ):
-            return False
+            return True
         # Use provided definitions
         else:
             definitions_to_use = self._literal_definitions
