@@ -1,37 +1,27 @@
 @base <ontology://generated-from-draw-io/mock> .
-@prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix kb: <mock://knowledge-base/> .
 @prefix ns1: <http://example/schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-ns1:No a owl:ObjectProperty .
+ns1:No a owl:DatatypeProperty .
 
-ns1:Yes a owl:ObjectProperty .
-
-kb:Lampdoesntwork a owl:NamedIndividual ;
-    rdfs:label "kb:Lampdoesntwork" .
+ns1:Yes a owl:DatatypeProperty,
+        owl:ObjectProperty .
 
 kb:Lamppluggedin a owl:NamedIndividual ;
     rdfs:label "kb:Lamppluggedin" ;
-    ns1:No :Plug%20In%20Lamp ;
+    ns1:No "Plug in lamp" ;
     ns1:Yes kb:Bulbburnedout .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
+    owl:imports rico: ;
+    skos:note "kb:Lampdoesntwork" .
 
 kb:Bulbburnedout a owl:NamedIndividual ;
     rdfs:label "kb:Bulbburnedout" ;
-    ns1:No :Repair%20Lamp ;
-    ns1:Yes :Replace%20Bulb .
-
-:Plug%20In%20Lamp a owl:NamedIndividual ;
-    rdfs:label "Plug in lamp" .
-
-:Repair%20Lamp a owl:NamedIndividual ;
-    rdfs:label "Repair Lamp" .
-
-:Replace%20Bulb a owl:NamedIndividual ;
-    rdfs:label "Replace Bulb" .
+    ns1:No "Repair Lamp" ;
+    ns1:Yes "Replace Bulb" .
 

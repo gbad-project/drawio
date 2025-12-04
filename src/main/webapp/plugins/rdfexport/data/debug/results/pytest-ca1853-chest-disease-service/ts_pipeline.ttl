@@ -3,8 +3,9 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:generalDescription a owl:ObjectProperty .
+rico:generalDescription a owl:DatatypeProperty .
 
 rico:hasBeginningDate a owl:ObjectProperty .
 
@@ -24,7 +25,7 @@ rico:hasOrHadIdentifier a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:ObjectProperty .
+rico:history a owl:DatatypeProperty .
 
 rico:isOrWasDescribedBy a owl:ObjectProperty .
 
@@ -34,9 +35,9 @@ rico:isOrWasRegulatedBy a owl:ObjectProperty .
 
 rico:isSuccessorOf a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:ObjectProperty .
+rico:lastModificationDate a owl:DatatypeProperty .
 
-rico:normalizedValue a owl:ObjectProperty .
+rico:normalizedValue a owl:DatatypeProperty .
 
 rico:relationHasTarget a owl:ObjectProperty .
 
@@ -46,9 +47,6 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
-
-:2010-07-19 a owl:NamedIndividual ;
-    rdfs:label "2010-07-19" .
 
 :Agent%20Identifier a owl:NamedIndividual,
         rico:IdentifierType ;
@@ -76,9 +74,6 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
     rdfs:label "CA1853" ;
     rico:hasIdentifierType :Agent%20Identifier .
 
-:Chest%20Disease%20Service a owl:NamedIndividual ;
-    rdfs:label "Chest Disease Service" .
-
 :Controlling%20Agency%20Relation a owl:NamedIndividual,
         rico:AgentControlRelation ;
     rdfs:label "Controlling Agency Relation" ;
@@ -86,21 +81,15 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
     rico:hasEndDate :1982 ;
     rico:relationHasTarget :Ontario.%20Chest%20Disease%20Service .
 
-<ontology://generated-from-draw-io/mock#Function%20Note%3A%20The%20Chest%20Disease%20Service%20Was%20Established%20To%20Eradicate%20Tuberculosis%20And%20To%20Deal%20With%20Other%20Diseases%20Of%20The%20Chest%20And%20Lungs.> a owl:NamedIndividual ;
-    rdfs:label "Function Note: The Chest Disease Service was established to eradicate tuberculosis and to deal with other diseases of the chest and lungs." .
-
-<ontology://generated-from-draw-io/mock#In%201974%2C%20In%20Response%20To%20The%20Continuing%20Decline%20Of%20The%20Incidence%20Of%20TB%2C%20The%20Tuberculosis%20Prevention%20Service%20Was%20Renamed%20Chest%20Disease%20Service%2C%20And%20Was%20Moved%2C%20Within%20The%20Clinic%20Services%20Branch%2C%20To%20The%20Community%20Health%20Division.%20Throughout%20The%20Late%201970s%20And%20Into%20The%201980s%2C%20The%20Chest%20Disease%20Service%20Was%20Transferred%20Several%20Times%20Within%20The%20Public%20Health%20Function%20To%20Different%20Offices.%20Finally%20In%201982%20It%20Was%20Effectively%20Shut%20Down.%20Of%20The%2023%20Chest%20Clinics%20That%20The%20Service%20Operated%2C%2018%20Were%20Closed%20And%20The%20Remaining%205%2C%20All%20Located%20In%20Northern%20Ontario%2C%20Were%20Transferred%20To%20The%20Ministry%20Of%20Labour%20For%20The%20Purposes%20Of%20Screening%20Miners.> a owl:NamedIndividual ;
-    rdfs:label "In 1974, in response to the continuing decline of the incidence of TB, the Tuberculosis Prevention Service was renamed Chest Disease Service, and was moved, within the Clinic Services Branch, to the Community Health Division.  Throughout the late 1970s and into the 1980s, the Chest Disease Service was transferred several times within the public health function to different offices. Finally in 1982 it was effectively shut down. Of the 23 chest clinics that the service operated, 18 were closed and the remaining 5, all located in Northern Ontario, were transferred to the Ministry of Labour for the purposes of screening miners." .
-
 :Ontario.%20Chest%20Disease%20Service%20Authority%20Record a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Ontario. Chest Disease Service Authority Record" ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Source%20Note%3A%20Not%20In%20Canadiana.%20Inventory%20For%20RG%2010.%20Archivaria%2C%20Number%2041%2C%20Spring%201996.> ;
+    rico:generalDescription "Source Note: Not in Canadiana. Inventory for RG 10. Archivaria, Number 41, Spring 1996." ;
     rico:hasDocumentaryFormType :Authority%20Record ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Ready%3A%20Y ;
     rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
-    rico:lastModificationDate :2010-07-19 ;
+    rico:lastModificationDate "2010-07-19"^^xsd:date ;
     rico:resultsOrResultedFrom :Authority%20Record%20Creation .
 
 :Ontario.%20Division%20Of%20Tuberculosis%20Prevention a owl:NamedIndividual,
@@ -115,9 +104,6 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
 :Rules%20For%20Archival%20Description a owl:NamedIndividual,
         rico:Rule ;
     rdfs:label "Rules for Archival Description" .
-
-<ontology://generated-from-draw-io/mock#Source%20Note%3A%20Not%20In%20Canadiana.%20Inventory%20For%20RG%2010.%20Archivaria%2C%20Number%2041%2C%20Spring%201996.> a owl:NamedIndividual ;
-    rdfs:label "Source Note: Not in Canadiana. Inventory for RG 10. Archivaria, Number 41, Spring 1996." .
 
 :Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
@@ -139,15 +125,15 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
         rico:AgentName,
         rico:CorporateBody ;
     rdfs:label "Ontario. Chest Disease Service" ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Function%20Note%3A%20The%20Chest%20Disease%20Service%20Was%20Established%20To%20Eradicate%20Tuberculosis%20And%20To%20Deal%20With%20Other%20Diseases%20Of%20The%20Chest%20And%20Lungs.> ;
+    rico:generalDescription "Function Note: The Chest Disease Service was established to eradicate tuberculosis and to deal with other diseases of the chest and lungs." ;
     rico:hasBeginningDate :1974 ;
     rico:hasEndDate :1982 ;
     rico:hasOrHadAgentName :Ontario.%20Chest%20Disease%20Service ;
     rico:hasOrHadController :Ontario.%20Ministry%20Of%20Health ;
     rico:hasOrHadCorporateBodyType :C%20Ontario%20Government%20Name ;
     rico:hasOrHadIdentifier :CA1853 ;
-    rico:history <ontology://generated-from-draw-io/mock#In%201974%2C%20In%20Response%20To%20The%20Continuing%20Decline%20Of%20The%20Incidence%20Of%20TB%2C%20The%20Tuberculosis%20Prevention%20Service%20Was%20Renamed%20Chest%20Disease%20Service%2C%20And%20Was%20Moved%2C%20Within%20The%20Clinic%20Services%20Branch%2C%20To%20The%20Community%20Health%20Division.%20Throughout%20The%20Late%201970s%20And%20Into%20The%201980s%2C%20The%20Chest%20Disease%20Service%20Was%20Transferred%20Several%20Times%20Within%20The%20Public%20Health%20Function%20To%20Different%20Offices.%20Finally%20In%201982%20It%20Was%20Effectively%20Shut%20Down.%20Of%20The%2023%20Chest%20Clinics%20That%20The%20Service%20Operated%2C%2018%20Were%20Closed%20And%20The%20Remaining%205%2C%20All%20Located%20In%20Northern%20Ontario%2C%20Were%20Transferred%20To%20The%20Ministry%20Of%20Labour%20For%20The%20Purposes%20Of%20Screening%20Miners.> ;
+    rico:history "In 1974, in response to the continuing decline of the incidence of TB, the Tuberculosis Prevention Service was renamed Chest Disease Service, and was moved, within the Clinic Services Branch, to the Community Health Division.  Throughout the late 1970s and into the 1980s, the Chest Disease Service was transferred several times within the public health function to different offices. Finally in 1982 it was effectively shut down. Of the 23 chest clinics that the service operated, 18 were closed and the remaining 5, all located in Northern Ontario, were transferred to the Ministry of Labour for the purposes of screening miners." ;
     rico:isOrWasDescribedBy :Ontario.%20Chest%20Disease%20Service%20Authority%20Record ;
     rico:isSuccessorOf :Ontario.%20Division%20Of%20Tuberculosis%20Prevention ;
-    rico:normalizedValue :Chest%20Disease%20Service .
+    rico:normalizedValue "Chest Disease Service" .
 

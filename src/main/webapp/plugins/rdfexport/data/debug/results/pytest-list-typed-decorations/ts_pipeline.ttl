@@ -4,13 +4,16 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 rdf:type a owl:ObjectProperty .
 
-rdfs:seeAlso a owl:ObjectProperty .
+rdfs:seeAlso a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
+    owl:imports rico: ;
+    skos:note ( "UnconnectedLiteralizedList" ":Item1" ":Item2" ":Item3" ),
+        "Literal" .
 
 :IndividualList a owl:NamedIndividual,
         :Item1,
@@ -19,19 +22,10 @@ rdfs:seeAlso a owl:ObjectProperty .
         :Just%20A%20Literal,
         :hi ;
     rdfs:label "IndividualList" ;
-    rdfs:seeAlso :ConnectedLiteralizedList .
-
-:Literal a owl:NamedIndividual ;
-    rdfs:label "Literal" .
+    rdfs:seeAlso "ConnectedLiteralizedList" .
 
 :Some%20Other%20Literal a owl:NamedIndividual ;
     rdfs:label "some other literal" .
-
-:UnconnectedLiteralizedList a owl:NamedIndividual,
-        :Item1,
-        :Item2,
-        :Item3 ;
-    rdfs:label "UnconnectedLiteralizedList" .
 
 :hello a owl:NamedIndividual ;
     rdfs:label "hello" .
@@ -44,12 +38,6 @@ rdfs:seeAlso a owl:ObjectProperty .
 
 :some a owl:NamedIndividual ;
     rdfs:label "some" .
-
-:ConnectedLiteralizedList a owl:NamedIndividual,
-        :Item1,
-        :Item2,
-        :Item3 ;
-    rdfs:label "ConnectedLiteralizedList" .
 
 :Just%20A%20Literal a owl:NamedIndividual ;
     rdfs:label "Just a literal" .

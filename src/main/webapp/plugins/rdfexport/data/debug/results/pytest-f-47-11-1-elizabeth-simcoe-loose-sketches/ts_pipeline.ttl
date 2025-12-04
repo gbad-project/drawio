@@ -3,16 +3,17 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:accruals a owl:ObjectProperty .
+rico:accruals a owl:DatatypeProperty .
 
-rico:conditionsOfAccess a owl:ObjectProperty .
+rico:conditionsOfAccess a owl:DatatypeProperty .
 
-rico:conditionsOfUse a owl:ObjectProperty .
+rico:conditionsOfUse a owl:DatatypeProperty .
 
-rico:creationDate a owl:ObjectProperty .
+rico:creationDate a owl:DatatypeProperty .
 
-rico:generalDescription a owl:ObjectProperty .
+rico:generalDescription a owl:DatatypeProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -30,9 +31,9 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:ObjectProperty .
+rico:history a owl:DatatypeProperty .
 
-rico:instantiationExtent a owl:ObjectProperty .
+rico:instantiationExtent a owl:DatatypeProperty .
 
 rico:isDirectlyIncludedIn a owl:ObjectProperty .
 
@@ -40,23 +41,14 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
 
 rico:isOrWasPerformedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:ObjectProperty .
+rico:lastModificationDate a owl:DatatypeProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:ObjectProperty .
+rico:scopeAndContent a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
-
-:1791-1842%2C%20Predominant%201791-1796 a owl:NamedIndividual ;
-    rdfs:label "1791-1842, predominant 1791-1796" .
-
-:2009-07-23 a owl:NamedIndividual ;
-    rdfs:label "2009-07-23" .
-
-:318%20Watercolours%2058%20Drawings%208%20Prints%201%20Photograph a owl:NamedIndividual ;
-    rdfs:label "318 watercolours  58 drawings  8 prints  1 photograph" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -67,36 +59,30 @@ rico:scopeAndContent a owl:ObjectProperty .
     rdfs:label "Archival Description Creation" ;
     rico:isOrWasPerformedBy :Walz .
 
-<ontology://generated-from-draw-io/mock#Availability%20Of%20Other%20Formats%3A%20This%20Material%20Is%20Available%20As%20Reference%20Slides%20And%2For%20Transparencies%2C%20And%20Through%20The%20Archives%27%20On-line%20Visual%20Database.> a owl:NamedIndividual ;
-    rdfs:label "Availability of Other Formats: This material is available as reference slides and/or transparencies, and through the Archives' on-line Visual Database." .
-
 :Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
-
-<ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Sub-series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> a owl:NamedIndividual ;
-    rdfs:label "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." .
 
 :Elizabeth%20Simcoe%20Loose%20Sketches a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Elizabeth Simcoe loose sketches" ;
-    rico:accruals <ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> ;
-    rico:conditionsOfAccess <ontology://generated-from-draw-io/mock#The%20Original%20Artworks%20In%20This%20Sub-series%20Are%20Closed%20For%20Conservation%20Reasons.%20Please%20Refer%20Either%20To%20Reference%20Slides%20And%20Transparencies%2C%20Or%20To%20The%20Archives%27%20On-line%20Visual%20Database.> ;
-    rico:conditionsOfUse <ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> ;
-    rico:creationDate :1791-1842%2C%20Predominant%201791-1796 ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Availability%20Of%20Other%20Formats%3A%20This%20Material%20Is%20Available%20As%20Reference%20Slides%20And%2For%20Transparencies%2C%20And%20Through%20The%20Archives%27%20On-line%20Visual%20Database.>,
-        <ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.>,
-        <ontology://generated-from-draw-io/mock#Notes%3A%20Some%20Items%20Contain%20Mrs.%20Simcoe%27s%20Original%20Captions%20And%20Dates.%20Others%2C%20Initialed%20%22C.S.%22%2C%20May%20Have%20Been%20Captioned%20By%20Her%20Daughter%20Charlotte.%20In%20A%20Few%20Cases%2C%20Writing%20On%20The%20Back%20Of%20An%20Item%20May%20Have%20Been%20Done%20By%20Members%20Of%20The%20Coles%20Family%20Or%20Archivists.%20Other%20Supplied%20Caption%20And%20Date%20Information%20Was%20Taken%20From%20John%20Ross%20Robertson%27s%201911%20Publication%20The%20Diary%20Of%20Mrs.%20Simcoe.%20The%20Original%20Of%20This%20Diary%20Is%20Contained%20In%20Series%20F%2047-8.%20The%20%22Old%20Code%22%20Reference%20In%20The%20Listings%20Provides%20Cross-references%20To%20Earlier%20Control%20Numbers%20Used%20In%20The%201956%20Archives%20Of%20Ontario%20Finding%20Aid%20To%20The%20Sketches.%20Some%20Item%20Reference%20Codes%20Appear%20Out%20Of%20Sequence%20In%20The%20Listing.%20These%20Represent%20Previously%20Unnumbered%20Sketches%20Found%20On%20The%20Verso%20Of%20Sketches%20Containing%20Old%20Code%20Numbers.%20The%20Titles%20Of%20All%20These%20Items%20Have%20Been%20Supplied.> ;
+    rico:accruals "No further accruals are expected." ;
+    rico:conditionsOfAccess "The original artworks in this sub-series are closed for conservation reasons. Please refer either to reference slides and transparencies, or to the Archives' on-line Visual Database." ;
+    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
+    rico:creationDate "1791-1842, predominant 1791-1796" ;
+    rico:generalDescription "Availability of Other Formats: This material is available as reference slides and/or transparencies, and through the Archives' on-line Visual Database.",
+        "Finding Aid Note: An online list is available for this sub-series.",
+        "Notes: Some items contain Mrs. Simcoe's original captions and dates. Others, initialed \"C.S.\", may have been captioned by her daughter Charlotte.  In a few cases, writing on the back of an item may have been done by members of the Coles family or archivists. Other supplied caption and date information was taken from John Ross Robertson's 1911 publication The Diary of Mrs. Simcoe. The original of this diary is contained in series F 47-8. The \"Old Code\" reference in the listings provides cross-references to earlier control numbers used in the 1956 Archives of Ontario finding aid to the sketches. Some item reference codes appear out of sequence in the listing. These represent previously unnumbered sketches found on the verso of sketches containing old code numbers. The titles of all these items have been supplied." ;
     rico:hasContentOfType :Graphic%20Materials ;
     rico:hasOrHadIdentifier :F%2047-11-1 ;
     rico:hasOrHadInstantiation :Elizabeth%20Simcoe%20Loose%20Sketches-i1 ;
     rico:hasOrHadTitle :Elizabeth%20Simcoe%20Loose%20Sketches ;
     rico:hasRecordSetType :Sub-Series ;
-    rico:history <ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Sub-series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> ;
+    rico:history "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." ;
     rico:isDirectlyIncludedIn :Elizabeth%20Simcoe%20Sketches ;
     rico:isOrWasDescribedBy :Elizabeth%20Simcoe%20Loose%20Sketches%20Archival%20Description ;
-    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Largely%20Of%20Watercolours%20And%20Drawings%2C%20Most%20Of%20Which%20Were%20Created%20By%20Elizabeth%20Simcoe.%20The%20Majority%20Are%20Of%20Upper%20Canada%20And%20Lower%20Canada%2C%20Created%20During%20Her%20Husband%27s%20Tenure%20As%20Lieutenant-Governor%20Of%20Upper%20Canada.%20Some%20Of%20The%20More%20Detailed%20Watercolours%20May%20Have%20Been%20Completed%20After%20Her%20Return%20To%20England%20In%201796.%20Most%20Of%20The%20Works%20Depict%20The%20St.%20Lawrence%20River%2C%20Lake%20Ontario%2C%20And%20The%20Niagara%20Region.%20There%20Are%20Also%20Views%20Of%20Montreal%2C%20Quebec%2C%20And%20Southern%20Places%20In%20England.%20Along%20With%20The%20Landscapes%2C%20There%20Are%20Some%20Portraits%2C%20Primarily%20Of%20Aboriginal%20People%2C%20And%20Drawings%20Of%20Flowers%2C%20Birds%2C%20Butterflies%20And%20Fish.%20A%20Number%20Of%20Sketches%20Are%20Clearly%20The%20Work%20Of%20Other%20Artists.%20Items%20F%2047-11-1-0-109%20Through%20F%2047-11-1-0-117%20Are%20Identified%20As%20Being%20Drawn%20By%20Lieutenant%20Pilkington.%20A%20Few%20Others%20Contain%20Differences%20In%20Style%2C%20Suggesting%20That%20Mrs.%20Simcoe%20Was%20Not%20The%20Artist.%20The%20Sub-series%20Also%20Contains%20Prints%20Collected%20By%20Mrs.%20Simcoe%20And%20A%20Photograph%20Of%20Either%20One%20Of%20Her%20Watercolours%20Or%20A%20Watercolour%20Collected%20By%20Her.> .
+    rico:scopeAndContent "Sub-series consists largely of watercolours and drawings, most of which were created by Elizabeth Simcoe. The majority are of Upper Canada and Lower Canada, created during her husband's tenure as Lieutenant-Governor of Upper Canada.  Some of the more detailed watercolours may have been completed after her return to England in 1796. Most of the works depict the St. Lawrence River, Lake Ontario, and the Niagara region. There are also views of Montreal, Quebec, and southern places in England. Along with the landscapes, there are some portraits, primarily of aboriginal people, and drawings of flowers, birds, butterflies and fish.  A number of sketches are clearly the work of other artists. Items F 47-11-1-0-109 through F 47-11-1-0-117 are identified as being drawn by Lieutenant Pilkington. A few others contain differences in style, suggesting that Mrs. Simcoe was not the artist.  The sub-series also contains prints collected by Mrs. Simcoe and a photograph of either one of her watercolours or a watercolour collected by her." .
 
 :Elizabeth%20Simcoe%20Loose%20Sketches%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
@@ -104,14 +90,14 @@ rico:scopeAndContent a owl:ObjectProperty .
     rico:hasDocumentaryFormType :Archival%20Description ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate :2009-07-23 ;
+    rico:lastModificationDate "2009-07-23"^^xsd:date ;
     rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
 :Elizabeth%20Simcoe%20Loose%20Sketches-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Elizabeth Simcoe loose sketches-i1" ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20Order%20Reference%20Transparencies%20Or%20Slides%20Using%20Reference%20Code%20And%20Barcode%20Number%2C%20Or%20Refer%20To%20The%20On-line%20Visual%20Database.> ;
-    rico:instantiationExtent :318%20Watercolours%2058%20Drawings%208%20Prints%201%20Photograph .
+    rico:generalDescription "How to Order: Consult the online list to identify the records that you require. Order reference transparencies or slides using reference code and barcode number, or refer to the on-line Visual Database." ;
+    rico:instantiationExtent "318 watercolours  58 drawings  8 prints  1 photograph" .
 
 :Elizabeth%20Simcoe%20Sketches a owl:NamedIndividual,
         rico:RecordSet ;
@@ -128,24 +114,9 @@ rico:scopeAndContent a owl:ObjectProperty .
     rdfs:label "F 47-11-1" ;
     rico:hasIdentifierType :Current%20Reference%20Code .
 
-<ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> a owl:NamedIndividual ;
-    rdfs:label "Finding Aid Note: An online list is available for this sub-series." .
-
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Graphic materials" .
-
-<ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20Order%20Reference%20Transparencies%20Or%20Slides%20Using%20Reference%20Code%20And%20Barcode%20Number%2C%20Or%20Refer%20To%20The%20On-line%20Visual%20Database.> a owl:NamedIndividual ;
-    rdfs:label "How to Order: Consult the online list to identify the records that you require. Order reference transparencies or slides using reference code and barcode number, or refer to the on-line Visual Database." .
-
-<ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> a owl:NamedIndividual ;
-    rdfs:label "No further accruals are expected." .
-
-<ontology://generated-from-draw-io/mock#Notes%3A%20Some%20Items%20Contain%20Mrs.%20Simcoe%27s%20Original%20Captions%20And%20Dates.%20Others%2C%20Initialed%20%22C.S.%22%2C%20May%20Have%20Been%20Captioned%20By%20Her%20Daughter%20Charlotte.%20In%20A%20Few%20Cases%2C%20Writing%20On%20The%20Back%20Of%20An%20Item%20May%20Have%20Been%20Done%20By%20Members%20Of%20The%20Coles%20Family%20Or%20Archivists.%20Other%20Supplied%20Caption%20And%20Date%20Information%20Was%20Taken%20From%20John%20Ross%20Robertson%27s%201911%20Publication%20The%20Diary%20Of%20Mrs.%20Simcoe.%20The%20Original%20Of%20This%20Diary%20Is%20Contained%20In%20Series%20F%2047-8.%20The%20%22Old%20Code%22%20Reference%20In%20The%20Listings%20Provides%20Cross-references%20To%20Earlier%20Control%20Numbers%20Used%20In%20The%201956%20Archives%20Of%20Ontario%20Finding%20Aid%20To%20The%20Sketches.%20Some%20Item%20Reference%20Codes%20Appear%20Out%20Of%20Sequence%20In%20The%20Listing.%20These%20Represent%20Previously%20Unnumbered%20Sketches%20Found%20On%20The%20Verso%20Of%20Sketches%20Containing%20Old%20Code%20Numbers.%20The%20Titles%20Of%20All%20These%20Items%20Have%20Been%20Supplied.> a owl:NamedIndividual ;
-    rdfs:label "Notes: Some items contain Mrs. Simcoe's original captions and dates. Others, initialed \"C.S.\", may have been captioned by her daughter Charlotte.  In a few cases, writing on the back of an item may have been done by members of the Coles family or archivists. Other supplied caption and date information was taken from John Ross Robertson's 1911 publication The Diary of Mrs. Simcoe. The original of this diary is contained in series F 47-8. The \"Old Code\" reference in the listings provides cross-references to earlier control numbers used in the 1956 Archives of Ontario finding aid to the sketches. Some item reference codes appear out of sequence in the listing. These represent previously unnumbered sketches found on the verso of sketches containing old code numbers. The titles of all these items have been supplied." .
-
-<ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> a owl:NamedIndividual ;
-    rdfs:label "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
 
 :Series a owl:NamedIndividual,
         rico:RecordSetType ;
@@ -158,12 +129,6 @@ rico:scopeAndContent a owl:ObjectProperty .
 :Sub-Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Sub-Series" .
-
-<ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Largely%20Of%20Watercolours%20And%20Drawings%2C%20Most%20Of%20Which%20Were%20Created%20By%20Elizabeth%20Simcoe.%20The%20Majority%20Are%20Of%20Upper%20Canada%20And%20Lower%20Canada%2C%20Created%20During%20Her%20Husband%27s%20Tenure%20As%20Lieutenant-Governor%20Of%20Upper%20Canada.%20Some%20Of%20The%20More%20Detailed%20Watercolours%20May%20Have%20Been%20Completed%20After%20Her%20Return%20To%20England%20In%201796.%20Most%20Of%20The%20Works%20Depict%20The%20St.%20Lawrence%20River%2C%20Lake%20Ontario%2C%20And%20The%20Niagara%20Region.%20There%20Are%20Also%20Views%20Of%20Montreal%2C%20Quebec%2C%20And%20Southern%20Places%20In%20England.%20Along%20With%20The%20Landscapes%2C%20There%20Are%20Some%20Portraits%2C%20Primarily%20Of%20Aboriginal%20People%2C%20And%20Drawings%20Of%20Flowers%2C%20Birds%2C%20Butterflies%20And%20Fish.%20A%20Number%20Of%20Sketches%20Are%20Clearly%20The%20Work%20Of%20Other%20Artists.%20Items%20F%2047-11-1-0-109%20Through%20F%2047-11-1-0-117%20Are%20Identified%20As%20Being%20Drawn%20By%20Lieutenant%20Pilkington.%20A%20Few%20Others%20Contain%20Differences%20In%20Style%2C%20Suggesting%20That%20Mrs.%20Simcoe%20Was%20Not%20The%20Artist.%20The%20Sub-series%20Also%20Contains%20Prints%20Collected%20By%20Mrs.%20Simcoe%20And%20A%20Photograph%20Of%20Either%20One%20Of%20Her%20Watercolours%20Or%20A%20Watercolour%20Collected%20By%20Her.> a owl:NamedIndividual ;
-    rdfs:label "Sub-series consists largely of watercolours and drawings, most of which were created by Elizabeth Simcoe. The majority are of Upper Canada and Lower Canada, created during her husband's tenure as Lieutenant-Governor of Upper Canada.  Some of the more detailed watercolours may have been completed after her return to England in 1796. Most of the works depict the St. Lawrence River, Lake Ontario, and the Niagara region. There are also views of Montreal, Quebec, and southern places in England. Along with the landscapes, there are some portraits, primarily of aboriginal people, and drawings of flowers, birds, butterflies and fish.  A number of sketches are clearly the work of other artists. Items F 47-11-1-0-109 through F 47-11-1-0-117 are identified as being drawn by Lieutenant Pilkington. A few others contain differences in style, suggesting that Mrs. Simcoe was not the artist.  The sub-series also contains prints collected by Mrs. Simcoe and a photograph of either one of her watercolours or a watercolour collected by her." .
-
-<ontology://generated-from-draw-io/mock#The%20Original%20Artworks%20In%20This%20Sub-series%20Are%20Closed%20For%20Conservation%20Reasons.%20Please%20Refer%20Either%20To%20Reference%20Slides%20And%20Transparencies%2C%20Or%20To%20The%20Archives%27%20On-line%20Visual%20Database.> a owl:NamedIndividual ;
-    rdfs:label "The original artworks in this sub-series are closed for conservation reasons. Please refer either to reference slides and transparencies, or to the Archives' on-line Visual Database." .
 
 :Walz a owl:NamedIndividual,
         rico:Person ;

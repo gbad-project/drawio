@@ -3,10 +3,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 rico:authorizedBy a owl:ObjectProperty .
 
-rico:generalDescription a owl:ObjectProperty .
+rico:generalDescription a owl:DatatypeProperty .
 
 rico:hasBeginningDate a owl:ObjectProperty .
 
@@ -24,7 +25,7 @@ rico:hasOrHadIdentifier a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:ObjectProperty .
+rico:history a owl:DatatypeProperty .
 
 rico:isOrWasDescribedBy a owl:ObjectProperty .
 
@@ -32,9 +33,9 @@ rico:isOrWasPerformedBy a owl:ObjectProperty .
 
 rico:isOrWasRegulatedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:ObjectProperty .
+rico:lastModificationDate a owl:DatatypeProperty .
 
-rico:normalizedValue a owl:ObjectProperty .
+rico:normalizedValue a owl:DatatypeProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
@@ -48,9 +49,6 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
 :2002 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "2002" .
-
-:2007-06-16 a owl:NamedIndividual ;
-    rdfs:label "2007-06-16" .
 
 :Authority%20Record a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -74,9 +72,6 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
         rico:Person ;
     rdfs:label "Dale" .
 
-<ontology://generated-from-draw-io/mock#Function%20Note%3A%20The%20Walkerton%20Inquiry%20Was%20Appointed%20To%20Investigate%20The%20Causes%20Of%20The%20Contamination%20Of%20Walkerton%27s%20Drinking%20Water%20System%20With%20E.%20Coli%20Bacteria%20In%20May%20Of%202000.%20This%20Contamination%20Caused%20The%20Death%20Of%20Seven%20People%20And%20More%20Than%202%2C300%20Became%20Ill.%20The%20Inquiry%20Was%20To%20Find%20Out%20Who%20Was%20Responsible%20For%20The%20E.%20Coli%20Outbreak%2C%20And%20If%20It%20Could%20Have%20Been%20Prevented.%20The%20Inquiry%20Was%20Also%20Responsible%20For%20Making%20Recommendations%20On%20How%20To%20Avoid%20Another%20Outbreak%20In%20The%20Future.> a owl:NamedIndividual ;
-    rdfs:label "Function Note: The Walkerton Inquiry was appointed to investigate the causes of the contamination of Walkerton's drinking water system with E. coli bacteria in May of 2000. This contamination caused the death of seven people and more than 2,300 became ill. The Inquiry was to find out who was responsible for the E. coli outbreak, and if it could have been prevented. The Inquiry was also responsible for making recommendations on how to avoid another outbreak in the future." .
-
 :Government%20Of%20Ontario%20Agency%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Government of Ontario Agency Code" .
@@ -86,25 +81,25 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
         rico:CorporateBody ;
     rdfs:label "Ontario. Walkerton Inquiry" ;
     rico:authorizedBy :Order%20In%20Council%201170%20%2F%202000 ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Function%20Note%3A%20The%20Walkerton%20Inquiry%20Was%20Appointed%20To%20Investigate%20The%20Causes%20Of%20The%20Contamination%20Of%20Walkerton%27s%20Drinking%20Water%20System%20With%20E.%20Coli%20Bacteria%20In%20May%20Of%202000.%20This%20Contamination%20Caused%20The%20Death%20Of%20Seven%20People%20And%20More%20Than%202%2C300%20Became%20Ill.%20The%20Inquiry%20Was%20To%20Find%20Out%20Who%20Was%20Responsible%20For%20The%20E.%20Coli%20Outbreak%2C%20And%20If%20It%20Could%20Have%20Been%20Prevented.%20The%20Inquiry%20Was%20Also%20Responsible%20For%20Making%20Recommendations%20On%20How%20To%20Avoid%20Another%20Outbreak%20In%20The%20Future.> ;
+    rico:generalDescription "Function Note: The Walkerton Inquiry was appointed to investigate the causes of the contamination of Walkerton's drinking water system with E. coli bacteria in May of 2000. This contamination caused the death of seven people and more than 2,300 became ill. The Inquiry was to find out who was responsible for the E. coli outbreak, and if it could have been prevented. The Inquiry was also responsible for making recommendations on how to avoid another outbreak in the future." ;
     rico:hasBeginningDate :2000 ;
     rico:hasEndDate :2002 ;
     rico:hasOrHadAgentName :Ontario.%20Walkerton%20Inquiry ;
     rico:hasOrHadCorporateBodyType :B%20Ontario%20Government%20Name ;
     rico:hasOrHadIdentifier :BA619 ;
-    rico:history <ontology://generated-from-draw-io/mock#The%20Walkerton%20Inquiry%20Was%20Established%20On%2013%20June%202000%2C%20Pursuant%20To%20The%20Public%20Inquiries%20Act%2C%20With%20The%20Hon.%20Dennis%20R.%20O%27Connor%20Appointed%20As%20The%20Commissioner.%20The%20Mandate%20Of%20The%20Commission%20Was%20To%20%28a%29%20Inquire%20Into%20The%20Circumstances%20That%20Caused%20The%20Outbreak%20Of%20Bacteria%20In%20Walkerton%27s%20Drinking%20Water%20System%2C%20%28b%29%20Determine%20If%20Government%20Policies%2C%20Procedures%20And%20Practices%20Had%20Any%20Effect%20Upon%20The%20Circumstances%20Of%20The%20Outbreak%2C%20And%20%28c%29%20Inquire%20Into%20Any%20Other%20Pertinent%20Matters%20Necessary%20To%20Ensure%20The%20Safety%20Of%20Ontario%27s%20Drinking%20Water%20System.%20Commissioner%20O%27Connor%20Divided%20The%20Inquiry%20Into%20Two%20Parts%2C%20Which%20Ran%20More%20Or%20Less%20Concurrently.%20The%20First%20Part%20Dealt%20Exclusively%20With%20What%20Happened%20In%20Walkerton%2C%20And%20Involved%20Extensive%20Public%20Hearings.%20The%20Second%20Part%20Went%20Beyond%20Walkerton%20And%20Involved%20An%20Investigation%20Into%20Other%20Matters%20Related%20To%20The%20General%20Safety%20Of%20Ontario%27s%20Drinking%20Water.%20The%20Work%20Of%20The%20Commission%20Resulted%20In%20Two%20Reports%20Published%20In%202002%2C%20Entitled%20Part%20One%20And%20Part%20Two%3A%20Report%20Of%20The%20Walkerton%20Inquiry.%20Justice%20O%27Connor%20Made%20A%20Large%20Number%20Of%20Recommendations%20Related%20To%20The%20Following%3A%20The%20Protection%20Of%20The%20Sources%20Of%20Ontario%27s%20Drinking%20Water;%20The%20Need%20For%20Effective%20Standards%20And%20Technology%20For%20The%20Treatment%20Of%20Water%20And%20To%20Monitor%20Its%20Quality;%20The%20Need%20For%20Stricter%20Mandatory%20Regulations%20From%20Municipalities%20That%20Provide%20Drinking%20Water;%20And%2C%20The%20Need%20For%20A%20Strengthened%20Role%20For%20The%20Provincial%20Government%20In%20Regulating%20And%20Overseeing%20The%20Safety%20Of%20Ontario%27s%20Drinking%20Water.> ;
+    rico:history "The Walkerton Inquiry was established on 13 June 2000, pursuant to the Public Inquiries Act, with the Hon. Dennis R. O'Connor appointed as the Commissioner. The mandate of the commission was to (a) inquire into the circumstances that caused the outbreak of bacteria in Walkerton's drinking water system, (b) determine if government policies, procedures and practices had any effect upon the circumstances of the outbreak, and (c) inquire into any other pertinent matters necessary to ensure the safety of Ontario's drinking water system. Commissioner O'Connor divided the Inquiry into two parts, which ran more or less concurrently. The first part dealt exclusively with what happened in Walkerton, and involved extensive public hearings. The second part went beyond Walkerton and involved an investigation into other matters related to the general safety of Ontario's drinking water.  The work of the commission resulted in two reports published in 2002, entitled Part One and Part Two: Report of the Walkerton Inquiry. Justice O'Connor made a large number of recommendations related to the following: the protection of the sources of Ontario's drinking water; the need for effective standards and technology for the treatment of water and to monitor its quality; the need for stricter mandatory regulations from municipalities that provide drinking water; and, the need for a strengthened role for the provincial government in regulating and overseeing the safety of Ontario's drinking water." ;
     rico:isOrWasDescribedBy :Ontario.%20Walkerton%20Inquiry%20Authority%20Record ;
-    rico:normalizedValue :Walkerton%20Inquiry .
+    rico:normalizedValue "Walkerton Inquiry" .
 
 :Ontario.%20Walkerton%20Inquiry%20Authority%20Record a owl:NamedIndividual,
         rico:Record ;
     rdfs:label "Ontario. Walkerton Inquiry Authority Record" ;
-    rico:generalDescription <ontology://generated-from-draw-io/mock#Source%20Note%3A%20Final%20Reports%20Of%20The%20Commission.> ;
+    rico:generalDescription "Source Note: Final reports of the Commission." ;
     rico:hasDocumentaryFormType :Authority%20Record ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Ready%3A%20Y ;
     rico:isOrWasRegulatedBy :Rules%20For%20Archival%20Description ;
-    rico:lastModificationDate :2007-06-16 ;
+    rico:lastModificationDate "2007-06-16"^^xsd:date ;
     rico:resultsOrResultedFrom :Authority%20Record%20Creation .
 
 :Order%20In%20Council%201170%20%2F%202000 a owl:NamedIndividual,
@@ -115,18 +110,9 @@ rico:resultsOrResultedFrom a owl:ObjectProperty .
         rico:Rule ;
     rdfs:label "Rules for Archival Description" .
 
-<ontology://generated-from-draw-io/mock#Source%20Note%3A%20Final%20Reports%20Of%20The%20Commission.> a owl:NamedIndividual ;
-    rdfs:label "Source Note: Final reports of the Commission." .
-
 :Status%3A%20Approved a owl:NamedIndividual,
         rico:RecordState ;
     rdfs:label "Status: Approved" .
-
-<ontology://generated-from-draw-io/mock#The%20Walkerton%20Inquiry%20Was%20Established%20On%2013%20June%202000%2C%20Pursuant%20To%20The%20Public%20Inquiries%20Act%2C%20With%20The%20Hon.%20Dennis%20R.%20O%27Connor%20Appointed%20As%20The%20Commissioner.%20The%20Mandate%20Of%20The%20Commission%20Was%20To%20%28a%29%20Inquire%20Into%20The%20Circumstances%20That%20Caused%20The%20Outbreak%20Of%20Bacteria%20In%20Walkerton%27s%20Drinking%20Water%20System%2C%20%28b%29%20Determine%20If%20Government%20Policies%2C%20Procedures%20And%20Practices%20Had%20Any%20Effect%20Upon%20The%20Circumstances%20Of%20The%20Outbreak%2C%20And%20%28c%29%20Inquire%20Into%20Any%20Other%20Pertinent%20Matters%20Necessary%20To%20Ensure%20The%20Safety%20Of%20Ontario%27s%20Drinking%20Water%20System.%20Commissioner%20O%27Connor%20Divided%20The%20Inquiry%20Into%20Two%20Parts%2C%20Which%20Ran%20More%20Or%20Less%20Concurrently.%20The%20First%20Part%20Dealt%20Exclusively%20With%20What%20Happened%20In%20Walkerton%2C%20And%20Involved%20Extensive%20Public%20Hearings.%20The%20Second%20Part%20Went%20Beyond%20Walkerton%20And%20Involved%20An%20Investigation%20Into%20Other%20Matters%20Related%20To%20The%20General%20Safety%20Of%20Ontario%27s%20Drinking%20Water.%20The%20Work%20Of%20The%20Commission%20Resulted%20In%20Two%20Reports%20Published%20In%202002%2C%20Entitled%20Part%20One%20And%20Part%20Two%3A%20Report%20Of%20The%20Walkerton%20Inquiry.%20Justice%20O%27Connor%20Made%20A%20Large%20Number%20Of%20Recommendations%20Related%20To%20The%20Following%3A%20The%20Protection%20Of%20The%20Sources%20Of%20Ontario%27s%20Drinking%20Water;%20The%20Need%20For%20Effective%20Standards%20And%20Technology%20For%20The%20Treatment%20Of%20Water%20And%20To%20Monitor%20Its%20Quality;%20The%20Need%20For%20Stricter%20Mandatory%20Regulations%20From%20Municipalities%20That%20Provide%20Drinking%20Water;%20And%2C%20The%20Need%20For%20A%20Strengthened%20Role%20For%20The%20Provincial%20Government%20In%20Regulating%20And%20Overseeing%20The%20Safety%20Of%20Ontario%27s%20Drinking%20Water.> a owl:NamedIndividual ;
-    rdfs:label "The Walkerton Inquiry was established on 13 June 2000, pursuant to the Public Inquiries Act, with the Hon. Dennis R. O'Connor appointed as the Commissioner. The mandate of the commission was to (a) inquire into the circumstances that caused the outbreak of bacteria in Walkerton's drinking water system, (b) determine if government policies, procedures and practices had any effect upon the circumstances of the outbreak, and (c) inquire into any other pertinent matters necessary to ensure the safety of Ontario's drinking water system. Commissioner O'Connor divided the Inquiry into two parts, which ran more or less concurrently. The first part dealt exclusively with what happened in Walkerton, and involved extensive public hearings. The second part went beyond Walkerton and involved an investigation into other matters related to the general safety of Ontario's drinking water.  The work of the commission resulted in two reports published in 2002, entitled Part One and Part Two: Report of the Walkerton Inquiry. Justice O'Connor made a large number of recommendations related to the following: the protection of the sources of Ontario's drinking water; the need for effective standards and technology for the treatment of water and to monitor its quality; the need for stricter mandatory regulations from municipalities that provide drinking water; and, the need for a strengthened role for the provincial government in regulating and overseeing the safety of Ontario's drinking water." .
-
-:Walkerton%20Inquiry a owl:NamedIndividual ;
-    rdfs:label "Walkerton Inquiry" .
 
 :Web%20Ready%3A%20Y a owl:NamedIndividual,
         rico:RecordState ;

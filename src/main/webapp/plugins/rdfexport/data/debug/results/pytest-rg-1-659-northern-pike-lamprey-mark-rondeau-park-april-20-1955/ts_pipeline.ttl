@@ -3,8 +3,9 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:creationDate a owl:ObjectProperty .
+rico:creationDate a owl:DatatypeProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -20,7 +21,7 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:instantiationExtent a owl:ObjectProperty .
+rico:instantiationExtent a owl:DatatypeProperty .
 
 rico:isDirectlyIncludedIn a owl:ObjectProperty .
 
@@ -33,12 +34,6 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
         rico:RecordSet ;
     rdfs:label "[Lake Erie Management Unit]" ;
     rico:hasRecordSetType :Filing%20Class .
-
-:10%20Photographs%20%3A%204%20Black%20And%20White%20Prints%2C%206%20Negatives a owl:NamedIndividual ;
-    rdfs:label "10 photographs : 4 black and white prints, 6 negatives" .
-
-:1955 a owl:NamedIndividual ;
-    rdfs:label "1955" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -66,7 +61,7 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955" ;
-    rico:creationDate :1955 ;
+    rico:creationDate 1955 ;
     rico:hasContentOfType :Graphic%20Materials ;
     rico:hasOrHadInstantiation :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1 ;
     rico:hasOrHadTitle :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955 ;
@@ -84,7 +79,7 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
 :Northern%20Pike%20Lamprey%20Mark%2C%20Rondeau%20Park%2C%20April%2020%2C%201955-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Northern pike lamprey mark, Rondeau Park, April 20, 1955-i1" ;
-    rico:instantiationExtent :10%20Photographs%20%3A%204%20Black%20And%20White%20Prints%2C%206%20Negatives .
+    rico:instantiationExtent "10 photographs : 4 black and white prints, 6 negatives" .
 
 :RG%201-659 a owl:NamedIndividual,
         rico:Identifier ;
