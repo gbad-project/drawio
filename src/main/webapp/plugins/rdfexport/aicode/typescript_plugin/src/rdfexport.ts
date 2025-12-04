@@ -2548,7 +2548,14 @@ Draw.loadPlugin(function (editorUi: any): void {
     const stripHtml = options?.stripHtml ?? true;
     applyStripHtmlMetadata(workingGraphXml, stripHtml);
 
-    return mxUtils.getPrettyXml(workingGraphXml);
+    function elementToDocument(el: Element): Document {
+      if (el.ownerDocument) return el.ownerDocument; // usually fine
+      const doc = document.implementation.createDocument(null, null, null);
+      doc.appendChild(doc.importNode(el, true));
+      return doc;
+    }
+
+    return mxUtils.getPrettyXml(elementToDocument(workingGraphXml));
   }
 
   mxResources.parse(
