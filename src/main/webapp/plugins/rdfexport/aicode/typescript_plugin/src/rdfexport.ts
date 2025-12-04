@@ -1,5 +1,8 @@
 // Originally generated with OpenAI Codex on 2025-09-15
 // Ported to TypeScript with Claude Sonnet 4 on 2025-09-15
+import * as yaml from 'js-yaml';
+
+import defaultConfigYamlSource from "./pyodideRuntime";
 
 /**
  * RDF/XML export plugin - TypeScript version
@@ -189,14 +192,8 @@ const METADATA_TAG_NAME = "gbadMetadata";
 const LEGACY_METADATA_TAG_NAMES = ["UserObject", "object"] as const;
 const MXCELL_TAG_NAME = "mxCell";
 
-const DRAWIO_PARSER_DEFAULT_INDENTATION = 2;
-const DRAWIO_PARSER_DEFAULT_MAX_GAP = 10;
 type CapitalisationScheme = "upper-camel" | "lower-camel" | "flat" | "none";
-const DRAWIO_PARSER_DEFAULT_CAPITALISATION: CapitalisationScheme =
-  "upper-camel";
 type MetacharacterStrategy = "url" | "remove" | "custom";
-const DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY: MetacharacterStrategy =
-  "url";
 
 const METACHARACTER_OPTIONS: Array<{ value: string; label: string }> = [
   { value: " ", label: "Space ( )" },
@@ -271,20 +268,41 @@ interface StoredParserSettings {
 }
 
 function createDefaultParserSettings(): ParserSettings {
+  const defaultConfig = yaml.load(defaultConfigYamlSource) as any;
+  const parserConfig = defaultConfig.parser_config;
+
+  let metacharacterStrategy: MetacharacterStrategy = "custom";
+  const metacharacterEntries: ParserSettingsEntry[] = [];
+
+  if (parserConfig.metacharacter_substitute.includes("url")) {
+    metacharacterStrategy = "url";
+  } else if (parserConfig.metacharacter_substitute.includes("remove")) {
+    metacharacterStrategy = "remove";
+  }
+
+  for (const substitute of parserConfig.metacharacter_substitute) {
+    if (typeof substitute === "object") {
+      metacharacterEntries.push({
+        character: substitute.character,
+        replacement: substitute.replacement,
+      });
+    }
+  }
+
   return {
-    includePreamble: true,
-    inferTypeOfLiterals: true,
-    includeLabel: true,
-    strictMode: false,
-    stripHtml: true,
-    indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
-    maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
-    ontologyIri: null,
-    prefix: null,
-    prefixIri: null,
-    capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
-    metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
-    metacharacterEntries: [],
+    includePreamble: parserConfig.include_preamble,
+    inferTypeOfLiterals: parserConfig.infer_type_of_literals,
+    includeLabel: parserConfig.include_label,
+    strictMode: parserConfig.strict_mode,
+    stripHtml: parserConfig.strip_html,
+    indentation: parserConfig.indentation,
+    maxGap: parserConfig.max_gap,
+    ontologyIri: parserConfig.ontology_iri,
+    prefix: parserConfig.prefix,
+    prefixIri: parserConfig.prefix_iri,
+    capitalisationScheme: parserConfig.capitalisation_scheme,
+    metacharacterStrategy,
+    metacharacterEntries,
   };
 }
 

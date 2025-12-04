@@ -7,6 +7,8 @@ import defaultConfigYamlSource from "../../../integration/config/default.yml?raw
 import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
+export default defaultConfigYamlSource;
+
 export interface DrawioParserResult {
   graphId: string;
   tripleCount: number;
