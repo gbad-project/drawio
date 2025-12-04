@@ -138,11 +138,7 @@ class RMLMapperEnvironment:
     def _run_setup_script(self) -> None:
         """Execute the setup-rmlmapper.sh script."""
         setup_script = (
-            PLUGIN_ROOT
-            / "aicode"
-            / "integration_tests"
-            / "scripts"
-            / "setup_rmlmapper.sh"
+            PLUGIN_ROOT / "aicode" / "integration" / "scripts" / "setup_rmlmapper.sh"
         )
 
         if not setup_script.exists():
@@ -273,7 +269,7 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
     command = [
         str(PYTHON_BIN),
         "-m",
-        "aicode.integration_tests.debug.src",
+        "aicode.integration.debug.src",
         "--scenario",
         str(scenario_path),
         "--slug",

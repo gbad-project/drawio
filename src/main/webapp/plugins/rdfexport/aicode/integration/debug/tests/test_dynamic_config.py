@@ -13,7 +13,7 @@ for candidate in (REPO_ROOT, PLUGIN_DIR):
     if path_str not in sys.path:
         sys.path.insert(0, path_str)
 
-from aicode.integration_tests.debug.src.__main__ import (  # noqa: E402
+from aicode.integration.debug.src.__main__ import (  # noqa: E402
     DEFAULT_LEGACY_COMMIT,
     DEFAULT_METADATA_ATTRIBUTES,
     DEFAULT_PREFIXES,
@@ -96,7 +96,7 @@ def test_dynamic_metadata_and_parser_payloads(monkeypatch: pytest.MonkeyPatch):
         return DummyResult()
 
     monkeypatch.setattr(
-        "aicode.integration_tests.debug.src.__main__.subprocess.run", fake_run
+        "aicode.integration.debug.src.__main__.subprocess.run", fake_run
     )
 
     debugger._run_ts_pipeline(patched_xml, config)

@@ -865,7 +865,7 @@ class Debugger:
             command = [
                 "bun",
                 "run",
-                "aicode/integration_tests/debug/src/run_scenario.ts",
+                "aicode/integration/debug/src/run_scenario.ts",
                 str(config_path),
             ]
 

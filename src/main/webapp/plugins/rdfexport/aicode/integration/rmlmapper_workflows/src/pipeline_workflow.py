@@ -34,7 +34,7 @@ from python_core.src.legacy.gbad.converter.preprocessors import (  # type: ignor
     SourceCSVPreprocessor,
 )
 
-from aicode.integration_tests.rmlmapper_workflows.src.map_schema_workflow import (  # type: ignore  # noqa: E402
+from aicode.integration.rmlmapper_workflows.src.map_schema_workflow import (  # type: ignore  # noqa: E402
     MapSchemaFixtureConfig,
     RMLMapperEnvironment,
     _get_base_uri,
@@ -637,7 +637,7 @@ def _run_debug_scenario(scenario_path: Path, slug: str) -> Path:
     command = [
         str(PYTHON_BIN),
         "-m",
-        "aicode.integration_tests.debug.src",
+        "aicode.integration.debug.src",
         "--scenario",
         str(scenario_path),
         "--slug",

@@ -18,7 +18,7 @@ RDFEXPORT_DIR = Path(__file__).resolve().parents[4]
 if str(RDFEXPORT_DIR) not in sys.path:
     sys.path.insert(0, str(RDFEXPORT_DIR))
 
-from aicode.integration_tests.debug.src.__main__ import (
+from aicode.integration.debug.src.__main__ import (
     estimate_triple_count_from_classifications,
     sorted_fixture_paths,
 )
@@ -278,7 +278,7 @@ def test_debug_cli_matches_expected_triple_counts(fixture_path: Path) -> None:
     cmd = [
         sys.executable,
         "-m",
-        "aicode.integration_tests.debug.src",
+        "aicode.integration.debug.src",
         "--drawio",
         str(fixture_path),
         "--slug",
