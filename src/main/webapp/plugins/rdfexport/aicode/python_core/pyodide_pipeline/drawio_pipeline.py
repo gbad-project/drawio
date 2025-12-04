@@ -157,7 +157,7 @@ def _normalise_metacharacters(value: Any) -> list[str]:
 
 
 def _normalise_literal_definitions(value: Any) -> list[dict[str, str]]:
-    """Normalize literal definitions to list of dicts with 'attrKey' and 'attrVal'."""
+    """Normalize literal definitions from TypeScript format (attrKey/attrVal) to Python format (key/value)."""
     if value is None:
         return []
 
@@ -168,7 +168,7 @@ def _normalise_literal_definitions(value: Any) -> list[dict[str, str]]:
                 key = str(item["attrKey"]).strip()
                 val = str(item["attrVal"]).strip()
                 if key and val:
-                    result.append({"attrKey": key, "attrVal": val})
+                    result.append({"key": key, "value": val})
         return result
     except (TypeError, KeyError):
         return []
@@ -219,9 +219,7 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 config["mint_from_arrows"],
             )
         if "literal_definitions" in overrides:
-            config["literal_definitions"] = _normalise_literal_definitions(
-                overrides["literal_definitions"],
-            )
+            config["literal_definitions"] = overrides["literal_definitions"]
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
         if "prefix" in overrides:
@@ -239,9 +237,7 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 config["max_gap"],
             )
         if "metacharacter_substitute" in overrides:
-            config["metacharacter_substitute"] = _normalise_metacharacters(
-                overrides["metacharacter_substitute"],
-            )
+            config["metacharacter_substitute"] = overrides["metacharacter_substitute"]
         if "capitalisation_scheme" in overrides and isinstance(
             overrides["capitalisation_scheme"],
             str,
@@ -253,6 +249,11 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 config["rml_enabled"],
             )
 
+    # Store config before normalization for testing/debugging
+    global _LAST_PARSER_CONFIG
+    _LAST_PARSER_CONFIG = deepcopy(config)
+
+    # Normalize after storing
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]
     )
@@ -260,8 +261,6 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
         config["literal_definitions"]
     )
 
-    global _LAST_PARSER_CONFIG
-    _LAST_PARSER_CONFIG = deepcopy(config)
     return config
 
 

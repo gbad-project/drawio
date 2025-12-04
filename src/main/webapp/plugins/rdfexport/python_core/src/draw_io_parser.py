@@ -15,21 +15,20 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-import re
-from rdflib import BNode
-from rdflib.term import Node
-from typing import Callable
-from rdflib import SKOS
-from rdflib.collection import Collection
+from enum import Enum, auto
 import json
 from html import unescape
-from enum import Enum, auto
+from typing import Callable
+from rdflib import BNode, SKOS
+from rdflib.collection import Collection
+import re
+from rdflib.term import Node
+from rdflib.namespace import NamespaceManager
 import typing
 import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
-from rdflib.namespace import NamespaceManager
 
 
 class pipeline:
@@ -187,9 +186,11 @@ class pipeline:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
                         self._strip_html = bool(strip_html)
-                        self._literal_definitions = literal_definitions or [
-                            {"key": "style", "value": "rounded=1"}
-                        ]
+                        self._literal_definitions = (
+                            literal_definitions
+                            if literal_definitions is not None
+                            else []
+                        )
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_value_cache: dict[str, list[str]] = {}
@@ -825,6 +826,8 @@ class pipeline:
 
                     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
                         """Check if cell matches any literal definition."""
+                        if not self._literal_definitions:
+                            return False
                         for definition in self._literal_definitions:
                             attr_name = definition.get("key", "")
                             pattern = definition.get("value", "")

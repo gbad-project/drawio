@@ -132,6 +132,7 @@ def test_classifier_detects_typed_individuals_and_literals():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
     )
 
     observed = {
@@ -166,6 +167,7 @@ def test_top_level_rounded_text_treated_as_literal():
     classifier = draw_io_parser.pipeline.core.xml.data.DrawIOCellClassifier(
         xml,
         draw_io_parser.get_prefixes(),
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
     )
 
     literal_ids = set(classifier._literals_by_id.keys())
@@ -258,6 +260,7 @@ def test_decorations_serialise_to_skos_note(tmp_path: Path):
         str(path),
         ontology_iri="ontology://test",  # ensure deterministic attachment
         metacharacter_substitute=["remove"],
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
     )
     assert 'skos:note "Loose literal"' in graph.serialize()
 
@@ -302,6 +305,7 @@ def test_literal_as_arrow_source_raises(tmp_path: Path):
         draw_io_parser.parse_drawio_to_graph(
             str(path),
             metacharacter_substitute=["url"],
+            literal_definitions=[{"key": "style", "value": "rounded=1"}],
         )
 
 
@@ -322,6 +326,7 @@ def test_arrow_label_without_edge_style_is_not_individual(tmp_path: Path):
         prefix="mock",
         prefix_iri="http://example.com/mock#",
         metacharacter_substitute=["remove"],
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
     )
 
     property_uri = URIRef("http://www.w3.org/2000/01/rdf-schema#mock")
@@ -339,7 +344,9 @@ def test_blank_node_used_for_decorations_without_ontology(tmp_path: Path):
     path.write_text(xml, encoding="utf-8")
 
     graph = draw_io_parser.parse_drawio_to_graph(
-        str(path), metacharacter_substitute=["remove"]
+        str(path),
+        metacharacter_substitute=["remove"],
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
     )
 
     triples = list(graph.triples((None, SKOS.note, Literal("Detached"))))
@@ -375,6 +382,7 @@ def test_classifier_arrows_align_with_legacy_parser(fixture_name: str):
         prefixes,
         strict_mode=False,
         max_gap=draw_io_parser.DEFAULT_MAX_GAP,
+        literal_definitions=[{"key": "style", "value": "rounded=1"}],
     )
     patched_arrows = {_arrow_signature(arrow) for arrow in classifier.arrows}
 

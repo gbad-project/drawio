@@ -64,9 +64,9 @@ class DrawIOCellClassifier:
         self._max_gap = coerced_gap
 
         self._strip_html = bool(strip_html)
-        self._literal_definitions = literal_definitions or [
-            {"key": "style", "value": "rounded=1"}
-        ]
+        self._literal_definitions = (
+            literal_definitions if literal_definitions is not None else []
+        )
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_value_cache: dict[str, list[str]] = {}
@@ -720,6 +720,9 @@ class DrawIOCellClassifier:
 
     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
         """Check if cell matches any literal definition."""
+        if not self._literal_definitions:
+            return False
+
         # Check each literal definition
         for definition in self._literal_definitions:
             attr_name = definition.get("key", "")
