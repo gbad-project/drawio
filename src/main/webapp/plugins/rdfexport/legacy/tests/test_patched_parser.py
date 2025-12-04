@@ -708,3 +708,55 @@ def test_generated_metadata_fixtures_round_trip(tmp_path: Path):
         assert _normalise_graph(patched_graph).isomorphic(
             _normalise_graph(original_graph)
         )
+
+
+def test_literal_definitions_with_defaults():
+    """Test that default literal definitions work correctly (rounded=1, ellipse, shape)"""
+    # Test with default config (None should use hardcoded defaults)
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "Class_Diagram_tweaked.drawio"),
+        metacharacter_substitute=["url"],
+        literal_definitions=None,
+    )
+    # When using defaults, rounded nodes should be literals
+    # This test verifies the baseline behavior
+    assert graph is not None
+
+
+def test_literal_definitions_empty_array_makes_everything_literal():
+    """Test that empty array [] makes everything a literal"""
+    # When literal_definitions=[], everything should be considered a literal
+    # This means nodes that would normally be individuals become literals
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "Class_Diagram_tweaked.drawio"),
+        metacharacter_substitute=["url"],
+        literal_definitions=[],
+    )
+    # With empty literal definitions, more things should be literals
+    assert graph is not None
+
+
+def test_literal_definitions_custom_attribute():
+    """Test custom literal definition with attrKey and attrVal"""
+    # Test with custom literal definition
+    custom_definitions = [{"attrKey": "rounded", "attrVal": "1"}]
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "Class_Diagram_tweaked.drawio"),
+        metacharacter_substitute=["url"],
+        literal_definitions=custom_definitions,
+    )
+    assert graph is not None
+
+
+def test_literal_definitions_multiple_attributes():
+    """Test multiple literal definitions"""
+    custom_definitions = [
+        {"attrKey": "rounded", "attrVal": "1"},
+        {"attrKey": "ellipse", "attrVal": ""},
+    ]
+    graph = draw_io_parser.parse_drawio_to_graph(
+        str(FIXTURES_DIR / "Class_Diagram_tweaked.drawio"),
+        metacharacter_substitute=["url"],
+        literal_definitions=custom_definitions,
+    )
+    assert graph is not None

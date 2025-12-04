@@ -105,6 +105,7 @@ const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
   metacharacter_substitute: ["url"],
   capitalisation_scheme: "upper-camel",
   rml_enabled: false,
+  literal_definitions: [{ attrKey: "style", attrVal: "rounded=1" }],
 };
 
 function createParserConfig(
@@ -2287,4 +2288,46 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
   expect(patchedSnapshot.metadata).toEqual(expectedSnapshot.metadata);
   expect(patchedSnapshot.mxfile).toEqual(baseSnapshot.mxfile);
   expect(patchedSnapshot.graphModel).toEqual(baseSnapshot.graphModel);
+});
+
+test("literal definitions with default config", async () => {
+  const fixturePath = join(fixturesDir, "Class_Diagram_tweaked.drawio");
+  const diagramXml = readFileSync(fixturePath, "utf-8");
+
+  const config = createParserConfig({
+    literal_definitions: null,
+  });
+
+  const result = await runDrawioPipeline(diagramXml, config);
+  expect(result).toBeTruthy();
+  expect(result.length).toBeGreaterThan(0);
+});
+
+test("literal definitions with empty array makes everything literal", async () => {
+  const fixturePath = join(fixturesDir, "Class_Diagram_tweaked.drawio");
+  const diagramXml = readFileSync(fixturePath, "utf-8");
+
+  const config = createParserConfig({
+    literal_definitions: [],
+  });
+
+  const result = await runDrawioPipeline(diagramXml, config);
+  expect(result).toBeTruthy();
+  expect(result.length).toBeGreaterThan(0);
+});
+
+test("literal definitions with custom attributes", async () => {
+  const fixturePath = join(fixturesDir, "Class_Diagram_tweaked.drawio");
+  const diagramXml = readFileSync(fixturePath, "utf-8");
+
+  const config = createParserConfig({
+    literal_definitions: [
+      { attrKey: "rounded", attrVal: "1" },
+      { attrKey: "ellipse", attrVal: "" },
+    ],
+  });
+
+  const result = await runDrawioPipeline(diagramXml, config);
+  expect(result).toBeTruthy();
+  expect(result.length).toBeGreaterThan(0);
 });

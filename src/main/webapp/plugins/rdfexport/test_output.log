@@ -1,0 +1,171 @@
+$ bun run test:log:linux; bun run debug:all:log:linux; bun run test:pytest:all:log:linux; bun run test:bun:all:log:linux
+$ LOGFILE="tests/demo_logs/test.log" && script -c "bun run test" "$LOGFILE"
+Script started, output log file is 'tests/demo_logs/test.log'.
+[0m[2m[35m$[0m [2m[1mbash scripts/test_legacy.sh; bun --check test[0m
+[0m[2m[35m$[0m [2m[1m.venv/bin/python -m meta_builder -o legacy/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
+/usr/bin/bash: line 1: .venv/bin/python: No such file or directory
+[0m[31merror[0m[2m:[0m script [1m"build:py"[0m exited with code 127[0m
+Traceback (most recent call last):
+  File "/home/user/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/regenerate_baselines.py", line 14, in <module>
+    from rdflib import Graph
+ModuleNotFoundError: No module named 'rdflib'
+]9;4;3;\[1m============================= test session starts ==============================[0m
+platform linux -- Python 3.11.14, pytest-9.0.1, pluggy-1.6.0
+rootdir: /home/user/drawio/src/main/webapp/plugins/rdfexport
+configfile: pyproject.toml
+[1mcollecting ... [0m[1mcollected 0 items / 5 errors                                                   [0m
+]9;4;0;\
+==================================== ERRORS ====================================
+[31m[1m____________ ERROR collecting legacy/tests/test_cell_classifier.py _____________[0m
+[31mImportError while importing test module '/home/user/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_cell_classifier.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_cell_classifier.py:8: in <module>
+    from rdflib import BNode, Literal, URIRef
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m____________ ERROR collecting legacy/tests/test_curie_validator.py _____________[0m
+[31mImportError while importing test module '/home/user/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_curie_validator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_curie_validator.py:7: in <module>
+    from rdflib.namespace import NamespaceManager
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m_____________ ERROR collecting legacy/tests/test_patched_parser.py _____________[0m
+[31mImportError while importing test module '/home/user/drawio/src/main/webapp/plugins/rdfexport/legacy/tests/test_patched_parser.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+legacy/tests/test_patched_parser.py:11: in <module>
+    from rdflib import Graph, Namespace, Literal, URIRef
+E   ModuleNotFoundError: No module named 'rdflib'[0m
+[31m[1m____________ ERROR collecting legacy/tests/test_pyodide_pipeline.py ____________[0m
+[31m/root/.local/share/uv/tools/pytest/lib/python3.11/site-packages/_pytest/python.py:507: in importtestmodule
+    mod = import_path(
+/root/.local/share/uv/tools/pytest/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+/root/.local/share/uv/tools/pytest/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:197: in exec_module
+    exec(co, module.__dict__)
+legacy/tests/test_pyodide_pipeline.py:14: in <module>
+    from pyodide_pipeline import (  # type: ignore[attr-defined]  # noqa: E402
+pyodide_pipeline/__init__.py:3: in <module>
+    from .drawio_pipeline import (
+pyodide_pipeline/drawio_pipeline.py:18: in <module>
+    from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
+E     File "/home/user/drawio/src/main/webapp/plugins/rdfexport/legacy/draw_io_parser.py", line 1883
+E       return f"ontology://generated-from-draw-io/{
+E              ^
+E   SyntaxError: unterminated string literal (detected at line 1883)[0m
+[31m[1m_______ ERROR collecting meta_builder/tests/test_drawio_meta_builder.py ________[0m
+[31m/root/.local/share/uv/tools/pytest/lib/python3.11/site-packages/_pytest/python.py:507: in importtestmodule
+    mod = import_path(
+/root/.local/share/uv/tools/pytest/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/usr/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1126: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1126: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+<frozen importlib._bootstrap>:1204: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1176: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+<frozen importlib._bootstrap_external>:940: in exec_module
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+meta_builder/__init__.py:3: in <module>
+    from .drawio_meta_builder import (  # noqa: F401
+meta_builder/drawio_meta_builder.py:119: in <module>
+    draw = load_legacy()
+           ^^^^^^^^^^^^^
+meta_builder/drawio_meta_builder.py:101: in load_legacy
+    return importlib.import_module("legacy.original.draw_io_parser")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E     File "/home/user/drawio/src/main/webapp/plugins/rdfexport/legacy/original/draw_io_parser.py", line 77
+E       return f"ontology://generated-from-draw-io/{
+E              ^
+E   SyntaxError: unterminated string literal (detected at line 77)[0m
+[36m[1m=========================== short test summary info ============================[0m
+[31mERROR[0m legacy/tests/test_cell_classifier.py
+[31mERROR[0m legacy/tests/test_curie_validator.py
+[31mERROR[0m legacy/tests/test_patched_parser.py
+[31mERROR[0m legacy/tests/test_pyodide_pipeline.py
+[31mERROR[0m meta_builder/tests/test_drawio_meta_builder.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 5 errors during collection !!!!!!!!!!!!!!!!!!!!
+[31m============================== [31m[1m5 errors[0m[31m in 0.47s[0m[31m ===============================[0m
+[0m[1mbun test [0m[2mv1.3.2 (b131639c)[0m
+[0m
+tests/rdfexport.test.ts:
+[0m
+[1m[2m#[0m [31m[1mUnhandled error[0m[2m between tests[0m
+[2m-------------------------------[0m
+[31merror[0m[2m: [0m[1mCannot find module '@xmldom/xmldom' from '/home/user/drawio/src/main/webapp/plugins/rdfexport/tests/rdfexport.test.ts'[0m
+[0m[2m-------------------------------[0m
+
+
+ 0 pass[0m
+[0m[31m 1 fail[0m
+ [0m[31m1 error[0m
+Ran 1 test across 1 file. [0m[2m[[1m36.00ms[0m[2m][0m
+[0m[31merror[0m[2m:[0m script [1m"test"[0m exited with code 1[0m
+Script done.
+$ LOGFILE="tests/demo_logs/debug.log" && script -c "bun run debug:all" "$LOGFILE"
+Script started, output log file is 'tests/demo_logs/debug.log'.
+[0m[2m[35m$[0m [2m[1m.venv/bin/python -m debug.debug_cli_regression[0m
+/usr/bin/bash: line 1: .venv/bin/python: No such file or directory
+[0m[31merror[0m[2m:[0m script [1m"debug:all"[0m exited with code 127[0m
+Script done.
+$ LOGFILE="tests/demo_logs/pytest.log" && script -c "bun run test:pytest:all" "$LOGFILE"
+Script started, output log file is 'tests/demo_logs/pytest.log'.
+[0m[2m[35m$[0m [2m[1m.venv/bin/pytest[0m
+/usr/bin/bash: line 1: .venv/bin/pytest: No such file or directory
+[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 127[0m
+Script done.
+$ LOGFILE="tests/demo_logs/bun.log" && script -c "bun run test:bun:all" "$LOGFILE"
+Script started, output log file is 'tests/demo_logs/bun.log'.
+[0m[2m[35m$[0m [2m[1mbun run scripts/dotReporter.ts[0m
+[36mRunning Bun tests...[0m
+
+tests/rdfexport.test.ts 
+[90mNo tests found[0m
+Script done.

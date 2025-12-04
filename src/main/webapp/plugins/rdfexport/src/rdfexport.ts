@@ -249,6 +249,11 @@ interface ParserSettingsEntry {
   replacement: string;
 }
 
+interface LiteralDefinition {
+  attrKey: string;
+  attrVal: string;
+}
+
 interface ParserSettings {
   includePreamble: boolean;
   inferTypeOfLiterals: boolean;
@@ -263,6 +268,7 @@ interface ParserSettings {
   capitalisationScheme: CapitalisationScheme;
   metacharacterStrategy: MetacharacterStrategy;
   metacharacterEntries: ParserSettingsEntry[];
+  literalDefinitions: LiteralDefinition[] | null;
 }
 
 interface StoredParserSettings {
@@ -285,6 +291,7 @@ function createDefaultParserSettings(): ParserSettings {
     capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
     metacharacterEntries: [],
+    literalDefinitions: [{ attrKey: "style", attrVal: "rounded=1" }],
   };
 }
 
@@ -444,6 +451,10 @@ function normaliseParserSettings(
     metacharacterEntries: normalizeMetacharacterEntries(
       partial?.metacharacterEntries,
     ),
+    literalDefinitions:
+      partial?.literalDefinitions !== undefined
+        ? partial.literalDefinitions
+        : defaults.literalDefinitions,
   };
 }
 
@@ -516,6 +527,7 @@ function buildParserConfigPayloadFromSettings(
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false,
+    literal_definitions: normalized.literalDefinitions,
   };
 }
 
@@ -2095,6 +2107,126 @@ function createParserSettingsDialog(
   addButtonContainer.appendChild(addButton);
   metacharSection.appendChild(addButtonContainer);
 
+  // Literal Definitions Section
+  const literalDefsSection = createSection("Literal Definitions");
+  scrollArea.appendChild(literalDefsSection);
+
+  type LiteralDefEntryState = {
+    container: HTMLElement;
+    attrKeyInput: HTMLInputElement;
+    attrValInput: HTMLInputElement;
+  };
+
+  const literalDefsList = document.createElement("div");
+  literalDefsList.style.display = "flex";
+  literalDefsList.style.flexDirection = "column";
+  literalDefsList.style.gap = "6px";
+  literalDefsSection.appendChild(literalDefsList);
+
+  const literalDefEntries: LiteralDefEntryState[] = [];
+
+  const addLiteralDefEntry = (attrKey: string, attrVal: string) => {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+
+    const attrKeyInput = document.createElement("input");
+    attrKeyInput.type = "text";
+    attrKeyInput.value = attrKey;
+    attrKeyInput.placeholder = "Attribute key (e.g., rounded)";
+    attrKeyInput.style.flex = "1 1 auto";
+    attrKeyInput.style.height = "26px";
+    attrKeyInput.style.padding = "4px 6px";
+    attrKeyInput.style.border =
+      "1px solid var(--geInputBorderColor, #d5d5d5)";
+    attrKeyInput.style.borderRadius = "2px";
+    attrKeyInput.style.fontSize = "12px";
+
+    const attrValInput = document.createElement("input");
+    attrValInput.type = "text";
+    attrValInput.value = attrVal;
+    attrValInput.placeholder = "Value (empty = presence check)";
+    attrValInput.style.flex = "1 1 auto";
+    attrValInput.style.height = "26px";
+    attrValInput.style.padding = "4px 6px";
+    attrValInput.style.border =
+      "1px solid var(--geInputBorderColor, #d5d5d5)";
+    attrValInput.style.borderRadius = "2px";
+    attrValInput.style.fontSize = "12px";
+
+    let state: LiteralDefEntryState;
+
+    const removeLiteralDefEntry = () => {
+      const index = literalDefEntries.indexOf(state);
+      if (index >= 0) {
+        literalDefEntries.splice(index, 1);
+      }
+      if (row.parentNode) {
+        row.parentNode.removeChild(row);
+      }
+    };
+
+    const removeButton = ((): HTMLElement => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button("Remove", () => {
+          removeLiteralDefEntry();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = "Remove";
+      button.addEventListener("click", () => {
+        removeLiteralDefEntry();
+      });
+      return button;
+    })();
+    removeButton.className =
+      (removeButton as HTMLElement).className || "geButton";
+
+    state = {
+      container: row,
+      attrKeyInput: attrKeyInput,
+      attrValInput: attrValInput,
+    };
+
+    row.appendChild(attrKeyInput);
+    row.appendChild(attrValInput);
+    row.appendChild(removeButton);
+    literalDefsList.appendChild(row);
+    literalDefEntries.push(state);
+  };
+
+  // Initialize with existing literal definitions or defaults
+  const initialLiteralDefs = settings.literalDefinitions || [
+    { attrKey: "style", attrVal: "rounded=1" },
+  ];
+
+  for (const def of initialLiteralDefs) {
+    addLiteralDefEntry(def.attrKey, def.attrVal);
+  }
+
+  const literalDefsAddButtonContainer = document.createElement("div");
+  literalDefsAddButtonContainer.style.display = "flex";
+  literalDefsAddButtonContainer.style.justifyContent = "flex-end";
+
+  const literalDefsAddButton = ((): HTMLElement => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button("Add definition", () => {
+        addLiteralDefEntry("", "");
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = "Add definition";
+    button.addEventListener("click", () => {
+      addLiteralDefEntry("", "");
+    });
+    return button;
+  })();
+
+  literalDefsAddButton.className = (literalDefsAddButton as HTMLElement).className || "geButton";
+  literalDefsAddButtonContainer.appendChild(literalDefsAddButton);
+  literalDefsSection.appendChild(literalDefsAddButtonContainer);
+
   const buttons = document.createElement("div");
   buttons.style.position = "absolute";
   buttons.style.left = "30px";
@@ -2146,6 +2278,10 @@ function createParserSettingsDialog(
       metacharacterEntries: entries.map((entry) => ({
         character: entry.select.value,
         replacement: entry.replacement.value,
+      })),
+      literalDefinitions: literalDefEntries.map((entry) => ({
+        attrKey: entry.attrKeyInput.value,
+        attrVal: entry.attrValInput.value,
       })),
     };
 

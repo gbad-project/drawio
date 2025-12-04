@@ -15,6 +15,11 @@ export interface DrawioParserResult {
   rawTurtle: string | null;
 }
 
+export interface LiteralDefinition {
+  attrKey: string;
+  attrVal: string;
+}
+
 export interface DrawioParserConfigPayload {
   infer_type_of_literals: boolean;
   include_preamble: boolean;
@@ -29,6 +34,7 @@ export interface DrawioParserConfigPayload {
   metacharacter_substitute: string[];
   capitalisation_scheme: string;
   rml_enabled: boolean;
+  literal_definitions?: LiteralDefinition[] | null;
 }
 
 type RawGraphSummary = {

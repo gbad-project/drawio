@@ -173,6 +173,7 @@ class pipeline:
                         max_gap: float | None = None,
                         strip_html: bool = True,
                         allow_template_types: bool = False,
+                        literal_definitions: list[dict[str, str]] | None = None,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -211,6 +212,7 @@ class pipeline:
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_token_cache: dict[str, list[str]] = {}
+                        self._literal_definitions = literal_definitions
                         self.classifications: dict[str, Any] = {}
                         self.individuals: list[Individual] = []
                         self.arrows: list[Arrow] = []
@@ -882,17 +884,45 @@ class pipeline:
                             return False
                         return "text;" in style or "shape=text" in style
 
-                    @staticmethod
                     def _style_denotes_literal(
-                        cell: Element, style: str, tokens_are_valid: bool
+                        self, cell: Element, style: str, tokens_are_valid: bool
                     ) -> bool:
+                        """
+                        Determines if a cell should be treated as a literal based on style attributes.
+
+                        Logic:
+                        - If literal_definitions is None: fall back to original hardcoded behavior (should not happen - TypeScript should always provide defaults)
+                        - If literal_definitions is []: everything is a literal (return True)
+                        - If literal_definitions is non-empty: check if any definition matches
+                          A definition matches if attrKey exists in style and:
+                            - If attrVal is empty: just check for presence of attrKey
+                            - If attrVal is non-empty: check if attrVal appears in the style attribute value
+                        """
                         if not style:
                             return False
-                        if "rounded=1" in style:
-                            parent_is_root = cell.attrib.get("parent") == "1"
-                            has_swimlane_style = "swimlane" in style
-                            if parent_is_root or has_swimlane_style:
-                                return True
+                        if self._literal_definitions is None:
+                            if "rounded=1" in style:
+                                parent_is_root = cell.attrib.get("parent") == "1"
+                                has_swimlane_style = "swimlane" in style
+                                if parent_is_root or has_swimlane_style:
+                                    return True
+                            if cell.attrib.get("parent") != "1":
+                                return False
+                            if tokens_are_valid:
+                                return False
+                            return False
+                        if len(self._literal_definitions) == 0:
+                            return True
+                        for definition in self._literal_definitions:
+                            attr_key = definition.get("attrKey", "")
+                            attr_val = definition.get("attrVal", "")
+                            if not attr_key:
+                                continue
+                            if attr_key in style:
+                                if not attr_val:
+                                    return True
+                                if attr_val in style:
+                                    return True
                         if cell.attrib.get("parent") != "1":
                             return False
                         if tokens_are_valid:

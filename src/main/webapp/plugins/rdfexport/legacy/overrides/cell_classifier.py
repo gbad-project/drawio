@@ -55,6 +55,7 @@ class DrawIOCellClassifier:
         max_gap: float | None = None,
         strip_html: bool = True,
         allow_template_types: bool = False,
+        literal_definitions: list[dict[str, str]] | None = None,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -95,6 +96,10 @@ class DrawIOCellClassifier:
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_token_cache: dict[str, list[str]] = {}
+
+        # Store literal definitions for use in _style_denotes_literal
+        # None means use defaults, [] means everything is literal, non-empty means use custom definitions
+        self._literal_definitions = literal_definitions
 
         self.classifications: dict[str, Any] = {}
 
@@ -762,17 +767,61 @@ class DrawIOCellClassifier:
             return False
         return "text;" in style or "shape=text" in style
 
-    @staticmethod
     def _style_denotes_literal(
-        cell: Element, style: str, tokens_are_valid: bool
+        self, cell: Element, style: str, tokens_are_valid: bool
     ) -> bool:
+        """
+        Determines if a cell should be treated as a literal based on style attributes.
+
+        Logic:
+        - If literal_definitions is None: fall back to original hardcoded behavior (should not happen - TypeScript should always provide defaults)
+        - If literal_definitions is []: everything is a literal (return True)
+        - If literal_definitions is non-empty: check if any definition matches
+          A definition matches if attrKey exists in style and:
+            - If attrVal is empty: just check for presence of attrKey
+            - If attrVal is non-empty: check if attrVal appears in the style attribute value
+        """
         if not style:
             return False
-        if "rounded=1" in style:
-            parent_is_root = cell.attrib.get("parent") == "1"
-            has_swimlane_style = "swimlane" in style
-            if parent_is_root or has_swimlane_style:
-                return True
+
+        # If literal_definitions is None, fall back to original behavior
+        # (This should not happen as TypeScript layer should always provide defaults)
+        if self._literal_definitions is None:
+            # Original behavior: check for rounded=1
+            if "rounded=1" in style:
+                parent_is_root = cell.attrib.get("parent") == "1"
+                has_swimlane_style = "swimlane" in style
+                if parent_is_root or has_swimlane_style:
+                    return True
+            if cell.attrib.get("parent") != "1":
+                return False
+            if tokens_are_valid:
+                return False
+            return False
+
+        # If literal_definitions is empty array, everything is a literal
+        if len(self._literal_definitions) == 0:
+            return True
+
+        # Check if any definition matches
+        for definition in self._literal_definitions:
+            attr_key = definition.get("attrKey", "")
+            attr_val = definition.get("attrVal", "")
+
+            if not attr_key:
+                continue
+
+            # Check if the attribute key exists in the style
+            if attr_key in style:
+                # If attrVal is empty, just check for presence
+                if not attr_val:
+                    return True
+                # If attrVal is non-empty, check if it appears in the style
+                # This handles cases like "style=rounded=1" where attrKey is "style" and attrVal is "rounded=1"
+                if attr_val in style:
+                    return True
+
+        # If no definitions matched, apply fallback logic
         if cell.attrib.get("parent") != "1":
             return False
         if tokens_are_valid:
