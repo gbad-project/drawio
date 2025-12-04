@@ -15,14 +15,15 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-from enum import Enum, auto
 import json
 from html import unescape
-from typing import Callable
-from rdflib import BNode, SKOS
-from rdflib.collection import Collection
+from enum import Enum, auto
 import re
+from rdflib import BNode
 from rdflib.term import Node
+from typing import Callable
+from rdflib import SKOS
+from rdflib.collection import Collection
 from rdflib.namespace import NamespaceManager
 import typing
 import logging
@@ -151,6 +152,9 @@ class pipeline:
 
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
+                    DEFAULT_LITERAL_DEFINITIONS = [
+                        {"key": "style", "value": "rounded=1"}
+                    ]
 
                     def __init__(
                         self,
@@ -186,11 +190,10 @@ class pipeline:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
                         self._strip_html = bool(strip_html)
-                        self._literal_definitions = (
-                            literal_definitions
-                            if literal_definitions is not None
-                            else []
-                        )
+                        if literal_definitions is None:
+                            self._literal_definitions = self.DEFAULT_LITERAL_DEFINITIONS
+                        else:
+                            self._literal_definitions = literal_definitions
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_value_cache: dict[str, list[str]] = {}
@@ -3052,7 +3055,7 @@ class internal_control_core:
             strip_html_enabled = metadata_strip_html
         else:
             strip_html_enabled = _is_flag_enabled(config_strip_html)
-        literal_definitions = config_args.get("literal_definitions", [])
+        literal_definitions = config_args.get("literal_definitions")
         classifier = DrawIOCellClassifier(
             working_xml,
             prefixes,

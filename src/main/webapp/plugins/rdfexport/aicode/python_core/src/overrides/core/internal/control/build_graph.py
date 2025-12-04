@@ -157,7 +157,8 @@ def _build_graph_from_raw_xml(
     else:
         strip_html_enabled = _is_flag_enabled(config_strip_html)
 
-    literal_definitions = config_args.get("literal_definitions", [])
+    # None triggers DEFAULT_LITERAL_DEFINITIONS in DrawIOCellClassifier
+    literal_definitions = config_args.get("literal_definitions")
 
     classifier = DrawIOCellClassifier(
         working_xml,

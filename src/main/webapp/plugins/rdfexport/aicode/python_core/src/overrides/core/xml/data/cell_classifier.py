@@ -27,6 +27,7 @@ class DrawIOCellClassifier:
 
     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
+    DEFAULT_LITERAL_DEFINITIONS = [{"key": "style", "value": "rounded=1"}]
 
     def __init__(
         self,
@@ -64,9 +65,11 @@ class DrawIOCellClassifier:
         self._max_gap = coerced_gap
 
         self._strip_html = bool(strip_html)
-        self._literal_definitions = (
-            literal_definitions if literal_definitions is not None else []
-        )
+        # When None, use default; when [], use empty (explicit choice); otherwise use provided
+        if literal_definitions is None:
+            self._literal_definitions = self.DEFAULT_LITERAL_DEFINITIONS
+        else:
+            self._literal_definitions = literal_definitions
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_value_cache: dict[str, list[str]] = {}

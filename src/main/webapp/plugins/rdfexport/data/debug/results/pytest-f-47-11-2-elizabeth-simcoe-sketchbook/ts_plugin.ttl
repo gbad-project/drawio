@@ -3,17 +3,16 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:accruals a owl:DatatypeProperty .
+rico:accruals a owl:ObjectProperty .
 
-rico:conditionsOfAccess a owl:DatatypeProperty .
+rico:conditionsOfAccess a owl:ObjectProperty .
 
-rico:conditionsOfUse a owl:DatatypeProperty .
+rico:conditionsOfUse a owl:ObjectProperty .
 
-rico:creationDate a owl:DatatypeProperty .
+rico:creationDate a owl:ObjectProperty .
 
-rico:generalDescription a owl:DatatypeProperty .
+rico:generalDescription a owl:ObjectProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -31,9 +30,9 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:DatatypeProperty .
+rico:history a owl:ObjectProperty .
 
-rico:instantiationExtent a owl:DatatypeProperty .
+rico:instantiationExtent a owl:ObjectProperty .
 
 rico:isDirectlyIncludedIn a owl:ObjectProperty .
 
@@ -41,14 +40,23 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
 
 rico:isOrWasPerformedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:DatatypeProperty .
+rico:lastModificationDate a owl:ObjectProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:DatatypeProperty .
+rico:scopeAndContent a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
+
+:1%20Sketchbook%20%2863%20Watercolours%20And%20Drawings%29 a owl:NamedIndividual ;
+    rdfs:label "1 sketchbook (63 watercolours and drawings)" .
+
+:1795-1796 a owl:NamedIndividual ;
+    rdfs:label "1795-1796" .
+
+:2009-07-17 a owl:NamedIndividual ;
+    rdfs:label "2009-07-17" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -63,24 +71,27 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
 
+<ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> a owl:NamedIndividual ;
+    rdfs:label "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." .
+
 :Elizabeth%20Simcoe%20Sketchbook a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Elizabeth Simcoe sketchbook" ;
-    rico:accruals "No further accruals are expected." ;
-    rico:conditionsOfAccess "This material is closed for conservation reasons." ;
-    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
-    rico:creationDate "1795-1796" ;
-    rico:generalDescription "Finding Aid Note: An online list is available for this sub-series." ;
+    rico:accruals <ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> ;
+    rico:conditionsOfAccess <ontology://generated-from-draw-io/mock#This%20Material%20Is%20Closed%20For%20Conservation%20Reasons.> ;
+    rico:conditionsOfUse <ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> ;
+    rico:creationDate :1795-1796 ;
+    rico:generalDescription <ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> ;
     rico:hasContentOfType :Graphic%20Materials ;
     rico:hasOrHadIdentifier :F%2047-11-2 ;
     rico:hasOrHadInstantiation :Elizabeth%20Simcoe%20Sketchbook-i1 ;
     rico:hasOrHadTitle :Elizabeth%20Simcoe%20Sketchbook ;
     rico:hasRecordSetType :Sub-Series ;
-    rico:history "Custodial History: The material in this series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." ;
+    rico:history <ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> ;
     rico:isDirectlyIncludedIn :Elizabeth%20Simcoe%20Sketches ;
     rico:isOrWasDescribedBy :Elizabeth%20Simcoe%20Sketchbook%20Archival%20Description ;
-    rico:scopeAndContent "Sub-series consists of a sketchbook containing 63 watercolours and drawings done by Elizabeth Simcoe during the time she accompanied her husband to Upper Canada.  Many of the sketches are rough views, with few details. Some of the sketches are identified as Fort Erie, 40 Mile Creek, Queenston, Huron and Chippewa. Some of the sketches are of flowers and have accompanying notes." .
+    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Of%20A%20Sketchbook%20Containing%2063%20Watercolours%20And%20Drawings%20Done%20By%20Elizabeth%20Simcoe%20During%20The%20Time%20She%20Accompanied%20Her%20Husband%20To%20Upper%20Canada.%20Many%20Of%20The%20Sketches%20Are%20Rough%20Views%2C%20With%20Few%20Details.%20Some%20Of%20The%20Sketches%20Are%20Identified%20As%20Fort%20Erie%2C%2040%20Mile%20Creek%2C%20Queenston%2C%20Huron%20And%20Chippewa.%20Some%20Of%20The%20Sketches%20Are%20Of%20Flowers%20And%20Have%20Accompanying%20Notes.> .
 
 :Elizabeth%20Simcoe%20Sketchbook%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
@@ -88,14 +99,14 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rico:hasDocumentaryFormType :Archival%20Description ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate "2009-07-17"^^xsd:date ;
+    rico:lastModificationDate :2009-07-17 ;
     rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
 :Elizabeth%20Simcoe%20Sketchbook-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Elizabeth Simcoe sketchbook-i1" ;
-    rico:generalDescription "How to Order: This material is closed for conservation reasons. Contact a Reference Archivist for more information." ;
-    rico:instantiationExtent "1 sketchbook (63 watercolours and drawings)" .
+    rico:generalDescription <ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20This%20Material%20Is%20Closed%20For%20Conservation%20Reasons.%20Contact%20A%20Reference%20Archivist%20For%20More%20Information.> ;
+    rico:instantiationExtent :1%20Sketchbook%20%2863%20Watercolours%20And%20Drawings%29 .
 
 :Elizabeth%20Simcoe%20Sketches a owl:NamedIndividual,
         rico:RecordSet ;
@@ -112,9 +123,21 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rdfs:label "F 47-11-2" ;
     rico:hasIdentifierType :Current%20Reference%20Code .
 
+<ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> a owl:NamedIndividual ;
+    rdfs:label "Finding Aid Note: An online list is available for this sub-series." .
+
 :Graphic%20Materials a owl:NamedIndividual,
         rico:ContentType ;
     rdfs:label "Graphic materials" .
+
+<ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20This%20Material%20Is%20Closed%20For%20Conservation%20Reasons.%20Contact%20A%20Reference%20Archivist%20For%20More%20Information.> a owl:NamedIndividual ;
+    rdfs:label "How to Order: This material is closed for conservation reasons. Contact a Reference Archivist for more information." .
+
+<ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> a owl:NamedIndividual ;
+    rdfs:label "No further accruals are expected." .
+
+<ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> a owl:NamedIndividual ;
+    rdfs:label "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
 
 :Series a owl:NamedIndividual,
         rico:RecordSetType ;
@@ -127,6 +150,12 @@ rico:scopeAndContent a owl:DatatypeProperty .
 :Sub-Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Sub-Series" .
+
+<ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Of%20A%20Sketchbook%20Containing%2063%20Watercolours%20And%20Drawings%20Done%20By%20Elizabeth%20Simcoe%20During%20The%20Time%20She%20Accompanied%20Her%20Husband%20To%20Upper%20Canada.%20Many%20Of%20The%20Sketches%20Are%20Rough%20Views%2C%20With%20Few%20Details.%20Some%20Of%20The%20Sketches%20Are%20Identified%20As%20Fort%20Erie%2C%2040%20Mile%20Creek%2C%20Queenston%2C%20Huron%20And%20Chippewa.%20Some%20Of%20The%20Sketches%20Are%20Of%20Flowers%20And%20Have%20Accompanying%20Notes.> a owl:NamedIndividual ;
+    rdfs:label "Sub-series consists of a sketchbook containing 63 watercolours and drawings done by Elizabeth Simcoe during the time she accompanied her husband to Upper Canada.  Many of the sketches are rough views, with few details. Some of the sketches are identified as Fort Erie, 40 Mile Creek, Queenston, Huron and Chippewa. Some of the sketches are of flowers and have accompanying notes." .
+
+<ontology://generated-from-draw-io/mock#This%20Material%20Is%20Closed%20For%20Conservation%20Reasons.> a owl:NamedIndividual ;
+    rdfs:label "This material is closed for conservation reasons." .
 
 :Walz a owl:NamedIndividual,
         rico:Person ;

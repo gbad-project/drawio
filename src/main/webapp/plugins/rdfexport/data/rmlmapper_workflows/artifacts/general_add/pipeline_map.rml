@@ -10,45 +10,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{DATECR}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Record ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant add:ArchivalDescriptionRecord ] ;
-            rr:predicate rico:hasDocumentaryFormType ],
-        [ rr:objectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Archival Description Record)" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBL}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:template "/KB/Date/{MODDATE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:wasLastUpdatedAtDate ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/Schema/Description-Listings/Status#{STATUSD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ] ;
-    rr:subjectMap [ rr:template "/KB/ArchivalDescriptionRecord/{REFD_FILE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
@@ -57,501 +19,7 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Place ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Place/{INDEXGEO}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{MODDATE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:normalizedDateValue ],
-        [ rr:objectMap [ rr:constant rico:Date ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Date/{MODDATE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:RecordState ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{REFD_FILE} - {TITLE} (Record Set)" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{HOWTO}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:howToOrder ],
-        [ rr:objectMap [ rr:template "{PHDESC}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:instantiationExtent ],
-        [ rr:objectMap [ rr:template "/KB/Title/{TITLE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadTitle ],
-        [ rr:objectMap [ rr:constant rico:Instantiation ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{PHYSCO}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:physicalCharacteristicsNote ],
-        [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{FCODES}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:textualValue ],
-        [ rr:objectMap [ rr:constant rico:Identifier ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant add:FormerCode ] ;
-            rr:predicate rico:hasIdentifierType ] ;
-    rr:subjectMap [ rr:template "/KB/FormerCode/{FCODES}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{DATEOFF}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{FCODES}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/Schema/Description-Listings/Level#{LEVELDES}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordSetType ],
-        [ rr:objectMap [ rr:template "{FINDAID}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:findingAidNote ],
-        [ rr:objectMap [ rr:template "{ADMBIO}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:history ],
-        [ rr:objectMap [ rr:template "/KB/Place/{INDEXGEO}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isAssociatedWithPlace ],
-        [ rr:objectMap [ rr:template "{SCOPE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:scopeAndContent ],
-        [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Record Set)" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/KB/FormerCode/{FCODES}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadIdentifier ],
-        [ rr:objectMap [ rr:template "/Schema/Description-Listings/ContentType#{GMD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasContentOfType ],
-        [ rr:objectMap [ rr:template "/KB/Title/{TITLE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadTitle ],
-        [ rr:objectMap [ rr:template "{DATEACM}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:accumulationDate ],
-        [ rr:objectMap [ rr:template "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadInstantiation ],
-        [ rr:objectMap [ rr:template "{CMTD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:privateNote ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{INDEXSUB}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadSubject ],
-        [ rr:objectMap [ rr:constant rico:RecordSet ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{TGU}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:conditionsOfUse ],
-        [ rr:objectMap [ rr:template "{NOTES}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:notes ],
-        [ rr:objectMap [ rr:template "/KB/ArchivalDescriptionRecord/{REFD_FILE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isOrWasDescribedBy ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{HIDDENNOTES}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:privateNote ],
-        [ rr:objectMap [ rr:template "{RELMAT}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:relatedMaterial ],
-        [ rr:objectMap [ rr:template "{ASSMAT}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:associatedMaterial ],
-        [ rr:objectMap [ rr:template "{DATECR}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:creationDate ],
-        [ rr:objectMap [ rr:template "/KB/CurrentReferenceCode/{REFD_FILE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadIdentifier ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{INDEXNAME}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasCreator ],
-        [ rr:objectMap [ rr:template "{ISA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:immediateSourceOfAcquisition ],
-        [ rr:objectMap [ rr:template "{REST}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:conditionsOfAccess ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{INDEXPROV}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasCreator ],
-        [ rr:objectMap [ rr:template "{ACCRUAL}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:accruals ],
-        [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_HIGHER}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isDirectlyIncludedIn ],
-        [ rr:objectMap [ rr:template "/KB/RecordSet/{REF_ADD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isDirectlyIncludedIn ],
-        [ rr:objectMap [ rr:template "{RESTRTX}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:conditionsOfAccess ],
-        [ rr:objectMap [ rr:template "{CUSTOD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:custodialHistory ],
-        [ rr:objectMap [ rr:template "{AVAIL}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate add:availabilityOfOtherFormats ] ;
-    rr:subjectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Date ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Date/{DATEOFF_END}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{DATEACM}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:RecordSet ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/RecordSet/{REFD_HIGHER}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{AVAIL}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Agent ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Agent/{INDEXSUB}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CreationRelation ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEOFF_BEGINNING}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasBeginningDate ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEOFF_END}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasEndDate ],
-        [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:relationHasSource ],
-        [ rr:objectMap [ rr:template "{DATEOFF}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:date ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{ABC_REFA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:relationHasTarget ] ;
-    rr:subjectMap [ rr:template "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:{UUID}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{LEVELDES}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{SCOPE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{ASSMAT}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{GMD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{PHDESC}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{TGU}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:RecordSet ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/RecordSet/{REF_ADD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Agent ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Agent/{INDEXNAME}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{RELMAT}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{FINDAID}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{CMTD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:DocumentaryFormType ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/ArchivalDescriptionRecord" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{NOTES}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{PHYSCO}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{CUSTOD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{REST}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:IdentifierType ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/CurrentReferenceCode" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:IdentifierType ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/FormerCode" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{RESTRTX}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Date ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
@@ -563,82 +31,16 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{ADMBIO}" ;
+    rr:subjectMap [ rr:template "{RELMAT}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Title ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Title/{TITLE}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{GMD}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant rico:ContentType ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/Schema/Description-Listings/ContentType#{GMD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:RecordState ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/Schema/Description-Listings/Status#{STATUSD}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{HIDDENNOTES}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{ACCRUAL}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "{REFD_FILE} - {TITLE} (Archival Description Record)" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Identifier ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
@@ -652,7 +54,16 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{ADMBIO}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
@@ -661,37 +72,91 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CorporateBody ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/KB/Title/{TITLE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadTitle ],
+        [ rr:objectMap [ rr:constant rico:Instantiation ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{PHYSCO}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:physicalCharacteristicsNote ],
+        [ rr:objectMap [ rr:template "{HOWTO}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:howToOrder ],
+        [ rr:objectMap [ rr:template "{PHDESC}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:instantiationExtent ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Agent ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isCreatorOf ] ;
-    rr:subjectMap [ rr:template "/KB/Agent/{ABC_REFA}" ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Agent/{INDEXSUB}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{REFD_FILE} - {TITLE} (Record Set)" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:IdentifierType ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/CurrentReferenceCode" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:RecordState ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:RecordSetType ;
+        [ rr:objectMap [ rr:constant rico:Date ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{LEVELDES}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/Schema/Description-Listings/Level#{LEVELDES}" ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Date/{DATEOFF_END}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
@@ -700,7 +165,46 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{ACCRUAL}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:DocumentaryFormType ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/ArchivalDescriptionRecord" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{FCODES}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{CMTD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
@@ -712,7 +216,383 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{REFD_FILE} - {TITLE} (Archival Description Record)" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{CUSTOD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Place ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Place/{INDEXGEO}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:IdentifierType ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:constant "https://data.archives.gov.on.test.gbad.ca/Schema/Description-Listings/FormerCode" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:Title ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Title/{TITLE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{PHDESC}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:RecordState ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/Schema/Description-Listings/Status#{STATUSD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{TGU}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{DATEACM}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{TGU}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:conditionsOfUse ],
+        [ rr:objectMap [ rr:template "/KB/FormerCode/{FCODES}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadIdentifier ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:RecordSet ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/ArchivalDescriptionRecord/{REFD_FILE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasDescribedBy ],
+        [ rr:objectMap [ rr:template "{ACCRUAL}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:accruals ],
+        [ rr:objectMap [ rr:template "/KB/RecordSet/{REF_ADD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isDirectlyIncludedIn ],
+        [ rr:objectMap [ rr:template "{DATEACM}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:accumulationDate ],
+        [ rr:objectMap [ rr:template "/KB/CurrentReferenceCode/{REFD_FILE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadIdentifier ],
+        [ rr:objectMap [ rr:template "{ASSMAT}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:associatedMaterial ],
+        [ rr:objectMap [ rr:template "{CUSTOD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:custodialHistory ],
+        [ rr:objectMap [ rr:template "{HIDDENNOTES}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:privateNote ],
+        [ rr:objectMap [ rr:template "{AVAIL}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:availabilityOfOtherFormats ],
+        [ rr:objectMap [ rr:template "{FINDAID}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:findingAidNote ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{INDEXSUB}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadSubject ],
+        [ rr:objectMap [ rr:template "/KB/Title/{TITLE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadTitle ],
+        [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_HIGHER}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isDirectlyIncludedIn ],
+        [ rr:objectMap [ rr:template "{REST}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:conditionsOfAccess ],
+        [ rr:objectMap [ rr:template "{SCOPE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:scopeAndContent ],
+        [ rr:objectMap [ rr:template "{CMTD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:privateNote ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{INDEXPROV}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasCreator ],
+        [ rr:objectMap [ rr:template "/KB/Place/{INDEXGEO}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isAssociatedWithPlace ],
+        [ rr:objectMap [ rr:template "{NOTES}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:notes ],
+        [ rr:objectMap [ rr:template "{ISA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:immediateSourceOfAcquisition ],
+        [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Record Set)" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "{DATECR}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:creationDate ],
+        [ rr:objectMap [ rr:template "/Schema/Description-Listings/ContentType#{GMD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasContentOfType ],
+        [ rr:objectMap [ rr:template "{RELMAT}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate add:relatedMaterial ],
+        [ rr:objectMap [ rr:template "{RESTRTX}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:conditionsOfAccess ],
+        [ rr:objectMap [ rr:template "{ADMBIO}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:history ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{INDEXNAME}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasCreator ],
+        [ rr:objectMap [ rr:template "/KB/Instantiation/{REFD_FILE}/urn:uuid:{UUID}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadInstantiation ],
+        [ rr:objectMap [ rr:template "/Schema/Description-Listings/Level#{LEVELDES}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordSetType ] ;
+    rr:subjectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{LEVELDES}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{AVAIL}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{PHYSCO}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{DATEOFF}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{DATECR}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{NOTES}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:RecordSet ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/RecordSet/{REFD_HIGHER}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{REFD_FILE} - {TITLE} (Instantiation). Context: <urn:uuid:{UUID}>" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Date ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{MODDATE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:normalizedDateValue ] ;
+    rr:subjectMap [ rr:template "/KB/Date/{MODDATE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{FINDAID}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{LEVELDES}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:RecordSetType ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/Schema/Description-Listings/Level#{LEVELDES}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{REFD_FILE} - {TITLE} (Archival Description Record)" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:constant add:ArchivalDescriptionRecord ] ;
+            rr:predicate rico:hasDocumentaryFormType ],
+        [ rr:objectMap [ rr:constant rico:Record ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/Schema/Description-Listings/Status#{STATUSD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:template "/KB/Date/{MODDATE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:wasLastUpdatedAtDate ],
+        [ rr:objectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBL}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ] ;
+    rr:subjectMap [ rr:template "/KB/ArchivalDescriptionRecord/{REFD_FILE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{ASSMAT}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{FCODES}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:textualValue ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:Identifier ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant add:FormerCode ] ;
+            rr:predicate rico:hasIdentifierType ] ;
+    rr:subjectMap [ rr:template "/KB/FormerCode/{FCODES}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{GMD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
@@ -721,7 +601,115 @@
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/tmp/pytest-of-root/pytest-25/test_pipeline_workflow_general0/pipeline-workflow-general-add-scv181c8/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:CorporateBody ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isCreatorOf ] ;
+    rr:subjectMap [ rr:template "/KB/Agent/{ABC_REFA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:ContentType ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{GMD}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:template "/Schema/Description-Listings/ContentType#{GMD}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:Agent ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Agent/{INDEXNAME}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Date/{DATEOFF_BEGINNING}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:template "{DATEOFF}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:date ],
+        [ rr:objectMap [ rr:template "/KB/RecordSet/{REFD_FILE}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:relationHasSource ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{ABC_REFA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:relationHasTarget ],
+        [ rr:objectMap [ rr:template "{TITLE} - {OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:CreationRelation ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATEOFF_END}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ] ;
+    rr:subjectMap [ rr:template "/KB/CreationRelation/{REFD_FILE}/{OFFICEABC}/urn:uuid:{UUID}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{REST}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{SCOPE}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{HIDDENNOTES}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "{RESTRTX}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
@@ -729,5 +717,17 @@
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
     rr:subjectMap [ rr:template "/Schema/Description-Listings/WebEnabled#{WEBL}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/tmp/pytest-of-root/pytest-27/test_pipeline_workflow_general0/pipeline-workflow-general-add-cd_49ztb/gbad/mapping/source/preprocessed/General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:RecordSet ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/RecordSet/{REF_ADD}" ;
             rr:termType rr:IRI ] .
 

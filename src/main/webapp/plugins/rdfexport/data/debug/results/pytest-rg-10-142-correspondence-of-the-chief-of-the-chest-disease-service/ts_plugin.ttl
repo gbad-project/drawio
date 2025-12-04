@@ -3,17 +3,16 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:accruals a owl:DatatypeProperty .
+rico:accruals a owl:ObjectProperty .
 
-rico:conditionsOfAccess a owl:DatatypeProperty .
+rico:conditionsOfAccess a owl:ObjectProperty .
 
-rico:conditionsOfUse a owl:DatatypeProperty .
+rico:conditionsOfUse a owl:ObjectProperty .
 
-rico:creationDate a owl:DatatypeProperty .
+rico:creationDate a owl:ObjectProperty .
 
-rico:generalDescription a owl:DatatypeProperty .
+rico:generalDescription a owl:ObjectProperty .
 
 rico:hasBeginningDate a owl:ObjectProperty .
 
@@ -37,21 +36,21 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:DatatypeProperty .
+rico:history a owl:ObjectProperty .
 
-rico:instantiationExtent a owl:DatatypeProperty .
+rico:instantiationExtent a owl:ObjectProperty .
 
 rico:isOrWasDescribedBy a owl:ObjectProperty .
 
 rico:isOrWasPerformedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:DatatypeProperty .
+rico:lastModificationDate a owl:ObjectProperty .
 
 rico:relationHasTarget a owl:ObjectProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:DatatypeProperty .
+rico:scopeAndContent a owl:ObjectProperty .
 
 rico:thingIsSourceOfRelation a owl:ObjectProperty .
 
@@ -62,9 +61,21 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
         rico:Date ;
     rdfs:label "1948" .
 
+:1948-1982 a owl:NamedIndividual ;
+    rdfs:label "1948-1982" .
+
 :1982 a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "1982" .
+
+:2012-03-29 a owl:NamedIndividual ;
+    rdfs:label "2012-03-29" .
+
+:9.8%20Metres%20Of%20Textual%20Records%20%2832%20Boxes%29 a owl:NamedIndividual ;
+    rdfs:label "9.8 metres of textual records (32 Boxes)" .
+
+<ontology://generated-from-draw-io/mock#Access%20To%20These%20Records%20Is%20Governed%20By%20The%20Freedom%20Of%20Information%20And%20Protection%20Of%20Privacy%20Act.%20Requests%20For%20Access%20To%20Records%20100%20Years%20Old%20Or%20Less%20Must%20Be%20Submitted%20In%20Writing%20To%20The%20Information%20And%20Privacy%20Unit%20Of%20The%20Archives%20Of%20Ontario.> a owl:NamedIndividual ;
+    rdfs:label "Access to these records is governed by the Freedom of Information and Protection of Privacy Act. Requests for access to records 100 years old or less must be submitted in writing to the Information and Privacy Unit of the Archives of Ontario." .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -75,15 +86,18 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
     rdfs:label "Archival Description Creation" ;
     rico:isOrWasPerformedBy :Stabile .
 
+<ontology://generated-from-draw-io/mock#Copyright%20Is%20Held%20Primarily%20By%20The%20Crown.%20There%20Are%20No%20Restrictions%20On%20Reproduction.%20Permission%20Of%20The%20Archives%20Of%20Ontario%20Is%20Required%20For%20Publication;%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> a owl:NamedIndividual ;
+    rdfs:label "Copyright is held primarily by the Crown. There are no restrictions on reproduction. Permission of the Archives of Ontario is required for publication; submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
+
 :Correspondence%20Of%20The%20Chief%20Of%20The%20Chest%20Disease%20Service a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Correspondence of the Chief of the Chest Disease Service" ;
-    rico:accruals "No further accruals are expected." ;
-    rico:conditionsOfAccess "Access to these records is governed by the Freedom of Information and Protection of Privacy Act. Requests for access to records 100 years old or less must be submitted in writing to the Information and Privacy Unit of the Archives of Ontario." ;
-    rico:conditionsOfUse "Copyright is held primarily by the Crown. There are no restrictions on reproduction. Permission of the Archives of Ontario is required for publication; submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
-    rico:creationDate "1948-1982" ;
-    rico:generalDescription "Finding Aid Note: No file list is available." ;
+    rico:accruals <ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> ;
+    rico:conditionsOfAccess <ontology://generated-from-draw-io/mock#Access%20To%20These%20Records%20Is%20Governed%20By%20The%20Freedom%20Of%20Information%20And%20Protection%20Of%20Privacy%20Act.%20Requests%20For%20Access%20To%20Records%20100%20Years%20Old%20Or%20Less%20Must%20Be%20Submitted%20In%20Writing%20To%20The%20Information%20And%20Privacy%20Unit%20Of%20The%20Archives%20Of%20Ontario.> ;
+    rico:conditionsOfUse <ontology://generated-from-draw-io/mock#Copyright%20Is%20Held%20Primarily%20By%20The%20Crown.%20There%20Are%20No%20Restrictions%20On%20Reproduction.%20Permission%20Of%20The%20Archives%20Of%20Ontario%20Is%20Required%20For%20Publication;%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> ;
+    rico:creationDate :1948-1982 ;
+    rico:generalDescription <ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20No%20File%20List%20Is%20Available.> ;
     rico:hasContentOfType :Textual%20Records ;
     rico:hasCreator :Chest%20Disease%20Service,
         :Division%20Of%20Tuberculosis%20Prevention ;
@@ -91,9 +105,9 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
     rico:hasOrHadInstantiation :Correspondence%20Of%20The%20Chief%20Of%20The%20Chest%20Disease%20Service-i1 ;
     rico:hasOrHadTitle :Correspondence%20Of%20The%20Chief%20Of%20The%20Chest%20Disease%20Service ;
     rico:hasRecordSetType :Series ;
-    rico:history "Immediate Source of Acquisition: Records in this series were transferred to the Archives of Ontario by the Ministry of Health." ;
+    rico:history <ontology://generated-from-draw-io/mock#Immediate%20Source%20Of%20Acquisition%3A%20Records%20In%20This%20Series%20Were%20Transferred%20To%20The%20Archives%20Of%20Ontario%20By%20The%20Ministry%20Of%20Health.> ;
     rico:isOrWasDescribedBy :Correspondence%20Of%20The%20Chief%20Of%20The%20Chest%20Disease%20Service%20Archival%20Description ;
-    rico:scopeAndContent "Series consists of records created and maintained by the Chest Disease Service and its predecessor agencies to provide a cumulative record in reviewing, preventing, and treating tuberculosis in Ontario.  Records consist of originals of incoming and copies of outgoing correspondence, both inter and intra Ministry, with the federal government, sanatoria, chest clinics, professional associations, other agencies outside the provincial government, and private citizens relating to the prevention and treatment of tuberculosis in Ontario.     Subjects include the following: drugs, chemotheraphy, chest x-ray programs, epidemiology, home care programs, health standards, immigrants and refugees, mass survey x-ray interpretaion, smoking and health education material.     Files are arranged alphabetically by subject." ;
+    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Series%20Consists%20Of%20Records%20Created%20And%20Maintained%20By%20The%20Chest%20Disease%20Service%20And%20Its%20Predecessor%20Agencies%20To%20Provide%20A%20Cumulative%20Record%20In%20Reviewing%2C%20Preventing%2C%20And%20Treating%20Tuberculosis%20In%20Ontario.%20Records%20Consist%20Of%20Originals%20Of%20Incoming%20And%20Copies%20Of%20Outgoing%20Correspondence%2C%20Both%20Inter%20And%20Intra%20Ministry%2C%20With%20The%20Federal%20Government%2C%20Sanatoria%2C%20Chest%20Clinics%2C%20Professional%20Associations%2C%20Other%20Agencies%20Outside%20The%20Provincial%20Government%2C%20And%20Private%20Citizens%20Relating%20To%20The%20Prevention%20And%20Treatment%20Of%20Tuberculosis%20In%20Ontario.%20Subjects%20Include%20The%20Following%3A%20Drugs%2C%20Chemotheraphy%2C%20Chest%20X-ray%20Programs%2C%20Epidemiology%2C%20Home%20Care%20Programs%2C%20Health%20Standards%2C%20Immigrants%20And%20Refugees%2C%20Mass%20Survey%20X-ray%20Interpretaion%2C%20Smoking%20And%20Health%20Education%20Material.%20Files%20Are%20Arranged%20Alphabetically%20By%20Subject.> ;
     rico:thingIsSourceOfRelation :Office%20Of%20Origin%20Relation .
 
 :Correspondence%20Of%20The%20Chief%20Of%20The%20Chest%20Disease%20Service%20Archival%20Description a owl:NamedIndividual,
@@ -102,18 +116,30 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
     rico:hasDocumentaryFormType :Archival%20Description ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate "2012-03-29"^^xsd:date ;
+    rico:lastModificationDate :2012-03-29 ;
     rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
 :Correspondence%20Of%20The%20Chief%20Of%20The%20Chest%20Disease%20Service-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Correspondence of the Chief of the Chest Disease Service-i1" ;
-    rico:generalDescription "How to Order: Please contact a Reference Archivist for information about obtaining access to this material." ;
-    rico:instantiationExtent "9.8 metres of textual records (32 Boxes)" .
+    rico:generalDescription <ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Please%20Contact%20A%20Reference%20Archivist%20For%20Information%20About%20Obtaining%20Access%20To%20This%20Material.> ;
+    rico:instantiationExtent :9.8%20Metres%20Of%20Textual%20Records%20%2832%20Boxes%29 .
 
 :Current%20Reference%20Code a owl:NamedIndividual,
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
+
+<ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20No%20File%20List%20Is%20Available.> a owl:NamedIndividual ;
+    rdfs:label "Finding Aid Note: No file list is available." .
+
+<ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Please%20Contact%20A%20Reference%20Archivist%20For%20Information%20About%20Obtaining%20Access%20To%20This%20Material.> a owl:NamedIndividual ;
+    rdfs:label "How to Order: Please contact a Reference Archivist for information about obtaining access to this material." .
+
+<ontology://generated-from-draw-io/mock#Immediate%20Source%20Of%20Acquisition%3A%20Records%20In%20This%20Series%20Were%20Transferred%20To%20The%20Archives%20Of%20Ontario%20By%20The%20Ministry%20Of%20Health.> a owl:NamedIndividual ;
+    rdfs:label "Immediate Source of Acquisition: Records in this series were transferred to the Archives of Ontario by the Ministry of Health." .
+
+<ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> a owl:NamedIndividual ;
+    rdfs:label "No further accruals are expected." .
 
 :Office%20Of%20Origin%20Relation a owl:NamedIndividual,
         rico:CreationRelation ;
@@ -133,6 +159,9 @@ rico:thingIsSourceOfRelation a owl:ObjectProperty .
 :Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Series" .
+
+<ontology://generated-from-draw-io/mock#Series%20Consists%20Of%20Records%20Created%20And%20Maintained%20By%20The%20Chest%20Disease%20Service%20And%20Its%20Predecessor%20Agencies%20To%20Provide%20A%20Cumulative%20Record%20In%20Reviewing%2C%20Preventing%2C%20And%20Treating%20Tuberculosis%20In%20Ontario.%20Records%20Consist%20Of%20Originals%20Of%20Incoming%20And%20Copies%20Of%20Outgoing%20Correspondence%2C%20Both%20Inter%20And%20Intra%20Ministry%2C%20With%20The%20Federal%20Government%2C%20Sanatoria%2C%20Chest%20Clinics%2C%20Professional%20Associations%2C%20Other%20Agencies%20Outside%20The%20Provincial%20Government%2C%20And%20Private%20Citizens%20Relating%20To%20The%20Prevention%20And%20Treatment%20Of%20Tuberculosis%20In%20Ontario.%20Subjects%20Include%20The%20Following%3A%20Drugs%2C%20Chemotheraphy%2C%20Chest%20X-ray%20Programs%2C%20Epidemiology%2C%20Home%20Care%20Programs%2C%20Health%20Standards%2C%20Immigrants%20And%20Refugees%2C%20Mass%20Survey%20X-ray%20Interpretaion%2C%20Smoking%20And%20Health%20Education%20Material.%20Files%20Are%20Arranged%20Alphabetically%20By%20Subject.> a owl:NamedIndividual ;
+    rdfs:label "Series consists of records created and maintained by the Chest Disease Service and its predecessor agencies to provide a cumulative record in reviewing, preventing, and treating tuberculosis in Ontario.  Records consist of originals of incoming and copies of outgoing correspondence, both inter and intra Ministry, with the federal government, sanatoria, chest clinics, professional associations, other agencies outside the provincial government, and private citizens relating to the prevention and treatment of tuberculosis in Ontario.     Subjects include the following: drugs, chemotheraphy, chest x-ray programs, epidemiology, home care programs, health standards, immigrants and refugees, mass survey x-ray interpretaion, smoking and health education material.     Files are arranged alphabetically by subject." .
 
 :Stabile a owl:NamedIndividual,
         rico:Person ;

@@ -3,17 +3,16 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rico:accruals a owl:DatatypeProperty .
+rico:accruals a owl:ObjectProperty .
 
-rico:conditionsOfAccess a owl:DatatypeProperty .
+rico:conditionsOfAccess a owl:ObjectProperty .
 
-rico:conditionsOfUse a owl:DatatypeProperty .
+rico:conditionsOfUse a owl:ObjectProperty .
 
-rico:creationDate a owl:DatatypeProperty .
+rico:creationDate a owl:ObjectProperty .
 
-rico:generalDescription a owl:DatatypeProperty .
+rico:generalDescription a owl:ObjectProperty .
 
 rico:hasContentOfType a owl:ObjectProperty .
 
@@ -31,9 +30,9 @@ rico:hasRecordSetType a owl:ObjectProperty .
 
 rico:hasRecordState a owl:ObjectProperty .
 
-rico:history a owl:DatatypeProperty .
+rico:history a owl:ObjectProperty .
 
-rico:instantiationExtent a owl:DatatypeProperty .
+rico:instantiationExtent a owl:ObjectProperty .
 
 rico:isDirectlyIncludedIn a owl:ObjectProperty .
 
@@ -41,14 +40,23 @@ rico:isOrWasDescribedBy a owl:ObjectProperty .
 
 rico:isOrWasPerformedBy a owl:ObjectProperty .
 
-rico:lastModificationDate a owl:DatatypeProperty .
+rico:lastModificationDate a owl:ObjectProperty .
 
 rico:resultsOrResultedFrom a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:DatatypeProperty .
+rico:scopeAndContent a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#%5Bca.%201790-184--%5D> a owl:NamedIndividual ;
+    rdfs:label "[ca. 1790-184--]" .
+
+:1%20Centimetre%20Of%20Textual%20Records%201%20Map a owl:NamedIndividual ;
+    rdfs:label "1 centimetre of textual records 1 map" .
+
+:2009-07-17 a owl:NamedIndividual ;
+    rdfs:label "2009-07-17" .
 
 :Archival%20Description a owl:NamedIndividual,
         rico:DocumentaryFormType ;
@@ -67,6 +75,9 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:IdentifierType ;
     rdfs:label "Current Reference Code" .
 
+<ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Sub-series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> a owl:NamedIndividual ;
+    rdfs:label "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." .
+
 :Elizabeth%20Simcoe%20Sketches a owl:NamedIndividual,
         rico:RecordSet ;
     rdfs:label "Elizabeth Simcoe sketches" ;
@@ -82,25 +93,37 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rdfs:label "F 47-11-4" ;
     rico:hasIdentifierType :Current%20Reference%20Code .
 
+<ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> a owl:NamedIndividual ;
+    rdfs:label "Finding Aid Note: An online list is available for this sub-series." .
+
+<ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20Order%20Using%20Reference%20Code%20And%20Barcode%20Number.> a owl:NamedIndividual ;
+    rdfs:label "How to Order: Consult the online list to identify the records that you require. Order using reference code and barcode number." .
+
+<ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> a owl:NamedIndividual ;
+    rdfs:label "No further accruals are expected." .
+
+<ontology://generated-from-draw-io/mock#No%20Restrictions%20On%20Access.> a owl:NamedIndividual ;
+    rdfs:label "No restrictions on access." .
+
 :Notes%20On%20Elizabeth%20Simcoe%20Sketches a owl:NamedIndividual,
         rico:RecordSet,
         rico:Title ;
     rdfs:label "Notes on Elizabeth Simcoe sketches" ;
-    rico:accruals "No further accruals are expected." ;
-    rico:conditionsOfAccess "No restrictions on access." ;
-    rico:conditionsOfUse "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." ;
-    rico:creationDate "[ca. 1790-184--]" ;
-    rico:generalDescription "Finding Aid Note: An online list is available for this sub-series." ;
+    rico:accruals <ontology://generated-from-draw-io/mock#No%20Further%20Accruals%20Are%20Expected.> ;
+    rico:conditionsOfAccess <ontology://generated-from-draw-io/mock#No%20Restrictions%20On%20Access.> ;
+    rico:conditionsOfUse <ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> ;
+    rico:creationDate <ontology://generated-from-draw-io/mock#%5Bca.%201790-184--%5D> ;
+    rico:generalDescription <ontology://generated-from-draw-io/mock#Finding%20Aid%20Note%3A%20An%20Online%20List%20Is%20Available%20For%20This%20Sub-series.> ;
     rico:hasContentOfType :Cartographic%20Materials,
         :Textual%20Records ;
     rico:hasOrHadIdentifier :F%2047-11-4 ;
     rico:hasOrHadInstantiation :Notes%20On%20Elizabeth%20Simcoe%20Sketches-i1 ;
     rico:hasOrHadTitle :Notes%20On%20Elizabeth%20Simcoe%20Sketches ;
     rico:hasRecordSetType :Sub-Series ;
-    rico:history "Custodial History: The material in this sub-series was acquired in 1952 under the terms of a long-term loan agreement with the University of Toronto Library, which owns the records." ;
+    rico:history <ontology://generated-from-draw-io/mock#Custodial%20History%3A%20The%20Material%20In%20This%20Sub-series%20Was%20Acquired%20In%201952%20Under%20The%20Terms%20Of%20A%20Long-term%20Loan%20Agreement%20With%20The%20University%20Of%20Toronto%20Library%2C%20Which%20Owns%20The%20Records.> ;
     rico:isDirectlyIncludedIn :Elizabeth%20Simcoe%20Sketches ;
     rico:isOrWasDescribedBy :Notes%20On%20Elizabeth%20Simcoe%20Sketches%20Archival%20Description ;
-    rico:scopeAndContent "Sub-series consists of records providing information about the artworks contained within sub-series F 47-11-1 to F 47-11-3. It is not clear whether Elizabeth Simcoe was the author of these documents. Two are caption lists of some of her sketches; the remaining two documents are scraps, containing a few names and notes. There is also a map indicating places where Elizabeth Simcoe made sketches." .
+    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Of%20Records%20Providing%20Information%20About%20The%20Artworks%20Contained%20Within%20Sub-series%20F%2047-11-1%20To%20F%2047-11-3.%20It%20Is%20Not%20Clear%20Whether%20Elizabeth%20Simcoe%20Was%20The%20Author%20Of%20These%20Documents.%20Two%20Are%20Caption%20Lists%20Of%20Some%20Of%20Her%20Sketches;%20The%20Remaining%20Two%20Documents%20Are%20Scraps%2C%20Containing%20A%20Few%20Names%20And%20Notes.%20There%20Is%20Also%20A%20Map%20Indicating%20Places%20Where%20Elizabeth%20Simcoe%20Made%20Sketches.> .
 
 :Notes%20On%20Elizabeth%20Simcoe%20Sketches%20Archival%20Description a owl:NamedIndividual,
         rico:Record ;
@@ -108,14 +131,17 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rico:hasDocumentaryFormType :Archival%20Description ;
     rico:hasRecordState :Status%3A%20Approved,
         :Web%20Enabled%3A%20Y ;
-    rico:lastModificationDate "2009-07-17"^^xsd:date ;
+    rico:lastModificationDate :2009-07-17 ;
     rico:resultsOrResultedFrom :Archival%20Description%20Creation .
 
 :Notes%20On%20Elizabeth%20Simcoe%20Sketches-i1 a owl:NamedIndividual,
         rico:Instantiation ;
     rdfs:label "Notes on Elizabeth Simcoe sketches-i1" ;
-    rico:generalDescription "How to Order: Consult the online list to identify the records that you require. Order using reference code and barcode number." ;
-    rico:instantiationExtent "1 centimetre of textual records 1 map" .
+    rico:generalDescription <ontology://generated-from-draw-io/mock#How%20To%20Order%3A%20Consult%20The%20Online%20List%20To%20Identify%20The%20Records%20That%20You%20Require.%20Order%20Using%20Reference%20Code%20And%20Barcode%20Number.> ;
+    rico:instantiationExtent :1%20Centimetre%20Of%20Textual%20Records%201%20Map .
+
+<ontology://generated-from-draw-io/mock#Records%20Are%20In%20The%20Public%20Domain.%20There%20Are%20No%20Restrictions%20On%20Reproduction%20For%20Research%20And%20Private%20Study.%20If%20You%20Wish%20To%20Use%20Any%20Of%20This%20Material%20For%20A%20Purpose%20Other%20Than%20Research%20And%20Private%20Study%2C%20Submit%20A%20Request%20For%20Permission%20To%20Publish%2C%20Exhibit%20Or%20Broadcast%20Form.> a owl:NamedIndividual ;
+    rdfs:label "Records are in the public domain. There are no restrictions on reproduction for research and private study.  If you wish to use any of this material for a purpose other than research and private study, submit a Request for Permission to Publish, Exhibit or Broadcast Form." .
 
 :Series a owl:NamedIndividual,
         rico:RecordSetType ;
@@ -128,6 +154,9 @@ rico:scopeAndContent a owl:DatatypeProperty .
 :Sub-Series a owl:NamedIndividual,
         rico:RecordSetType ;
     rdfs:label "Sub-Series" .
+
+<ontology://generated-from-draw-io/mock#Sub-series%20Consists%20Of%20Records%20Providing%20Information%20About%20The%20Artworks%20Contained%20Within%20Sub-series%20F%2047-11-1%20To%20F%2047-11-3.%20It%20Is%20Not%20Clear%20Whether%20Elizabeth%20Simcoe%20Was%20The%20Author%20Of%20These%20Documents.%20Two%20Are%20Caption%20Lists%20Of%20Some%20Of%20Her%20Sketches;%20The%20Remaining%20Two%20Documents%20Are%20Scraps%2C%20Containing%20A%20Few%20Names%20And%20Notes.%20There%20Is%20Also%20A%20Map%20Indicating%20Places%20Where%20Elizabeth%20Simcoe%20Made%20Sketches.> a owl:NamedIndividual ;
+    rdfs:label "Sub-series consists of records providing information about the artworks contained within sub-series F 47-11-1 to F 47-11-3. It is not clear whether Elizabeth Simcoe was the author of these documents. Two are caption lists of some of her sketches; the remaining two documents are scraps, containing a few names and notes. There is also a map indicating places where Elizabeth Simcoe made sketches." .
 
 :Textual%20Records a owl:NamedIndividual,
         rico:ContentType ;

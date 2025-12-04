@@ -1,5 +1,4 @@
-Script started on 2025-12-04 01:13:56+00:00 [COMMAND="bun run test:bun:all" <not executed on terminal>]
-[0m[2m[35m$[0m [2m[1mbun run aicode/integration_tests/scripts/dotReporter.ts[0m
+Script started on 2025-12-04 01:07:47+00:00 [COMMAND="bun run aicode/integration_tests/scripts/dotReporter.ts" <not executed on terminal>]
 [36mRunning Bun tests...[0m
 
 aicode/typescript_plugin/tests/rdfexport.test.ts [31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m [90m[100%][0m
@@ -55,7 +54,6 @@ aicode/typescript_plugin/tests/rdfexport.test.ts [31mF[0m[31mF[0m[31mF[0m
 ================================================================================
 
 [31m23 failed[0m
-Ran 55 tests across 1 file. [9.84s]
-[0m[31merror[0m[2m:[0m script [1m"test:bun:all"[0m exited with code 1[0m
+Ran 55 tests across 1 file. [9.65s]
 
-Script done on 2025-12-04 01:14:06+00:00 [COMMAND_EXIT_CODE="1"]
+Script done on 2025-12-04 01:07:57+00:00 [COMMAND_EXIT_CODE="1"]

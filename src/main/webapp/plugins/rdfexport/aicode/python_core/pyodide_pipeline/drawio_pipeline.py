@@ -47,6 +47,7 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
 )
 
 DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
+DEFAULT_LITERAL_DEFINITIONS = [{"attrKey": "style", "attrVal": "rounded=1"}]
 
 _LAST_PARSER_CONFIG: dict[str, Any] | None = None
 
@@ -90,7 +91,7 @@ def _default_parser_config() -> dict[str, Any]:
         "mint_from_literals": True,
         "mint_from_types": False,
         "mint_from_arrows": True,
-        "literal_definitions": [],
+        "literal_definitions": None,  # None triggers DEFAULT_LITERAL_DEFINITIONS in normalizer
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -157,8 +158,18 @@ def _normalise_metacharacters(value: Any) -> list[str]:
 
 
 def _normalise_literal_definitions(value: Any) -> list[dict[str, str]]:
-    """Normalize literal definitions from TypeScript format (attrKey/attrVal) to Python format (key/value)."""
+    """Normalize literal definitions from TypeScript format (attrKey/attrVal) to Python format (key/value).
+
+    When value is None, use DEFAULT_LITERAL_DEFINITIONS.
+    When value is [] (explicit empty list), return [] (no literal definitions).
+    Otherwise, normalize the provided values.
+    """
+    # None means use default
     if value is None:
+        value = DEFAULT_LITERAL_DEFINITIONS
+
+    # Explicit empty list means no literal definitions
+    if isinstance(value, list) and len(value) == 0:
         return []
 
     try:

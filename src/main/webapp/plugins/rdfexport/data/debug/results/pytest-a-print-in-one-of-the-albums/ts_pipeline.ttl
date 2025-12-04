@@ -3,7 +3,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 rico:hasDocumentaryFormType a owl:NamedIndividual ;
     rdfs:label "rico:hasDocumentaryFormType" .
@@ -12,24 +11,37 @@ rico:hasEventType a owl:NamedIndividual ;
     rdfs:label "rico:hasEventType" .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: ;
-    skos:note "\"Amberieux en Dombes\" RiC-E03 Record Set",
-        "\"C.T. 104\", tirage numéroté \"1K\" RiC-E06 Instantiation",
-        "Ambérieux-en-Dombes (Ain) RiC E-22 Place",
-        "Archives nationales (France ; 1790-....) RiC-E11  Corporate Body",
-        "Campagne de numérisation des tirages du fonds Lapie RiC-E14 Event",
-        "FRAN_0207_0001_L RiC-E06 Instantiation",
-        "document photographique rico:DocumentaryFormType",
-        "numérisation rico:EventType" .
+    owl:imports rico: .
+
+<ontology://generated-from-draw-io/mock#%22Amberieux%20En%20Dombes%22%20RiC-E03%20Record%20Set> a owl:NamedIndividual ;
+    rdfs:label "\"Amberieux en Dombes\" RiC-E03 Record Set" .
 
 <ontology://generated-from-draw-io/mock#%22C.T.%20104%22%2C%20Tirage%20Numéroté%20%221K%22%20RiC-E04%20Record> a owl:NamedIndividual ;
     rdfs:label "\"C.T. 104\", tirage numéroté \"1K\" RiC-E04 Record" .
 
+<ontology://generated-from-draw-io/mock#%22C.T.%20104%22%2C%20Tirage%20Numéroté%20%221K%22%20RiC-E06%20Instantiation> a owl:NamedIndividual ;
+    rdfs:label "\"C.T. 104\", tirage numéroté \"1K\" RiC-E06 Instantiation" .
+
+:Ambérieux-en-Dombes%20%28Ain%29%20RiC%20E-22%20Place a owl:NamedIndividual ;
+    rdfs:label "Ambérieux-en-Dombes (Ain) RiC E-22 Place" .
+
+<ontology://generated-from-draw-io/mock#Archives%20Nationales%20%28France%20;%201790-....%29%20RiC-E11%20Corporate%20Body> a owl:NamedIndividual ;
+    rdfs:label "Archives nationales (France ; 1790-....) RiC-E11  Corporate Body" .
+
+:Campagne%20De%20Numérisation%20Des%20Tirages%20Du%20Fonds%20Lapie%20RiC-E14%20Event a owl:NamedIndividual ;
+    rdfs:label "Campagne de numérisation des tirages du fonds Lapie RiC-E14 Event" .
+
 <ontology://generated-from-draw-io/mock#Description%20Partielle%2C%20Conforme%20À%20RiC%2C%20De%20L%27un%20Des%20Tirages%20Photographiques%20Contenus%20Dans%20L%27album%201PH%2FC%2F1%20%28A.N.%20Fonds%20LAPIE%29%20%28instrument%20De%20Recherche%20En%20Cours%20De%20Réalisation%29.%20Les%20Relations%20Sont%20Présentées%20Uniquement%20Dans%20Un%20Sens%20%28les%20Relations%20Inverses%20Existent%20Mais%20Ne%20Figurent%20Pas%20Dans%20Le%20Diagramme%29.%20Le%20Préfixe%20Rico%3A%20Indique%20Que%20Le%20Composant%20%28classe%20Ou%20Propriété%29%20N%27existe%20Que%20Dans%20RiC-O.%20Lorsqu%27il%20N%27y%20A%20Pas%20De%20Préfixe%2C%20Le%20Composant%20Existe%20Dans%20RiC-CM%20Et%20Dans%20RiC-O.%20©%20Archives%20Nationales%20De%20France%2C%20Septembre%202020%20Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License> a owl:NamedIndividual ;
     rdfs:label "Description partielle, conforme à RiC,  de l'un des tirages photographiques contenus dans l'album 1PH/C/1 (A.N. fonds LAPIE)   (instrument de recherche en cours de réalisation).   Les relations sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme).  Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O.    © Archives nationales de France, septembre 2020     Document mis à disposition selon les termes   de la  Creative Commons Attribution 4.0 International License" .
 
+:Document%20Photographique%20Rico%3ADocumentaryFormType a owl:NamedIndividual ;
+    rdfs:label "document photographique rico:DocumentaryFormType" .
+
 :FRAN_0207_0001_A%20RiC-E06%20Instantiation a owl:NamedIndividual ;
     rdfs:label "FRAN_0207_0001_A RiC-E06 Instantiation" .
+
+:FRAN_0207_0001_L%20RiC-E06%20Instantiation a owl:NamedIndividual ;
+    rdfs:label "FRAN_0207_0001_L RiC-E06 Instantiation" .
 
 :Has%20Derived%20Instantiation a owl:NamedIndividual ;
     rdfs:label "has derived instantiation" .
@@ -48,6 +60,9 @@ rico:hasEventType a owl:NamedIndividual ;
 
 :Is%20Or%20Was%20Affected%20By a owl:NamedIndividual ;
     rdfs:label "is or was affected by" .
+
+:Numérisation%20Rico%3AEventType a owl:NamedIndividual ;
+    rdfs:label "numérisation rico:EventType" .
 
 :Results%20Or%20Resulted%20In a owl:NamedIndividual ;
     rdfs:label "results or resulted in" .
