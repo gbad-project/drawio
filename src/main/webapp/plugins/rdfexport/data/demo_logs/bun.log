@@ -1,8 +1,8 @@
-Script started on 2025-12-04 08:23:50+00:00 [COMMAND="bun run test:bun:all" <not executed on terminal>]
+Script started on 2025-12-04 08:52:26+00:00 [COMMAND="bun run test:bun:all" <not executed on terminal>]
 [0m[2m[35m$[0m [2m[1mbun run aicode/integration_tests/scripts/dotReporter.ts[0m
 [36mRunning Bun tests...[0m
 
-aicode/typescript_plugin/tests/rdfexport.test.ts [31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m [90m[100%][0m
+aicode/typescript_plugin/tests/rdfexport.test.ts [31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m[31mF[0m [90m[100%][0m
 
 
 [31m[1mFAILURES[0m
@@ -29,6 +29,8 @@ aicode/typescript_plugin/tests/rdfexport.test.ts [31mF[0m[31mF[0m[31mF[0m
 --------------------------------------------------------------------------------
 [31mFAILED[0m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression
 --------------------------------------------------------------------------------
+[31mFAILED[0m diagram_RiC-CM-overview-RiC-v1-0.drawio: no regression
+--------------------------------------------------------------------------------
 [31mFAILED[0m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression
 --------------------------------------------------------------------------------
 [31mFAILED[0m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: no regression
@@ -51,11 +53,25 @@ aicode/typescript_plugin/tests/rdfexport.test.ts [31mF[0m[31mF[0m[31mF[0m
 --------------------------------------------------------------------------------
 [31mFAILED[0m CA1934 Division of Tuberculosis Prevention.drawio: no regression
 --------------------------------------------------------------------------------
+[31mFAILED[0m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled
+--------------------------------------------------------------------------------
+[31mFAILED[0m runDrawioPipeline strips literal HTML when stripHtml enabled
+--------------------------------------------------------------------------------
 [31mFAILED[0m runDrawioPipeline preserves literal HTML when stripHtml disabled
+--------------------------------------------------------------------------------
+[31mFAILED[0m runDrawioPipeline omits rdfs:label triples when includeLabel disabled
+--------------------------------------------------------------------------------
+[31mFAILED[0m runDrawioPipeline omits ontology declaration when includePreamble disabled
+--------------------------------------------------------------------------------
+[31mFAILED[0m runDrawioPipeline keeps literals untyped when inference disabled
+--------------------------------------------------------------------------------
+[31mFAILED[0m runDrawioPipeline forwards strictMode flag to parser configuration
+--------------------------------------------------------------------------------
+[31mFAILED[0m parser settings dialog updates stored configuration and pipeline
 ================================================================================
 
-[31m23 failed[0m
-Ran 55 tests across 1 file. [10.23s]
+[31m31 failed[0m
+Ran 55 tests across 1 file. [5.75s]
 [0m[31merror[0m[2m:[0m script [1m"test:bun:all"[0m exited with code 1[0m
 
-Script done on 2025-12-04 08:24:01+00:00 [COMMAND_EXIT_CODE="1"]
+Script done on 2025-12-04 08:52:32+00:00 [COMMAND_EXIT_CODE="1"]

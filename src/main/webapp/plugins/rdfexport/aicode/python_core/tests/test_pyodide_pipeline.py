@@ -116,8 +116,12 @@ def test_parse_drawio_respects_infer_literal_toggle() -> None:
     reset_graph_store()
     xml_payload = _load_fixture("AA37 Department of Health.drawio")
 
+    # Need literal_definitions to detect literals for type inference testing
+    literal_defs = [{"attrKey": "style", "attrVal": "rounded=1"}]
+
     _, graph_without_inference = parse_drawio_xml(
-        xml_payload, {"infer_type_of_literals": False}
+        xml_payload,
+        {"infer_type_of_literals": False, "literal_definitions": literal_defs},
     )
     inferred_disabled = sum(
         1
@@ -128,7 +132,8 @@ def test_parse_drawio_respects_infer_literal_toggle() -> None:
 
     reset_graph_store()
     _, graph_with_inference = parse_drawio_xml(
-        xml_payload, {"infer_type_of_literals": True}
+        xml_payload,
+        {"infer_type_of_literals": True, "literal_definitions": literal_defs},
     )
     inferred_enabled = sum(
         1

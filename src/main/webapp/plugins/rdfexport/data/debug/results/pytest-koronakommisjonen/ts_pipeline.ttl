@@ -3,9 +3,8 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rdfs:isDefinedBy a owl:DatatypeProperty .
+rdfs:isDefinedBy a owl:ObjectProperty .
 
 rico:followsInTime a owl:ObjectProperty .
 
@@ -39,7 +38,7 @@ rico:hasSender a owl:ObjectProperty .
 
 rico:hasUnitOfMeasurement a owl:ObjectProperty .
 
-rico:identifier a owl:DatatypeProperty .
+rico:identifier a owl:ObjectProperty .
 
 rico:isAssociatedWithEvent a owl:ObjectProperty .
 
@@ -51,15 +50,15 @@ rico:isOrWasRegulatedBy a owl:ObjectProperty .
 
 rico:isOrWasUnderAuthorityOf a owl:ObjectProperty .
 
-rico:name a owl:DatatypeProperty .
+rico:name a owl:ObjectProperty .
 
-rico:normalizedDateValue a owl:DatatypeProperty .
+rico:normalizedDateValue a owl:ObjectProperty .
 
 rico:occurredAtDate a owl:ObjectProperty .
 
-rico:quantity a owl:DatatypeProperty .
+rico:quantity a owl:ObjectProperty .
 
-rico:scopeAndContent a owl:DatatypeProperty .
+rico:scopeAndContent a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
@@ -83,7 +82,22 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rico:isAssociatedWithEvent :Covid-19 ;
     rico:isAssociatedWithPlace :Norge ;
     rico:isOrWasUnderAuthorityOf :Arkivverket ;
-    rico:scopeAndContent "Dokumentasjon knyttet til kommisjonens møter (innkallinger, referater, oppsummeringsnotater), informasjon som kommisjonen har innhentet fra forvaltningen, gjennom innspill og intervjuer (stort volum), eksterne utredninger, rapporten med forarbeider, dokumentasjon knyttet til innsynsforespørsler. Administrasjon og økonomi ble håndtert av Statsministerens kontor." .
+    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Dokumentasjon%20Knyttet%20Til%20Kommisjonens%20Møter%20%28innkallinger%2C%20Referater%2C%20Oppsummeringsnotater%29%2C%20Informasjon%20Som%20Kommisjonen%20Har%20Innhentet%20Fra%20Forvaltningen%2C%20Gjennom%20Innspill%20Og%20Intervjuer%20%28stort%20Volum%29%2C%20Eksterne%20Utredninger%2C%20Rapporten%20Med%20Forarbeider%2C%20Dokumentasjon%20Knyttet%20Til%20Innsynsforespørsler.%20Administrasjon%20Og%20Økonomi%20Ble%20Håndtert%20Av%20Statsministerens%20Kontor.> .
+
+<https://forvaltningsdatabasen.sikt.no/data/enhet/55009> a owl:NamedIndividual ;
+    rdfs:label "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" .
+
+:131070863360 a owl:NamedIndividual ;
+    rdfs:label "131070863360" .
+
+:2020-04-24 a owl:NamedIndividual ;
+    rdfs:label "2020-04-24" .
+
+:2022-05-06 a owl:NamedIndividual ;
+    rdfs:label "2022-05-06" .
+
+:96e28e3a-94fd-49e9-af7c-be6c8f60c141 a owl:NamedIndividual ;
+    rdfs:label "96e28e3a-94fd-49e9-af7c-be6c8f60c141" .
 
 :Bytes a owl:NamedIndividual,
         rico:UnitOfMeasurement ;
@@ -96,6 +110,9 @@ rico:scopeAndContent a owl:DatatypeProperty .
 :Covid-19 a owl:NamedIndividual,
         rico:Event ;
     rdfs:label "Covid-19" .
+
+<ontology://generated-from-draw-io/mock#Dokumentasjon%20Knyttet%20Til%20Kommisjonens%20Møter%20%28innkallinger%2C%20Referater%2C%20Oppsummeringsnotater%29%2C%20Informasjon%20Som%20Kommisjonen%20Har%20Innhentet%20Fra%20Forvaltningen%2C%20Gjennom%20Innspill%20Og%20Intervjuer%20%28stort%20Volum%29%2C%20Eksterne%20Utredninger%2C%20Rapporten%20Med%20Forarbeider%2C%20Dokumentasjon%20Knyttet%20Til%20Innsynsforespørsler.%20Administrasjon%20Og%20Økonomi%20Ble%20Håndtert%20Av%20Statsministerens%20Kontor.> a owl:NamedIndividual ;
+    rdfs:label "Dokumentasjon knyttet til kommisjonens møter (innkallinger, referater, oppsummeringsnotater), informasjon som kommisjonen har innhentet fra forvaltningen, gjennom innspill og intervjuer (stort volum), eksterne utredninger, rapporten med forarbeider, dokumentasjon knyttet til innsynsforespørsler. Administrasjon og økonomi ble håndtert av Statsministerens kontor." .
 
 :FileSize a owl:NamedIndividual,
         rico:ExtentType ;
@@ -115,7 +132,7 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:Identifier ;
     rdfs:label "Koronakommisjonen Dokumentasjon Storage ID" ;
     rico:hasIdentifierType :Storage%20ID ;
-    rico:identifier "96e28e3a-94fd-49e9-af7c-be6c8f60c141" .
+    rico:identifier :96e28e3a-94fd-49e9-af7c-be6c8f60c141 .
 
 :Koronakommisjonen%20Dokumentasjon%20Stored%20Instantiation a owl:NamedIndividual,
         rico:Instantiation ;
@@ -128,7 +145,10 @@ rico:scopeAndContent a owl:DatatypeProperty .
     rdfs:label "Koronakommisjonen Dokumentasjon Tar File Size" ;
     rico:hasExtentType :FileSize ;
     rico:hasUnitOfMeasurement :Bytes ;
-    rico:quantity 131070863360 .
+    rico:quantity :131070863360 .
+
+:National%20Archives%20Of%20Norway a owl:NamedIndividual ;
+    rdfs:label "National Archives of Norway" .
 
 :Norsk%20Bokmål a owl:NamedIndividual,
         rico:Language ;
@@ -146,7 +166,7 @@ rico:scopeAndContent a owl:DatatypeProperty .
 :Closing%20Of%20Koronakommisjonen a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "Closing of Koronakommisjonen" ;
-    rico:normalizedDateValue "2022-05-06"^^xsd:date .
+    rico:normalizedDateValue :2022-05-06 .
 
 :Koronakommisjonen a owl:NamedIndividual,
         rico:AgentName,
@@ -165,11 +185,11 @@ rico:scopeAndContent a owl:DatatypeProperty .
         rico:AgentName,
         rico:CorporateBody ;
     rdfs:label "Arkivverket" ;
-    rdfs:isDefinedBy "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" ;
-    rico:name "National Archives of Norway" .
+    rdfs:isDefinedBy <https://forvaltningsdatabasen.sikt.no/data/enhet/55009> ;
+    rico:name :National%20Archives%20Of%20Norway .
 
 :Initiation%20Of%20Koronakommisjonen a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "Initiation of Koronakommisjonen" ;
-    rico:normalizedDateValue "2020-04-24"^^xsd:date .
+    rico:normalizedDateValue :2020-04-24 .
 

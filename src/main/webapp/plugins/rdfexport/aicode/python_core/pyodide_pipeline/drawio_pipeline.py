@@ -91,7 +91,7 @@ def _default_parser_config() -> dict[str, Any]:
         "mint_from_literals": True,
         "mint_from_types": False,
         "mint_from_arrows": True,
-        "literal_definitions": None,  # None triggers DEFAULT_LITERAL_DEFINITIONS in normalizer
+        "literal_definitions": [],  # Empty by default - treat all text as individuals (backward compatible)
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,

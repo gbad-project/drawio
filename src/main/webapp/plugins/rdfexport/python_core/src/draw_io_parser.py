@@ -190,10 +190,7 @@ class pipeline:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
                         self._strip_html = bool(strip_html)
-                        if literal_definitions is None:
-                            self._literal_definitions = self.DEFAULT_LITERAL_DEFINITIONS
-                        else:
-                            self._literal_definitions = literal_definitions
+                        self._literal_definitions = literal_definitions
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_value_cache: dict[str, list[str]] = {}
@@ -828,10 +825,22 @@ class pipeline:
                         return False
 
                     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
-                        """Check if cell matches any literal definition."""
-                        if not self._literal_definitions:
-                            return False
-                        for definition in self._literal_definitions:
+                        """Check if cell matches any literal definition.
+
+                        - None: Use DEFAULT_LITERAL_DEFINITIONS
+                        - []: Return True (treat everything as literal)
+                        - [...]: Use provided definitions
+                        """
+                        if self._literal_definitions is None:
+                            definitions_to_use = self.DEFAULT_LITERAL_DEFINITIONS
+                        elif (
+                            isinstance(self._literal_definitions, list)
+                            and len(self._literal_definitions) == 0
+                        ):
+                            return True
+                        else:
+                            definitions_to_use = self._literal_definitions
+                        for definition in definitions_to_use:
                             attr_name = definition.get("key", "")
                             pattern = definition.get("value", "")
                             if not attr_name or not pattern:

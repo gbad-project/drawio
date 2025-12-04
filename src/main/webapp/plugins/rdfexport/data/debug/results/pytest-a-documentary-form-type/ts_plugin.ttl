@@ -1,58 +1,24 @@
 @base <ontology://generated-from-draw-io/mock> .
-@prefix : <ontology://generated-from-draw-io/mock#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-skos:broader a owl:NamedIndividual ;
-    rdfs:label "skos:broader" .
-
-skos:closeMatch a owl:NamedIndividual ;
-    rdfs:label "skos:closeMatch" .
-
-skos:inScheme a owl:NamedIndividual ;
-    rdfs:label "skos:inScheme" .
-
-rico:hasDocumentaryFormType a owl:NamedIndividual ;
-    rdfs:label "rico:hasDocumentaryFormType" .
-
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
-
-<ontology://generated-from-draw-io/mock#%22C.T.%20104%22%2C%20Tirage%20Numéroté%20%221K%22%20RiC-E04%20Record> a owl:NamedIndividual ;
-    rdfs:label "\"C.T. 104\", tirage numéroté \"1K\" RiC-E04 Record" .
-
-:Document%20%22graphique%22%20Rico%3ADocumentaryFormType%20Skos%3AConcept a owl:NamedIndividual ;
-    rdfs:label "document \"graphique\" rico:DocumentaryFormType skos:Concept" .
-
-:Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License a owl:NamedIndividual ;
-    rdfs:label "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License" .
-
-:Document%20Photographique%20Rico%3ADocumentaryFormType%20Skos%3AConcept a owl:NamedIndividual ;
-    rdfs:label "Document photographique  rico:DocumentaryFormType  skos:Concept" .
-
-:Document%20Photographique%20Skos%3AConcept a owl:NamedIndividual ;
-    rdfs:label "Document photographique  skos:Concept" .
-
-:Exemple%20D%27utilisation%20D%27un%20Type%20De%20Document%20%28rico%3ADocumentaryFormType%29%2C%20Ici%20Défini%20Comme%20Étant%20Également%20Un%20Concept%20SKOS%20Dans%20Le%20Référentiel%20Des%20Types%20De%20Documents%20Des%20Archives%20Nationales a owl:NamedIndividual ;
-    rdfs:label "Exemple d'utilisation d'un type de document (rico:DocumentaryFormType),   ici défini comme étant également un concept SKOS dans le référentiel des types de documents des Archives nationales" .
-
-<ontology://generated-from-draw-io/mock#Les%20Relations%20RiC-O%20Sont%20Présentées%20Uniquement%20Dans%20Un%20Sens%20%28les%20Relations%20Inverses%20Existent%20Mais%20Ne%20Figurent%20Pas%20Dans%20Le%20Diagramme%29.%20Le%20Préfixe%20Rico%3A%20Indique%20Que%20Le%20Composant%20%28classe%20Ou%20Propriété%29%20N%27existe%20Que%20Dans%20RiC-O.%20Lorsqu%27il%20N%27y%20A%20Pas%20De%20Préfixe%2C%20Le%20Composant%20Existe%20Dans%20RiC-CM%20Et%20Dans%20RiC-O.> a owl:NamedIndividual ;
-    rdfs:label "Les relations RiC-O sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O." .
-
-:Liste%20D%27autorité%20Typologie%20Documentaire%20Pour%20L%27indexation%20Des%20Archives%20Locales%20Du%20SIAF%20Skos%3AConceptScheme a owl:NamedIndividual ;
-    rdfs:label "Liste d'autorité Typologie documentaire pour l'indexation des archives locales du SIAF skos:ConceptScheme" .
-
-<ontology://generated-from-draw-io/mock#Rico%3Atitle%3A%20%22C.T.104%20%5B...%5D%22%20ConditionsOfAccess%3A%20%22...%22%20ConditionsOfUse%3A%20%22...%22%20Etc.> a owl:NamedIndividual ;
-    rdfs:label "rico:title: \"C.T.104 [...]\"   conditionsOfAccess: \"...\"  conditionsOfUse: \"...\"  etc." .
-
-<ontology://generated-from-draw-io/mock#Skos%3AprefLabel%3A%20%22...%22%20Skos%3Adefinition%3A%20%22...%22%20History%3A%20%22...%22%20Rico%3Adate%3A...> a owl:NamedIndividual ;
-    rdfs:label "skos:prefLabel: \"...\"  skos:definition: \"...\"  history: \"...\"   rico:date:..." .
-
-:Vocabulaire%20Des%20Types%20De%20Documents%20Des%20Archives%20Nationales%20Skos%3AConceptScheme a owl:NamedIndividual ;
-    rdfs:label "Vocabulaire des types de documents des Archives nationales skos:ConceptScheme" .
-
-<ontology://generated-from-draw-io/mock#©%20Archives%20Nationales%20De%20France%2C%20Février%202020> a owl:NamedIndividual ;
-    rdfs:label "© Archives nationales de France, février 2020" .
+    owl:imports rico: ;
+    skos:note "\"C.T. 104\", tirage numéroté \"1K\" RiC-E04 Record",
+        "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License",
+        "Document photographique  rico:DocumentaryFormType  skos:Concept",
+        "Document photographique  skos:Concept",
+        "Exemple d'utilisation d'un type de document (rico:DocumentaryFormType),   ici défini comme étant également un concept SKOS dans le référentiel des types de documents des Archives nationales",
+        "Les relations RiC-O sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O.",
+        "Liste d'autorité Typologie documentaire pour l'indexation des archives locales du SIAF skos:ConceptScheme",
+        "Vocabulaire des types de documents des Archives nationales skos:ConceptScheme",
+        "document \"graphique\" rico:DocumentaryFormType skos:Concept",
+        "rico:hasDocumentaryFormType",
+        "rico:title: \"C.T.104 [...]\"   conditionsOfAccess: \"...\"  conditionsOfUse: \"...\"  etc.",
+        "skos:broader",
+        "skos:closeMatch",
+        "skos:inScheme",
+        "skos:prefLabel: \"...\"  skos:definition: \"...\"  history: \"...\"   rico:date:...",
+        "© Archives nationales de France, février 2020" .
 

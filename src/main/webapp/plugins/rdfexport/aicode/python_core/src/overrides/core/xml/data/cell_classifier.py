@@ -65,11 +65,8 @@ class DrawIOCellClassifier:
         self._max_gap = coerced_gap
 
         self._strip_html = bool(strip_html)
-        # When None, use default; when [], use empty (explicit choice); otherwise use provided
-        if literal_definitions is None:
-            self._literal_definitions = self.DEFAULT_LITERAL_DEFINITIONS
-        else:
-            self._literal_definitions = literal_definitions
+        # Store as-is: None means use default, [] means no detection, list means use it
+        self._literal_definitions = literal_definitions
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_value_cache: dict[str, list[str]] = {}
@@ -722,12 +719,27 @@ class DrawIOCellClassifier:
         return False
 
     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
-        """Check if cell matches any literal definition."""
-        if not self._literal_definitions:
-            return False
+        """Check if cell matches any literal definition.
+
+        - None: Use DEFAULT_LITERAL_DEFINITIONS
+        - []: Return True (treat everything as literal)
+        - [...]: Use provided definitions
+        """
+        # Handle None - use default
+        if self._literal_definitions is None:
+            definitions_to_use = self.DEFAULT_LITERAL_DEFINITIONS
+        # Handle explicit empty list - everything is literal
+        elif (
+            isinstance(self._literal_definitions, list)
+            and len(self._literal_definitions) == 0
+        ):
+            return True
+        # Use provided definitions
+        else:
+            definitions_to_use = self._literal_definitions
 
         # Check each literal definition
-        for definition in self._literal_definitions:
+        for definition in definitions_to_use:
             attr_name = definition.get("key", "")
             pattern = definition.get("value", "")
             if not attr_name or not pattern:
