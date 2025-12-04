@@ -15378,9 +15378,9 @@
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-12": {
-          "declares_identifier": true,
-          "identifier": "\"Amberieux en Dombes\" RiC-E03 Record Set",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "\"Amberieux en Dombes\" RiC-E03 Record Set",
           "tokens": []
@@ -15466,49 +15466,49 @@
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-18": {
-          "declares_identifier": true,
-          "identifier": "FRAN_0207_0001_L RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "FRAN_0207_0001_L RiC-E06 Instantiation",
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-19": {
-          "declares_identifier": true,
-          "identifier": "\"C.T. 104\", tirage num\u00e9rot\u00e9 \"1K\" RiC-E06 Instantiation",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "\"C.T. 104\", tirage num\u00e9rot\u00e9 \"1K\" RiC-E06 Instantiation",
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-24": {
-          "declares_identifier": true,
-          "identifier": "Campagne de num\u00e9risation des tirages du fonds Lapie RiC-E14 Event",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Campagne de num\u00e9risation des tirages du fonds Lapie RiC-E14 Event",
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-26": {
-          "declares_identifier": true,
-          "identifier": "Archives nationales (France ; 1790-....) RiC-E11\u00a0 Corporate Body",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Archives nationales (France ; 1790-....) RiC-E11\u00a0 Corporate Body",
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-27": {
-          "declares_identifier": true,
-          "identifier": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-28": {
-          "declares_identifier": true,
-          "identifier": "document photographique rico:DocumentaryFormType",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "document photographique rico:DocumentaryFormType",
           "tokens": []
@@ -15610,9 +15610,9 @@
           "tokens": []
         },
         "IyzzdmPhi5apcVZSoGsH-77": {
-          "declares_identifier": true,
-          "identifier": "num\u00e9risation rico:EventType",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "num\u00e9risation rico:EventType",
           "tokens": []
@@ -15750,7 +15750,8 @@
         "by_kind": {
           "ARROW_LABEL": 14,
           "EMPTY_CELL": 13,
-          "STANDALONE_INDIVIDUAL": 30,
+          "LITERAL": 8,
+          "STANDALONE_INDIVIDUAL": 22,
           "UNCLASSIFIED": 1
         },
         "classified": 57,
@@ -15766,7 +15767,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -15779,9 +15780,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "ba0942b12f35f6a09c7d4c02176aa5acb89b9d29cbd770eb52a290c93c79b754",
+          "nt_sha256": "7b8f77fd515319e2c50dc9d12b533e75dbd9a12c0f614c8a4afb07cdfdfbdbc8",
           "path": "results/pytest-a-print-in-one-of-the-albums/ts_pipeline.ttl",
-          "triples": 52
+          "triples": 44
         },
         "ts_plugin": {
           "nt_sha256": "ba0942b12f35f6a09c7d4c02176aa5acb89b9d29cbd770eb52a290c93c79b754",
@@ -15841,25 +15842,25 @@
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-1": {
-          "declares_identifier": true,
-          "identifier": "Les applications photographiques d'industrie et d'\u00e9dition (France ; 1948-1970) RiC-E11 Corporate Body",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Les applications photographiques d'industrie et d'\u00e9dition (France ; 1948-1970) RiC-E11 Corporate Body",
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-10": {
-          "declares_identifier": true,
-          "identifier": "\"C.T. 104\",   tirage num\u00e9rot\u00e9 \"1K\"   RiC-E04 Record",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "\"C.T. 104\",   tirage num\u00e9rot\u00e9 \"1K\"   RiC-E04 Record",
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-12": {
-          "declares_identifier": true,
-          "identifier": "Album n\u00b0 2 : d\u00e9partement de l\u2019Ain, Maillat \u00e0 Villieu RiC-E03 Record Set",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Album n\u00b0 2 : d\u00e9partement de l\u2019Ain, Maillat \u00e0 Villieu RiC-E03 Record Set",
           "tokens": []
@@ -15929,25 +15930,25 @@
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-37": {
-          "declares_identifier": true,
-          "identifier": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Ain (Rh\u00f4ne-Alpes, d\u00e9partement) RiC E-22 Place",
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-38": {
-          "declares_identifier": true,
-          "identifier": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Amb\u00e9rieux-en-Dombes (Ain) RiC E-22 Place",
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-40": {
-          "declares_identifier": true,
-          "identifier": "album   rico:RecordSetType",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "album   rico:RecordSetType",
           "tokens": []
@@ -15961,9 +15962,9 @@
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-42": {
-          "declares_identifier": true,
-          "identifier": "series  rico:RecordSetType",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "series  rico:RecordSetType",
           "tokens": []
@@ -16001,17 +16002,17 @@
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-48": {
-          "declares_identifier": true,
-          "identifier": "Fonds Lapie. Inventaire des albums de tirages couleur RiC-E04 Record",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Fonds Lapie. Inventaire des albums de tirages couleur RiC-E04 Record",
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-50": {
-          "declares_identifier": true,
-          "identifier": "finding aid  rico:DocumentaryFormType",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "finding aid  rico:DocumentaryFormType",
           "tokens": []
@@ -16105,9 +16106,9 @@
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-7": {
-          "declares_identifier": true,
-          "identifier": "Fonds LAPIE.   Albums de tirages en couleur  RiC-E03 Record Set",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Fonds LAPIE.   Albums de tirages en couleur  RiC-E03 Record Set",
           "tokens": []
@@ -16177,17 +16178,17 @@
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-8": {
-          "declares_identifier": true,
-          "identifier": "Album n\u00b0 1 : d\u00e9partement de l\u2019Ain, Amb\u00e9rieux-en-Dombes \u00e0 Loyettes RiC-E03 Record Set",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Album n\u00b0 1 : d\u00e9partement de l\u2019Ain, Amb\u00e9rieux-en-Dombes \u00e0 Loyettes RiC-E03 Record Set",
           "tokens": []
         },
         "Sj5iYcF8Cp8elQWM3jrW-9": {
-          "declares_identifier": true,
-          "identifier": "\"Amberieux en Dombes\" RiC-E03 Record Set",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "\"Amberieux en Dombes\" RiC-E03 Record Set",
           "tokens": []
@@ -16197,7 +16198,8 @@
         "by_kind": {
           "ARROW_LABEL": 13,
           "EMPTY_CELL": 6,
-          "STANDALONE_INDIVIDUAL": 30,
+          "LITERAL": 12,
+          "STANDALONE_INDIVIDUAL": 18,
           "UNCLASSIFIED": 1
         },
         "classified": 49,
@@ -16213,7 +16215,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -16226,9 +16228,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "17a01167f6dfd6f711b66330572575b45b132f2fe16c75a4cab707df2439bc50",
+          "nt_sha256": "dacce6aa0fe5a900da1f4540030de79c6f8bd69433d505ef502739030dacd168",
           "path": "results/pytest-a-series-of-albums-of-aerial-photographs/ts_pipeline.ttl",
-          "triples": 52
+          "triples": 40
         },
         "ts_plugin": {
           "nt_sha256": "17a01167f6dfd6f711b66330572575b45b132f2fe16c75a4cab707df2439bc50",
@@ -26019,9 +26021,9 @@
           "tokens": []
         },
         "On-IGJfv3keSQFxOHEyV-13": {
-          "declares_identifier": true,
-          "identifier": "s",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "s",
           "tokens": []
@@ -26099,9 +26101,9 @@
           "tokens": []
         },
         "UcCrenY-iUhaEQc2V4wD-1": {
-          "declares_identifier": true,
-          "identifier": "RiC-E22 \u00a0 \u00a0Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "RiC-E22 \u00a0 \u00a0Place",
           "tokens": []
@@ -26487,7 +26489,8 @@
         "by_kind": {
           "ARROW_LABEL": 9,
           "EMPTY_CELL": 18,
-          "STANDALONE_INDIVIDUAL": 40,
+          "LITERAL": 2,
+          "STANDALONE_INDIVIDUAL": 38,
           "UNCLASSIFIED": 2
         },
         "classified": 67,
@@ -26499,7 +26502,7 @@
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": false,
         "py_legacy_vs_ts_plugin": false,
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -26517,9 +26520,9 @@
           "triples": 17
         },
         "ts_pipeline": {
-          "nt_sha256": "1f7cd4d969c0d3bdf12495d66eb74fd60f4ebc2ff15bd1d1558c1580afc99c3c",
+          "nt_sha256": "248ae9a9c69c7354b78af4fd1bc190bd1a33b446303b6eb985f531d4689585f7",
           "path": "results/pytest-diagram-ric-cm-overview-ric-v1-0/ts_pipeline.ttl",
-          "triples": 75
+          "triples": 73
         },
         "ts_plugin": {
           "nt_sha256": "1f7cd4d969c0d3bdf12495d66eb74fd60f4ebc2ff15bd1d1558c1580afc99c3c",
@@ -26559,12 +26562,10 @@
         "1A0G8ZLAgEQqYRMOYkc0-11": {
           "declares_identifier": false,
           "identifier": null,
-          "kind": "TYPE_TOKEN",
-          "parent_identifier": "Mindmap",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "#Topic",
-          "tokens": [
-            "#Topic"
-          ]
+          "tokens": []
         },
         "1A0G8ZLAgEQqYRMOYkc0-12": {
           "declares_identifier": false,
@@ -26579,12 +26580,10 @@
         "1A0G8ZLAgEQqYRMOYkc0-13": {
           "declares_identifier": false,
           "identifier": null,
-          "kind": "TYPE_TOKEN",
-          "parent_identifier": "Mindmap",
+          "kind": "LITERAL",
+          "parent_identifier": null,
           "raw_value": "#Topic",
-          "tokens": [
-            "#Topic"
-          ]
+          "tokens": []
         },
         "1A0G8ZLAgEQqYRMOYkc0-14": {
           "declares_identifier": false,
@@ -26733,9 +26732,9 @@
           "tokens": []
         },
         "On-IGJfv3keSQFxOHEyV-13": {
-          "declares_identifier": true,
-          "identifier": "s",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "s",
           "tokens": []
@@ -26813,9 +26812,9 @@
           "tokens": []
         },
         "UcCrenY-iUhaEQc2V4wD-1": {
-          "declares_identifier": true,
-          "identifier": "RiC-E22 \u00a0 \u00a0Place",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "RiC-E22 \u00a0 \u00a0Place",
           "tokens": []
@@ -26885,9 +26884,9 @@
           "tokens": []
         },
         "UcQS8esZ7ZSET3L0_5rP-1": {
-          "declares_identifier": true,
-          "identifier": "Heading Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Heading Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           "tokens": []
@@ -27242,8 +27241,9 @@
           "ARROW_LABEL": 15,
           "EMPTY_CELL": 19,
           "LAYER": 1,
-          "STANDALONE_INDIVIDUAL": 46,
-          "TYPE_TOKEN": 5,
+          "LITERAL": 5,
+          "STANDALONE_INDIVIDUAL": 43,
+          "TYPE_TOKEN": 3,
           "UNCLASSIFIED": 1
         },
         "classified": 86,
@@ -27259,7 +27259,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -27272,9 +27272,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "345ff9e30cbaba8d36152f646259a6cc1ddb4476ee2371ff936285791787fb3a",
+          "nt_sha256": "6e22ee95ea02f85e56e1d7d1c4e03cc8402ad55df5f55e5bbde47572e870bc94",
           "path": "results/pytest-diagram-ric-cm-overview-ric-v1-0-cursed/ts_pipeline.ttl",
-          "triples": 92
+          "triples": 88
         },
         "ts_plugin": {
           "nt_sha256": "345ff9e30cbaba8d36152f646259a6cc1ddb4476ee2371ff936285791787fb3a",
@@ -43669,9 +43669,9 @@
           "tokens": []
         },
         "3fLlHfyGAeuBOlRW-uyx-26": {
-          "declares_identifier": true,
-          "identifier": "d6ef5d07-8b2e-4d7b-9590-a70381765c9a",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "d6ef5d07-8b2e-4d7b-9590-a70381765c9a",
           "tokens": []
@@ -43747,9 +43747,9 @@
           "tokens": []
         },
         "3fLlHfyGAeuBOlRW-uyx-36": {
-          "declares_identifier": true,
-          "identifier": "3676160",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "3676160",
           "tokens": []
@@ -43779,9 +43779,9 @@
           "tokens": []
         },
         "7nN3YjujJQOfU681Miou-10": {
-          "declares_identifier": true,
-          "identifier": "30",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "30",
           "tokens": []
@@ -43813,9 +43813,9 @@
           ]
         },
         "7nN3YjujJQOfU681Miou-14": {
-          "declares_identifier": true,
-          "identifier": "1945",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "1945",
           "tokens": []
@@ -43855,9 +43855,9 @@
           ]
         },
         "7nN3YjujJQOfU681Miou-19": {
-          "declares_identifier": true,
-          "identifier": "1940",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "1940",
           "tokens": []
@@ -43985,9 +43985,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-12": {
-          "declares_identifier": true,
-          "identifier": "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har g\u00e5tt systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan v\u00e6re til nytte for andre forskere og studenter som skal arbeidet med dette tyskspr\u00e5klige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og best\u00e5r av 105 word-filer (pdf'er).",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har g\u00e5tt systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan v\u00e6re til nytte for andre forskere og studenter som skal arbeidet med dette tyskspr\u00e5klige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og best\u00e5r av 105 word-filer (pdf'er).",
           "tokens": []
@@ -44191,9 +44191,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-39": {
-          "declares_identifier": true,
-          "identifier": "National Archives of Norway",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "National Archives of Norway",
           "tokens": []
@@ -44207,9 +44207,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-41": {
-          "declares_identifier": true,
-          "identifier": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
           "tokens": []
@@ -44275,9 +44275,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-52": {
-          "declares_identifier": true,
-          "identifier": "2018-08-05",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2018-08-05",
           "tokens": []
@@ -44291,9 +44291,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-55": {
-          "declares_identifier": true,
-          "identifier": "2021-11-23",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2021-11-23",
           "tokens": []
@@ -44365,9 +44365,9 @@
           "tokens": []
         },
         "mxBBHEK_cXtyoJtayE4t-18": {
-          "declares_identifier": true,
-          "identifier": "Et arkiv p\u00e5 om lag 30 hm som ble skapt av tyske milit\u00e6re som var internert i Norge etter krigens slutt. Under alliert kommando m\u00e5tte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden v\u00e5ren 1945 til ut i 1947.     Arkivet var i mange \u00e5r v\u00e6rt sv\u00e6rt lite tilgjengelig for bruk inntil Arkivverket i \u00e5rene 2016-19 gjennomgikk det og registrerte det i katalog.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Et arkiv p\u00e5 om lag 30 hm som ble skapt av tyske milit\u00e6re som var internert i Norge etter krigens slutt. Under alliert kommando m\u00e5tte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden v\u00e5ren 1945 til ut i 1947.     Arkivet var i mange \u00e5r v\u00e6rt sv\u00e6rt lite tilgjengelig for bruk inntil Arkivverket i \u00e5rene 2016-19 gjennomgikk det og registrerte det i katalog.",
           "tokens": []
@@ -44508,7 +44508,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 43,
-          "STANDALONE_INDIVIDUAL": 38,
+          "LITERAL": 11,
+          "STANDALONE_INDIVIDUAL": 27,
           "TYPE_TOKEN": 30,
           "UNCLASSIFIED": 2
         },
@@ -44525,7 +44526,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -44538,9 +44539,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "70417de06061ad177f21cac3a0304aa7504e0343a6b7049ffcdfbfb0cac83b49",
+          "nt_sha256": "e3c00593da8a7c2d0d673f8a66299c39dc86dc8e808346a68059c555457cecf6",
           "path": "results/pytest-knut-olborgs-forskningsnotater/ts_pipeline.ttl",
-          "triples": 178
+          "triples": 156
         },
         "ts_plugin": {
           "nt_sha256": "70417de06061ad177f21cac3a0304aa7504e0343a6b7049ffcdfbfb0cac83b49",
@@ -44706,9 +44707,9 @@
           "tokens": []
         },
         "3fLlHfyGAeuBOlRW-uyx-26": {
-          "declares_identifier": true,
-          "identifier": "96e28e3a-94fd-49e9-af7c-be6c8f60c141",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "96e28e3a-94fd-49e9-af7c-be6c8f60c141",
           "tokens": []
@@ -44784,9 +44785,9 @@
           "tokens": []
         },
         "3fLlHfyGAeuBOlRW-uyx-36": {
-          "declares_identifier": true,
-          "identifier": "131070863360",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "131070863360",
           "tokens": []
@@ -44878,9 +44879,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-12": {
-          "declares_identifier": true,
-          "identifier": "Dokumentasjon knyttet til kommisjonens m\u00f8ter (innkallinger, referater, oppsummeringsnotater), informasjon som kommisjonen har innhentet fra forvaltningen, gjennom innspill og intervjuer (stort volum), eksterne utredninger, rapporten med forarbeider, dokumentasjon knyttet til innsynsforesp\u00f8rsler. Administrasjon og \u00f8konomi ble h\u00e5ndtert av Statsministerens kontor.",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Dokumentasjon knyttet til kommisjonens m\u00f8ter (innkallinger, referater, oppsummeringsnotater), informasjon som kommisjonen har innhentet fra forvaltningen, gjennom innspill og intervjuer (stort volum), eksterne utredninger, rapporten med forarbeider, dokumentasjon knyttet til innsynsforesp\u00f8rsler. Administrasjon og \u00f8konomi ble h\u00e5ndtert av Statsministerens kontor.",
           "tokens": []
@@ -45084,9 +45085,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-39": {
-          "declares_identifier": true,
-          "identifier": "National Archives of Norway",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "National Archives of Norway",
           "tokens": []
@@ -45100,9 +45101,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-41": {
-          "declares_identifier": true,
-          "identifier": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "https://forvaltningsdatabasen.sikt.no/data/enhet/55009",
           "tokens": []
@@ -45184,9 +45185,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-52": {
-          "declares_identifier": true,
-          "identifier": "2020-04-24",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2020-04-24",
           "tokens": []
@@ -45200,9 +45201,9 @@
           "tokens": []
         },
         "czsqDPXMuQd4v_eErH3M-55": {
-          "declares_identifier": true,
-          "identifier": "2022-05-06",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "2022-05-06",
           "tokens": []
@@ -45237,7 +45238,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 31,
-          "STANDALONE_INDIVIDUAL": 26,
+          "LITERAL": 7,
+          "STANDALONE_INDIVIDUAL": 19,
           "TYPE_TOKEN": 21,
           "UNCLASSIFIED": 2
         },
@@ -45254,7 +45256,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -45267,9 +45269,9 @@
       "preamble": [],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "ec069337167836c781ad6f784387d2aa39320dd27ad32c22e9c9490d9b51d092",
+          "nt_sha256": "3682a2970b02daa9c7e65362bee26aabd5b60a729d2b16a902d494b16260464a",
           "path": "results/pytest-koronakommisjonen/ts_pipeline.ttl",
-          "triples": 134
+          "triples": 120
         },
         "ts_plugin": {
           "nt_sha256": "ec069337167836c781ad6f784387d2aa39320dd27ad32c22e9c9490d9b51d092",
@@ -45595,9 +45597,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-13": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -45619,9 +45621,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-16": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -45643,9 +45645,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-19": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -45667,9 +45669,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-25": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\"",
           "tokens": []
@@ -45691,9 +45693,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-5": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -45715,9 +45717,9 @@
           "tokens": []
         },
         "3gA3fmld-IYxpeRIXyl3-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"LEVELDES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"LEVELDES\"",
           "tokens": []
@@ -45739,17 +45741,17 @@
           "tokens": []
         },
         "CqqkDmUT1u8SLOdHSZvS-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"CMTD\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTD\"",
           "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"FCODES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"FCODES\"",
           "tokens": []
@@ -45839,9 +45841,9 @@
           "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-55": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"DATEACM\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATEACM\"",
           "tokens": []
@@ -45981,17 +45983,17 @@
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-21": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"CUSTOD\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"CUSTOD\"",
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-24": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"ISA\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"ISA\"",
           "tokens": []
@@ -46045,9 +46047,9 @@
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-45": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"PHDESC\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHDESC\"",
           "tokens": []
@@ -46069,25 +46071,25 @@
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"AVAIL\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"AVAIL\"",
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-4": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"RELMAT\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"RELMAT\"",
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ASSMAT\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ASSMAT\"",
           "tokens": []
@@ -46261,9 +46263,9 @@
           "tokens": []
         },
         "Uwzefx5BK_WfCsw-JH24-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"HIDDENNOTES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"HIDDENNOTES\"",
           "tokens": []
@@ -46285,9 +46287,9 @@
           "tokens": []
         },
         "Uwzefx5BK_WfCsw-JH24-4": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"REST\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"REST\"",
           "tokens": []
@@ -46351,9 +46353,9 @@
           "tokens": []
         },
         "YGqFNZoWXpBRJY-Ts6mn-11": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"MODDATE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"MODDATE\"",
           "tokens": []
@@ -46417,9 +46419,9 @@
           "tokens": []
         },
         "hDRFmwmGqqun0fTEbF33-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"DATECR\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATECR\"",
           "tokens": []
@@ -46689,9 +46691,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-12": {
-          "declares_identifier": true,
-          "identifier": "rr:template  \"{GMD_1..8}\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"{GMD_1..8}\"",
           "tokens": []
@@ -46739,9 +46741,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-3": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{DATEOFF_1..20}\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{DATEOFF_1..20}\"",
           "tokens": []
@@ -46763,9 +46765,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-6": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
           "tokens": []
@@ -46787,9 +46789,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-9": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
           "tokens": []
@@ -46811,9 +46813,9 @@
           "tokens": []
         },
         "qJwiYtpHSBwsKD2Hf-6o-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ADMBIO\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADMBIO\"",
           "tokens": []
@@ -46827,9 +46829,9 @@
           "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-11": {
-          "declares_identifier": true,
-          "identifier": "rml:reference   \"SCOPE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference   \"SCOPE\"",
           "tokens": []
@@ -46929,9 +46931,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"RESTRTX\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"RESTRTX\"",
           "tokens": []
@@ -46953,9 +46955,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-6": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"TGU\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"TGU\"",
           "tokens": []
@@ -46977,9 +46979,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-9": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"FINDAID\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"FINDAID\"",
           "tokens": []
@@ -47001,9 +47003,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--13": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ACCRUAL\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ACCRUAL\"",
           "tokens": []
@@ -47025,9 +47027,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--16": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"NOTES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"NOTES\"",
           "tokens": []
@@ -47049,9 +47051,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--19": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"PHYSCO\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHYSCO\"",
           "tokens": []
@@ -47073,9 +47075,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--22": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"HOWTO\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"HOWTO\"",
           "tokens": []
@@ -47288,7 +47290,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 116,
-          "STANDALONE_INDIVIDUAL": 61,
+          "LITERAL": 32,
+          "STANDALONE_INDIVIDUAL": 29,
           "TYPE_TOKEN": 29,
           "UNCLASSIFIED": 2
         },
@@ -47370,9 +47373,9 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-28": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"SOURCE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"SOURCE\"",
           "tokens": []
@@ -47886,9 +47889,9 @@
           ]
         },
         "QoX8hO-0wcaPtYNZqJav-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"FUN\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"FUN\"",
           "tokens": []
@@ -48006,9 +48009,9 @@
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-16": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Family)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Family)\"",
           "tokens": []
@@ -48030,9 +48033,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-19": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Person)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Person)\"",
           "tokens": []
@@ -48064,9 +48067,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-22": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Place)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Place)\"",
           "tokens": []
@@ -48088,9 +48091,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-25": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -48112,9 +48115,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-28": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -48136,9 +48139,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-31": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -48160,9 +48163,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-4": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -48232,9 +48235,9 @@
           "tokens": []
         },
         "_-RjwaxhbeTWfwVWe4ke-15": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ADM\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADM\"",
           "tokens": []
@@ -48266,9 +48269,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"CMTAU\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTAU\"",
           "tokens": []
@@ -48306,9 +48309,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-6": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"MOD_DATE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"MOD_DATE\"",
           "tokens": []
@@ -48338,9 +48341,9 @@
           "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-12": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"NAME\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"NAME\"",
           "tokens": []
@@ -48610,9 +48613,9 @@
           "tokens": []
         },
         "lstVy3rX84DfsURla7Zy-32": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"REFA\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"REFA\"",
           "tokens": []
@@ -48634,9 +48637,9 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-11": {
-          "declares_identifier": true,
-          "identifier": "Rules for Archival Description",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": []
@@ -48668,17 +48671,17 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"RULES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"RULES\"",
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-6": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
           "tokens": []
@@ -48712,7 +48715,8 @@
         "by_kind": {
           "ARROW_LABEL": 86,
           "EMPTY_CELL": 1,
-          "STANDALONE_INDIVIDUAL": 46,
+          "LITERAL": 17,
+          "STANDALONE_INDIVIDUAL": 29,
           "TYPE_TOKEN": 29,
           "UNCLASSIFIED": 2
         },
@@ -48794,9 +48798,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-13": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -48818,9 +48822,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-16": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -48842,9 +48846,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-19": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -48866,9 +48870,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-25": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)\"",
           "tokens": []
@@ -48890,9 +48894,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-5": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Record Set)\"",
           "tokens": []
@@ -48914,9 +48918,9 @@
           "tokens": []
         },
         "3gA3fmld-IYxpeRIXyl3-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"LEVELDES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"LEVELDES\"",
           "tokens": []
@@ -48938,17 +48942,17 @@
           "tokens": []
         },
         "CqqkDmUT1u8SLOdHSZvS-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"CMTD\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTD\"",
           "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"FCODES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"FCODES\"",
           "tokens": []
@@ -49038,9 +49042,9 @@
           "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-55": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"DATEACM\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATEACM\"",
           "tokens": []
@@ -49180,17 +49184,17 @@
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-21": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"CUSTOD\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"CUSTOD\"",
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-24": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"ISA\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"ISA\"",
           "tokens": []
@@ -49244,9 +49248,9 @@
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-45": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"PHDESC\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHDESC\"",
           "tokens": []
@@ -49268,25 +49272,25 @@
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"AVAIL\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"AVAIL\"",
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-4": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"RELMAT\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"RELMAT\"",
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ASSMAT\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ASSMAT\"",
           "tokens": []
@@ -49460,9 +49464,9 @@
           "tokens": []
         },
         "Uwzefx5BK_WfCsw-JH24-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"HIDDENNOTES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"HIDDENNOTES\"",
           "tokens": []
@@ -49484,9 +49488,9 @@
           "tokens": []
         },
         "Uwzefx5BK_WfCsw-JH24-4": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"REST\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"REST\"",
           "tokens": []
@@ -49550,9 +49554,9 @@
           "tokens": []
         },
         "YGqFNZoWXpBRJY-Ts6mn-11": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"MODDATE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"MODDATE\"",
           "tokens": []
@@ -49616,9 +49620,9 @@
           "tokens": []
         },
         "hDRFmwmGqqun0fTEbF33-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"DATECR\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"DATECR\"",
           "tokens": []
@@ -49888,9 +49892,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-12": {
-          "declares_identifier": true,
-          "identifier": "rr:template  \"{GMD_1..8}\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template  \"{GMD_1..8}\"",
           "tokens": []
@@ -49938,9 +49942,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-3": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{DATEOFF_1..20}\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{DATEOFF_1..20}\"",
           "tokens": []
@@ -49962,9 +49966,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-6": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID_INSTANTIATION_1}>\"",
           "tokens": []
@@ -49986,9 +49990,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-9": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{TITLE} -\u00a0{OFFICEABC_1..20} (Creation Relation). Context: <urn:uuid:{UUID_OFFICEABC}>\"",
           "tokens": []
@@ -50010,9 +50014,9 @@
           "tokens": []
         },
         "qJwiYtpHSBwsKD2Hf-6o-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ADMBIO\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADMBIO\"",
           "tokens": []
@@ -50026,9 +50030,9 @@
           "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-11": {
-          "declares_identifier": true,
-          "identifier": "rml:reference   \"SCOPE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference   \"SCOPE\"",
           "tokens": []
@@ -50128,9 +50132,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-3": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"RESTRTX\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"RESTRTX\"",
           "tokens": []
@@ -50152,9 +50156,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-6": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"TGU\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"TGU\"",
           "tokens": []
@@ -50176,9 +50180,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-9": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"FINDAID\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"FINDAID\"",
           "tokens": []
@@ -50200,9 +50204,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--13": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ACCRUAL\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ACCRUAL\"",
           "tokens": []
@@ -50224,9 +50228,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--16": {
-          "declares_identifier": true,
-          "identifier": "rml:reference  \"NOTES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference  \"NOTES\"",
           "tokens": []
@@ -50248,9 +50252,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--19": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"PHYSCO\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"PHYSCO\"",
           "tokens": []
@@ -50272,9 +50276,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--22": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"HOWTO\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"HOWTO\"",
           "tokens": []
@@ -50487,7 +50491,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 116,
-          "STANDALONE_INDIVIDUAL": 61,
+          "LITERAL": 32,
+          "STANDALONE_INDIVIDUAL": 29,
           "TYPE_TOKEN": 29,
           "UNCLASSIFIED": 2
         },
@@ -50569,9 +50574,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-13": {
-          "declares_identifier": true,
-          "identifier": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": []
@@ -50593,9 +50598,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-16": {
-          "declares_identifier": true,
-          "identifier": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": []
@@ -50617,9 +50622,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-19": {
-          "declares_identifier": true,
-          "identifier": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": []
@@ -50641,9 +50646,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-25": {
-          "declares_identifier": true,
-          "identifier": "{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Archival Description Record)",
           "tokens": []
@@ -50665,9 +50670,9 @@
           "tokens": []
         },
         "1HVjy-BaL8XtYFnHSrnf-5": {
-          "declares_identifier": true,
-          "identifier": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Record Set)",
           "tokens": []
@@ -50689,9 +50694,9 @@
           "tokens": []
         },
         "3gA3fmld-IYxpeRIXyl3-5": {
-          "declares_identifier": true,
-          "identifier": "{LEVELDES}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{LEVELDES}",
           "tokens": []
@@ -50713,17 +50718,17 @@
           "tokens": []
         },
         "CqqkDmUT1u8SLOdHSZvS-5": {
-          "declares_identifier": true,
-          "identifier": "{CMTD}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CMTD}",
           "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-1": {
-          "declares_identifier": true,
-          "identifier": "{FCODES}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{FCODES}",
           "tokens": []
@@ -50813,9 +50818,9 @@
           "tokens": []
         },
         "EzCOlmovBxoPGXJnYbDV-55": {
-          "declares_identifier": true,
-          "identifier": "{DATEACM}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{DATEACM}",
           "tokens": []
@@ -50955,17 +50960,17 @@
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-21": {
-          "declares_identifier": true,
-          "identifier": "{CUSTOD}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CUSTOD}",
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-24": {
-          "declares_identifier": true,
-          "identifier": "{ISA}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{ISA}",
           "tokens": []
@@ -51019,9 +51024,9 @@
           "tokens": []
         },
         "K4QZWATomJR9_dxTVFmW-45": {
-          "declares_identifier": true,
-          "identifier": "{PHDESC}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{PHDESC}",
           "tokens": []
@@ -51043,25 +51048,25 @@
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-3": {
-          "declares_identifier": true,
-          "identifier": "{AVAIL}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{AVAIL}",
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-4": {
-          "declares_identifier": true,
-          "identifier": "{RELMAT}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{RELMAT}",
           "tokens": []
         },
         "NtwbBurvTleTFVB1CDUG-5": {
-          "declares_identifier": true,
-          "identifier": "{ASSMAT}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{ASSMAT}",
           "tokens": []
@@ -51235,9 +51240,9 @@
           "tokens": []
         },
         "Uwzefx5BK_WfCsw-JH24-1": {
-          "declares_identifier": true,
-          "identifier": "{HIDDENNOTES}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HIDDENNOTES}",
           "tokens": []
@@ -51259,9 +51264,9 @@
           "tokens": []
         },
         "Uwzefx5BK_WfCsw-JH24-4": {
-          "declares_identifier": true,
-          "identifier": "{REST}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REST}",
           "tokens": []
@@ -51325,9 +51330,9 @@
           "tokens": []
         },
         "YGqFNZoWXpBRJY-Ts6mn-11": {
-          "declares_identifier": true,
-          "identifier": "{MODDATE}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{MODDATE}",
           "tokens": []
@@ -51391,9 +51396,9 @@
           "tokens": []
         },
         "hDRFmwmGqqun0fTEbF33-3": {
-          "declares_identifier": true,
-          "identifier": "{DATECR}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{DATECR}",
           "tokens": []
@@ -51663,9 +51668,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-12": {
-          "declares_identifier": true,
-          "identifier": "{GMD}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{GMD}",
           "tokens": []
@@ -51713,9 +51718,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-3": {
-          "declares_identifier": true,
-          "identifier": "{DATEOFF}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{DATEOFF}",
           "tokens": []
@@ -51737,9 +51742,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-6": {
-          "declares_identifier": true,
-          "identifier": "{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID}>",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFD_FILE} -\u00a0{TITLE} (Instantiation). Context: <urn:uuid:{UUID}>",
           "tokens": []
@@ -51761,9 +51766,9 @@
           "tokens": []
         },
         "oJl3FkC9V9rQO8DduHPF-9": {
-          "declares_identifier": true,
-          "identifier": "{TITLE} -\u00a0{OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{TITLE} -\u00a0{OFFICEABC} (Creation Relation). Context: <urn:uuid:{UUID}>",
           "tokens": []
@@ -51785,9 +51790,9 @@
           "tokens": []
         },
         "qJwiYtpHSBwsKD2Hf-6o-3": {
-          "declares_identifier": true,
-          "identifier": "{ADMBIO}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{ADMBIO}",
           "tokens": []
@@ -51801,9 +51806,9 @@
           "tokens": []
         },
         "sWa0SD8Ajx1KSGOqKPP4-11": {
-          "declares_identifier": true,
-          "identifier": "{SCOPE}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{SCOPE}",
           "tokens": []
@@ -51903,9 +51908,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-3": {
-          "declares_identifier": true,
-          "identifier": "{RESTRTX}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{RESTRTX}",
           "tokens": []
@@ -51927,9 +51932,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-6": {
-          "declares_identifier": true,
-          "identifier": "{TGU}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{TGU}",
           "tokens": []
@@ -51951,9 +51956,9 @@
           "tokens": []
         },
         "vEi_3DjQt7wcUmB-cSFn-9": {
-          "declares_identifier": true,
-          "identifier": "{FINDAID}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{FINDAID}",
           "tokens": []
@@ -51975,9 +51980,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--13": {
-          "declares_identifier": true,
-          "identifier": "{ACCRUAL}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{ACCRUAL}",
           "tokens": []
@@ -51999,9 +52004,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--16": {
-          "declares_identifier": true,
-          "identifier": "{NOTES}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{NOTES}",
           "tokens": []
@@ -52023,9 +52028,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--19": {
-          "declares_identifier": true,
-          "identifier": "{PHYSCO}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{PHYSCO}",
           "tokens": []
@@ -52047,9 +52052,9 @@
           "tokens": []
         },
         "wiPwyt0miK05mvKJtJq--22": {
-          "declares_identifier": true,
-          "identifier": "{HOWTO}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HOWTO}",
           "tokens": []
@@ -52262,7 +52267,8 @@
       "classification_counts": {
         "by_kind": {
           "ARROW_LABEL": 116,
-          "STANDALONE_INDIVIDUAL": 61,
+          "LITERAL": 32,
+          "STANDALONE_INDIVIDUAL": 29,
           "TYPE_TOKEN": 29,
           "UNCLASSIFIED": 2
         },
@@ -52275,7 +52281,7 @@
       "isomorphism": {
         "py_legacy_vs_ts_pipeline": false,
         "py_legacy_vs_ts_plugin": false,
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -52312,12 +52318,12 @@
           "triples": 120
         },
         "ts_pipeline": {
-          "nt_sha256": "1deac2cc426a9c541b887112e3c5118556cbb35eb16a575873fd530f367953ba",
+          "nt_sha256": "fd378fd7489a40d4024ee60ff2a6a814ed7bbefa3d7d663d69b3087c29b159a8",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_pipeline.ttl",
-          "triples": 1045
+          "triples": 697
         },
         "ts_plugin": {
-          "nt_sha256": "8e2fe27ffe42cdd0ff8c728ad620ad74ac549ba491d842aca2b155115bfaf990",
+          "nt_sha256": "19bdb757799bdec081c8994cae7b203df1b606d3bb7be3bdface4dd54dacddfd",
           "path": "results/pytest-pipeline-general-add-no-rr/ts_plugin.ttl",
           "triples": 1045
         }
@@ -52358,9 +52364,9 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-28": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"SOURCE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"SOURCE\"",
           "tokens": []
@@ -52874,9 +52880,9 @@
           ]
         },
         "QoX8hO-0wcaPtYNZqJav-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"FUN\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"FUN\"",
           "tokens": []
@@ -52994,9 +53000,9 @@
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-16": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Family)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Family)\"",
           "tokens": []
@@ -53018,9 +53024,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-19": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Person)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Person)\"",
           "tokens": []
@@ -53052,9 +53058,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-22": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Place)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Place)\"",
           "tokens": []
@@ -53076,9 +53082,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-25": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{SUC_1..4}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -53100,9 +53106,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-28": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{PRED_1..5}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -53124,9 +53130,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-31": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -53148,9 +53154,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-4": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{HEADING}\u00a0(Corporate Body)\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{HEADING}\u00a0(Corporate Body)\"",
           "tokens": []
@@ -53220,9 +53226,9 @@
           "tokens": []
         },
         "_-RjwaxhbeTWfwVWe4ke-15": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"ADM\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"ADM\"",
           "tokens": []
@@ -53254,9 +53260,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-1": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"CMTAU\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"CMTAU\"",
           "tokens": []
@@ -53294,9 +53300,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-6": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"MOD_DATE\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"MOD_DATE\"",
           "tokens": []
@@ -53326,9 +53332,9 @@
           "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-12": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"NAME\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"NAME\"",
           "tokens": []
@@ -53598,9 +53604,9 @@
           "tokens": []
         },
         "lstVy3rX84DfsURla7Zy-32": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"REFA\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"REFA\"",
           "tokens": []
@@ -53622,9 +53628,9 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-11": {
-          "declares_identifier": true,
-          "identifier": "Rules for Archival Description",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": []
@@ -53656,17 +53662,17 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-5": {
-          "declares_identifier": true,
-          "identifier": "rml:reference \"RULES\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rml:reference \"RULES\"",
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-6": {
-          "declares_identifier": true,
-          "identifier": "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "rr:template \"{CONTAG_1..14} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>\"",
           "tokens": []
@@ -53700,7 +53706,8 @@
         "by_kind": {
           "ARROW_LABEL": 86,
           "EMPTY_CELL": 1,
-          "STANDALONE_INDIVIDUAL": 46,
+          "LITERAL": 17,
+          "STANDALONE_INDIVIDUAL": 29,
           "TYPE_TOKEN": 29,
           "UNCLASSIFIED": 2
         },
@@ -53782,9 +53789,9 @@
           "tokens": []
         },
         "I4GB3cVhTv-sTvJ7h0Jz-28": {
-          "declares_identifier": true,
-          "identifier": "{SOURCE}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{SOURCE}",
           "tokens": []
@@ -54298,9 +54305,9 @@
           ]
         },
         "QoX8hO-0wcaPtYNZqJav-1": {
-          "declares_identifier": true,
-          "identifier": "{FUN}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{FUN}",
           "tokens": []
@@ -54418,9 +54425,9 @@
           ]
         },
         "Z80UwrU0Vu5smdOcJr8o-16": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Family)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Family)",
           "tokens": []
@@ -54442,9 +54449,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-19": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Person)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Person)",
           "tokens": []
@@ -54476,9 +54483,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-22": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Place)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Place)",
           "tokens": []
@@ -54500,9 +54507,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-25": {
-          "declares_identifier": true,
-          "identifier": "{SUC}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{SUC}\u00a0(Corporate Body)",
           "tokens": []
@@ -54524,9 +54531,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-28": {
-          "declares_identifier": true,
-          "identifier": "{PRED}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{PRED}\u00a0(Corporate Body)",
           "tokens": []
@@ -54548,9 +54555,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-31": {
-          "declares_identifier": true,
-          "identifier": "{CONTAG}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CONTAG}\u00a0(Corporate Body)",
           "tokens": []
@@ -54572,9 +54579,9 @@
           "tokens": []
         },
         "Z80UwrU0Vu5smdOcJr8o-4": {
-          "declares_identifier": true,
-          "identifier": "{HEADING}\u00a0(Corporate Body)",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{HEADING}\u00a0(Corporate Body)",
           "tokens": []
@@ -54644,9 +54651,9 @@
           "tokens": []
         },
         "_-RjwaxhbeTWfwVWe4ke-15": {
-          "declares_identifier": true,
-          "identifier": "{ADM}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{ADM}",
           "tokens": []
@@ -54678,9 +54685,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-1": {
-          "declares_identifier": true,
-          "identifier": "{CMTAU}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CMTAU}",
           "tokens": []
@@ -54718,9 +54725,9 @@
           "tokens": []
         },
         "cuPy41NEiSmLZpDvVlvN-6": {
-          "declares_identifier": true,
-          "identifier": "{MOD_DATE}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{MOD_DATE}",
           "tokens": []
@@ -54750,9 +54757,9 @@
           "tokens": []
         },
         "gmwnegnUR_CNORKRYM6Y-12": {
-          "declares_identifier": true,
-          "identifier": "{NAME}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{NAME}",
           "tokens": []
@@ -55022,9 +55029,9 @@
           "tokens": []
         },
         "lstVy3rX84DfsURla7Zy-32": {
-          "declares_identifier": true,
-          "identifier": "{REFA}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{REFA}",
           "tokens": []
@@ -55046,9 +55053,9 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-11": {
-          "declares_identifier": true,
-          "identifier": "Rules for Archival Description",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "Rules for Archival Description",
           "tokens": []
@@ -55080,17 +55087,17 @@
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-5": {
-          "declares_identifier": true,
-          "identifier": "{RULES}",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{RULES}",
           "tokens": []
         },
         "mXWEuhzCrtuQsP6tQl7L-6": {
-          "declares_identifier": true,
-          "identifier": "{CONTAG} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>",
-          "kind": "STANDALONE_INDIVIDUAL",
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "LITERAL",
           "parent_identifier": null,
           "raw_value": "{CONTAG} -\u00a0{HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>",
           "tokens": []
@@ -55124,7 +55131,8 @@
         "by_kind": {
           "ARROW_LABEL": 86,
           "EMPTY_CELL": 1,
-          "STANDALONE_INDIVIDUAL": 46,
+          "LITERAL": 17,
+          "STANDALONE_INDIVIDUAL": 29,
           "TYPE_TOKEN": 29,
           "UNCLASSIFIED": 2
         },
@@ -55141,7 +55149,7 @@
       },
       "format": "turtle",
       "isomorphism": {
-        "ts_pipeline_vs_ts_plugin": true
+        "ts_pipeline_vs_ts_plugin": false
       },
       "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
       "metadata_attributes": {
@@ -55173,12 +55181,12 @@
       ],
       "results": {
         "ts_pipeline": {
-          "nt_sha256": "67e2bf2fd84d7e61664875685d5c55f6870b70fc769e5879223ee2e9e8c105b4",
+          "nt_sha256": "af6ae807b2dfb473811ae68e34c87b23213bd2174a72b6d6bc49c971154245bb",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_pipeline.ttl",
-          "triples": 905
+          "triples": 702
         },
         "ts_plugin": {
-          "nt_sha256": "e2762d3baa6c49e82974342856f7efe065b10a21090ae8db1e42984f2f8288b0",
+          "nt_sha256": "96999a3a186baf4c87c2d0683c702c3cfde7e9af08d7f4bb266d9d4a46f37a73",
           "path": "results/pytest-pipeline-general-authority-no-rr/ts_plugin.ttl",
           "triples": 905
         }

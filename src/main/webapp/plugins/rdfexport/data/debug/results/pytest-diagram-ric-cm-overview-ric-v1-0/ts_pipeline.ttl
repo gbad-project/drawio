@@ -3,9 +3,12 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
-    owl:imports rico: .
+    owl:imports rico: ;
+    skos:note "RiC-E22    Place",
+        "s" .
 
 <ontology://generated-from-draw-io/mock#Created%20By%20ICA-EGAD%20In%20September%202023.> a owl:NamedIndividual ;
     rdfs:label "Created by ICA-EGAD in September 2023." .
@@ -64,9 +67,6 @@
 :RiC-E18%20Date a owl:NamedIndividual ;
     rdfs:label "RiC-E18 Date" .
 
-:RiC-E22%20Place a owl:NamedIndividual ;
-    rdfs:label "RiC-E22    Place" .
-
 :RiC-R019%20Has%20Or%20Had%20Subject a owl:NamedIndividual ;
     rdfs:label "RiC-R019 has or had subject" .
 
@@ -112,7 +112,4 @@
 
 <ontology://generated-from-draw-io/mock#This%20Diagram%20Is%20Licensed%20Under%20A%20Creative%20Commons%20Attribution%204.0%20International%20License.> a owl:NamedIndividual ;
     rdfs:label "This diagram is licensed under a Creative Commons Attribution 4.0 International License." .
-
-:s a owl:NamedIndividual ;
-    rdfs:label "s" .
 

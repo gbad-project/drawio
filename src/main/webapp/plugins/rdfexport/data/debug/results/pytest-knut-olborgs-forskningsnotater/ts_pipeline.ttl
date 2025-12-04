@@ -3,8 +3,9 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-rdfs:isDefinedBy a owl:ObjectProperty .
+rdfs:isDefinedBy a owl:DatatypeProperty .
 
 rico:followsInTime a owl:ObjectProperty .
 
@@ -38,7 +39,7 @@ rico:hasSender a owl:ObjectProperty .
 
 rico:hasUnitOfMeasurement a owl:ObjectProperty .
 
-rico:identifier a owl:ObjectProperty .
+rico:identifier a owl:DatatypeProperty .
 
 rico:isAssociatedWithEvent a owl:ObjectProperty .
 
@@ -50,13 +51,13 @@ rico:isOrWasUnderAuthorityOf a owl:ObjectProperty .
 
 rico:isRecordResourceAssociatedWithRecordResource a owl:ObjectProperty .
 
-rico:name a owl:ObjectProperty .
+rico:name a owl:DatatypeProperty .
 
-rico:normalizedDateValue a owl:ObjectProperty .
+rico:normalizedDateValue a owl:DatatypeProperty .
 
-rico:quantity a owl:ObjectProperty .
+rico:quantity a owl:DatatypeProperty .
 
-rico:scopeAndContent a owl:ObjectProperty .
+rico:scopeAndContent a owl:DatatypeProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
@@ -80,33 +81,12 @@ rico:scopeAndContent a owl:ObjectProperty .
     rico:isAssociatedWithPlace :Norge ;
     rico:isOrWasUnderAuthorityOf :Arkivverket ;
     rico:isRecordResourceAssociatedWithRecordResource :Deutscher%20Oberbefehlshaber%20Norwegen%20Samling ;
-    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Forskerarkiv.%20Samling%20Av%20Forsker%20Knut%20Olborgs%20Notater%20Fra%20Kildegransking%20Av%20Arkivet%20RAFA-2197%20Deutscher%20Oberbefehlshaber%20Norwegen%20%28DOBN%29.%20Knut%20Olborg%20Har%20Gått%20Systematisk%20Gjennom%20Det%2C%20Eske%20For%20Eske%2C%20Og%20Tatt%20Notater.%20Notatene%20Kan%20Være%20Til%20Nytte%20For%20Andre%20Forskere%20Og%20Studenter%20Som%20Skal%20Arbeidet%20Med%20Dette%20Tyskspråklige%20Og%20Vanskelig%20Tilgjengelige%20Arkivmaterialet.%20Arkivverket%20Tok%20Imot%20De%20Digitale%20Filene%20I%202022.%20Materialet%20Er%20Elektronisk%20Og%20Består%20Av%20105%20Word-filer%20%28pdf%27er%29.> .
+    rico:scopeAndContent "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har gått systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan være til nytte for andre forskere og studenter som skal arbeidet med dette tyskspråklige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og består av 105 word-filer (pdf'er)." .
 
 :Norsk%20Bokmål a owl:NamedIndividual,
         rico:Language ;
     rdfs:label "Norsk Bokmål" ;
     rico:isOrWasLanguageOf :Norge .
-
-<https://forvaltningsdatabasen.sikt.no/data/enhet/55009> a owl:NamedIndividual ;
-    rdfs:label "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" .
-
-:1940 a owl:NamedIndividual ;
-    rdfs:label "1940" .
-
-:1945 a owl:NamedIndividual ;
-    rdfs:label "1945" .
-
-:2018-08-05 a owl:NamedIndividual ;
-    rdfs:label "2018-08-05" .
-
-:2021-11-23 a owl:NamedIndividual ;
-    rdfs:label "2021-11-23" .
-
-:30 a owl:NamedIndividual ;
-    rdfs:label "30" .
-
-:3676160 a owl:NamedIndividual ;
-    rdfs:label "3676160" .
 
 :Bytes a owl:NamedIndividual,
         rico:UnitOfMeasurement ;
@@ -117,7 +97,7 @@ rico:scopeAndContent a owl:ObjectProperty .
     rdfs:label "DOBN Samling Shelf Space" ;
     rico:hasExtentType :Shelf%20Space ;
     rico:hasUnitOfMeasurement :Hyllemeter ;
-    rico:quantity :30 .
+    rico:quantity 30 .
 
 :DOBN%20Samling%20Storage%20Instantiation a owl:NamedIndividual,
         rico:Instantiation ;
@@ -138,17 +118,11 @@ rico:scopeAndContent a owl:ObjectProperty .
     rico:isAssociatedWithEvent :Okkupasjonstiden ;
     rico:isAssociatedWithPlace :Norge,
         :Tyskland ;
-    rico:scopeAndContent <ontology://generated-from-draw-io/mock#Et%20Arkiv%20På%20Om%20Lag%2030%20Hm%20Som%20Ble%20Skapt%20Av%20Tyske%20Militære%20Som%20Var%20Internert%20I%20Norge%20Etter%20Krigens%20Slutt.%20Under%20Alliert%20Kommando%20Måtte%20De%20Over%20350%20000%20Tyskerne%20Administrere%20Seg%20Selv%20Inntil%20De%20Ble%20Hjemsendt%2C%20Og%20Dette%20Er%20Arkivet%20De%20Skapte%20I%20Den%20Perioden%20Våren%201945%20Til%20Ut%20I%201947.%20Arkivet%20Var%20I%20Mange%20År%20Vært%20Svært%20Lite%20Tilgjengelig%20For%20Bruk%20Inntil%20Arkivverket%20I%20Årene%202016-19%20Gjennomgikk%20Det%20Og%20Registrerte%20Det%20I%20Katalog.> .
-
-<ontology://generated-from-draw-io/mock#Et%20Arkiv%20På%20Om%20Lag%2030%20Hm%20Som%20Ble%20Skapt%20Av%20Tyske%20Militære%20Som%20Var%20Internert%20I%20Norge%20Etter%20Krigens%20Slutt.%20Under%20Alliert%20Kommando%20Måtte%20De%20Over%20350%20000%20Tyskerne%20Administrere%20Seg%20Selv%20Inntil%20De%20Ble%20Hjemsendt%2C%20Og%20Dette%20Er%20Arkivet%20De%20Skapte%20I%20Den%20Perioden%20Våren%201945%20Til%20Ut%20I%201947.%20Arkivet%20Var%20I%20Mange%20År%20Vært%20Svært%20Lite%20Tilgjengelig%20For%20Bruk%20Inntil%20Arkivverket%20I%20Årene%202016-19%20Gjennomgikk%20Det%20Og%20Registrerte%20Det%20I%20Katalog.> a owl:NamedIndividual ;
-    rdfs:label "Et arkiv på om lag 30 hm som ble skapt av tyske militære som var internert i Norge etter krigens slutt. Under alliert kommando måtte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden våren 1945 til ut i 1947.     Arkivet var i mange år vært svært lite tilgjengelig for bruk inntil Arkivverket i årene 2016-19 gjennomgikk det og registrerte det i katalog." .
+    rico:scopeAndContent "Et arkiv på om lag 30 hm som ble skapt av tyske militære som var internert i Norge etter krigens slutt. Under alliert kommando måtte de over 350 000 tyskerne administrere seg selv inntil de ble hjemsendt, og dette er arkivet de skapte i den perioden våren 1945 til ut i 1947.     Arkivet var i mange år vært svært lite tilgjengelig for bruk inntil Arkivverket i årene 2016-19 gjennomgikk det og registrerte det i katalog." .
 
 :File%20Size a owl:NamedIndividual,
         rico:ExtentType ;
     rdfs:label "File Size" .
-
-<ontology://generated-from-draw-io/mock#Forskerarkiv.%20Samling%20Av%20Forsker%20Knut%20Olborgs%20Notater%20Fra%20Kildegransking%20Av%20Arkivet%20RAFA-2197%20Deutscher%20Oberbefehlshaber%20Norwegen%20%28DOBN%29.%20Knut%20Olborg%20Har%20Gått%20Systematisk%20Gjennom%20Det%2C%20Eske%20For%20Eske%2C%20Og%20Tatt%20Notater.%20Notatene%20Kan%20Være%20Til%20Nytte%20For%20Andre%20Forskere%20Og%20Studenter%20Som%20Skal%20Arbeidet%20Med%20Dette%20Tyskspråklige%20Og%20Vanskelig%20Tilgjengelige%20Arkivmaterialet.%20Arkivverket%20Tok%20Imot%20De%20Digitale%20Filene%20I%202022.%20Materialet%20Er%20Elektronisk%20Og%20Består%20Av%20105%20Word-filer%20%28pdf%27er%29.> a owl:NamedIndividual ;
-    rdfs:label "Forskerarkiv. Samling av forsker Knut Olborgs notater fra kildegransking av arkivet RAFA-2197 Deutscher Oberbefehlshaber Norwegen (DOBN). Knut Olborg har gått systematisk gjennom det, eske for eske, og tatt notater.     Notatene kan være til nytte for andre forskere og studenter som skal arbeidet med dette tyskspråklige og vanskelig tilgjengelige arkivmaterialet. Arkivverket tok imot de digitale filene i 2022. Materialet er elektronisk og består av 105 word-filer (pdf'er)." .
 
 :Hyllemeter a owl:NamedIndividual,
         rico:UnitOfMeasurement ;
@@ -157,18 +131,18 @@ rico:scopeAndContent a owl:ObjectProperty .
 :Knut%20Olborgs%20Forskningsnotater%20Slutt a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "Knut Olborgs Forskningsnotater Slutt" ;
-    rico:normalizedDateValue :2021-11-23 .
+    rico:normalizedDateValue "2021-11-23"^^xsd:date .
 
 :Knut%20Olborgs%20Forskningsnotater%20Start a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "Knut Olborgs Forskningsnotater Start" ;
-    rico:normalizedDateValue :2018-08-05 .
+    rico:normalizedDateValue "2018-08-05"^^xsd:date .
 
 :Knut%20Olborgs%20Forskningsnotater%20Storage%20ID a owl:NamedIndividual,
         rico:Identifier ;
     rdfs:label "Knut Olborgs Forskningsnotater Storage ID" ;
     rico:hasIdentifierType :Storage%20ID ;
-    rico:identifier :d6ef5d07-8b2e-4d7b-9590-a70381765c9a .
+    rico:identifier "d6ef5d07-8b2e-4d7b-9590-a70381765c9a" .
 
 :Knut%20Olborgs%20Forskningsnotater%20Storage%20Instantiation a owl:NamedIndividual,
         rico:Instantiation ;
@@ -181,24 +155,21 @@ rico:scopeAndContent a owl:ObjectProperty .
     rdfs:label "Knut Olborgs Forskningsnotater Tar File Size" ;
     rico:hasExtentType :File%20Size ;
     rico:hasUnitOfMeasurement :Bytes ;
-    rico:quantity :3676160 .
+    rico:quantity 3676160 .
 
 :Mappestruktur a owl:NamedIndividual,
         rico:Mechanism ;
     rdfs:label "Mappestruktur" .
 
-:National%20Archives%20Of%20Norway a owl:NamedIndividual ;
-    rdfs:label "National Archives of Norway" .
-
 :Okkupasjonstiden%20Slutt a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "Okkupasjonstiden Slutt" ;
-    rico:normalizedDateValue :1945 .
+    rico:normalizedDateValue 1945 .
 
 :Okkupasjonstiden%20Start a owl:NamedIndividual,
         rico:Date ;
     rdfs:label "Okkupasjonstiden Start" ;
-    rico:normalizedDateValue :1940 .
+    rico:normalizedDateValue 1940 .
 
 :Shelf%20Space a owl:NamedIndividual,
         rico:ExtentType ;
@@ -212,9 +183,6 @@ rico:scopeAndContent a owl:ObjectProperty .
         rico:Language ;
     rdfs:label "Tysk" ;
     rico:isOrWasLanguageOf :Tyskland .
-
-:d6ef5d07-8b2e-4d7b-9590-a70381765c9a a owl:NamedIndividual ;
-    rdfs:label "d6ef5d07-8b2e-4d7b-9590-a70381765c9a" .
 
 :Country a owl:NamedIndividual,
         rico:PlaceType ;
@@ -240,8 +208,8 @@ rico:scopeAndContent a owl:ObjectProperty .
         rico:AgentName,
         rico:CorporateBody ;
     rdfs:label "Arkivverket" ;
-    rdfs:isDefinedBy <https://forvaltningsdatabasen.sikt.no/data/enhet/55009> ;
-    rico:name :National%20Archives%20Of%20Norway .
+    rdfs:isDefinedBy "https://forvaltningsdatabasen.sikt.no/data/enhet/55009" ;
+    rico:name "National Archives of Norway" .
 
 :Norge a owl:NamedIndividual,
         rico:Place ;
