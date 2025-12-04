@@ -129,7 +129,7 @@ var init_url = __esm(() => {
   } };
   Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
     if (!util_isString(url))
-      throw new TypeError("Parameter 'url' must be a string, not " + typeof url);
+      throw TypeError("Parameter 'url' must be a string, not " + typeof url);
     var queryIndex = url.indexOf("?"), splitter = queryIndex !== -1 && queryIndex < url.indexOf("#") ? "?" : "#", uSplit = url.split(splitter), slashRegex = /\\/g;
     uSplit[0] = uSplit[0].replace(slashRegex, "/"), url = uSplit.join(splitter);
     var rest = url;
@@ -440,7 +440,7 @@ __export(exports_path, {
 });
 function assertPath(path) {
   if (typeof path !== "string")
-    throw new TypeError("Path must be a string. Received " + JSON.stringify(path));
+    throw TypeError("Path must be a string. Received " + JSON.stringify(path));
 }
 function normalizeStringPosix(path, allowAboveRoot) {
   var res = "", lastSegmentLength = 0, lastSlash = -1, dots = 0, code;
@@ -630,7 +630,7 @@ function dirname(path) {
 }
 function basename(path, ext) {
   if (ext !== undefined && typeof ext !== "string")
-    throw new TypeError('"ext" argument must be a string');
+    throw TypeError('"ext" argument must be a string');
   assertPath(path);
   var start = 0, end = -1, matchedSlash = true, i;
   if (ext !== undefined && ext.length > 0 && ext.length <= path.length) {
@@ -702,7 +702,7 @@ function extname(path) {
 }
 function format(pathObject) {
   if (pathObject === null || typeof pathObject !== "object")
-    throw new TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
+    throw TypeError('The "pathObject" argument must be of type Object. Received type ' + typeof pathObject);
   return _format("/", pathObject);
 }
 function parse(path) {
@@ -780,7 +780,7 @@ __export(exports_buffer, {
 function getLens(b64) {
   var len2 = b64.length;
   if (len2 % 4 > 0)
-    throw new Error("Invalid string. Length must be a multiple of 4");
+    throw Error("Invalid string. Length must be a multiple of 4");
   var validLen = b64.indexOf("=");
   if (validLen === -1)
     validLen = len2;
@@ -864,12 +864,12 @@ function write(buffer, value, offset, isLE, mLen, nBytes) {
 }
 function createBuffer(length) {
   if (length > kMaxLength)
-    throw new RangeError('The value "' + length + '" is invalid for option "size"');
+    throw RangeError('The value "' + length + '" is invalid for option "size"');
   let buf = new Uint8Array(length);
   return Object.setPrototypeOf(buf, Buffer2.prototype), buf;
 }
 function E(sym, getMessage, Base) {
-  return class NodeError extends Base {
+  return class extends Base {
     constructor() {
       super();
       Object.defineProperty(this, "message", { value: getMessage.apply(this, arguments), writable: true, configurable: true }), this.name = `${this.name} [${sym}]`, this.stack, delete this.name;
@@ -888,7 +888,7 @@ function E(sym, getMessage, Base) {
 function Buffer2(arg, encodingOrOffset, length) {
   if (typeof arg === "number") {
     if (typeof encodingOrOffset === "string")
-      throw new TypeError('The "string" argument must be of type string. Received type number');
+      throw TypeError('The "string" argument must be of type string. Received type number');
     return allocUnsafe(arg);
   }
   return from(arg, encodingOrOffset, length);
@@ -899,28 +899,28 @@ function from(value, encodingOrOffset, length) {
   if (ArrayBuffer.isView(value))
     return fromArrayView(value);
   if (value == null)
-    throw new TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value);
+    throw TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value);
   if (isInstance(value, ArrayBuffer) || value && isInstance(value.buffer, ArrayBuffer))
     return fromArrayBuffer(value, encodingOrOffset, length);
-  if (typeof SharedArrayBuffer !== "undefined" && (isInstance(value, SharedArrayBuffer) || value && isInstance(value.buffer, SharedArrayBuffer)))
+  if (typeof SharedArrayBuffer < "u" && (isInstance(value, SharedArrayBuffer) || value && isInstance(value.buffer, SharedArrayBuffer)))
     return fromArrayBuffer(value, encodingOrOffset, length);
   if (typeof value === "number")
-    throw new TypeError('The "value" argument must not be of type number. Received type number');
+    throw TypeError('The "value" argument must not be of type number. Received type number');
   let valueOf = value.valueOf && value.valueOf();
   if (valueOf != null && valueOf !== value)
     return Buffer2.from(valueOf, encodingOrOffset, length);
   let b = fromObject(value);
   if (b)
     return b;
-  if (typeof Symbol !== "undefined" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function")
+  if (typeof Symbol < "u" && Symbol.toPrimitive != null && typeof value[Symbol.toPrimitive] === "function")
     return Buffer2.from(value[Symbol.toPrimitive]("string"), encodingOrOffset, length);
-  throw new TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value);
+  throw TypeError("The first argument must be one of type string, Buffer, ArrayBuffer, Array, or Array-like Object. Received type " + typeof value);
 }
 function assertSize(size) {
   if (typeof size !== "number")
-    throw new TypeError('"size" argument must be of type number');
+    throw TypeError('"size" argument must be of type number');
   else if (size < 0)
-    throw new RangeError('The value "' + size + '" is invalid for option "size"');
+    throw RangeError('The value "' + size + '" is invalid for option "size"');
 }
 function alloc(size, fill, encoding) {
   if (assertSize(size), size <= 0)
@@ -936,7 +936,7 @@ function fromString(string, encoding) {
   if (typeof encoding !== "string" || encoding === "")
     encoding = "utf8";
   if (!Buffer2.isEncoding(encoding))
-    throw new TypeError("Unknown encoding: " + encoding);
+    throw TypeError("Unknown encoding: " + encoding);
   let length = byteLength(string, encoding) | 0, buf = createBuffer(length), actual = buf.write(string, encoding);
   if (actual !== length)
     buf = buf.slice(0, actual);
@@ -957,9 +957,9 @@ function fromArrayView(arrayView) {
 }
 function fromArrayBuffer(array, byteOffset, length) {
   if (byteOffset < 0 || array.byteLength < byteOffset)
-    throw new RangeError('"offset" is outside of buffer bounds');
+    throw RangeError('"offset" is outside of buffer bounds');
   if (array.byteLength < byteOffset + (length || 0))
-    throw new RangeError('"length" is outside of buffer bounds');
+    throw RangeError('"length" is outside of buffer bounds');
   let buf;
   if (byteOffset === undefined && length === undefined)
     buf = new Uint8Array(array);
@@ -986,7 +986,7 @@ function fromObject(obj) {
 }
 function checked(length) {
   if (length >= kMaxLength)
-    throw new RangeError("Attempt to allocate Buffer larger than maximum size: 0x" + kMaxLength.toString(16) + " bytes");
+    throw RangeError("Attempt to allocate Buffer larger than maximum size: 0x" + kMaxLength.toString(16) + " bytes");
   return length | 0;
 }
 function byteLength(string, encoding) {
@@ -995,7 +995,7 @@ function byteLength(string, encoding) {
   if (ArrayBuffer.isView(string) || isInstance(string, ArrayBuffer))
     return string.byteLength;
   if (typeof string !== "string")
-    throw new TypeError('The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof string);
+    throw TypeError('The "string" argument must be one of type string, Buffer, or ArrayBuffer. Received type ' + typeof string);
   let len2 = string.length, mustMatch = arguments.length > 2 && arguments[2] === true;
   if (!mustMatch && len2 === 0)
     return 0;
@@ -1059,7 +1059,7 @@ function slowToString(encoding, start, end) {
         return utf16leSlice(this, start, end);
       default:
         if (loweredCase)
-          throw new TypeError("Unknown encoding: " + encoding);
+          throw TypeError("Unknown encoding: " + encoding);
         encoding = (encoding + "").toLowerCase(), loweredCase = true;
     }
 }
@@ -1104,7 +1104,7 @@ function bidirectionalIndexOf(buffer, val, byteOffset, encoding, dir) {
         return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset);
     return arrayIndexOf(buffer, [val], byteOffset, encoding, dir);
   }
-  throw new TypeError("val must be string, number or Buffer");
+  throw TypeError("val must be string, number or Buffer");
 }
 function arrayIndexOf(arr, val, byteOffset, encoding, dir) {
   let indexSize = 1, arrLength = arr.length, valLength = val.length;
@@ -1269,17 +1269,17 @@ function utf16leSlice(buf, start, end) {
 }
 function checkOffset(offset, ext, length) {
   if (offset % 1 !== 0 || offset < 0)
-    throw new RangeError("offset is not uint");
+    throw RangeError("offset is not uint");
   if (offset + ext > length)
-    throw new RangeError("Trying to access beyond buffer length");
+    throw RangeError("Trying to access beyond buffer length");
 }
 function checkInt(buf, value, offset, ext, max, min) {
   if (!Buffer2.isBuffer(buf))
-    throw new TypeError('"buffer" argument must be a Buffer instance');
+    throw TypeError('"buffer" argument must be a Buffer instance');
   if (value > max || value < min)
-    throw new RangeError('"value" argument is out of bounds');
+    throw RangeError('"value" argument is out of bounds');
   if (offset + ext > buf.length)
-    throw new RangeError("Index out of range");
+    throw RangeError("Index out of range");
 }
 function wrtBigUInt64LE(buf, value, offset, min, max) {
   checkIntBI(value, min, max, buf, offset, 7);
@@ -1297,9 +1297,9 @@ function wrtBigUInt64BE(buf, value, offset, min, max) {
 }
 function checkIEEE754(buf, value, offset, ext, max, min) {
   if (offset + ext > buf.length)
-    throw new RangeError("Index out of range");
+    throw RangeError("Index out of range");
   if (offset < 0)
-    throw new RangeError("Index out of range");
+    throw RangeError("Index out of range");
 }
 function writeFloat(buf, value, offset, littleEndian, noAssert) {
   if (value = +value, offset = offset >>> 0, !noAssert)
@@ -1399,7 +1399,7 @@ function utf8ToBytes(string, units) {
         break;
       bytes.push(codePoint >> 18 | 240, codePoint >> 12 & 63 | 128, codePoint >> 6 & 63 | 128, codePoint & 63 | 128);
     } else
-      throw new Error("Invalid code point");
+      throw Error("Invalid code point");
   }
   return bytes;
 }
@@ -1434,14 +1434,14 @@ function isInstance(obj, type) {
   return obj instanceof type || obj != null && obj.constructor != null && obj.constructor.name != null && obj.constructor.name === type.name;
 }
 function defineBigIntMethod(fn) {
-  return typeof BigInt === "undefined" ? BufferBigIntNotDefined : fn;
+  return typeof BigInt > "u" ? BufferBigIntNotDefined : fn;
 }
 function BufferBigIntNotDefined() {
-  throw new Error("BigInt not supported");
+  throw Error("BigInt not supported");
 }
 function notimpl(name) {
   return () => {
-    throw new Error(name + " is not implemented for node:buffer browser polyfill");
+    throw Error(name + " is not implemented for node:buffer browser polyfill");
   };
 }
 var lookup, revLookup, code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", i, len, customInspectSymbol, INSPECT_MAX_BYTES = 50, kMaxLength = 2147483647, kStringMaxLength = 536870888, btoa, atob, File, Blob, constants, ERR_BUFFER_OUT_OF_BOUNDS, ERR_INVALID_ARG_TYPE, ERR_OUT_OF_RANGE, MAX_ARGUMENTS_LENGTH = 4096, INVALID_BASE64_RE, hexSliceLookupTable, resolveObjectURL, isUtf8, isAscii = (str) => {
@@ -1507,16 +1507,16 @@ var init_buffer = __esm(() => {
   Buffer2.allocUnsafeSlow = function(size) {
     return allocUnsafe(size);
   };
-  Buffer2.isBuffer = function isBuffer(b) {
+  Buffer2.isBuffer = function(b) {
     return b != null && b._isBuffer === true && b !== Buffer2.prototype;
   };
-  Buffer2.compare = function compare(a, b) {
+  Buffer2.compare = function(a, b) {
     if (isInstance(a, Uint8Array))
       a = Buffer2.from(a, a.offset, a.byteLength);
     if (isInstance(b, Uint8Array))
       b = Buffer2.from(b, b.offset, b.byteLength);
     if (!Buffer2.isBuffer(a) || !Buffer2.isBuffer(b))
-      throw new TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
+      throw TypeError('The "buf1", "buf2" arguments must be one of type Buffer or Uint8Array');
     if (a === b)
       return 0;
     let x = a.length, y = b.length;
@@ -1531,7 +1531,7 @@ var init_buffer = __esm(() => {
       return 1;
     return 0;
   };
-  Buffer2.isEncoding = function isEncoding(encoding) {
+  Buffer2.isEncoding = function(encoding) {
     switch (String(encoding).toLowerCase()) {
       case "hex":
       case "utf8":
@@ -1549,9 +1549,9 @@ var init_buffer = __esm(() => {
         return false;
     }
   };
-  Buffer2.concat = function concat(list, length) {
+  Buffer2.concat = function(list, length) {
     if (!Array.isArray(list))
-      throw new TypeError('"list" argument must be an Array of Buffers');
+      throw TypeError('"list" argument must be an Array of Buffers');
     if (list.length === 0)
       return Buffer2.alloc(0);
     let i2;
@@ -1571,7 +1571,7 @@ var init_buffer = __esm(() => {
         } else
           Uint8Array.prototype.set.call(buffer, buf, pos);
       else if (!Buffer2.isBuffer(buf))
-        throw new TypeError('"list" argument must be an Array of Buffers');
+        throw TypeError('"list" argument must be an Array of Buffers');
       else
         buf.copy(buffer, pos);
       pos += buf.length;
@@ -1580,31 +1580,31 @@ var init_buffer = __esm(() => {
   };
   Buffer2.byteLength = byteLength;
   Buffer2.prototype._isBuffer = true;
-  Buffer2.prototype.swap16 = function swap16() {
+  Buffer2.prototype.swap16 = function() {
     let len2 = this.length;
     if (len2 % 2 !== 0)
-      throw new RangeError("Buffer size must be a multiple of 16-bits");
+      throw RangeError("Buffer size must be a multiple of 16-bits");
     for (let i2 = 0;i2 < len2; i2 += 2)
       swap(this, i2, i2 + 1);
     return this;
   };
-  Buffer2.prototype.swap32 = function swap32() {
+  Buffer2.prototype.swap32 = function() {
     let len2 = this.length;
     if (len2 % 4 !== 0)
-      throw new RangeError("Buffer size must be a multiple of 32-bits");
+      throw RangeError("Buffer size must be a multiple of 32-bits");
     for (let i2 = 0;i2 < len2; i2 += 4)
       swap(this, i2, i2 + 3), swap(this, i2 + 1, i2 + 2);
     return this;
   };
-  Buffer2.prototype.swap64 = function swap64() {
+  Buffer2.prototype.swap64 = function() {
     let len2 = this.length;
     if (len2 % 8 !== 0)
-      throw new RangeError("Buffer size must be a multiple of 64-bits");
+      throw RangeError("Buffer size must be a multiple of 64-bits");
     for (let i2 = 0;i2 < len2; i2 += 8)
       swap(this, i2, i2 + 7), swap(this, i2 + 1, i2 + 6), swap(this, i2 + 2, i2 + 5), swap(this, i2 + 3, i2 + 4);
     return this;
   };
-  Buffer2.prototype.toString = function toString() {
+  Buffer2.prototype.toString = function() {
     let length = this.length;
     if (length === 0)
       return "";
@@ -1613,14 +1613,14 @@ var init_buffer = __esm(() => {
     return slowToString.apply(this, arguments);
   };
   Buffer2.prototype.toLocaleString = Buffer2.prototype.toString;
-  Buffer2.prototype.equals = function equals(b) {
+  Buffer2.prototype.equals = function(b) {
     if (!Buffer2.isBuffer(b))
-      throw new TypeError("Argument must be a Buffer");
+      throw TypeError("Argument must be a Buffer");
     if (this === b)
       return true;
     return Buffer2.compare(this, b) === 0;
   };
-  Buffer2.prototype.inspect = function inspect() {
+  Buffer2.prototype.inspect = function() {
     let str = "", max = INSPECT_MAX_BYTES;
     if (str = this.toString("hex", 0, max).replace(/(.{2})/g, "$1 ").trim(), this.length > max)
       str += " ... ";
@@ -1628,11 +1628,11 @@ var init_buffer = __esm(() => {
   };
   if (customInspectSymbol)
     Buffer2.prototype[customInspectSymbol] = Buffer2.prototype.inspect;
-  Buffer2.prototype.compare = function compare2(target, start, end, thisStart, thisEnd) {
+  Buffer2.prototype.compare = function(target, start, end, thisStart, thisEnd) {
     if (isInstance(target, Uint8Array))
       target = Buffer2.from(target, target.offset, target.byteLength);
     if (!Buffer2.isBuffer(target))
-      throw new TypeError('The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target);
+      throw TypeError('The "target" argument must be one of type Buffer or Uint8Array. Received type ' + typeof target);
     if (start === undefined)
       start = 0;
     if (end === undefined)
@@ -1642,7 +1642,7 @@ var init_buffer = __esm(() => {
     if (thisEnd === undefined)
       thisEnd = this.length;
     if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length)
-      throw new RangeError("out of range index");
+      throw RangeError("out of range index");
     if (thisStart >= thisEnd && start >= end)
       return 0;
     if (thisStart >= thisEnd)
@@ -1663,16 +1663,16 @@ var init_buffer = __esm(() => {
       return 1;
     return 0;
   };
-  Buffer2.prototype.includes = function includes(val, byteOffset, encoding) {
+  Buffer2.prototype.includes = function(val, byteOffset, encoding) {
     return this.indexOf(val, byteOffset, encoding) !== -1;
   };
-  Buffer2.prototype.indexOf = function indexOf(val, byteOffset, encoding) {
+  Buffer2.prototype.indexOf = function(val, byteOffset, encoding) {
     return bidirectionalIndexOf(this, val, byteOffset, encoding, true);
   };
-  Buffer2.prototype.lastIndexOf = function lastIndexOf(val, byteOffset, encoding) {
+  Buffer2.prototype.lastIndexOf = function(val, byteOffset, encoding) {
     return bidirectionalIndexOf(this, val, byteOffset, encoding, false);
   };
-  Buffer2.prototype.write = function write2(string, offset, length, encoding) {
+  Buffer2.prototype.write = function(string, offset, length, encoding) {
     if (offset === undefined)
       encoding = "utf8", length = this.length, offset = 0;
     else if (length === undefined && typeof offset === "string")
@@ -1684,12 +1684,12 @@ var init_buffer = __esm(() => {
       } else
         encoding = length, length = undefined;
     else
-      throw new Error("Buffer.write(string, encoding, offset[, length]) is no longer supported");
+      throw Error("Buffer.write(string, encoding, offset[, length]) is no longer supported");
     let remaining = this.length - offset;
     if (length === undefined || length > remaining)
       length = remaining;
     if (string.length > 0 && (length < 0 || offset < 0) || offset > this.length)
-      throw new RangeError("Attempt to write outside buffer bounds");
+      throw RangeError("Attempt to write outside buffer bounds");
     if (!encoding)
       encoding = "utf8";
     let loweredCase = false;
@@ -1713,14 +1713,14 @@ var init_buffer = __esm(() => {
           return ucs2Write(this, string, offset, length);
         default:
           if (loweredCase)
-            throw new TypeError("Unknown encoding: " + encoding);
+            throw TypeError("Unknown encoding: " + encoding);
           encoding = ("" + encoding).toLowerCase(), loweredCase = true;
       }
   };
-  Buffer2.prototype.toJSON = function toJSON() {
+  Buffer2.prototype.toJSON = function() {
     return { type: "Buffer", data: Array.prototype.slice.call(this._arr || this, 0) };
   };
-  Buffer2.prototype.slice = function slice(start, end) {
+  Buffer2.prototype.slice = function(start, end) {
     let len2 = this.length;
     if (start = ~~start, end = end === undefined ? len2 : ~~end, start < 0) {
       if (start += len2, start < 0)
@@ -1737,7 +1737,7 @@ var init_buffer = __esm(() => {
     let newBuf = this.subarray(start, end);
     return Object.setPrototypeOf(newBuf, Buffer2.prototype), newBuf;
   };
-  Buffer2.prototype.readUintLE = Buffer2.prototype.readUIntLE = function readUIntLE(offset, byteLength2, noAssert) {
+  Buffer2.prototype.readUintLE = Buffer2.prototype.readUIntLE = function(offset, byteLength2, noAssert) {
     if (offset = offset >>> 0, byteLength2 = byteLength2 >>> 0, !noAssert)
       checkOffset(offset, byteLength2, this.length);
     let val = this[offset], mul = 1, i2 = 0;
@@ -1745,7 +1745,7 @@ var init_buffer = __esm(() => {
       val += this[offset + i2] * mul;
     return val;
   };
-  Buffer2.prototype.readUintBE = Buffer2.prototype.readUIntBE = function readUIntBE(offset, byteLength2, noAssert) {
+  Buffer2.prototype.readUintBE = Buffer2.prototype.readUIntBE = function(offset, byteLength2, noAssert) {
     if (offset = offset >>> 0, byteLength2 = byteLength2 >>> 0, !noAssert)
       checkOffset(offset, byteLength2, this.length);
     let val = this[offset + --byteLength2], mul = 1;
@@ -1753,32 +1753,32 @@ var init_buffer = __esm(() => {
       val += this[offset + --byteLength2] * mul;
     return val;
   };
-  Buffer2.prototype.readUint8 = Buffer2.prototype.readUInt8 = function readUInt8(offset, noAssert) {
+  Buffer2.prototype.readUint8 = Buffer2.prototype.readUInt8 = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 1, this.length);
     return this[offset];
   };
-  Buffer2.prototype.readUint16LE = Buffer2.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
+  Buffer2.prototype.readUint16LE = Buffer2.prototype.readUInt16LE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 2, this.length);
     return this[offset] | this[offset + 1] << 8;
   };
-  Buffer2.prototype.readUint16BE = Buffer2.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
+  Buffer2.prototype.readUint16BE = Buffer2.prototype.readUInt16BE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 2, this.length);
     return this[offset] << 8 | this[offset + 1];
   };
-  Buffer2.prototype.readUint32LE = Buffer2.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
+  Buffer2.prototype.readUint32LE = Buffer2.prototype.readUInt32LE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 4, this.length);
     return (this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16) + this[offset + 3] * 16777216;
   };
-  Buffer2.prototype.readUint32BE = Buffer2.prototype.readUInt32BE = function readUInt32BE(offset, noAssert) {
+  Buffer2.prototype.readUint32BE = Buffer2.prototype.readUInt32BE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 4, this.length);
     return this[offset] * 16777216 + (this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3]);
   };
-  Buffer2.prototype.readBigUInt64LE = defineBigIntMethod(function readBigUInt64LE(offset) {
+  Buffer2.prototype.readBigUInt64LE = defineBigIntMethod(function(offset) {
     offset = offset >>> 0, validateNumber(offset, "offset");
     let first = this[offset], last = this[offset + 7];
     if (first === undefined || last === undefined)
@@ -1786,7 +1786,7 @@ var init_buffer = __esm(() => {
     let lo = first + this[++offset] * 256 + this[++offset] * 65536 + this[++offset] * 16777216, hi = this[++offset] + this[++offset] * 256 + this[++offset] * 65536 + last * 16777216;
     return BigInt(lo) + (BigInt(hi) << BigInt(32));
   });
-  Buffer2.prototype.readBigUInt64BE = defineBigIntMethod(function readBigUInt64BE(offset) {
+  Buffer2.prototype.readBigUInt64BE = defineBigIntMethod(function(offset) {
     offset = offset >>> 0, validateNumber(offset, "offset");
     let first = this[offset], last = this[offset + 7];
     if (first === undefined || last === undefined)
@@ -1794,7 +1794,7 @@ var init_buffer = __esm(() => {
     let hi = first * 16777216 + this[++offset] * 65536 + this[++offset] * 256 + this[++offset], lo = this[++offset] * 16777216 + this[++offset] * 65536 + this[++offset] * 256 + last;
     return (BigInt(hi) << BigInt(32)) + BigInt(lo);
   });
-  Buffer2.prototype.readIntLE = function readIntLE(offset, byteLength2, noAssert) {
+  Buffer2.prototype.readIntLE = function(offset, byteLength2, noAssert) {
     if (offset = offset >>> 0, byteLength2 = byteLength2 >>> 0, !noAssert)
       checkOffset(offset, byteLength2, this.length);
     let val = this[offset], mul = 1, i2 = 0;
@@ -1804,7 +1804,7 @@ var init_buffer = __esm(() => {
       val -= Math.pow(2, 8 * byteLength2);
     return val;
   };
-  Buffer2.prototype.readIntBE = function readIntBE(offset, byteLength2, noAssert) {
+  Buffer2.prototype.readIntBE = function(offset, byteLength2, noAssert) {
     if (offset = offset >>> 0, byteLength2 = byteLength2 >>> 0, !noAssert)
       checkOffset(offset, byteLength2, this.length);
     let i2 = byteLength2, mul = 1, val = this[offset + --i2];
@@ -1814,36 +1814,36 @@ var init_buffer = __esm(() => {
       val -= Math.pow(2, 8 * byteLength2);
     return val;
   };
-  Buffer2.prototype.readInt8 = function readInt8(offset, noAssert) {
+  Buffer2.prototype.readInt8 = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 1, this.length);
     if (!(this[offset] & 128))
       return this[offset];
     return (255 - this[offset] + 1) * -1;
   };
-  Buffer2.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
+  Buffer2.prototype.readInt16LE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 2, this.length);
     let val = this[offset] | this[offset + 1] << 8;
     return val & 32768 ? val | 4294901760 : val;
   };
-  Buffer2.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
+  Buffer2.prototype.readInt16BE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 2, this.length);
     let val = this[offset + 1] | this[offset] << 8;
     return val & 32768 ? val | 4294901760 : val;
   };
-  Buffer2.prototype.readInt32LE = function readInt32LE(offset, noAssert) {
+  Buffer2.prototype.readInt32LE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 4, this.length);
     return this[offset] | this[offset + 1] << 8 | this[offset + 2] << 16 | this[offset + 3] << 24;
   };
-  Buffer2.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
+  Buffer2.prototype.readInt32BE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 4, this.length);
     return this[offset] << 24 | this[offset + 1] << 16 | this[offset + 2] << 8 | this[offset + 3];
   };
-  Buffer2.prototype.readBigInt64LE = defineBigIntMethod(function readBigInt64LE(offset) {
+  Buffer2.prototype.readBigInt64LE = defineBigIntMethod(function(offset) {
     offset = offset >>> 0, validateNumber(offset, "offset");
     let first = this[offset], last = this[offset + 7];
     if (first === undefined || last === undefined)
@@ -1851,7 +1851,7 @@ var init_buffer = __esm(() => {
     let val = this[offset + 4] + this[offset + 5] * 256 + this[offset + 6] * 65536 + (last << 24);
     return (BigInt(val) << BigInt(32)) + BigInt(first + this[++offset] * 256 + this[++offset] * 65536 + this[++offset] * 16777216);
   });
-  Buffer2.prototype.readBigInt64BE = defineBigIntMethod(function readBigInt64BE(offset) {
+  Buffer2.prototype.readBigInt64BE = defineBigIntMethod(function(offset) {
     offset = offset >>> 0, validateNumber(offset, "offset");
     let first = this[offset], last = this[offset + 7];
     if (first === undefined || last === undefined)
@@ -1859,27 +1859,27 @@ var init_buffer = __esm(() => {
     let val = (first << 24) + this[++offset] * 65536 + this[++offset] * 256 + this[++offset];
     return (BigInt(val) << BigInt(32)) + BigInt(this[++offset] * 16777216 + this[++offset] * 65536 + this[++offset] * 256 + last);
   });
-  Buffer2.prototype.readFloatLE = function readFloatLE(offset, noAssert) {
+  Buffer2.prototype.readFloatLE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 4, this.length);
     return read2(this, offset, true, 23, 4);
   };
-  Buffer2.prototype.readFloatBE = function readFloatBE(offset, noAssert) {
+  Buffer2.prototype.readFloatBE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 4, this.length);
     return read2(this, offset, false, 23, 4);
   };
-  Buffer2.prototype.readDoubleLE = function readDoubleLE(offset, noAssert) {
+  Buffer2.prototype.readDoubleLE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 8, this.length);
     return read2(this, offset, true, 52, 8);
   };
-  Buffer2.prototype.readDoubleBE = function readDoubleBE(offset, noAssert) {
+  Buffer2.prototype.readDoubleBE = function(offset, noAssert) {
     if (offset = offset >>> 0, !noAssert)
       checkOffset(offset, 8, this.length);
     return read2(this, offset, false, 52, 8);
   };
-  Buffer2.prototype.writeUintLE = Buffer2.prototype.writeUIntLE = function writeUIntLE(value, offset, byteLength2, noAssert) {
+  Buffer2.prototype.writeUintLE = Buffer2.prototype.writeUIntLE = function(value, offset, byteLength2, noAssert) {
     if (value = +value, offset = offset >>> 0, byteLength2 = byteLength2 >>> 0, !noAssert) {
       let maxBytes = Math.pow(2, 8 * byteLength2) - 1;
       checkInt(this, value, offset, byteLength2, maxBytes, 0);
@@ -1890,7 +1890,7 @@ var init_buffer = __esm(() => {
       this[offset + i2] = value / mul & 255;
     return offset + byteLength2;
   };
-  Buffer2.prototype.writeUintBE = Buffer2.prototype.writeUIntBE = function writeUIntBE(value, offset, byteLength2, noAssert) {
+  Buffer2.prototype.writeUintBE = Buffer2.prototype.writeUIntBE = function(value, offset, byteLength2, noAssert) {
     if (value = +value, offset = offset >>> 0, byteLength2 = byteLength2 >>> 0, !noAssert) {
       let maxBytes = Math.pow(2, 8 * byteLength2) - 1;
       checkInt(this, value, offset, byteLength2, maxBytes, 0);
@@ -1901,38 +1901,38 @@ var init_buffer = __esm(() => {
       this[offset + i2] = value / mul & 255;
     return offset + byteLength2;
   };
-  Buffer2.prototype.writeUint8 = Buffer2.prototype.writeUInt8 = function writeUInt8(value, offset, noAssert) {
+  Buffer2.prototype.writeUint8 = Buffer2.prototype.writeUInt8 = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 1, 255, 0);
     return this[offset] = value & 255, offset + 1;
   };
-  Buffer2.prototype.writeUint16LE = Buffer2.prototype.writeUInt16LE = function writeUInt16LE(value, offset, noAssert) {
+  Buffer2.prototype.writeUint16LE = Buffer2.prototype.writeUInt16LE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 2, 65535, 0);
     return this[offset] = value & 255, this[offset + 1] = value >>> 8, offset + 2;
   };
-  Buffer2.prototype.writeUint16BE = Buffer2.prototype.writeUInt16BE = function writeUInt16BE(value, offset, noAssert) {
+  Buffer2.prototype.writeUint16BE = Buffer2.prototype.writeUInt16BE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 2, 65535, 0);
     return this[offset] = value >>> 8, this[offset + 1] = value & 255, offset + 2;
   };
-  Buffer2.prototype.writeUint32LE = Buffer2.prototype.writeUInt32LE = function writeUInt32LE(value, offset, noAssert) {
+  Buffer2.prototype.writeUint32LE = Buffer2.prototype.writeUInt32LE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 4, 4294967295, 0);
     return this[offset + 3] = value >>> 24, this[offset + 2] = value >>> 16, this[offset + 1] = value >>> 8, this[offset] = value & 255, offset + 4;
   };
-  Buffer2.prototype.writeUint32BE = Buffer2.prototype.writeUInt32BE = function writeUInt32BE(value, offset, noAssert) {
+  Buffer2.prototype.writeUint32BE = Buffer2.prototype.writeUInt32BE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 4, 4294967295, 0);
     return this[offset] = value >>> 24, this[offset + 1] = value >>> 16, this[offset + 2] = value >>> 8, this[offset + 3] = value & 255, offset + 4;
   };
-  Buffer2.prototype.writeBigUInt64LE = defineBigIntMethod(function writeBigUInt64LE(value, offset = 0) {
+  Buffer2.prototype.writeBigUInt64LE = defineBigIntMethod(function(value, offset = 0) {
     return wrtBigUInt64LE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
   });
-  Buffer2.prototype.writeBigUInt64BE = defineBigIntMethod(function writeBigUInt64BE(value, offset = 0) {
+  Buffer2.prototype.writeBigUInt64BE = defineBigIntMethod(function(value, offset = 0) {
     return wrtBigUInt64BE(this, value, offset, BigInt(0), BigInt("0xffffffffffffffff"));
   });
-  Buffer2.prototype.writeIntLE = function writeIntLE(value, offset, byteLength2, noAssert) {
+  Buffer2.prototype.writeIntLE = function(value, offset, byteLength2, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert) {
       let limit = Math.pow(2, 8 * byteLength2 - 1);
       checkInt(this, value, offset, byteLength2, limit - 1, -limit);
@@ -1946,7 +1946,7 @@ var init_buffer = __esm(() => {
     }
     return offset + byteLength2;
   };
-  Buffer2.prototype.writeIntBE = function writeIntBE(value, offset, byteLength2, noAssert) {
+  Buffer2.prototype.writeIntBE = function(value, offset, byteLength2, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert) {
       let limit = Math.pow(2, 8 * byteLength2 - 1);
       checkInt(this, value, offset, byteLength2, limit - 1, -limit);
@@ -1960,56 +1960,56 @@ var init_buffer = __esm(() => {
     }
     return offset + byteLength2;
   };
-  Buffer2.prototype.writeInt8 = function writeInt8(value, offset, noAssert) {
+  Buffer2.prototype.writeInt8 = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 1, 127, -128);
     if (value < 0)
       value = 255 + value + 1;
     return this[offset] = value & 255, offset + 1;
   };
-  Buffer2.prototype.writeInt16LE = function writeInt16LE(value, offset, noAssert) {
+  Buffer2.prototype.writeInt16LE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 2, 32767, -32768);
     return this[offset] = value & 255, this[offset + 1] = value >>> 8, offset + 2;
   };
-  Buffer2.prototype.writeInt16BE = function writeInt16BE(value, offset, noAssert) {
+  Buffer2.prototype.writeInt16BE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 2, 32767, -32768);
     return this[offset] = value >>> 8, this[offset + 1] = value & 255, offset + 2;
   };
-  Buffer2.prototype.writeInt32LE = function writeInt32LE(value, offset, noAssert) {
+  Buffer2.prototype.writeInt32LE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 4, 2147483647, -2147483648);
     return this[offset] = value & 255, this[offset + 1] = value >>> 8, this[offset + 2] = value >>> 16, this[offset + 3] = value >>> 24, offset + 4;
   };
-  Buffer2.prototype.writeInt32BE = function writeInt32BE(value, offset, noAssert) {
+  Buffer2.prototype.writeInt32BE = function(value, offset, noAssert) {
     if (value = +value, offset = offset >>> 0, !noAssert)
       checkInt(this, value, offset, 4, 2147483647, -2147483648);
     if (value < 0)
       value = 4294967295 + value + 1;
     return this[offset] = value >>> 24, this[offset + 1] = value >>> 16, this[offset + 2] = value >>> 8, this[offset + 3] = value & 255, offset + 4;
   };
-  Buffer2.prototype.writeBigInt64LE = defineBigIntMethod(function writeBigInt64LE(value, offset = 0) {
+  Buffer2.prototype.writeBigInt64LE = defineBigIntMethod(function(value, offset = 0) {
     return wrtBigUInt64LE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
   });
-  Buffer2.prototype.writeBigInt64BE = defineBigIntMethod(function writeBigInt64BE(value, offset = 0) {
+  Buffer2.prototype.writeBigInt64BE = defineBigIntMethod(function(value, offset = 0) {
     return wrtBigUInt64BE(this, value, offset, -BigInt("0x8000000000000000"), BigInt("0x7fffffffffffffff"));
   });
-  Buffer2.prototype.writeFloatLE = function writeFloatLE(value, offset, noAssert) {
+  Buffer2.prototype.writeFloatLE = function(value, offset, noAssert) {
     return writeFloat(this, value, offset, true, noAssert);
   };
-  Buffer2.prototype.writeFloatBE = function writeFloatBE(value, offset, noAssert) {
+  Buffer2.prototype.writeFloatBE = function(value, offset, noAssert) {
     return writeFloat(this, value, offset, false, noAssert);
   };
-  Buffer2.prototype.writeDoubleLE = function writeDoubleLE(value, offset, noAssert) {
+  Buffer2.prototype.writeDoubleLE = function(value, offset, noAssert) {
     return writeDouble(this, value, offset, true, noAssert);
   };
-  Buffer2.prototype.writeDoubleBE = function writeDoubleBE(value, offset, noAssert) {
+  Buffer2.prototype.writeDoubleBE = function(value, offset, noAssert) {
     return writeDouble(this, value, offset, false, noAssert);
   };
-  Buffer2.prototype.copy = function copy(target, targetStart, start, end) {
+  Buffer2.prototype.copy = function(target, targetStart, start, end) {
     if (!Buffer2.isBuffer(target))
-      throw new TypeError("argument should be a Buffer");
+      throw TypeError("argument should be a Buffer");
     if (!start)
       start = 0;
     if (!end && end !== 0)
@@ -2025,11 +2025,11 @@ var init_buffer = __esm(() => {
     if (target.length === 0 || this.length === 0)
       return 0;
     if (targetStart < 0)
-      throw new RangeError("targetStart out of bounds");
+      throw RangeError("targetStart out of bounds");
     if (start < 0 || start >= this.length)
-      throw new RangeError("Index out of range");
+      throw RangeError("Index out of range");
     if (end < 0)
-      throw new RangeError("sourceEnd out of bounds");
+      throw RangeError("sourceEnd out of bounds");
     if (end > this.length)
       end = this.length;
     if (target.length - targetStart < end - start)
@@ -2041,16 +2041,16 @@ var init_buffer = __esm(() => {
       Uint8Array.prototype.set.call(target, this.subarray(start, end), targetStart);
     return len2;
   };
-  Buffer2.prototype.fill = function fill(val, start, end, encoding) {
+  Buffer2.prototype.fill = function(val, start, end, encoding) {
     if (typeof val === "string") {
       if (typeof start === "string")
         encoding = start, start = 0, end = this.length;
       else if (typeof end === "string")
         encoding = end, end = this.length;
       if (encoding !== undefined && typeof encoding !== "string")
-        throw new TypeError("encoding must be a string");
+        throw TypeError("encoding must be a string");
       if (typeof encoding === "string" && !Buffer2.isEncoding(encoding))
-        throw new TypeError("Unknown encoding: " + encoding);
+        throw TypeError("Unknown encoding: " + encoding);
       if (val.length === 1) {
         let code2 = val.charCodeAt(0);
         if (encoding === "utf8" && code2 < 128 || encoding === "latin1")
@@ -2061,7 +2061,7 @@ var init_buffer = __esm(() => {
     else if (typeof val === "boolean")
       val = Number(val);
     if (start < 0 || this.length < start || this.length < end)
-      throw new RangeError("Out of range index");
+      throw RangeError("Out of range index");
     if (end <= start)
       return this;
     if (start = start >>> 0, end = end === undefined ? this.length : end >>> 0, !val)
@@ -2073,7 +2073,7 @@ var init_buffer = __esm(() => {
     else {
       let bytes = Buffer2.isBuffer(val) ? val : Buffer2.from(val, encoding), len2 = bytes.length;
       if (len2 === 0)
-        throw new TypeError('The value "' + val + '" is invalid for argument "value"');
+        throw TypeError('The value "' + val + '" is invalid for argument "value"');
       for (i2 = 0;i2 < end - start; ++i2)
         this[i2 + start] = bytes[i2 % len2];
     }
@@ -2081,7 +2081,7 @@ var init_buffer = __esm(() => {
   };
   INVALID_BASE64_RE = /[^+/0-9A-Za-z-_]/g;
   hexSliceLookupTable = function() {
-    let table = new Array(256);
+    let table = Array(256);
     for (let i2 = 0;i2 < 16; ++i2) {
       let i16 = i2 * 16;
       for (let j = 0;j < 16; ++j)
@@ -2113,10 +2113,10 @@ __export(exports_util, {
   isFunction: () => isFunction,
   isError: () => isError,
   isDate: () => isDate,
-  isBuffer: () => isBuffer2,
+  isBuffer: () => isBuffer,
   isBoolean: () => isBoolean,
   isArray: () => isArray,
-  inspect: () => inspect2,
+  inspect: () => inspect,
   inherits: () => inherits,
   format: () => format2,
   deprecate: () => deprecate,
@@ -2132,7 +2132,7 @@ function format2(f, ...args) {
   if (!isString(f)) {
     var objects = [f];
     for (var i2 = 0;i2 < args.length; i2++)
-      objects.push(inspect2(args[i2]));
+      objects.push(inspect(args[i2]));
     return objects.join(" ");
   }
   var i2 = 0, len2 = args.length, str = String(f).replace(formatRegExp, function(x2) {
@@ -2159,17 +2159,17 @@ function format2(f, ...args) {
     if (isNull(x) || !isObject(x))
       str += " " + x;
     else
-      str += " " + inspect2(x);
+      str += " " + inspect(x);
   return str;
 }
 function deprecate(fn, msg) {
-  if (typeof process === "undefined" || process?.noDeprecation === true)
+  if (typeof process > "u" || process?.noDeprecation === true)
     return fn;
   var warned = false;
   function deprecated(...args) {
     if (!warned) {
       if (process.throwDeprecation)
-        throw new Error(msg);
+        throw Error(msg);
       else if (process.traceDeprecation)
         console.trace(msg);
       else
@@ -2181,9 +2181,9 @@ function deprecate(fn, msg) {
   return deprecated;
 }
 function stylizeWithColor(str, styleType) {
-  var style = inspect2.styles[styleType];
+  var style = inspect.styles[styleType];
   if (style)
-    return "\x1B[" + inspect2.colors[style][0] + "m" + str + "\x1B[" + inspect2.colors[style][1] + "m";
+    return "\x1B[" + inspect.colors[style][0] + "m" + str + "\x1B[" + inspect.colors[style][1] + "m";
   else
     return str;
 }
@@ -2197,7 +2197,7 @@ function arrayToHash(array) {
   }), hash;
 }
 function formatValue(ctx, value, recurseTimes) {
-  if (ctx.customInspect && value && isFunction(value.inspect) && value.inspect !== inspect2 && !(value.constructor && value.constructor.prototype === value)) {
+  if (ctx.customInspect && value && isFunction(value.inspect) && value.inspect !== inspect && !(value.constructor && value.constructor.prototype === value)) {
     var ret = value.inspect(recurseTimes, ctx);
     if (!isString(ret))
       ret = formatValue(ctx, ret, recurseTimes);
@@ -2379,9 +2379,9 @@ function isFunction(arg) {
   return typeof arg === "function";
 }
 function isPrimitive(arg) {
-  return arg === null || typeof arg === "boolean" || typeof arg === "number" || typeof arg === "string" || typeof arg === "symbol" || typeof arg === "undefined";
+  return arg === null || typeof arg === "boolean" || typeof arg === "number" || typeof arg === "string" || typeof arg === "symbol" || typeof arg > "u";
 }
-function isBuffer2(arg) {
+function isBuffer(arg) {
   return arg instanceof Buffer;
 }
 function objectToString(o) {
@@ -2414,18 +2414,18 @@ function hasOwnProperty(obj, prop) {
 }
 function callbackifyOnRejected(reason, cb) {
   if (!reason) {
-    var newReason = new Error("Promise was rejected with a falsy value");
+    var newReason = Error("Promise was rejected with a falsy value");
     newReason.reason = reason, reason = newReason;
   }
   return cb(reason);
 }
 function callbackify(original) {
   if (typeof original !== "function")
-    throw new TypeError('The "original" argument must be of type Function');
+    throw TypeError('The "original" argument must be of type Function');
   function callbackified(...args) {
     var maybeCb = args.pop();
     if (typeof maybeCb !== "function")
-      throw new TypeError("The last argument must be of type Function");
+      throw TypeError("The last argument must be of type Function");
     var self2 = this, cb = function(...args2) {
       return maybeCb.apply(self2, ...args2);
     };
@@ -2437,10 +2437,10 @@ function callbackify(original) {
   }
   return Object.setPrototypeOf(callbackified, Object.getPrototypeOf(original)), Object.defineProperties(callbackified, Object.getOwnPropertyDescriptors(original)), callbackified;
 }
-var formatRegExp, debuglog, inspect2, types = () => {}, months, promisify, TextEncoder, TextDecoder, util_default;
+var formatRegExp, debuglog, inspect, types = () => {}, months, promisify, TextEncoder, TextDecoder, util_default;
 var init_util = __esm(() => {
   formatRegExp = /%[sdj%]/g;
-  debuglog = ((debugs = {}, debugEnvRegex = {}, debugEnv) => ((debugEnv = typeof process !== "undefined" && false) && (debugEnv = debugEnv.replace(/[|\\{}()[\]^$+?.]/g, "\\$&").replace(/\*/g, ".*").replace(/,/g, "$|^").toUpperCase()), debugEnvRegex = new RegExp("^" + debugEnv + "$", "i"), (set) => {
+  debuglog = ((debugs = {}, debugEnvRegex = {}, debugEnv) => ((debugEnv = typeof process < "u" && false) && (debugEnv = debugEnv.replace(/[|\\{}()[\]^$+?.]/g, "\\$&").replace(/\*/g, ".*").replace(/,/g, "$|^").toUpperCase()), debugEnvRegex = new RegExp("^" + debugEnv + "$", "i"), (set) => {
     if (set = set.toUpperCase(), !debugs[set])
       if (debugEnvRegex.test(set))
         debugs[set] = function(...args) {
@@ -2450,7 +2450,7 @@ var init_util = __esm(() => {
         debugs[set] = function() {};
     return debugs[set];
   }))();
-  inspect2 = ((i2) => (i2.colors = { bold: [1, 22], italic: [3, 23], underline: [4, 24], inverse: [7, 27], white: [37, 39], grey: [90, 39], black: [30, 39], blue: [34, 39], cyan: [36, 39], green: [32, 39], magenta: [35, 39], red: [31, 39], yellow: [33, 39] }, i2.styles = { special: "cyan", number: "yellow", boolean: "yellow", undefined: "grey", null: "bold", string: "green", date: "magenta", regexp: "red" }, i2.custom = Symbol.for("nodejs.util.inspect.custom"), i2))(function inspect22(obj, opts, ...rest) {
+  inspect = ((i2) => (i2.colors = { bold: [1, 22], italic: [3, 23], underline: [4, 24], inverse: [7, 27], white: [37, 39], grey: [90, 39], black: [30, 39], blue: [34, 39], cyan: [36, 39], green: [32, 39], magenta: [35, 39], red: [31, 39], yellow: [33, 39] }, i2.styles = { special: "cyan", number: "yellow", boolean: "yellow", undefined: "grey", null: "bold", string: "green", date: "magenta", regexp: "red" }, i2.custom = Symbol.for("nodejs.util.inspect.custom"), i2))(function(obj, opts, ...rest) {
     var ctx = { seen: [], stylize: stylizeNoColor };
     if (rest.length >= 1)
       ctx.depth = rest[0];
@@ -2471,13 +2471,13 @@ var init_util = __esm(() => {
     return formatValue(ctx, obj, ctx.depth);
   });
   months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  promisify = ((x) => (x.custom = Symbol.for("nodejs.util.promisify.custom"), x))(function promisify2(original) {
+  promisify = ((x) => (x.custom = Symbol.for("nodejs.util.promisify.custom"), x))(function(original) {
     if (typeof original !== "function")
-      throw new TypeError('The "original" argument must be of type Function');
+      throw TypeError('The "original" argument must be of type Function');
     if (kCustomPromisifiedSymbol && original[kCustomPromisifiedSymbol]) {
       var fn = original[kCustomPromisifiedSymbol];
       if (typeof fn !== "function")
-        throw new TypeError('The "nodejs.util.promisify.custom" argument must be of type Function');
+        throw TypeError('The "nodejs.util.promisify.custom" argument must be of type Function');
       return Object.defineProperty(fn, kCustomPromisifiedSymbol, { value: fn, enumerable: false, writable: false, configurable: true }), fn;
     }
     function fn(...args) {
@@ -2521,7 +2521,7 @@ __export(exports_events, {
 });
 function emitError(emitter, args) {
   var { _events: events } = emitter;
-  if (args[0] ??= new Error("Unhandled error."), !events)
+  if (args[0] ??= Error("Unhandled error."), !events)
     throw args[0];
   var errorMonitor = events[kErrorMonitor];
   if (errorMonitor)
@@ -2551,7 +2551,7 @@ function emitUnhandledRejectionOrErr(emitter, err, type, args) {
 }
 function overflowWarning(emitter, type, handlers) {
   handlers.warned = true;
-  let warn = new Error(`Possible EventEmitter memory leak detected. ${handlers.length} ${String(type)} listeners added to [${emitter.constructor.name}]. Use emitter.setMaxListeners() to increase limit`);
+  let warn = Error(`Possible EventEmitter memory leak detected. ${handlers.length} ${String(type)} listeners added to [${emitter.constructor.name}]. Use emitter.setMaxListeners() to increase limit`);
   warn.name = "MaxListenersExceededWarning", warn.emitter = emitter, warn.type = type, warn.count = handlers.length, console.warn(warn);
 }
 function onceWrapper(type, listener, ...args) {
@@ -2612,11 +2612,11 @@ function eventTargetAgnosticAddListener(emitter, name, listener, flags) {
     emitter.addEventListener(name, listener, flags);
 }
 function ERR_INVALID_ARG_TYPE2(name, type, value) {
-  let err = new TypeError(`The "${name}" argument must be of type ${type}. Received ${value}`);
+  let err = TypeError(`The "${name}" argument must be of type ${type}. Received ${value}`);
   return err.code = "ERR_INVALID_ARG_TYPE", err;
 }
 function ERR_OUT_OF_RANGE2(name, range, value) {
-  let err = new RangeError(`The "${name}" argument is out of range. It must be ${range}. Received ${value}`);
+  let err = RangeError(`The "${name}" argument is out of range. It must be ${range}. Received ${value}`);
   return err.code = "ERR_OUT_OF_RANGE", err;
 }
 function validateAbortSignal(signal, name) {
@@ -2631,7 +2631,7 @@ function validateNumber2(value, name, min, max) {
 }
 function checkListener(listener) {
   if (typeof listener !== "function")
-    throw new TypeError("The listener must be a function");
+    throw TypeError("The listener must be a function");
 }
 function validateBoolean(value, name) {
   if (typeof value !== "boolean")
@@ -2656,12 +2656,12 @@ function addAbortListener(signal, listener) {
     removeEventListener?.();
   } };
 }
-var SymbolFor, kCapture, kErrorMonitor, kMaxEventTargetListeners, kMaxEventTargetListenersWarned, kRejection, captureRejectionSymbol, ArrayPrototypeSlice, defaultMaxListeners = 10, EventEmitter = function EventEmitter2(opts) {
+var SymbolFor, kCapture, kErrorMonitor, kMaxEventTargetListeners, kMaxEventTargetListenersWarned, kRejection, captureRejectionSymbol, ArrayPrototypeSlice, defaultMaxListeners = 10, EventEmitter = function(opts) {
   if (this._events === undefined || this._events === this.__proto__._events)
     this._events = { __proto__: null }, this._eventsCount = 0;
   if (this._maxListeners ??= undefined, this[kCapture] = opts?.captureRejections ? Boolean(opts?.captureRejections) : EventEmitterPrototype[kCapture])
     this.emit = emitWithRejectionCapture;
-}, EventEmitterPrototype, emitWithoutRejectionCapture = function emit(type, ...args) {
+}, EventEmitterPrototype, emitWithoutRejectionCapture = function(type, ...args) {
   if (type === "error")
     return emitError(this, args);
   var { _events: events } = this;
@@ -2692,7 +2692,7 @@ var SymbolFor, kCapture, kErrorMonitor, kMaxEventTargetListeners, kMaxEventTarge
     }
   }
   return true;
-}, emitWithRejectionCapture = function emit2(type, ...args) {
+}, emitWithRejectionCapture = function(type, ...args) {
   if (type === "error")
     return emitError(this, args);
   var { _events: events } = this;
@@ -2739,15 +2739,15 @@ var init_events = __esm(() => {
   EventEmitterPrototype._events = undefined;
   EventEmitterPrototype._eventsCount = 0;
   EventEmitterPrototype._maxListeners = undefined;
-  EventEmitterPrototype.setMaxListeners = function setMaxListeners(n) {
+  EventEmitterPrototype.setMaxListeners = function(n) {
     return validateNumber2(n, "setMaxListeners", 0), this._maxListeners = n, this;
   };
   EventEmitterPrototype.constructor = EventEmitter;
-  EventEmitterPrototype.getMaxListeners = function getMaxListeners() {
+  EventEmitterPrototype.getMaxListeners = function() {
     return this?._maxListeners ?? defaultMaxListeners;
   };
   EventEmitterPrototype.emit = emitWithoutRejectionCapture;
-  EventEmitterPrototype.addListener = function addListener(type, fn) {
+  EventEmitterPrototype.addListener = function(type, fn) {
     checkListener(fn);
     var events = this._events;
     if (!events)
@@ -2766,7 +2766,7 @@ var init_events = __esm(() => {
     return this;
   };
   EventEmitterPrototype.on = EventEmitterPrototype.addListener;
-  EventEmitterPrototype.prependListener = function prependListener(type, fn) {
+  EventEmitterPrototype.prependListener = function(type, fn) {
     checkListener(fn);
     var events = this._events;
     if (!events)
@@ -2784,17 +2784,17 @@ var init_events = __esm(() => {
     }
     return this;
   };
-  EventEmitterPrototype.once = function once(type, fn) {
+  EventEmitterPrototype.once = function(type, fn) {
     checkListener(fn);
     let bound = onceWrapper.bind(this, type, fn);
     return bound.listener = fn, this.addListener(type, bound), this;
   };
-  EventEmitterPrototype.prependOnceListener = function prependOnceListener(type, fn) {
+  EventEmitterPrototype.prependOnceListener = function(type, fn) {
     checkListener(fn);
     let bound = onceWrapper.bind(this, type, fn);
     return bound.listener = fn, this.prependListener(type, bound), this;
   };
-  EventEmitterPrototype.removeListener = function removeListener(type, fn) {
+  EventEmitterPrototype.removeListener = function(type, fn) {
     checkListener(fn);
     var { _events: events } = this;
     if (!events)
@@ -2820,7 +2820,7 @@ var init_events = __esm(() => {
     return this;
   };
   EventEmitterPrototype.off = EventEmitterPrototype.removeListener;
-  EventEmitterPrototype.removeAllListeners = function removeAllListeners(type) {
+  EventEmitterPrototype.removeAllListeners = function(type) {
     var { _events: events } = this;
     if (type && events) {
       if (events[type])
@@ -2829,7 +2829,7 @@ var init_events = __esm(() => {
       this._events = { __proto__: null };
     return this;
   };
-  EventEmitterPrototype.listeners = function listeners(type) {
+  EventEmitterPrototype.listeners = function(type) {
     var { _events: events } = this;
     if (!events)
       return [];
@@ -2838,7 +2838,7 @@ var init_events = __esm(() => {
       return [];
     return handlers.map((x) => x.listener ?? x);
   };
-  EventEmitterPrototype.rawListeners = function rawListeners(type) {
+  EventEmitterPrototype.rawListeners = function(type) {
     var { _events } = this;
     if (!_events)
       return [];
@@ -2847,13 +2847,13 @@ var init_events = __esm(() => {
       return [];
     return handlers.slice();
   };
-  EventEmitterPrototype.listenerCount = function listenerCount(type) {
+  EventEmitterPrototype.listenerCount = function(type) {
     var { _events: events } = this;
     if (!events)
       return 0;
     return events[type]?.length ?? 0;
   };
-  EventEmitterPrototype.eventNames = function eventNames() {
+  EventEmitterPrototype.eventNames = function() {
     return this._eventsCount > 0 ? Reflect.ownKeys(this._events) : [];
   };
   EventEmitterPrototype[kCapture] = false;
@@ -2886,7 +2886,7 @@ var require_stream = __commonJS((exports, module) => {
     class AggregateError extends Error {
       constructor(errors) {
         if (!Array.isArray(errors))
-          throw new TypeError(`Expected input to be an Array, got ${typeof errors}`);
+          throw TypeError(`Expected input to be an Array, got ${typeof errors}`);
         let message = "";
         for (let i2 = 0;i2 < errors.length; i2++)
           message += `    ${errors[i2].stack}
@@ -2987,7 +2987,7 @@ var require_stream = __commonJS((exports, module) => {
     } };
   });
   var require_errors = __commonJS2((exports2, module2) => {
-    var { format: format3, inspect: inspect3 } = require_inspect(), { AggregateError: CustomAggregateError } = require_primordials(), AggregateError = globalThis.AggregateError || CustomAggregateError, kIsNodeError = Symbol("kIsNodeError"), kTypes = ["string", "function", "number", "object", "Function", "Object", "boolean", "bigint", "symbol"], classRegExp = /^([A-Z][a-z0-9]*)+$/, codes = {};
+    var { format: format3, inspect: inspect2 } = require_inspect(), { AggregateError: CustomAggregateError } = require_primordials(), AggregateError = globalThis.AggregateError || CustomAggregateError, kIsNodeError = Symbol("kIsNodeError"), kTypes = ["string", "function", "number", "object", "Function", "Object", "boolean", "bigint", "symbol"], classRegExp = /^([A-Z][a-z0-9]*)+$/, codes = {};
     function assert(value, message) {
       if (!value)
         throw new codes.ERR_INTERNAL_ASSERTION(message);
@@ -3124,11 +3124,11 @@ var require_stream = __commonJS((exports, module) => {
         if ((_actual$constructor = actual.constructor) !== null && _actual$constructor !== undefined && _actual$constructor.name)
           msg += `. Received an instance of ${actual.constructor.name}`;
         else {
-          let inspected = inspect3(actual, { depth: -1 });
+          let inspected = inspect2(actual, { depth: -1 });
           msg += `. Received ${inspected}`;
         }
       } else {
-        let inspected = inspect3(actual, { colors: false });
+        let inspected = inspect2(actual, { colors: false });
         if (inspected.length > 25)
           inspected = `${inspected.slice(0, 25)}...`;
         msg += `. Received type ${typeof actual} (${inspected})`;
@@ -3136,7 +3136,7 @@ var require_stream = __commonJS((exports, module) => {
       return msg;
     }, TypeError);
     E2("ERR_INVALID_ARG_VALUE", (name, value, reason = "is invalid") => {
-      let inspected = inspect3(value);
+      let inspected = inspect2(value);
       if (inspected.length > 128)
         inspected = inspected.slice(0, 128) + "...";
       return `The ${name.includes(".") ? "property" : "argument"} '${name}' ${reason}. Received ${inspected}`;
@@ -3177,7 +3177,7 @@ var require_stream = __commonJS((exports, module) => {
           received = addNumericalSeparator2(received);
         received += "n";
       } else
-        received = inspect3(input);
+        received = inspect2(input);
       return `The value of "${str}" is out of range. It must be ${range}. Received ${received}`;
     }, RangeError);
     E2("ERR_MULTIPLE_CALLBACK", "Callback called multiple times", Error);
@@ -3202,7 +3202,7 @@ var require_stream = __commonJS((exports, module) => {
     }
     function setCancelFlag(data) {
       if (data.passiveListener != null) {
-        if (typeof console !== "undefined" && typeof console.error === "function")
+        if (typeof console < "u" && typeof console.error === "function")
           console.error("Unable to preventDefault inside passive event listener invocation.", data.passiveListener);
         return;
       }
@@ -3278,7 +3278,7 @@ var require_stream = __commonJS((exports, module) => {
         setCancelFlag(pd(this));
     }, initEvent() {} };
     Object.defineProperty(Event.prototype, "constructor", { value: Event, configurable: true, writable: true });
-    if (typeof window !== "undefined" && typeof window.Event !== "undefined")
+    if (typeof window < "u" && typeof window.Event < "u")
       Object.setPrototypeOf(Event.prototype, window.Event.prototype), wrappers.set(window.Event.prototype, Event);
     function defineRedirectDescriptor(key) {
       return { get() {
@@ -3338,10 +3338,10 @@ var require_stream = __commonJS((exports, module) => {
       return x !== null && typeof x === "object";
     }
     function getListeners(eventTarget) {
-      let listeners2 = listenersMap.get(eventTarget);
-      if (listeners2 == null)
-        throw new TypeError("'this' is expected an EventTarget object, but got another value.");
-      return listeners2;
+      let listeners = listenersMap.get(eventTarget);
+      if (listeners == null)
+        throw TypeError("'this' is expected an EventTarget object, but got another value.");
+      return listeners;
     }
     function defineEventAttributeDescriptor(eventName) {
       return { get() {
@@ -3355,15 +3355,15 @@ var require_stream = __commonJS((exports, module) => {
       }, set(listener) {
         if (typeof listener !== "function" && !isObject2(listener))
           listener = null;
-        let listeners2 = getListeners(this), prev = null, node = listeners2.get(eventName);
+        let listeners = getListeners(this), prev = null, node = listeners.get(eventName);
         while (node != null) {
           if (node.listenerType === ATTRIBUTE)
             if (prev !== null)
               prev.next = node.next;
             else if (node.next !== null)
-              listeners2.set(eventName, node.next);
+              listeners.set(eventName, node.next);
             else
-              listeners2.delete(eventName);
+              listeners.delete(eventName);
           else
             prev = node;
           node = node.next;
@@ -3371,7 +3371,7 @@ var require_stream = __commonJS((exports, module) => {
         if (listener !== null) {
           let newNode = { listener, listenerType: ATTRIBUTE, passive: false, once: false, next: null };
           if (prev === null)
-            listeners2.set(eventName, newNode);
+            listeners.set(eventName, newNode);
           else
             prev.next = newNode;
         }
@@ -3380,13 +3380,13 @@ var require_stream = __commonJS((exports, module) => {
     function defineEventAttribute(eventTargetPrototype, eventName) {
       Object.defineProperty(eventTargetPrototype, `on${eventName}`, defineEventAttributeDescriptor(eventName));
     }
-    function defineCustomEventTarget(eventNames2) {
+    function defineCustomEventTarget(eventNames) {
       function CustomEventTarget() {
         EventTarget.call(this);
       }
       CustomEventTarget.prototype = Object.create(EventTarget.prototype, { constructor: { value: CustomEventTarget, configurable: true, writable: true } });
-      for (let i2 = 0;i2 < eventNames2.length; ++i2)
-        defineEventAttribute(CustomEventTarget.prototype, eventNames2[i2]);
+      for (let i2 = 0;i2 < eventNames.length; ++i2)
+        defineEventAttribute(CustomEventTarget.prototype, eventNames[i2]);
       return CustomEventTarget;
     }
     function EventTarget() {
@@ -3397,21 +3397,21 @@ var require_stream = __commonJS((exports, module) => {
       if (arguments.length === 1 && Array.isArray(arguments[0]))
         return defineCustomEventTarget(arguments[0]);
       if (arguments.length > 0) {
-        let types2 = new Array(arguments.length);
+        let types2 = Array(arguments.length);
         for (let i2 = 0;i2 < arguments.length; ++i2)
           types2[i2] = arguments[i2];
         return defineCustomEventTarget(types2);
       }
-      throw new TypeError("Cannot call a class as a function");
+      throw TypeError("Cannot call a class as a function");
     }
     EventTarget.prototype = { addEventListener(eventName, listener, options) {
       if (listener == null)
         return;
       if (typeof listener !== "function" && !isObject2(listener))
-        throw new TypeError("'listener' should be a function or an object.");
-      let listeners2 = getListeners(this), optionsIsObj = isObject2(options), listenerType = (optionsIsObj ? Boolean(options.capture) : Boolean(options)) ? CAPTURE : BUBBLE, newNode = { listener, listenerType, passive: optionsIsObj && Boolean(options.passive), once: optionsIsObj && Boolean(options.once), next: null }, node = listeners2.get(eventName);
+        throw TypeError("'listener' should be a function or an object.");
+      let listeners = getListeners(this), optionsIsObj = isObject2(options), listenerType = (optionsIsObj ? Boolean(options.capture) : Boolean(options)) ? CAPTURE : BUBBLE, newNode = { listener, listenerType, passive: optionsIsObj && Boolean(options.passive), once: optionsIsObj && Boolean(options.once), next: null }, node = listeners.get(eventName);
       if (node === undefined) {
-        listeners2.set(eventName, newNode);
+        listeners.set(eventName, newNode);
         return;
       }
       let prev = null;
@@ -3424,23 +3424,23 @@ var require_stream = __commonJS((exports, module) => {
     }, removeEventListener(eventName, listener, options) {
       if (listener == null)
         return;
-      let listeners2 = getListeners(this), listenerType = (isObject2(options) ? Boolean(options.capture) : Boolean(options)) ? CAPTURE : BUBBLE, prev = null, node = listeners2.get(eventName);
+      let listeners = getListeners(this), listenerType = (isObject2(options) ? Boolean(options.capture) : Boolean(options)) ? CAPTURE : BUBBLE, prev = null, node = listeners.get(eventName);
       while (node != null) {
         if (node.listener === listener && node.listenerType === listenerType) {
           if (prev !== null)
             prev.next = node.next;
           else if (node.next !== null)
-            listeners2.set(eventName, node.next);
+            listeners.set(eventName, node.next);
           else
-            listeners2.delete(eventName);
+            listeners.delete(eventName);
           return;
         }
         prev = node, node = node.next;
       }
     }, dispatchEvent(event) {
       if (event == null || typeof event.type !== "string")
-        throw new TypeError('"event.type" should be a string.');
-      let listeners2 = getListeners(this), eventName = event.type, node = listeners2.get(eventName);
+        throw TypeError('"event.type" should be a string.');
+      let listeners = getListeners(this), eventName = event.type, node = listeners.get(eventName);
       if (node == null)
         return true;
       let wrappedEvent = wrapEvent(this, event), prev = null;
@@ -3449,16 +3449,16 @@ var require_stream = __commonJS((exports, module) => {
           if (prev !== null)
             prev.next = node.next;
           else if (node.next !== null)
-            listeners2.set(eventName, node.next);
+            listeners.set(eventName, node.next);
           else
-            listeners2.delete(eventName);
+            listeners.delete(eventName);
         else
           prev = node;
         if (setPassiveListener(wrappedEvent, node.passive ? node.listener : null), typeof node.listener === "function")
           try {
             node.listener.call(this, wrappedEvent);
           } catch (err) {
-            if (typeof console !== "undefined" && typeof console.error === "function")
+            if (typeof console < "u" && typeof console.error === "function")
               console.error(err);
           }
         else if (node.listenerType !== ATTRIBUTE && typeof node.listener.handleEvent === "function")
@@ -3470,7 +3470,7 @@ var require_stream = __commonJS((exports, module) => {
       return setPassiveListener(wrappedEvent, null), setEventPhase(wrappedEvent, 0), setCurrentTarget(wrappedEvent, null), !wrappedEvent.defaultPrevented;
     } };
     Object.defineProperty(EventTarget.prototype, "constructor", { value: EventTarget, configurable: true, writable: true });
-    if (typeof window !== "undefined" && typeof window.EventTarget !== "undefined")
+    if (typeof window < "u" && typeof window.EventTarget < "u")
       Object.setPrototypeOf(EventTarget.prototype, window.EventTarget.prototype);
     exports2.defineEventAttribute = defineEventAttribute;
     exports2.EventTarget = EventTarget;
@@ -3486,12 +3486,12 @@ var require_stream = __commonJS((exports, module) => {
     class AbortSignal extends eventTargetShim.EventTarget {
       constructor() {
         super();
-        throw new TypeError("AbortSignal cannot be constructed directly");
+        throw TypeError("AbortSignal cannot be constructed directly");
       }
       get aborted() {
         let aborted = abortedFlags.get(this);
         if (typeof aborted !== "boolean")
-          throw new TypeError(`Expected 'this' to be an 'AbortSignal' object, but got ${this === null ? "null" : typeof this}`);
+          throw TypeError(`Expected 'this' to be an 'AbortSignal' object, but got ${this === null ? "null" : typeof this}`);
         return aborted;
       }
     }
@@ -3525,7 +3525,7 @@ var require_stream = __commonJS((exports, module) => {
     function getSignal(controller) {
       let signal = signals.get(controller);
       if (signal == null)
-        throw new TypeError(`Expected 'this' to be an 'AbortController' object, but got ${controller === null ? "null" : typeof controller}`);
+        throw TypeError(`Expected 'this' to be an 'AbortController' object, but got ${controller === null ? "null" : typeof controller}`);
       return signal;
     }
     Object.defineProperties(AbortController.prototype, { signal: { enumerable: true }, abort: { enumerable: true } });
@@ -3539,9 +3539,9 @@ var require_stream = __commonJS((exports, module) => {
     module2.exports.AbortSignal = AbortSignal;
   });
   var require_util = __commonJS2((exports2, module2) => {
-    var bufferModule = (init_buffer(), __toCommonJS(exports_buffer)), { format: format3, inspect: inspect3 } = require_inspect(), { codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3 } } = require_errors(), { kResistStopPropagation, AggregateError, SymbolDispose } = require_primordials(), AbortSignal = globalThis.AbortSignal || require_abort_controller().AbortSignal, AbortController = globalThis.AbortController || require_abort_controller().AbortController, AsyncFunction = Object.getPrototypeOf(async function() {}).constructor, Blob2 = globalThis.Blob || bufferModule.Blob, isBlob = typeof Blob2 !== "undefined" ? function isBlob(b) {
+    var bufferModule = (init_buffer(), __toCommonJS(exports_buffer)), { format: format3, inspect: inspect2 } = require_inspect(), { codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3 } } = require_errors(), { kResistStopPropagation, AggregateError, SymbolDispose } = require_primordials(), AbortSignal = globalThis.AbortSignal || require_abort_controller().AbortSignal, AbortController = globalThis.AbortController || require_abort_controller().AbortController, AsyncFunction = Object.getPrototypeOf(async function() {}).constructor, Blob2 = globalThis.Blob || bufferModule.Blob, isBlob = typeof Blob2 < "u" ? function(b) {
       return b instanceof Blob2;
-    } : function isBlob(b) {
+    } : function(b) {
       return false;
     }, validateAbortSignal2 = (signal, name) => {
       if (signal !== undefined && (signal === null || typeof signal !== "object" || !("aborted" in signal)))
@@ -3572,13 +3572,13 @@ var require_stream = __commonJS((exports, module) => {
       });
     }, debuglog() {
       return function() {};
-    }, format: format3, inspect: inspect3, types: { isAsyncFunction(fn) {
+    }, format: format3, inspect: inspect2, types: { isAsyncFunction(fn) {
       return fn instanceof AsyncFunction;
     }, isArrayBufferView(arr) {
       return ArrayBuffer.isView(arr);
     } }, isBlob, deprecate(fn, message) {
       return fn;
-    }, addAbortListener: (init_events(), __toCommonJS(exports_events)).addAbortListener || function addAbortListener(signal, listener) {
+    }, addAbortListener: (init_events(), __toCommonJS(exports_events)).addAbortListener || function(signal, listener) {
       if (signal === undefined)
         throw new ERR_INVALID_ARG_TYPE3("signal", "AbortSignal", signal);
       validateAbortSignal2(signal, "signal"), validateFunction(listener, "listener");
@@ -3593,7 +3593,7 @@ var require_stream = __commonJS((exports, module) => {
         var _removeEventListener;
         (_removeEventListener = removeEventListener) === null || _removeEventListener === undefined || _removeEventListener();
       } };
-    }, AbortSignalAny: AbortSignal.any || function AbortSignalAny(signals) {
+    }, AbortSignalAny: AbortSignal.any || function(signals) {
       if (signals.length === 1)
         return signals[0];
       let ac = new AbortController, abort = () => ac.abort();
@@ -3615,7 +3615,7 @@ var require_stream = __commonJS((exports, module) => {
     }
     var octalReg = /^[0-7]+$/, modeDesc = "must be a 32-bit unsigned integer or an octal string";
     function parseFileMode(value, name, def) {
-      if (typeof value === "undefined")
+      if (typeof value > "u")
         value = def;
       if (typeof value === "string") {
         if (RegExpPrototypeExec(octalReg, value) === null)
@@ -3744,7 +3744,7 @@ var require_stream = __commonJS((exports, module) => {
     }
     var linkValueRegExp = /^(?:<[^>]*>)(?:\s*;\s*[^;"\s]+(?:=(")?[^;"\s]*\1)?)*$/;
     function validateLinkHeaderFormat(value, name) {
-      if (typeof value === "undefined" || !RegExpPrototypeExec(linkValueRegExp, value))
+      if (typeof value > "u" || !RegExpPrototypeExec(linkValueRegExp, value))
         throw new ERR_INVALID_ARG_VALUE(name, value, 'must be an array or string of format "</styles.css>; rel=preload; as=style"');
     }
     function validateLinkHeaderValue(hints) {
@@ -3941,7 +3941,7 @@ var require_stream = __commonJS((exports, module) => {
     module2.exports = { isDestroyed, kIsDestroyed, isDisturbed, kIsDisturbed, isErrored, kIsErrored, isReadable, kIsReadable, kIsClosedPromise, kControllerErrorFunction, kIsWritable, isClosed, isDuplexNodeStream, isFinished, isIterable, isReadableNodeStream, isReadableStream, isReadableEnded, isReadableFinished, isReadableErrored, isNodeStream, isWebStream, isWritable, isWritableNodeStream, isWritableStream, isWritableEnded, isWritableFinished, isWritableErrored, isServerRequest, isServerResponse, willEmitClose, isTransformStream };
   });
   var require_end_of_stream = __commonJS2((exports2, module2) => {
-    var process2 = require_process(), { AbortError: AbortError2, codes } = require_errors(), { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_STREAM_PREMATURE_CLOSE } = codes, { kEmptyObject, once: once3 } = require_util(), { validateAbortSignal: validateAbortSignal2, validateFunction, validateObject, validateBoolean: validateBoolean2 } = require_validators(), { Promise: Promise2, PromisePrototypeThen, SymbolDispose } = require_primordials(), { isClosed, isReadable, isReadableNodeStream, isReadableStream, isReadableFinished, isReadableErrored, isWritable, isWritableNodeStream, isWritableStream, isWritableFinished, isWritableErrored, isNodeStream, willEmitClose: _willEmitClose, kIsClosedPromise } = require_utils(), addAbortListener2;
+    var process2 = require_process(), { AbortError: AbortError2, codes } = require_errors(), { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_STREAM_PREMATURE_CLOSE } = codes, { kEmptyObject, once } = require_util(), { validateAbortSignal: validateAbortSignal2, validateFunction, validateObject, validateBoolean: validateBoolean2 } = require_validators(), { Promise: Promise2, PromisePrototypeThen, SymbolDispose } = require_primordials(), { isClosed, isReadable, isReadableNodeStream, isReadableStream, isReadableFinished, isReadableErrored, isWritable, isWritableNodeStream, isWritableStream, isWritableFinished, isWritableErrored, isNodeStream, willEmitClose: _willEmitClose, kIsClosedPromise } = require_utils(), addAbortListener2;
     function isRequest(stream) {
       return stream.setHeader && typeof stream.abort === "function";
     }
@@ -3954,7 +3954,7 @@ var require_stream = __commonJS((exports, module) => {
         options = kEmptyObject;
       else
         validateObject(options, "options");
-      if (validateFunction(callback, "callback"), validateAbortSignal2(options.signal, "options.signal"), callback = once3(callback), isReadableStream(stream) || isWritableStream(stream))
+      if (validateFunction(callback, "callback"), validateAbortSignal2(options.signal, "options.signal"), callback = once(callback), isReadableStream(stream) || isWritableStream(stream))
         return eosWeb(stream, options, callback);
       if (!isNodeStream(stream))
         throw new ERR_INVALID_ARG_TYPE3("stream", ["ReadableStream", "WritableStream", "Stream"], stream);
@@ -4039,7 +4039,7 @@ var require_stream = __commonJS((exports, module) => {
         else {
           addAbortListener2 = addAbortListener2 || require_util().addAbortListener;
           let disposable = addAbortListener2(options.signal, abort), originalCallback = callback;
-          callback = once3((...args) => {
+          callback = once((...args) => {
             disposable[SymbolDispose](), originalCallback.apply(stream, args);
           });
         }
@@ -4056,7 +4056,7 @@ var require_stream = __commonJS((exports, module) => {
         else {
           addAbortListener2 = addAbortListener2 || require_util().addAbortListener;
           let disposable = addAbortListener2(options.signal, abort), originalCallback = callback;
-          callback = once3((...args) => {
+          callback = once((...args) => {
             disposable[SymbolDispose](), originalCallback.apply(stream, args);
           });
         }
@@ -4298,13 +4298,13 @@ var require_stream = __commonJS((exports, module) => {
         if (cleanup(), EE.listenerCount(this, "error") === 0)
           this.emit("error", er);
       }
-      prependListener2(source, "error", onerror), prependListener2(dest, "error", onerror);
+      prependListener(source, "error", onerror), prependListener(dest, "error", onerror);
       function cleanup() {
         source.removeListener("data", ondata), dest.removeListener("drain", ondrain), source.removeListener("end", onend), source.removeListener("close", onclose), source.removeListener("error", onerror), dest.removeListener("error", onerror), source.removeListener("end", cleanup), source.removeListener("close", cleanup), dest.removeListener("close", cleanup);
       }
       return source.on("end", cleanup), source.on("close", cleanup), dest.on("close", cleanup), dest.emit("pipe", source), dest;
     };
-    function prependListener2(emitter, event, fn) {
+    function prependListener(emitter, event, fn) {
       if (typeof emitter.prependListener === "function")
         return emitter.prependListener(event, fn);
       if (!emitter._events || !emitter._events[event])
@@ -4314,14 +4314,14 @@ var require_stream = __commonJS((exports, module) => {
       else
         emitter._events[event] = [fn, emitter._events[event]];
     }
-    module2.exports = { Stream, prependListener: prependListener2 };
+    module2.exports = { Stream, prependListener };
   });
   var require_add_abort_signal = __commonJS2((exports2, module2) => {
     var { SymbolDispose } = require_primordials(), { AbortError: AbortError2, codes } = require_errors(), { isNodeStream, isWebStream, kControllerErrorFunction } = require_utils(), eos = require_end_of_stream(), { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3 } = codes, addAbortListener2, validateAbortSignal2 = (signal, name) => {
       if (typeof signal !== "object" || !("aborted" in signal))
         throw new ERR_INVALID_ARG_TYPE3(name, "AbortSignal", signal);
     };
-    module2.exports.addAbortSignal = function addAbortSignal(signal, stream) {
+    module2.exports.addAbortSignal = function(signal, stream) {
       if (validateAbortSignal2(signal, "signal"), !isNodeStream(stream) && !isWebStream(stream))
         throw new ERR_INVALID_ARG_TYPE3("stream", ["ReadableStream", "WritableStream", "Stream"], stream);
       return module2.exports.addAbortSignalNoValidate(signal, stream);
@@ -4345,8 +4345,8 @@ var require_stream = __commonJS((exports, module) => {
     };
   });
   var require_buffer_list = __commonJS2((exports2, module2) => {
-    var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials(), { Buffer: Buffer3 } = (init_buffer(), __toCommonJS(exports_buffer)), { inspect: inspect3 } = require_util();
-    module2.exports = class BufferList {
+    var { StringPrototypeSlice, SymbolIterator, TypedArrayPrototypeSet, Uint8Array: Uint8Array2 } = require_primordials(), { Buffer: Buffer3 } = (init_buffer(), __toCommonJS(exports_buffer)), { inspect: inspect2 } = require_util();
+    module2.exports = class {
       constructor() {
         this.head = null, this.tail = null, this.length = 0;
       }
@@ -4396,8 +4396,8 @@ var require_stream = __commonJS((exports, module) => {
       consume(n, hasStrings) {
         let data = this.head.data;
         if (n < data.length) {
-          let slice2 = data.slice(0, n);
-          return this.head.data = data.slice(n), slice2;
+          let slice = data.slice(0, n);
+          return this.head.data = data.slice(n), slice;
         }
         if (n === data.length)
           return this.shift();
@@ -4451,7 +4451,7 @@ var require_stream = __commonJS((exports, module) => {
         return this.length -= c, ret;
       }
       [Symbol.for("nodejs.util.inspect.custom")](_, options) {
-        return inspect3(this, { ...options, depth: 0, customInspect: false });
+        return inspect2(this, { ...options, depth: 0, customInspect: false });
       }
     };
   });
@@ -4500,35 +4500,35 @@ var require_stream = __commonJS((exports, module) => {
     copyProps(Buffer3, SafeBuffer);
     SafeBuffer.from = function(arg, encodingOrOffset, length) {
       if (typeof arg === "number")
-        throw new TypeError("Argument must not be a number");
+        throw TypeError("Argument must not be a number");
       return Buffer3(arg, encodingOrOffset, length);
     };
-    SafeBuffer.alloc = function(size, fill2, encoding) {
+    SafeBuffer.alloc = function(size, fill, encoding) {
       if (typeof size !== "number")
-        throw new TypeError("Argument must be a number");
+        throw TypeError("Argument must be a number");
       var buf = Buffer3(size);
-      if (fill2 !== undefined)
+      if (fill !== undefined)
         if (typeof encoding === "string")
-          buf.fill(fill2, encoding);
+          buf.fill(fill, encoding);
         else
-          buf.fill(fill2);
+          buf.fill(fill);
       else
         buf.fill(0);
       return buf;
     };
     SafeBuffer.allocUnsafe = function(size) {
       if (typeof size !== "number")
-        throw new TypeError("Argument must be a number");
+        throw TypeError("Argument must be a number");
       return Buffer3(size);
     };
     SafeBuffer.allocUnsafeSlow = function(size) {
       if (typeof size !== "number")
-        throw new TypeError("Argument must be a number");
+        throw TypeError("Argument must be a number");
       return buffer.SlowBuffer(size);
     };
   });
   var require_string_decoder = __commonJS2((exports2) => {
-    var Buffer3 = require_safe_buffer().Buffer, isEncoding2 = Buffer3.isEncoding || function(encoding) {
+    var Buffer3 = require_safe_buffer().Buffer, isEncoding = Buffer3.isEncoding || function(encoding) {
       switch (encoding = "" + encoding, encoding && encoding.toLowerCase()) {
         case "hex":
         case "utf8":
@@ -4575,8 +4575,8 @@ var require_stream = __commonJS((exports, module) => {
     }
     function normalizeEncoding(enc) {
       var nenc = _normalizeEncoding(enc);
-      if (typeof nenc !== "string" && (Buffer3.isEncoding === isEncoding2 || !isEncoding2(enc)))
-        throw new Error("Unknown encoding: " + enc);
+      if (typeof nenc !== "string" && (Buffer3.isEncoding === isEncoding || !isEncoding(enc)))
+        throw Error("Unknown encoding: " + enc);
       return nenc || enc;
     }
     exports2.StringDecoder = StringDecoder;
@@ -4800,7 +4800,7 @@ var require_stream = __commonJS((exports, module) => {
     var process2 = require_process(), { ArrayPrototypeIndexOf, NumberIsInteger, NumberIsNaN, NumberParseInt, ObjectDefineProperties, ObjectKeys, ObjectSetPrototypeOf, Promise: Promise2, SafeSet, SymbolAsyncDispose, SymbolAsyncIterator, Symbol: Symbol2 } = require_primordials();
     module2.exports = Readable;
     Readable.ReadableState = ReadableState;
-    var { EventEmitter: EE } = (init_events(), __toCommonJS(exports_events)), { Stream, prependListener: prependListener2 } = require_legacy(), { Buffer: Buffer3 } = (init_buffer(), __toCommonJS(exports_buffer)), { addAbortSignal } = require_add_abort_signal(), eos = require_end_of_stream(), debug = require_util().debuglog("stream", (fn) => {
+    var { EventEmitter: EE } = (init_events(), __toCommonJS(exports_events)), { Stream, prependListener } = require_legacy(), { Buffer: Buffer3 } = (init_buffer(), __toCommonJS(exports_buffer)), { addAbortSignal } = require_add_abort_signal(), eos = require_end_of_stream(), debug = require_util().debuglog("stream", (fn) => {
       debug = fn;
     }), BufferList = require_buffer_list(), destroyImpl = require_destroy(), { getHighWaterMark, getDefaultHighWaterMark } = require_state(), { aggregateTwoErrors, codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_METHOD_NOT_IMPLEMENTED, ERR_OUT_OF_RANGE: ERR_OUT_OF_RANGE3, ERR_STREAM_PUSH_AFTER_EOF, ERR_STREAM_UNSHIFT_AFTER_END_EVENT }, AbortError: AbortError2 } = require_errors(), { validateObject } = require_validators(), kPaused = Symbol2("kPaused"), { StringDecoder } = require_string_decoder(), from2 = require_from();
     ObjectSetPrototypeOf(Readable.prototype, Stream.prototype);
@@ -5121,7 +5121,7 @@ var require_stream = __commonJS((exports, module) => {
             dest.emit("error", er);
         }
       }
-      prependListener2(dest, "error", onerror);
+      prependListener(dest, "error", onerror);
       function onclose() {
         dest.removeListener("finish", onfinish), unpipe();
       }
@@ -5140,7 +5140,7 @@ var require_stream = __commonJS((exports, module) => {
       return dest;
     };
     function pipeOnDrain(src, dest) {
-      return function pipeOnDrainFunctionResult() {
+      return function() {
         let state = src._readableState;
         if (state.awaitDrainWriters === dest)
           debug("pipeOnDrain", 1), state.awaitDrainWriters = null;
@@ -5435,7 +5435,7 @@ var require_stream = __commonJS((exports, module) => {
     function resetBuffer(state) {
       state.buffered = [], state.bufferedIndex = 0, state.allBuffers = true, state.allNoop = true;
     }
-    WritableState.prototype.getBuffer = function getBuffer() {
+    WritableState.prototype.getBuffer = function() {
       return ArrayPrototypeSlice2(this.buffered, this.bufferedIndex);
     };
     ObjectDefineProperty(WritableState.prototype, "bufferedRequestCount", { __proto__: null, get() {
@@ -5522,7 +5522,7 @@ var require_stream = __commonJS((exports, module) => {
           clearBuffer(this, state);
       }
     };
-    Writable.prototype.setDefaultEncoding = function setDefaultEncoding(encoding) {
+    Writable.prototype.setDefaultEncoding = function(encoding) {
       if (typeof encoding === "string")
         encoding = StringPrototypeToLowerCase(encoding);
       if (!Buffer3.isEncoding(encoding))
@@ -5800,9 +5800,9 @@ var require_stream = __commonJS((exports, module) => {
     };
   });
   var require_duplexify = __commonJS2((exports2, module2) => {
-    var process2 = require_process(), bufferModule = (init_buffer(), __toCommonJS(exports_buffer)), { isReadable, isWritable, isIterable, isNodeStream, isReadableNodeStream, isWritableNodeStream, isDuplexNodeStream, isReadableStream, isWritableStream } = require_utils(), eos = require_end_of_stream(), { AbortError: AbortError2, codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_INVALID_RETURN_VALUE } } = require_errors(), { destroyer } = require_destroy(), Duplex = require_duplex(), Readable = require_readable(), Writable = require_writable(), { createDeferredPromise } = require_util(), from2 = require_from(), Blob2 = globalThis.Blob || bufferModule.Blob, isBlob = typeof Blob2 !== "undefined" ? function isBlob(b) {
+    var process2 = require_process(), bufferModule = (init_buffer(), __toCommonJS(exports_buffer)), { isReadable, isWritable, isIterable, isNodeStream, isReadableNodeStream, isWritableNodeStream, isDuplexNodeStream, isReadableStream, isWritableStream } = require_utils(), eos = require_end_of_stream(), { AbortError: AbortError2, codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_INVALID_RETURN_VALUE } } = require_errors(), { destroyer } = require_destroy(), Duplex = require_duplex(), Readable = require_readable(), Writable = require_writable(), { createDeferredPromise } = require_util(), from2 = require_from(), Blob2 = globalThis.Blob || bufferModule.Blob, isBlob = typeof Blob2 < "u" ? function(b) {
       return b instanceof Blob2;
-    } : function isBlob(b) {
+    } : function(b) {
       return false;
     }, AbortController = globalThis.AbortController || require_abort_controller().AbortController, { FunctionPrototypeCall } = require_primordials();
 
@@ -5829,9 +5829,9 @@ var require_stream = __commonJS((exports, module) => {
       if (isWritableStream(body))
         return _duplexify({ writable: Writable.fromWeb(body) });
       if (typeof body === "function") {
-        let { value, write: write3, final, destroy } = fromAsyncGen(body);
+        let { value, write: write2, final, destroy } = fromAsyncGen(body);
         if (isIterable(value))
-          return from2(Duplexify, value, { objectMode: true, write: write3, final, destroy });
+          return from2(Duplexify, value, { objectMode: true, write: write2, final, destroy });
         let then2 = value === null || value === undefined ? undefined : value.then;
         if (typeof then2 === "function") {
           let d, promise = FunctionPrototypeCall(then2, value, (val) => {
@@ -5840,7 +5840,7 @@ var require_stream = __commonJS((exports, module) => {
           }, (err) => {
             destroyer(d, err);
           });
-          return d = new Duplexify({ objectMode: true, readable: false, write: write3, final(cb) {
+          return d = new Duplexify({ objectMode: true, readable: false, write: write2, final(cb) {
             final(async () => {
               try {
                 await promise, process2.nextTick(cb, null);
@@ -6100,7 +6100,7 @@ var require_stream = __commonJS((exports, module) => {
     };
   });
   var require_pipeline = __commonJS2((exports2, module2) => {
-    var process2 = require_process(), { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials(), eos = require_end_of_stream(), { once: once3 } = require_util(), destroyImpl = require_destroy(), Duplex = require_duplex(), { aggregateTwoErrors, codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_INVALID_RETURN_VALUE, ERR_MISSING_ARGS, ERR_STREAM_DESTROYED, ERR_STREAM_PREMATURE_CLOSE }, AbortError: AbortError2 } = require_errors(), { validateFunction, validateAbortSignal: validateAbortSignal2 } = require_validators(), { isIterable, isReadable, isReadableNodeStream, isNodeStream, isTransformStream, isWebStream, isReadableStream, isReadableFinished } = require_utils(), AbortController = globalThis.AbortController || require_abort_controller().AbortController, PassThrough, Readable, addAbortListener2;
+    var process2 = require_process(), { ArrayIsArray, Promise: Promise2, SymbolAsyncIterator, SymbolDispose } = require_primordials(), eos = require_end_of_stream(), { once } = require_util(), destroyImpl = require_destroy(), Duplex = require_duplex(), { aggregateTwoErrors, codes: { ERR_INVALID_ARG_TYPE: ERR_INVALID_ARG_TYPE3, ERR_INVALID_RETURN_VALUE, ERR_MISSING_ARGS, ERR_STREAM_DESTROYED, ERR_STREAM_PREMATURE_CLOSE }, AbortError: AbortError2 } = require_errors(), { validateFunction, validateAbortSignal: validateAbortSignal2 } = require_validators(), { isIterable, isReadable, isReadableNodeStream, isNodeStream, isTransformStream, isWebStream, isReadableStream, isReadableFinished } = require_utils(), AbortController = globalThis.AbortController || require_abort_controller().AbortController, PassThrough, Readable, addAbortListener2;
     function destroyer(stream, reading, writing) {
       let finished = false;
       stream.on("close", () => {
@@ -6185,7 +6185,7 @@ var require_stream = __commonJS((exports, module) => {
       }
     }
     function pipeline(...streams) {
-      return pipelineImpl(streams, once3(popCallback(streams)));
+      return pipelineImpl(streams, once(popCallback(streams)));
     }
     function pipelineImpl(streams, callback, opts) {
       if (streams.length === 1 && ArrayIsArray(streams[0]))
@@ -6341,7 +6341,7 @@ var require_stream = __commonJS((exports, module) => {
   });
   var require_compose = __commonJS2((exports2, module2) => {
     var { pipeline } = require_pipeline(), Duplex = require_duplex(), { destroyer } = require_destroy(), { isNodeStream, isReadable, isWritable, isWebStream, isTransformStream, isWritableStream, isReadableStream } = require_utils(), { AbortError: AbortError2, codes: { ERR_INVALID_ARG_VALUE, ERR_MISSING_ARGS } } = require_errors(), eos = require_end_of_stream();
-    module2.exports = function compose(...streams) {
+    module2.exports = function(...streams) {
       if (streams.length === 0)
         throw new ERR_MISSING_ARGS("streams");
       if (streams.length === 1)
@@ -6486,7 +6486,7 @@ var require_stream = __commonJS((exports, module) => {
       let highWaterMark = concurrency - 1;
       if ((options === null || options === undefined ? undefined : options.highWaterMark) != null)
         highWaterMark = MathFloor(options.highWaterMark);
-      return validateInteger(concurrency, "options.concurrency", 1), validateInteger(highWaterMark, "options.highWaterMark", 0), highWaterMark += concurrency, async function* map() {
+      return validateInteger(concurrency, "options.concurrency", 1), validateInteger(highWaterMark, "options.highWaterMark", 0), highWaterMark += concurrency, async function* () {
         let signal = require_util().AbortSignalAny([options === null || options === undefined ? undefined : options.signal].filter(Boolean2)), stream = this, queue = [], signalOpt = { signal }, next, resume, done = false, cnt = 0;
         function onCatch() {
           done = true, afterItemProcessed();
@@ -6556,7 +6556,7 @@ var require_stream = __commonJS((exports, module) => {
         validateObject(options, "options");
       if ((options === null || options === undefined ? undefined : options.signal) != null)
         validateAbortSignal2(options.signal, "options.signal");
-      return async function* asIndexedPairs() {
+      return async function* () {
         let index = 0;
         for await (let val of this) {
           var _options$signal;
@@ -6661,7 +6661,7 @@ var require_stream = __commonJS((exports, module) => {
     }
     function flatMap(fn, options) {
       let values = map.call(this, fn, options);
-      return async function* flatMap() {
+      return async function* () {
         for await (let val of values)
           yield* val;
       }.call(this);
@@ -6678,7 +6678,7 @@ var require_stream = __commonJS((exports, module) => {
         validateObject(options, "options");
       if ((options === null || options === undefined ? undefined : options.signal) != null)
         validateAbortSignal2(options.signal, "options.signal");
-      return number = toIntegerOrInfinity(number), async function* drop() {
+      return number = toIntegerOrInfinity(number), async function* () {
         var _options$signal5;
         if (options !== null && options !== undefined && (_options$signal5 = options.signal) !== null && _options$signal5 !== undefined && _options$signal5.aborted)
           throw new AbortError2;
@@ -6696,7 +6696,7 @@ var require_stream = __commonJS((exports, module) => {
         validateObject(options, "options");
       if ((options === null || options === undefined ? undefined : options.signal) != null)
         validateAbortSignal2(options.signal, "options.signal");
-      return number = toIntegerOrInfinity(number), async function* take() {
+      return number = toIntegerOrInfinity(number), async function* () {
         var _options$signal7;
         if (options !== null && options !== undefined && (_options$signal7 = options.signal) !== null && _options$signal7 !== undefined && _options$signal7.aborted)
           throw new AbortError2;
@@ -6780,10 +6780,10 @@ var require_stream = __commonJS((exports, module) => {
       return promises.finished;
     } });
     Stream.Stream = Stream;
-    Stream._isUint8Array = function isUint8Array(value) {
+    Stream._isUint8Array = function(value) {
       return value instanceof Uint8Array;
     };
-    Stream._uint8ArrayToBuffer = function _uint8ArrayToBuffer(chunk) {
+    Stream._uint8ArrayToBuffer = function(chunk) {
       return Buffer3.from(chunk.buffer, chunk.byteOffset, chunk.byteLength);
     };
   });
@@ -6884,13 +6884,13 @@ var init_crypto = __esm(() => {
     var MAX_ALLOC = Math.pow(2, 30) - 1;
     module.exports = function(iterations, keylen) {
       if (typeof iterations !== "number")
-        throw new TypeError("Iterations not a number");
+        throw TypeError("Iterations not a number");
       if (iterations < 0)
-        throw new TypeError("Bad iterations");
+        throw TypeError("Bad iterations");
       if (typeof keylen !== "number")
-        throw new TypeError("Key length not a number");
+        throw TypeError("Key length not a number");
       if (keylen < 0 || keylen > MAX_ALLOC || keylen !== keylen)
-        throw new TypeError("Bad key length");
+        throw TypeError("Bad key length");
     };
   });
   require_default_encoding = __commonJS2((exports, module) => {
@@ -6922,30 +6922,30 @@ var init_crypto = __esm(() => {
     copyProps(Buffer22, SafeBuffer);
     SafeBuffer.from = function(arg, encodingOrOffset, length) {
       if (typeof arg === "number")
-        throw new TypeError("Argument must not be a number");
+        throw TypeError("Argument must not be a number");
       return Buffer22(arg, encodingOrOffset, length);
     };
-    SafeBuffer.alloc = function(size, fill2, encoding) {
+    SafeBuffer.alloc = function(size, fill, encoding) {
       if (typeof size !== "number")
-        throw new TypeError("Argument must be a number");
+        throw TypeError("Argument must be a number");
       var buf = Buffer22(size);
-      if (fill2 !== undefined)
+      if (fill !== undefined)
         if (typeof encoding === "string")
-          buf.fill(fill2, encoding);
+          buf.fill(fill, encoding);
         else
-          buf.fill(fill2);
+          buf.fill(fill);
       else
         buf.fill(0);
       return buf;
     };
     SafeBuffer.allocUnsafe = function(size) {
       if (typeof size !== "number")
-        throw new TypeError("Argument must be a number");
+        throw TypeError("Argument must be a number");
       return Buffer22(size);
     };
     SafeBuffer.allocUnsafeSlow = function(size) {
       if (typeof size !== "number")
-        throw new TypeError("Argument must be a number");
+        throw TypeError("Argument must be a number");
       return buffer.SlowBuffer(size);
     };
   });
@@ -6959,7 +6959,7 @@ var init_crypto = __esm(() => {
       else if (ArrayBuffer.isView(thing))
         return Buffer22.from(thing.buffer);
       else
-        throw new TypeError(name + " must be a string, a Buffer, a typed array or a DataView");
+        throw TypeError(name + " must be a string, a Buffer, a typed array or a DataView");
     };
   });
   require_sync = __commonJS2((exports, module) => {
@@ -7050,7 +7050,7 @@ var init_crypto = __esm(() => {
         return;
       }
       if (checkParameters(iterations, keylen), password = toBuffer(password, defaultEncoding, "Password"), salt = toBuffer(salt, defaultEncoding, "Salt"), typeof callback !== "function")
-        throw new Error("No callback provided to pbkdf2");
+        throw Error("No callback provided to pbkdf2");
       resolvePromise(checkNative(algo).then(function(resp) {
         if (resp)
           return browserPbkdf2(password, salt, iterations, keylen, algo);
@@ -7064,7 +7064,7 @@ var init_crypto = __esm(() => {
       if (checkParameters(iterations, keylen), password = toBuffer(password, defaultEncoding, "Password"), salt = toBuffer(salt, defaultEncoding, "Salt"), typeof digest === "function")
         callback = digest, digest = "sha1";
       if (typeof callback !== "function")
-        throw new Error("No callback provided to pbkdf2");
+        throw Error("No callback provided to pbkdf2");
       return native.pbkdf2(password, salt, iterations, keylen, digest, callback);
     }
     function nativePBKDF2Sync(password, salt, iterations, keylen, digest) {
@@ -7105,7 +7105,7 @@ var init_crypto = __esm(() => {
     (function(module2, exports2) {
       function assert(val, msg) {
         if (!val)
-          throw new Error(msg || "Assertion failed");
+          throw Error(msg || "Assertion failed");
       }
       function inherits2(ctor, superCtor) {
         ctor.super_ = superCtor;
@@ -7128,24 +7128,24 @@ var init_crypto = __esm(() => {
       BN.BN = BN, BN.wordSize = 26;
       var Buffer22;
       try {
-        if (typeof window !== "undefined" && typeof window.Buffer !== "undefined")
+        if (typeof window < "u" && typeof window.Buffer < "u")
           Buffer22 = window.Buffer;
         else
           Buffer22 = (init_buffer(), __toCommonJS(exports_buffer)).Buffer;
       } catch (e) {}
-      BN.isBN = function isBN(num) {
+      BN.isBN = function(num) {
         if (num instanceof BN)
           return true;
         return num !== null && typeof num === "object" && num.constructor.wordSize === BN.wordSize && Array.isArray(num.words);
-      }, BN.max = function max(left, right) {
+      }, BN.max = function(left, right) {
         if (left.cmp(right) > 0)
           return left;
         return right;
-      }, BN.min = function min(left, right) {
+      }, BN.min = function(left, right) {
         if (left.cmp(right) < 0)
           return left;
         return right;
-      }, BN.prototype._init = function init(number, base, endian) {
+      }, BN.prototype._init = function(number, base, endian) {
         if (typeof number === "number")
           return this._initNumber(number, base, endian);
         if (typeof number === "object")
@@ -7162,7 +7162,7 @@ var init_crypto = __esm(() => {
           else if (this._parseBase(number, base, start), endian === "le")
             this._initArray(this.toArray(), base, endian);
         }
-      }, BN.prototype._initNumber = function _initNumber(number, base, endian) {
+      }, BN.prototype._initNumber = function(number, base, endian) {
         if (number < 0)
           this.negative = 1, number = -number;
         if (number < 67108864)
@@ -7174,10 +7174,10 @@ var init_crypto = __esm(() => {
         if (endian !== "le")
           return;
         this._initArray(this.toArray(), base, endian);
-      }, BN.prototype._initArray = function _initArray(number, base, endian) {
+      }, BN.prototype._initArray = function(number, base, endian) {
         if (assert(typeof number.length === "number"), number.length <= 0)
           return this.words = [0], this.length = 1, this;
-        this.length = Math.ceil(number.length / 3), this.words = new Array(this.length);
+        this.length = Math.ceil(number.length / 3), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var j, w, off = 0;
@@ -7207,8 +7207,8 @@ var init_crypto = __esm(() => {
           r |= parseHex4Bits(string, index - 1) << 4;
         return r;
       }
-      BN.prototype._parseHex = function _parseHex(number, start, endian) {
-        this.length = Math.ceil((number.length - start) / 6), this.words = new Array(this.length);
+      BN.prototype._parseHex = function(number, start, endian) {
+        this.length = Math.ceil((number.length - start) / 6), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var off = 0, j = 0, w;
@@ -7241,7 +7241,7 @@ var init_crypto = __esm(() => {
         }
         return r;
       }
-      BN.prototype._parseBase = function _parseBase(number, base, start) {
+      BN.prototype._parseBase = function(number, base, start) {
         this.words = [0], this.length = 1;
         for (var limbLen = 0, limbPow = 1;limbPow <= 67108863; limbPow *= base)
           limbLen++;
@@ -7263,31 +7263,31 @@ var init_crypto = __esm(() => {
             this._iaddn(word);
         }
         this.strip();
-      }, BN.prototype.copy = function copy(dest) {
-        dest.words = new Array(this.length);
+      }, BN.prototype.copy = function(dest) {
+        dest.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           dest.words[i2] = this.words[i2];
         dest.length = this.length, dest.negative = this.negative, dest.red = this.red;
-      }, BN.prototype.clone = function clone() {
+      }, BN.prototype.clone = function() {
         var r = new BN(null);
         return this.copy(r), r;
-      }, BN.prototype._expand = function _expand(size) {
+      }, BN.prototype._expand = function(size) {
         while (this.length < size)
           this.words[this.length++] = 0;
         return this;
-      }, BN.prototype.strip = function strip() {
+      }, BN.prototype.strip = function() {
         while (this.length > 1 && this.words[this.length - 1] === 0)
           this.length--;
         return this._normSign();
-      }, BN.prototype._normSign = function _normSign() {
+      }, BN.prototype._normSign = function() {
         if (this.length === 1 && this.words[0] === 0)
           this.negative = 0;
         return this;
-      }, BN.prototype.inspect = function inspect() {
+      }, BN.prototype.inspect = function() {
         return (this.red ? "<BN-R: " : "<BN: ") + this.toString(16) + ">";
       };
       var zeros = ["", "0", "00", "000", "0000", "00000", "000000", "0000000", "00000000", "000000000", "0000000000", "00000000000", "000000000000", "0000000000000", "00000000000000", "000000000000000", "0000000000000000", "00000000000000000", "000000000000000000", "0000000000000000000", "00000000000000000000", "000000000000000000000", "0000000000000000000000", "00000000000000000000000", "000000000000000000000000", "0000000000000000000000000"], groupSizes = [0, 0, 25, 16, 12, 11, 10, 9, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], groupBases = [0, 0, 33554432, 43046721, 16777216, 48828125, 60466176, 40353607, 16777216, 43046721, 1e7, 19487171, 35831808, 62748517, 7529536, 11390625, 16777216, 24137569, 34012224, 47045881, 64000000, 4084101, 5153632, 6436343, 7962624, 9765625, 11881376, 14348907, 17210368, 20511149, 24300000, 28629151, 33554432, 39135393, 45435424, 52521875, 60466176];
-      if (BN.prototype.toString = function toString(base, padding) {
+      if (BN.prototype.toString = function(base, padding) {
         base = base || 10, padding = padding | 0 || 1;
         var out;
         if (base === 16 || base === "hex") {
@@ -7331,7 +7331,7 @@ var init_crypto = __esm(() => {
           return out;
         }
         assert(false, "Base should be between 2 and 36");
-      }, BN.prototype.toNumber = function toNumber() {
+      }, BN.prototype.toNumber = function() {
         var ret = this.words[0];
         if (this.length === 2)
           ret += this.words[1] * 67108864;
@@ -7340,13 +7340,13 @@ var init_crypto = __esm(() => {
         else if (this.length > 2)
           assert(false, "Number can only safely store up to 53 bits");
         return this.negative !== 0 ? -ret : ret;
-      }, BN.prototype.toJSON = function toJSON() {
+      }, BN.prototype.toJSON = function() {
         return this.toString(16);
-      }, BN.prototype.toBuffer = function toBuffer(endian, length) {
-        return assert(typeof Buffer22 !== "undefined"), this.toArrayLike(Buffer22, endian, length);
-      }, BN.prototype.toArray = function toArray(endian, length) {
+      }, BN.prototype.toBuffer = function(endian, length) {
+        return assert(typeof Buffer22 < "u"), this.toArrayLike(Buffer22, endian, length);
+      }, BN.prototype.toArray = function(endian, length) {
         return this.toArrayLike(Array, endian, length);
-      }, BN.prototype.toArrayLike = function toArrayLike(ArrayType, endian, length) {
+      }, BN.prototype.toArrayLike = function(ArrayType, endian, length) {
         var byteLength2 = this.byteLength(), reqLength = length || Math.max(1, byteLength2);
         assert(byteLength2 <= reqLength, "byte array longer than desired length"), assert(reqLength > 0, "Requested array length <= 0"), this.strip();
         var littleEndian = endian === "le", res = new ArrayType(reqLength), b, i2, q = this.clone();
@@ -7363,11 +7363,11 @@ var init_crypto = __esm(() => {
         }
         return res;
       }, Math.clz32)
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           return 32 - Math.clz32(w);
         };
       else
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           var t = w, r = 0;
           if (t >= 4096)
             r += 13, t >>>= 13;
@@ -7379,7 +7379,7 @@ var init_crypto = __esm(() => {
             r += 2, t >>>= 2;
           return r + t;
         };
-      BN.prototype._zeroBits = function _zeroBits(w) {
+      BN.prototype._zeroBits = function(w) {
         if (w === 0)
           return 26;
         var t = w, r = 0;
@@ -7394,19 +7394,19 @@ var init_crypto = __esm(() => {
         if ((t & 1) === 0)
           r++;
         return r;
-      }, BN.prototype.bitLength = function bitLength() {
+      }, BN.prototype.bitLength = function() {
         var w = this.words[this.length - 1], hi = this._countBits(w);
         return (this.length - 1) * 26 + hi;
       };
       function toBitArray(num) {
-        var w = new Array(num.bitLength());
+        var w = Array(num.bitLength());
         for (var bit = 0;bit < w.length; bit++) {
           var off = bit / 26 | 0, wbit = bit % 26;
           w[bit] = (num.words[off] & 1 << wbit) >>> wbit;
         }
         return w;
       }
-      BN.prototype.zeroBits = function zeroBits() {
+      BN.prototype.zeroBits = function() {
         if (this.isZero())
           return 0;
         var r = 0;
@@ -7416,41 +7416,41 @@ var init_crypto = __esm(() => {
             break;
         }
         return r;
-      }, BN.prototype.byteLength = function byteLength() {
+      }, BN.prototype.byteLength = function() {
         return Math.ceil(this.bitLength() / 8);
-      }, BN.prototype.toTwos = function toTwos(width) {
+      }, BN.prototype.toTwos = function(width) {
         if (this.negative !== 0)
           return this.abs().inotn(width).iaddn(1);
         return this.clone();
-      }, BN.prototype.fromTwos = function fromTwos(width) {
+      }, BN.prototype.fromTwos = function(width) {
         if (this.testn(width - 1))
           return this.notn(width).iaddn(1).ineg();
         return this.clone();
-      }, BN.prototype.isNeg = function isNeg() {
+      }, BN.prototype.isNeg = function() {
         return this.negative !== 0;
-      }, BN.prototype.neg = function neg() {
+      }, BN.prototype.neg = function() {
         return this.clone().ineg();
-      }, BN.prototype.ineg = function ineg() {
+      }, BN.prototype.ineg = function() {
         if (!this.isZero())
           this.negative ^= 1;
         return this;
-      }, BN.prototype.iuor = function iuor(num) {
+      }, BN.prototype.iuor = function(num) {
         while (this.length < num.length)
           this.words[this.length++] = 0;
         for (var i2 = 0;i2 < num.length; i2++)
           this.words[i2] = this.words[i2] | num.words[i2];
         return this.strip();
-      }, BN.prototype.ior = function ior(num) {
+      }, BN.prototype.ior = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuor(num);
-      }, BN.prototype.or = function or(num) {
+      }, BN.prototype.or = function(num) {
         if (this.length > num.length)
           return this.clone().ior(num);
         return num.clone().ior(this);
-      }, BN.prototype.uor = function uor(num) {
+      }, BN.prototype.uor = function(num) {
         if (this.length > num.length)
           return this.clone().iuor(num);
         return num.clone().iuor(this);
-      }, BN.prototype.iuand = function iuand(num) {
+      }, BN.prototype.iuand = function(num) {
         var b;
         if (this.length > num.length)
           b = num;
@@ -7459,17 +7459,17 @@ var init_crypto = __esm(() => {
         for (var i2 = 0;i2 < b.length; i2++)
           this.words[i2] = this.words[i2] & num.words[i2];
         return this.length = b.length, this.strip();
-      }, BN.prototype.iand = function iand(num) {
+      }, BN.prototype.iand = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuand(num);
-      }, BN.prototype.and = function and(num) {
+      }, BN.prototype.and = function(num) {
         if (this.length > num.length)
           return this.clone().iand(num);
         return num.clone().iand(this);
-      }, BN.prototype.uand = function uand(num) {
+      }, BN.prototype.uand = function(num) {
         if (this.length > num.length)
           return this.clone().iuand(num);
         return num.clone().iuand(this);
-      }, BN.prototype.iuxor = function iuxor(num) {
+      }, BN.prototype.iuxor = function(num) {
         var a, b;
         if (this.length > num.length)
           a = this, b = num;
@@ -7481,17 +7481,17 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this.length = a.length, this.strip();
-      }, BN.prototype.ixor = function ixor(num) {
+      }, BN.prototype.ixor = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuxor(num);
-      }, BN.prototype.xor = function xor(num) {
+      }, BN.prototype.xor = function(num) {
         if (this.length > num.length)
           return this.clone().ixor(num);
         return num.clone().ixor(this);
-      }, BN.prototype.uxor = function uxor(num) {
+      }, BN.prototype.uxor = function(num) {
         if (this.length > num.length)
           return this.clone().iuxor(num);
         return num.clone().iuxor(this);
-      }, BN.prototype.inotn = function inotn(width) {
+      }, BN.prototype.inotn = function(width) {
         assert(typeof width === "number" && width >= 0);
         var bytesNeeded = Math.ceil(width / 26) | 0, bitsLeft = width % 26;
         if (this._expand(bytesNeeded), bitsLeft > 0)
@@ -7501,9 +7501,9 @@ var init_crypto = __esm(() => {
         if (bitsLeft > 0)
           this.words[i2] = ~this.words[i2] & 67108863 >> 26 - bitsLeft;
         return this.strip();
-      }, BN.prototype.notn = function notn(width) {
+      }, BN.prototype.notn = function(width) {
         return this.clone().inotn(width);
-      }, BN.prototype.setn = function setn(bit, val) {
+      }, BN.prototype.setn = function(bit, val) {
         assert(typeof bit === "number" && bit >= 0);
         var off = bit / 26 | 0, wbit = bit % 26;
         if (this._expand(off + 1), val)
@@ -7511,7 +7511,7 @@ var init_crypto = __esm(() => {
         else
           this.words[off] = this.words[off] & ~(1 << wbit);
         return this.strip();
-      }, BN.prototype.iadd = function iadd(num) {
+      }, BN.prototype.iadd = function(num) {
         var r;
         if (this.negative !== 0 && num.negative === 0)
           return this.negative = 0, r = this.isub(num), this.negative ^= 1, this._normSign();
@@ -7533,7 +7533,7 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this;
-      }, BN.prototype.add = function add(num) {
+      }, BN.prototype.add = function(num) {
         var res;
         if (num.negative !== 0 && this.negative === 0)
           return num.negative = 0, res = this.sub(num), num.negative ^= 1, res;
@@ -7542,7 +7542,7 @@ var init_crypto = __esm(() => {
         if (this.length > num.length)
           return this.clone().iadd(num);
         return num.clone().iadd(this);
-      }, BN.prototype.isub = function isub(num) {
+      }, BN.prototype.isub = function(num) {
         if (num.negative !== 0) {
           num.negative = 0;
           var r = this.iadd(num);
@@ -7568,7 +7568,7 @@ var init_crypto = __esm(() => {
         if (this.length = Math.max(this.length, i2), a !== this)
           this.negative = 1;
         return this.strip();
-      }, BN.prototype.sub = function sub(num) {
+      }, BN.prototype.sub = function(num) {
         return this.clone().isub(num);
       };
       function smallMulTo(self2, num, out) {
@@ -7591,7 +7591,7 @@ var init_crypto = __esm(() => {
           out.length--;
         return out.strip();
       }
-      var comb10MulTo = function comb10MulTo(self2, num, out) {
+      var comb10MulTo = function(self2, num, out) {
         var a = self2.words, b = num.words, o = out.words, c = 0, lo, mid, hi, a0 = a[0] | 0, al0 = a0 & 8191, ah0 = a0 >>> 13, a1 = a[1] | 0, al1 = a1 & 8191, ah1 = a1 >>> 13, a2 = a[2] | 0, al2 = a2 & 8191, ah2 = a2 >>> 13, a3 = a[3] | 0, al3 = a3 & 8191, ah3 = a3 >>> 13, a4 = a[4] | 0, al4 = a4 & 8191, ah4 = a4 >>> 13, a5 = a[5] | 0, al5 = a5 & 8191, ah5 = a5 >>> 13, a6 = a[6] | 0, al6 = a6 & 8191, ah6 = a6 >>> 13, a7 = a[7] | 0, al7 = a7 & 8191, ah7 = a7 >>> 13, a8 = a[8] | 0, al8 = a8 & 8191, ah8 = a8 >>> 13, a9 = a[9] | 0, al9 = a9 & 8191, ah9 = a9 >>> 13, b0 = b[0] | 0, bl0 = b0 & 8191, bh0 = b0 >>> 13, b1 = b[1] | 0, bl1 = b1 & 8191, bh1 = b1 >>> 13, b2 = b[2] | 0, bl2 = b2 & 8191, bh2 = b2 >>> 13, b3 = b[3] | 0, bl3 = b3 & 8191, bh3 = b3 >>> 13, b4 = b[4] | 0, bl4 = b4 & 8191, bh4 = b4 >>> 13, b5 = b[5] | 0, bl5 = b5 & 8191, bh5 = b5 >>> 13, b6 = b[6] | 0, bl6 = b6 & 8191, bh6 = b6 >>> 13, b7 = b[7] | 0, bl7 = b7 & 8191, bh7 = b7 >>> 13, b8 = b[8] | 0, bl8 = b8 & 8191, bh8 = b8 >>> 13, b9 = b[9] | 0, bl9 = b9 & 8191, bh9 = b9 >>> 13;
         out.negative = self2.negative ^ num.negative, out.length = 19, lo = Math.imul(al0, bl0), mid = Math.imul(al0, bh0), mid = mid + Math.imul(ah0, bl0) | 0, hi = Math.imul(ah0, bh0);
         var w0 = (c + lo | 0) + ((mid & 8191) << 13) | 0;
@@ -7660,7 +7660,7 @@ var init_crypto = __esm(() => {
         var fftm = new FFTM;
         return fftm.mulp(self2, num, out);
       }
-      BN.prototype.mulTo = function mulTo(num, out) {
+      BN.prototype.mulTo = function(num, out) {
         var res, len2 = this.length + num.length;
         if (this.length === 10 && num.length === 10)
           res = comb10MulTo(this, num, out);
@@ -7675,22 +7675,22 @@ var init_crypto = __esm(() => {
       function FFTM(x, y) {
         this.x = x, this.y = y;
       }
-      FFTM.prototype.makeRBT = function makeRBT(N) {
-        var t = new Array(N), l = BN.prototype._countBits(N) - 1;
+      FFTM.prototype.makeRBT = function(N) {
+        var t = Array(N), l = BN.prototype._countBits(N) - 1;
         for (var i2 = 0;i2 < N; i2++)
           t[i2] = this.revBin(i2, l, N);
         return t;
-      }, FFTM.prototype.revBin = function revBin(x, l, N) {
+      }, FFTM.prototype.revBin = function(x, l, N) {
         if (x === 0 || x === N - 1)
           return x;
         var rb = 0;
         for (var i2 = 0;i2 < l; i2++)
           rb |= (x & 1) << l - i2 - 1, x >>= 1;
         return rb;
-      }, FFTM.prototype.permute = function permute(rbt, rws, iws, rtws, itws, N) {
+      }, FFTM.prototype.permute = function(rbt, rws, iws, rtws, itws, N) {
         for (var i2 = 0;i2 < N; i2++)
           rtws[i2] = rws[rbt[i2]], itws[i2] = iws[rbt[i2]];
-      }, FFTM.prototype.transform = function transform(rws, iws, rtws, itws, N, rbt) {
+      }, FFTM.prototype.transform = function(rws, iws, rtws, itws, N, rbt) {
         this.permute(rbt, rws, iws, rtws, itws, N);
         for (var s = 1;s < N; s <<= 1) {
           var l = s << 1, rtwdf = Math.cos(2 * Math.PI / l), itwdf = Math.sin(2 * Math.PI / l);
@@ -7703,19 +7703,19 @@ var init_crypto = __esm(() => {
             }
           }
         }
-      }, FFTM.prototype.guessLen13b = function guessLen13b(n, m) {
+      }, FFTM.prototype.guessLen13b = function(n, m) {
         var N = Math.max(m, n) | 1, odd = N & 1, i2 = 0;
         for (N = N / 2 | 0;N; N = N >>> 1)
           i2++;
         return 1 << i2 + 1 + odd;
-      }, FFTM.prototype.conjugate = function conjugate(rws, iws, N) {
+      }, FFTM.prototype.conjugate = function(rws, iws, N) {
         if (N <= 1)
           return;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var t = rws[i2];
           rws[i2] = rws[N - i2 - 1], rws[N - i2 - 1] = t, t = iws[i2], iws[i2] = -iws[N - i2 - 1], iws[N - i2 - 1] = -t;
         }
-      }, FFTM.prototype.normalize13b = function normalize13b(ws, N) {
+      }, FFTM.prototype.normalize13b = function(ws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var w = Math.round(ws[2 * i2 + 1] / N) * 8192 + Math.round(ws[2 * i2] / N) + carry;
@@ -7725,35 +7725,35 @@ var init_crypto = __esm(() => {
             carry = w / 67108864 | 0;
         }
         return ws;
-      }, FFTM.prototype.convert13b = function convert13b(ws, len2, rws, N) {
+      }, FFTM.prototype.convert13b = function(ws, len2, rws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < len2; i2++)
           carry = carry + (ws[i2] | 0), rws[2 * i2] = carry & 8191, carry = carry >>> 13, rws[2 * i2 + 1] = carry & 8191, carry = carry >>> 13;
         for (i2 = 2 * len2;i2 < N; ++i2)
           rws[i2] = 0;
         assert(carry === 0), assert((carry & -8192) === 0);
-      }, FFTM.prototype.stub = function stub(N) {
-        var ph = new Array(N);
+      }, FFTM.prototype.stub = function(N) {
+        var ph = Array(N);
         for (var i2 = 0;i2 < N; i2++)
           ph[i2] = 0;
         return ph;
-      }, FFTM.prototype.mulp = function mulp(x, y, out) {
-        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = new Array(N), rwst = new Array(N), iwst = new Array(N), nrws = new Array(N), nrwst = new Array(N), niwst = new Array(N), rmws = out.words;
+      }, FFTM.prototype.mulp = function(x, y, out) {
+        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = Array(N), rwst = Array(N), iwst = Array(N), nrws = Array(N), nrwst = Array(N), niwst = Array(N), rmws = out.words;
         rmws.length = N, this.convert13b(x.words, x.length, rws, N), this.convert13b(y.words, y.length, nrws, N), this.transform(rws, _, rwst, iwst, N, rbt), this.transform(nrws, _, nrwst, niwst, N, rbt);
         for (var i2 = 0;i2 < N; i2++) {
           var rx = rwst[i2] * nrwst[i2] - iwst[i2] * niwst[i2];
           iwst[i2] = rwst[i2] * niwst[i2] + iwst[i2] * nrwst[i2], rwst[i2] = rx;
         }
         return this.conjugate(rwst, iwst, N), this.transform(rwst, iwst, rmws, _, N, rbt), this.conjugate(rmws, _, N), this.normalize13b(rmws, N), out.negative = x.negative ^ y.negative, out.length = x.length + y.length, out.strip();
-      }, BN.prototype.mul = function mul(num) {
+      }, BN.prototype.mul = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), this.mulTo(num, out);
-      }, BN.prototype.mulf = function mulf(num) {
+        return out.words = Array(this.length + num.length), this.mulTo(num, out);
+      }, BN.prototype.mulf = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), jumboMulTo(this, num, out);
-      }, BN.prototype.imul = function imul(num) {
+        return out.words = Array(this.length + num.length), jumboMulTo(this, num, out);
+      }, BN.prototype.imul = function(num) {
         return this.clone().mulTo(num, this);
-      }, BN.prototype.imuln = function imuln(num) {
+      }, BN.prototype.imuln = function(num) {
         assert(typeof num === "number"), assert(num < 67108864);
         var carry = 0;
         for (var i2 = 0;i2 < this.length; i2++) {
@@ -7763,13 +7763,13 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this.length = num === 0 ? 1 : this.length, this;
-      }, BN.prototype.muln = function muln(num) {
+      }, BN.prototype.muln = function(num) {
         return this.clone().imuln(num);
-      }, BN.prototype.sqr = function sqr() {
+      }, BN.prototype.sqr = function() {
         return this.mul(this);
-      }, BN.prototype.isqr = function isqr() {
+      }, BN.prototype.isqr = function() {
         return this.imul(this.clone());
-      }, BN.prototype.pow = function pow(num) {
+      }, BN.prototype.pow = function(num) {
         var w = toBitArray(num);
         if (w.length === 0)
           return new BN(1);
@@ -7784,7 +7784,7 @@ var init_crypto = __esm(() => {
             res = res.mul(q);
           }
         return res;
-      }, BN.prototype.iushln = function iushln(bits) {
+      }, BN.prototype.iushln = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26, carryMask = 67108863 >>> 26 - r << 26 - r, i2;
         if (r !== 0) {
@@ -7804,9 +7804,9 @@ var init_crypto = __esm(() => {
           this.length += s;
         }
         return this.strip();
-      }, BN.prototype.ishln = function ishln(bits) {
+      }, BN.prototype.ishln = function(bits) {
         return assert(this.negative === 0), this.iushln(bits);
-      }, BN.prototype.iushrn = function iushrn(bits, hint, extended) {
+      }, BN.prototype.iushrn = function(bits, hint, extended) {
         assert(typeof bits === "number" && bits >= 0);
         var h;
         if (hint)
@@ -7837,24 +7837,24 @@ var init_crypto = __esm(() => {
         if (this.length === 0)
           this.words[0] = 0, this.length = 1;
         return this.strip();
-      }, BN.prototype.ishrn = function ishrn(bits, hint, extended) {
+      }, BN.prototype.ishrn = function(bits, hint, extended) {
         return assert(this.negative === 0), this.iushrn(bits, hint, extended);
-      }, BN.prototype.shln = function shln(bits) {
+      }, BN.prototype.shln = function(bits) {
         return this.clone().ishln(bits);
-      }, BN.prototype.ushln = function ushln(bits) {
+      }, BN.prototype.ushln = function(bits) {
         return this.clone().iushln(bits);
-      }, BN.prototype.shrn = function shrn(bits) {
+      }, BN.prototype.shrn = function(bits) {
         return this.clone().ishrn(bits);
-      }, BN.prototype.ushrn = function ushrn(bits) {
+      }, BN.prototype.ushrn = function(bits) {
         return this.clone().iushrn(bits);
-      }, BN.prototype.testn = function testn(bit) {
+      }, BN.prototype.testn = function(bit) {
         assert(typeof bit === "number" && bit >= 0);
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
           return false;
         var w = this.words[s];
         return !!(w & q);
-      }, BN.prototype.imaskn = function imaskn(bits) {
+      }, BN.prototype.imaskn = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26;
         if (assert(this.negative === 0, "imaskn works only with positive numbers"), this.length <= s)
@@ -7866,9 +7866,9 @@ var init_crypto = __esm(() => {
           this.words[this.length - 1] &= mask;
         }
         return this.strip();
-      }, BN.prototype.maskn = function maskn(bits) {
+      }, BN.prototype.maskn = function(bits) {
         return this.clone().imaskn(bits);
-      }, BN.prototype.iaddn = function iaddn(num) {
+      }, BN.prototype.iaddn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.isubn(-num);
         if (this.negative !== 0) {
@@ -7877,7 +7877,7 @@ var init_crypto = __esm(() => {
           return this.negative = 0, this.isubn(num), this.negative = 1, this;
         }
         return this._iaddn(num);
-      }, BN.prototype._iaddn = function _iaddn(num) {
+      }, BN.prototype._iaddn = function(num) {
         this.words[0] += num;
         for (var i2 = 0;i2 < this.length && this.words[i2] >= 67108864; i2++)
           if (this.words[i2] -= 67108864, i2 === this.length - 1)
@@ -7885,7 +7885,7 @@ var init_crypto = __esm(() => {
           else
             this.words[i2 + 1]++;
         return this.length = Math.max(this.length, i2 + 1), this;
-      }, BN.prototype.isubn = function isubn(num) {
+      }, BN.prototype.isubn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.iaddn(-num);
         if (this.negative !== 0)
@@ -7896,15 +7896,15 @@ var init_crypto = __esm(() => {
           for (var i2 = 0;i2 < this.length && this.words[i2] < 0; i2++)
             this.words[i2] += 67108864, this.words[i2 + 1] -= 1;
         return this.strip();
-      }, BN.prototype.addn = function addn(num) {
+      }, BN.prototype.addn = function(num) {
         return this.clone().iaddn(num);
-      }, BN.prototype.subn = function subn(num) {
+      }, BN.prototype.subn = function(num) {
         return this.clone().isubn(num);
-      }, BN.prototype.iabs = function iabs() {
+      }, BN.prototype.iabs = function() {
         return this.negative = 0, this;
-      }, BN.prototype.abs = function abs() {
+      }, BN.prototype.abs = function() {
         return this.clone().iabs();
-      }, BN.prototype._ishlnsubmul = function _ishlnsubmul(num, mul, shift) {
+      }, BN.prototype._ishlnsubmul = function(num, mul, shift) {
         var len2 = num.length + shift, i2;
         this._expand(len2);
         var w, carry = 0;
@@ -7921,13 +7921,13 @@ var init_crypto = __esm(() => {
         for (i2 = 0;i2 < this.length; i2++)
           w = -(this.words[i2] | 0) + carry, carry = w >> 26, this.words[i2] = w & 67108863;
         return this.negative = 1, this.strip();
-      }, BN.prototype._wordDiv = function _wordDiv(num, mode) {
+      }, BN.prototype._wordDiv = function(num, mode) {
         var shift = this.length - num.length, a = this.clone(), b = num, bhi = b.words[b.length - 1] | 0, bhiBits = this._countBits(bhi);
         if (shift = 26 - bhiBits, shift !== 0)
           b = b.ushln(shift), a.iushln(shift), bhi = b.words[b.length - 1] | 0;
         var m = a.length - b.length, q;
         if (mode !== "mod") {
-          q = new BN(null), q.length = m + 1, q.words = new Array(q.length);
+          q = new BN(null), q.length = m + 1, q.words = Array(q.length);
           for (var i2 = 0;i2 < q.length; i2++)
             q.words[i2] = 0;
         }
@@ -7950,7 +7950,7 @@ var init_crypto = __esm(() => {
         if (a.strip(), mode !== "div" && shift !== 0)
           a.iushrn(shift);
         return { div: q || null, mod: a };
-      }, BN.prototype.divmod = function divmod(num, mode, positive) {
+      }, BN.prototype.divmod = function(num, mode, positive) {
         if (assert(!num.isZero()), this.isZero())
           return { div: new BN(0), mod: new BN(0) };
         var div, mod, res;
@@ -7985,13 +7985,13 @@ var init_crypto = __esm(() => {
           return { div: this.divn(num.words[0]), mod: new BN(this.modn(num.words[0])) };
         }
         return this._wordDiv(num, mode);
-      }, BN.prototype.div = function div(num) {
+      }, BN.prototype.div = function(num) {
         return this.divmod(num, "div", false).div;
-      }, BN.prototype.mod = function mod(num) {
+      }, BN.prototype.mod = function(num) {
         return this.divmod(num, "mod", false).mod;
-      }, BN.prototype.umod = function umod(num) {
+      }, BN.prototype.umod = function(num) {
         return this.divmod(num, "mod", true).mod;
-      }, BN.prototype.divRound = function divRound(num) {
+      }, BN.prototype.divRound = function(num) {
         var dm = this.divmod(num);
         if (dm.mod.isZero())
           return dm.div;
@@ -7999,13 +7999,13 @@ var init_crypto = __esm(() => {
         if (cmp < 0 || r2 === 1 && cmp === 0)
           return dm.div;
         return dm.div.negative !== 0 ? dm.div.isubn(1) : dm.div.iaddn(1);
-      }, BN.prototype.modn = function modn(num) {
+      }, BN.prototype.modn = function(num) {
         assert(num <= 67108863);
         var p = 67108864 % num, acc = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--)
           acc = (p * acc + (this.words[i2] | 0)) % num;
         return acc;
-      }, BN.prototype.idivn = function idivn(num) {
+      }, BN.prototype.idivn = function(num) {
         assert(num <= 67108863);
         var carry = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--) {
@@ -8013,9 +8013,9 @@ var init_crypto = __esm(() => {
           this.words[i2] = w / num | 0, carry = w % num;
         }
         return this.strip();
-      }, BN.prototype.divn = function divn(num) {
+      }, BN.prototype.divn = function(num) {
         return this.clone().idivn(num);
-      }, BN.prototype.egcd = function egcd(p) {
+      }, BN.prototype.egcd = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var x = this, y = p.clone();
         if (x.negative !== 0)
@@ -8053,7 +8053,7 @@ var init_crypto = __esm(() => {
             y.isub(x), C.isub(A), D.isub(B);
         }
         return { a: C, b: D, gcd: y.iushln(g) };
-      }, BN.prototype._invmp = function _invmp(p) {
+      }, BN.prototype._invmp = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var a = this, b = p.clone();
         if (a.negative !== 0)
@@ -8095,7 +8095,7 @@ var init_crypto = __esm(() => {
         if (res.cmpn(0) < 0)
           res.iadd(p);
         return res;
-      }, BN.prototype.gcd = function gcd(num) {
+      }, BN.prototype.gcd = function(num) {
         if (this.isZero())
           return num.abs();
         if (num.isZero())
@@ -8118,15 +8118,15 @@ var init_crypto = __esm(() => {
           a.isub(b);
         } while (true);
         return b.iushln(shift);
-      }, BN.prototype.invm = function invm(num) {
+      }, BN.prototype.invm = function(num) {
         return this.egcd(num).a.umod(num);
-      }, BN.prototype.isEven = function isEven() {
+      }, BN.prototype.isEven = function() {
         return (this.words[0] & 1) === 0;
-      }, BN.prototype.isOdd = function isOdd() {
+      }, BN.prototype.isOdd = function() {
         return (this.words[0] & 1) === 1;
-      }, BN.prototype.andln = function andln(num) {
+      }, BN.prototype.andln = function(num) {
         return this.words[0] & num;
-      }, BN.prototype.bincn = function bincn(bit) {
+      }, BN.prototype.bincn = function(bit) {
         assert(typeof bit === "number");
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
@@ -8139,9 +8139,9 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this;
-      }, BN.prototype.isZero = function isZero() {
+      }, BN.prototype.isZero = function() {
         return this.length === 1 && this.words[0] === 0;
-      }, BN.prototype.cmpn = function cmpn(num) {
+      }, BN.prototype.cmpn = function(num) {
         var negative = num < 0;
         if (this.negative !== 0 && !negative)
           return -1;
@@ -8161,7 +8161,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.cmp = function cmp(num) {
+      }, BN.prototype.cmp = function(num) {
         if (this.negative !== 0 && num.negative === 0)
           return -1;
         if (this.negative === 0 && num.negative !== 0)
@@ -8170,7 +8170,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.ucmp = function ucmp(num) {
+      }, BN.prototype.ucmp = function(num) {
         if (this.length > num.length)
           return 1;
         if (this.length < num.length)
@@ -8187,71 +8187,71 @@ var init_crypto = __esm(() => {
           break;
         }
         return res;
-      }, BN.prototype.gtn = function gtn(num) {
+      }, BN.prototype.gtn = function(num) {
         return this.cmpn(num) === 1;
-      }, BN.prototype.gt = function gt(num) {
+      }, BN.prototype.gt = function(num) {
         return this.cmp(num) === 1;
-      }, BN.prototype.gten = function gten(num) {
+      }, BN.prototype.gten = function(num) {
         return this.cmpn(num) >= 0;
-      }, BN.prototype.gte = function gte(num) {
+      }, BN.prototype.gte = function(num) {
         return this.cmp(num) >= 0;
-      }, BN.prototype.ltn = function ltn(num) {
+      }, BN.prototype.ltn = function(num) {
         return this.cmpn(num) === -1;
-      }, BN.prototype.lt = function lt(num) {
+      }, BN.prototype.lt = function(num) {
         return this.cmp(num) === -1;
-      }, BN.prototype.lten = function lten(num) {
+      }, BN.prototype.lten = function(num) {
         return this.cmpn(num) <= 0;
-      }, BN.prototype.lte = function lte(num) {
+      }, BN.prototype.lte = function(num) {
         return this.cmp(num) <= 0;
-      }, BN.prototype.eqn = function eqn(num) {
+      }, BN.prototype.eqn = function(num) {
         return this.cmpn(num) === 0;
-      }, BN.prototype.eq = function eq(num) {
+      }, BN.prototype.eq = function(num) {
         return this.cmp(num) === 0;
-      }, BN.red = function red(num) {
+      }, BN.red = function(num) {
         return new Red(num);
-      }, BN.prototype.toRed = function toRed(ctx) {
+      }, BN.prototype.toRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), assert(this.negative === 0, "red works only with positives"), ctx.convertTo(this)._forceRed(ctx);
-      }, BN.prototype.fromRed = function fromRed() {
+      }, BN.prototype.fromRed = function() {
         return assert(this.red, "fromRed works only with numbers in reduction context"), this.red.convertFrom(this);
-      }, BN.prototype._forceRed = function _forceRed(ctx) {
+      }, BN.prototype._forceRed = function(ctx) {
         return this.red = ctx, this;
-      }, BN.prototype.forceRed = function forceRed(ctx) {
+      }, BN.prototype.forceRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), this._forceRed(ctx);
-      }, BN.prototype.redAdd = function redAdd(num) {
+      }, BN.prototype.redAdd = function(num) {
         return assert(this.red, "redAdd works only with red numbers"), this.red.add(this, num);
-      }, BN.prototype.redIAdd = function redIAdd(num) {
+      }, BN.prototype.redIAdd = function(num) {
         return assert(this.red, "redIAdd works only with red numbers"), this.red.iadd(this, num);
-      }, BN.prototype.redSub = function redSub(num) {
+      }, BN.prototype.redSub = function(num) {
         return assert(this.red, "redSub works only with red numbers"), this.red.sub(this, num);
-      }, BN.prototype.redISub = function redISub(num) {
+      }, BN.prototype.redISub = function(num) {
         return assert(this.red, "redISub works only with red numbers"), this.red.isub(this, num);
-      }, BN.prototype.redShl = function redShl(num) {
+      }, BN.prototype.redShl = function(num) {
         return assert(this.red, "redShl works only with red numbers"), this.red.shl(this, num);
-      }, BN.prototype.redMul = function redMul(num) {
+      }, BN.prototype.redMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.mul(this, num);
-      }, BN.prototype.redIMul = function redIMul(num) {
+      }, BN.prototype.redIMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.imul(this, num);
-      }, BN.prototype.redSqr = function redSqr() {
+      }, BN.prototype.redSqr = function() {
         return assert(this.red, "redSqr works only with red numbers"), this.red._verify1(this), this.red.sqr(this);
-      }, BN.prototype.redISqr = function redISqr() {
+      }, BN.prototype.redISqr = function() {
         return assert(this.red, "redISqr works only with red numbers"), this.red._verify1(this), this.red.isqr(this);
-      }, BN.prototype.redSqrt = function redSqrt() {
+      }, BN.prototype.redSqrt = function() {
         return assert(this.red, "redSqrt works only with red numbers"), this.red._verify1(this), this.red.sqrt(this);
-      }, BN.prototype.redInvm = function redInvm() {
+      }, BN.prototype.redInvm = function() {
         return assert(this.red, "redInvm works only with red numbers"), this.red._verify1(this), this.red.invm(this);
-      }, BN.prototype.redNeg = function redNeg() {
+      }, BN.prototype.redNeg = function() {
         return assert(this.red, "redNeg works only with red numbers"), this.red._verify1(this), this.red.neg(this);
-      }, BN.prototype.redPow = function redPow(num) {
+      }, BN.prototype.redPow = function(num) {
         return assert(this.red && !num.red, "redPow(normalNum)"), this.red._verify1(this), this.red.pow(this, num);
       };
       var primes = { k256: null, p224: null, p192: null, p25519: null };
       function MPrime(name, p) {
         this.name = name, this.p = new BN(p, 16), this.n = this.p.bitLength(), this.k = new BN(1).iushln(this.n).isub(this.p), this.tmp = this._tmp();
       }
-      MPrime.prototype._tmp = function _tmp() {
+      MPrime.prototype._tmp = function() {
         var tmp = new BN(null);
-        return tmp.words = new Array(Math.ceil(this.n / 13)), tmp;
-      }, MPrime.prototype.ireduce = function ireduce(num) {
+        return tmp.words = Array(Math.ceil(this.n / 13)), tmp;
+      }, MPrime.prototype.ireduce = function(num) {
         var r = num, rlen;
         do
           this.split(r, this.tmp), r = this.imulK(r), r = r.iadd(this.tmp), rlen = r.bitLength();
@@ -8266,15 +8266,15 @@ var init_crypto = __esm(() => {
         else
           r._strip();
         return r;
-      }, MPrime.prototype.split = function split(input, out) {
+      }, MPrime.prototype.split = function(input, out) {
         input.iushrn(this.n, 0, out);
-      }, MPrime.prototype.imulK = function imulK(num) {
+      }, MPrime.prototype.imulK = function(num) {
         return num.imul(this.k);
       };
       function K256() {
         MPrime.call(this, "k256", "ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f");
       }
-      inherits2(K256, MPrime), K256.prototype.split = function split(input, output) {
+      inherits2(K256, MPrime), K256.prototype.split = function(input, output) {
         var mask = 4194303, outLen = Math.min(input.length, 9);
         for (var i2 = 0;i2 < outLen; i2++)
           output.words[i2] = input.words[i2];
@@ -8292,7 +8292,7 @@ var init_crypto = __esm(() => {
           input.length -= 10;
         else
           input.length -= 9;
-      }, K256.prototype.imulK = function imulK(num) {
+      }, K256.prototype.imulK = function(num) {
         num.words[num.length] = 0, num.words[num.length + 1] = 0, num.length += 2;
         var lo = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
@@ -8316,7 +8316,7 @@ var init_crypto = __esm(() => {
       function P25519() {
         MPrime.call(this, "25519", "7fffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffed");
       }
-      inherits2(P25519, MPrime), P25519.prototype.imulK = function imulK(num) {
+      inherits2(P25519, MPrime), P25519.prototype.imulK = function(num) {
         var carry = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
           var hi = (num.words[i2] | 0) * 19 + carry, lo = hi & 67108863;
@@ -8325,7 +8325,7 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           num.words[num.length++] = carry;
         return num;
-      }, BN._prime = function prime(name) {
+      }, BN._prime = function(name) {
         if (primes[name])
           return primes[name];
         var prime;
@@ -8338,7 +8338,7 @@ var init_crypto = __esm(() => {
         else if (name === "p25519")
           prime = new P25519;
         else
-          throw new Error("Unknown prime " + name);
+          throw Error("Unknown prime " + name);
         return primes[name] = prime, prime;
       };
       function Red(m) {
@@ -8348,53 +8348,53 @@ var init_crypto = __esm(() => {
         } else
           assert(m.gtn(1), "modulus must be greater than 1"), this.m = m, this.prime = null;
       }
-      Red.prototype._verify1 = function _verify1(a) {
+      Red.prototype._verify1 = function(a) {
         assert(a.negative === 0, "red works only with positives"), assert(a.red, "red works only with red numbers");
-      }, Red.prototype._verify2 = function _verify2(a, b) {
+      }, Red.prototype._verify2 = function(a, b) {
         assert((a.negative | b.negative) === 0, "red works only with positives"), assert(a.red && a.red === b.red, "red works only with red numbers");
-      }, Red.prototype.imod = function imod(a) {
+      }, Red.prototype.imod = function(a) {
         if (this.prime)
           return this.prime.ireduce(a)._forceRed(this);
         return a.umod(this.m)._forceRed(this);
-      }, Red.prototype.neg = function neg(a) {
+      }, Red.prototype.neg = function(a) {
         if (a.isZero())
           return a.clone();
         return this.m.sub(a)._forceRed(this);
-      }, Red.prototype.add = function add(a, b) {
+      }, Red.prototype.add = function(a, b) {
         this._verify2(a, b);
         var res = a.add(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res._forceRed(this);
-      }, Red.prototype.iadd = function iadd(a, b) {
+      }, Red.prototype.iadd = function(a, b) {
         this._verify2(a, b);
         var res = a.iadd(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res;
-      }, Red.prototype.sub = function sub(a, b) {
+      }, Red.prototype.sub = function(a, b) {
         this._verify2(a, b);
         var res = a.sub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res._forceRed(this);
-      }, Red.prototype.isub = function isub(a, b) {
+      }, Red.prototype.isub = function(a, b) {
         this._verify2(a, b);
         var res = a.isub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res;
-      }, Red.prototype.shl = function shl(a, num) {
+      }, Red.prototype.shl = function(a, num) {
         return this._verify1(a), this.imod(a.ushln(num));
-      }, Red.prototype.imul = function imul(a, b) {
+      }, Red.prototype.imul = function(a, b) {
         return this._verify2(a, b), this.imod(a.imul(b));
-      }, Red.prototype.mul = function mul(a, b) {
+      }, Red.prototype.mul = function(a, b) {
         return this._verify2(a, b), this.imod(a.mul(b));
-      }, Red.prototype.isqr = function isqr(a) {
+      }, Red.prototype.isqr = function(a) {
         return this.imul(a, a.clone());
-      }, Red.prototype.sqr = function sqr(a) {
+      }, Red.prototype.sqr = function(a) {
         return this.mul(a, a);
-      }, Red.prototype.sqrt = function sqrt(a) {
+      }, Red.prototype.sqrt = function(a) {
         if (a.isZero())
           return a.clone();
         var mod3 = this.m.andln(3);
@@ -8420,18 +8420,18 @@ var init_crypto = __esm(() => {
           r = r.redMul(b), c = b.redSqr(), t = t.redMul(c), m = i2;
         }
         return r;
-      }, Red.prototype.invm = function invm(a) {
+      }, Red.prototype.invm = function(a) {
         var inv = a._invmp(this.m);
         if (inv.negative !== 0)
           return inv.negative = 0, this.imod(inv).redNeg();
         else
           return this.imod(inv);
-      }, Red.prototype.pow = function pow(a, num) {
+      }, Red.prototype.pow = function(a, num) {
         if (num.isZero())
           return new BN(1).toRed(this);
         if (num.cmpn(1) === 0)
           return a.clone();
-        var windowSize = 4, wnd = new Array(1 << windowSize);
+        var windowSize = 4, wnd = Array(1 << windowSize);
         wnd[0] = new BN(1).toRed(this), wnd[1] = a;
         for (var i2 = 2;i2 < wnd.length; i2++)
           wnd[i2] = this.mul(wnd[i2 - 1], a);
@@ -8455,13 +8455,13 @@ var init_crypto = __esm(() => {
           start = 26;
         }
         return res;
-      }, Red.prototype.convertTo = function convertTo(num) {
+      }, Red.prototype.convertTo = function(num) {
         var r = num.umod(this.m);
         return r === num ? r.clone() : r;
-      }, Red.prototype.convertFrom = function convertFrom(num) {
+      }, Red.prototype.convertFrom = function(num) {
         var res = num.clone();
         return res.red = null, res;
-      }, BN.mont = function mont(num) {
+      }, BN.mont = function(num) {
         return new Mont(num);
       };
       function Mont(m) {
@@ -8469,12 +8469,12 @@ var init_crypto = __esm(() => {
           this.shift += 26 - this.shift % 26;
         this.r = new BN(1).iushln(this.shift), this.r2 = this.imod(this.r.sqr()), this.rinv = this.r._invmp(this.m), this.minv = this.rinv.mul(this.r).isubn(1).div(this.m), this.minv = this.minv.umod(this.r), this.minv = this.r.sub(this.minv);
       }
-      inherits2(Mont, Red), Mont.prototype.convertTo = function convertTo(num) {
+      inherits2(Mont, Red), Mont.prototype.convertTo = function(num) {
         return this.imod(num.ushln(this.shift));
-      }, Mont.prototype.convertFrom = function convertFrom(num) {
+      }, Mont.prototype.convertFrom = function(num) {
         var r = this.imod(num.mul(this.rinv));
         return r.red = null, r;
-      }, Mont.prototype.imul = function imul(a, b) {
+      }, Mont.prototype.imul = function(a, b) {
         if (a.isZero() || b.isZero())
           return a.words[0] = 0, a.length = 1, a;
         var t = a.imul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -8483,7 +8483,7 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.mul = function mul(a, b) {
+      }, Mont.prototype.mul = function(a, b) {
         if (a.isZero() || b.isZero())
           return new BN(0)._forceRed(this);
         var t = a.mul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -8492,21 +8492,21 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.invm = function invm(a) {
+      }, Mont.prototype.invm = function(a) {
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(typeof module === "undefined" || module, exports);
+    })(typeof module > "u" || module, exports);
   });
   require_minimalistic_assert = __commonJS2((exports, module) => {
     module.exports = assert;
     function assert(val, msg) {
       if (!val)
-        throw new Error(msg || "Assertion failed");
+        throw Error(msg || "Assertion failed");
     }
-    assert.equal = function assertEqual(l, r, msg) {
+    assert.equal = function(l, r, msg) {
       if (l != r)
-        throw new Error(msg || "Assertion failed: " + l + " != " + r);
+        throw Error(msg || "Assertion failed: " + l + " != " + r);
     };
   });
   require_utils = __commonJS2((exports) => {
@@ -8552,7 +8552,7 @@ var init_crypto = __esm(() => {
       return res;
     }
     utils.toHex = toHex;
-    utils.encode = function encode(arr, enc) {
+    utils.encode = function(arr, enc) {
       if (enc === "hex")
         return toHex(arr);
       else
@@ -8567,7 +8567,7 @@ var init_crypto = __esm(() => {
     utils.toHex = minUtils.toHex;
     utils.encode = minUtils.encode;
     function getNAF(num, w, bits) {
-      var naf = new Array(Math.max(num.bitLength(), bits) + 1), i2;
+      var naf = Array(Math.max(num.bitLength(), bits) + 1), i2;
       for (i2 = 0;i2 < naf.length; i2 += 1)
         naf[i2] = 0;
       var ws = 1 << w + 1, k = num.clone();
@@ -8622,7 +8622,7 @@ var init_crypto = __esm(() => {
     utils.getJSF = getJSF;
     function cachedProperty(obj, name, computer) {
       var key = "_" + name;
-      obj.prototype[name] = function cachedProperty() {
+      obj.prototype[name] = function() {
         return this[key] !== undefined ? this[key] : this[key] = computer.call(this);
       };
     }
@@ -8638,7 +8638,7 @@ var init_crypto = __esm(() => {
   });
   require_brorand = __commonJS2((exports, module) => {
     var r;
-    module.exports = function rand(len2) {
+    module.exports = function(len2) {
       if (!r)
         r = new Rand(null);
       return r.generate(len2);
@@ -8647,10 +8647,10 @@ var init_crypto = __esm(() => {
       this.rand = rand;
     }
     module.exports.Rand = Rand;
-    Rand.prototype.generate = function generate(len2) {
+    Rand.prototype.generate = function(len2) {
       return this._rand(len2);
     };
-    Rand.prototype._rand = function _rand(n) {
+    Rand.prototype._rand = function(n) {
       if (this.rand.getBytes)
         return this.rand.getBytes(n);
       var res = new Uint8Array(n);
@@ -8660,24 +8660,24 @@ var init_crypto = __esm(() => {
     };
     if (typeof self === "object") {
       if (self.crypto && self.crypto.getRandomValues)
-        Rand.prototype._rand = function _rand(n) {
+        Rand.prototype._rand = function(n) {
           var arr = new Uint8Array(n);
           return self.crypto.getRandomValues(arr), arr;
         };
       else if (self.msCrypto && self.msCrypto.getRandomValues)
-        Rand.prototype._rand = function _rand(n) {
+        Rand.prototype._rand = function(n) {
           var arr = new Uint8Array(n);
           return self.msCrypto.getRandomValues(arr), arr;
         };
       else if (typeof window === "object")
         Rand.prototype._rand = function() {
-          throw new Error("Not implemented yet");
+          throw Error("Not implemented yet");
         };
     } else
       try {
         if (crypto2 = (init_crypto(), __toCommonJS(exports_crypto)), typeof crypto2.randomBytes !== "function")
-          throw new Error("Not supported");
-        Rand.prototype._rand = function _rand(n) {
+          throw Error("Not supported");
+        Rand.prototype._rand = function(n) {
           return crypto2.randomBytes(n);
         };
       } catch (e) {}
@@ -8686,7 +8686,7 @@ var init_crypto = __esm(() => {
   require_base = __commonJS2((exports, module) => {
     var BN = require_bn(), utils = require_utils2(), getNAF = utils.getNAF, getJSF = utils.getJSF, assert = utils.assert;
     function BaseCurve(type, conf) {
-      this.type = type, this.p = new BN(conf.p, 16), this.red = conf.prime ? BN.red(conf.prime) : BN.mont(this.p), this.zero = new BN(0).toRed(this.red), this.one = new BN(1).toRed(this.red), this.two = new BN(2).toRed(this.red), this.n = conf.n && new BN(conf.n, 16), this.g = conf.g && this.pointFromJSON(conf.g, conf.gRed), this._wnafT1 = new Array(4), this._wnafT2 = new Array(4), this._wnafT3 = new Array(4), this._wnafT4 = new Array(4), this._bitLength = this.n ? this.n.bitLength() : 0;
+      this.type = type, this.p = new BN(conf.p, 16), this.red = conf.prime ? BN.red(conf.prime) : BN.mont(this.p), this.zero = new BN(0).toRed(this.red), this.one = new BN(1).toRed(this.red), this.two = new BN(2).toRed(this.red), this.n = conf.n && new BN(conf.n, 16), this.g = conf.g && this.pointFromJSON(conf.g, conf.gRed), this._wnafT1 = [, , , ,], this._wnafT2 = [, , , ,], this._wnafT3 = [, , , ,], this._wnafT4 = [, , , ,], this._bitLength = this.n ? this.n.bitLength() : 0;
       var adjustCount = this.n && this.p.div(this.n);
       if (!adjustCount || adjustCount.cmpn(100) > 0)
         this.redN = null;
@@ -8694,13 +8694,13 @@ var init_crypto = __esm(() => {
         this._maxwellTrick = true, this.redN = this.n.toRed(this.red);
     }
     module.exports = BaseCurve;
-    BaseCurve.prototype.point = function point() {
-      throw new Error("Not implemented");
+    BaseCurve.prototype.point = function() {
+      throw Error("Not implemented");
     };
-    BaseCurve.prototype.validate = function validate() {
-      throw new Error("Not implemented");
+    BaseCurve.prototype.validate = function() {
+      throw Error("Not implemented");
     };
-    BaseCurve.prototype._fixedNafMul = function _fixedNafMul(p, k) {
+    BaseCurve.prototype._fixedNafMul = function(p, k) {
       assert(p.precomputed);
       var doubles = p._getDoubles(), naf = getNAF(k, 1, this._bitLength), I = (1 << doubles.step + 1) - (doubles.step % 2 === 0 ? 2 : 1);
       I /= 3;
@@ -8722,7 +8722,7 @@ var init_crypto = __esm(() => {
       }
       return a.toP();
     };
-    BaseCurve.prototype._wnafMul = function _wnafMul(p, k) {
+    BaseCurve.prototype._wnafMul = function(p, k) {
       var w = 4, nafPoints = p._getNAFPoints(w);
       w = nafPoints.wnd;
       var wnd = nafPoints.points, naf = getNAF(k, w, this._bitLength), acc = this.jpoint(null, null, null);
@@ -8746,7 +8746,7 @@ var init_crypto = __esm(() => {
       }
       return p.type === "affine" ? acc.toP() : acc;
     };
-    BaseCurve.prototype._wnafMulAdd = function _wnafMulAdd(defW, points, coeffs, len2, jacobianResult) {
+    BaseCurve.prototype._wnafMulAdd = function(defW, points, coeffs, len2, jacobianResult) {
       var wndWidth = this._wnafT1, wnd = this._wnafT2, naf = this._wnafT3, max = 0, i2, j, p;
       for (i2 = 0;i2 < len2; i2++) {
         p = points[i2];
@@ -8767,7 +8767,7 @@ var init_crypto = __esm(() => {
         else
           comb[1] = points[a].toJ().mixedAdd(points[b]), comb[2] = points[a].toJ().mixedAdd(points[b].neg());
         var index = [-3, -1, -5, -7, 0, 7, 5, 1, 3], jsf = getJSF(coeffs[a], coeffs[b]);
-        max = Math.max(jsf[0].length, max), naf[a] = new Array(max), naf[b] = new Array(max);
+        max = Math.max(jsf[0].length, max), naf[a] = Array(max), naf[b] = Array(max);
         for (j = 0;j < max; j++) {
           var ja = jsf[0][j] | 0, jb = jsf[1][j] | 0;
           naf[a][j] = index[(ja + 1) * 3 + (jb + 1)], naf[b][j] = 0, wnd[a] = comb;
@@ -8814,13 +8814,13 @@ var init_crypto = __esm(() => {
       this.curve = curve, this.type = type, this.precomputed = null;
     }
     BaseCurve.BasePoint = BasePoint;
-    BasePoint.prototype.eq = function eq() {
-      throw new Error("Not implemented");
+    BasePoint.prototype.eq = function() {
+      throw Error("Not implemented");
     };
-    BasePoint.prototype.validate = function validate() {
+    BasePoint.prototype.validate = function() {
       return this.curve.validate(this);
     };
-    BaseCurve.prototype.decodePoint = function decodePoint(bytes, enc) {
+    BaseCurve.prototype.decodePoint = function(bytes, enc) {
       bytes = utils.toArray(bytes, enc);
       var len2 = this.p.byteLength();
       if ((bytes[0] === 4 || bytes[0] === 6 || bytes[0] === 7) && bytes.length - 1 === 2 * len2) {
@@ -8832,27 +8832,27 @@ var init_crypto = __esm(() => {
         return res;
       } else if ((bytes[0] === 2 || bytes[0] === 3) && bytes.length - 1 === len2)
         return this.pointFromX(bytes.slice(1, 1 + len2), bytes[0] === 3);
-      throw new Error("Unknown point format");
+      throw Error("Unknown point format");
     };
-    BasePoint.prototype.encodeCompressed = function encodeCompressed(enc) {
+    BasePoint.prototype.encodeCompressed = function(enc) {
       return this.encode(enc, true);
     };
-    BasePoint.prototype._encode = function _encode(compact) {
+    BasePoint.prototype._encode = function(compact) {
       var len2 = this.curve.p.byteLength(), x = this.getX().toArray("be", len2);
       if (compact)
         return [this.getY().isEven() ? 2 : 3].concat(x);
       return [4].concat(x, this.getY().toArray("be", len2));
     };
-    BasePoint.prototype.encode = function encode(enc, compact) {
+    BasePoint.prototype.encode = function(enc, compact) {
       return utils.encode(this._encode(compact), enc);
     };
-    BasePoint.prototype.precompute = function precompute(power) {
+    BasePoint.prototype.precompute = function(power) {
       if (this.precomputed)
         return this;
       var precomputed = { doubles: null, naf: null, beta: null };
       return precomputed.naf = this._getNAFPoints(8), precomputed.doubles = this._getDoubles(4, power), precomputed.beta = this._getBeta(), this.precomputed = precomputed, this;
     };
-    BasePoint.prototype._hasDoubles = function _hasDoubles(k) {
+    BasePoint.prototype._hasDoubles = function(k) {
       if (!this.precomputed)
         return false;
       var doubles = this.precomputed.doubles;
@@ -8860,7 +8860,7 @@ var init_crypto = __esm(() => {
         return false;
       return doubles.points.length >= Math.ceil((k.bitLength() + 1) / doubles.step);
     };
-    BasePoint.prototype._getDoubles = function _getDoubles(step, power) {
+    BasePoint.prototype._getDoubles = function(step, power) {
       if (this.precomputed && this.precomputed.doubles)
         return this.precomputed.doubles;
       var doubles = [this], acc = this;
@@ -8871,7 +8871,7 @@ var init_crypto = __esm(() => {
       }
       return { step, points: doubles };
     };
-    BasePoint.prototype._getNAFPoints = function _getNAFPoints(wnd) {
+    BasePoint.prototype._getNAFPoints = function(wnd) {
       if (this.precomputed && this.precomputed.naf)
         return this.precomputed.naf;
       var res = [this], max = (1 << wnd) - 1, dbl = max === 1 ? null : this.dbl();
@@ -8879,10 +8879,10 @@ var init_crypto = __esm(() => {
         res[i2] = res[i2 - 1].add(dbl);
       return { wnd, points: res };
     };
-    BasePoint.prototype._getBeta = function _getBeta() {
+    BasePoint.prototype._getBeta = function() {
       return null;
     };
-    BasePoint.prototype.dblp = function dblp(k) {
+    BasePoint.prototype.dblp = function(k) {
       var r = this;
       for (var i2 = 0;i2 < k; i2++)
         r = r.dbl();
@@ -8891,12 +8891,12 @@ var init_crypto = __esm(() => {
   });
   require_inherits_browser = __commonJS2((exports, module) => {
     if (typeof Object.create === "function")
-      module.exports = function inherits(ctor, superCtor) {
+      module.exports = function(ctor, superCtor) {
         if (superCtor)
           ctor.super_ = superCtor, ctor.prototype = Object.create(superCtor.prototype, { constructor: { value: ctor, enumerable: false, writable: true, configurable: true } });
       };
     else
-      module.exports = function inherits(ctor, superCtor) {
+      module.exports = function(ctor, superCtor) {
         if (superCtor) {
           ctor.super_ = superCtor;
           var TempCtor = function() {};
@@ -8917,11 +8917,11 @@ var init_crypto = __esm(() => {
   require_short = __commonJS2((exports, module) => {
     var utils = require_utils2(), BN = require_bn(), inherits2 = require_inherits(), Base = require_base(), assert = utils.assert;
     function ShortCurve(conf) {
-      Base.call(this, "short", conf), this.a = new BN(conf.a, 16).toRed(this.red), this.b = new BN(conf.b, 16).toRed(this.red), this.tinv = this.two.redInvm(), this.zeroA = this.a.fromRed().cmpn(0) === 0, this.threeA = this.a.fromRed().sub(this.p).cmpn(-3) === 0, this.endo = this._getEndomorphism(conf), this._endoWnafT1 = new Array(4), this._endoWnafT2 = new Array(4);
+      Base.call(this, "short", conf), this.a = new BN(conf.a, 16).toRed(this.red), this.b = new BN(conf.b, 16).toRed(this.red), this.tinv = this.two.redInvm(), this.zeroA = this.a.fromRed().cmpn(0) === 0, this.threeA = this.a.fromRed().sub(this.p).cmpn(-3) === 0, this.endo = this._getEndomorphism(conf), this._endoWnafT1 = [, , , ,], this._endoWnafT2 = [, , , ,];
     }
     inherits2(ShortCurve, Base);
     module.exports = ShortCurve;
-    ShortCurve.prototype._getEndomorphism = function _getEndomorphism(conf) {
+    ShortCurve.prototype._getEndomorphism = function(conf) {
       if (!this.zeroA || !this.g || !this.n || this.p.modn(3) !== 1)
         return;
       var beta, lambda;
@@ -8949,11 +8949,11 @@ var init_crypto = __esm(() => {
         basis = this._getEndoBasis(lambda);
       return { beta, lambda, basis };
     };
-    ShortCurve.prototype._getEndoRoots = function _getEndoRoots(num) {
+    ShortCurve.prototype._getEndoRoots = function(num) {
       var red = num === this.p ? this.red : BN.mont(num), tinv = new BN(2).toRed(red).redInvm(), ntinv = tinv.redNeg(), s = new BN(3).toRed(red).redNeg().redSqrt().redMul(tinv), l1 = ntinv.redAdd(s).fromRed(), l2 = ntinv.redSub(s).fromRed();
       return [l1, l2];
     };
-    ShortCurve.prototype._getEndoBasis = function _getEndoBasis(lambda) {
+    ShortCurve.prototype._getEndoBasis = function(lambda) {
       var aprxSqrt = this.n.ushrn(Math.floor(this.n.bitLength() / 2)), u = lambda, v = this.n.clone(), x1 = new BN(1), y1 = new BN(0), x2 = new BN(0), y2 = new BN(1), a0, b0, a1, b1, a2, b2, prevR, i2 = 0, r, x;
       while (u.cmpn(0) !== 0) {
         var q = v.div(u);
@@ -8975,28 +8975,28 @@ var init_crypto = __esm(() => {
         a2 = a2.neg(), b2 = b2.neg();
       return [{ a: a1, b: b1 }, { a: a2, b: b2 }];
     };
-    ShortCurve.prototype._endoSplit = function _endoSplit(k) {
+    ShortCurve.prototype._endoSplit = function(k) {
       var basis = this.endo.basis, v1 = basis[0], v2 = basis[1], c1 = v2.b.mul(k).divRound(this.n), c2 = v1.b.neg().mul(k).divRound(this.n), p1 = c1.mul(v1.a), p2 = c2.mul(v2.a), q1 = c1.mul(v1.b), q2 = c2.mul(v2.b), k1 = k.sub(p1).sub(p2), k2 = q1.add(q2).neg();
       return { k1, k2 };
     };
-    ShortCurve.prototype.pointFromX = function pointFromX(x, odd) {
+    ShortCurve.prototype.pointFromX = function(x, odd) {
       if (x = new BN(x, 16), !x.red)
         x = x.toRed(this.red);
       var y2 = x.redSqr().redMul(x).redIAdd(x.redMul(this.a)).redIAdd(this.b), y = y2.redSqrt();
       if (y.redSqr().redSub(y2).cmp(this.zero) !== 0)
-        throw new Error("invalid point");
+        throw Error("invalid point");
       var isOdd = y.fromRed().isOdd();
       if (odd && !isOdd || !odd && isOdd)
         y = y.redNeg();
       return this.point(x, y);
     };
-    ShortCurve.prototype.validate = function validate(point) {
+    ShortCurve.prototype.validate = function(point) {
       if (point.inf)
         return true;
       var { x, y } = point, ax = this.a.redMul(x), rhs = x.redSqr().redMul(x).redIAdd(ax).redIAdd(this.b);
       return y.redSqr().redISub(rhs).cmpn(0) === 0;
     };
-    ShortCurve.prototype._endoWnafMulAdd = function _endoWnafMulAdd(points, coeffs, jacobianResult) {
+    ShortCurve.prototype._endoWnafMulAdd = function(points, coeffs, jacobianResult) {
       var npoints = this._endoWnafT1, ncoeffs = this._endoWnafT2;
       for (var i2 = 0;i2 < points.length; i2++) {
         var split = this._endoSplit(coeffs[i2]), p = points[i2], beta = p._getBeta();
@@ -9025,13 +9025,13 @@ var init_crypto = __esm(() => {
       }
     }
     inherits2(Point, Base.BasePoint);
-    ShortCurve.prototype.point = function point(x, y, isRed) {
+    ShortCurve.prototype.point = function(x, y, isRed) {
       return new Point(this, x, y, isRed);
     };
-    ShortCurve.prototype.pointFromJSON = function pointFromJSON(obj, red) {
+    ShortCurve.prototype.pointFromJSON = function(obj, red) {
       return Point.fromJSON(this, obj, red);
     };
-    Point.prototype._getBeta = function _getBeta() {
+    Point.prototype._getBeta = function() {
       if (!this.curve.endo)
         return;
       var pre = this.precomputed;
@@ -9046,12 +9046,12 @@ var init_crypto = __esm(() => {
       }
       return beta;
     };
-    Point.prototype.toJSON = function toJSON() {
+    Point.prototype.toJSON = function() {
       if (!this.precomputed)
         return [this.x, this.y];
       return [this.x, this.y, this.precomputed && { doubles: this.precomputed.doubles && { step: this.precomputed.doubles.step, points: this.precomputed.doubles.points.slice(1) }, naf: this.precomputed.naf && { wnd: this.precomputed.naf.wnd, points: this.precomputed.naf.points.slice(1) } }];
     };
-    Point.fromJSON = function fromJSON(curve, obj, red) {
+    Point.fromJSON = function(curve, obj, red) {
       if (typeof obj === "string")
         obj = JSON.parse(obj);
       var res = curve.point(obj[0], obj[1], red);
@@ -9063,15 +9063,15 @@ var init_crypto = __esm(() => {
       var pre = obj[2];
       return res.precomputed = { beta: null, doubles: pre.doubles && { step: pre.doubles.step, points: [res].concat(pre.doubles.points.map(obj2point)) }, naf: pre.naf && { wnd: pre.naf.wnd, points: [res].concat(pre.naf.points.map(obj2point)) } }, res;
     };
-    Point.prototype.inspect = function inspect() {
+    Point.prototype.inspect = function() {
       if (this.isInfinity())
         return "<EC Point Infinity>";
       return "<EC Point x: " + this.x.fromRed().toString(16, 2) + " y: " + this.y.fromRed().toString(16, 2) + ">";
     };
-    Point.prototype.isInfinity = function isInfinity() {
+    Point.prototype.isInfinity = function() {
       return this.inf;
     };
-    Point.prototype.add = function add(p) {
+    Point.prototype.add = function(p) {
       if (this.inf)
         return p;
       if (p.inf)
@@ -9088,7 +9088,7 @@ var init_crypto = __esm(() => {
       var nx = c.redSqr().redISub(this.x).redISub(p.x), ny = c.redMul(this.x.redSub(nx)).redISub(this.y);
       return this.curve.point(nx, ny);
     };
-    Point.prototype.dbl = function dbl() {
+    Point.prototype.dbl = function() {
       if (this.inf)
         return this;
       var ys1 = this.y.redAdd(this.y);
@@ -9097,13 +9097,13 @@ var init_crypto = __esm(() => {
       var a = this.curve.a, x2 = this.x.redSqr(), dyinv = ys1.redInvm(), c = x2.redAdd(x2).redIAdd(x2).redIAdd(a).redMul(dyinv), nx = c.redSqr().redISub(this.x.redAdd(this.x)), ny = c.redMul(this.x.redSub(nx)).redISub(this.y);
       return this.curve.point(nx, ny);
     };
-    Point.prototype.getX = function getX() {
+    Point.prototype.getX = function() {
       return this.x.fromRed();
     };
-    Point.prototype.getY = function getY() {
+    Point.prototype.getY = function() {
       return this.y.fromRed();
     };
-    Point.prototype.mul = function mul(k) {
+    Point.prototype.mul = function(k) {
       if (k = new BN(k, 16), this.isInfinity())
         return this;
       else if (this._hasDoubles(k))
@@ -9113,24 +9113,24 @@ var init_crypto = __esm(() => {
       else
         return this.curve._wnafMul(this, k);
     };
-    Point.prototype.mulAdd = function mulAdd(k1, p2, k2) {
+    Point.prototype.mulAdd = function(k1, p2, k2) {
       var points = [this, p2], coeffs = [k1, k2];
       if (this.curve.endo)
         return this.curve._endoWnafMulAdd(points, coeffs);
       else
         return this.curve._wnafMulAdd(1, points, coeffs, 2);
     };
-    Point.prototype.jmulAdd = function jmulAdd(k1, p2, k2) {
+    Point.prototype.jmulAdd = function(k1, p2, k2) {
       var points = [this, p2], coeffs = [k1, k2];
       if (this.curve.endo)
         return this.curve._endoWnafMulAdd(points, coeffs, true);
       else
         return this.curve._wnafMulAdd(1, points, coeffs, 2, true);
     };
-    Point.prototype.eq = function eq(p) {
+    Point.prototype.eq = function(p) {
       return this === p || this.inf === p.inf && (this.inf || this.x.cmp(p.x) === 0 && this.y.cmp(p.y) === 0);
     };
-    Point.prototype.neg = function neg(_precompute) {
+    Point.prototype.neg = function(_precompute) {
       if (this.inf)
         return this;
       var res = this.curve.point(this.x, this.y.redNeg());
@@ -9142,7 +9142,7 @@ var init_crypto = __esm(() => {
       }
       return res;
     };
-    Point.prototype.toJ = function toJ() {
+    Point.prototype.toJ = function() {
       if (this.inf)
         return this.curve.jpoint(null, null, null);
       var res = this.curve.jpoint(this.x, this.y, this.curve.one);
@@ -9162,19 +9162,19 @@ var init_crypto = __esm(() => {
       this.zOne = this.z === this.curve.one;
     }
     inherits2(JPoint, Base.BasePoint);
-    ShortCurve.prototype.jpoint = function jpoint(x, y, z) {
+    ShortCurve.prototype.jpoint = function(x, y, z) {
       return new JPoint(this, x, y, z);
     };
-    JPoint.prototype.toP = function toP() {
+    JPoint.prototype.toP = function() {
       if (this.isInfinity())
         return this.curve.point(null, null);
       var zinv = this.z.redInvm(), zinv2 = zinv.redSqr(), ax = this.x.redMul(zinv2), ay = this.y.redMul(zinv2).redMul(zinv);
       return this.curve.point(ax, ay);
     };
-    JPoint.prototype.neg = function neg() {
+    JPoint.prototype.neg = function() {
       return this.curve.jpoint(this.x, this.y.redNeg(), this.z);
     };
-    JPoint.prototype.add = function add(p) {
+    JPoint.prototype.add = function(p) {
       if (this.isInfinity())
         return p;
       if (p.isInfinity())
@@ -9188,7 +9188,7 @@ var init_crypto = __esm(() => {
       var h2 = h.redSqr(), h3 = h2.redMul(h), v = u1.redMul(h2), nx = r.redSqr().redIAdd(h3).redISub(v).redISub(v), ny = r.redMul(v.redISub(nx)).redISub(s1.redMul(h3)), nz = this.z.redMul(p.z).redMul(h);
       return this.curve.jpoint(nx, ny, nz);
     };
-    JPoint.prototype.mixedAdd = function mixedAdd(p) {
+    JPoint.prototype.mixedAdd = function(p) {
       if (this.isInfinity())
         return p.toJ();
       if (p.isInfinity())
@@ -9202,7 +9202,7 @@ var init_crypto = __esm(() => {
       var h2 = h.redSqr(), h3 = h2.redMul(h), v = u1.redMul(h2), nx = r.redSqr().redIAdd(h3).redISub(v).redISub(v), ny = r.redMul(v.redISub(nx)).redISub(s1.redMul(h3)), nz = this.z.redMul(h);
       return this.curve.jpoint(nx, ny, nz);
     };
-    JPoint.prototype.dblp = function dblp(pow) {
+    JPoint.prototype.dblp = function(pow) {
       if (pow === 0)
         return this;
       if (this.isInfinity())
@@ -9227,7 +9227,7 @@ var init_crypto = __esm(() => {
       }
       return this.curve.jpoint(jx, jyd.redMul(tinv), jz);
     };
-    JPoint.prototype.dbl = function dbl() {
+    JPoint.prototype.dbl = function() {
       if (this.isInfinity())
         return this;
       if (this.curve.zeroA)
@@ -9237,7 +9237,7 @@ var init_crypto = __esm(() => {
       else
         return this._dbl();
     };
-    JPoint.prototype._zeroDbl = function _zeroDbl() {
+    JPoint.prototype._zeroDbl = function() {
       var nx, ny, nz;
       if (this.zOne) {
         var xx = this.x.redSqr(), yy = this.y.redSqr(), yyyy = yy.redSqr(), s = this.x.redAdd(yy).redSqr().redISub(xx).redISub(yyyy);
@@ -9252,7 +9252,7 @@ var init_crypto = __esm(() => {
       }
       return this.curve.jpoint(nx, ny, nz);
     };
-    JPoint.prototype._threeDbl = function _threeDbl() {
+    JPoint.prototype._threeDbl = function() {
       var nx, ny, nz;
       if (this.zOne) {
         var xx = this.x.redSqr(), yy = this.y.redSqr(), yyyy = yy.redSqr(), s = this.x.redAdd(yy).redSqr().redISub(xx).redISub(yyyy);
@@ -9273,7 +9273,7 @@ var init_crypto = __esm(() => {
       }
       return this.curve.jpoint(nx, ny, nz);
     };
-    JPoint.prototype._dbl = function _dbl() {
+    JPoint.prototype._dbl = function() {
       var a = this.curve.a, jx = this.x, jy = this.y, jz = this.z, jz4 = jz.redSqr().redSqr(), jx2 = jx.redSqr(), jy2 = jy.redSqr(), c = jx2.redAdd(jx2).redIAdd(jx2).redIAdd(a.redMul(jz4)), jxd4 = jx.redAdd(jx);
       jxd4 = jxd4.redIAdd(jxd4);
       var t1 = jxd4.redMul(jy2), nx = c.redSqr().redISub(t1.redAdd(t1)), t2 = t1.redISub(nx), jyd8 = jy2.redSqr();
@@ -9281,7 +9281,7 @@ var init_crypto = __esm(() => {
       var ny = c.redMul(t2).redISub(jyd8), nz = jy.redAdd(jy).redMul(jz);
       return this.curve.jpoint(nx, ny, nz);
     };
-    JPoint.prototype.trpl = function trpl() {
+    JPoint.prototype.trpl = function() {
       if (!this.curve.zeroA)
         return this.dbl().add(this);
       var xx = this.x.redSqr(), yy = this.y.redSqr(), zz = this.z.redSqr(), yyyy = yy.redSqr(), m = xx.redAdd(xx).redIAdd(xx), mm = m.redSqr(), e = this.x.redAdd(yy).redSqr().redISub(xx).redISub(yyyy);
@@ -9297,10 +9297,10 @@ var init_crypto = __esm(() => {
       var nz = this.z.redAdd(e).redSqr().redISub(zz).redISub(ee);
       return this.curve.jpoint(nx, ny, nz);
     };
-    JPoint.prototype.mul = function mul(k, kbase) {
+    JPoint.prototype.mul = function(k, kbase) {
       return k = new BN(k, kbase), this.curve._wnafMul(this, k);
     };
-    JPoint.prototype.eq = function eq(p) {
+    JPoint.prototype.eq = function(p) {
       if (p.type === "affine")
         return this.eq(p.toJ());
       if (this === p)
@@ -9311,7 +9311,7 @@ var init_crypto = __esm(() => {
       var z3 = z2.redMul(this.z), pz3 = pz2.redMul(p.z);
       return this.y.redMul(pz3).redISub(p.y.redMul(z3)).cmpn(0) === 0;
     };
-    JPoint.prototype.eqXToP = function eqXToP(x) {
+    JPoint.prototype.eqXToP = function(x) {
       var zs = this.z.redSqr(), rx = x.toRed(this.curve.red).redMul(zs);
       if (this.x.cmp(rx) === 0)
         return true;
@@ -9323,12 +9323,12 @@ var init_crypto = __esm(() => {
           return true;
       }
     };
-    JPoint.prototype.inspect = function inspect() {
+    JPoint.prototype.inspect = function() {
       if (this.isInfinity())
         return "<EC JPoint Infinity>";
       return "<EC JPoint x: " + this.x.toString(16, 2) + " y: " + this.y.toString(16, 2) + " z: " + this.z.toString(16, 2) + ">";
     };
-    JPoint.prototype.isInfinity = function isInfinity() {
+    JPoint.prototype.isInfinity = function() {
       return this.z.cmpn(0) === 0;
     };
   });
@@ -9339,7 +9339,7 @@ var init_crypto = __esm(() => {
     }
     inherits2(MontCurve, Base);
     module.exports = MontCurve;
-    MontCurve.prototype.validate = function validate(point) {
+    MontCurve.prototype.validate = function(point) {
       var x = point.normalize().x, x2 = x.redSqr(), rhs = x2.redMul(x).redAdd(x2.redMul(this.a)).redAdd(x), y = rhs.redSqrt();
       return y.redSqr().cmp(rhs) === 0;
     };
@@ -9354,42 +9354,42 @@ var init_crypto = __esm(() => {
       }
     }
     inherits2(Point, Base.BasePoint);
-    MontCurve.prototype.decodePoint = function decodePoint(bytes, enc) {
+    MontCurve.prototype.decodePoint = function(bytes, enc) {
       return this.point(utils.toArray(bytes, enc), 1);
     };
-    MontCurve.prototype.point = function point(x, z) {
+    MontCurve.prototype.point = function(x, z) {
       return new Point(this, x, z);
     };
-    MontCurve.prototype.pointFromJSON = function pointFromJSON(obj) {
+    MontCurve.prototype.pointFromJSON = function(obj) {
       return Point.fromJSON(this, obj);
     };
-    Point.prototype.precompute = function precompute() {};
-    Point.prototype._encode = function _encode() {
+    Point.prototype.precompute = function() {};
+    Point.prototype._encode = function() {
       return this.getX().toArray("be", this.curve.p.byteLength());
     };
-    Point.fromJSON = function fromJSON(curve, obj) {
+    Point.fromJSON = function(curve, obj) {
       return new Point(curve, obj[0], obj[1] || curve.one);
     };
-    Point.prototype.inspect = function inspect() {
+    Point.prototype.inspect = function() {
       if (this.isInfinity())
         return "<EC Point Infinity>";
       return "<EC Point x: " + this.x.fromRed().toString(16, 2) + " z: " + this.z.fromRed().toString(16, 2) + ">";
     };
-    Point.prototype.isInfinity = function isInfinity() {
+    Point.prototype.isInfinity = function() {
       return this.z.cmpn(0) === 0;
     };
-    Point.prototype.dbl = function dbl() {
+    Point.prototype.dbl = function() {
       var a = this.x.redAdd(this.z), aa = a.redSqr(), b = this.x.redSub(this.z), bb = b.redSqr(), c = aa.redSub(bb), nx = aa.redMul(bb), nz = c.redMul(bb.redAdd(this.curve.a24.redMul(c)));
       return this.curve.point(nx, nz);
     };
-    Point.prototype.add = function add() {
-      throw new Error("Not supported on Montgomery curve");
+    Point.prototype.add = function() {
+      throw Error("Not supported on Montgomery curve");
     };
-    Point.prototype.diffAdd = function diffAdd(p, diff) {
+    Point.prototype.diffAdd = function(p, diff) {
       var a = this.x.redAdd(this.z), b = this.x.redSub(this.z), c = p.x.redAdd(p.z), d = p.x.redSub(p.z), da = d.redMul(a), cb = c.redMul(b), nx = diff.z.redMul(da.redAdd(cb).redSqr()), nz = diff.x.redMul(da.redISub(cb).redSqr());
       return this.curve.point(nx, nz);
     };
-    Point.prototype.mul = function mul(k) {
+    Point.prototype.mul = function(k) {
       var t = k.clone(), a = this, b = this.curve.point(null, null), c = this;
       for (var bits = [];t.cmpn(0) !== 0; t.iushrn(1))
         bits.push(t.andln(1));
@@ -9400,19 +9400,19 @@ var init_crypto = __esm(() => {
           b = a.diffAdd(b, c), a = a.dbl();
       return b;
     };
-    Point.prototype.mulAdd = function mulAdd() {
-      throw new Error("Not supported on Montgomery curve");
+    Point.prototype.mulAdd = function() {
+      throw Error("Not supported on Montgomery curve");
     };
-    Point.prototype.jumlAdd = function jumlAdd() {
-      throw new Error("Not supported on Montgomery curve");
+    Point.prototype.jumlAdd = function() {
+      throw Error("Not supported on Montgomery curve");
     };
-    Point.prototype.eq = function eq(other) {
+    Point.prototype.eq = function(other) {
       return this.getX().cmp(other.getX()) === 0;
     };
-    Point.prototype.normalize = function normalize() {
+    Point.prototype.normalize = function() {
       return this.x = this.x.redMul(this.z.redInvm()), this.z = this.curve.one, this;
     };
-    Point.prototype.getX = function getX() {
+    Point.prototype.getX = function() {
       return this.normalize(), this.x.fromRed();
     };
   });
@@ -9423,49 +9423,49 @@ var init_crypto = __esm(() => {
     }
     inherits2(EdwardsCurve, Base);
     module.exports = EdwardsCurve;
-    EdwardsCurve.prototype._mulA = function _mulA(num) {
+    EdwardsCurve.prototype._mulA = function(num) {
       if (this.mOneA)
         return num.redNeg();
       else
         return this.a.redMul(num);
     };
-    EdwardsCurve.prototype._mulC = function _mulC(num) {
+    EdwardsCurve.prototype._mulC = function(num) {
       if (this.oneC)
         return num;
       else
         return this.c.redMul(num);
     };
-    EdwardsCurve.prototype.jpoint = function jpoint(x, y, z, t) {
+    EdwardsCurve.prototype.jpoint = function(x, y, z, t) {
       return this.point(x, y, z, t);
     };
-    EdwardsCurve.prototype.pointFromX = function pointFromX(x, odd) {
+    EdwardsCurve.prototype.pointFromX = function(x, odd) {
       if (x = new BN(x, 16), !x.red)
         x = x.toRed(this.red);
       var x2 = x.redSqr(), rhs = this.c2.redSub(this.a.redMul(x2)), lhs = this.one.redSub(this.c2.redMul(this.d).redMul(x2)), y2 = rhs.redMul(lhs.redInvm()), y = y2.redSqrt();
       if (y.redSqr().redSub(y2).cmp(this.zero) !== 0)
-        throw new Error("invalid point");
+        throw Error("invalid point");
       var isOdd = y.fromRed().isOdd();
       if (odd && !isOdd || !odd && isOdd)
         y = y.redNeg();
       return this.point(x, y);
     };
-    EdwardsCurve.prototype.pointFromY = function pointFromY(y, odd) {
+    EdwardsCurve.prototype.pointFromY = function(y, odd) {
       if (y = new BN(y, 16), !y.red)
         y = y.toRed(this.red);
       var y2 = y.redSqr(), lhs = y2.redSub(this.c2), rhs = y2.redMul(this.d).redMul(this.c2).redSub(this.a), x2 = lhs.redMul(rhs.redInvm());
       if (x2.cmp(this.zero) === 0)
         if (odd)
-          throw new Error("invalid point");
+          throw Error("invalid point");
         else
           return this.point(this.zero, y);
       var x = x2.redSqrt();
       if (x.redSqr().redSub(x2).cmp(this.zero) !== 0)
-        throw new Error("invalid point");
+        throw Error("invalid point");
       if (x.fromRed().isOdd() !== odd)
         x = x.redNeg();
       return this.point(x, y);
     };
-    EdwardsCurve.prototype.validate = function validate(point) {
+    EdwardsCurve.prototype.validate = function(point) {
       if (point.isInfinity())
         return true;
       point.normalize();
@@ -9491,30 +9491,30 @@ var init_crypto = __esm(() => {
       }
     }
     inherits2(Point, Base.BasePoint);
-    EdwardsCurve.prototype.pointFromJSON = function pointFromJSON(obj) {
+    EdwardsCurve.prototype.pointFromJSON = function(obj) {
       return Point.fromJSON(this, obj);
     };
-    EdwardsCurve.prototype.point = function point(x, y, z, t) {
+    EdwardsCurve.prototype.point = function(x, y, z, t) {
       return new Point(this, x, y, z, t);
     };
-    Point.fromJSON = function fromJSON(curve, obj) {
+    Point.fromJSON = function(curve, obj) {
       return new Point(curve, obj[0], obj[1], obj[2]);
     };
-    Point.prototype.inspect = function inspect() {
+    Point.prototype.inspect = function() {
       if (this.isInfinity())
         return "<EC Point Infinity>";
       return "<EC Point x: " + this.x.fromRed().toString(16, 2) + " y: " + this.y.fromRed().toString(16, 2) + " z: " + this.z.fromRed().toString(16, 2) + ">";
     };
-    Point.prototype.isInfinity = function isInfinity() {
+    Point.prototype.isInfinity = function() {
       return this.x.cmpn(0) === 0 && (this.y.cmp(this.z) === 0 || this.zOne && this.y.cmp(this.curve.c) === 0);
     };
-    Point.prototype._extDbl = function _extDbl() {
+    Point.prototype._extDbl = function() {
       var a = this.x.redSqr(), b = this.y.redSqr(), c = this.z.redSqr();
       c = c.redIAdd(c);
       var d = this.curve._mulA(a), e = this.x.redAdd(this.y).redSqr().redISub(a).redISub(b), g = d.redAdd(b), f = g.redSub(c), h = d.redSub(b), nx = e.redMul(f), ny = g.redMul(h), nt = e.redMul(h), nz = f.redMul(g);
       return this.curve.point(nx, ny, nz, nt);
     };
-    Point.prototype._projDbl = function _projDbl() {
+    Point.prototype._projDbl = function() {
       var b = this.x.redAdd(this.y).redSqr(), c = this.x.redSqr(), d = this.y.redSqr(), nx, ny, nz, e, h, j;
       if (this.curve.twisted) {
         e = this.curve._mulA(c);
@@ -9527,7 +9527,7 @@ var init_crypto = __esm(() => {
         e = c.redAdd(d), h = this.curve._mulC(this.z).redSqr(), j = e.redSub(h).redSub(h), nx = this.curve._mulC(b.redISub(e)).redMul(j), ny = this.curve._mulC(e).redMul(c.redISub(d)), nz = e.redMul(j);
       return this.curve.point(nx, ny, nz);
     };
-    Point.prototype.dbl = function dbl() {
+    Point.prototype.dbl = function() {
       if (this.isInfinity())
         return this;
       if (this.curve.extended)
@@ -9535,11 +9535,11 @@ var init_crypto = __esm(() => {
       else
         return this._projDbl();
     };
-    Point.prototype._extAdd = function _extAdd(p) {
+    Point.prototype._extAdd = function(p) {
       var a = this.y.redSub(this.x).redMul(p.y.redSub(p.x)), b = this.y.redAdd(this.x).redMul(p.y.redAdd(p.x)), c = this.t.redMul(this.curve.dd).redMul(p.t), d = this.z.redMul(p.z.redAdd(p.z)), e = b.redSub(a), f = d.redSub(c), g = d.redAdd(c), h = b.redAdd(a), nx = e.redMul(f), ny = g.redMul(h), nt = e.redMul(h), nz = f.redMul(g);
       return this.curve.point(nx, ny, nz, nt);
     };
-    Point.prototype._projAdd = function _projAdd(p) {
+    Point.prototype._projAdd = function(p) {
       var a = this.z.redMul(p.z), b = a.redSqr(), c = this.x.redMul(p.x), d = this.y.redMul(p.y), e = this.curve.d.redMul(c).redMul(d), f = b.redSub(e), g = b.redAdd(e), tmp = this.x.redAdd(this.y).redMul(p.x.redAdd(p.y)).redISub(c).redISub(d), nx = a.redMul(f).redMul(tmp), ny, nz;
       if (this.curve.twisted)
         ny = a.redMul(g).redMul(d.redSub(this.curve._mulA(c))), nz = f.redMul(g);
@@ -9547,7 +9547,7 @@ var init_crypto = __esm(() => {
         ny = a.redMul(g).redMul(d.redSub(c)), nz = this.curve._mulC(f).redMul(g);
       return this.curve.point(nx, ny, nz);
     };
-    Point.prototype.add = function add(p) {
+    Point.prototype.add = function(p) {
       if (this.isInfinity())
         return p;
       if (p.isInfinity())
@@ -9557,19 +9557,19 @@ var init_crypto = __esm(() => {
       else
         return this._projAdd(p);
     };
-    Point.prototype.mul = function mul(k) {
+    Point.prototype.mul = function(k) {
       if (this._hasDoubles(k))
         return this.curve._fixedNafMul(this, k);
       else
         return this.curve._wnafMul(this, k);
     };
-    Point.prototype.mulAdd = function mulAdd(k1, p, k2) {
+    Point.prototype.mulAdd = function(k1, p, k2) {
       return this.curve._wnafMulAdd(1, [this, p], [k1, k2], 2, false);
     };
-    Point.prototype.jmulAdd = function jmulAdd(k1, p, k2) {
+    Point.prototype.jmulAdd = function(k1, p, k2) {
       return this.curve._wnafMulAdd(1, [this, p], [k1, k2], 2, true);
     };
-    Point.prototype.normalize = function normalize() {
+    Point.prototype.normalize = function() {
       if (this.zOne)
         return this;
       var zi = this.z.redInvm();
@@ -9577,19 +9577,19 @@ var init_crypto = __esm(() => {
         this.t = this.t.redMul(zi);
       return this.z = this.curve.one, this.zOne = true, this;
     };
-    Point.prototype.neg = function neg() {
+    Point.prototype.neg = function() {
       return this.curve.point(this.x.redNeg(), this.y, this.z, this.t && this.t.redNeg());
     };
-    Point.prototype.getX = function getX() {
+    Point.prototype.getX = function() {
       return this.normalize(), this.x.fromRed();
     };
-    Point.prototype.getY = function getY() {
+    Point.prototype.getY = function() {
       return this.normalize(), this.y.fromRed();
     };
-    Point.prototype.eq = function eq(other) {
+    Point.prototype.eq = function(other) {
       return this === other || this.getX().cmp(other.getX()) === 0 && this.getY().cmp(other.getY()) === 0;
     };
-    Point.prototype.eqXToP = function eqXToP(x) {
+    Point.prototype.eqXToP = function(x) {
       var rx = x.toRed(this.curve.red).redMul(this.z);
       if (this.x.cmp(rx) === 0)
         return true;
@@ -9705,7 +9705,7 @@ var init_crypto = __esm(() => {
     function join32(msg, start, end, endian) {
       var len2 = end - start;
       assert(len2 % 4 === 0);
-      var res = new Array(len2 / 4);
+      var res = Array(len2 / 4);
       for (var i2 = 0, k = start;i2 < res.length; i2++, k += 4) {
         var w;
         if (endian === "big")
@@ -9718,7 +9718,7 @@ var init_crypto = __esm(() => {
     }
     exports.join32 = join32;
     function split32(msg, endian) {
-      var res = new Array(msg.length * 4);
+      var res = Array(msg.length * 4);
       for (var i2 = 0, k = 0;i2 < msg.length; i2++, k += 4) {
         var m = msg[i2];
         if (endian === "big")
@@ -9818,7 +9818,7 @@ var init_crypto = __esm(() => {
       this.pending = null, this.pendingTotal = 0, this.blockSize = this.constructor.blockSize, this.outSize = this.constructor.outSize, this.hmacStrength = this.constructor.hmacStrength, this.padLength = this.constructor.padLength / 8, this.endian = "big", this._delta8 = this.blockSize / 8, this._delta32 = this.blockSize / 32;
     }
     exports.BlockHash = BlockHash;
-    BlockHash.prototype.update = function update(msg, enc) {
+    BlockHash.prototype.update = function(msg, enc) {
       if (msg = utils.toArray(msg, enc), !this.pending)
         this.pending = msg;
       else
@@ -9834,11 +9834,11 @@ var init_crypto = __esm(() => {
       }
       return this;
     };
-    BlockHash.prototype.digest = function digest(enc) {
+    BlockHash.prototype.digest = function(enc) {
       return this.update(this._pad()), assert(this.pending === null), this._digest(enc);
     };
-    BlockHash.prototype._pad = function pad() {
-      var len2 = this.pendingTotal, bytes = this._delta8, k = bytes - (len2 + this.padLength) % bytes, res = new Array(k + this.padLength);
+    BlockHash.prototype._pad = function() {
+      var len2 = this.pendingTotal, bytes = this._delta8, k = bytes - (len2 + this.padLength) % bytes, res = Array(k + this.padLength);
       res[0] = 128;
       for (var i2 = 1;i2 < k; i2++)
         res[i2] = 0;
@@ -9899,7 +9899,7 @@ var init_crypto = __esm(() => {
     function SHA1() {
       if (!(this instanceof SHA1))
         return new SHA1;
-      BlockHash.call(this), this.h = [1732584193, 4023233417, 2562383102, 271733878, 3285377520], this.W = new Array(80);
+      BlockHash.call(this), this.h = [1732584193, 4023233417, 2562383102, 271733878, 3285377520], this.W = Array(80);
     }
     utils.inherits(SHA1, BlockHash);
     module.exports = SHA1;
@@ -9907,7 +9907,7 @@ var init_crypto = __esm(() => {
     SHA1.outSize = 160;
     SHA1.hmacStrength = 80;
     SHA1.padLength = 64;
-    SHA1.prototype._update = function _update(msg, start) {
+    SHA1.prototype._update = function(msg, start) {
       var W = this.W;
       for (var i2 = 0;i2 < 16; i2++)
         W[i2] = msg[start + i2];
@@ -9920,7 +9920,7 @@ var init_crypto = __esm(() => {
       }
       this.h[0] = sum32(this.h[0], a), this.h[1] = sum32(this.h[1], b), this.h[2] = sum32(this.h[2], c), this.h[3] = sum32(this.h[3], d), this.h[4] = sum32(this.h[4], e);
     };
-    SHA1.prototype._digest = function digest(enc) {
+    SHA1.prototype._digest = function(enc) {
       if (enc === "hex")
         return utils.toHex32(this.h, "big");
       else
@@ -9932,7 +9932,7 @@ var init_crypto = __esm(() => {
     function SHA256() {
       if (!(this instanceof SHA256))
         return new SHA256;
-      BlockHash.call(this), this.h = [1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225], this.k = sha256_K, this.W = new Array(64);
+      BlockHash.call(this), this.h = [1779033703, 3144134277, 1013904242, 2773480762, 1359893119, 2600822924, 528734635, 1541459225], this.k = sha256_K, this.W = Array(64);
     }
     utils.inherits(SHA256, BlockHash);
     module.exports = SHA256;
@@ -9940,7 +9940,7 @@ var init_crypto = __esm(() => {
     SHA256.outSize = 256;
     SHA256.hmacStrength = 192;
     SHA256.padLength = 64;
-    SHA256.prototype._update = function _update(msg, start) {
+    SHA256.prototype._update = function(msg, start) {
       var W = this.W;
       for (var i2 = 0;i2 < 16; i2++)
         W[i2] = msg[start + i2];
@@ -9954,7 +9954,7 @@ var init_crypto = __esm(() => {
       }
       this.h[0] = sum32(this.h[0], a), this.h[1] = sum32(this.h[1], b), this.h[2] = sum32(this.h[2], c), this.h[3] = sum32(this.h[3], d), this.h[4] = sum32(this.h[4], e), this.h[5] = sum32(this.h[5], f), this.h[6] = sum32(this.h[6], g), this.h[7] = sum32(this.h[7], h);
     };
-    SHA256.prototype._digest = function digest(enc) {
+    SHA256.prototype._digest = function(enc) {
       if (enc === "hex")
         return utils.toHex32(this.h, "big");
       else
@@ -9974,7 +9974,7 @@ var init_crypto = __esm(() => {
     SHA224.outSize = 224;
     SHA224.hmacStrength = 192;
     SHA224.padLength = 64;
-    SHA224.prototype._digest = function digest(enc) {
+    SHA224.prototype._digest = function(enc) {
       if (enc === "hex")
         return utils.toHex32(this.h.slice(0, 7), "big");
       else
@@ -9986,7 +9986,7 @@ var init_crypto = __esm(() => {
     function SHA512() {
       if (!(this instanceof SHA512))
         return new SHA512;
-      BlockHash.call(this), this.h = [1779033703, 4089235720, 3144134277, 2227873595, 1013904242, 4271175723, 2773480762, 1595750129, 1359893119, 2917565137, 2600822924, 725511199, 528734635, 4215389547, 1541459225, 327033209], this.k = sha512_K, this.W = new Array(160);
+      BlockHash.call(this), this.h = [1779033703, 4089235720, 3144134277, 2227873595, 1013904242, 4271175723, 2773480762, 1595750129, 1359893119, 2917565137, 2600822924, 725511199, 528734635, 4215389547, 1541459225, 327033209], this.k = sha512_K, this.W = Array(160);
     }
     utils.inherits(SHA512, BlockHash);
     module.exports = SHA512;
@@ -9994,7 +9994,7 @@ var init_crypto = __esm(() => {
     SHA512.outSize = 512;
     SHA512.hmacStrength = 192;
     SHA512.padLength = 128;
-    SHA512.prototype._prepareBlock = function _prepareBlock(msg, start) {
+    SHA512.prototype._prepareBlock = function(msg, start) {
       var W = this.W;
       for (var i2 = 0;i2 < 32; i2++)
         W[i2] = msg[start + i2];
@@ -10003,7 +10003,7 @@ var init_crypto = __esm(() => {
         W[i2] = sum64_4_hi(c0_hi, c0_lo, c1_hi, c1_lo, c2_hi, c2_lo, c3_hi, c3_lo), W[i2 + 1] = sum64_4_lo(c0_hi, c0_lo, c1_hi, c1_lo, c2_hi, c2_lo, c3_hi, c3_lo);
       }
     };
-    SHA512.prototype._update = function _update(msg, start) {
+    SHA512.prototype._update = function(msg, start) {
       this._prepareBlock(msg, start);
       var W = this.W, ah = this.h[0], al = this.h[1], bh = this.h[2], bl = this.h[3], ch = this.h[4], cl = this.h[5], dh = this.h[6], dl = this.h[7], eh = this.h[8], el = this.h[9], fh = this.h[10], fl = this.h[11], gh = this.h[12], gl = this.h[13], hh = this.h[14], hl = this.h[15];
       assert(this.k.length === W.length);
@@ -10015,7 +10015,7 @@ var init_crypto = __esm(() => {
       }
       sum64(this.h, 0, ah, al), sum64(this.h, 2, bh, bl), sum64(this.h, 4, ch, cl), sum64(this.h, 6, dh, dl), sum64(this.h, 8, eh, el), sum64(this.h, 10, fh, fl), sum64(this.h, 12, gh, gl), sum64(this.h, 14, hh, hl);
     };
-    SHA512.prototype._digest = function digest(enc) {
+    SHA512.prototype._digest = function(enc) {
       if (enc === "hex")
         return utils.toHex32(this.h, "big");
       else
@@ -10107,7 +10107,7 @@ var init_crypto = __esm(() => {
     SHA384.outSize = 384;
     SHA384.hmacStrength = 192;
     SHA384.padLength = 128;
-    SHA384.prototype._digest = function digest(enc) {
+    SHA384.prototype._digest = function(enc) {
       if (enc === "hex")
         return utils.toHex32(this.h.slice(0, 12), "big");
       else
@@ -10134,7 +10134,7 @@ var init_crypto = __esm(() => {
     RIPEMD160.outSize = 160;
     RIPEMD160.hmacStrength = 192;
     RIPEMD160.padLength = 64;
-    RIPEMD160.prototype._update = function update(msg, start) {
+    RIPEMD160.prototype._update = function(msg, start) {
       var A = this.h[0], B = this.h[1], C = this.h[2], D = this.h[3], E2 = this.h[4], Ah = A, Bh = B, Ch = C, Dh = D, Eh = E2;
       for (var j = 0;j < 80; j++) {
         var T = sum32(rotl32(sum32_4(A, f(j, B, C, D), msg[r[j] + start], K(j)), s[j]), E2);
@@ -10142,7 +10142,7 @@ var init_crypto = __esm(() => {
       }
       T = sum32_3(this.h[1], C, Dh), this.h[1] = sum32_3(this.h[2], D, Eh), this.h[2] = sum32_3(this.h[3], E2, Ah), this.h[3] = sum32_3(this.h[4], A, Bh), this.h[4] = sum32_3(this.h[0], B, Ch), this.h[0] = T;
     };
-    RIPEMD160.prototype._digest = function digest(enc) {
+    RIPEMD160.prototype._digest = function(enc) {
       if (enc === "hex")
         return utils.toHex32(this.h, "little");
       else
@@ -10194,7 +10194,7 @@ var init_crypto = __esm(() => {
       this.Hash = hash, this.blockSize = hash.blockSize / 8, this.outSize = hash.outSize / 8, this.inner = null, this.outer = null, this._init(utils.toArray(key, enc));
     }
     module.exports = Hmac;
-    Hmac.prototype._init = function init(key) {
+    Hmac.prototype._init = function(key) {
       if (key.length > this.blockSize)
         key = new this.Hash().update(key).digest();
       assert(key.length <= this.blockSize);
@@ -10207,10 +10207,10 @@ var init_crypto = __esm(() => {
         key[i2] ^= 106;
       this.outer = new this.Hash().update(key);
     };
-    Hmac.prototype.update = function update(msg, enc) {
+    Hmac.prototype.update = function(msg, enc) {
       return this.inner.update(msg, enc), this;
     };
-    Hmac.prototype.digest = function digest(enc) {
+    Hmac.prototype.digest = function(enc) {
       return this.outer.update(this.inner.digest()), this.outer.digest(enc);
     };
   });
@@ -10274,17 +10274,17 @@ var init_crypto = __esm(() => {
       assert(entropy.length >= this.minEntropy / 8, "Not enough entropy. Minimum is: " + this.minEntropy + " bits"), this._init(entropy, nonce, pers);
     }
     module.exports = HmacDRBG;
-    HmacDRBG.prototype._init = function init(entropy, nonce, pers) {
+    HmacDRBG.prototype._init = function(entropy, nonce, pers) {
       var seed = entropy.concat(nonce).concat(pers);
-      this.K = new Array(this.outLen / 8), this.V = new Array(this.outLen / 8);
+      this.K = Array(this.outLen / 8), this.V = Array(this.outLen / 8);
       for (var i2 = 0;i2 < this.V.length; i2++)
         this.K[i2] = 0, this.V[i2] = 1;
       this._update(seed), this._reseed = 1, this.reseedInterval = 281474976710656;
     };
-    HmacDRBG.prototype._hmac = function hmac() {
+    HmacDRBG.prototype._hmac = function() {
       return new hash.hmac(this.hash, this.K);
     };
-    HmacDRBG.prototype._update = function update(seed) {
+    HmacDRBG.prototype._update = function(seed) {
       var kmac = this._hmac().update(this.V).update([0]);
       if (seed)
         kmac = kmac.update(seed);
@@ -10292,14 +10292,14 @@ var init_crypto = __esm(() => {
         return;
       this.K = this._hmac().update(this.V).update([1]).update(seed).digest(), this.V = this._hmac().update(this.V).digest();
     };
-    HmacDRBG.prototype.reseed = function reseed(entropy, entropyEnc, add, addEnc) {
+    HmacDRBG.prototype.reseed = function(entropy, entropyEnc, add, addEnc) {
       if (typeof entropyEnc !== "string")
         addEnc = add, add = entropyEnc, entropyEnc = null;
       entropy = utils.toArray(entropy, entropyEnc), add = utils.toArray(add, addEnc), assert(entropy.length >= this.minEntropy / 8, "Not enough entropy. Minimum is: " + this.minEntropy + " bits"), this._update(entropy.concat(add || [])), this._reseed = 1;
     };
-    HmacDRBG.prototype.generate = function generate(len2, enc, add, addEnc) {
+    HmacDRBG.prototype.generate = function(len2, enc, add, addEnc) {
       if (this._reseed > this.reseedInterval)
-        throw new Error("Reseed is required");
+        throw Error("Reseed is required");
       if (typeof enc !== "string")
         addEnc = add, add = enc, enc = null;
       if (add)
@@ -10320,17 +10320,17 @@ var init_crypto = __esm(() => {
         this._importPublic(options.pub, options.pubEnc);
     }
     module.exports = KeyPair;
-    KeyPair.fromPublic = function fromPublic(ec, pub, enc) {
+    KeyPair.fromPublic = function(ec, pub, enc) {
       if (pub instanceof KeyPair)
         return pub;
       return new KeyPair(ec, { pub, pubEnc: enc });
     };
-    KeyPair.fromPrivate = function fromPrivate(ec, priv, enc) {
+    KeyPair.fromPrivate = function(ec, priv, enc) {
       if (priv instanceof KeyPair)
         return priv;
       return new KeyPair(ec, { priv, privEnc: enc });
     };
-    KeyPair.prototype.validate = function validate() {
+    KeyPair.prototype.validate = function() {
       var pub = this.getPublic();
       if (pub.isInfinity())
         return { result: false, reason: "Invalid public key" };
@@ -10340,7 +10340,7 @@ var init_crypto = __esm(() => {
         return { result: false, reason: "Public key * N != O" };
       return { result: true, reason: null };
     };
-    KeyPair.prototype.getPublic = function getPublic(compact, enc) {
+    KeyPair.prototype.getPublic = function(compact, enc) {
       if (typeof compact === "string")
         enc = compact, compact = null;
       if (!this.pub)
@@ -10349,16 +10349,16 @@ var init_crypto = __esm(() => {
         return this.pub;
       return this.pub.encode(enc, compact);
     };
-    KeyPair.prototype.getPrivate = function getPrivate(enc) {
+    KeyPair.prototype.getPrivate = function(enc) {
       if (enc === "hex")
         return this.priv.toString(16, 2);
       else
         return this.priv;
     };
-    KeyPair.prototype._importPrivate = function _importPrivate(key, enc) {
+    KeyPair.prototype._importPrivate = function(key, enc) {
       this.priv = new BN(key, enc || 16), this.priv = this.priv.umod(this.ec.curve.n);
     };
-    KeyPair.prototype._importPublic = function _importPublic(key, enc) {
+    KeyPair.prototype._importPublic = function(key, enc) {
       if (key.x || key.y) {
         if (this.ec.curve.type === "mont")
           assert(key.x, "Need x coordinate");
@@ -10369,18 +10369,18 @@ var init_crypto = __esm(() => {
       }
       this.pub = this.ec.curve.decodePoint(key, enc);
     };
-    KeyPair.prototype.derive = function derive(pub) {
+    KeyPair.prototype.derive = function(pub) {
       if (!pub.validate())
         assert(pub.validate(), "public point not validated");
       return pub.mul(this.priv).getX();
     };
-    KeyPair.prototype.sign = function sign(msg, enc, options) {
+    KeyPair.prototype.sign = function(msg, enc, options) {
       return this.ec.sign(msg, this, enc, options);
     };
-    KeyPair.prototype.verify = function verify(msg, signature, options) {
+    KeyPair.prototype.verify = function(msg, signature, options) {
       return this.ec.verify(msg, signature, this, undefined, options);
     };
-    KeyPair.prototype.inspect = function inspect() {
+    KeyPair.prototype.inspect = function() {
       return "<Key priv: " + (this.priv && this.priv.toString(16, 2)) + " pub: " + (this.pub && this.pub.inspect()) + " >";
     };
   });
@@ -10424,7 +10424,7 @@ var init_crypto = __esm(() => {
         return buf;
       return buf.slice(i2);
     }
-    Signature.prototype._importDER = function _importDER(data, enc) {
+    Signature.prototype._importDER = function(data, enc) {
       data = utils.toArray(data, enc);
       var p = new Position;
       if (data[p.place++] !== 48)
@@ -10475,7 +10475,7 @@ var init_crypto = __esm(() => {
         arr.push(len2 >>> (octets << 3) & 255);
       arr.push(len2);
     }
-    Signature.prototype.toDER = function toDER(enc) {
+    Signature.prototype.toDER = function(enc) {
       var r = this.r.toArray(), s = this.s.toArray();
       if (r[0] & 128)
         r = [0].concat(r);
@@ -10502,16 +10502,16 @@ var init_crypto = __esm(() => {
       this.curve = options.curve.curve, this.n = this.curve.n, this.nh = this.n.ushrn(1), this.g = this.curve.g, this.g = options.curve.g, this.g.precompute(options.curve.n.bitLength() + 1), this.hash = options.hash || options.curve.hash;
     }
     module.exports = EC;
-    EC.prototype.keyPair = function keyPair(options) {
+    EC.prototype.keyPair = function(options) {
       return new KeyPair(this, options);
     };
-    EC.prototype.keyFromPrivate = function keyFromPrivate(priv, enc) {
+    EC.prototype.keyFromPrivate = function(priv, enc) {
       return KeyPair.fromPrivate(this, priv, enc);
     };
-    EC.prototype.keyFromPublic = function keyFromPublic(pub, enc) {
+    EC.prototype.keyFromPublic = function(pub, enc) {
       return KeyPair.fromPublic(this, pub, enc);
     };
-    EC.prototype.genKeyPair = function genKeyPair(options) {
+    EC.prototype.genKeyPair = function(options) {
       if (!options)
         options = {};
       var drbg = new HmacDRBG({ hash: this.hash, pers: options.pers, persEnc: options.persEnc || "utf8", entropy: options.entropy || rand(this.hash.hmacStrength), entropyEnc: options.entropy && options.entropyEnc || "utf8", nonce: this.n.toArray() }), bytes = this.n.byteLength(), ns2 = this.n.sub(new BN(2));
@@ -10522,7 +10522,7 @@ var init_crypto = __esm(() => {
         return priv.iaddn(1), this.keyFromPrivate(priv);
       }
     };
-    EC.prototype._truncateToN = function _truncateToN(msg, truncOnly, bitLength) {
+    EC.prototype._truncateToN = function(msg, truncOnly, bitLength) {
       var byteLength2;
       if (BN.isBN(msg) || typeof msg === "number")
         msg = new BN(msg, 16), byteLength2 = msg.byteLength();
@@ -10542,7 +10542,7 @@ var init_crypto = __esm(() => {
       else
         return msg;
     };
-    EC.prototype.sign = function sign(msg, key, enc, options) {
+    EC.prototype.sign = function(msg, key, enc, options) {
       if (typeof enc === "object")
         options = enc, enc = null;
       if (!options)
@@ -10575,7 +10575,7 @@ var init_crypto = __esm(() => {
         return new Signature({ r, s, recoveryParam });
       }
     };
-    EC.prototype.verify = function verify(msg, signature, key, enc, options) {
+    EC.prototype.verify = function(msg, signature, key, enc, options) {
       if (!options)
         options = {};
       msg = this._truncateToN(msg, false, options.msgBitLength), key = this.keyFromPublic(key, enc), signature = new Signature(signature, "hex");
@@ -10598,7 +10598,7 @@ var init_crypto = __esm(() => {
       assert((3 & j) === j, "The recovery param is more than two bits"), signature = new Signature(signature, enc);
       var n = this.n, e = new BN(msg), r = signature.r, s = signature.s, isYOdd = j & 1, isSecondKey = j >> 1;
       if (r.cmp(this.curve.p.umod(this.curve.n)) >= 0 && isSecondKey)
-        throw new Error("Unable to find sencond key candinate");
+        throw Error("Unable to find sencond key candinate");
       if (isSecondKey)
         r = this.curve.pointFromX(r.add(this.curve.n), isYOdd);
       else
@@ -10619,7 +10619,7 @@ var init_crypto = __esm(() => {
         if (Qprime.eq(Q))
           return i2;
       }
-      throw new Error("Unable to find valid recovery factor");
+      throw Error("Unable to find valid recovery factor");
     };
   });
   require_key2 = __commonJS2((exports, module) => {
@@ -10630,50 +10630,50 @@ var init_crypto = __esm(() => {
       else
         this._pubBytes = parseBytes(params.pub);
     }
-    KeyPair.fromPublic = function fromPublic(eddsa, pub) {
+    KeyPair.fromPublic = function(eddsa, pub) {
       if (pub instanceof KeyPair)
         return pub;
       return new KeyPair(eddsa, { pub });
     };
-    KeyPair.fromSecret = function fromSecret(eddsa, secret) {
+    KeyPair.fromSecret = function(eddsa, secret) {
       if (secret instanceof KeyPair)
         return secret;
       return new KeyPair(eddsa, { secret });
     };
-    KeyPair.prototype.secret = function secret() {
+    KeyPair.prototype.secret = function() {
       return this._secret;
     };
-    cachedProperty(KeyPair, "pubBytes", function pubBytes() {
+    cachedProperty(KeyPair, "pubBytes", function() {
       return this.eddsa.encodePoint(this.pub());
     });
-    cachedProperty(KeyPair, "pub", function pub() {
+    cachedProperty(KeyPair, "pub", function() {
       if (this._pubBytes)
         return this.eddsa.decodePoint(this._pubBytes);
       return this.eddsa.g.mul(this.priv());
     });
-    cachedProperty(KeyPair, "privBytes", function privBytes() {
+    cachedProperty(KeyPair, "privBytes", function() {
       var eddsa = this.eddsa, hash = this.hash(), lastIx = eddsa.encodingLength - 1, a = hash.slice(0, eddsa.encodingLength);
       return a[0] &= 248, a[lastIx] &= 127, a[lastIx] |= 64, a;
     });
-    cachedProperty(KeyPair, "priv", function priv() {
+    cachedProperty(KeyPair, "priv", function() {
       return this.eddsa.decodeInt(this.privBytes());
     });
-    cachedProperty(KeyPair, "hash", function hash() {
+    cachedProperty(KeyPair, "hash", function() {
       return this.eddsa.hash().update(this.secret()).digest();
     });
-    cachedProperty(KeyPair, "messagePrefix", function messagePrefix() {
+    cachedProperty(KeyPair, "messagePrefix", function() {
       return this.hash().slice(this.eddsa.encodingLength);
     });
-    KeyPair.prototype.sign = function sign(message) {
+    KeyPair.prototype.sign = function(message) {
       return assert(this._secret, "KeyPair can only verify"), this.eddsa.sign(message, this);
     };
-    KeyPair.prototype.verify = function verify(message, sig) {
+    KeyPair.prototype.verify = function(message, sig) {
       return this.eddsa.verify(message, sig, this);
     };
-    KeyPair.prototype.getSecret = function getSecret(enc) {
+    KeyPair.prototype.getSecret = function(enc) {
       return assert(this._secret, "KeyPair is public only"), utils.encode(this.secret(), enc);
     };
-    KeyPair.prototype.getPublic = function getPublic(enc) {
+    KeyPair.prototype.getPublic = function(enc) {
       return utils.encode(this.pubBytes(), enc);
     };
     module.exports = KeyPair;
@@ -10691,22 +10691,22 @@ var init_crypto = __esm(() => {
         this._S = sig.S;
       this._Rencoded = Array.isArray(sig.R) ? sig.R : sig.Rencoded, this._Sencoded = Array.isArray(sig.S) ? sig.S : sig.Sencoded;
     }
-    cachedProperty(Signature, "S", function S() {
+    cachedProperty(Signature, "S", function() {
       return this.eddsa.decodeInt(this.Sencoded());
     });
-    cachedProperty(Signature, "R", function R() {
+    cachedProperty(Signature, "R", function() {
       return this.eddsa.decodePoint(this.Rencoded());
     });
-    cachedProperty(Signature, "Rencoded", function Rencoded() {
+    cachedProperty(Signature, "Rencoded", function() {
       return this.eddsa.encodePoint(this.R());
     });
-    cachedProperty(Signature, "Sencoded", function Sencoded() {
+    cachedProperty(Signature, "Sencoded", function() {
       return this.eddsa.encodeInt(this.S());
     });
-    Signature.prototype.toBytes = function toBytes() {
+    Signature.prototype.toBytes = function() {
       return this.Rencoded().concat(this.Sencoded());
     };
-    Signature.prototype.toHex = function toHex() {
+    Signature.prototype.toHex = function() {
       return utils.encode(this.toBytes(), "hex").toUpperCase();
     };
     module.exports = Signature;
@@ -10719,50 +10719,50 @@ var init_crypto = __esm(() => {
       curve = curves[curve].curve, this.curve = curve, this.g = curve.g, this.g.precompute(curve.n.bitLength() + 1), this.pointClass = curve.point().constructor, this.encodingLength = Math.ceil(curve.n.bitLength() / 8), this.hash = hash.sha512;
     }
     module.exports = EDDSA;
-    EDDSA.prototype.sign = function sign(message, secret) {
+    EDDSA.prototype.sign = function(message, secret) {
       message = parseBytes(message);
       var key = this.keyFromSecret(secret), r = this.hashInt(key.messagePrefix(), message), R = this.g.mul(r), Rencoded = this.encodePoint(R), s_ = this.hashInt(Rencoded, key.pubBytes(), message).mul(key.priv()), S = r.add(s_).umod(this.curve.n);
       return this.makeSignature({ R, S, Rencoded });
     };
-    EDDSA.prototype.verify = function verify(message, sig, pub) {
+    EDDSA.prototype.verify = function(message, sig, pub) {
       if (message = parseBytes(message), sig = this.makeSignature(sig), sig.S().gte(sig.eddsa.curve.n) || sig.S().isNeg())
         return false;
       var key = this.keyFromPublic(pub), h = this.hashInt(sig.Rencoded(), key.pubBytes(), message), SG = this.g.mul(sig.S()), RplusAh = sig.R().add(key.pub().mul(h));
       return RplusAh.eq(SG);
     };
-    EDDSA.prototype.hashInt = function hashInt() {
+    EDDSA.prototype.hashInt = function() {
       var hash2 = this.hash();
       for (var i2 = 0;i2 < arguments.length; i2++)
         hash2.update(arguments[i2]);
       return utils.intFromLE(hash2.digest()).umod(this.curve.n);
     };
-    EDDSA.prototype.keyFromPublic = function keyFromPublic(pub) {
+    EDDSA.prototype.keyFromPublic = function(pub) {
       return KeyPair.fromPublic(this, pub);
     };
-    EDDSA.prototype.keyFromSecret = function keyFromSecret(secret) {
+    EDDSA.prototype.keyFromSecret = function(secret) {
       return KeyPair.fromSecret(this, secret);
     };
-    EDDSA.prototype.makeSignature = function makeSignature(sig) {
+    EDDSA.prototype.makeSignature = function(sig) {
       if (sig instanceof Signature)
         return sig;
       return new Signature(this, sig);
     };
-    EDDSA.prototype.encodePoint = function encodePoint(point) {
+    EDDSA.prototype.encodePoint = function(point) {
       var enc = point.getY().toArray("le", this.encodingLength);
       return enc[this.encodingLength - 1] |= point.getX().isOdd() ? 128 : 0, enc;
     };
-    EDDSA.prototype.decodePoint = function decodePoint(bytes) {
+    EDDSA.prototype.decodePoint = function(bytes) {
       bytes = utils.parseBytes(bytes);
       var lastIx = bytes.length - 1, normed = bytes.slice(0, lastIx).concat(bytes[lastIx] & -129), xIsOdd = (bytes[lastIx] & 128) !== 0, y = utils.intFromLE(normed);
       return this.curve.pointFromY(y, xIsOdd);
     };
-    EDDSA.prototype.encodeInt = function encodeInt(num) {
+    EDDSA.prototype.encodeInt = function(num) {
       return num.toArray("le", this.encodingLength);
     };
-    EDDSA.prototype.decodeInt = function decodeInt(bytes) {
+    EDDSA.prototype.decodeInt = function(bytes) {
       return utils.intFromLE(bytes);
     };
-    EDDSA.prototype.isPoint = function isPoint(val) {
+    EDDSA.prototype.isPoint = function(val) {
       return val instanceof this.pointClass;
     };
   });
@@ -10780,7 +10780,7 @@ var init_crypto = __esm(() => {
     (function(module2, exports2) {
       function assert(val, msg) {
         if (!val)
-          throw new Error(msg || "Assertion failed");
+          throw Error(msg || "Assertion failed");
       }
       function inherits2(ctor, superCtor) {
         ctor.super_ = superCtor;
@@ -10803,24 +10803,24 @@ var init_crypto = __esm(() => {
       BN.BN = BN, BN.wordSize = 26;
       var Buffer22;
       try {
-        if (typeof window !== "undefined" && typeof window.Buffer !== "undefined")
+        if (typeof window < "u" && typeof window.Buffer < "u")
           Buffer22 = window.Buffer;
         else
           Buffer22 = (init_buffer(), __toCommonJS(exports_buffer)).Buffer;
       } catch (e) {}
-      BN.isBN = function isBN(num) {
+      BN.isBN = function(num) {
         if (num instanceof BN)
           return true;
         return num !== null && typeof num === "object" && num.constructor.wordSize === BN.wordSize && Array.isArray(num.words);
-      }, BN.max = function max(left, right) {
+      }, BN.max = function(left, right) {
         if (left.cmp(right) > 0)
           return left;
         return right;
-      }, BN.min = function min(left, right) {
+      }, BN.min = function(left, right) {
         if (left.cmp(right) < 0)
           return left;
         return right;
-      }, BN.prototype._init = function init(number, base, endian) {
+      }, BN.prototype._init = function(number, base, endian) {
         if (typeof number === "number")
           return this._initNumber(number, base, endian);
         if (typeof number === "object")
@@ -10837,7 +10837,7 @@ var init_crypto = __esm(() => {
           else if (this._parseBase(number, base, start), endian === "le")
             this._initArray(this.toArray(), base, endian);
         }
-      }, BN.prototype._initNumber = function _initNumber(number, base, endian) {
+      }, BN.prototype._initNumber = function(number, base, endian) {
         if (number < 0)
           this.negative = 1, number = -number;
         if (number < 67108864)
@@ -10849,10 +10849,10 @@ var init_crypto = __esm(() => {
         if (endian !== "le")
           return;
         this._initArray(this.toArray(), base, endian);
-      }, BN.prototype._initArray = function _initArray(number, base, endian) {
+      }, BN.prototype._initArray = function(number, base, endian) {
         if (assert(typeof number.length === "number"), number.length <= 0)
           return this.words = [0], this.length = 1, this;
-        this.length = Math.ceil(number.length / 3), this.words = new Array(this.length);
+        this.length = Math.ceil(number.length / 3), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var j, w, off = 0;
@@ -10882,8 +10882,8 @@ var init_crypto = __esm(() => {
           r |= parseHex4Bits(string, index - 1) << 4;
         return r;
       }
-      BN.prototype._parseHex = function _parseHex(number, start, endian) {
-        this.length = Math.ceil((number.length - start) / 6), this.words = new Array(this.length);
+      BN.prototype._parseHex = function(number, start, endian) {
+        this.length = Math.ceil((number.length - start) / 6), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var off = 0, j = 0, w;
@@ -10916,7 +10916,7 @@ var init_crypto = __esm(() => {
         }
         return r;
       }
-      BN.prototype._parseBase = function _parseBase(number, base, start) {
+      BN.prototype._parseBase = function(number, base, start) {
         this.words = [0], this.length = 1;
         for (var limbLen = 0, limbPow = 1;limbPow <= 67108863; limbPow *= base)
           limbLen++;
@@ -10938,31 +10938,31 @@ var init_crypto = __esm(() => {
             this._iaddn(word);
         }
         this.strip();
-      }, BN.prototype.copy = function copy(dest) {
-        dest.words = new Array(this.length);
+      }, BN.prototype.copy = function(dest) {
+        dest.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           dest.words[i2] = this.words[i2];
         dest.length = this.length, dest.negative = this.negative, dest.red = this.red;
-      }, BN.prototype.clone = function clone() {
+      }, BN.prototype.clone = function() {
         var r = new BN(null);
         return this.copy(r), r;
-      }, BN.prototype._expand = function _expand(size) {
+      }, BN.prototype._expand = function(size) {
         while (this.length < size)
           this.words[this.length++] = 0;
         return this;
-      }, BN.prototype.strip = function strip() {
+      }, BN.prototype.strip = function() {
         while (this.length > 1 && this.words[this.length - 1] === 0)
           this.length--;
         return this._normSign();
-      }, BN.prototype._normSign = function _normSign() {
+      }, BN.prototype._normSign = function() {
         if (this.length === 1 && this.words[0] === 0)
           this.negative = 0;
         return this;
-      }, BN.prototype.inspect = function inspect() {
+      }, BN.prototype.inspect = function() {
         return (this.red ? "<BN-R: " : "<BN: ") + this.toString(16) + ">";
       };
       var zeros = ["", "0", "00", "000", "0000", "00000", "000000", "0000000", "00000000", "000000000", "0000000000", "00000000000", "000000000000", "0000000000000", "00000000000000", "000000000000000", "0000000000000000", "00000000000000000", "000000000000000000", "0000000000000000000", "00000000000000000000", "000000000000000000000", "0000000000000000000000", "00000000000000000000000", "000000000000000000000000", "0000000000000000000000000"], groupSizes = [0, 0, 25, 16, 12, 11, 10, 9, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], groupBases = [0, 0, 33554432, 43046721, 16777216, 48828125, 60466176, 40353607, 16777216, 43046721, 1e7, 19487171, 35831808, 62748517, 7529536, 11390625, 16777216, 24137569, 34012224, 47045881, 64000000, 4084101, 5153632, 6436343, 7962624, 9765625, 11881376, 14348907, 17210368, 20511149, 24300000, 28629151, 33554432, 39135393, 45435424, 52521875, 60466176];
-      if (BN.prototype.toString = function toString(base, padding) {
+      if (BN.prototype.toString = function(base, padding) {
         base = base || 10, padding = padding | 0 || 1;
         var out;
         if (base === 16 || base === "hex") {
@@ -11006,7 +11006,7 @@ var init_crypto = __esm(() => {
           return out;
         }
         assert(false, "Base should be between 2 and 36");
-      }, BN.prototype.toNumber = function toNumber() {
+      }, BN.prototype.toNumber = function() {
         var ret = this.words[0];
         if (this.length === 2)
           ret += this.words[1] * 67108864;
@@ -11015,13 +11015,13 @@ var init_crypto = __esm(() => {
         else if (this.length > 2)
           assert(false, "Number can only safely store up to 53 bits");
         return this.negative !== 0 ? -ret : ret;
-      }, BN.prototype.toJSON = function toJSON() {
+      }, BN.prototype.toJSON = function() {
         return this.toString(16);
-      }, BN.prototype.toBuffer = function toBuffer(endian, length) {
-        return assert(typeof Buffer22 !== "undefined"), this.toArrayLike(Buffer22, endian, length);
-      }, BN.prototype.toArray = function toArray(endian, length) {
+      }, BN.prototype.toBuffer = function(endian, length) {
+        return assert(typeof Buffer22 < "u"), this.toArrayLike(Buffer22, endian, length);
+      }, BN.prototype.toArray = function(endian, length) {
         return this.toArrayLike(Array, endian, length);
-      }, BN.prototype.toArrayLike = function toArrayLike(ArrayType, endian, length) {
+      }, BN.prototype.toArrayLike = function(ArrayType, endian, length) {
         var byteLength2 = this.byteLength(), reqLength = length || Math.max(1, byteLength2);
         assert(byteLength2 <= reqLength, "byte array longer than desired length"), assert(reqLength > 0, "Requested array length <= 0"), this.strip();
         var littleEndian = endian === "le", res = new ArrayType(reqLength), b, i2, q = this.clone();
@@ -11038,11 +11038,11 @@ var init_crypto = __esm(() => {
         }
         return res;
       }, Math.clz32)
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           return 32 - Math.clz32(w);
         };
       else
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           var t = w, r = 0;
           if (t >= 4096)
             r += 13, t >>>= 13;
@@ -11054,7 +11054,7 @@ var init_crypto = __esm(() => {
             r += 2, t >>>= 2;
           return r + t;
         };
-      BN.prototype._zeroBits = function _zeroBits(w) {
+      BN.prototype._zeroBits = function(w) {
         if (w === 0)
           return 26;
         var t = w, r = 0;
@@ -11069,19 +11069,19 @@ var init_crypto = __esm(() => {
         if ((t & 1) === 0)
           r++;
         return r;
-      }, BN.prototype.bitLength = function bitLength() {
+      }, BN.prototype.bitLength = function() {
         var w = this.words[this.length - 1], hi = this._countBits(w);
         return (this.length - 1) * 26 + hi;
       };
       function toBitArray(num) {
-        var w = new Array(num.bitLength());
+        var w = Array(num.bitLength());
         for (var bit = 0;bit < w.length; bit++) {
           var off = bit / 26 | 0, wbit = bit % 26;
           w[bit] = (num.words[off] & 1 << wbit) >>> wbit;
         }
         return w;
       }
-      BN.prototype.zeroBits = function zeroBits() {
+      BN.prototype.zeroBits = function() {
         if (this.isZero())
           return 0;
         var r = 0;
@@ -11091,41 +11091,41 @@ var init_crypto = __esm(() => {
             break;
         }
         return r;
-      }, BN.prototype.byteLength = function byteLength() {
+      }, BN.prototype.byteLength = function() {
         return Math.ceil(this.bitLength() / 8);
-      }, BN.prototype.toTwos = function toTwos(width) {
+      }, BN.prototype.toTwos = function(width) {
         if (this.negative !== 0)
           return this.abs().inotn(width).iaddn(1);
         return this.clone();
-      }, BN.prototype.fromTwos = function fromTwos(width) {
+      }, BN.prototype.fromTwos = function(width) {
         if (this.testn(width - 1))
           return this.notn(width).iaddn(1).ineg();
         return this.clone();
-      }, BN.prototype.isNeg = function isNeg() {
+      }, BN.prototype.isNeg = function() {
         return this.negative !== 0;
-      }, BN.prototype.neg = function neg() {
+      }, BN.prototype.neg = function() {
         return this.clone().ineg();
-      }, BN.prototype.ineg = function ineg() {
+      }, BN.prototype.ineg = function() {
         if (!this.isZero())
           this.negative ^= 1;
         return this;
-      }, BN.prototype.iuor = function iuor(num) {
+      }, BN.prototype.iuor = function(num) {
         while (this.length < num.length)
           this.words[this.length++] = 0;
         for (var i2 = 0;i2 < num.length; i2++)
           this.words[i2] = this.words[i2] | num.words[i2];
         return this.strip();
-      }, BN.prototype.ior = function ior(num) {
+      }, BN.prototype.ior = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuor(num);
-      }, BN.prototype.or = function or(num) {
+      }, BN.prototype.or = function(num) {
         if (this.length > num.length)
           return this.clone().ior(num);
         return num.clone().ior(this);
-      }, BN.prototype.uor = function uor(num) {
+      }, BN.prototype.uor = function(num) {
         if (this.length > num.length)
           return this.clone().iuor(num);
         return num.clone().iuor(this);
-      }, BN.prototype.iuand = function iuand(num) {
+      }, BN.prototype.iuand = function(num) {
         var b;
         if (this.length > num.length)
           b = num;
@@ -11134,17 +11134,17 @@ var init_crypto = __esm(() => {
         for (var i2 = 0;i2 < b.length; i2++)
           this.words[i2] = this.words[i2] & num.words[i2];
         return this.length = b.length, this.strip();
-      }, BN.prototype.iand = function iand(num) {
+      }, BN.prototype.iand = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuand(num);
-      }, BN.prototype.and = function and(num) {
+      }, BN.prototype.and = function(num) {
         if (this.length > num.length)
           return this.clone().iand(num);
         return num.clone().iand(this);
-      }, BN.prototype.uand = function uand(num) {
+      }, BN.prototype.uand = function(num) {
         if (this.length > num.length)
           return this.clone().iuand(num);
         return num.clone().iuand(this);
-      }, BN.prototype.iuxor = function iuxor(num) {
+      }, BN.prototype.iuxor = function(num) {
         var a, b;
         if (this.length > num.length)
           a = this, b = num;
@@ -11156,17 +11156,17 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this.length = a.length, this.strip();
-      }, BN.prototype.ixor = function ixor(num) {
+      }, BN.prototype.ixor = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuxor(num);
-      }, BN.prototype.xor = function xor(num) {
+      }, BN.prototype.xor = function(num) {
         if (this.length > num.length)
           return this.clone().ixor(num);
         return num.clone().ixor(this);
-      }, BN.prototype.uxor = function uxor(num) {
+      }, BN.prototype.uxor = function(num) {
         if (this.length > num.length)
           return this.clone().iuxor(num);
         return num.clone().iuxor(this);
-      }, BN.prototype.inotn = function inotn(width) {
+      }, BN.prototype.inotn = function(width) {
         assert(typeof width === "number" && width >= 0);
         var bytesNeeded = Math.ceil(width / 26) | 0, bitsLeft = width % 26;
         if (this._expand(bytesNeeded), bitsLeft > 0)
@@ -11176,9 +11176,9 @@ var init_crypto = __esm(() => {
         if (bitsLeft > 0)
           this.words[i2] = ~this.words[i2] & 67108863 >> 26 - bitsLeft;
         return this.strip();
-      }, BN.prototype.notn = function notn(width) {
+      }, BN.prototype.notn = function(width) {
         return this.clone().inotn(width);
-      }, BN.prototype.setn = function setn(bit, val) {
+      }, BN.prototype.setn = function(bit, val) {
         assert(typeof bit === "number" && bit >= 0);
         var off = bit / 26 | 0, wbit = bit % 26;
         if (this._expand(off + 1), val)
@@ -11186,7 +11186,7 @@ var init_crypto = __esm(() => {
         else
           this.words[off] = this.words[off] & ~(1 << wbit);
         return this.strip();
-      }, BN.prototype.iadd = function iadd(num) {
+      }, BN.prototype.iadd = function(num) {
         var r;
         if (this.negative !== 0 && num.negative === 0)
           return this.negative = 0, r = this.isub(num), this.negative ^= 1, this._normSign();
@@ -11208,7 +11208,7 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this;
-      }, BN.prototype.add = function add(num) {
+      }, BN.prototype.add = function(num) {
         var res;
         if (num.negative !== 0 && this.negative === 0)
           return num.negative = 0, res = this.sub(num), num.negative ^= 1, res;
@@ -11217,7 +11217,7 @@ var init_crypto = __esm(() => {
         if (this.length > num.length)
           return this.clone().iadd(num);
         return num.clone().iadd(this);
-      }, BN.prototype.isub = function isub(num) {
+      }, BN.prototype.isub = function(num) {
         if (num.negative !== 0) {
           num.negative = 0;
           var r = this.iadd(num);
@@ -11243,7 +11243,7 @@ var init_crypto = __esm(() => {
         if (this.length = Math.max(this.length, i2), a !== this)
           this.negative = 1;
         return this.strip();
-      }, BN.prototype.sub = function sub(num) {
+      }, BN.prototype.sub = function(num) {
         return this.clone().isub(num);
       };
       function smallMulTo(self2, num, out) {
@@ -11266,7 +11266,7 @@ var init_crypto = __esm(() => {
           out.length--;
         return out.strip();
       }
-      var comb10MulTo = function comb10MulTo(self2, num, out) {
+      var comb10MulTo = function(self2, num, out) {
         var a = self2.words, b = num.words, o = out.words, c = 0, lo, mid, hi, a0 = a[0] | 0, al0 = a0 & 8191, ah0 = a0 >>> 13, a1 = a[1] | 0, al1 = a1 & 8191, ah1 = a1 >>> 13, a2 = a[2] | 0, al2 = a2 & 8191, ah2 = a2 >>> 13, a3 = a[3] | 0, al3 = a3 & 8191, ah3 = a3 >>> 13, a4 = a[4] | 0, al4 = a4 & 8191, ah4 = a4 >>> 13, a5 = a[5] | 0, al5 = a5 & 8191, ah5 = a5 >>> 13, a6 = a[6] | 0, al6 = a6 & 8191, ah6 = a6 >>> 13, a7 = a[7] | 0, al7 = a7 & 8191, ah7 = a7 >>> 13, a8 = a[8] | 0, al8 = a8 & 8191, ah8 = a8 >>> 13, a9 = a[9] | 0, al9 = a9 & 8191, ah9 = a9 >>> 13, b0 = b[0] | 0, bl0 = b0 & 8191, bh0 = b0 >>> 13, b1 = b[1] | 0, bl1 = b1 & 8191, bh1 = b1 >>> 13, b2 = b[2] | 0, bl2 = b2 & 8191, bh2 = b2 >>> 13, b3 = b[3] | 0, bl3 = b3 & 8191, bh3 = b3 >>> 13, b4 = b[4] | 0, bl4 = b4 & 8191, bh4 = b4 >>> 13, b5 = b[5] | 0, bl5 = b5 & 8191, bh5 = b5 >>> 13, b6 = b[6] | 0, bl6 = b6 & 8191, bh6 = b6 >>> 13, b7 = b[7] | 0, bl7 = b7 & 8191, bh7 = b7 >>> 13, b8 = b[8] | 0, bl8 = b8 & 8191, bh8 = b8 >>> 13, b9 = b[9] | 0, bl9 = b9 & 8191, bh9 = b9 >>> 13;
         out.negative = self2.negative ^ num.negative, out.length = 19, lo = Math.imul(al0, bl0), mid = Math.imul(al0, bh0), mid = mid + Math.imul(ah0, bl0) | 0, hi = Math.imul(ah0, bh0);
         var w0 = (c + lo | 0) + ((mid & 8191) << 13) | 0;
@@ -11335,7 +11335,7 @@ var init_crypto = __esm(() => {
         var fftm = new FFTM;
         return fftm.mulp(self2, num, out);
       }
-      BN.prototype.mulTo = function mulTo(num, out) {
+      BN.prototype.mulTo = function(num, out) {
         var res, len2 = this.length + num.length;
         if (this.length === 10 && num.length === 10)
           res = comb10MulTo(this, num, out);
@@ -11350,22 +11350,22 @@ var init_crypto = __esm(() => {
       function FFTM(x, y) {
         this.x = x, this.y = y;
       }
-      FFTM.prototype.makeRBT = function makeRBT(N) {
-        var t = new Array(N), l = BN.prototype._countBits(N) - 1;
+      FFTM.prototype.makeRBT = function(N) {
+        var t = Array(N), l = BN.prototype._countBits(N) - 1;
         for (var i2 = 0;i2 < N; i2++)
           t[i2] = this.revBin(i2, l, N);
         return t;
-      }, FFTM.prototype.revBin = function revBin(x, l, N) {
+      }, FFTM.prototype.revBin = function(x, l, N) {
         if (x === 0 || x === N - 1)
           return x;
         var rb = 0;
         for (var i2 = 0;i2 < l; i2++)
           rb |= (x & 1) << l - i2 - 1, x >>= 1;
         return rb;
-      }, FFTM.prototype.permute = function permute(rbt, rws, iws, rtws, itws, N) {
+      }, FFTM.prototype.permute = function(rbt, rws, iws, rtws, itws, N) {
         for (var i2 = 0;i2 < N; i2++)
           rtws[i2] = rws[rbt[i2]], itws[i2] = iws[rbt[i2]];
-      }, FFTM.prototype.transform = function transform(rws, iws, rtws, itws, N, rbt) {
+      }, FFTM.prototype.transform = function(rws, iws, rtws, itws, N, rbt) {
         this.permute(rbt, rws, iws, rtws, itws, N);
         for (var s = 1;s < N; s <<= 1) {
           var l = s << 1, rtwdf = Math.cos(2 * Math.PI / l), itwdf = Math.sin(2 * Math.PI / l);
@@ -11378,19 +11378,19 @@ var init_crypto = __esm(() => {
             }
           }
         }
-      }, FFTM.prototype.guessLen13b = function guessLen13b(n, m) {
+      }, FFTM.prototype.guessLen13b = function(n, m) {
         var N = Math.max(m, n) | 1, odd = N & 1, i2 = 0;
         for (N = N / 2 | 0;N; N = N >>> 1)
           i2++;
         return 1 << i2 + 1 + odd;
-      }, FFTM.prototype.conjugate = function conjugate(rws, iws, N) {
+      }, FFTM.prototype.conjugate = function(rws, iws, N) {
         if (N <= 1)
           return;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var t = rws[i2];
           rws[i2] = rws[N - i2 - 1], rws[N - i2 - 1] = t, t = iws[i2], iws[i2] = -iws[N - i2 - 1], iws[N - i2 - 1] = -t;
         }
-      }, FFTM.prototype.normalize13b = function normalize13b(ws, N) {
+      }, FFTM.prototype.normalize13b = function(ws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var w = Math.round(ws[2 * i2 + 1] / N) * 8192 + Math.round(ws[2 * i2] / N) + carry;
@@ -11400,35 +11400,35 @@ var init_crypto = __esm(() => {
             carry = w / 67108864 | 0;
         }
         return ws;
-      }, FFTM.prototype.convert13b = function convert13b(ws, len2, rws, N) {
+      }, FFTM.prototype.convert13b = function(ws, len2, rws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < len2; i2++)
           carry = carry + (ws[i2] | 0), rws[2 * i2] = carry & 8191, carry = carry >>> 13, rws[2 * i2 + 1] = carry & 8191, carry = carry >>> 13;
         for (i2 = 2 * len2;i2 < N; ++i2)
           rws[i2] = 0;
         assert(carry === 0), assert((carry & -8192) === 0);
-      }, FFTM.prototype.stub = function stub(N) {
-        var ph = new Array(N);
+      }, FFTM.prototype.stub = function(N) {
+        var ph = Array(N);
         for (var i2 = 0;i2 < N; i2++)
           ph[i2] = 0;
         return ph;
-      }, FFTM.prototype.mulp = function mulp(x, y, out) {
-        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = new Array(N), rwst = new Array(N), iwst = new Array(N), nrws = new Array(N), nrwst = new Array(N), niwst = new Array(N), rmws = out.words;
+      }, FFTM.prototype.mulp = function(x, y, out) {
+        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = Array(N), rwst = Array(N), iwst = Array(N), nrws = Array(N), nrwst = Array(N), niwst = Array(N), rmws = out.words;
         rmws.length = N, this.convert13b(x.words, x.length, rws, N), this.convert13b(y.words, y.length, nrws, N), this.transform(rws, _, rwst, iwst, N, rbt), this.transform(nrws, _, nrwst, niwst, N, rbt);
         for (var i2 = 0;i2 < N; i2++) {
           var rx = rwst[i2] * nrwst[i2] - iwst[i2] * niwst[i2];
           iwst[i2] = rwst[i2] * niwst[i2] + iwst[i2] * nrwst[i2], rwst[i2] = rx;
         }
         return this.conjugate(rwst, iwst, N), this.transform(rwst, iwst, rmws, _, N, rbt), this.conjugate(rmws, _, N), this.normalize13b(rmws, N), out.negative = x.negative ^ y.negative, out.length = x.length + y.length, out.strip();
-      }, BN.prototype.mul = function mul(num) {
+      }, BN.prototype.mul = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), this.mulTo(num, out);
-      }, BN.prototype.mulf = function mulf(num) {
+        return out.words = Array(this.length + num.length), this.mulTo(num, out);
+      }, BN.prototype.mulf = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), jumboMulTo(this, num, out);
-      }, BN.prototype.imul = function imul(num) {
+        return out.words = Array(this.length + num.length), jumboMulTo(this, num, out);
+      }, BN.prototype.imul = function(num) {
         return this.clone().mulTo(num, this);
-      }, BN.prototype.imuln = function imuln(num) {
+      }, BN.prototype.imuln = function(num) {
         assert(typeof num === "number"), assert(num < 67108864);
         var carry = 0;
         for (var i2 = 0;i2 < this.length; i2++) {
@@ -11438,13 +11438,13 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this.length = num === 0 ? 1 : this.length, this;
-      }, BN.prototype.muln = function muln(num) {
+      }, BN.prototype.muln = function(num) {
         return this.clone().imuln(num);
-      }, BN.prototype.sqr = function sqr() {
+      }, BN.prototype.sqr = function() {
         return this.mul(this);
-      }, BN.prototype.isqr = function isqr() {
+      }, BN.prototype.isqr = function() {
         return this.imul(this.clone());
-      }, BN.prototype.pow = function pow(num) {
+      }, BN.prototype.pow = function(num) {
         var w = toBitArray(num);
         if (w.length === 0)
           return new BN(1);
@@ -11459,7 +11459,7 @@ var init_crypto = __esm(() => {
             res = res.mul(q);
           }
         return res;
-      }, BN.prototype.iushln = function iushln(bits) {
+      }, BN.prototype.iushln = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26, carryMask = 67108863 >>> 26 - r << 26 - r, i2;
         if (r !== 0) {
@@ -11479,9 +11479,9 @@ var init_crypto = __esm(() => {
           this.length += s;
         }
         return this.strip();
-      }, BN.prototype.ishln = function ishln(bits) {
+      }, BN.prototype.ishln = function(bits) {
         return assert(this.negative === 0), this.iushln(bits);
-      }, BN.prototype.iushrn = function iushrn(bits, hint, extended) {
+      }, BN.prototype.iushrn = function(bits, hint, extended) {
         assert(typeof bits === "number" && bits >= 0);
         var h;
         if (hint)
@@ -11512,24 +11512,24 @@ var init_crypto = __esm(() => {
         if (this.length === 0)
           this.words[0] = 0, this.length = 1;
         return this.strip();
-      }, BN.prototype.ishrn = function ishrn(bits, hint, extended) {
+      }, BN.prototype.ishrn = function(bits, hint, extended) {
         return assert(this.negative === 0), this.iushrn(bits, hint, extended);
-      }, BN.prototype.shln = function shln(bits) {
+      }, BN.prototype.shln = function(bits) {
         return this.clone().ishln(bits);
-      }, BN.prototype.ushln = function ushln(bits) {
+      }, BN.prototype.ushln = function(bits) {
         return this.clone().iushln(bits);
-      }, BN.prototype.shrn = function shrn(bits) {
+      }, BN.prototype.shrn = function(bits) {
         return this.clone().ishrn(bits);
-      }, BN.prototype.ushrn = function ushrn(bits) {
+      }, BN.prototype.ushrn = function(bits) {
         return this.clone().iushrn(bits);
-      }, BN.prototype.testn = function testn(bit) {
+      }, BN.prototype.testn = function(bit) {
         assert(typeof bit === "number" && bit >= 0);
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
           return false;
         var w = this.words[s];
         return !!(w & q);
-      }, BN.prototype.imaskn = function imaskn(bits) {
+      }, BN.prototype.imaskn = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26;
         if (assert(this.negative === 0, "imaskn works only with positive numbers"), this.length <= s)
@@ -11541,9 +11541,9 @@ var init_crypto = __esm(() => {
           this.words[this.length - 1] &= mask;
         }
         return this.strip();
-      }, BN.prototype.maskn = function maskn(bits) {
+      }, BN.prototype.maskn = function(bits) {
         return this.clone().imaskn(bits);
-      }, BN.prototype.iaddn = function iaddn(num) {
+      }, BN.prototype.iaddn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.isubn(-num);
         if (this.negative !== 0) {
@@ -11552,7 +11552,7 @@ var init_crypto = __esm(() => {
           return this.negative = 0, this.isubn(num), this.negative = 1, this;
         }
         return this._iaddn(num);
-      }, BN.prototype._iaddn = function _iaddn(num) {
+      }, BN.prototype._iaddn = function(num) {
         this.words[0] += num;
         for (var i2 = 0;i2 < this.length && this.words[i2] >= 67108864; i2++)
           if (this.words[i2] -= 67108864, i2 === this.length - 1)
@@ -11560,7 +11560,7 @@ var init_crypto = __esm(() => {
           else
             this.words[i2 + 1]++;
         return this.length = Math.max(this.length, i2 + 1), this;
-      }, BN.prototype.isubn = function isubn(num) {
+      }, BN.prototype.isubn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.iaddn(-num);
         if (this.negative !== 0)
@@ -11571,15 +11571,15 @@ var init_crypto = __esm(() => {
           for (var i2 = 0;i2 < this.length && this.words[i2] < 0; i2++)
             this.words[i2] += 67108864, this.words[i2 + 1] -= 1;
         return this.strip();
-      }, BN.prototype.addn = function addn(num) {
+      }, BN.prototype.addn = function(num) {
         return this.clone().iaddn(num);
-      }, BN.prototype.subn = function subn(num) {
+      }, BN.prototype.subn = function(num) {
         return this.clone().isubn(num);
-      }, BN.prototype.iabs = function iabs() {
+      }, BN.prototype.iabs = function() {
         return this.negative = 0, this;
-      }, BN.prototype.abs = function abs() {
+      }, BN.prototype.abs = function() {
         return this.clone().iabs();
-      }, BN.prototype._ishlnsubmul = function _ishlnsubmul(num, mul, shift) {
+      }, BN.prototype._ishlnsubmul = function(num, mul, shift) {
         var len2 = num.length + shift, i2;
         this._expand(len2);
         var w, carry = 0;
@@ -11596,13 +11596,13 @@ var init_crypto = __esm(() => {
         for (i2 = 0;i2 < this.length; i2++)
           w = -(this.words[i2] | 0) + carry, carry = w >> 26, this.words[i2] = w & 67108863;
         return this.negative = 1, this.strip();
-      }, BN.prototype._wordDiv = function _wordDiv(num, mode) {
+      }, BN.prototype._wordDiv = function(num, mode) {
         var shift = this.length - num.length, a = this.clone(), b = num, bhi = b.words[b.length - 1] | 0, bhiBits = this._countBits(bhi);
         if (shift = 26 - bhiBits, shift !== 0)
           b = b.ushln(shift), a.iushln(shift), bhi = b.words[b.length - 1] | 0;
         var m = a.length - b.length, q;
         if (mode !== "mod") {
-          q = new BN(null), q.length = m + 1, q.words = new Array(q.length);
+          q = new BN(null), q.length = m + 1, q.words = Array(q.length);
           for (var i2 = 0;i2 < q.length; i2++)
             q.words[i2] = 0;
         }
@@ -11625,7 +11625,7 @@ var init_crypto = __esm(() => {
         if (a.strip(), mode !== "div" && shift !== 0)
           a.iushrn(shift);
         return { div: q || null, mod: a };
-      }, BN.prototype.divmod = function divmod(num, mode, positive) {
+      }, BN.prototype.divmod = function(num, mode, positive) {
         if (assert(!num.isZero()), this.isZero())
           return { div: new BN(0), mod: new BN(0) };
         var div, mod, res;
@@ -11660,13 +11660,13 @@ var init_crypto = __esm(() => {
           return { div: this.divn(num.words[0]), mod: new BN(this.modn(num.words[0])) };
         }
         return this._wordDiv(num, mode);
-      }, BN.prototype.div = function div(num) {
+      }, BN.prototype.div = function(num) {
         return this.divmod(num, "div", false).div;
-      }, BN.prototype.mod = function mod(num) {
+      }, BN.prototype.mod = function(num) {
         return this.divmod(num, "mod", false).mod;
-      }, BN.prototype.umod = function umod(num) {
+      }, BN.prototype.umod = function(num) {
         return this.divmod(num, "mod", true).mod;
-      }, BN.prototype.divRound = function divRound(num) {
+      }, BN.prototype.divRound = function(num) {
         var dm = this.divmod(num);
         if (dm.mod.isZero())
           return dm.div;
@@ -11674,13 +11674,13 @@ var init_crypto = __esm(() => {
         if (cmp < 0 || r2 === 1 && cmp === 0)
           return dm.div;
         return dm.div.negative !== 0 ? dm.div.isubn(1) : dm.div.iaddn(1);
-      }, BN.prototype.modn = function modn(num) {
+      }, BN.prototype.modn = function(num) {
         assert(num <= 67108863);
         var p = 67108864 % num, acc = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--)
           acc = (p * acc + (this.words[i2] | 0)) % num;
         return acc;
-      }, BN.prototype.idivn = function idivn(num) {
+      }, BN.prototype.idivn = function(num) {
         assert(num <= 67108863);
         var carry = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--) {
@@ -11688,9 +11688,9 @@ var init_crypto = __esm(() => {
           this.words[i2] = w / num | 0, carry = w % num;
         }
         return this.strip();
-      }, BN.prototype.divn = function divn(num) {
+      }, BN.prototype.divn = function(num) {
         return this.clone().idivn(num);
-      }, BN.prototype.egcd = function egcd(p) {
+      }, BN.prototype.egcd = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var x = this, y = p.clone();
         if (x.negative !== 0)
@@ -11728,7 +11728,7 @@ var init_crypto = __esm(() => {
             y.isub(x), C.isub(A), D.isub(B);
         }
         return { a: C, b: D, gcd: y.iushln(g) };
-      }, BN.prototype._invmp = function _invmp(p) {
+      }, BN.prototype._invmp = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var a = this, b = p.clone();
         if (a.negative !== 0)
@@ -11770,7 +11770,7 @@ var init_crypto = __esm(() => {
         if (res.cmpn(0) < 0)
           res.iadd(p);
         return res;
-      }, BN.prototype.gcd = function gcd(num) {
+      }, BN.prototype.gcd = function(num) {
         if (this.isZero())
           return num.abs();
         if (num.isZero())
@@ -11793,15 +11793,15 @@ var init_crypto = __esm(() => {
           a.isub(b);
         } while (true);
         return b.iushln(shift);
-      }, BN.prototype.invm = function invm(num) {
+      }, BN.prototype.invm = function(num) {
         return this.egcd(num).a.umod(num);
-      }, BN.prototype.isEven = function isEven() {
+      }, BN.prototype.isEven = function() {
         return (this.words[0] & 1) === 0;
-      }, BN.prototype.isOdd = function isOdd() {
+      }, BN.prototype.isOdd = function() {
         return (this.words[0] & 1) === 1;
-      }, BN.prototype.andln = function andln(num) {
+      }, BN.prototype.andln = function(num) {
         return this.words[0] & num;
-      }, BN.prototype.bincn = function bincn(bit) {
+      }, BN.prototype.bincn = function(bit) {
         assert(typeof bit === "number");
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
@@ -11814,9 +11814,9 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this;
-      }, BN.prototype.isZero = function isZero() {
+      }, BN.prototype.isZero = function() {
         return this.length === 1 && this.words[0] === 0;
-      }, BN.prototype.cmpn = function cmpn(num) {
+      }, BN.prototype.cmpn = function(num) {
         var negative = num < 0;
         if (this.negative !== 0 && !negative)
           return -1;
@@ -11836,7 +11836,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.cmp = function cmp(num) {
+      }, BN.prototype.cmp = function(num) {
         if (this.negative !== 0 && num.negative === 0)
           return -1;
         if (this.negative === 0 && num.negative !== 0)
@@ -11845,7 +11845,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.ucmp = function ucmp(num) {
+      }, BN.prototype.ucmp = function(num) {
         if (this.length > num.length)
           return 1;
         if (this.length < num.length)
@@ -11862,71 +11862,71 @@ var init_crypto = __esm(() => {
           break;
         }
         return res;
-      }, BN.prototype.gtn = function gtn(num) {
+      }, BN.prototype.gtn = function(num) {
         return this.cmpn(num) === 1;
-      }, BN.prototype.gt = function gt(num) {
+      }, BN.prototype.gt = function(num) {
         return this.cmp(num) === 1;
-      }, BN.prototype.gten = function gten(num) {
+      }, BN.prototype.gten = function(num) {
         return this.cmpn(num) >= 0;
-      }, BN.prototype.gte = function gte(num) {
+      }, BN.prototype.gte = function(num) {
         return this.cmp(num) >= 0;
-      }, BN.prototype.ltn = function ltn(num) {
+      }, BN.prototype.ltn = function(num) {
         return this.cmpn(num) === -1;
-      }, BN.prototype.lt = function lt(num) {
+      }, BN.prototype.lt = function(num) {
         return this.cmp(num) === -1;
-      }, BN.prototype.lten = function lten(num) {
+      }, BN.prototype.lten = function(num) {
         return this.cmpn(num) <= 0;
-      }, BN.prototype.lte = function lte(num) {
+      }, BN.prototype.lte = function(num) {
         return this.cmp(num) <= 0;
-      }, BN.prototype.eqn = function eqn(num) {
+      }, BN.prototype.eqn = function(num) {
         return this.cmpn(num) === 0;
-      }, BN.prototype.eq = function eq(num) {
+      }, BN.prototype.eq = function(num) {
         return this.cmp(num) === 0;
-      }, BN.red = function red(num) {
+      }, BN.red = function(num) {
         return new Red(num);
-      }, BN.prototype.toRed = function toRed(ctx) {
+      }, BN.prototype.toRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), assert(this.negative === 0, "red works only with positives"), ctx.convertTo(this)._forceRed(ctx);
-      }, BN.prototype.fromRed = function fromRed() {
+      }, BN.prototype.fromRed = function() {
         return assert(this.red, "fromRed works only with numbers in reduction context"), this.red.convertFrom(this);
-      }, BN.prototype._forceRed = function _forceRed(ctx) {
+      }, BN.prototype._forceRed = function(ctx) {
         return this.red = ctx, this;
-      }, BN.prototype.forceRed = function forceRed(ctx) {
+      }, BN.prototype.forceRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), this._forceRed(ctx);
-      }, BN.prototype.redAdd = function redAdd(num) {
+      }, BN.prototype.redAdd = function(num) {
         return assert(this.red, "redAdd works only with red numbers"), this.red.add(this, num);
-      }, BN.prototype.redIAdd = function redIAdd(num) {
+      }, BN.prototype.redIAdd = function(num) {
         return assert(this.red, "redIAdd works only with red numbers"), this.red.iadd(this, num);
-      }, BN.prototype.redSub = function redSub(num) {
+      }, BN.prototype.redSub = function(num) {
         return assert(this.red, "redSub works only with red numbers"), this.red.sub(this, num);
-      }, BN.prototype.redISub = function redISub(num) {
+      }, BN.prototype.redISub = function(num) {
         return assert(this.red, "redISub works only with red numbers"), this.red.isub(this, num);
-      }, BN.prototype.redShl = function redShl(num) {
+      }, BN.prototype.redShl = function(num) {
         return assert(this.red, "redShl works only with red numbers"), this.red.shl(this, num);
-      }, BN.prototype.redMul = function redMul(num) {
+      }, BN.prototype.redMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.mul(this, num);
-      }, BN.prototype.redIMul = function redIMul(num) {
+      }, BN.prototype.redIMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.imul(this, num);
-      }, BN.prototype.redSqr = function redSqr() {
+      }, BN.prototype.redSqr = function() {
         return assert(this.red, "redSqr works only with red numbers"), this.red._verify1(this), this.red.sqr(this);
-      }, BN.prototype.redISqr = function redISqr() {
+      }, BN.prototype.redISqr = function() {
         return assert(this.red, "redISqr works only with red numbers"), this.red._verify1(this), this.red.isqr(this);
-      }, BN.prototype.redSqrt = function redSqrt() {
+      }, BN.prototype.redSqrt = function() {
         return assert(this.red, "redSqrt works only with red numbers"), this.red._verify1(this), this.red.sqrt(this);
-      }, BN.prototype.redInvm = function redInvm() {
+      }, BN.prototype.redInvm = function() {
         return assert(this.red, "redInvm works only with red numbers"), this.red._verify1(this), this.red.invm(this);
-      }, BN.prototype.redNeg = function redNeg() {
+      }, BN.prototype.redNeg = function() {
         return assert(this.red, "redNeg works only with red numbers"), this.red._verify1(this), this.red.neg(this);
-      }, BN.prototype.redPow = function redPow(num) {
+      }, BN.prototype.redPow = function(num) {
         return assert(this.red && !num.red, "redPow(normalNum)"), this.red._verify1(this), this.red.pow(this, num);
       };
       var primes = { k256: null, p224: null, p192: null, p25519: null };
       function MPrime(name, p) {
         this.name = name, this.p = new BN(p, 16), this.n = this.p.bitLength(), this.k = new BN(1).iushln(this.n).isub(this.p), this.tmp = this._tmp();
       }
-      MPrime.prototype._tmp = function _tmp() {
+      MPrime.prototype._tmp = function() {
         var tmp = new BN(null);
-        return tmp.words = new Array(Math.ceil(this.n / 13)), tmp;
-      }, MPrime.prototype.ireduce = function ireduce(num) {
+        return tmp.words = Array(Math.ceil(this.n / 13)), tmp;
+      }, MPrime.prototype.ireduce = function(num) {
         var r = num, rlen;
         do
           this.split(r, this.tmp), r = this.imulK(r), r = r.iadd(this.tmp), rlen = r.bitLength();
@@ -11941,15 +11941,15 @@ var init_crypto = __esm(() => {
         else
           r._strip();
         return r;
-      }, MPrime.prototype.split = function split(input, out) {
+      }, MPrime.prototype.split = function(input, out) {
         input.iushrn(this.n, 0, out);
-      }, MPrime.prototype.imulK = function imulK(num) {
+      }, MPrime.prototype.imulK = function(num) {
         return num.imul(this.k);
       };
       function K256() {
         MPrime.call(this, "k256", "ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f");
       }
-      inherits2(K256, MPrime), K256.prototype.split = function split(input, output) {
+      inherits2(K256, MPrime), K256.prototype.split = function(input, output) {
         var mask = 4194303, outLen = Math.min(input.length, 9);
         for (var i2 = 0;i2 < outLen; i2++)
           output.words[i2] = input.words[i2];
@@ -11967,7 +11967,7 @@ var init_crypto = __esm(() => {
           input.length -= 10;
         else
           input.length -= 9;
-      }, K256.prototype.imulK = function imulK(num) {
+      }, K256.prototype.imulK = function(num) {
         num.words[num.length] = 0, num.words[num.length + 1] = 0, num.length += 2;
         var lo = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
@@ -11991,7 +11991,7 @@ var init_crypto = __esm(() => {
       function P25519() {
         MPrime.call(this, "25519", "7fffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffed");
       }
-      inherits2(P25519, MPrime), P25519.prototype.imulK = function imulK(num) {
+      inherits2(P25519, MPrime), P25519.prototype.imulK = function(num) {
         var carry = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
           var hi = (num.words[i2] | 0) * 19 + carry, lo = hi & 67108863;
@@ -12000,7 +12000,7 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           num.words[num.length++] = carry;
         return num;
-      }, BN._prime = function prime(name) {
+      }, BN._prime = function(name) {
         if (primes[name])
           return primes[name];
         var prime;
@@ -12013,7 +12013,7 @@ var init_crypto = __esm(() => {
         else if (name === "p25519")
           prime = new P25519;
         else
-          throw new Error("Unknown prime " + name);
+          throw Error("Unknown prime " + name);
         return primes[name] = prime, prime;
       };
       function Red(m) {
@@ -12023,53 +12023,53 @@ var init_crypto = __esm(() => {
         } else
           assert(m.gtn(1), "modulus must be greater than 1"), this.m = m, this.prime = null;
       }
-      Red.prototype._verify1 = function _verify1(a) {
+      Red.prototype._verify1 = function(a) {
         assert(a.negative === 0, "red works only with positives"), assert(a.red, "red works only with red numbers");
-      }, Red.prototype._verify2 = function _verify2(a, b) {
+      }, Red.prototype._verify2 = function(a, b) {
         assert((a.negative | b.negative) === 0, "red works only with positives"), assert(a.red && a.red === b.red, "red works only with red numbers");
-      }, Red.prototype.imod = function imod(a) {
+      }, Red.prototype.imod = function(a) {
         if (this.prime)
           return this.prime.ireduce(a)._forceRed(this);
         return a.umod(this.m)._forceRed(this);
-      }, Red.prototype.neg = function neg(a) {
+      }, Red.prototype.neg = function(a) {
         if (a.isZero())
           return a.clone();
         return this.m.sub(a)._forceRed(this);
-      }, Red.prototype.add = function add(a, b) {
+      }, Red.prototype.add = function(a, b) {
         this._verify2(a, b);
         var res = a.add(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res._forceRed(this);
-      }, Red.prototype.iadd = function iadd(a, b) {
+      }, Red.prototype.iadd = function(a, b) {
         this._verify2(a, b);
         var res = a.iadd(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res;
-      }, Red.prototype.sub = function sub(a, b) {
+      }, Red.prototype.sub = function(a, b) {
         this._verify2(a, b);
         var res = a.sub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res._forceRed(this);
-      }, Red.prototype.isub = function isub(a, b) {
+      }, Red.prototype.isub = function(a, b) {
         this._verify2(a, b);
         var res = a.isub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res;
-      }, Red.prototype.shl = function shl(a, num) {
+      }, Red.prototype.shl = function(a, num) {
         return this._verify1(a), this.imod(a.ushln(num));
-      }, Red.prototype.imul = function imul(a, b) {
+      }, Red.prototype.imul = function(a, b) {
         return this._verify2(a, b), this.imod(a.imul(b));
-      }, Red.prototype.mul = function mul(a, b) {
+      }, Red.prototype.mul = function(a, b) {
         return this._verify2(a, b), this.imod(a.mul(b));
-      }, Red.prototype.isqr = function isqr(a) {
+      }, Red.prototype.isqr = function(a) {
         return this.imul(a, a.clone());
-      }, Red.prototype.sqr = function sqr(a) {
+      }, Red.prototype.sqr = function(a) {
         return this.mul(a, a);
-      }, Red.prototype.sqrt = function sqrt(a) {
+      }, Red.prototype.sqrt = function(a) {
         if (a.isZero())
           return a.clone();
         var mod3 = this.m.andln(3);
@@ -12095,18 +12095,18 @@ var init_crypto = __esm(() => {
           r = r.redMul(b), c = b.redSqr(), t = t.redMul(c), m = i2;
         }
         return r;
-      }, Red.prototype.invm = function invm(a) {
+      }, Red.prototype.invm = function(a) {
         var inv = a._invmp(this.m);
         if (inv.negative !== 0)
           return inv.negative = 0, this.imod(inv).redNeg();
         else
           return this.imod(inv);
-      }, Red.prototype.pow = function pow(a, num) {
+      }, Red.prototype.pow = function(a, num) {
         if (num.isZero())
           return new BN(1).toRed(this);
         if (num.cmpn(1) === 0)
           return a.clone();
-        var windowSize = 4, wnd = new Array(1 << windowSize);
+        var windowSize = 4, wnd = Array(1 << windowSize);
         wnd[0] = new BN(1).toRed(this), wnd[1] = a;
         for (var i2 = 2;i2 < wnd.length; i2++)
           wnd[i2] = this.mul(wnd[i2 - 1], a);
@@ -12130,13 +12130,13 @@ var init_crypto = __esm(() => {
           start = 26;
         }
         return res;
-      }, Red.prototype.convertTo = function convertTo(num) {
+      }, Red.prototype.convertTo = function(num) {
         var r = num.umod(this.m);
         return r === num ? r.clone() : r;
-      }, Red.prototype.convertFrom = function convertFrom(num) {
+      }, Red.prototype.convertFrom = function(num) {
         var res = num.clone();
         return res.red = null, res;
-      }, BN.mont = function mont(num) {
+      }, BN.mont = function(num) {
         return new Mont(num);
       };
       function Mont(m) {
@@ -12144,12 +12144,12 @@ var init_crypto = __esm(() => {
           this.shift += 26 - this.shift % 26;
         this.r = new BN(1).iushln(this.shift), this.r2 = this.imod(this.r.sqr()), this.rinv = this.r._invmp(this.m), this.minv = this.rinv.mul(this.r).isubn(1).div(this.m), this.minv = this.minv.umod(this.r), this.minv = this.r.sub(this.minv);
       }
-      inherits2(Mont, Red), Mont.prototype.convertTo = function convertTo(num) {
+      inherits2(Mont, Red), Mont.prototype.convertTo = function(num) {
         return this.imod(num.ushln(this.shift));
-      }, Mont.prototype.convertFrom = function convertFrom(num) {
+      }, Mont.prototype.convertFrom = function(num) {
         var r = this.imod(num.mul(this.rinv));
         return r.red = null, r;
-      }, Mont.prototype.imul = function imul(a, b) {
+      }, Mont.prototype.imul = function(a, b) {
         if (a.isZero() || b.isZero())
           return a.words[0] = 0, a.length = 1, a;
         var t = a.imul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -12158,7 +12158,7 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.mul = function mul(a, b) {
+      }, Mont.prototype.mul = function(a, b) {
         if (a.isZero() || b.isZero())
           return new BN(0)._forceRed(this);
         var t = a.mul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -12167,15 +12167,15 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.invm = function invm(a) {
+      }, Mont.prototype.invm = function(a) {
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(typeof module === "undefined" || module, exports);
+    })(typeof module > "u" || module, exports);
   });
   require_browser = __commonJS2((exports, module) => {
     var elliptic = require_elliptic(), BN = require_bn2();
-    module.exports = function createECDH(curve) {
+    module.exports = function(curve) {
       return new ECDH(curve);
     };
     var aliases = { secp256k1: { name: "secp256k1", byteLength: 32 }, secp224r1: { name: "p224", byteLength: 28 }, prime256v1: { name: "p256", byteLength: 32 }, prime192v1: { name: "p192", byteLength: 24 }, ed25519: { name: "ed25519", byteLength: 32 }, secp384r1: { name: "p384", byteLength: 48 }, secp521r1: { name: "p521", byteLength: 66 } };
@@ -12243,7 +12243,7 @@ var init_crypto = __esm(() => {
     (function(module2, exports2) {
       function assert(val, msg) {
         if (!val)
-          throw new Error(msg || "Assertion failed");
+          throw Error(msg || "Assertion failed");
       }
       function inherits2(ctor, superCtor) {
         ctor.super_ = superCtor;
@@ -12266,24 +12266,24 @@ var init_crypto = __esm(() => {
       BN.BN = BN, BN.wordSize = 26;
       var Buffer22;
       try {
-        if (typeof window !== "undefined" && typeof window.Buffer !== "undefined")
+        if (typeof window < "u" && typeof window.Buffer < "u")
           Buffer22 = window.Buffer;
         else
           Buffer22 = (init_buffer(), __toCommonJS(exports_buffer)).Buffer;
       } catch (e) {}
-      BN.isBN = function isBN(num) {
+      BN.isBN = function(num) {
         if (num instanceof BN)
           return true;
         return num !== null && typeof num === "object" && num.constructor.wordSize === BN.wordSize && Array.isArray(num.words);
-      }, BN.max = function max(left, right) {
+      }, BN.max = function(left, right) {
         if (left.cmp(right) > 0)
           return left;
         return right;
-      }, BN.min = function min(left, right) {
+      }, BN.min = function(left, right) {
         if (left.cmp(right) < 0)
           return left;
         return right;
-      }, BN.prototype._init = function init(number, base, endian) {
+      }, BN.prototype._init = function(number, base, endian) {
         if (typeof number === "number")
           return this._initNumber(number, base, endian);
         if (typeof number === "object")
@@ -12300,7 +12300,7 @@ var init_crypto = __esm(() => {
           else if (this._parseBase(number, base, start), endian === "le")
             this._initArray(this.toArray(), base, endian);
         }
-      }, BN.prototype._initNumber = function _initNumber(number, base, endian) {
+      }, BN.prototype._initNumber = function(number, base, endian) {
         if (number < 0)
           this.negative = 1, number = -number;
         if (number < 67108864)
@@ -12312,10 +12312,10 @@ var init_crypto = __esm(() => {
         if (endian !== "le")
           return;
         this._initArray(this.toArray(), base, endian);
-      }, BN.prototype._initArray = function _initArray(number, base, endian) {
+      }, BN.prototype._initArray = function(number, base, endian) {
         if (assert(typeof number.length === "number"), number.length <= 0)
           return this.words = [0], this.length = 1, this;
-        this.length = Math.ceil(number.length / 3), this.words = new Array(this.length);
+        this.length = Math.ceil(number.length / 3), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var j, w, off = 0;
@@ -12345,8 +12345,8 @@ var init_crypto = __esm(() => {
           r |= parseHex4Bits(string, index - 1) << 4;
         return r;
       }
-      BN.prototype._parseHex = function _parseHex(number, start, endian) {
-        this.length = Math.ceil((number.length - start) / 6), this.words = new Array(this.length);
+      BN.prototype._parseHex = function(number, start, endian) {
+        this.length = Math.ceil((number.length - start) / 6), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var off = 0, j = 0, w;
@@ -12379,7 +12379,7 @@ var init_crypto = __esm(() => {
         }
         return r;
       }
-      BN.prototype._parseBase = function _parseBase(number, base, start) {
+      BN.prototype._parseBase = function(number, base, start) {
         this.words = [0], this.length = 1;
         for (var limbLen = 0, limbPow = 1;limbPow <= 67108863; limbPow *= base)
           limbLen++;
@@ -12401,31 +12401,31 @@ var init_crypto = __esm(() => {
             this._iaddn(word);
         }
         this.strip();
-      }, BN.prototype.copy = function copy(dest) {
-        dest.words = new Array(this.length);
+      }, BN.prototype.copy = function(dest) {
+        dest.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           dest.words[i2] = this.words[i2];
         dest.length = this.length, dest.negative = this.negative, dest.red = this.red;
-      }, BN.prototype.clone = function clone() {
+      }, BN.prototype.clone = function() {
         var r = new BN(null);
         return this.copy(r), r;
-      }, BN.prototype._expand = function _expand(size) {
+      }, BN.prototype._expand = function(size) {
         while (this.length < size)
           this.words[this.length++] = 0;
         return this;
-      }, BN.prototype.strip = function strip() {
+      }, BN.prototype.strip = function() {
         while (this.length > 1 && this.words[this.length - 1] === 0)
           this.length--;
         return this._normSign();
-      }, BN.prototype._normSign = function _normSign() {
+      }, BN.prototype._normSign = function() {
         if (this.length === 1 && this.words[0] === 0)
           this.negative = 0;
         return this;
-      }, BN.prototype.inspect = function inspect() {
+      }, BN.prototype.inspect = function() {
         return (this.red ? "<BN-R: " : "<BN: ") + this.toString(16) + ">";
       };
       var zeros = ["", "0", "00", "000", "0000", "00000", "000000", "0000000", "00000000", "000000000", "0000000000", "00000000000", "000000000000", "0000000000000", "00000000000000", "000000000000000", "0000000000000000", "00000000000000000", "000000000000000000", "0000000000000000000", "00000000000000000000", "000000000000000000000", "0000000000000000000000", "00000000000000000000000", "000000000000000000000000", "0000000000000000000000000"], groupSizes = [0, 0, 25, 16, 12, 11, 10, 9, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], groupBases = [0, 0, 33554432, 43046721, 16777216, 48828125, 60466176, 40353607, 16777216, 43046721, 1e7, 19487171, 35831808, 62748517, 7529536, 11390625, 16777216, 24137569, 34012224, 47045881, 64000000, 4084101, 5153632, 6436343, 7962624, 9765625, 11881376, 14348907, 17210368, 20511149, 24300000, 28629151, 33554432, 39135393, 45435424, 52521875, 60466176];
-      if (BN.prototype.toString = function toString(base, padding) {
+      if (BN.prototype.toString = function(base, padding) {
         base = base || 10, padding = padding | 0 || 1;
         var out;
         if (base === 16 || base === "hex") {
@@ -12469,7 +12469,7 @@ var init_crypto = __esm(() => {
           return out;
         }
         assert(false, "Base should be between 2 and 36");
-      }, BN.prototype.toNumber = function toNumber() {
+      }, BN.prototype.toNumber = function() {
         var ret = this.words[0];
         if (this.length === 2)
           ret += this.words[1] * 67108864;
@@ -12478,13 +12478,13 @@ var init_crypto = __esm(() => {
         else if (this.length > 2)
           assert(false, "Number can only safely store up to 53 bits");
         return this.negative !== 0 ? -ret : ret;
-      }, BN.prototype.toJSON = function toJSON() {
+      }, BN.prototype.toJSON = function() {
         return this.toString(16);
-      }, BN.prototype.toBuffer = function toBuffer(endian, length) {
-        return assert(typeof Buffer22 !== "undefined"), this.toArrayLike(Buffer22, endian, length);
-      }, BN.prototype.toArray = function toArray(endian, length) {
+      }, BN.prototype.toBuffer = function(endian, length) {
+        return assert(typeof Buffer22 < "u"), this.toArrayLike(Buffer22, endian, length);
+      }, BN.prototype.toArray = function(endian, length) {
         return this.toArrayLike(Array, endian, length);
-      }, BN.prototype.toArrayLike = function toArrayLike(ArrayType, endian, length) {
+      }, BN.prototype.toArrayLike = function(ArrayType, endian, length) {
         var byteLength2 = this.byteLength(), reqLength = length || Math.max(1, byteLength2);
         assert(byteLength2 <= reqLength, "byte array longer than desired length"), assert(reqLength > 0, "Requested array length <= 0"), this.strip();
         var littleEndian = endian === "le", res = new ArrayType(reqLength), b, i2, q = this.clone();
@@ -12501,11 +12501,11 @@ var init_crypto = __esm(() => {
         }
         return res;
       }, Math.clz32)
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           return 32 - Math.clz32(w);
         };
       else
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           var t = w, r = 0;
           if (t >= 4096)
             r += 13, t >>>= 13;
@@ -12517,7 +12517,7 @@ var init_crypto = __esm(() => {
             r += 2, t >>>= 2;
           return r + t;
         };
-      BN.prototype._zeroBits = function _zeroBits(w) {
+      BN.prototype._zeroBits = function(w) {
         if (w === 0)
           return 26;
         var t = w, r = 0;
@@ -12532,19 +12532,19 @@ var init_crypto = __esm(() => {
         if ((t & 1) === 0)
           r++;
         return r;
-      }, BN.prototype.bitLength = function bitLength() {
+      }, BN.prototype.bitLength = function() {
         var w = this.words[this.length - 1], hi = this._countBits(w);
         return (this.length - 1) * 26 + hi;
       };
       function toBitArray(num) {
-        var w = new Array(num.bitLength());
+        var w = Array(num.bitLength());
         for (var bit = 0;bit < w.length; bit++) {
           var off = bit / 26 | 0, wbit = bit % 26;
           w[bit] = (num.words[off] & 1 << wbit) >>> wbit;
         }
         return w;
       }
-      BN.prototype.zeroBits = function zeroBits() {
+      BN.prototype.zeroBits = function() {
         if (this.isZero())
           return 0;
         var r = 0;
@@ -12554,41 +12554,41 @@ var init_crypto = __esm(() => {
             break;
         }
         return r;
-      }, BN.prototype.byteLength = function byteLength() {
+      }, BN.prototype.byteLength = function() {
         return Math.ceil(this.bitLength() / 8);
-      }, BN.prototype.toTwos = function toTwos(width) {
+      }, BN.prototype.toTwos = function(width) {
         if (this.negative !== 0)
           return this.abs().inotn(width).iaddn(1);
         return this.clone();
-      }, BN.prototype.fromTwos = function fromTwos(width) {
+      }, BN.prototype.fromTwos = function(width) {
         if (this.testn(width - 1))
           return this.notn(width).iaddn(1).ineg();
         return this.clone();
-      }, BN.prototype.isNeg = function isNeg() {
+      }, BN.prototype.isNeg = function() {
         return this.negative !== 0;
-      }, BN.prototype.neg = function neg() {
+      }, BN.prototype.neg = function() {
         return this.clone().ineg();
-      }, BN.prototype.ineg = function ineg() {
+      }, BN.prototype.ineg = function() {
         if (!this.isZero())
           this.negative ^= 1;
         return this;
-      }, BN.prototype.iuor = function iuor(num) {
+      }, BN.prototype.iuor = function(num) {
         while (this.length < num.length)
           this.words[this.length++] = 0;
         for (var i2 = 0;i2 < num.length; i2++)
           this.words[i2] = this.words[i2] | num.words[i2];
         return this.strip();
-      }, BN.prototype.ior = function ior(num) {
+      }, BN.prototype.ior = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuor(num);
-      }, BN.prototype.or = function or(num) {
+      }, BN.prototype.or = function(num) {
         if (this.length > num.length)
           return this.clone().ior(num);
         return num.clone().ior(this);
-      }, BN.prototype.uor = function uor(num) {
+      }, BN.prototype.uor = function(num) {
         if (this.length > num.length)
           return this.clone().iuor(num);
         return num.clone().iuor(this);
-      }, BN.prototype.iuand = function iuand(num) {
+      }, BN.prototype.iuand = function(num) {
         var b;
         if (this.length > num.length)
           b = num;
@@ -12597,17 +12597,17 @@ var init_crypto = __esm(() => {
         for (var i2 = 0;i2 < b.length; i2++)
           this.words[i2] = this.words[i2] & num.words[i2];
         return this.length = b.length, this.strip();
-      }, BN.prototype.iand = function iand(num) {
+      }, BN.prototype.iand = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuand(num);
-      }, BN.prototype.and = function and(num) {
+      }, BN.prototype.and = function(num) {
         if (this.length > num.length)
           return this.clone().iand(num);
         return num.clone().iand(this);
-      }, BN.prototype.uand = function uand(num) {
+      }, BN.prototype.uand = function(num) {
         if (this.length > num.length)
           return this.clone().iuand(num);
         return num.clone().iuand(this);
-      }, BN.prototype.iuxor = function iuxor(num) {
+      }, BN.prototype.iuxor = function(num) {
         var a, b;
         if (this.length > num.length)
           a = this, b = num;
@@ -12619,17 +12619,17 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this.length = a.length, this.strip();
-      }, BN.prototype.ixor = function ixor(num) {
+      }, BN.prototype.ixor = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuxor(num);
-      }, BN.prototype.xor = function xor(num) {
+      }, BN.prototype.xor = function(num) {
         if (this.length > num.length)
           return this.clone().ixor(num);
         return num.clone().ixor(this);
-      }, BN.prototype.uxor = function uxor(num) {
+      }, BN.prototype.uxor = function(num) {
         if (this.length > num.length)
           return this.clone().iuxor(num);
         return num.clone().iuxor(this);
-      }, BN.prototype.inotn = function inotn(width) {
+      }, BN.prototype.inotn = function(width) {
         assert(typeof width === "number" && width >= 0);
         var bytesNeeded = Math.ceil(width / 26) | 0, bitsLeft = width % 26;
         if (this._expand(bytesNeeded), bitsLeft > 0)
@@ -12639,9 +12639,9 @@ var init_crypto = __esm(() => {
         if (bitsLeft > 0)
           this.words[i2] = ~this.words[i2] & 67108863 >> 26 - bitsLeft;
         return this.strip();
-      }, BN.prototype.notn = function notn(width) {
+      }, BN.prototype.notn = function(width) {
         return this.clone().inotn(width);
-      }, BN.prototype.setn = function setn(bit, val) {
+      }, BN.prototype.setn = function(bit, val) {
         assert(typeof bit === "number" && bit >= 0);
         var off = bit / 26 | 0, wbit = bit % 26;
         if (this._expand(off + 1), val)
@@ -12649,7 +12649,7 @@ var init_crypto = __esm(() => {
         else
           this.words[off] = this.words[off] & ~(1 << wbit);
         return this.strip();
-      }, BN.prototype.iadd = function iadd(num) {
+      }, BN.prototype.iadd = function(num) {
         var r;
         if (this.negative !== 0 && num.negative === 0)
           return this.negative = 0, r = this.isub(num), this.negative ^= 1, this._normSign();
@@ -12671,7 +12671,7 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this;
-      }, BN.prototype.add = function add(num) {
+      }, BN.prototype.add = function(num) {
         var res;
         if (num.negative !== 0 && this.negative === 0)
           return num.negative = 0, res = this.sub(num), num.negative ^= 1, res;
@@ -12680,7 +12680,7 @@ var init_crypto = __esm(() => {
         if (this.length > num.length)
           return this.clone().iadd(num);
         return num.clone().iadd(this);
-      }, BN.prototype.isub = function isub(num) {
+      }, BN.prototype.isub = function(num) {
         if (num.negative !== 0) {
           num.negative = 0;
           var r = this.iadd(num);
@@ -12706,7 +12706,7 @@ var init_crypto = __esm(() => {
         if (this.length = Math.max(this.length, i2), a !== this)
           this.negative = 1;
         return this.strip();
-      }, BN.prototype.sub = function sub(num) {
+      }, BN.prototype.sub = function(num) {
         return this.clone().isub(num);
       };
       function smallMulTo(self2, num, out) {
@@ -12729,7 +12729,7 @@ var init_crypto = __esm(() => {
           out.length--;
         return out.strip();
       }
-      var comb10MulTo = function comb10MulTo(self2, num, out) {
+      var comb10MulTo = function(self2, num, out) {
         var a = self2.words, b = num.words, o = out.words, c = 0, lo, mid, hi, a0 = a[0] | 0, al0 = a0 & 8191, ah0 = a0 >>> 13, a1 = a[1] | 0, al1 = a1 & 8191, ah1 = a1 >>> 13, a2 = a[2] | 0, al2 = a2 & 8191, ah2 = a2 >>> 13, a3 = a[3] | 0, al3 = a3 & 8191, ah3 = a3 >>> 13, a4 = a[4] | 0, al4 = a4 & 8191, ah4 = a4 >>> 13, a5 = a[5] | 0, al5 = a5 & 8191, ah5 = a5 >>> 13, a6 = a[6] | 0, al6 = a6 & 8191, ah6 = a6 >>> 13, a7 = a[7] | 0, al7 = a7 & 8191, ah7 = a7 >>> 13, a8 = a[8] | 0, al8 = a8 & 8191, ah8 = a8 >>> 13, a9 = a[9] | 0, al9 = a9 & 8191, ah9 = a9 >>> 13, b0 = b[0] | 0, bl0 = b0 & 8191, bh0 = b0 >>> 13, b1 = b[1] | 0, bl1 = b1 & 8191, bh1 = b1 >>> 13, b2 = b[2] | 0, bl2 = b2 & 8191, bh2 = b2 >>> 13, b3 = b[3] | 0, bl3 = b3 & 8191, bh3 = b3 >>> 13, b4 = b[4] | 0, bl4 = b4 & 8191, bh4 = b4 >>> 13, b5 = b[5] | 0, bl5 = b5 & 8191, bh5 = b5 >>> 13, b6 = b[6] | 0, bl6 = b6 & 8191, bh6 = b6 >>> 13, b7 = b[7] | 0, bl7 = b7 & 8191, bh7 = b7 >>> 13, b8 = b[8] | 0, bl8 = b8 & 8191, bh8 = b8 >>> 13, b9 = b[9] | 0, bl9 = b9 & 8191, bh9 = b9 >>> 13;
         out.negative = self2.negative ^ num.negative, out.length = 19, lo = Math.imul(al0, bl0), mid = Math.imul(al0, bh0), mid = mid + Math.imul(ah0, bl0) | 0, hi = Math.imul(ah0, bh0);
         var w0 = (c + lo | 0) + ((mid & 8191) << 13) | 0;
@@ -12798,7 +12798,7 @@ var init_crypto = __esm(() => {
         var fftm = new FFTM;
         return fftm.mulp(self2, num, out);
       }
-      BN.prototype.mulTo = function mulTo(num, out) {
+      BN.prototype.mulTo = function(num, out) {
         var res, len2 = this.length + num.length;
         if (this.length === 10 && num.length === 10)
           res = comb10MulTo(this, num, out);
@@ -12813,22 +12813,22 @@ var init_crypto = __esm(() => {
       function FFTM(x, y) {
         this.x = x, this.y = y;
       }
-      FFTM.prototype.makeRBT = function makeRBT(N) {
-        var t = new Array(N), l = BN.prototype._countBits(N) - 1;
+      FFTM.prototype.makeRBT = function(N) {
+        var t = Array(N), l = BN.prototype._countBits(N) - 1;
         for (var i2 = 0;i2 < N; i2++)
           t[i2] = this.revBin(i2, l, N);
         return t;
-      }, FFTM.prototype.revBin = function revBin(x, l, N) {
+      }, FFTM.prototype.revBin = function(x, l, N) {
         if (x === 0 || x === N - 1)
           return x;
         var rb = 0;
         for (var i2 = 0;i2 < l; i2++)
           rb |= (x & 1) << l - i2 - 1, x >>= 1;
         return rb;
-      }, FFTM.prototype.permute = function permute(rbt, rws, iws, rtws, itws, N) {
+      }, FFTM.prototype.permute = function(rbt, rws, iws, rtws, itws, N) {
         for (var i2 = 0;i2 < N; i2++)
           rtws[i2] = rws[rbt[i2]], itws[i2] = iws[rbt[i2]];
-      }, FFTM.prototype.transform = function transform(rws, iws, rtws, itws, N, rbt) {
+      }, FFTM.prototype.transform = function(rws, iws, rtws, itws, N, rbt) {
         this.permute(rbt, rws, iws, rtws, itws, N);
         for (var s = 1;s < N; s <<= 1) {
           var l = s << 1, rtwdf = Math.cos(2 * Math.PI / l), itwdf = Math.sin(2 * Math.PI / l);
@@ -12841,19 +12841,19 @@ var init_crypto = __esm(() => {
             }
           }
         }
-      }, FFTM.prototype.guessLen13b = function guessLen13b(n, m) {
+      }, FFTM.prototype.guessLen13b = function(n, m) {
         var N = Math.max(m, n) | 1, odd = N & 1, i2 = 0;
         for (N = N / 2 | 0;N; N = N >>> 1)
           i2++;
         return 1 << i2 + 1 + odd;
-      }, FFTM.prototype.conjugate = function conjugate(rws, iws, N) {
+      }, FFTM.prototype.conjugate = function(rws, iws, N) {
         if (N <= 1)
           return;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var t = rws[i2];
           rws[i2] = rws[N - i2 - 1], rws[N - i2 - 1] = t, t = iws[i2], iws[i2] = -iws[N - i2 - 1], iws[N - i2 - 1] = -t;
         }
-      }, FFTM.prototype.normalize13b = function normalize13b(ws, N) {
+      }, FFTM.prototype.normalize13b = function(ws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var w = Math.round(ws[2 * i2 + 1] / N) * 8192 + Math.round(ws[2 * i2] / N) + carry;
@@ -12863,35 +12863,35 @@ var init_crypto = __esm(() => {
             carry = w / 67108864 | 0;
         }
         return ws;
-      }, FFTM.prototype.convert13b = function convert13b(ws, len2, rws, N) {
+      }, FFTM.prototype.convert13b = function(ws, len2, rws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < len2; i2++)
           carry = carry + (ws[i2] | 0), rws[2 * i2] = carry & 8191, carry = carry >>> 13, rws[2 * i2 + 1] = carry & 8191, carry = carry >>> 13;
         for (i2 = 2 * len2;i2 < N; ++i2)
           rws[i2] = 0;
         assert(carry === 0), assert((carry & -8192) === 0);
-      }, FFTM.prototype.stub = function stub(N) {
-        var ph = new Array(N);
+      }, FFTM.prototype.stub = function(N) {
+        var ph = Array(N);
         for (var i2 = 0;i2 < N; i2++)
           ph[i2] = 0;
         return ph;
-      }, FFTM.prototype.mulp = function mulp(x, y, out) {
-        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = new Array(N), rwst = new Array(N), iwst = new Array(N), nrws = new Array(N), nrwst = new Array(N), niwst = new Array(N), rmws = out.words;
+      }, FFTM.prototype.mulp = function(x, y, out) {
+        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = Array(N), rwst = Array(N), iwst = Array(N), nrws = Array(N), nrwst = Array(N), niwst = Array(N), rmws = out.words;
         rmws.length = N, this.convert13b(x.words, x.length, rws, N), this.convert13b(y.words, y.length, nrws, N), this.transform(rws, _, rwst, iwst, N, rbt), this.transform(nrws, _, nrwst, niwst, N, rbt);
         for (var i2 = 0;i2 < N; i2++) {
           var rx = rwst[i2] * nrwst[i2] - iwst[i2] * niwst[i2];
           iwst[i2] = rwst[i2] * niwst[i2] + iwst[i2] * nrwst[i2], rwst[i2] = rx;
         }
         return this.conjugate(rwst, iwst, N), this.transform(rwst, iwst, rmws, _, N, rbt), this.conjugate(rmws, _, N), this.normalize13b(rmws, N), out.negative = x.negative ^ y.negative, out.length = x.length + y.length, out.strip();
-      }, BN.prototype.mul = function mul(num) {
+      }, BN.prototype.mul = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), this.mulTo(num, out);
-      }, BN.prototype.mulf = function mulf(num) {
+        return out.words = Array(this.length + num.length), this.mulTo(num, out);
+      }, BN.prototype.mulf = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), jumboMulTo(this, num, out);
-      }, BN.prototype.imul = function imul(num) {
+        return out.words = Array(this.length + num.length), jumboMulTo(this, num, out);
+      }, BN.prototype.imul = function(num) {
         return this.clone().mulTo(num, this);
-      }, BN.prototype.imuln = function imuln(num) {
+      }, BN.prototype.imuln = function(num) {
         assert(typeof num === "number"), assert(num < 67108864);
         var carry = 0;
         for (var i2 = 0;i2 < this.length; i2++) {
@@ -12901,13 +12901,13 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this.length = num === 0 ? 1 : this.length, this;
-      }, BN.prototype.muln = function muln(num) {
+      }, BN.prototype.muln = function(num) {
         return this.clone().imuln(num);
-      }, BN.prototype.sqr = function sqr() {
+      }, BN.prototype.sqr = function() {
         return this.mul(this);
-      }, BN.prototype.isqr = function isqr() {
+      }, BN.prototype.isqr = function() {
         return this.imul(this.clone());
-      }, BN.prototype.pow = function pow(num) {
+      }, BN.prototype.pow = function(num) {
         var w = toBitArray(num);
         if (w.length === 0)
           return new BN(1);
@@ -12922,7 +12922,7 @@ var init_crypto = __esm(() => {
             res = res.mul(q);
           }
         return res;
-      }, BN.prototype.iushln = function iushln(bits) {
+      }, BN.prototype.iushln = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26, carryMask = 67108863 >>> 26 - r << 26 - r, i2;
         if (r !== 0) {
@@ -12942,9 +12942,9 @@ var init_crypto = __esm(() => {
           this.length += s;
         }
         return this.strip();
-      }, BN.prototype.ishln = function ishln(bits) {
+      }, BN.prototype.ishln = function(bits) {
         return assert(this.negative === 0), this.iushln(bits);
-      }, BN.prototype.iushrn = function iushrn(bits, hint, extended) {
+      }, BN.prototype.iushrn = function(bits, hint, extended) {
         assert(typeof bits === "number" && bits >= 0);
         var h;
         if (hint)
@@ -12975,24 +12975,24 @@ var init_crypto = __esm(() => {
         if (this.length === 0)
           this.words[0] = 0, this.length = 1;
         return this.strip();
-      }, BN.prototype.ishrn = function ishrn(bits, hint, extended) {
+      }, BN.prototype.ishrn = function(bits, hint, extended) {
         return assert(this.negative === 0), this.iushrn(bits, hint, extended);
-      }, BN.prototype.shln = function shln(bits) {
+      }, BN.prototype.shln = function(bits) {
         return this.clone().ishln(bits);
-      }, BN.prototype.ushln = function ushln(bits) {
+      }, BN.prototype.ushln = function(bits) {
         return this.clone().iushln(bits);
-      }, BN.prototype.shrn = function shrn(bits) {
+      }, BN.prototype.shrn = function(bits) {
         return this.clone().ishrn(bits);
-      }, BN.prototype.ushrn = function ushrn(bits) {
+      }, BN.prototype.ushrn = function(bits) {
         return this.clone().iushrn(bits);
-      }, BN.prototype.testn = function testn(bit) {
+      }, BN.prototype.testn = function(bit) {
         assert(typeof bit === "number" && bit >= 0);
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
           return false;
         var w = this.words[s];
         return !!(w & q);
-      }, BN.prototype.imaskn = function imaskn(bits) {
+      }, BN.prototype.imaskn = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26;
         if (assert(this.negative === 0, "imaskn works only with positive numbers"), this.length <= s)
@@ -13004,9 +13004,9 @@ var init_crypto = __esm(() => {
           this.words[this.length - 1] &= mask;
         }
         return this.strip();
-      }, BN.prototype.maskn = function maskn(bits) {
+      }, BN.prototype.maskn = function(bits) {
         return this.clone().imaskn(bits);
-      }, BN.prototype.iaddn = function iaddn(num) {
+      }, BN.prototype.iaddn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.isubn(-num);
         if (this.negative !== 0) {
@@ -13015,7 +13015,7 @@ var init_crypto = __esm(() => {
           return this.negative = 0, this.isubn(num), this.negative = 1, this;
         }
         return this._iaddn(num);
-      }, BN.prototype._iaddn = function _iaddn(num) {
+      }, BN.prototype._iaddn = function(num) {
         this.words[0] += num;
         for (var i2 = 0;i2 < this.length && this.words[i2] >= 67108864; i2++)
           if (this.words[i2] -= 67108864, i2 === this.length - 1)
@@ -13023,7 +13023,7 @@ var init_crypto = __esm(() => {
           else
             this.words[i2 + 1]++;
         return this.length = Math.max(this.length, i2 + 1), this;
-      }, BN.prototype.isubn = function isubn(num) {
+      }, BN.prototype.isubn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.iaddn(-num);
         if (this.negative !== 0)
@@ -13034,15 +13034,15 @@ var init_crypto = __esm(() => {
           for (var i2 = 0;i2 < this.length && this.words[i2] < 0; i2++)
             this.words[i2] += 67108864, this.words[i2 + 1] -= 1;
         return this.strip();
-      }, BN.prototype.addn = function addn(num) {
+      }, BN.prototype.addn = function(num) {
         return this.clone().iaddn(num);
-      }, BN.prototype.subn = function subn(num) {
+      }, BN.prototype.subn = function(num) {
         return this.clone().isubn(num);
-      }, BN.prototype.iabs = function iabs() {
+      }, BN.prototype.iabs = function() {
         return this.negative = 0, this;
-      }, BN.prototype.abs = function abs() {
+      }, BN.prototype.abs = function() {
         return this.clone().iabs();
-      }, BN.prototype._ishlnsubmul = function _ishlnsubmul(num, mul, shift) {
+      }, BN.prototype._ishlnsubmul = function(num, mul, shift) {
         var len2 = num.length + shift, i2;
         this._expand(len2);
         var w, carry = 0;
@@ -13059,13 +13059,13 @@ var init_crypto = __esm(() => {
         for (i2 = 0;i2 < this.length; i2++)
           w = -(this.words[i2] | 0) + carry, carry = w >> 26, this.words[i2] = w & 67108863;
         return this.negative = 1, this.strip();
-      }, BN.prototype._wordDiv = function _wordDiv(num, mode) {
+      }, BN.prototype._wordDiv = function(num, mode) {
         var shift = this.length - num.length, a = this.clone(), b = num, bhi = b.words[b.length - 1] | 0, bhiBits = this._countBits(bhi);
         if (shift = 26 - bhiBits, shift !== 0)
           b = b.ushln(shift), a.iushln(shift), bhi = b.words[b.length - 1] | 0;
         var m = a.length - b.length, q;
         if (mode !== "mod") {
-          q = new BN(null), q.length = m + 1, q.words = new Array(q.length);
+          q = new BN(null), q.length = m + 1, q.words = Array(q.length);
           for (var i2 = 0;i2 < q.length; i2++)
             q.words[i2] = 0;
         }
@@ -13088,7 +13088,7 @@ var init_crypto = __esm(() => {
         if (a.strip(), mode !== "div" && shift !== 0)
           a.iushrn(shift);
         return { div: q || null, mod: a };
-      }, BN.prototype.divmod = function divmod(num, mode, positive) {
+      }, BN.prototype.divmod = function(num, mode, positive) {
         if (assert(!num.isZero()), this.isZero())
           return { div: new BN(0), mod: new BN(0) };
         var div, mod, res;
@@ -13123,13 +13123,13 @@ var init_crypto = __esm(() => {
           return { div: this.divn(num.words[0]), mod: new BN(this.modn(num.words[0])) };
         }
         return this._wordDiv(num, mode);
-      }, BN.prototype.div = function div(num) {
+      }, BN.prototype.div = function(num) {
         return this.divmod(num, "div", false).div;
-      }, BN.prototype.mod = function mod(num) {
+      }, BN.prototype.mod = function(num) {
         return this.divmod(num, "mod", false).mod;
-      }, BN.prototype.umod = function umod(num) {
+      }, BN.prototype.umod = function(num) {
         return this.divmod(num, "mod", true).mod;
-      }, BN.prototype.divRound = function divRound(num) {
+      }, BN.prototype.divRound = function(num) {
         var dm = this.divmod(num);
         if (dm.mod.isZero())
           return dm.div;
@@ -13137,13 +13137,13 @@ var init_crypto = __esm(() => {
         if (cmp < 0 || r2 === 1 && cmp === 0)
           return dm.div;
         return dm.div.negative !== 0 ? dm.div.isubn(1) : dm.div.iaddn(1);
-      }, BN.prototype.modn = function modn(num) {
+      }, BN.prototype.modn = function(num) {
         assert(num <= 67108863);
         var p = 67108864 % num, acc = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--)
           acc = (p * acc + (this.words[i2] | 0)) % num;
         return acc;
-      }, BN.prototype.idivn = function idivn(num) {
+      }, BN.prototype.idivn = function(num) {
         assert(num <= 67108863);
         var carry = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--) {
@@ -13151,9 +13151,9 @@ var init_crypto = __esm(() => {
           this.words[i2] = w / num | 0, carry = w % num;
         }
         return this.strip();
-      }, BN.prototype.divn = function divn(num) {
+      }, BN.prototype.divn = function(num) {
         return this.clone().idivn(num);
-      }, BN.prototype.egcd = function egcd(p) {
+      }, BN.prototype.egcd = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var x = this, y = p.clone();
         if (x.negative !== 0)
@@ -13191,7 +13191,7 @@ var init_crypto = __esm(() => {
             y.isub(x), C.isub(A), D.isub(B);
         }
         return { a: C, b: D, gcd: y.iushln(g) };
-      }, BN.prototype._invmp = function _invmp(p) {
+      }, BN.prototype._invmp = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var a = this, b = p.clone();
         if (a.negative !== 0)
@@ -13233,7 +13233,7 @@ var init_crypto = __esm(() => {
         if (res.cmpn(0) < 0)
           res.iadd(p);
         return res;
-      }, BN.prototype.gcd = function gcd(num) {
+      }, BN.prototype.gcd = function(num) {
         if (this.isZero())
           return num.abs();
         if (num.isZero())
@@ -13256,15 +13256,15 @@ var init_crypto = __esm(() => {
           a.isub(b);
         } while (true);
         return b.iushln(shift);
-      }, BN.prototype.invm = function invm(num) {
+      }, BN.prototype.invm = function(num) {
         return this.egcd(num).a.umod(num);
-      }, BN.prototype.isEven = function isEven() {
+      }, BN.prototype.isEven = function() {
         return (this.words[0] & 1) === 0;
-      }, BN.prototype.isOdd = function isOdd() {
+      }, BN.prototype.isOdd = function() {
         return (this.words[0] & 1) === 1;
-      }, BN.prototype.andln = function andln(num) {
+      }, BN.prototype.andln = function(num) {
         return this.words[0] & num;
-      }, BN.prototype.bincn = function bincn(bit) {
+      }, BN.prototype.bincn = function(bit) {
         assert(typeof bit === "number");
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
@@ -13277,9 +13277,9 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this;
-      }, BN.prototype.isZero = function isZero() {
+      }, BN.prototype.isZero = function() {
         return this.length === 1 && this.words[0] === 0;
-      }, BN.prototype.cmpn = function cmpn(num) {
+      }, BN.prototype.cmpn = function(num) {
         var negative = num < 0;
         if (this.negative !== 0 && !negative)
           return -1;
@@ -13299,7 +13299,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.cmp = function cmp(num) {
+      }, BN.prototype.cmp = function(num) {
         if (this.negative !== 0 && num.negative === 0)
           return -1;
         if (this.negative === 0 && num.negative !== 0)
@@ -13308,7 +13308,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.ucmp = function ucmp(num) {
+      }, BN.prototype.ucmp = function(num) {
         if (this.length > num.length)
           return 1;
         if (this.length < num.length)
@@ -13325,71 +13325,71 @@ var init_crypto = __esm(() => {
           break;
         }
         return res;
-      }, BN.prototype.gtn = function gtn(num) {
+      }, BN.prototype.gtn = function(num) {
         return this.cmpn(num) === 1;
-      }, BN.prototype.gt = function gt(num) {
+      }, BN.prototype.gt = function(num) {
         return this.cmp(num) === 1;
-      }, BN.prototype.gten = function gten(num) {
+      }, BN.prototype.gten = function(num) {
         return this.cmpn(num) >= 0;
-      }, BN.prototype.gte = function gte(num) {
+      }, BN.prototype.gte = function(num) {
         return this.cmp(num) >= 0;
-      }, BN.prototype.ltn = function ltn(num) {
+      }, BN.prototype.ltn = function(num) {
         return this.cmpn(num) === -1;
-      }, BN.prototype.lt = function lt(num) {
+      }, BN.prototype.lt = function(num) {
         return this.cmp(num) === -1;
-      }, BN.prototype.lten = function lten(num) {
+      }, BN.prototype.lten = function(num) {
         return this.cmpn(num) <= 0;
-      }, BN.prototype.lte = function lte(num) {
+      }, BN.prototype.lte = function(num) {
         return this.cmp(num) <= 0;
-      }, BN.prototype.eqn = function eqn(num) {
+      }, BN.prototype.eqn = function(num) {
         return this.cmpn(num) === 0;
-      }, BN.prototype.eq = function eq(num) {
+      }, BN.prototype.eq = function(num) {
         return this.cmp(num) === 0;
-      }, BN.red = function red(num) {
+      }, BN.red = function(num) {
         return new Red(num);
-      }, BN.prototype.toRed = function toRed(ctx) {
+      }, BN.prototype.toRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), assert(this.negative === 0, "red works only with positives"), ctx.convertTo(this)._forceRed(ctx);
-      }, BN.prototype.fromRed = function fromRed() {
+      }, BN.prototype.fromRed = function() {
         return assert(this.red, "fromRed works only with numbers in reduction context"), this.red.convertFrom(this);
-      }, BN.prototype._forceRed = function _forceRed(ctx) {
+      }, BN.prototype._forceRed = function(ctx) {
         return this.red = ctx, this;
-      }, BN.prototype.forceRed = function forceRed(ctx) {
+      }, BN.prototype.forceRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), this._forceRed(ctx);
-      }, BN.prototype.redAdd = function redAdd(num) {
+      }, BN.prototype.redAdd = function(num) {
         return assert(this.red, "redAdd works only with red numbers"), this.red.add(this, num);
-      }, BN.prototype.redIAdd = function redIAdd(num) {
+      }, BN.prototype.redIAdd = function(num) {
         return assert(this.red, "redIAdd works only with red numbers"), this.red.iadd(this, num);
-      }, BN.prototype.redSub = function redSub(num) {
+      }, BN.prototype.redSub = function(num) {
         return assert(this.red, "redSub works only with red numbers"), this.red.sub(this, num);
-      }, BN.prototype.redISub = function redISub(num) {
+      }, BN.prototype.redISub = function(num) {
         return assert(this.red, "redISub works only with red numbers"), this.red.isub(this, num);
-      }, BN.prototype.redShl = function redShl(num) {
+      }, BN.prototype.redShl = function(num) {
         return assert(this.red, "redShl works only with red numbers"), this.red.shl(this, num);
-      }, BN.prototype.redMul = function redMul(num) {
+      }, BN.prototype.redMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.mul(this, num);
-      }, BN.prototype.redIMul = function redIMul(num) {
+      }, BN.prototype.redIMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.imul(this, num);
-      }, BN.prototype.redSqr = function redSqr() {
+      }, BN.prototype.redSqr = function() {
         return assert(this.red, "redSqr works only with red numbers"), this.red._verify1(this), this.red.sqr(this);
-      }, BN.prototype.redISqr = function redISqr() {
+      }, BN.prototype.redISqr = function() {
         return assert(this.red, "redISqr works only with red numbers"), this.red._verify1(this), this.red.isqr(this);
-      }, BN.prototype.redSqrt = function redSqrt() {
+      }, BN.prototype.redSqrt = function() {
         return assert(this.red, "redSqrt works only with red numbers"), this.red._verify1(this), this.red.sqrt(this);
-      }, BN.prototype.redInvm = function redInvm() {
+      }, BN.prototype.redInvm = function() {
         return assert(this.red, "redInvm works only with red numbers"), this.red._verify1(this), this.red.invm(this);
-      }, BN.prototype.redNeg = function redNeg() {
+      }, BN.prototype.redNeg = function() {
         return assert(this.red, "redNeg works only with red numbers"), this.red._verify1(this), this.red.neg(this);
-      }, BN.prototype.redPow = function redPow(num) {
+      }, BN.prototype.redPow = function(num) {
         return assert(this.red && !num.red, "redPow(normalNum)"), this.red._verify1(this), this.red.pow(this, num);
       };
       var primes = { k256: null, p224: null, p192: null, p25519: null };
       function MPrime(name, p) {
         this.name = name, this.p = new BN(p, 16), this.n = this.p.bitLength(), this.k = new BN(1).iushln(this.n).isub(this.p), this.tmp = this._tmp();
       }
-      MPrime.prototype._tmp = function _tmp() {
+      MPrime.prototype._tmp = function() {
         var tmp = new BN(null);
-        return tmp.words = new Array(Math.ceil(this.n / 13)), tmp;
-      }, MPrime.prototype.ireduce = function ireduce(num) {
+        return tmp.words = Array(Math.ceil(this.n / 13)), tmp;
+      }, MPrime.prototype.ireduce = function(num) {
         var r = num, rlen;
         do
           this.split(r, this.tmp), r = this.imulK(r), r = r.iadd(this.tmp), rlen = r.bitLength();
@@ -13404,15 +13404,15 @@ var init_crypto = __esm(() => {
         else
           r._strip();
         return r;
-      }, MPrime.prototype.split = function split(input, out) {
+      }, MPrime.prototype.split = function(input, out) {
         input.iushrn(this.n, 0, out);
-      }, MPrime.prototype.imulK = function imulK(num) {
+      }, MPrime.prototype.imulK = function(num) {
         return num.imul(this.k);
       };
       function K256() {
         MPrime.call(this, "k256", "ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f");
       }
-      inherits2(K256, MPrime), K256.prototype.split = function split(input, output) {
+      inherits2(K256, MPrime), K256.prototype.split = function(input, output) {
         var mask = 4194303, outLen = Math.min(input.length, 9);
         for (var i2 = 0;i2 < outLen; i2++)
           output.words[i2] = input.words[i2];
@@ -13430,7 +13430,7 @@ var init_crypto = __esm(() => {
           input.length -= 10;
         else
           input.length -= 9;
-      }, K256.prototype.imulK = function imulK(num) {
+      }, K256.prototype.imulK = function(num) {
         num.words[num.length] = 0, num.words[num.length + 1] = 0, num.length += 2;
         var lo = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
@@ -13454,7 +13454,7 @@ var init_crypto = __esm(() => {
       function P25519() {
         MPrime.call(this, "25519", "7fffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffed");
       }
-      inherits2(P25519, MPrime), P25519.prototype.imulK = function imulK(num) {
+      inherits2(P25519, MPrime), P25519.prototype.imulK = function(num) {
         var carry = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
           var hi = (num.words[i2] | 0) * 19 + carry, lo = hi & 67108863;
@@ -13463,7 +13463,7 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           num.words[num.length++] = carry;
         return num;
-      }, BN._prime = function prime(name) {
+      }, BN._prime = function(name) {
         if (primes[name])
           return primes[name];
         var prime;
@@ -13476,7 +13476,7 @@ var init_crypto = __esm(() => {
         else if (name === "p25519")
           prime = new P25519;
         else
-          throw new Error("Unknown prime " + name);
+          throw Error("Unknown prime " + name);
         return primes[name] = prime, prime;
       };
       function Red(m) {
@@ -13486,53 +13486,53 @@ var init_crypto = __esm(() => {
         } else
           assert(m.gtn(1), "modulus must be greater than 1"), this.m = m, this.prime = null;
       }
-      Red.prototype._verify1 = function _verify1(a) {
+      Red.prototype._verify1 = function(a) {
         assert(a.negative === 0, "red works only with positives"), assert(a.red, "red works only with red numbers");
-      }, Red.prototype._verify2 = function _verify2(a, b) {
+      }, Red.prototype._verify2 = function(a, b) {
         assert((a.negative | b.negative) === 0, "red works only with positives"), assert(a.red && a.red === b.red, "red works only with red numbers");
-      }, Red.prototype.imod = function imod(a) {
+      }, Red.prototype.imod = function(a) {
         if (this.prime)
           return this.prime.ireduce(a)._forceRed(this);
         return a.umod(this.m)._forceRed(this);
-      }, Red.prototype.neg = function neg(a) {
+      }, Red.prototype.neg = function(a) {
         if (a.isZero())
           return a.clone();
         return this.m.sub(a)._forceRed(this);
-      }, Red.prototype.add = function add(a, b) {
+      }, Red.prototype.add = function(a, b) {
         this._verify2(a, b);
         var res = a.add(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res._forceRed(this);
-      }, Red.prototype.iadd = function iadd(a, b) {
+      }, Red.prototype.iadd = function(a, b) {
         this._verify2(a, b);
         var res = a.iadd(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res;
-      }, Red.prototype.sub = function sub(a, b) {
+      }, Red.prototype.sub = function(a, b) {
         this._verify2(a, b);
         var res = a.sub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res._forceRed(this);
-      }, Red.prototype.isub = function isub(a, b) {
+      }, Red.prototype.isub = function(a, b) {
         this._verify2(a, b);
         var res = a.isub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res;
-      }, Red.prototype.shl = function shl(a, num) {
+      }, Red.prototype.shl = function(a, num) {
         return this._verify1(a), this.imod(a.ushln(num));
-      }, Red.prototype.imul = function imul(a, b) {
+      }, Red.prototype.imul = function(a, b) {
         return this._verify2(a, b), this.imod(a.imul(b));
-      }, Red.prototype.mul = function mul(a, b) {
+      }, Red.prototype.mul = function(a, b) {
         return this._verify2(a, b), this.imod(a.mul(b));
-      }, Red.prototype.isqr = function isqr(a) {
+      }, Red.prototype.isqr = function(a) {
         return this.imul(a, a.clone());
-      }, Red.prototype.sqr = function sqr(a) {
+      }, Red.prototype.sqr = function(a) {
         return this.mul(a, a);
-      }, Red.prototype.sqrt = function sqrt(a) {
+      }, Red.prototype.sqrt = function(a) {
         if (a.isZero())
           return a.clone();
         var mod3 = this.m.andln(3);
@@ -13558,18 +13558,18 @@ var init_crypto = __esm(() => {
           r = r.redMul(b), c = b.redSqr(), t = t.redMul(c), m = i2;
         }
         return r;
-      }, Red.prototype.invm = function invm(a) {
+      }, Red.prototype.invm = function(a) {
         var inv = a._invmp(this.m);
         if (inv.negative !== 0)
           return inv.negative = 0, this.imod(inv).redNeg();
         else
           return this.imod(inv);
-      }, Red.prototype.pow = function pow(a, num) {
+      }, Red.prototype.pow = function(a, num) {
         if (num.isZero())
           return new BN(1).toRed(this);
         if (num.cmpn(1) === 0)
           return a.clone();
-        var windowSize = 4, wnd = new Array(1 << windowSize);
+        var windowSize = 4, wnd = Array(1 << windowSize);
         wnd[0] = new BN(1).toRed(this), wnd[1] = a;
         for (var i2 = 2;i2 < wnd.length; i2++)
           wnd[i2] = this.mul(wnd[i2 - 1], a);
@@ -13593,13 +13593,13 @@ var init_crypto = __esm(() => {
           start = 26;
         }
         return res;
-      }, Red.prototype.convertTo = function convertTo(num) {
+      }, Red.prototype.convertTo = function(num) {
         var r = num.umod(this.m);
         return r === num ? r.clone() : r;
-      }, Red.prototype.convertFrom = function convertFrom(num) {
+      }, Red.prototype.convertFrom = function(num) {
         var res = num.clone();
         return res.red = null, res;
-      }, BN.mont = function mont(num) {
+      }, BN.mont = function(num) {
         return new Mont(num);
       };
       function Mont(m) {
@@ -13607,12 +13607,12 @@ var init_crypto = __esm(() => {
           this.shift += 26 - this.shift % 26;
         this.r = new BN(1).iushln(this.shift), this.r2 = this.imod(this.r.sqr()), this.rinv = this.r._invmp(this.m), this.minv = this.rinv.mul(this.r).isubn(1).div(this.m), this.minv = this.minv.umod(this.r), this.minv = this.r.sub(this.minv);
       }
-      inherits2(Mont, Red), Mont.prototype.convertTo = function convertTo(num) {
+      inherits2(Mont, Red), Mont.prototype.convertTo = function(num) {
         return this.imod(num.ushln(this.shift));
-      }, Mont.prototype.convertFrom = function convertFrom(num) {
+      }, Mont.prototype.convertFrom = function(num) {
         var r = this.imod(num.mul(this.rinv));
         return r.red = null, r;
-      }, Mont.prototype.imul = function imul(a, b) {
+      }, Mont.prototype.imul = function(a, b) {
         if (a.isZero() || b.isZero())
           return a.words[0] = 0, a.length = 1, a;
         var t = a.imul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -13621,7 +13621,7 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.mul = function mul(a, b) {
+      }, Mont.prototype.mul = function(a, b) {
         if (a.isZero() || b.isZero())
           return new BN(0)._forceRed(this);
         var t = a.mul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -13630,21 +13630,21 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.invm = function invm(a) {
+      }, Mont.prototype.invm = function(a) {
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(typeof module === "undefined" || module, exports);
+    })(typeof module > "u" || module, exports);
   });
   require_api = __commonJS2((exports) => {
     var asn1 = require_asn1(), inherits2 = require_inherits(), api = exports;
-    api.define = function define(name, body) {
+    api.define = function(name, body) {
       return new Entity(name, body);
     };
     function Entity(name, body) {
       this.name = name, this.body = body, this.decoders = {}, this.encoders = {};
     }
-    Entity.prototype._createNamed = function createNamed(base) {
+    Entity.prototype._createNamed = function(base) {
       var named;
       try {
         named = (()=>{throw new Error("Cannot require module "+"vm");})().runInThisContext("(function " + this.name + `(entity) {
@@ -13655,24 +13655,24 @@ var init_crypto = __esm(() => {
           this._initNamed(entity);
         };
       }
-      return inherits2(named, base), named.prototype._initNamed = function initnamed(entity) {
+      return inherits2(named, base), named.prototype._initNamed = function(entity) {
         base.call(this, entity);
       }, new named(this);
     };
-    Entity.prototype._getDecoder = function _getDecoder(enc) {
+    Entity.prototype._getDecoder = function(enc) {
       if (enc = enc || "der", !this.decoders.hasOwnProperty(enc))
         this.decoders[enc] = this._createNamed(asn1.decoders[enc]);
       return this.decoders[enc];
     };
-    Entity.prototype.decode = function decode(data, enc, options) {
+    Entity.prototype.decode = function(data, enc, options) {
       return this._getDecoder(enc).decode(data, options);
     };
-    Entity.prototype._getEncoder = function _getEncoder(enc) {
+    Entity.prototype._getEncoder = function(enc) {
       if (enc = enc || "der", !this.encoders.hasOwnProperty(enc))
         this.encoders[enc] = this._createNamed(asn1.encoders[enc]);
       return this.encoders[enc];
     };
-    Entity.prototype.encode = function encode(data, enc, reporter) {
+    Entity.prototype.encode = function(data, enc, reporter) {
       return this._getEncoder(enc).encode(data, reporter);
     };
   });
@@ -13682,41 +13682,41 @@ var init_crypto = __esm(() => {
       this._reporterState = { obj: null, path: [], options: options || {}, errors: [] };
     }
     exports.Reporter = Reporter;
-    Reporter.prototype.isError = function isError(obj) {
+    Reporter.prototype.isError = function(obj) {
       return obj instanceof ReporterError;
     };
-    Reporter.prototype.save = function save() {
+    Reporter.prototype.save = function() {
       var state = this._reporterState;
       return { obj: state.obj, pathLen: state.path.length };
     };
-    Reporter.prototype.restore = function restore(data) {
+    Reporter.prototype.restore = function(data) {
       var state = this._reporterState;
       state.obj = data.obj, state.path = state.path.slice(0, data.pathLen);
     };
-    Reporter.prototype.enterKey = function enterKey(key) {
+    Reporter.prototype.enterKey = function(key) {
       return this._reporterState.path.push(key);
     };
-    Reporter.prototype.exitKey = function exitKey(index) {
+    Reporter.prototype.exitKey = function(index) {
       var state = this._reporterState;
       state.path = state.path.slice(0, index - 1);
     };
-    Reporter.prototype.leaveKey = function leaveKey(index, key, value) {
+    Reporter.prototype.leaveKey = function(index, key, value) {
       var state = this._reporterState;
       if (this.exitKey(index), state.obj !== null)
         state.obj[key] = value;
     };
-    Reporter.prototype.path = function path() {
+    Reporter.prototype.path = function() {
       return this._reporterState.path.join("/");
     };
-    Reporter.prototype.enterObject = function enterObject() {
+    Reporter.prototype.enterObject = function() {
       var state = this._reporterState, prev = state.obj;
       return state.obj = {}, prev;
     };
-    Reporter.prototype.leaveObject = function leaveObject(prev) {
+    Reporter.prototype.leaveObject = function(prev) {
       var state = this._reporterState, now = state.obj;
       return state.obj = prev, now;
     };
-    Reporter.prototype.error = function error(msg) {
+    Reporter.prototype.error = function(msg) {
       var err, state = this._reporterState, inherited = msg instanceof ReporterError;
       if (inherited)
         err = msg;
@@ -13730,7 +13730,7 @@ var init_crypto = __esm(() => {
         state.errors.push(err);
       return err;
     };
-    Reporter.prototype.wrapResult = function wrapResult(result) {
+    Reporter.prototype.wrapResult = function(result) {
       var state = this._reporterState;
       if (!state.options.partial)
         return result;
@@ -13740,12 +13740,12 @@ var init_crypto = __esm(() => {
       this.path = path, this.rethrow(msg);
     }
     inherits2(ReporterError, Error);
-    ReporterError.prototype.rethrow = function rethrow(msg) {
+    ReporterError.prototype.rethrow = function(msg) {
       if (this.message = msg + " at: " + (this.path || "(shallow)"), Error.captureStackTrace)
         Error.captureStackTrace(this, ReporterError);
       if (!this.stack)
         try {
-          throw new Error(this.message);
+          throw Error(this.message);
         } catch (e) {
           this.stack = e.stack;
         }
@@ -13763,29 +13763,29 @@ var init_crypto = __esm(() => {
     }
     inherits2(DecoderBuffer, Reporter);
     exports.DecoderBuffer = DecoderBuffer;
-    DecoderBuffer.prototype.save = function save() {
+    DecoderBuffer.prototype.save = function() {
       return { offset: this.offset, reporter: Reporter.prototype.save.call(this) };
     };
-    DecoderBuffer.prototype.restore = function restore(save) {
+    DecoderBuffer.prototype.restore = function(save) {
       var res = new DecoderBuffer(this.base);
       return res.offset = save.offset, res.length = this.offset, this.offset = save.offset, Reporter.prototype.restore.call(this, save.reporter), res;
     };
-    DecoderBuffer.prototype.isEmpty = function isEmpty() {
+    DecoderBuffer.prototype.isEmpty = function() {
       return this.offset === this.length;
     };
-    DecoderBuffer.prototype.readUInt8 = function readUInt8(fail) {
+    DecoderBuffer.prototype.readUInt8 = function(fail) {
       if (this.offset + 1 <= this.length)
         return this.base.readUInt8(this.offset++, true);
       else
         return this.error(fail || "DecoderBuffer overrun");
     };
-    DecoderBuffer.prototype.skip = function skip(bytes, fail) {
+    DecoderBuffer.prototype.skip = function(bytes, fail) {
       if (!(this.offset + bytes <= this.length))
         return this.error(fail || "DecoderBuffer overrun");
       var res = new DecoderBuffer(this.base);
       return res._reporterState = this._reporterState, res.offset = this.offset, res.length = this.offset + bytes, this.offset += bytes, res;
     };
-    DecoderBuffer.prototype.raw = function raw(save) {
+    DecoderBuffer.prototype.raw = function(save) {
       return this.base.slice(save ? save.offset : this.offset, this.length);
     };
     function EncoderBuffer(value, reporter) {
@@ -13807,7 +13807,7 @@ var init_crypto = __esm(() => {
         return reporter.error("Unsupported type: " + typeof value);
     }
     exports.EncoderBuffer = EncoderBuffer;
-    EncoderBuffer.prototype.join = function join(out, offset) {
+    EncoderBuffer.prototype.join = function(out, offset) {
       if (!out)
         out = new Buffer22(this.length);
       if (!offset)
@@ -13839,7 +13839,7 @@ var init_crypto = __esm(() => {
     }
     module.exports = Node;
     var stateProps = ["enc", "parent", "children", "tag", "args", "reverseArgs", "choice", "optional", "any", "obj", "use", "alteredUse", "key", "default", "explicit", "implicit", "contains"];
-    Node.prototype.clone = function clone() {
+    Node.prototype.clone = function() {
       var state = this._baseState, cstate = {};
       stateProps.forEach(function(prop) {
         cstate[prop] = state[prop];
@@ -13847,22 +13847,22 @@ var init_crypto = __esm(() => {
       var res = new this.constructor(cstate.parent);
       return res._baseState = cstate, res;
     };
-    Node.prototype._wrap = function wrap() {
+    Node.prototype._wrap = function() {
       var state = this._baseState;
       methods.forEach(function(method) {
-        this[method] = function _wrappedMethod() {
+        this[method] = function() {
           var clone = new this.constructor(this);
           return state.children.push(clone), clone[method].apply(clone, arguments);
         };
       }, this);
     };
-    Node.prototype._init = function init(body) {
+    Node.prototype._init = function(body) {
       var state = this._baseState;
       assert(state.parent === null), body.call(this), state.children = state.children.filter(function(child) {
         return child._baseState.parent === this;
       }, this), assert.equal(state.children.length, 1, "Root node can have only one child");
     };
-    Node.prototype._useArgs = function useArgs(args) {
+    Node.prototype._useArgs = function(args) {
       var state = this._baseState, children = args.filter(function(arg) {
         return arg instanceof this.constructor;
       }, this);
@@ -13886,63 +13886,63 @@ var init_crypto = __esm(() => {
         });
     };
     overrided.forEach(function(method) {
-      Node.prototype[method] = function _overrided() {
+      Node.prototype[method] = function() {
         var state = this._baseState;
-        throw new Error(method + " not implemented for encoding: " + state.enc);
+        throw Error(method + " not implemented for encoding: " + state.enc);
       };
     });
     tags.forEach(function(tag) {
-      Node.prototype[tag] = function _tagMethod() {
+      Node.prototype[tag] = function() {
         var state = this._baseState, args = Array.prototype.slice.call(arguments);
         return assert(state.tag === null), state.tag = tag, this._useArgs(args), this;
       };
     });
-    Node.prototype.use = function use(item) {
+    Node.prototype.use = function(item) {
       assert(item);
       var state = this._baseState;
       return assert(state.use === null), state.use = item, this;
     };
-    Node.prototype.optional = function optional() {
+    Node.prototype.optional = function() {
       var state = this._baseState;
       return state.optional = true, this;
     };
-    Node.prototype.def = function def(val) {
+    Node.prototype.def = function(val) {
       var state = this._baseState;
       return assert(state.default === null), state.default = val, state.optional = true, this;
     };
-    Node.prototype.explicit = function explicit(num) {
+    Node.prototype.explicit = function(num) {
       var state = this._baseState;
       return assert(state.explicit === null && state.implicit === null), state.explicit = num, this;
     };
-    Node.prototype.implicit = function implicit(num) {
+    Node.prototype.implicit = function(num) {
       var state = this._baseState;
       return assert(state.explicit === null && state.implicit === null), state.implicit = num, this;
     };
-    Node.prototype.obj = function obj() {
+    Node.prototype.obj = function() {
       var state = this._baseState, args = Array.prototype.slice.call(arguments);
       if (state.obj = true, args.length !== 0)
         this._useArgs(args);
       return this;
     };
-    Node.prototype.key = function key(newKey) {
+    Node.prototype.key = function(newKey) {
       var state = this._baseState;
       return assert(state.key === null), state.key = newKey, this;
     };
-    Node.prototype.any = function any() {
+    Node.prototype.any = function() {
       var state = this._baseState;
       return state.any = true, this;
     };
-    Node.prototype.choice = function choice(obj) {
+    Node.prototype.choice = function(obj) {
       var state = this._baseState;
       return assert(state.choice === null), state.choice = obj, this._useArgs(Object.keys(obj).map(function(key) {
         return obj[key];
       })), this;
     };
-    Node.prototype.contains = function contains(item) {
+    Node.prototype.contains = function(item) {
       var state = this._baseState;
       return assert(state.use === null), state.contains = item, this;
     };
-    Node.prototype._decode = function decode(input, options) {
+    Node.prototype._decode = function(input, options) {
       var state = this._baseState;
       if (state.parent === null)
         return input.wrapResult(state.children[0]._decode(input, options));
@@ -14007,7 +14007,7 @@ var init_crypto = __esm(() => {
         if (input.isError(result))
           return result;
         if (!state.any && state.choice === null && state.children !== null)
-          state.children.forEach(function decodeChildren(child) {
+          state.children.forEach(function(child) {
             child._decode(input, options);
           });
         if (state.contains && (state.tag === "octstr" || state.tag === "bitstr")) {
@@ -14023,7 +14023,7 @@ var init_crypto = __esm(() => {
         input.exitKey(prevKey);
       return result;
     };
-    Node.prototype._decodeGeneric = function decodeGeneric(tag, input, options) {
+    Node.prototype._decodeGeneric = function(tag, input, options) {
       var state = this._baseState;
       if (tag === "seq" || tag === "set")
         return null;
@@ -14050,13 +14050,13 @@ var init_crypto = __esm(() => {
       else
         return input.error("unknown tag: " + tag);
     };
-    Node.prototype._getUse = function _getUse(entity, obj) {
+    Node.prototype._getUse = function(entity, obj) {
       var state = this._baseState;
       if (state.useDecoder = this._use(entity, obj), assert(state.useDecoder._baseState.parent === null), state.useDecoder = state.useDecoder._baseState.children[0], state.implicit !== state.useDecoder._baseState.implicit)
         state.useDecoder = state.useDecoder.clone(), state.useDecoder._baseState.implicit = state.implicit;
       return state.useDecoder;
     };
-    Node.prototype._decodeChoice = function decodeChoice(input, options) {
+    Node.prototype._decodeChoice = function(input, options) {
       var state = this._baseState, result = null, match = false;
       if (Object.keys(state.choice).some(function(key) {
         var save = input.save(), node = state.choice[key];
@@ -14073,10 +14073,10 @@ var init_crypto = __esm(() => {
         return input.error("Choice not matched");
       return result;
     };
-    Node.prototype._createEncoderBuffer = function createEncoderBuffer(data) {
+    Node.prototype._createEncoderBuffer = function(data) {
       return new EncoderBuffer(data, this.reporter);
     };
-    Node.prototype._encode = function encode(data, reporter, parent) {
+    Node.prototype._encode = function(data, reporter, parent) {
       var state = this._baseState;
       if (state.default !== null && state.default === data)
         return;
@@ -14087,7 +14087,7 @@ var init_crypto = __esm(() => {
         return;
       return result;
     };
-    Node.prototype._encodeValue = function encode(data, reporter, parent) {
+    Node.prototype._encodeValue = function(data, reporter, parent) {
       var state = this._baseState;
       if (state.parent === null)
         return state.children[0]._encode(data, reporter || new Reporter);
@@ -14145,13 +14145,13 @@ var init_crypto = __esm(() => {
         result = this._encodeComposite(state.explicit, false, "context", result);
       return result;
     };
-    Node.prototype._encodeChoice = function encodeChoice(data, reporter) {
+    Node.prototype._encodeChoice = function(data, reporter) {
       var state = this._baseState, node = state.choice[data.type];
       if (!node)
         assert(false, data.type + " not found in " + JSON.stringify(Object.keys(state.choice)));
       return node._encode(data.value, reporter);
     };
-    Node.prototype._encodePrimitive = function encodePrimitive(tag, data) {
+    Node.prototype._encodePrimitive = function(tag, data) {
       var state = this._baseState;
       if (/str$/.test(tag))
         return this._encodeStr(data, tag);
@@ -14170,12 +14170,12 @@ var init_crypto = __esm(() => {
       else if (tag === "objDesc")
         return this._encodeStr(data, tag);
       else
-        throw new Error("Unsupported tag: " + tag);
+        throw Error("Unsupported tag: " + tag);
     };
-    Node.prototype._isNumstr = function isNumstr(str) {
+    Node.prototype._isNumstr = function(str) {
       return /^[0-9 ]*$/.test(str);
     };
-    Node.prototype._isPrintstr = function isPrintstr(str) {
+    Node.prototype._isPrintstr = function(str) {
       return /^[A-Za-z0-9 '\(\)\+,\-\.\/:=\?]*$/.test(str);
     };
   });
@@ -14195,7 +14195,7 @@ var init_crypto = __esm(() => {
   });
   require_constants = __commonJS2((exports) => {
     var constants2 = exports;
-    constants2._reverse = function reverse(map) {
+    constants2._reverse = function(map) {
       var res = {};
       return Object.keys(map).forEach(function(key) {
         if ((key | 0) == key)
@@ -14212,7 +14212,7 @@ var init_crypto = __esm(() => {
       this.enc = "der", this.name = entity.name, this.entity = entity, this.tree = new DERNode, this.tree._init(entity.body);
     }
     module.exports = DERDecoder;
-    DERDecoder.prototype.decode = function decode(data, options) {
+    DERDecoder.prototype.decode = function(data, options) {
       if (!(data instanceof base.DecoderBuffer))
         data = new base.DecoderBuffer(data, options);
       return this.tree._decode(data, options);
@@ -14221,7 +14221,7 @@ var init_crypto = __esm(() => {
       base.Node.call(this, "der", parent);
     }
     inherits2(DERNode, base.Node);
-    DERNode.prototype._peekTag = function peekTag(buffer, tag, any) {
+    DERNode.prototype._peekTag = function(buffer, tag, any) {
       if (buffer.isEmpty())
         return false;
       var state = buffer.save(), decodedTag = derDecodeTag(buffer, 'Failed to peek tag: "' + tag + '"');
@@ -14229,7 +14229,7 @@ var init_crypto = __esm(() => {
         return decodedTag;
       return buffer.restore(state), decodedTag.tag === tag || decodedTag.tagStr === tag || decodedTag.tagStr + "of" === tag || any;
     };
-    DERNode.prototype._decodeTag = function decodeTag(buffer, tag, any) {
+    DERNode.prototype._decodeTag = function(buffer, tag, any) {
       var decodedTag = derDecodeTag(buffer, 'Failed to decode tag of "' + tag + '"');
       if (buffer.isError(decodedTag))
         return decodedTag;
@@ -14245,7 +14245,7 @@ var init_crypto = __esm(() => {
         return res;
       return len2 = buffer.offset - state.offset, buffer.restore(state), buffer.skip(len2, 'Failed to match body of: "' + tag + '"');
     };
-    DERNode.prototype._skipUntilEnd = function skipUntilEnd(buffer, fail) {
+    DERNode.prototype._skipUntilEnd = function(buffer, fail) {
       while (true) {
         var tag = derDecodeTag(buffer, fail);
         if (buffer.isError(tag))
@@ -14264,7 +14264,7 @@ var init_crypto = __esm(() => {
           break;
       }
     };
-    DERNode.prototype._decodeList = function decodeList(buffer, tag, decoder, options) {
+    DERNode.prototype._decodeList = function(buffer, tag, decoder, options) {
       var result = [];
       while (!buffer.isEmpty()) {
         var possibleEnd = this._peekTag(buffer, "end");
@@ -14277,7 +14277,7 @@ var init_crypto = __esm(() => {
       }
       return result;
     };
-    DERNode.prototype._decodeStr = function decodeStr(buffer, tag) {
+    DERNode.prototype._decodeStr = function(buffer, tag) {
       if (tag === "bitstr") {
         var unused = buffer.readUInt8();
         if (buffer.isError(unused))
@@ -14310,7 +14310,7 @@ var init_crypto = __esm(() => {
       else
         return buffer.error("Decoding of string type: " + tag + " unsupported");
     };
-    DERNode.prototype._decodeObjid = function decodeObjid(buffer, values, relative2) {
+    DERNode.prototype._decodeObjid = function(buffer, values, relative2) {
       var result, identifiers = [], ident = 0;
       while (!buffer.isEmpty()) {
         var subident = buffer.readUInt8();
@@ -14333,7 +14333,7 @@ var init_crypto = __esm(() => {
       }
       return result;
     };
-    DERNode.prototype._decodeTime = function decodeTime(buffer, tag) {
+    DERNode.prototype._decodeTime = function(buffer, tag) {
       var str = buffer.raw().toString();
       if (tag === "gentime")
         var year = str.slice(0, 4) | 0, mon = str.slice(4, 6) | 0, day = str.slice(6, 8) | 0, hour = str.slice(8, 10) | 0, min = str.slice(10, 12) | 0, sec = str.slice(12, 14) | 0;
@@ -14347,23 +14347,23 @@ var init_crypto = __esm(() => {
         return buffer.error("Decoding " + tag + " time is not supported yet");
       return Date.UTC(year, mon - 1, day, hour, min, sec, 0);
     };
-    DERNode.prototype._decodeNull = function decodeNull(buffer) {
+    DERNode.prototype._decodeNull = function(buffer) {
       return null;
     };
-    DERNode.prototype._decodeBool = function decodeBool(buffer) {
+    DERNode.prototype._decodeBool = function(buffer) {
       var res = buffer.readUInt8();
       if (buffer.isError(res))
         return res;
       else
         return res !== 0;
     };
-    DERNode.prototype._decodeInt = function decodeInt(buffer, values) {
+    DERNode.prototype._decodeInt = function(buffer, values) {
       var raw = buffer.raw(), res = new bignum(raw);
       if (values)
         res = values[res.toString(10)] || res;
       return res;
     };
-    DERNode.prototype._use = function use(entity, obj) {
+    DERNode.prototype._use = function(entity, obj) {
       if (typeof entity === "function")
         entity = entity(obj);
       return entity._getDecoder("der").tree;
@@ -14415,7 +14415,7 @@ var init_crypto = __esm(() => {
     }
     inherits2(PEMDecoder, DERDecoder);
     module.exports = PEMDecoder;
-    PEMDecoder.prototype.decode = function decode(data, options) {
+    PEMDecoder.prototype.decode = function(data, options) {
       var lines = data.toString().split(/[\r\n]+/g), label = options.label.toUpperCase(), re = /^-----(BEGIN|END) ([^-]+)-----$/, start = -1, end = -1;
       for (var i2 = 0;i2 < lines.length; i2++) {
         var match = lines[i2].match(re);
@@ -14435,7 +14435,7 @@ var init_crypto = __esm(() => {
         }
       }
       if (start === -1 || end === -1)
-        throw new Error("PEM section not found for: " + label);
+        throw Error("PEM section not found for: " + label);
       var base64 = lines.slice(start + 1, end).join("");
       base64.replace(/[^a-z0-9\+\/=]+/gi, "");
       var input = new Buffer22(base64, "base64");
@@ -14453,14 +14453,14 @@ var init_crypto = __esm(() => {
       this.enc = "der", this.name = entity.name, this.entity = entity, this.tree = new DERNode, this.tree._init(entity.body);
     }
     module.exports = DEREncoder;
-    DEREncoder.prototype.encode = function encode(data, reporter) {
+    DEREncoder.prototype.encode = function(data, reporter) {
       return this.tree._encode(data, reporter).join();
     };
     function DERNode(parent) {
       base.Node.call(this, "der", parent);
     }
     inherits2(DERNode, base.Node);
-    DERNode.prototype._encodeComposite = function encodeComposite(tag, primitive, cls, content) {
+    DERNode.prototype._encodeComposite = function(tag, primitive, cls, content) {
       var encodedTag = encodeTag(tag, primitive, cls, this.reporter);
       if (content.length < 128) {
         var header = new Buffer22(2);
@@ -14475,7 +14475,7 @@ var init_crypto = __esm(() => {
         header[i2] = j & 255;
       return this._createEncoderBuffer([header, content]);
     };
-    DERNode.prototype._encodeStr = function encodeStr(str, tag) {
+    DERNode.prototype._encodeStr = function(str, tag) {
       if (tag === "bitstr")
         return this._createEncoderBuffer([str.unused | 0, str.data]);
       else if (tag === "bmpstr") {
@@ -14498,7 +14498,7 @@ var init_crypto = __esm(() => {
       else
         return this.reporter.error("Encoding of string type: " + tag + " unsupported");
     };
-    DERNode.prototype._encodeObjid = function encodeObjid(id, values, relative2) {
+    DERNode.prototype._encodeObjid = function(id, values, relative2) {
       if (typeof id === "string") {
         if (!values)
           return this.reporter.error("string objid given, but no values map found");
@@ -14540,7 +14540,7 @@ var init_crypto = __esm(() => {
       else
         return num;
     }
-    DERNode.prototype._encodeTime = function encodeTime(time, tag) {
+    DERNode.prototype._encodeTime = function(time, tag) {
       var str, date = new Date(time);
       if (tag === "gentime")
         str = [two(date.getFullYear()), two(date.getUTCMonth() + 1), two(date.getUTCDate()), two(date.getUTCHours()), two(date.getUTCMinutes()), two(date.getUTCSeconds()), "Z"].join("");
@@ -14550,10 +14550,10 @@ var init_crypto = __esm(() => {
         this.reporter.error("Encoding " + tag + " time is not supported yet");
       return this._encodeStr(str, "octstr");
     };
-    DERNode.prototype._encodeNull = function encodeNull() {
+    DERNode.prototype._encodeNull = function() {
       return this._createEncoderBuffer("");
     };
-    DERNode.prototype._encodeInt = function encodeInt(num, values) {
+    DERNode.prototype._encodeInt = function(num, values) {
       if (typeof num === "string") {
         if (!values)
           return this.reporter.error("String int or enum given, but no values map");
@@ -14583,22 +14583,22 @@ var init_crypto = __esm(() => {
       var size = 1;
       for (var i2 = num;i2 >= 256; i2 >>= 8)
         size++;
-      var out = new Array(size);
+      var out = Array(size);
       for (var i2 = out.length - 1;i2 >= 0; i2--)
         out[i2] = num & 255, num >>= 8;
       if (out[0] & 128)
         out.unshift(0);
       return this._createEncoderBuffer(new Buffer22(out));
     };
-    DERNode.prototype._encodeBool = function encodeBool(value) {
+    DERNode.prototype._encodeBool = function(value) {
       return this._createEncoderBuffer(value ? 255 : 0);
     };
-    DERNode.prototype._use = function use(entity, obj) {
+    DERNode.prototype._use = function(entity, obj) {
       if (typeof entity === "function")
         entity = entity(obj);
       return entity._getEncoder("der").tree;
     };
-    DERNode.prototype._skipDefault = function skipDefault(dataBuffer, reporter, parent) {
+    DERNode.prototype._skipDefault = function(dataBuffer, reporter, parent) {
       var state = this._baseState, i2;
       if (state.default === null)
         return false;
@@ -14638,7 +14638,7 @@ var init_crypto = __esm(() => {
     }
     inherits2(PEMEncoder, DEREncoder);
     module.exports = PEMEncoder;
-    PEMEncoder.prototype.encode = function encode(data, options) {
+    PEMEncoder.prototype.encode = function(data, options) {
       var buf = DEREncoder.prototype.encode.call(this, data), p = buf.toString("base64"), out = ["-----BEGIN " + options.label + "-----"];
       for (var i2 = 0;i2 < p.length; i2 += 64)
         out.push(p.slice(i2, i2 + 64));
@@ -14755,7 +14755,7 @@ var init_crypto = __esm(() => {
       }
       callback(error);
     };
-    var useUint8Array = typeof Uint8Array !== "undefined", useArrayBuffer = typeof ArrayBuffer !== "undefined" && typeof Uint8Array !== "undefined" && ArrayBuffer.isView && (Buffer22.prototype instanceof Uint8Array || Buffer22.TYPED_ARRAY_SUPPORT);
+    var useUint8Array = typeof Uint8Array < "u", useArrayBuffer = typeof ArrayBuffer < "u" && typeof Uint8Array < "u" && ArrayBuffer.isView && (Buffer22.prototype instanceof Uint8Array || Buffer22.TYPED_ARRAY_SUPPORT);
     function toBuffer(data, encoding) {
       if (data instanceof Buffer22)
         return data;
@@ -14772,11 +14772,11 @@ var init_crypto = __esm(() => {
         return Buffer22.from(data);
       if (Buffer22.isBuffer(data) && data.constructor && typeof data.constructor.isBuffer === "function" && data.constructor.isBuffer(data))
         return Buffer22.from(data);
-      throw new TypeError('The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView.');
+      throw TypeError('The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView.');
     }
     HashBase.prototype.update = function(data, encoding) {
       if (this._finalized)
-        throw new Error("Digest already called");
+        throw Error("Digest already called");
       data = toBuffer(data, encoding);
       var block = this._block, offset = 0;
       while (this._blockOffset + data.length - offset >= this._blockSize) {
@@ -14792,11 +14792,11 @@ var init_crypto = __esm(() => {
       return this;
     };
     HashBase.prototype._update = function() {
-      throw new Error("_update is not implemented");
+      throw Error("_update is not implemented");
     };
     HashBase.prototype.digest = function(encoding) {
       if (this._finalized)
-        throw new Error("Digest already called");
+        throw Error("Digest already called");
       this._finalized = true;
       var digest = this._digest();
       if (encoding !== undefined)
@@ -14807,12 +14807,12 @@ var init_crypto = __esm(() => {
       return digest;
     };
     HashBase.prototype._digest = function() {
-      throw new Error("_digest is not implemented");
+      throw Error("_digest is not implemented");
     };
     module.exports = HashBase;
   });
   require_md5 = __commonJS2((exports, module) => {
-    var inherits2 = require_inherits(), HashBase = require_hash_base(), Buffer22 = require_safe_buffer().Buffer, ARRAY16 = new Array(16);
+    var inherits2 = require_inherits(), HashBase = require_hash_base(), Buffer22 = require_safe_buffer().Buffer, ARRAY16 = Array(16);
     function MD5() {
       HashBase.call(this, 64), this._a = 1732584193, this._b = 4023233417, this._c = 2562383102, this._d = 271733878;
     }
@@ -14857,7 +14857,7 @@ var init_crypto = __esm(() => {
         if (!Buffer22.isBuffer(salt))
           salt = Buffer22.from(salt, "binary");
         if (salt.length !== 8)
-          throw new RangeError("salt should be Buffer with 8 byte length");
+          throw RangeError("salt should be Buffer with 8 byte length");
       }
       var keyLen = keyBits / 8, key = Buffer22.alloc(keyLen), iv = Buffer22.alloc(ivLen || 0), tmp = Buffer22.alloc(0);
       while (keyLen > 0 || ivLen > 0) {
@@ -14929,7 +14929,7 @@ var init_crypto = __esm(() => {
             case "1.2.840.10040.4.1":
               return ndata.algorithm.params.pub_key = asn1.DSAparam.decode(ndata.subjectPublicKey.data, "der"), { type: "dsa", data: ndata.algorithm.params };
             default:
-              throw new Error("unknown key id " + subtype);
+              throw Error("unknown key id " + subtype);
           }
         case "ENCRYPTED PRIVATE KEY":
           data = asn1.EncryptedPrivateKey.decode(data, "der"), data = decrypt(data, password);
@@ -14942,7 +14942,7 @@ var init_crypto = __esm(() => {
             case "1.2.840.10040.4.1":
               return ndata.algorithm.params.priv_key = asn1.DSAparam.decode(ndata.subjectPrivateKey, "der"), { type: "dsa", params: ndata.algorithm.params };
             default:
-              throw new Error("unknown key id " + subtype);
+              throw Error("unknown key id " + subtype);
           }
         case "RSA PUBLIC KEY":
           return asn1.RSAPublicKey.decode(data, "der");
@@ -14953,7 +14953,7 @@ var init_crypto = __esm(() => {
         case "EC PRIVATE KEY":
           return data = asn1.ECPrivateKey.decode(data, "der"), { curve: data.parameters.value, privateKey: data.privateKey };
         default:
-          throw new Error("unknown key type " + type);
+          throw Error("unknown key type " + type);
       }
     }
     parseKeys.signature = asn1.signature;
@@ -14973,7 +14973,7 @@ var init_crypto = __esm(() => {
     }
   });
   require_xor = __commonJS2((exports, module) => {
-    module.exports = function xor(a, b) {
+    module.exports = function(a, b) {
       var len2 = a.length, i2 = -1;
       while (++i2 < len2)
         a[i2] ^= b[i2];
@@ -14984,7 +14984,7 @@ var init_crypto = __esm(() => {
     (function(module2, exports2) {
       function assert(val, msg) {
         if (!val)
-          throw new Error(msg || "Assertion failed");
+          throw Error(msg || "Assertion failed");
       }
       function inherits2(ctor, superCtor) {
         ctor.super_ = superCtor;
@@ -15007,24 +15007,24 @@ var init_crypto = __esm(() => {
       BN.BN = BN, BN.wordSize = 26;
       var Buffer22;
       try {
-        if (typeof window !== "undefined" && typeof window.Buffer !== "undefined")
+        if (typeof window < "u" && typeof window.Buffer < "u")
           Buffer22 = window.Buffer;
         else
           Buffer22 = (init_buffer(), __toCommonJS(exports_buffer)).Buffer;
       } catch (e) {}
-      BN.isBN = function isBN(num) {
+      BN.isBN = function(num) {
         if (num instanceof BN)
           return true;
         return num !== null && typeof num === "object" && num.constructor.wordSize === BN.wordSize && Array.isArray(num.words);
-      }, BN.max = function max(left, right) {
+      }, BN.max = function(left, right) {
         if (left.cmp(right) > 0)
           return left;
         return right;
-      }, BN.min = function min(left, right) {
+      }, BN.min = function(left, right) {
         if (left.cmp(right) < 0)
           return left;
         return right;
-      }, BN.prototype._init = function init(number, base, endian) {
+      }, BN.prototype._init = function(number, base, endian) {
         if (typeof number === "number")
           return this._initNumber(number, base, endian);
         if (typeof number === "object")
@@ -15041,7 +15041,7 @@ var init_crypto = __esm(() => {
           else if (this._parseBase(number, base, start), endian === "le")
             this._initArray(this.toArray(), base, endian);
         }
-      }, BN.prototype._initNumber = function _initNumber(number, base, endian) {
+      }, BN.prototype._initNumber = function(number, base, endian) {
         if (number < 0)
           this.negative = 1, number = -number;
         if (number < 67108864)
@@ -15053,10 +15053,10 @@ var init_crypto = __esm(() => {
         if (endian !== "le")
           return;
         this._initArray(this.toArray(), base, endian);
-      }, BN.prototype._initArray = function _initArray(number, base, endian) {
+      }, BN.prototype._initArray = function(number, base, endian) {
         if (assert(typeof number.length === "number"), number.length <= 0)
           return this.words = [0], this.length = 1, this;
-        this.length = Math.ceil(number.length / 3), this.words = new Array(this.length);
+        this.length = Math.ceil(number.length / 3), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var j, w, off = 0;
@@ -15086,8 +15086,8 @@ var init_crypto = __esm(() => {
           r |= parseHex4Bits(string, index - 1) << 4;
         return r;
       }
-      BN.prototype._parseHex = function _parseHex(number, start, endian) {
-        this.length = Math.ceil((number.length - start) / 6), this.words = new Array(this.length);
+      BN.prototype._parseHex = function(number, start, endian) {
+        this.length = Math.ceil((number.length - start) / 6), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var off = 0, j = 0, w;
@@ -15120,7 +15120,7 @@ var init_crypto = __esm(() => {
         }
         return r;
       }
-      BN.prototype._parseBase = function _parseBase(number, base, start) {
+      BN.prototype._parseBase = function(number, base, start) {
         this.words = [0], this.length = 1;
         for (var limbLen = 0, limbPow = 1;limbPow <= 67108863; limbPow *= base)
           limbLen++;
@@ -15142,31 +15142,31 @@ var init_crypto = __esm(() => {
             this._iaddn(word);
         }
         this.strip();
-      }, BN.prototype.copy = function copy(dest) {
-        dest.words = new Array(this.length);
+      }, BN.prototype.copy = function(dest) {
+        dest.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           dest.words[i2] = this.words[i2];
         dest.length = this.length, dest.negative = this.negative, dest.red = this.red;
-      }, BN.prototype.clone = function clone() {
+      }, BN.prototype.clone = function() {
         var r = new BN(null);
         return this.copy(r), r;
-      }, BN.prototype._expand = function _expand(size) {
+      }, BN.prototype._expand = function(size) {
         while (this.length < size)
           this.words[this.length++] = 0;
         return this;
-      }, BN.prototype.strip = function strip() {
+      }, BN.prototype.strip = function() {
         while (this.length > 1 && this.words[this.length - 1] === 0)
           this.length--;
         return this._normSign();
-      }, BN.prototype._normSign = function _normSign() {
+      }, BN.prototype._normSign = function() {
         if (this.length === 1 && this.words[0] === 0)
           this.negative = 0;
         return this;
-      }, BN.prototype.inspect = function inspect() {
+      }, BN.prototype.inspect = function() {
         return (this.red ? "<BN-R: " : "<BN: ") + this.toString(16) + ">";
       };
       var zeros = ["", "0", "00", "000", "0000", "00000", "000000", "0000000", "00000000", "000000000", "0000000000", "00000000000", "000000000000", "0000000000000", "00000000000000", "000000000000000", "0000000000000000", "00000000000000000", "000000000000000000", "0000000000000000000", "00000000000000000000", "000000000000000000000", "0000000000000000000000", "00000000000000000000000", "000000000000000000000000", "0000000000000000000000000"], groupSizes = [0, 0, 25, 16, 12, 11, 10, 9, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], groupBases = [0, 0, 33554432, 43046721, 16777216, 48828125, 60466176, 40353607, 16777216, 43046721, 1e7, 19487171, 35831808, 62748517, 7529536, 11390625, 16777216, 24137569, 34012224, 47045881, 64000000, 4084101, 5153632, 6436343, 7962624, 9765625, 11881376, 14348907, 17210368, 20511149, 24300000, 28629151, 33554432, 39135393, 45435424, 52521875, 60466176];
-      if (BN.prototype.toString = function toString(base, padding) {
+      if (BN.prototype.toString = function(base, padding) {
         base = base || 10, padding = padding | 0 || 1;
         var out;
         if (base === 16 || base === "hex") {
@@ -15210,7 +15210,7 @@ var init_crypto = __esm(() => {
           return out;
         }
         assert(false, "Base should be between 2 and 36");
-      }, BN.prototype.toNumber = function toNumber() {
+      }, BN.prototype.toNumber = function() {
         var ret = this.words[0];
         if (this.length === 2)
           ret += this.words[1] * 67108864;
@@ -15219,13 +15219,13 @@ var init_crypto = __esm(() => {
         else if (this.length > 2)
           assert(false, "Number can only safely store up to 53 bits");
         return this.negative !== 0 ? -ret : ret;
-      }, BN.prototype.toJSON = function toJSON() {
+      }, BN.prototype.toJSON = function() {
         return this.toString(16);
-      }, BN.prototype.toBuffer = function toBuffer(endian, length) {
-        return assert(typeof Buffer22 !== "undefined"), this.toArrayLike(Buffer22, endian, length);
-      }, BN.prototype.toArray = function toArray(endian, length) {
+      }, BN.prototype.toBuffer = function(endian, length) {
+        return assert(typeof Buffer22 < "u"), this.toArrayLike(Buffer22, endian, length);
+      }, BN.prototype.toArray = function(endian, length) {
         return this.toArrayLike(Array, endian, length);
-      }, BN.prototype.toArrayLike = function toArrayLike(ArrayType, endian, length) {
+      }, BN.prototype.toArrayLike = function(ArrayType, endian, length) {
         var byteLength2 = this.byteLength(), reqLength = length || Math.max(1, byteLength2);
         assert(byteLength2 <= reqLength, "byte array longer than desired length"), assert(reqLength > 0, "Requested array length <= 0"), this.strip();
         var littleEndian = endian === "le", res = new ArrayType(reqLength), b, i2, q = this.clone();
@@ -15242,11 +15242,11 @@ var init_crypto = __esm(() => {
         }
         return res;
       }, Math.clz32)
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           return 32 - Math.clz32(w);
         };
       else
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           var t = w, r = 0;
           if (t >= 4096)
             r += 13, t >>>= 13;
@@ -15258,7 +15258,7 @@ var init_crypto = __esm(() => {
             r += 2, t >>>= 2;
           return r + t;
         };
-      BN.prototype._zeroBits = function _zeroBits(w) {
+      BN.prototype._zeroBits = function(w) {
         if (w === 0)
           return 26;
         var t = w, r = 0;
@@ -15273,19 +15273,19 @@ var init_crypto = __esm(() => {
         if ((t & 1) === 0)
           r++;
         return r;
-      }, BN.prototype.bitLength = function bitLength() {
+      }, BN.prototype.bitLength = function() {
         var w = this.words[this.length - 1], hi = this._countBits(w);
         return (this.length - 1) * 26 + hi;
       };
       function toBitArray(num) {
-        var w = new Array(num.bitLength());
+        var w = Array(num.bitLength());
         for (var bit = 0;bit < w.length; bit++) {
           var off = bit / 26 | 0, wbit = bit % 26;
           w[bit] = (num.words[off] & 1 << wbit) >>> wbit;
         }
         return w;
       }
-      BN.prototype.zeroBits = function zeroBits() {
+      BN.prototype.zeroBits = function() {
         if (this.isZero())
           return 0;
         var r = 0;
@@ -15295,41 +15295,41 @@ var init_crypto = __esm(() => {
             break;
         }
         return r;
-      }, BN.prototype.byteLength = function byteLength() {
+      }, BN.prototype.byteLength = function() {
         return Math.ceil(this.bitLength() / 8);
-      }, BN.prototype.toTwos = function toTwos(width) {
+      }, BN.prototype.toTwos = function(width) {
         if (this.negative !== 0)
           return this.abs().inotn(width).iaddn(1);
         return this.clone();
-      }, BN.prototype.fromTwos = function fromTwos(width) {
+      }, BN.prototype.fromTwos = function(width) {
         if (this.testn(width - 1))
           return this.notn(width).iaddn(1).ineg();
         return this.clone();
-      }, BN.prototype.isNeg = function isNeg() {
+      }, BN.prototype.isNeg = function() {
         return this.negative !== 0;
-      }, BN.prototype.neg = function neg() {
+      }, BN.prototype.neg = function() {
         return this.clone().ineg();
-      }, BN.prototype.ineg = function ineg() {
+      }, BN.prototype.ineg = function() {
         if (!this.isZero())
           this.negative ^= 1;
         return this;
-      }, BN.prototype.iuor = function iuor(num) {
+      }, BN.prototype.iuor = function(num) {
         while (this.length < num.length)
           this.words[this.length++] = 0;
         for (var i2 = 0;i2 < num.length; i2++)
           this.words[i2] = this.words[i2] | num.words[i2];
         return this.strip();
-      }, BN.prototype.ior = function ior(num) {
+      }, BN.prototype.ior = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuor(num);
-      }, BN.prototype.or = function or(num) {
+      }, BN.prototype.or = function(num) {
         if (this.length > num.length)
           return this.clone().ior(num);
         return num.clone().ior(this);
-      }, BN.prototype.uor = function uor(num) {
+      }, BN.prototype.uor = function(num) {
         if (this.length > num.length)
           return this.clone().iuor(num);
         return num.clone().iuor(this);
-      }, BN.prototype.iuand = function iuand(num) {
+      }, BN.prototype.iuand = function(num) {
         var b;
         if (this.length > num.length)
           b = num;
@@ -15338,17 +15338,17 @@ var init_crypto = __esm(() => {
         for (var i2 = 0;i2 < b.length; i2++)
           this.words[i2] = this.words[i2] & num.words[i2];
         return this.length = b.length, this.strip();
-      }, BN.prototype.iand = function iand(num) {
+      }, BN.prototype.iand = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuand(num);
-      }, BN.prototype.and = function and(num) {
+      }, BN.prototype.and = function(num) {
         if (this.length > num.length)
           return this.clone().iand(num);
         return num.clone().iand(this);
-      }, BN.prototype.uand = function uand(num) {
+      }, BN.prototype.uand = function(num) {
         if (this.length > num.length)
           return this.clone().iuand(num);
         return num.clone().iuand(this);
-      }, BN.prototype.iuxor = function iuxor(num) {
+      }, BN.prototype.iuxor = function(num) {
         var a, b;
         if (this.length > num.length)
           a = this, b = num;
@@ -15360,17 +15360,17 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this.length = a.length, this.strip();
-      }, BN.prototype.ixor = function ixor(num) {
+      }, BN.prototype.ixor = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuxor(num);
-      }, BN.prototype.xor = function xor(num) {
+      }, BN.prototype.xor = function(num) {
         if (this.length > num.length)
           return this.clone().ixor(num);
         return num.clone().ixor(this);
-      }, BN.prototype.uxor = function uxor(num) {
+      }, BN.prototype.uxor = function(num) {
         if (this.length > num.length)
           return this.clone().iuxor(num);
         return num.clone().iuxor(this);
-      }, BN.prototype.inotn = function inotn(width) {
+      }, BN.prototype.inotn = function(width) {
         assert(typeof width === "number" && width >= 0);
         var bytesNeeded = Math.ceil(width / 26) | 0, bitsLeft = width % 26;
         if (this._expand(bytesNeeded), bitsLeft > 0)
@@ -15380,9 +15380,9 @@ var init_crypto = __esm(() => {
         if (bitsLeft > 0)
           this.words[i2] = ~this.words[i2] & 67108863 >> 26 - bitsLeft;
         return this.strip();
-      }, BN.prototype.notn = function notn(width) {
+      }, BN.prototype.notn = function(width) {
         return this.clone().inotn(width);
-      }, BN.prototype.setn = function setn(bit, val) {
+      }, BN.prototype.setn = function(bit, val) {
         assert(typeof bit === "number" && bit >= 0);
         var off = bit / 26 | 0, wbit = bit % 26;
         if (this._expand(off + 1), val)
@@ -15390,7 +15390,7 @@ var init_crypto = __esm(() => {
         else
           this.words[off] = this.words[off] & ~(1 << wbit);
         return this.strip();
-      }, BN.prototype.iadd = function iadd(num) {
+      }, BN.prototype.iadd = function(num) {
         var r;
         if (this.negative !== 0 && num.negative === 0)
           return this.negative = 0, r = this.isub(num), this.negative ^= 1, this._normSign();
@@ -15412,7 +15412,7 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this;
-      }, BN.prototype.add = function add(num) {
+      }, BN.prototype.add = function(num) {
         var res;
         if (num.negative !== 0 && this.negative === 0)
           return num.negative = 0, res = this.sub(num), num.negative ^= 1, res;
@@ -15421,7 +15421,7 @@ var init_crypto = __esm(() => {
         if (this.length > num.length)
           return this.clone().iadd(num);
         return num.clone().iadd(this);
-      }, BN.prototype.isub = function isub(num) {
+      }, BN.prototype.isub = function(num) {
         if (num.negative !== 0) {
           num.negative = 0;
           var r = this.iadd(num);
@@ -15447,7 +15447,7 @@ var init_crypto = __esm(() => {
         if (this.length = Math.max(this.length, i2), a !== this)
           this.negative = 1;
         return this.strip();
-      }, BN.prototype.sub = function sub(num) {
+      }, BN.prototype.sub = function(num) {
         return this.clone().isub(num);
       };
       function smallMulTo(self2, num, out) {
@@ -15470,7 +15470,7 @@ var init_crypto = __esm(() => {
           out.length--;
         return out.strip();
       }
-      var comb10MulTo = function comb10MulTo(self2, num, out) {
+      var comb10MulTo = function(self2, num, out) {
         var a = self2.words, b = num.words, o = out.words, c = 0, lo, mid, hi, a0 = a[0] | 0, al0 = a0 & 8191, ah0 = a0 >>> 13, a1 = a[1] | 0, al1 = a1 & 8191, ah1 = a1 >>> 13, a2 = a[2] | 0, al2 = a2 & 8191, ah2 = a2 >>> 13, a3 = a[3] | 0, al3 = a3 & 8191, ah3 = a3 >>> 13, a4 = a[4] | 0, al4 = a4 & 8191, ah4 = a4 >>> 13, a5 = a[5] | 0, al5 = a5 & 8191, ah5 = a5 >>> 13, a6 = a[6] | 0, al6 = a6 & 8191, ah6 = a6 >>> 13, a7 = a[7] | 0, al7 = a7 & 8191, ah7 = a7 >>> 13, a8 = a[8] | 0, al8 = a8 & 8191, ah8 = a8 >>> 13, a9 = a[9] | 0, al9 = a9 & 8191, ah9 = a9 >>> 13, b0 = b[0] | 0, bl0 = b0 & 8191, bh0 = b0 >>> 13, b1 = b[1] | 0, bl1 = b1 & 8191, bh1 = b1 >>> 13, b2 = b[2] | 0, bl2 = b2 & 8191, bh2 = b2 >>> 13, b3 = b[3] | 0, bl3 = b3 & 8191, bh3 = b3 >>> 13, b4 = b[4] | 0, bl4 = b4 & 8191, bh4 = b4 >>> 13, b5 = b[5] | 0, bl5 = b5 & 8191, bh5 = b5 >>> 13, b6 = b[6] | 0, bl6 = b6 & 8191, bh6 = b6 >>> 13, b7 = b[7] | 0, bl7 = b7 & 8191, bh7 = b7 >>> 13, b8 = b[8] | 0, bl8 = b8 & 8191, bh8 = b8 >>> 13, b9 = b[9] | 0, bl9 = b9 & 8191, bh9 = b9 >>> 13;
         out.negative = self2.negative ^ num.negative, out.length = 19, lo = Math.imul(al0, bl0), mid = Math.imul(al0, bh0), mid = mid + Math.imul(ah0, bl0) | 0, hi = Math.imul(ah0, bh0);
         var w0 = (c + lo | 0) + ((mid & 8191) << 13) | 0;
@@ -15539,7 +15539,7 @@ var init_crypto = __esm(() => {
         var fftm = new FFTM;
         return fftm.mulp(self2, num, out);
       }
-      BN.prototype.mulTo = function mulTo(num, out) {
+      BN.prototype.mulTo = function(num, out) {
         var res, len2 = this.length + num.length;
         if (this.length === 10 && num.length === 10)
           res = comb10MulTo(this, num, out);
@@ -15554,22 +15554,22 @@ var init_crypto = __esm(() => {
       function FFTM(x, y) {
         this.x = x, this.y = y;
       }
-      FFTM.prototype.makeRBT = function makeRBT(N) {
-        var t = new Array(N), l = BN.prototype._countBits(N) - 1;
+      FFTM.prototype.makeRBT = function(N) {
+        var t = Array(N), l = BN.prototype._countBits(N) - 1;
         for (var i2 = 0;i2 < N; i2++)
           t[i2] = this.revBin(i2, l, N);
         return t;
-      }, FFTM.prototype.revBin = function revBin(x, l, N) {
+      }, FFTM.prototype.revBin = function(x, l, N) {
         if (x === 0 || x === N - 1)
           return x;
         var rb = 0;
         for (var i2 = 0;i2 < l; i2++)
           rb |= (x & 1) << l - i2 - 1, x >>= 1;
         return rb;
-      }, FFTM.prototype.permute = function permute(rbt, rws, iws, rtws, itws, N) {
+      }, FFTM.prototype.permute = function(rbt, rws, iws, rtws, itws, N) {
         for (var i2 = 0;i2 < N; i2++)
           rtws[i2] = rws[rbt[i2]], itws[i2] = iws[rbt[i2]];
-      }, FFTM.prototype.transform = function transform(rws, iws, rtws, itws, N, rbt) {
+      }, FFTM.prototype.transform = function(rws, iws, rtws, itws, N, rbt) {
         this.permute(rbt, rws, iws, rtws, itws, N);
         for (var s = 1;s < N; s <<= 1) {
           var l = s << 1, rtwdf = Math.cos(2 * Math.PI / l), itwdf = Math.sin(2 * Math.PI / l);
@@ -15582,19 +15582,19 @@ var init_crypto = __esm(() => {
             }
           }
         }
-      }, FFTM.prototype.guessLen13b = function guessLen13b(n, m) {
+      }, FFTM.prototype.guessLen13b = function(n, m) {
         var N = Math.max(m, n) | 1, odd = N & 1, i2 = 0;
         for (N = N / 2 | 0;N; N = N >>> 1)
           i2++;
         return 1 << i2 + 1 + odd;
-      }, FFTM.prototype.conjugate = function conjugate(rws, iws, N) {
+      }, FFTM.prototype.conjugate = function(rws, iws, N) {
         if (N <= 1)
           return;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var t = rws[i2];
           rws[i2] = rws[N - i2 - 1], rws[N - i2 - 1] = t, t = iws[i2], iws[i2] = -iws[N - i2 - 1], iws[N - i2 - 1] = -t;
         }
-      }, FFTM.prototype.normalize13b = function normalize13b(ws, N) {
+      }, FFTM.prototype.normalize13b = function(ws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var w = Math.round(ws[2 * i2 + 1] / N) * 8192 + Math.round(ws[2 * i2] / N) + carry;
@@ -15604,35 +15604,35 @@ var init_crypto = __esm(() => {
             carry = w / 67108864 | 0;
         }
         return ws;
-      }, FFTM.prototype.convert13b = function convert13b(ws, len2, rws, N) {
+      }, FFTM.prototype.convert13b = function(ws, len2, rws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < len2; i2++)
           carry = carry + (ws[i2] | 0), rws[2 * i2] = carry & 8191, carry = carry >>> 13, rws[2 * i2 + 1] = carry & 8191, carry = carry >>> 13;
         for (i2 = 2 * len2;i2 < N; ++i2)
           rws[i2] = 0;
         assert(carry === 0), assert((carry & -8192) === 0);
-      }, FFTM.prototype.stub = function stub(N) {
-        var ph = new Array(N);
+      }, FFTM.prototype.stub = function(N) {
+        var ph = Array(N);
         for (var i2 = 0;i2 < N; i2++)
           ph[i2] = 0;
         return ph;
-      }, FFTM.prototype.mulp = function mulp(x, y, out) {
-        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = new Array(N), rwst = new Array(N), iwst = new Array(N), nrws = new Array(N), nrwst = new Array(N), niwst = new Array(N), rmws = out.words;
+      }, FFTM.prototype.mulp = function(x, y, out) {
+        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = Array(N), rwst = Array(N), iwst = Array(N), nrws = Array(N), nrwst = Array(N), niwst = Array(N), rmws = out.words;
         rmws.length = N, this.convert13b(x.words, x.length, rws, N), this.convert13b(y.words, y.length, nrws, N), this.transform(rws, _, rwst, iwst, N, rbt), this.transform(nrws, _, nrwst, niwst, N, rbt);
         for (var i2 = 0;i2 < N; i2++) {
           var rx = rwst[i2] * nrwst[i2] - iwst[i2] * niwst[i2];
           iwst[i2] = rwst[i2] * niwst[i2] + iwst[i2] * nrwst[i2], rwst[i2] = rx;
         }
         return this.conjugate(rwst, iwst, N), this.transform(rwst, iwst, rmws, _, N, rbt), this.conjugate(rmws, _, N), this.normalize13b(rmws, N), out.negative = x.negative ^ y.negative, out.length = x.length + y.length, out.strip();
-      }, BN.prototype.mul = function mul(num) {
+      }, BN.prototype.mul = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), this.mulTo(num, out);
-      }, BN.prototype.mulf = function mulf(num) {
+        return out.words = Array(this.length + num.length), this.mulTo(num, out);
+      }, BN.prototype.mulf = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), jumboMulTo(this, num, out);
-      }, BN.prototype.imul = function imul(num) {
+        return out.words = Array(this.length + num.length), jumboMulTo(this, num, out);
+      }, BN.prototype.imul = function(num) {
         return this.clone().mulTo(num, this);
-      }, BN.prototype.imuln = function imuln(num) {
+      }, BN.prototype.imuln = function(num) {
         assert(typeof num === "number"), assert(num < 67108864);
         var carry = 0;
         for (var i2 = 0;i2 < this.length; i2++) {
@@ -15642,13 +15642,13 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this.length = num === 0 ? 1 : this.length, this;
-      }, BN.prototype.muln = function muln(num) {
+      }, BN.prototype.muln = function(num) {
         return this.clone().imuln(num);
-      }, BN.prototype.sqr = function sqr() {
+      }, BN.prototype.sqr = function() {
         return this.mul(this);
-      }, BN.prototype.isqr = function isqr() {
+      }, BN.prototype.isqr = function() {
         return this.imul(this.clone());
-      }, BN.prototype.pow = function pow(num) {
+      }, BN.prototype.pow = function(num) {
         var w = toBitArray(num);
         if (w.length === 0)
           return new BN(1);
@@ -15663,7 +15663,7 @@ var init_crypto = __esm(() => {
             res = res.mul(q);
           }
         return res;
-      }, BN.prototype.iushln = function iushln(bits) {
+      }, BN.prototype.iushln = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26, carryMask = 67108863 >>> 26 - r << 26 - r, i2;
         if (r !== 0) {
@@ -15683,9 +15683,9 @@ var init_crypto = __esm(() => {
           this.length += s;
         }
         return this.strip();
-      }, BN.prototype.ishln = function ishln(bits) {
+      }, BN.prototype.ishln = function(bits) {
         return assert(this.negative === 0), this.iushln(bits);
-      }, BN.prototype.iushrn = function iushrn(bits, hint, extended) {
+      }, BN.prototype.iushrn = function(bits, hint, extended) {
         assert(typeof bits === "number" && bits >= 0);
         var h;
         if (hint)
@@ -15716,24 +15716,24 @@ var init_crypto = __esm(() => {
         if (this.length === 0)
           this.words[0] = 0, this.length = 1;
         return this.strip();
-      }, BN.prototype.ishrn = function ishrn(bits, hint, extended) {
+      }, BN.prototype.ishrn = function(bits, hint, extended) {
         return assert(this.negative === 0), this.iushrn(bits, hint, extended);
-      }, BN.prototype.shln = function shln(bits) {
+      }, BN.prototype.shln = function(bits) {
         return this.clone().ishln(bits);
-      }, BN.prototype.ushln = function ushln(bits) {
+      }, BN.prototype.ushln = function(bits) {
         return this.clone().iushln(bits);
-      }, BN.prototype.shrn = function shrn(bits) {
+      }, BN.prototype.shrn = function(bits) {
         return this.clone().ishrn(bits);
-      }, BN.prototype.ushrn = function ushrn(bits) {
+      }, BN.prototype.ushrn = function(bits) {
         return this.clone().iushrn(bits);
-      }, BN.prototype.testn = function testn(bit) {
+      }, BN.prototype.testn = function(bit) {
         assert(typeof bit === "number" && bit >= 0);
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
           return false;
         var w = this.words[s];
         return !!(w & q);
-      }, BN.prototype.imaskn = function imaskn(bits) {
+      }, BN.prototype.imaskn = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26;
         if (assert(this.negative === 0, "imaskn works only with positive numbers"), this.length <= s)
@@ -15745,9 +15745,9 @@ var init_crypto = __esm(() => {
           this.words[this.length - 1] &= mask;
         }
         return this.strip();
-      }, BN.prototype.maskn = function maskn(bits) {
+      }, BN.prototype.maskn = function(bits) {
         return this.clone().imaskn(bits);
-      }, BN.prototype.iaddn = function iaddn(num) {
+      }, BN.prototype.iaddn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.isubn(-num);
         if (this.negative !== 0) {
@@ -15756,7 +15756,7 @@ var init_crypto = __esm(() => {
           return this.negative = 0, this.isubn(num), this.negative = 1, this;
         }
         return this._iaddn(num);
-      }, BN.prototype._iaddn = function _iaddn(num) {
+      }, BN.prototype._iaddn = function(num) {
         this.words[0] += num;
         for (var i2 = 0;i2 < this.length && this.words[i2] >= 67108864; i2++)
           if (this.words[i2] -= 67108864, i2 === this.length - 1)
@@ -15764,7 +15764,7 @@ var init_crypto = __esm(() => {
           else
             this.words[i2 + 1]++;
         return this.length = Math.max(this.length, i2 + 1), this;
-      }, BN.prototype.isubn = function isubn(num) {
+      }, BN.prototype.isubn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.iaddn(-num);
         if (this.negative !== 0)
@@ -15775,15 +15775,15 @@ var init_crypto = __esm(() => {
           for (var i2 = 0;i2 < this.length && this.words[i2] < 0; i2++)
             this.words[i2] += 67108864, this.words[i2 + 1] -= 1;
         return this.strip();
-      }, BN.prototype.addn = function addn(num) {
+      }, BN.prototype.addn = function(num) {
         return this.clone().iaddn(num);
-      }, BN.prototype.subn = function subn(num) {
+      }, BN.prototype.subn = function(num) {
         return this.clone().isubn(num);
-      }, BN.prototype.iabs = function iabs() {
+      }, BN.prototype.iabs = function() {
         return this.negative = 0, this;
-      }, BN.prototype.abs = function abs() {
+      }, BN.prototype.abs = function() {
         return this.clone().iabs();
-      }, BN.prototype._ishlnsubmul = function _ishlnsubmul(num, mul, shift) {
+      }, BN.prototype._ishlnsubmul = function(num, mul, shift) {
         var len2 = num.length + shift, i2;
         this._expand(len2);
         var w, carry = 0;
@@ -15800,13 +15800,13 @@ var init_crypto = __esm(() => {
         for (i2 = 0;i2 < this.length; i2++)
           w = -(this.words[i2] | 0) + carry, carry = w >> 26, this.words[i2] = w & 67108863;
         return this.negative = 1, this.strip();
-      }, BN.prototype._wordDiv = function _wordDiv(num, mode) {
+      }, BN.prototype._wordDiv = function(num, mode) {
         var shift = this.length - num.length, a = this.clone(), b = num, bhi = b.words[b.length - 1] | 0, bhiBits = this._countBits(bhi);
         if (shift = 26 - bhiBits, shift !== 0)
           b = b.ushln(shift), a.iushln(shift), bhi = b.words[b.length - 1] | 0;
         var m = a.length - b.length, q;
         if (mode !== "mod") {
-          q = new BN(null), q.length = m + 1, q.words = new Array(q.length);
+          q = new BN(null), q.length = m + 1, q.words = Array(q.length);
           for (var i2 = 0;i2 < q.length; i2++)
             q.words[i2] = 0;
         }
@@ -15829,7 +15829,7 @@ var init_crypto = __esm(() => {
         if (a.strip(), mode !== "div" && shift !== 0)
           a.iushrn(shift);
         return { div: q || null, mod: a };
-      }, BN.prototype.divmod = function divmod(num, mode, positive) {
+      }, BN.prototype.divmod = function(num, mode, positive) {
         if (assert(!num.isZero()), this.isZero())
           return { div: new BN(0), mod: new BN(0) };
         var div, mod, res;
@@ -15864,13 +15864,13 @@ var init_crypto = __esm(() => {
           return { div: this.divn(num.words[0]), mod: new BN(this.modn(num.words[0])) };
         }
         return this._wordDiv(num, mode);
-      }, BN.prototype.div = function div(num) {
+      }, BN.prototype.div = function(num) {
         return this.divmod(num, "div", false).div;
-      }, BN.prototype.mod = function mod(num) {
+      }, BN.prototype.mod = function(num) {
         return this.divmod(num, "mod", false).mod;
-      }, BN.prototype.umod = function umod(num) {
+      }, BN.prototype.umod = function(num) {
         return this.divmod(num, "mod", true).mod;
-      }, BN.prototype.divRound = function divRound(num) {
+      }, BN.prototype.divRound = function(num) {
         var dm = this.divmod(num);
         if (dm.mod.isZero())
           return dm.div;
@@ -15878,13 +15878,13 @@ var init_crypto = __esm(() => {
         if (cmp < 0 || r2 === 1 && cmp === 0)
           return dm.div;
         return dm.div.negative !== 0 ? dm.div.isubn(1) : dm.div.iaddn(1);
-      }, BN.prototype.modn = function modn(num) {
+      }, BN.prototype.modn = function(num) {
         assert(num <= 67108863);
         var p = 67108864 % num, acc = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--)
           acc = (p * acc + (this.words[i2] | 0)) % num;
         return acc;
-      }, BN.prototype.idivn = function idivn(num) {
+      }, BN.prototype.idivn = function(num) {
         assert(num <= 67108863);
         var carry = 0;
         for (var i2 = this.length - 1;i2 >= 0; i2--) {
@@ -15892,9 +15892,9 @@ var init_crypto = __esm(() => {
           this.words[i2] = w / num | 0, carry = w % num;
         }
         return this.strip();
-      }, BN.prototype.divn = function divn(num) {
+      }, BN.prototype.divn = function(num) {
         return this.clone().idivn(num);
-      }, BN.prototype.egcd = function egcd(p) {
+      }, BN.prototype.egcd = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var x = this, y = p.clone();
         if (x.negative !== 0)
@@ -15932,7 +15932,7 @@ var init_crypto = __esm(() => {
             y.isub(x), C.isub(A), D.isub(B);
         }
         return { a: C, b: D, gcd: y.iushln(g) };
-      }, BN.prototype._invmp = function _invmp(p) {
+      }, BN.prototype._invmp = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var a = this, b = p.clone();
         if (a.negative !== 0)
@@ -15974,7 +15974,7 @@ var init_crypto = __esm(() => {
         if (res.cmpn(0) < 0)
           res.iadd(p);
         return res;
-      }, BN.prototype.gcd = function gcd(num) {
+      }, BN.prototype.gcd = function(num) {
         if (this.isZero())
           return num.abs();
         if (num.isZero())
@@ -15997,15 +15997,15 @@ var init_crypto = __esm(() => {
           a.isub(b);
         } while (true);
         return b.iushln(shift);
-      }, BN.prototype.invm = function invm(num) {
+      }, BN.prototype.invm = function(num) {
         return this.egcd(num).a.umod(num);
-      }, BN.prototype.isEven = function isEven() {
+      }, BN.prototype.isEven = function() {
         return (this.words[0] & 1) === 0;
-      }, BN.prototype.isOdd = function isOdd() {
+      }, BN.prototype.isOdd = function() {
         return (this.words[0] & 1) === 1;
-      }, BN.prototype.andln = function andln(num) {
+      }, BN.prototype.andln = function(num) {
         return this.words[0] & num;
-      }, BN.prototype.bincn = function bincn(bit) {
+      }, BN.prototype.bincn = function(bit) {
         assert(typeof bit === "number");
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
@@ -16018,9 +16018,9 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this;
-      }, BN.prototype.isZero = function isZero() {
+      }, BN.prototype.isZero = function() {
         return this.length === 1 && this.words[0] === 0;
-      }, BN.prototype.cmpn = function cmpn(num) {
+      }, BN.prototype.cmpn = function(num) {
         var negative = num < 0;
         if (this.negative !== 0 && !negative)
           return -1;
@@ -16040,7 +16040,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.cmp = function cmp(num) {
+      }, BN.prototype.cmp = function(num) {
         if (this.negative !== 0 && num.negative === 0)
           return -1;
         if (this.negative === 0 && num.negative !== 0)
@@ -16049,7 +16049,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.ucmp = function ucmp(num) {
+      }, BN.prototype.ucmp = function(num) {
         if (this.length > num.length)
           return 1;
         if (this.length < num.length)
@@ -16066,71 +16066,71 @@ var init_crypto = __esm(() => {
           break;
         }
         return res;
-      }, BN.prototype.gtn = function gtn(num) {
+      }, BN.prototype.gtn = function(num) {
         return this.cmpn(num) === 1;
-      }, BN.prototype.gt = function gt(num) {
+      }, BN.prototype.gt = function(num) {
         return this.cmp(num) === 1;
-      }, BN.prototype.gten = function gten(num) {
+      }, BN.prototype.gten = function(num) {
         return this.cmpn(num) >= 0;
-      }, BN.prototype.gte = function gte(num) {
+      }, BN.prototype.gte = function(num) {
         return this.cmp(num) >= 0;
-      }, BN.prototype.ltn = function ltn(num) {
+      }, BN.prototype.ltn = function(num) {
         return this.cmpn(num) === -1;
-      }, BN.prototype.lt = function lt(num) {
+      }, BN.prototype.lt = function(num) {
         return this.cmp(num) === -1;
-      }, BN.prototype.lten = function lten(num) {
+      }, BN.prototype.lten = function(num) {
         return this.cmpn(num) <= 0;
-      }, BN.prototype.lte = function lte(num) {
+      }, BN.prototype.lte = function(num) {
         return this.cmp(num) <= 0;
-      }, BN.prototype.eqn = function eqn(num) {
+      }, BN.prototype.eqn = function(num) {
         return this.cmpn(num) === 0;
-      }, BN.prototype.eq = function eq(num) {
+      }, BN.prototype.eq = function(num) {
         return this.cmp(num) === 0;
-      }, BN.red = function red(num) {
+      }, BN.red = function(num) {
         return new Red(num);
-      }, BN.prototype.toRed = function toRed(ctx) {
+      }, BN.prototype.toRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), assert(this.negative === 0, "red works only with positives"), ctx.convertTo(this)._forceRed(ctx);
-      }, BN.prototype.fromRed = function fromRed() {
+      }, BN.prototype.fromRed = function() {
         return assert(this.red, "fromRed works only with numbers in reduction context"), this.red.convertFrom(this);
-      }, BN.prototype._forceRed = function _forceRed(ctx) {
+      }, BN.prototype._forceRed = function(ctx) {
         return this.red = ctx, this;
-      }, BN.prototype.forceRed = function forceRed(ctx) {
+      }, BN.prototype.forceRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), this._forceRed(ctx);
-      }, BN.prototype.redAdd = function redAdd(num) {
+      }, BN.prototype.redAdd = function(num) {
         return assert(this.red, "redAdd works only with red numbers"), this.red.add(this, num);
-      }, BN.prototype.redIAdd = function redIAdd(num) {
+      }, BN.prototype.redIAdd = function(num) {
         return assert(this.red, "redIAdd works only with red numbers"), this.red.iadd(this, num);
-      }, BN.prototype.redSub = function redSub(num) {
+      }, BN.prototype.redSub = function(num) {
         return assert(this.red, "redSub works only with red numbers"), this.red.sub(this, num);
-      }, BN.prototype.redISub = function redISub(num) {
+      }, BN.prototype.redISub = function(num) {
         return assert(this.red, "redISub works only with red numbers"), this.red.isub(this, num);
-      }, BN.prototype.redShl = function redShl(num) {
+      }, BN.prototype.redShl = function(num) {
         return assert(this.red, "redShl works only with red numbers"), this.red.shl(this, num);
-      }, BN.prototype.redMul = function redMul(num) {
+      }, BN.prototype.redMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.mul(this, num);
-      }, BN.prototype.redIMul = function redIMul(num) {
+      }, BN.prototype.redIMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.imul(this, num);
-      }, BN.prototype.redSqr = function redSqr() {
+      }, BN.prototype.redSqr = function() {
         return assert(this.red, "redSqr works only with red numbers"), this.red._verify1(this), this.red.sqr(this);
-      }, BN.prototype.redISqr = function redISqr() {
+      }, BN.prototype.redISqr = function() {
         return assert(this.red, "redISqr works only with red numbers"), this.red._verify1(this), this.red.isqr(this);
-      }, BN.prototype.redSqrt = function redSqrt() {
+      }, BN.prototype.redSqrt = function() {
         return assert(this.red, "redSqrt works only with red numbers"), this.red._verify1(this), this.red.sqrt(this);
-      }, BN.prototype.redInvm = function redInvm() {
+      }, BN.prototype.redInvm = function() {
         return assert(this.red, "redInvm works only with red numbers"), this.red._verify1(this), this.red.invm(this);
-      }, BN.prototype.redNeg = function redNeg() {
+      }, BN.prototype.redNeg = function() {
         return assert(this.red, "redNeg works only with red numbers"), this.red._verify1(this), this.red.neg(this);
-      }, BN.prototype.redPow = function redPow(num) {
+      }, BN.prototype.redPow = function(num) {
         return assert(this.red && !num.red, "redPow(normalNum)"), this.red._verify1(this), this.red.pow(this, num);
       };
       var primes = { k256: null, p224: null, p192: null, p25519: null };
       function MPrime(name, p) {
         this.name = name, this.p = new BN(p, 16), this.n = this.p.bitLength(), this.k = new BN(1).iushln(this.n).isub(this.p), this.tmp = this._tmp();
       }
-      MPrime.prototype._tmp = function _tmp() {
+      MPrime.prototype._tmp = function() {
         var tmp = new BN(null);
-        return tmp.words = new Array(Math.ceil(this.n / 13)), tmp;
-      }, MPrime.prototype.ireduce = function ireduce(num) {
+        return tmp.words = Array(Math.ceil(this.n / 13)), tmp;
+      }, MPrime.prototype.ireduce = function(num) {
         var r = num, rlen;
         do
           this.split(r, this.tmp), r = this.imulK(r), r = r.iadd(this.tmp), rlen = r.bitLength();
@@ -16145,15 +16145,15 @@ var init_crypto = __esm(() => {
         else
           r._strip();
         return r;
-      }, MPrime.prototype.split = function split(input, out) {
+      }, MPrime.prototype.split = function(input, out) {
         input.iushrn(this.n, 0, out);
-      }, MPrime.prototype.imulK = function imulK(num) {
+      }, MPrime.prototype.imulK = function(num) {
         return num.imul(this.k);
       };
       function K256() {
         MPrime.call(this, "k256", "ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f");
       }
-      inherits2(K256, MPrime), K256.prototype.split = function split(input, output) {
+      inherits2(K256, MPrime), K256.prototype.split = function(input, output) {
         var mask = 4194303, outLen = Math.min(input.length, 9);
         for (var i2 = 0;i2 < outLen; i2++)
           output.words[i2] = input.words[i2];
@@ -16171,7 +16171,7 @@ var init_crypto = __esm(() => {
           input.length -= 10;
         else
           input.length -= 9;
-      }, K256.prototype.imulK = function imulK(num) {
+      }, K256.prototype.imulK = function(num) {
         num.words[num.length] = 0, num.words[num.length + 1] = 0, num.length += 2;
         var lo = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
@@ -16195,7 +16195,7 @@ var init_crypto = __esm(() => {
       function P25519() {
         MPrime.call(this, "25519", "7fffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffed");
       }
-      inherits2(P25519, MPrime), P25519.prototype.imulK = function imulK(num) {
+      inherits2(P25519, MPrime), P25519.prototype.imulK = function(num) {
         var carry = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
           var hi = (num.words[i2] | 0) * 19 + carry, lo = hi & 67108863;
@@ -16204,7 +16204,7 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           num.words[num.length++] = carry;
         return num;
-      }, BN._prime = function prime(name) {
+      }, BN._prime = function(name) {
         if (primes[name])
           return primes[name];
         var prime;
@@ -16217,7 +16217,7 @@ var init_crypto = __esm(() => {
         else if (name === "p25519")
           prime = new P25519;
         else
-          throw new Error("Unknown prime " + name);
+          throw Error("Unknown prime " + name);
         return primes[name] = prime, prime;
       };
       function Red(m) {
@@ -16227,53 +16227,53 @@ var init_crypto = __esm(() => {
         } else
           assert(m.gtn(1), "modulus must be greater than 1"), this.m = m, this.prime = null;
       }
-      Red.prototype._verify1 = function _verify1(a) {
+      Red.prototype._verify1 = function(a) {
         assert(a.negative === 0, "red works only with positives"), assert(a.red, "red works only with red numbers");
-      }, Red.prototype._verify2 = function _verify2(a, b) {
+      }, Red.prototype._verify2 = function(a, b) {
         assert((a.negative | b.negative) === 0, "red works only with positives"), assert(a.red && a.red === b.red, "red works only with red numbers");
-      }, Red.prototype.imod = function imod(a) {
+      }, Red.prototype.imod = function(a) {
         if (this.prime)
           return this.prime.ireduce(a)._forceRed(this);
         return a.umod(this.m)._forceRed(this);
-      }, Red.prototype.neg = function neg(a) {
+      }, Red.prototype.neg = function(a) {
         if (a.isZero())
           return a.clone();
         return this.m.sub(a)._forceRed(this);
-      }, Red.prototype.add = function add(a, b) {
+      }, Red.prototype.add = function(a, b) {
         this._verify2(a, b);
         var res = a.add(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res._forceRed(this);
-      }, Red.prototype.iadd = function iadd(a, b) {
+      }, Red.prototype.iadd = function(a, b) {
         this._verify2(a, b);
         var res = a.iadd(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res;
-      }, Red.prototype.sub = function sub(a, b) {
+      }, Red.prototype.sub = function(a, b) {
         this._verify2(a, b);
         var res = a.sub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res._forceRed(this);
-      }, Red.prototype.isub = function isub(a, b) {
+      }, Red.prototype.isub = function(a, b) {
         this._verify2(a, b);
         var res = a.isub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res;
-      }, Red.prototype.shl = function shl(a, num) {
+      }, Red.prototype.shl = function(a, num) {
         return this._verify1(a), this.imod(a.ushln(num));
-      }, Red.prototype.imul = function imul(a, b) {
+      }, Red.prototype.imul = function(a, b) {
         return this._verify2(a, b), this.imod(a.imul(b));
-      }, Red.prototype.mul = function mul(a, b) {
+      }, Red.prototype.mul = function(a, b) {
         return this._verify2(a, b), this.imod(a.mul(b));
-      }, Red.prototype.isqr = function isqr(a) {
+      }, Red.prototype.isqr = function(a) {
         return this.imul(a, a.clone());
-      }, Red.prototype.sqr = function sqr(a) {
+      }, Red.prototype.sqr = function(a) {
         return this.mul(a, a);
-      }, Red.prototype.sqrt = function sqrt(a) {
+      }, Red.prototype.sqrt = function(a) {
         if (a.isZero())
           return a.clone();
         var mod3 = this.m.andln(3);
@@ -16299,18 +16299,18 @@ var init_crypto = __esm(() => {
           r = r.redMul(b), c = b.redSqr(), t = t.redMul(c), m = i2;
         }
         return r;
-      }, Red.prototype.invm = function invm(a) {
+      }, Red.prototype.invm = function(a) {
         var inv = a._invmp(this.m);
         if (inv.negative !== 0)
           return inv.negative = 0, this.imod(inv).redNeg();
         else
           return this.imod(inv);
-      }, Red.prototype.pow = function pow(a, num) {
+      }, Red.prototype.pow = function(a, num) {
         if (num.isZero())
           return new BN(1).toRed(this);
         if (num.cmpn(1) === 0)
           return a.clone();
-        var windowSize = 4, wnd = new Array(1 << windowSize);
+        var windowSize = 4, wnd = Array(1 << windowSize);
         wnd[0] = new BN(1).toRed(this), wnd[1] = a;
         for (var i2 = 2;i2 < wnd.length; i2++)
           wnd[i2] = this.mul(wnd[i2 - 1], a);
@@ -16334,13 +16334,13 @@ var init_crypto = __esm(() => {
           start = 26;
         }
         return res;
-      }, Red.prototype.convertTo = function convertTo(num) {
+      }, Red.prototype.convertTo = function(num) {
         var r = num.umod(this.m);
         return r === num ? r.clone() : r;
-      }, Red.prototype.convertFrom = function convertFrom(num) {
+      }, Red.prototype.convertFrom = function(num) {
         var res = num.clone();
         return res.red = null, res;
-      }, BN.mont = function mont(num) {
+      }, BN.mont = function(num) {
         return new Mont(num);
       };
       function Mont(m) {
@@ -16348,12 +16348,12 @@ var init_crypto = __esm(() => {
           this.shift += 26 - this.shift % 26;
         this.r = new BN(1).iushln(this.shift), this.r2 = this.imod(this.r.sqr()), this.rinv = this.r._invmp(this.m), this.minv = this.rinv.mul(this.r).isubn(1).div(this.m), this.minv = this.minv.umod(this.r), this.minv = this.r.sub(this.minv);
       }
-      inherits2(Mont, Red), Mont.prototype.convertTo = function convertTo(num) {
+      inherits2(Mont, Red), Mont.prototype.convertTo = function(num) {
         return this.imod(num.ushln(this.shift));
-      }, Mont.prototype.convertFrom = function convertFrom(num) {
+      }, Mont.prototype.convertFrom = function(num) {
         var r = this.imod(num.mul(this.rinv));
         return r.red = null, r;
-      }, Mont.prototype.imul = function imul(a, b) {
+      }, Mont.prototype.imul = function(a, b) {
         if (a.isZero() || b.isZero())
           return a.words[0] = 0, a.length = 1, a;
         var t = a.imul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -16362,7 +16362,7 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.mul = function mul(a, b) {
+      }, Mont.prototype.mul = function(a, b) {
         if (a.isZero() || b.isZero())
           return new BN(0)._forceRed(this);
         var t = a.mul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -16371,11 +16371,11 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.invm = function invm(a) {
+      }, Mont.prototype.invm = function(a) {
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(typeof module === "undefined" || module, exports);
+    })(typeof module > "u" || module, exports);
   });
   require_withPublic = __commonJS2((exports, module) => {
     var BN = require_bn4(), Buffer22 = require_safe_buffer().Buffer;
@@ -16388,7 +16388,7 @@ var init_crypto = __esm(() => {
     (function(module2, exports2) {
       function assert(val, msg) {
         if (!val)
-          throw new Error(msg || "Assertion failed");
+          throw Error(msg || "Assertion failed");
       }
       function inherits2(ctor, superCtor) {
         ctor.super_ = superCtor;
@@ -16411,24 +16411,24 @@ var init_crypto = __esm(() => {
       BN.BN = BN, BN.wordSize = 26;
       var Buffer22;
       try {
-        if (typeof window !== "undefined" && typeof window.Buffer !== "undefined")
+        if (typeof window < "u" && typeof window.Buffer < "u")
           Buffer22 = window.Buffer;
         else
           Buffer22 = (init_buffer(), __toCommonJS(exports_buffer)).Buffer;
       } catch (e) {}
-      BN.isBN = function isBN(num) {
+      BN.isBN = function(num) {
         if (num instanceof BN)
           return true;
         return num !== null && typeof num === "object" && num.constructor.wordSize === BN.wordSize && Array.isArray(num.words);
-      }, BN.max = function max(left, right) {
+      }, BN.max = function(left, right) {
         if (left.cmp(right) > 0)
           return left;
         return right;
-      }, BN.min = function min(left, right) {
+      }, BN.min = function(left, right) {
         if (left.cmp(right) < 0)
           return left;
         return right;
-      }, BN.prototype._init = function init(number, base, endian) {
+      }, BN.prototype._init = function(number, base, endian) {
         if (typeof number === "number")
           return this._initNumber(number, base, endian);
         if (typeof number === "object")
@@ -16445,7 +16445,7 @@ var init_crypto = __esm(() => {
           else if (this._parseBase(number, base, start), endian === "le")
             this._initArray(this.toArray(), base, endian);
         }
-      }, BN.prototype._initNumber = function _initNumber(number, base, endian) {
+      }, BN.prototype._initNumber = function(number, base, endian) {
         if (number < 0)
           this.negative = 1, number = -number;
         if (number < 67108864)
@@ -16457,10 +16457,10 @@ var init_crypto = __esm(() => {
         if (endian !== "le")
           return;
         this._initArray(this.toArray(), base, endian);
-      }, BN.prototype._initArray = function _initArray(number, base, endian) {
+      }, BN.prototype._initArray = function(number, base, endian) {
         if (assert(typeof number.length === "number"), number.length <= 0)
           return this.words = [0], this.length = 1, this;
-        this.length = Math.ceil(number.length / 3), this.words = new Array(this.length);
+        this.length = Math.ceil(number.length / 3), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var j, w, off = 0;
@@ -16492,8 +16492,8 @@ var init_crypto = __esm(() => {
           r |= parseHex4Bits(string, index - 1) << 4;
         return r;
       }
-      BN.prototype._parseHex = function _parseHex(number, start, endian) {
-        this.length = Math.ceil((number.length - start) / 6), this.words = new Array(this.length);
+      BN.prototype._parseHex = function(number, start, endian) {
+        this.length = Math.ceil((number.length - start) / 6), this.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           this.words[i2] = 0;
         var off = 0, j = 0, w;
@@ -16527,7 +16527,7 @@ var init_crypto = __esm(() => {
         }
         return r;
       }
-      BN.prototype._parseBase = function _parseBase(number, base, start) {
+      BN.prototype._parseBase = function(number, base, start) {
         this.words = [0], this.length = 1;
         for (var limbLen = 0, limbPow = 1;limbPow <= 67108863; limbPow *= base)
           limbLen++;
@@ -16549,8 +16549,8 @@ var init_crypto = __esm(() => {
             this._iaddn(word);
         }
         this._strip();
-      }, BN.prototype.copy = function copy(dest) {
-        dest.words = new Array(this.length);
+      }, BN.prototype.copy = function(dest) {
+        dest.words = Array(this.length);
         for (var i2 = 0;i2 < this.length; i2++)
           dest.words[i2] = this.words[i2];
         dest.length = this.length, dest.negative = this.negative, dest.red = this.red;
@@ -16558,36 +16558,36 @@ var init_crypto = __esm(() => {
       function move(dest, src) {
         dest.words = src.words, dest.length = src.length, dest.negative = src.negative, dest.red = src.red;
       }
-      if (BN.prototype._move = function _move(dest) {
+      if (BN.prototype._move = function(dest) {
         move(dest, this);
-      }, BN.prototype.clone = function clone() {
+      }, BN.prototype.clone = function() {
         var r = new BN(null);
         return this.copy(r), r;
-      }, BN.prototype._expand = function _expand(size) {
+      }, BN.prototype._expand = function(size) {
         while (this.length < size)
           this.words[this.length++] = 0;
         return this;
-      }, BN.prototype._strip = function strip() {
+      }, BN.prototype._strip = function() {
         while (this.length > 1 && this.words[this.length - 1] === 0)
           this.length--;
         return this._normSign();
-      }, BN.prototype._normSign = function _normSign() {
+      }, BN.prototype._normSign = function() {
         if (this.length === 1 && this.words[0] === 0)
           this.negative = 0;
         return this;
-      }, typeof Symbol !== "undefined" && typeof Symbol.for === "function")
+      }, typeof Symbol < "u" && typeof Symbol.for === "function")
         try {
-          BN.prototype[Symbol.for("nodejs.util.inspect.custom")] = inspect3;
+          BN.prototype[Symbol.for("nodejs.util.inspect.custom")] = inspect2;
         } catch (e) {
-          BN.prototype.inspect = inspect3;
+          BN.prototype.inspect = inspect2;
         }
       else
-        BN.prototype.inspect = inspect3;
-      function inspect3() {
+        BN.prototype.inspect = inspect2;
+      function inspect2() {
         return (this.red ? "<BN-R: " : "<BN: ") + this.toString(16) + ">";
       }
       var zeros = ["", "0", "00", "000", "0000", "00000", "000000", "0000000", "00000000", "000000000", "0000000000", "00000000000", "000000000000", "0000000000000", "00000000000000", "000000000000000", "0000000000000000", "00000000000000000", "000000000000000000", "0000000000000000000", "00000000000000000000", "000000000000000000000", "0000000000000000000000", "00000000000000000000000", "000000000000000000000000", "0000000000000000000000000"], groupSizes = [0, 0, 25, 16, 12, 11, 10, 9, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], groupBases = [0, 0, 33554432, 43046721, 16777216, 48828125, 60466176, 40353607, 16777216, 43046721, 1e7, 19487171, 35831808, 62748517, 7529536, 11390625, 16777216, 24137569, 34012224, 47045881, 64000000, 4084101, 5153632, 6436343, 7962624, 9765625, 11881376, 14348907, 17210368, 20511149, 24300000, 28629151, 33554432, 39135393, 45435424, 52521875, 60466176];
-      if (BN.prototype.toString = function toString(base, padding) {
+      if (BN.prototype.toString = function(base, padding) {
         base = base || 10, padding = padding | 0 || 1;
         var out;
         if (base === 16 || base === "hex") {
@@ -16631,7 +16631,7 @@ var init_crypto = __esm(() => {
           return out;
         }
         assert(false, "Base should be between 2 and 36");
-      }, BN.prototype.toNumber = function toNumber() {
+      }, BN.prototype.toNumber = function() {
         var ret = this.words[0];
         if (this.length === 2)
           ret += this.words[1] * 67108864;
@@ -16640,27 +16640,27 @@ var init_crypto = __esm(() => {
         else if (this.length > 2)
           assert(false, "Number can only safely store up to 53 bits");
         return this.negative !== 0 ? -ret : ret;
-      }, BN.prototype.toJSON = function toJSON() {
+      }, BN.prototype.toJSON = function() {
         return this.toString(16, 2);
       }, Buffer22)
-        BN.prototype.toBuffer = function toBuffer(endian, length) {
+        BN.prototype.toBuffer = function(endian, length) {
           return this.toArrayLike(Buffer22, endian, length);
         };
-      BN.prototype.toArray = function toArray(endian, length) {
+      BN.prototype.toArray = function(endian, length) {
         return this.toArrayLike(Array, endian, length);
       };
-      var allocate = function allocate(ArrayType, size) {
+      var allocate = function(ArrayType, size) {
         if (ArrayType.allocUnsafe)
           return ArrayType.allocUnsafe(size);
         return new ArrayType(size);
       };
-      if (BN.prototype.toArrayLike = function toArrayLike(ArrayType, endian, length) {
+      if (BN.prototype.toArrayLike = function(ArrayType, endian, length) {
         this._strip();
         var byteLength2 = this.byteLength(), reqLength = length || Math.max(1, byteLength2);
         assert(byteLength2 <= reqLength, "byte array longer than desired length"), assert(reqLength > 0, "Requested array length <= 0");
         var res = allocate(ArrayType, reqLength), postfix = endian === "le" ? "LE" : "BE";
         return this["_toArrayLike" + postfix](res, byteLength2), res;
-      }, BN.prototype._toArrayLikeLE = function _toArrayLikeLE(res, byteLength2) {
+      }, BN.prototype._toArrayLikeLE = function(res, byteLength2) {
         var position = 0, carry = 0;
         for (var i2 = 0, shift = 0;i2 < this.length; i2++) {
           var word = this.words[i2] << shift | carry;
@@ -16680,7 +16680,7 @@ var init_crypto = __esm(() => {
           while (position < res.length)
             res[position++] = 0;
         }
-      }, BN.prototype._toArrayLikeBE = function _toArrayLikeBE(res, byteLength2) {
+      }, BN.prototype._toArrayLikeBE = function(res, byteLength2) {
         var position = res.length - 1, carry = 0;
         for (var i2 = 0, shift = 0;i2 < this.length; i2++) {
           var word = this.words[i2] << shift | carry;
@@ -16701,11 +16701,11 @@ var init_crypto = __esm(() => {
             res[position--] = 0;
         }
       }, Math.clz32)
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           return 32 - Math.clz32(w);
         };
       else
-        BN.prototype._countBits = function _countBits(w) {
+        BN.prototype._countBits = function(w) {
           var t = w, r = 0;
           if (t >= 4096)
             r += 13, t >>>= 13;
@@ -16717,7 +16717,7 @@ var init_crypto = __esm(() => {
             r += 2, t >>>= 2;
           return r + t;
         };
-      BN.prototype._zeroBits = function _zeroBits(w) {
+      BN.prototype._zeroBits = function(w) {
         if (w === 0)
           return 26;
         var t = w, r = 0;
@@ -16732,19 +16732,19 @@ var init_crypto = __esm(() => {
         if ((t & 1) === 0)
           r++;
         return r;
-      }, BN.prototype.bitLength = function bitLength() {
+      }, BN.prototype.bitLength = function() {
         var w = this.words[this.length - 1], hi = this._countBits(w);
         return (this.length - 1) * 26 + hi;
       };
       function toBitArray(num) {
-        var w = new Array(num.bitLength());
+        var w = Array(num.bitLength());
         for (var bit = 0;bit < w.length; bit++) {
           var off = bit / 26 | 0, wbit = bit % 26;
           w[bit] = num.words[off] >>> wbit & 1;
         }
         return w;
       }
-      BN.prototype.zeroBits = function zeroBits() {
+      BN.prototype.zeroBits = function() {
         if (this.isZero())
           return 0;
         var r = 0;
@@ -16754,41 +16754,41 @@ var init_crypto = __esm(() => {
             break;
         }
         return r;
-      }, BN.prototype.byteLength = function byteLength() {
+      }, BN.prototype.byteLength = function() {
         return Math.ceil(this.bitLength() / 8);
-      }, BN.prototype.toTwos = function toTwos(width) {
+      }, BN.prototype.toTwos = function(width) {
         if (this.negative !== 0)
           return this.abs().inotn(width).iaddn(1);
         return this.clone();
-      }, BN.prototype.fromTwos = function fromTwos(width) {
+      }, BN.prototype.fromTwos = function(width) {
         if (this.testn(width - 1))
           return this.notn(width).iaddn(1).ineg();
         return this.clone();
-      }, BN.prototype.isNeg = function isNeg() {
+      }, BN.prototype.isNeg = function() {
         return this.negative !== 0;
-      }, BN.prototype.neg = function neg() {
+      }, BN.prototype.neg = function() {
         return this.clone().ineg();
-      }, BN.prototype.ineg = function ineg() {
+      }, BN.prototype.ineg = function() {
         if (!this.isZero())
           this.negative ^= 1;
         return this;
-      }, BN.prototype.iuor = function iuor(num) {
+      }, BN.prototype.iuor = function(num) {
         while (this.length < num.length)
           this.words[this.length++] = 0;
         for (var i2 = 0;i2 < num.length; i2++)
           this.words[i2] = this.words[i2] | num.words[i2];
         return this._strip();
-      }, BN.prototype.ior = function ior(num) {
+      }, BN.prototype.ior = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuor(num);
-      }, BN.prototype.or = function or(num) {
+      }, BN.prototype.or = function(num) {
         if (this.length > num.length)
           return this.clone().ior(num);
         return num.clone().ior(this);
-      }, BN.prototype.uor = function uor(num) {
+      }, BN.prototype.uor = function(num) {
         if (this.length > num.length)
           return this.clone().iuor(num);
         return num.clone().iuor(this);
-      }, BN.prototype.iuand = function iuand(num) {
+      }, BN.prototype.iuand = function(num) {
         var b;
         if (this.length > num.length)
           b = num;
@@ -16797,17 +16797,17 @@ var init_crypto = __esm(() => {
         for (var i2 = 0;i2 < b.length; i2++)
           this.words[i2] = this.words[i2] & num.words[i2];
         return this.length = b.length, this._strip();
-      }, BN.prototype.iand = function iand(num) {
+      }, BN.prototype.iand = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuand(num);
-      }, BN.prototype.and = function and(num) {
+      }, BN.prototype.and = function(num) {
         if (this.length > num.length)
           return this.clone().iand(num);
         return num.clone().iand(this);
-      }, BN.prototype.uand = function uand(num) {
+      }, BN.prototype.uand = function(num) {
         if (this.length > num.length)
           return this.clone().iuand(num);
         return num.clone().iuand(this);
-      }, BN.prototype.iuxor = function iuxor(num) {
+      }, BN.prototype.iuxor = function(num) {
         var a, b;
         if (this.length > num.length)
           a = this, b = num;
@@ -16819,17 +16819,17 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this.length = a.length, this._strip();
-      }, BN.prototype.ixor = function ixor(num) {
+      }, BN.prototype.ixor = function(num) {
         return assert((this.negative | num.negative) === 0), this.iuxor(num);
-      }, BN.prototype.xor = function xor(num) {
+      }, BN.prototype.xor = function(num) {
         if (this.length > num.length)
           return this.clone().ixor(num);
         return num.clone().ixor(this);
-      }, BN.prototype.uxor = function uxor(num) {
+      }, BN.prototype.uxor = function(num) {
         if (this.length > num.length)
           return this.clone().iuxor(num);
         return num.clone().iuxor(this);
-      }, BN.prototype.inotn = function inotn(width) {
+      }, BN.prototype.inotn = function(width) {
         assert(typeof width === "number" && width >= 0);
         var bytesNeeded = Math.ceil(width / 26) | 0, bitsLeft = width % 26;
         if (this._expand(bytesNeeded), bitsLeft > 0)
@@ -16839,9 +16839,9 @@ var init_crypto = __esm(() => {
         if (bitsLeft > 0)
           this.words[i2] = ~this.words[i2] & 67108863 >> 26 - bitsLeft;
         return this._strip();
-      }, BN.prototype.notn = function notn(width) {
+      }, BN.prototype.notn = function(width) {
         return this.clone().inotn(width);
-      }, BN.prototype.setn = function setn(bit, val) {
+      }, BN.prototype.setn = function(bit, val) {
         assert(typeof bit === "number" && bit >= 0);
         var off = bit / 26 | 0, wbit = bit % 26;
         if (this._expand(off + 1), val)
@@ -16849,7 +16849,7 @@ var init_crypto = __esm(() => {
         else
           this.words[off] = this.words[off] & ~(1 << wbit);
         return this._strip();
-      }, BN.prototype.iadd = function iadd(num) {
+      }, BN.prototype.iadd = function(num) {
         var r;
         if (this.negative !== 0 && num.negative === 0)
           return this.negative = 0, r = this.isub(num), this.negative ^= 1, this._normSign();
@@ -16871,7 +16871,7 @@ var init_crypto = __esm(() => {
           for (;i2 < a.length; i2++)
             this.words[i2] = a.words[i2];
         return this;
-      }, BN.prototype.add = function add(num) {
+      }, BN.prototype.add = function(num) {
         var res;
         if (num.negative !== 0 && this.negative === 0)
           return num.negative = 0, res = this.sub(num), num.negative ^= 1, res;
@@ -16880,7 +16880,7 @@ var init_crypto = __esm(() => {
         if (this.length > num.length)
           return this.clone().iadd(num);
         return num.clone().iadd(this);
-      }, BN.prototype.isub = function isub(num) {
+      }, BN.prototype.isub = function(num) {
         if (num.negative !== 0) {
           num.negative = 0;
           var r = this.iadd(num);
@@ -16906,7 +16906,7 @@ var init_crypto = __esm(() => {
         if (this.length = Math.max(this.length, i2), a !== this)
           this.negative = 1;
         return this._strip();
-      }, BN.prototype.sub = function sub(num) {
+      }, BN.prototype.sub = function(num) {
         return this.clone().isub(num);
       };
       function smallMulTo(self2, num, out) {
@@ -16929,7 +16929,7 @@ var init_crypto = __esm(() => {
           out.length--;
         return out._strip();
       }
-      var comb10MulTo = function comb10MulTo(self2, num, out) {
+      var comb10MulTo = function(self2, num, out) {
         var a = self2.words, b = num.words, o = out.words, c = 0, lo, mid, hi, a0 = a[0] | 0, al0 = a0 & 8191, ah0 = a0 >>> 13, a1 = a[1] | 0, al1 = a1 & 8191, ah1 = a1 >>> 13, a2 = a[2] | 0, al2 = a2 & 8191, ah2 = a2 >>> 13, a3 = a[3] | 0, al3 = a3 & 8191, ah3 = a3 >>> 13, a4 = a[4] | 0, al4 = a4 & 8191, ah4 = a4 >>> 13, a5 = a[5] | 0, al5 = a5 & 8191, ah5 = a5 >>> 13, a6 = a[6] | 0, al6 = a6 & 8191, ah6 = a6 >>> 13, a7 = a[7] | 0, al7 = a7 & 8191, ah7 = a7 >>> 13, a8 = a[8] | 0, al8 = a8 & 8191, ah8 = a8 >>> 13, a9 = a[9] | 0, al9 = a9 & 8191, ah9 = a9 >>> 13, b0 = b[0] | 0, bl0 = b0 & 8191, bh0 = b0 >>> 13, b1 = b[1] | 0, bl1 = b1 & 8191, bh1 = b1 >>> 13, b2 = b[2] | 0, bl2 = b2 & 8191, bh2 = b2 >>> 13, b3 = b[3] | 0, bl3 = b3 & 8191, bh3 = b3 >>> 13, b4 = b[4] | 0, bl4 = b4 & 8191, bh4 = b4 >>> 13, b5 = b[5] | 0, bl5 = b5 & 8191, bh5 = b5 >>> 13, b6 = b[6] | 0, bl6 = b6 & 8191, bh6 = b6 >>> 13, b7 = b[7] | 0, bl7 = b7 & 8191, bh7 = b7 >>> 13, b8 = b[8] | 0, bl8 = b8 & 8191, bh8 = b8 >>> 13, b9 = b[9] | 0, bl9 = b9 & 8191, bh9 = b9 >>> 13;
         out.negative = self2.negative ^ num.negative, out.length = 19, lo = Math.imul(al0, bl0), mid = Math.imul(al0, bh0), mid = mid + Math.imul(ah0, bl0) | 0, hi = Math.imul(ah0, bh0);
         var w0 = (c + lo | 0) + ((mid & 8191) << 13) | 0;
@@ -16997,7 +16997,7 @@ var init_crypto = __esm(() => {
       function jumboMulTo(self2, num, out) {
         return bigMulTo(self2, num, out);
       }
-      BN.prototype.mulTo = function mulTo(num, out) {
+      BN.prototype.mulTo = function(num, out) {
         var res, len2 = this.length + num.length;
         if (this.length === 10 && num.length === 10)
           res = comb10MulTo(this, num, out);
@@ -17012,22 +17012,22 @@ var init_crypto = __esm(() => {
       function FFTM(x, y) {
         this.x = x, this.y = y;
       }
-      FFTM.prototype.makeRBT = function makeRBT(N) {
-        var t = new Array(N), l = BN.prototype._countBits(N) - 1;
+      FFTM.prototype.makeRBT = function(N) {
+        var t = Array(N), l = BN.prototype._countBits(N) - 1;
         for (var i2 = 0;i2 < N; i2++)
           t[i2] = this.revBin(i2, l, N);
         return t;
-      }, FFTM.prototype.revBin = function revBin(x, l, N) {
+      }, FFTM.prototype.revBin = function(x, l, N) {
         if (x === 0 || x === N - 1)
           return x;
         var rb = 0;
         for (var i2 = 0;i2 < l; i2++)
           rb |= (x & 1) << l - i2 - 1, x >>= 1;
         return rb;
-      }, FFTM.prototype.permute = function permute(rbt, rws, iws, rtws, itws, N) {
+      }, FFTM.prototype.permute = function(rbt, rws, iws, rtws, itws, N) {
         for (var i2 = 0;i2 < N; i2++)
           rtws[i2] = rws[rbt[i2]], itws[i2] = iws[rbt[i2]];
-      }, FFTM.prototype.transform = function transform(rws, iws, rtws, itws, N, rbt) {
+      }, FFTM.prototype.transform = function(rws, iws, rtws, itws, N, rbt) {
         this.permute(rbt, rws, iws, rtws, itws, N);
         for (var s = 1;s < N; s <<= 1) {
           var l = s << 1, rtwdf = Math.cos(2 * Math.PI / l), itwdf = Math.sin(2 * Math.PI / l);
@@ -17040,19 +17040,19 @@ var init_crypto = __esm(() => {
             }
           }
         }
-      }, FFTM.prototype.guessLen13b = function guessLen13b(n, m) {
+      }, FFTM.prototype.guessLen13b = function(n, m) {
         var N = Math.max(m, n) | 1, odd = N & 1, i2 = 0;
         for (N = N / 2 | 0;N; N = N >>> 1)
           i2++;
         return 1 << i2 + 1 + odd;
-      }, FFTM.prototype.conjugate = function conjugate(rws, iws, N) {
+      }, FFTM.prototype.conjugate = function(rws, iws, N) {
         if (N <= 1)
           return;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var t = rws[i2];
           rws[i2] = rws[N - i2 - 1], rws[N - i2 - 1] = t, t = iws[i2], iws[i2] = -iws[N - i2 - 1], iws[N - i2 - 1] = -t;
         }
-      }, FFTM.prototype.normalize13b = function normalize13b(ws, N) {
+      }, FFTM.prototype.normalize13b = function(ws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < N / 2; i2++) {
           var w = Math.round(ws[2 * i2 + 1] / N) * 8192 + Math.round(ws[2 * i2] / N) + carry;
@@ -17062,35 +17062,35 @@ var init_crypto = __esm(() => {
             carry = w / 67108864 | 0;
         }
         return ws;
-      }, FFTM.prototype.convert13b = function convert13b(ws, len2, rws, N) {
+      }, FFTM.prototype.convert13b = function(ws, len2, rws, N) {
         var carry = 0;
         for (var i2 = 0;i2 < len2; i2++)
           carry = carry + (ws[i2] | 0), rws[2 * i2] = carry & 8191, carry = carry >>> 13, rws[2 * i2 + 1] = carry & 8191, carry = carry >>> 13;
         for (i2 = 2 * len2;i2 < N; ++i2)
           rws[i2] = 0;
         assert(carry === 0), assert((carry & -8192) === 0);
-      }, FFTM.prototype.stub = function stub(N) {
-        var ph = new Array(N);
+      }, FFTM.prototype.stub = function(N) {
+        var ph = Array(N);
         for (var i2 = 0;i2 < N; i2++)
           ph[i2] = 0;
         return ph;
-      }, FFTM.prototype.mulp = function mulp(x, y, out) {
-        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = new Array(N), rwst = new Array(N), iwst = new Array(N), nrws = new Array(N), nrwst = new Array(N), niwst = new Array(N), rmws = out.words;
+      }, FFTM.prototype.mulp = function(x, y, out) {
+        var N = 2 * this.guessLen13b(x.length, y.length), rbt = this.makeRBT(N), _ = this.stub(N), rws = Array(N), rwst = Array(N), iwst = Array(N), nrws = Array(N), nrwst = Array(N), niwst = Array(N), rmws = out.words;
         rmws.length = N, this.convert13b(x.words, x.length, rws, N), this.convert13b(y.words, y.length, nrws, N), this.transform(rws, _, rwst, iwst, N, rbt), this.transform(nrws, _, nrwst, niwst, N, rbt);
         for (var i2 = 0;i2 < N; i2++) {
           var rx = rwst[i2] * nrwst[i2] - iwst[i2] * niwst[i2];
           iwst[i2] = rwst[i2] * niwst[i2] + iwst[i2] * nrwst[i2], rwst[i2] = rx;
         }
         return this.conjugate(rwst, iwst, N), this.transform(rwst, iwst, rmws, _, N, rbt), this.conjugate(rmws, _, N), this.normalize13b(rmws, N), out.negative = x.negative ^ y.negative, out.length = x.length + y.length, out._strip();
-      }, BN.prototype.mul = function mul(num) {
+      }, BN.prototype.mul = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), this.mulTo(num, out);
-      }, BN.prototype.mulf = function mulf(num) {
+        return out.words = Array(this.length + num.length), this.mulTo(num, out);
+      }, BN.prototype.mulf = function(num) {
         var out = new BN(null);
-        return out.words = new Array(this.length + num.length), jumboMulTo(this, num, out);
-      }, BN.prototype.imul = function imul(num) {
+        return out.words = Array(this.length + num.length), jumboMulTo(this, num, out);
+      }, BN.prototype.imul = function(num) {
         return this.clone().mulTo(num, this);
-      }, BN.prototype.imuln = function imuln(num) {
+      }, BN.prototype.imuln = function(num) {
         var isNegNum = num < 0;
         if (isNegNum)
           num = -num;
@@ -17103,13 +17103,13 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this.length = num === 0 ? 1 : this.length, isNegNum ? this.ineg() : this;
-      }, BN.prototype.muln = function muln(num) {
+      }, BN.prototype.muln = function(num) {
         return this.clone().imuln(num);
-      }, BN.prototype.sqr = function sqr() {
+      }, BN.prototype.sqr = function() {
         return this.mul(this);
-      }, BN.prototype.isqr = function isqr() {
+      }, BN.prototype.isqr = function() {
         return this.imul(this.clone());
-      }, BN.prototype.pow = function pow(num) {
+      }, BN.prototype.pow = function(num) {
         var w = toBitArray(num);
         if (w.length === 0)
           return new BN(1);
@@ -17124,7 +17124,7 @@ var init_crypto = __esm(() => {
             res = res.mul(q);
           }
         return res;
-      }, BN.prototype.iushln = function iushln(bits) {
+      }, BN.prototype.iushln = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26, carryMask = 67108863 >>> 26 - r << 26 - r, i2;
         if (r !== 0) {
@@ -17144,9 +17144,9 @@ var init_crypto = __esm(() => {
           this.length += s;
         }
         return this._strip();
-      }, BN.prototype.ishln = function ishln(bits) {
+      }, BN.prototype.ishln = function(bits) {
         return assert(this.negative === 0), this.iushln(bits);
-      }, BN.prototype.iushrn = function iushrn(bits, hint, extended) {
+      }, BN.prototype.iushrn = function(bits, hint, extended) {
         assert(typeof bits === "number" && bits >= 0);
         var h;
         if (hint)
@@ -17177,24 +17177,24 @@ var init_crypto = __esm(() => {
         if (this.length === 0)
           this.words[0] = 0, this.length = 1;
         return this._strip();
-      }, BN.prototype.ishrn = function ishrn(bits, hint, extended) {
+      }, BN.prototype.ishrn = function(bits, hint, extended) {
         return assert(this.negative === 0), this.iushrn(bits, hint, extended);
-      }, BN.prototype.shln = function shln(bits) {
+      }, BN.prototype.shln = function(bits) {
         return this.clone().ishln(bits);
-      }, BN.prototype.ushln = function ushln(bits) {
+      }, BN.prototype.ushln = function(bits) {
         return this.clone().iushln(bits);
-      }, BN.prototype.shrn = function shrn(bits) {
+      }, BN.prototype.shrn = function(bits) {
         return this.clone().ishrn(bits);
-      }, BN.prototype.ushrn = function ushrn(bits) {
+      }, BN.prototype.ushrn = function(bits) {
         return this.clone().iushrn(bits);
-      }, BN.prototype.testn = function testn(bit) {
+      }, BN.prototype.testn = function(bit) {
         assert(typeof bit === "number" && bit >= 0);
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
           return false;
         var w = this.words[s];
         return !!(w & q);
-      }, BN.prototype.imaskn = function imaskn(bits) {
+      }, BN.prototype.imaskn = function(bits) {
         assert(typeof bits === "number" && bits >= 0);
         var r = bits % 26, s = (bits - r) / 26;
         if (assert(this.negative === 0, "imaskn works only with positive numbers"), this.length <= s)
@@ -17206,9 +17206,9 @@ var init_crypto = __esm(() => {
           this.words[this.length - 1] &= mask;
         }
         return this._strip();
-      }, BN.prototype.maskn = function maskn(bits) {
+      }, BN.prototype.maskn = function(bits) {
         return this.clone().imaskn(bits);
-      }, BN.prototype.iaddn = function iaddn(num) {
+      }, BN.prototype.iaddn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.isubn(-num);
         if (this.negative !== 0) {
@@ -17217,7 +17217,7 @@ var init_crypto = __esm(() => {
           return this.negative = 0, this.isubn(num), this.negative = 1, this;
         }
         return this._iaddn(num);
-      }, BN.prototype._iaddn = function _iaddn(num) {
+      }, BN.prototype._iaddn = function(num) {
         this.words[0] += num;
         for (var i2 = 0;i2 < this.length && this.words[i2] >= 67108864; i2++)
           if (this.words[i2] -= 67108864, i2 === this.length - 1)
@@ -17225,7 +17225,7 @@ var init_crypto = __esm(() => {
           else
             this.words[i2 + 1]++;
         return this.length = Math.max(this.length, i2 + 1), this;
-      }, BN.prototype.isubn = function isubn(num) {
+      }, BN.prototype.isubn = function(num) {
         if (assert(typeof num === "number"), assert(num < 67108864), num < 0)
           return this.iaddn(-num);
         if (this.negative !== 0)
@@ -17236,15 +17236,15 @@ var init_crypto = __esm(() => {
           for (var i2 = 0;i2 < this.length && this.words[i2] < 0; i2++)
             this.words[i2] += 67108864, this.words[i2 + 1] -= 1;
         return this._strip();
-      }, BN.prototype.addn = function addn(num) {
+      }, BN.prototype.addn = function(num) {
         return this.clone().iaddn(num);
-      }, BN.prototype.subn = function subn(num) {
+      }, BN.prototype.subn = function(num) {
         return this.clone().isubn(num);
-      }, BN.prototype.iabs = function iabs() {
+      }, BN.prototype.iabs = function() {
         return this.negative = 0, this;
-      }, BN.prototype.abs = function abs() {
+      }, BN.prototype.abs = function() {
         return this.clone().iabs();
-      }, BN.prototype._ishlnsubmul = function _ishlnsubmul(num, mul, shift) {
+      }, BN.prototype._ishlnsubmul = function(num, mul, shift) {
         var len2 = num.length + shift, i2;
         this._expand(len2);
         var w, carry = 0;
@@ -17261,13 +17261,13 @@ var init_crypto = __esm(() => {
         for (i2 = 0;i2 < this.length; i2++)
           w = -(this.words[i2] | 0) + carry, carry = w >> 26, this.words[i2] = w & 67108863;
         return this.negative = 1, this._strip();
-      }, BN.prototype._wordDiv = function _wordDiv(num, mode) {
+      }, BN.prototype._wordDiv = function(num, mode) {
         var shift = this.length - num.length, a = this.clone(), b = num, bhi = b.words[b.length - 1] | 0, bhiBits = this._countBits(bhi);
         if (shift = 26 - bhiBits, shift !== 0)
           b = b.ushln(shift), a.iushln(shift), bhi = b.words[b.length - 1] | 0;
         var m = a.length - b.length, q;
         if (mode !== "mod") {
-          q = new BN(null), q.length = m + 1, q.words = new Array(q.length);
+          q = new BN(null), q.length = m + 1, q.words = Array(q.length);
           for (var i2 = 0;i2 < q.length; i2++)
             q.words[i2] = 0;
         }
@@ -17290,7 +17290,7 @@ var init_crypto = __esm(() => {
         if (a._strip(), mode !== "div" && shift !== 0)
           a.iushrn(shift);
         return { div: q || null, mod: a };
-      }, BN.prototype.divmod = function divmod(num, mode, positive) {
+      }, BN.prototype.divmod = function(num, mode, positive) {
         if (assert(!num.isZero()), this.isZero())
           return { div: new BN(0), mod: new BN(0) };
         var div, mod, res;
@@ -17325,13 +17325,13 @@ var init_crypto = __esm(() => {
           return { div: this.divn(num.words[0]), mod: new BN(this.modrn(num.words[0])) };
         }
         return this._wordDiv(num, mode);
-      }, BN.prototype.div = function div(num) {
+      }, BN.prototype.div = function(num) {
         return this.divmod(num, "div", false).div;
-      }, BN.prototype.mod = function mod(num) {
+      }, BN.prototype.mod = function(num) {
         return this.divmod(num, "mod", false).mod;
-      }, BN.prototype.umod = function umod(num) {
+      }, BN.prototype.umod = function(num) {
         return this.divmod(num, "mod", true).mod;
-      }, BN.prototype.divRound = function divRound(num) {
+      }, BN.prototype.divRound = function(num) {
         var dm = this.divmod(num);
         if (dm.mod.isZero())
           return dm.div;
@@ -17339,7 +17339,7 @@ var init_crypto = __esm(() => {
         if (cmp < 0 || r2 === 1 && cmp === 0)
           return dm.div;
         return dm.div.negative !== 0 ? dm.div.isubn(1) : dm.div.iaddn(1);
-      }, BN.prototype.modrn = function modrn(num) {
+      }, BN.prototype.modrn = function(num) {
         var isNegNum = num < 0;
         if (isNegNum)
           num = -num;
@@ -17348,9 +17348,9 @@ var init_crypto = __esm(() => {
         for (var i2 = this.length - 1;i2 >= 0; i2--)
           acc = (p * acc + (this.words[i2] | 0)) % num;
         return isNegNum ? -acc : acc;
-      }, BN.prototype.modn = function modn(num) {
+      }, BN.prototype.modn = function(num) {
         return this.modrn(num);
-      }, BN.prototype.idivn = function idivn(num) {
+      }, BN.prototype.idivn = function(num) {
         var isNegNum = num < 0;
         if (isNegNum)
           num = -num;
@@ -17361,9 +17361,9 @@ var init_crypto = __esm(() => {
           this.words[i2] = w / num | 0, carry = w % num;
         }
         return this._strip(), isNegNum ? this.ineg() : this;
-      }, BN.prototype.divn = function divn(num) {
+      }, BN.prototype.divn = function(num) {
         return this.clone().idivn(num);
-      }, BN.prototype.egcd = function egcd(p) {
+      }, BN.prototype.egcd = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var x = this, y = p.clone();
         if (x.negative !== 0)
@@ -17401,7 +17401,7 @@ var init_crypto = __esm(() => {
             y.isub(x), C.isub(A), D.isub(B);
         }
         return { a: C, b: D, gcd: y.iushln(g) };
-      }, BN.prototype._invmp = function _invmp(p) {
+      }, BN.prototype._invmp = function(p) {
         assert(p.negative === 0), assert(!p.isZero());
         var a = this, b = p.clone();
         if (a.negative !== 0)
@@ -17443,7 +17443,7 @@ var init_crypto = __esm(() => {
         if (res.cmpn(0) < 0)
           res.iadd(p);
         return res;
-      }, BN.prototype.gcd = function gcd(num) {
+      }, BN.prototype.gcd = function(num) {
         if (this.isZero())
           return num.abs();
         if (num.isZero())
@@ -17466,15 +17466,15 @@ var init_crypto = __esm(() => {
           a.isub(b);
         } while (true);
         return b.iushln(shift);
-      }, BN.prototype.invm = function invm(num) {
+      }, BN.prototype.invm = function(num) {
         return this.egcd(num).a.umod(num);
-      }, BN.prototype.isEven = function isEven() {
+      }, BN.prototype.isEven = function() {
         return (this.words[0] & 1) === 0;
-      }, BN.prototype.isOdd = function isOdd() {
+      }, BN.prototype.isOdd = function() {
         return (this.words[0] & 1) === 1;
-      }, BN.prototype.andln = function andln(num) {
+      }, BN.prototype.andln = function(num) {
         return this.words[0] & num;
-      }, BN.prototype.bincn = function bincn(bit) {
+      }, BN.prototype.bincn = function(bit) {
         assert(typeof bit === "number");
         var r = bit % 26, s = (bit - r) / 26, q = 1 << r;
         if (this.length <= s)
@@ -17487,9 +17487,9 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           this.words[i2] = carry, this.length++;
         return this;
-      }, BN.prototype.isZero = function isZero() {
+      }, BN.prototype.isZero = function() {
         return this.length === 1 && this.words[0] === 0;
-      }, BN.prototype.cmpn = function cmpn(num) {
+      }, BN.prototype.cmpn = function(num) {
         var negative = num < 0;
         if (this.negative !== 0 && !negative)
           return -1;
@@ -17509,7 +17509,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.cmp = function cmp(num) {
+      }, BN.prototype.cmp = function(num) {
         if (this.negative !== 0 && num.negative === 0)
           return -1;
         if (this.negative === 0 && num.negative !== 0)
@@ -17518,7 +17518,7 @@ var init_crypto = __esm(() => {
         if (this.negative !== 0)
           return -res | 0;
         return res;
-      }, BN.prototype.ucmp = function ucmp(num) {
+      }, BN.prototype.ucmp = function(num) {
         if (this.length > num.length)
           return 1;
         if (this.length < num.length)
@@ -17535,71 +17535,71 @@ var init_crypto = __esm(() => {
           break;
         }
         return res;
-      }, BN.prototype.gtn = function gtn(num) {
+      }, BN.prototype.gtn = function(num) {
         return this.cmpn(num) === 1;
-      }, BN.prototype.gt = function gt(num) {
+      }, BN.prototype.gt = function(num) {
         return this.cmp(num) === 1;
-      }, BN.prototype.gten = function gten(num) {
+      }, BN.prototype.gten = function(num) {
         return this.cmpn(num) >= 0;
-      }, BN.prototype.gte = function gte(num) {
+      }, BN.prototype.gte = function(num) {
         return this.cmp(num) >= 0;
-      }, BN.prototype.ltn = function ltn(num) {
+      }, BN.prototype.ltn = function(num) {
         return this.cmpn(num) === -1;
-      }, BN.prototype.lt = function lt(num) {
+      }, BN.prototype.lt = function(num) {
         return this.cmp(num) === -1;
-      }, BN.prototype.lten = function lten(num) {
+      }, BN.prototype.lten = function(num) {
         return this.cmpn(num) <= 0;
-      }, BN.prototype.lte = function lte(num) {
+      }, BN.prototype.lte = function(num) {
         return this.cmp(num) <= 0;
-      }, BN.prototype.eqn = function eqn(num) {
+      }, BN.prototype.eqn = function(num) {
         return this.cmpn(num) === 0;
-      }, BN.prototype.eq = function eq(num) {
+      }, BN.prototype.eq = function(num) {
         return this.cmp(num) === 0;
-      }, BN.red = function red(num) {
+      }, BN.red = function(num) {
         return new Red(num);
-      }, BN.prototype.toRed = function toRed(ctx) {
+      }, BN.prototype.toRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), assert(this.negative === 0, "red works only with positives"), ctx.convertTo(this)._forceRed(ctx);
-      }, BN.prototype.fromRed = function fromRed() {
+      }, BN.prototype.fromRed = function() {
         return assert(this.red, "fromRed works only with numbers in reduction context"), this.red.convertFrom(this);
-      }, BN.prototype._forceRed = function _forceRed(ctx) {
+      }, BN.prototype._forceRed = function(ctx) {
         return this.red = ctx, this;
-      }, BN.prototype.forceRed = function forceRed(ctx) {
+      }, BN.prototype.forceRed = function(ctx) {
         return assert(!this.red, "Already a number in reduction context"), this._forceRed(ctx);
-      }, BN.prototype.redAdd = function redAdd(num) {
+      }, BN.prototype.redAdd = function(num) {
         return assert(this.red, "redAdd works only with red numbers"), this.red.add(this, num);
-      }, BN.prototype.redIAdd = function redIAdd(num) {
+      }, BN.prototype.redIAdd = function(num) {
         return assert(this.red, "redIAdd works only with red numbers"), this.red.iadd(this, num);
-      }, BN.prototype.redSub = function redSub(num) {
+      }, BN.prototype.redSub = function(num) {
         return assert(this.red, "redSub works only with red numbers"), this.red.sub(this, num);
-      }, BN.prototype.redISub = function redISub(num) {
+      }, BN.prototype.redISub = function(num) {
         return assert(this.red, "redISub works only with red numbers"), this.red.isub(this, num);
-      }, BN.prototype.redShl = function redShl(num) {
+      }, BN.prototype.redShl = function(num) {
         return assert(this.red, "redShl works only with red numbers"), this.red.shl(this, num);
-      }, BN.prototype.redMul = function redMul(num) {
+      }, BN.prototype.redMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.mul(this, num);
-      }, BN.prototype.redIMul = function redIMul(num) {
+      }, BN.prototype.redIMul = function(num) {
         return assert(this.red, "redMul works only with red numbers"), this.red._verify2(this, num), this.red.imul(this, num);
-      }, BN.prototype.redSqr = function redSqr() {
+      }, BN.prototype.redSqr = function() {
         return assert(this.red, "redSqr works only with red numbers"), this.red._verify1(this), this.red.sqr(this);
-      }, BN.prototype.redISqr = function redISqr() {
+      }, BN.prototype.redISqr = function() {
         return assert(this.red, "redISqr works only with red numbers"), this.red._verify1(this), this.red.isqr(this);
-      }, BN.prototype.redSqrt = function redSqrt() {
+      }, BN.prototype.redSqrt = function() {
         return assert(this.red, "redSqrt works only with red numbers"), this.red._verify1(this), this.red.sqrt(this);
-      }, BN.prototype.redInvm = function redInvm() {
+      }, BN.prototype.redInvm = function() {
         return assert(this.red, "redInvm works only with red numbers"), this.red._verify1(this), this.red.invm(this);
-      }, BN.prototype.redNeg = function redNeg() {
+      }, BN.prototype.redNeg = function() {
         return assert(this.red, "redNeg works only with red numbers"), this.red._verify1(this), this.red.neg(this);
-      }, BN.prototype.redPow = function redPow(num) {
+      }, BN.prototype.redPow = function(num) {
         return assert(this.red && !num.red, "redPow(normalNum)"), this.red._verify1(this), this.red.pow(this, num);
       };
       var primes = { k256: null, p224: null, p192: null, p25519: null };
       function MPrime(name, p) {
         this.name = name, this.p = new BN(p, 16), this.n = this.p.bitLength(), this.k = new BN(1).iushln(this.n).isub(this.p), this.tmp = this._tmp();
       }
-      MPrime.prototype._tmp = function _tmp() {
+      MPrime.prototype._tmp = function() {
         var tmp = new BN(null);
-        return tmp.words = new Array(Math.ceil(this.n / 13)), tmp;
-      }, MPrime.prototype.ireduce = function ireduce(num) {
+        return tmp.words = Array(Math.ceil(this.n / 13)), tmp;
+      }, MPrime.prototype.ireduce = function(num) {
         var r = num, rlen;
         do
           this.split(r, this.tmp), r = this.imulK(r), r = r.iadd(this.tmp), rlen = r.bitLength();
@@ -17614,15 +17614,15 @@ var init_crypto = __esm(() => {
         else
           r._strip();
         return r;
-      }, MPrime.prototype.split = function split(input, out) {
+      }, MPrime.prototype.split = function(input, out) {
         input.iushrn(this.n, 0, out);
-      }, MPrime.prototype.imulK = function imulK(num) {
+      }, MPrime.prototype.imulK = function(num) {
         return num.imul(this.k);
       };
       function K256() {
         MPrime.call(this, "k256", "ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff fffffffe fffffc2f");
       }
-      inherits2(K256, MPrime), K256.prototype.split = function split(input, output) {
+      inherits2(K256, MPrime), K256.prototype.split = function(input, output) {
         var mask = 4194303, outLen = Math.min(input.length, 9);
         for (var i2 = 0;i2 < outLen; i2++)
           output.words[i2] = input.words[i2];
@@ -17640,7 +17640,7 @@ var init_crypto = __esm(() => {
           input.length -= 10;
         else
           input.length -= 9;
-      }, K256.prototype.imulK = function imulK(num) {
+      }, K256.prototype.imulK = function(num) {
         num.words[num.length] = 0, num.words[num.length + 1] = 0, num.length += 2;
         var lo = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
@@ -17664,7 +17664,7 @@ var init_crypto = __esm(() => {
       function P25519() {
         MPrime.call(this, "25519", "7fffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffed");
       }
-      inherits2(P25519, MPrime), P25519.prototype.imulK = function imulK(num) {
+      inherits2(P25519, MPrime), P25519.prototype.imulK = function(num) {
         var carry = 0;
         for (var i2 = 0;i2 < num.length; i2++) {
           var hi = (num.words[i2] | 0) * 19 + carry, lo = hi & 67108863;
@@ -17673,7 +17673,7 @@ var init_crypto = __esm(() => {
         if (carry !== 0)
           num.words[num.length++] = carry;
         return num;
-      }, BN._prime = function prime(name) {
+      }, BN._prime = function(name) {
         if (primes[name])
           return primes[name];
         var prime;
@@ -17686,7 +17686,7 @@ var init_crypto = __esm(() => {
         else if (name === "p25519")
           prime = new P25519;
         else
-          throw new Error("Unknown prime " + name);
+          throw Error("Unknown prime " + name);
         return primes[name] = prime, prime;
       };
       function Red(m) {
@@ -17696,53 +17696,53 @@ var init_crypto = __esm(() => {
         } else
           assert(m.gtn(1), "modulus must be greater than 1"), this.m = m, this.prime = null;
       }
-      Red.prototype._verify1 = function _verify1(a) {
+      Red.prototype._verify1 = function(a) {
         assert(a.negative === 0, "red works only with positives"), assert(a.red, "red works only with red numbers");
-      }, Red.prototype._verify2 = function _verify2(a, b) {
+      }, Red.prototype._verify2 = function(a, b) {
         assert((a.negative | b.negative) === 0, "red works only with positives"), assert(a.red && a.red === b.red, "red works only with red numbers");
-      }, Red.prototype.imod = function imod(a) {
+      }, Red.prototype.imod = function(a) {
         if (this.prime)
           return this.prime.ireduce(a)._forceRed(this);
         return move(a, a.umod(this.m)._forceRed(this)), a;
-      }, Red.prototype.neg = function neg(a) {
+      }, Red.prototype.neg = function(a) {
         if (a.isZero())
           return a.clone();
         return this.m.sub(a)._forceRed(this);
-      }, Red.prototype.add = function add(a, b) {
+      }, Red.prototype.add = function(a, b) {
         this._verify2(a, b);
         var res = a.add(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res._forceRed(this);
-      }, Red.prototype.iadd = function iadd(a, b) {
+      }, Red.prototype.iadd = function(a, b) {
         this._verify2(a, b);
         var res = a.iadd(b);
         if (res.cmp(this.m) >= 0)
           res.isub(this.m);
         return res;
-      }, Red.prototype.sub = function sub(a, b) {
+      }, Red.prototype.sub = function(a, b) {
         this._verify2(a, b);
         var res = a.sub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res._forceRed(this);
-      }, Red.prototype.isub = function isub(a, b) {
+      }, Red.prototype.isub = function(a, b) {
         this._verify2(a, b);
         var res = a.isub(b);
         if (res.cmpn(0) < 0)
           res.iadd(this.m);
         return res;
-      }, Red.prototype.shl = function shl(a, num) {
+      }, Red.prototype.shl = function(a, num) {
         return this._verify1(a), this.imod(a.ushln(num));
-      }, Red.prototype.imul = function imul(a, b) {
+      }, Red.prototype.imul = function(a, b) {
         return this._verify2(a, b), this.imod(a.imul(b));
-      }, Red.prototype.mul = function mul(a, b) {
+      }, Red.prototype.mul = function(a, b) {
         return this._verify2(a, b), this.imod(a.mul(b));
-      }, Red.prototype.isqr = function isqr(a) {
+      }, Red.prototype.isqr = function(a) {
         return this.imul(a, a.clone());
-      }, Red.prototype.sqr = function sqr(a) {
+      }, Red.prototype.sqr = function(a) {
         return this.mul(a, a);
-      }, Red.prototype.sqrt = function sqrt(a) {
+      }, Red.prototype.sqrt = function(a) {
         if (a.isZero())
           return a.clone();
         var mod3 = this.m.andln(3);
@@ -17768,18 +17768,18 @@ var init_crypto = __esm(() => {
           r = r.redMul(b), c = b.redSqr(), t = t.redMul(c), m = i2;
         }
         return r;
-      }, Red.prototype.invm = function invm(a) {
+      }, Red.prototype.invm = function(a) {
         var inv = a._invmp(this.m);
         if (inv.negative !== 0)
           return inv.negative = 0, this.imod(inv).redNeg();
         else
           return this.imod(inv);
-      }, Red.prototype.pow = function pow(a, num) {
+      }, Red.prototype.pow = function(a, num) {
         if (num.isZero())
           return new BN(1).toRed(this);
         if (num.cmpn(1) === 0)
           return a.clone();
-        var windowSize = 4, wnd = new Array(1 << windowSize);
+        var windowSize = 4, wnd = Array(1 << windowSize);
         wnd[0] = new BN(1).toRed(this), wnd[1] = a;
         for (var i2 = 2;i2 < wnd.length; i2++)
           wnd[i2] = this.mul(wnd[i2 - 1], a);
@@ -17803,13 +17803,13 @@ var init_crypto = __esm(() => {
           start = 26;
         }
         return res;
-      }, Red.prototype.convertTo = function convertTo(num) {
+      }, Red.prototype.convertTo = function(num) {
         var r = num.umod(this.m);
         return r === num ? r.clone() : r;
-      }, Red.prototype.convertFrom = function convertFrom(num) {
+      }, Red.prototype.convertFrom = function(num) {
         var res = num.clone();
         return res.red = null, res;
-      }, BN.mont = function mont(num) {
+      }, BN.mont = function(num) {
         return new Mont(num);
       };
       function Mont(m) {
@@ -17817,12 +17817,12 @@ var init_crypto = __esm(() => {
           this.shift += 26 - this.shift % 26;
         this.r = new BN(1).iushln(this.shift), this.r2 = this.imod(this.r.sqr()), this.rinv = this.r._invmp(this.m), this.minv = this.rinv.mul(this.r).isubn(1).div(this.m), this.minv = this.minv.umod(this.r), this.minv = this.r.sub(this.minv);
       }
-      inherits2(Mont, Red), Mont.prototype.convertTo = function convertTo(num) {
+      inherits2(Mont, Red), Mont.prototype.convertTo = function(num) {
         return this.imod(num.ushln(this.shift));
-      }, Mont.prototype.convertFrom = function convertFrom(num) {
+      }, Mont.prototype.convertFrom = function(num) {
         var r = this.imod(num.mul(this.rinv));
         return r.red = null, r;
-      }, Mont.prototype.imul = function imul(a, b) {
+      }, Mont.prototype.imul = function(a, b) {
         if (a.isZero() || b.isZero())
           return a.words[0] = 0, a.length = 1, a;
         var t = a.imul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -17831,7 +17831,7 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.mul = function mul(a, b) {
+      }, Mont.prototype.mul = function(a, b) {
         if (a.isZero() || b.isZero())
           return new BN(0)._forceRed(this);
         var t = a.mul(b), c = t.maskn(this.shift).mul(this.minv).imaskn(this.shift).mul(this.m), u = t.isub(c).iushrn(this.shift), res = u;
@@ -17840,11 +17840,11 @@ var init_crypto = __esm(() => {
         else if (u.cmpn(0) < 0)
           res = u.iadd(this.m);
         return res._forceRed(this);
-      }, Mont.prototype.invm = function invm(a) {
+      }, Mont.prototype.invm = function(a) {
         var res = this.imod(a._invmp(this.m).mul(this.r2));
         return res._forceRed(this);
       };
-    })(typeof module === "undefined" || module, exports);
+    })(typeof module > "u" || module, exports);
   });
   require_browserify_rsa = __commonJS2((exports, module) => {
     var BN = require_bn5(), randomBytes = require_randombytes(), Buffer22 = require_safe_buffer().Buffer;
@@ -17868,7 +17868,7 @@ var init_crypto = __esm(() => {
   });
   require_publicEncrypt = __commonJS2((exports, module) => {
     var parseKeys = require_parse_asn1(), randomBytes = require_randombytes(), createHash = require_create_hash(), mgf = require_mgf(), xor = require_xor(), BN = require_bn4(), withPublic = require_withPublic(), crt = require_browserify_rsa(), Buffer22 = require_safe_buffer().Buffer;
-    module.exports = function publicEncrypt(publicKey, msg, reverse) {
+    module.exports = function(publicKey, msg, reverse) {
       var padding;
       if (publicKey.padding)
         padding = publicKey.padding;
@@ -17883,9 +17883,9 @@ var init_crypto = __esm(() => {
         paddedMsg = pkcs1(key, msg, reverse);
       else if (padding === 3) {
         if (paddedMsg = new BN(msg), paddedMsg.cmp(key.modulus) >= 0)
-          throw new Error("data too long for modulus");
+          throw Error("data too long for modulus");
       } else
-        throw new Error("unknown padding");
+        throw Error("unknown padding");
       if (reverse)
         return crt(paddedMsg, key);
       else
@@ -17894,14 +17894,14 @@ var init_crypto = __esm(() => {
     function oaep(key, msg) {
       var k = key.modulus.byteLength(), mLen = msg.length, iHash = createHash("sha1").update(Buffer22.alloc(0)).digest(), hLen = iHash.length, hLen2 = 2 * hLen;
       if (mLen > k - hLen2 - 2)
-        throw new Error("message too long");
+        throw Error("message too long");
       var ps = Buffer22.alloc(k - mLen - hLen2 - 2), dblen = k - hLen - 1, seed = randomBytes(hLen), maskedDb = xor(Buffer22.concat([iHash, ps, Buffer22.alloc(1, 1), msg], dblen), mgf(seed, dblen)), maskedSeed = xor(seed, mgf(maskedDb, hLen));
       return new BN(Buffer22.concat([Buffer22.alloc(1), maskedSeed, maskedDb], k));
     }
     function pkcs1(key, msg, reverse) {
       var mLen = msg.length, k = key.modulus.byteLength();
       if (mLen > k - 11)
-        throw new Error("message too long");
+        throw Error("message too long");
       var ps;
       if (reverse)
         ps = Buffer22.alloc(k - mLen - 3, 255);
@@ -17922,7 +17922,7 @@ var init_crypto = __esm(() => {
   });
   require_privateDecrypt = __commonJS2((exports, module) => {
     var parseKeys = require_parse_asn1(), mgf = require_mgf(), xor = require_xor(), BN = require_bn4(), crt = require_browserify_rsa(), createHash = require_create_hash(), withPublic = require_withPublic(), Buffer22 = require_safe_buffer().Buffer;
-    module.exports = function privateDecrypt(privateKey, enc, reverse) {
+    module.exports = function(privateKey, enc, reverse) {
       var padding;
       if (privateKey.padding)
         padding = privateKey.padding;
@@ -17932,7 +17932,7 @@ var init_crypto = __esm(() => {
         padding = 4;
       var key = parseKeys(privateKey), k = key.modulus.byteLength();
       if (enc.length > k || new BN(enc).cmp(key.modulus) >= 0)
-        throw new Error("decryption error");
+        throw Error("decryption error");
       var msg;
       if (reverse)
         msg = withPublic(new BN(enc), key);
@@ -17946,20 +17946,20 @@ var init_crypto = __esm(() => {
       else if (padding === 3)
         return msg;
       else
-        throw new Error("unknown padding");
+        throw Error("unknown padding");
     };
     function oaep(key, msg) {
       var k = key.modulus.byteLength(), iHash = createHash("sha1").update(Buffer22.alloc(0)).digest(), hLen = iHash.length;
       if (msg[0] !== 0)
-        throw new Error("decryption error");
+        throw Error("decryption error");
       var maskedSeed = msg.slice(1, hLen + 1), maskedDb = msg.slice(hLen + 1), seed = xor(maskedSeed, mgf(maskedDb, hLen)), db = xor(maskedDb, mgf(seed, k - hLen - 1));
-      if (compare3(iHash, db.slice(0, hLen)))
-        throw new Error("decryption error");
+      if (compare(iHash, db.slice(0, hLen)))
+        throw Error("decryption error");
       var i2 = hLen;
       while (db[i2] === 0)
         i2++;
       if (db[i2++] !== 1)
-        throw new Error("decryption error");
+        throw Error("decryption error");
       return db.slice(i2);
     }
     function pkcs1(key, msg, reverse) {
@@ -17975,10 +17975,10 @@ var init_crypto = __esm(() => {
       if (ps.length < 8)
         status++;
       if (status)
-        throw new Error("decryption error");
+        throw Error("decryption error");
       return msg.slice(i2);
     }
-    function compare3(a, b) {
+    function compare(a, b) {
       a = Buffer22.from(a), b = Buffer22.from(b);
       var dif = 0, len2 = a.length;
       if (a.length !== b.length)
@@ -17992,10 +17992,10 @@ var init_crypto = __esm(() => {
   require_browser2 = __commonJS2((exports) => {
     exports.publicEncrypt = require_publicEncrypt();
     exports.privateDecrypt = require_privateDecrypt();
-    exports.privateEncrypt = function privateEncrypt(key, buf) {
+    exports.privateEncrypt = function(key, buf) {
       return exports.publicEncrypt(key, buf, true);
     };
-    exports.publicDecrypt = function publicDecrypt(key, buf) {
+    exports.publicDecrypt = function(key, buf) {
       return exports.privateDecrypt(key, buf, true);
     };
   });
@@ -18018,30 +18018,30 @@ var init_crypto = __esm(() => {
     var safeBuffer = require_safe_buffer(), randombytes = require_randombytes(), Buffer22 = safeBuffer.Buffer, kBufferMaxLength = safeBuffer.kMaxLength, crypto2 = globalThis.crypto || globalThis.msCrypto, kMaxUint32 = Math.pow(2, 32) - 1;
     function assertOffset(offset, length) {
       if (typeof offset !== "number" || offset !== offset)
-        throw new TypeError("offset must be a number");
+        throw TypeError("offset must be a number");
       if (offset > kMaxUint32 || offset < 0)
-        throw new TypeError("offset must be a uint32");
+        throw TypeError("offset must be a uint32");
       if (offset > kBufferMaxLength || offset > length)
-        throw new RangeError("offset out of range");
+        throw RangeError("offset out of range");
     }
     function assertSize2(size, offset, length) {
       if (typeof size !== "number" || size !== size)
-        throw new TypeError("size must be a number");
+        throw TypeError("size must be a number");
       if (size > kMaxUint32 || size < 0)
-        throw new TypeError("size must be a uint32");
+        throw TypeError("size must be a uint32");
       if (size + offset > length || size > kBufferMaxLength)
-        throw new RangeError("buffer too small");
+        throw RangeError("buffer too small");
     }
     crypto2 && crypto2.getRandomValues, exports.randomFill = randomFill, exports.randomFillSync = randomFillSync;
     function randomFill(buf, offset, size, cb) {
       if (!Buffer22.isBuffer(buf) && !(buf instanceof globalThis.Uint8Array))
-        throw new TypeError('"buf" argument must be a Buffer or Uint8Array');
+        throw TypeError('"buf" argument must be a Buffer or Uint8Array');
       if (typeof offset === "function")
         cb = offset, offset = 0, size = buf.length;
       else if (typeof size === "function")
         cb = size, size = buf.length - offset;
       else if (typeof cb !== "function")
-        throw new TypeError('"cb" argument must be a function');
+        throw TypeError('"cb" argument must be a function');
       return assertOffset(offset, buf.length), assertSize2(size, offset, buf.length), actualFill(buf, offset, size, cb);
     }
     function actualFill(buf, offset, size, cb) {
@@ -18059,10 +18059,10 @@ var init_crypto = __esm(() => {
       return bytes.copy(buf, offset), buf;
     }
     function randomFillSync(buf, offset, size) {
-      if (typeof offset === "undefined")
+      if (typeof offset > "u")
         offset = 0;
       if (!Buffer22.isBuffer(buf) && !(buf instanceof globalThis.Uint8Array))
-        throw new TypeError('"buf" argument must be a Buffer or Uint8Array');
+        throw TypeError('"buf" argument must be a Buffer or Uint8Array');
       if (assertOffset(offset, buf.length), size === undefined)
         size = buf.length - offset;
       return assertSize2(size, offset, buf.length), actualFill(buf, offset, size);
@@ -18118,7 +18118,7 @@ var init_crypto = __esm(() => {
     exports.randomFill = rf.randomFill;
     exports.randomFillSync = rf.randomFillSync;
     exports.createCredentials = function() {
-      throw new Error(`sorry, createCredentials is not implemented yet
+      throw Error(`sorry, createCredentials is not implemented yet
 we accept pull requests
 https://github.com/browserify/crypto-browserify`);
     };
@@ -18865,6 +18865,9 @@ class pipeline:
 
                     DECORATION_REGISTRY_ATTR = "__drawio_literal_registry"
                     DEFAULT_STANDALONE_TYPE = "owl:NamedIndividual"
+                    DEFAULT_LITERAL_DEFINITIONS = [
+                        {"key": "style", "value": "rounded=1"}
+                    ]
 
                     def __init__(
                         self,
@@ -18874,6 +18877,7 @@ class pipeline:
                         strict_mode: bool = False,
                         max_gap: float | None = None,
                         strip_html: bool = True,
+                        literal_definitions: list[dict[str, str]] | None = None,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -18899,6 +18903,7 @@ class pipeline:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
                         self._strip_html = bool(strip_html)
+                        self._literal_definitions = literal_definitions
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_value_cache: dict[str, list[str]] = {}
@@ -19532,12 +19537,33 @@ class pipeline:
                             return False
                         return False
 
-                    @staticmethod
-                    def _style_denotes_literal(cell: Element, style: str) -> bool:
-                        if not style:
-                            return False
-                        if "rounded=1" in style:
+                    def _style_denotes_literal(self, cell: Element, style: str) -> bool:
+                        """Check if cell matches any literal definition.
+
+                        - None: Use DEFAULT_LITERAL_DEFINITIONS
+                        - []: Return True (treat everything as literal)
+                        - [...]: Use provided definitions
+                        """
+                        if self._literal_definitions is None:
+                            definitions_to_use = self.DEFAULT_LITERAL_DEFINITIONS
+                        elif (
+                            isinstance(self._literal_definitions, list)
+                            and len(self._literal_definitions) == 0
+                        ):
                             return True
+                        else:
+                            definitions_to_use = self._literal_definitions
+                        for definition in definitions_to_use:
+                            attr_name = definition.get("key", "")
+                            pattern = definition.get("value", "")
+                            if not attr_name or not pattern:
+                                continue
+                            attr_value = cell.attrib.get(attr_name, "")
+                            if not attr_value:
+                                continue
+                            if pattern in attr_value:
+                                return True
+                        return False
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         """Currently always returns False. Yet standalone literals
@@ -19971,12 +19997,16 @@ class pipeline:
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
                         return self.coerce_to_uriref(
-                            cfg=self, value=prop, mint_from_literal=True
+                            cfg=self,
+                            value=prop,
+                            mint_from_literal=self.serialisation_config.mint_from_arrows,
                         )
 
                     def resolve_type(self, rdf_type: str) -> Any:
                         return self.coerce_to_uriref(
-                            cfg=self, value=rdf_type, mint_from_literal=False
+                            cfg=self,
+                            value=rdf_type,
+                            mint_from_literal=self.serialisation_config.mint_from_types,
                         )
 
                     def declare_properties(self) -> None:
@@ -20069,7 +20099,11 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add triples for a single individual."""
-                        individual_uri = self.coerce_to_uriref(self, individual_id)
+                        individual_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
                             self.graph.add(
@@ -20097,7 +20131,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     self.graph.add(
                                         (individual_uri, prop_uri, target_uri)
                                     )
@@ -20343,7 +20381,11 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_uri = self.coerce_to_uriref(self, individual_id)
+                        subject_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
@@ -20405,7 +20447,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -20910,6 +20956,7 @@ class internal_metadata_pre:
 
     # END get_prefix_iri
     # BEGIN SerialisationConfig
+    # override from serialisation_config.py
     @dataclass(frozen=True)
     class SerialisationConfig:
         """
@@ -20924,6 +20971,9 @@ class internal_metadata_pre:
         prefix_iri: str | None
         indentation: int
         include_label: bool
+        mint_from_literals: bool = True
+        mint_from_types: bool = False
+        mint_from_arrows: bool = True
 
     # END SerialisationConfig
 
@@ -21678,6 +21728,11 @@ class internal_control_core:
         config_args["infer_type_of_literals"] = infer_type_of_literals
         config_args["infer_types_disable"] = not infer_type_of_literals
         config_args["rml_enabled"] = rml_enabled
+        mint_from_literals = _is_flag_enabled(
+            config_args.get("mint_from_literals", True)
+        )
+        mint_from_types = _is_flag_enabled(config_args.get("mint_from_types", False))
+        mint_from_arrows = _is_flag_enabled(config_args.get("mint_from_arrows", True))
         serialisation_config = SerialisationConfig(
             infer_type_of_literals=infer_type_of_literals,
             include_preamble=include_preamble,
@@ -21686,6 +21741,9 @@ class internal_control_core:
             prefix_iri=prefix_iri,
             indentation=config_args["indentation"],
             include_label=include_label,
+            mint_from_literals=mint_from_literals,
+            mint_from_types=mint_from_types,
+            mint_from_arrows=mint_from_arrows,
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
         strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
@@ -21719,12 +21777,14 @@ class internal_control_core:
             strip_html_enabled = metadata_strip_html
         else:
             strip_html_enabled = _is_flag_enabled(config_strip_html)
+        literal_definitions = config_args.get("literal_definitions")
         classifier = DrawIOCellClassifier(
             working_xml,
             prefixes,
             strict_mode=strict_mode,
             max_gap=max_gap,
             strip_html=strip_html_enabled,
+            literal_definitions=literal_definitions,
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
@@ -22475,6 +22535,7 @@ from draw_io_parser import (  # type: ignore[attr-defined]  # noqa: E402
 )
 
 DEFAULT_METACHARACTER_SUBSTITUTE = ["url"]
+DEFAULT_LITERAL_DEFINITIONS = [{"attrKey": "style", "attrVal": "rounded=1"}]
 
 _LAST_PARSER_CONFIG: dict[str, Any] | None = None
 
@@ -22515,6 +22576,10 @@ def _default_parser_config() -> dict[str, Any]:
         "max_gap": DEFAULT_MAX_GAP,
         "strict_mode": False,
         "strip_html": True,
+        "mint_from_literals": True,
+        "mint_from_types": False,
+        "mint_from_arrows": True,
+        "literal_definitions": DEFAULT_LITERAL_DEFINITIONS,
         "metacharacter_substitute": DEFAULT_METACHARACTER_SUBSTITUTE,
         "capitalisation_scheme": DEFAULT_CAPITALISATION_SCHEME,
         "rml_enabled": False,
@@ -22580,6 +22645,34 @@ def _normalise_metacharacters(value: Any) -> list[str]:
         return []
 
 
+def _normalise_literal_definitions(value: Any) -> list[dict[str, str]]:
+    """Normalize literal definitions from TypeScript format (attrKey/attrVal) to Python format (key/value).
+
+    When value is None, use DEFAULT_LITERAL_DEFINITIONS.
+    When value is [] (explicit empty list), return [] (no literal definitions).
+    Otherwise, normalize the provided values.
+    """
+    # None means use default
+    if value is None:
+        value = DEFAULT_LITERAL_DEFINITIONS
+
+    # Explicit empty list means no literal definitions
+    if isinstance(value, list) and len(value) == 0:
+        return []
+
+    try:
+        result = []
+        for item in value:
+            if isinstance(item, dict) and "attrKey" in item and "attrVal" in item:
+                key = str(item["attrKey"]).strip()
+                val = str(item["attrVal"]).strip()
+                if key and val:
+                    result.append({"key": key, "value": val})
+        return result
+    except (TypeError, KeyError):
+        return []
+
+
 def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
     config = _default_parser_config()
 
@@ -22609,6 +22702,23 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 overrides["strip_html"],
                 config["strip_html"],
             )
+        if "mint_from_literals" in overrides:
+            config["mint_from_literals"] = _coerce_bool(
+                overrides["mint_from_literals"],
+                config["mint_from_literals"],
+            )
+        if "mint_from_types" in overrides:
+            config["mint_from_types"] = _coerce_bool(
+                overrides["mint_from_types"],
+                config["mint_from_types"],
+            )
+        if "mint_from_arrows" in overrides:
+            config["mint_from_arrows"] = _coerce_bool(
+                overrides["mint_from_arrows"],
+                config["mint_from_arrows"],
+            )
+        if "literal_definitions" in overrides:
+            config["literal_definitions"] = overrides["literal_definitions"]
         if "ontology_iri" in overrides:
             config["ontology_iri"] = _coerce_optional_str(overrides["ontology_iri"])
         if "prefix" in overrides:
@@ -22626,9 +22736,7 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 config["max_gap"],
             )
         if "metacharacter_substitute" in overrides:
-            config["metacharacter_substitute"] = _normalise_metacharacters(
-                overrides["metacharacter_substitute"],
-            )
+            config["metacharacter_substitute"] = overrides["metacharacter_substitute"]
         if "capitalisation_scheme" in overrides and isinstance(
             overrides["capitalisation_scheme"],
             str,
@@ -22640,12 +22748,18 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 config["rml_enabled"],
             )
 
+    # Store config before normalization for testing/debugging
+    global _LAST_PARSER_CONFIG
+    _LAST_PARSER_CONFIG = deepcopy(config)
+
+    # Normalize after storing
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]
     )
+    config["literal_definitions"] = _normalise_literal_definitions(
+        config["literal_definitions"]
+    )
 
-    global _LAST_PARSER_CONFIG
-    _LAST_PARSER_CONFIG = deepcopy(config)
     return config
 
 
@@ -23078,6 +23192,9 @@ var PARSER_SETTINGS_INCLUDE_LABEL_ATTRIBUTE = "data-rdfexport-parser-include-lab
 var PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE = "data-rdfexport-parser-infer-types";
 var PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE = "data-rdfexport-parser-strict-mode";
 var PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
+var PARSER_SETTINGS_MINT_FROM_LITERALS_ATTRIBUTE = "data-rdfexport-parser-mint-from-literals";
+var PARSER_SETTINGS_MINT_FROM_TYPES_ATTRIBUTE = "data-rdfexport-parser-mint-from-types";
+var PARSER_SETTINGS_MINT_FROM_ARROWS_ATTRIBUTE = "data-rdfexport-parser-mint-from-arrows";
 var PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 var PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 var PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE = "data-rdfexport-parser-ontology-iri";
@@ -23091,6 +23208,12 @@ var PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE = "data-rdfexport-parser-metachar-ch
 var PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE = "data-rdfexport-parser-metachar-replacement";
 var PARSER_SETTINGS_METACHAR_REMOVE_ATTRIBUTE = "data-rdfexport-parser-metachar-remove";
 var PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE = "data-rdfexport-parser-metachar-add";
+var PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE = "data-rdfexport-parser-literal-def-list";
+var PARSER_SETTINGS_LITERAL_DEF_ENTRY_ATTRIBUTE = "data-rdfexport-parser-literal-def-entry";
+var PARSER_SETTINGS_LITERAL_DEF_KEY_ATTRIBUTE = "data-rdfexport-parser-literal-def-key";
+var PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE = "data-rdfexport-parser-literal-def-value";
+var PARSER_SETTINGS_LITERAL_DEF_REMOVE_ATTRIBUTE = "data-rdfexport-parser-literal-def-remove";
+var PARSER_SETTINGS_LITERAL_DEF_ADD_ATTRIBUTE = "data-rdfexport-parser-literal-def-add";
 var PARSER_SETTINGS_APPLY_ATTRIBUTE = "data-rdfexport-parser-apply";
 var PARSER_SETTINGS_CANCEL_ATTRIBUTE = "data-rdfexport-parser-cancel";
 var RML_ENABLED_ATTRIBUTE = "rmlEnabled";
@@ -23146,6 +23269,9 @@ function createDefaultParserSettings() {
     includeLabel: true,
     strictMode: false,
     stripHtml: true,
+    mintFromLiterals: true,
+    mintFromTypes: false,
+    mintFromArrows: true,
     indentation: DRAWIO_PARSER_DEFAULT_INDENTATION,
     maxGap: DRAWIO_PARSER_DEFAULT_MAX_GAP,
     ontologyIri: null,
@@ -23153,7 +23279,8 @@ function createDefaultParserSettings() {
     prefixIri: null,
     capitalisationScheme: DRAWIO_PARSER_DEFAULT_CAPITALISATION,
     metacharacterStrategy: DRAWIO_PARSER_DEFAULT_METACHARACTER_STRATEGY,
-    metacharacterEntries: []
+    metacharacterEntries: [],
+    literalDefinitions: []
   };
 }
 function normalizeBoolean(value, fallback) {
@@ -23234,6 +23361,24 @@ function normalizeMetacharacterEntries(entries) {
   }
   return normalized;
 }
+function normalizeLiteralEntries(entries) {
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+  const normalized = [];
+  for (const entry of entries) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+    const attrKey = typeof entry.attrKey === "string" ? entry.attrKey : "";
+    if (attrKey.length === 0) {
+      continue;
+    }
+    const attrVal = typeof entry.attrVal === "string" ? entry.attrVal : "";
+    normalized.push({ attrKey, attrVal });
+  }
+  return normalized;
+}
 function normaliseParserSettings(partial) {
   const defaults = createDefaultParserSettings();
   return {
@@ -23242,6 +23387,9 @@ function normaliseParserSettings(partial) {
     includeLabel: normalizeBoolean(partial?.includeLabel, defaults.includeLabel),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
     stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
+    mintFromLiterals: normalizeBoolean(partial?.mintFromLiterals, defaults.mintFromLiterals),
+    mintFromTypes: normalizeBoolean(partial?.mintFromTypes, defaults.mintFromTypes),
+    mintFromArrows: normalizeBoolean(partial?.mintFromArrows, defaults.mintFromArrows),
     indentation: normalizeIndentation(partial?.indentation, defaults.indentation),
     maxGap: normalizeMaxGap(partial?.maxGap, defaults.maxGap),
     ontologyIri: partial?.ontologyIri != null ? normalizeNullableString(partial.ontologyIri) : null,
@@ -23249,7 +23397,8 @@ function normaliseParserSettings(partial) {
     prefixIri: partial?.prefixIri != null ? normalizeNullableString(partial.prefixIri) : null,
     capitalisationScheme: normalizeCapitalisationScheme(partial?.capitalisationScheme, defaults.capitalisationScheme),
     metacharacterStrategy: normalizeMetacharacterStrategy(partial?.metacharacterStrategy, defaults.metacharacterStrategy),
-    metacharacterEntries: normalizeMetacharacterEntries(partial?.metacharacterEntries)
+    metacharacterEntries: normalizeMetacharacterEntries(partial?.metacharacterEntries),
+    literalDefinitions: normalizeLiteralEntries(partial?.literalDefinitions)
   };
 }
 function parseStoredParserSettings(raw) {
@@ -23287,6 +23436,7 @@ function buildParserConfigPayloadFromSettings(settings) {
   for (const entry of normalized.metacharacterEntries) {
     substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
   }
+  const literalDefs = normalized.literalDefinitions;
   return {
     infer_type_of_literals: normalized.inferTypeOfLiterals,
     include_preamble: normalized.includePreamble,
@@ -23298,6 +23448,10 @@ function buildParserConfigPayloadFromSettings(settings) {
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
+    mint_from_literals: normalized.mintFromLiterals,
+    mint_from_types: normalized.mintFromTypes,
+    mint_from_arrows: normalized.mintFromArrows,
+    literal_definitions: literalDefs,
     metacharacter_substitute: substitutes,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false
@@ -24170,6 +24324,15 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
   const stripHtmlRow = createCheckboxRow("Strip HTML tags from literal values", settings.stripHtml, PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE);
   generalSection.appendChild(stripHtmlRow.container);
   const stripHtmlCheckbox = stripHtmlRow.input;
+  const mintFromLiteralsRow = createCheckboxRow("Mint URIs from literals", settings.mintFromLiterals, PARSER_SETTINGS_MINT_FROM_LITERALS_ATTRIBUTE);
+  generalSection.appendChild(mintFromLiteralsRow.container);
+  const mintFromLiteralsCheckbox = mintFromLiteralsRow.input;
+  const mintFromTypesRow = createCheckboxRow("Mint URIs from types", settings.mintFromTypes, PARSER_SETTINGS_MINT_FROM_TYPES_ATTRIBUTE);
+  generalSection.appendChild(mintFromTypesRow.container);
+  const mintFromTypesCheckbox = mintFromTypesRow.input;
+  const mintFromArrowsRow = createCheckboxRow("Mint URIs from arrows", settings.mintFromArrows, PARSER_SETTINGS_MINT_FROM_ARROWS_ATTRIBUTE);
+  generalSection.appendChild(mintFromArrowsRow.container);
+  const mintFromArrowsCheckbox = mintFromArrowsRow.input;
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
   const prefixInput = createLabeledInput(identifiersSection, "Generated individual prefix", settings.prefix, PARSER_SETTINGS_PREFIX_ATTRIBUTE);
@@ -24291,6 +24454,104 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
   addButton.className = addButton.className || "geButton";
   addButtonContainer.appendChild(addButton);
   metacharSection.appendChild(addButtonContainer);
+  const literalDefSection = createSection("Literal definitions");
+  scrollArea.appendChild(literalDefSection);
+  const literalDefList = document.createElement("div");
+  literalDefList.style.display = "flex";
+  literalDefList.style.flexDirection = "column";
+  literalDefList.style.gap = "6px";
+  literalDefList.setAttribute(PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE, "true");
+  literalDefSection.appendChild(literalDefList);
+  const literalDefEntries = [];
+  const addLiteralDefEntry = (attrKey, attrVal) => {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "8px";
+    row.setAttribute(PARSER_SETTINGS_LITERAL_DEF_ENTRY_ATTRIBUTE, "true");
+    const keyInput = document.createElement("input");
+    keyInput.type = "text";
+    keyInput.value = attrKey;
+    keyInput.placeholder = "Attribute key (e.g., style)";
+    keyInput.style.flex = "1 1 auto";
+    keyInput.style.height = "26px";
+    keyInput.style.padding = "4px 6px";
+    keyInput.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    keyInput.style.borderRadius = "2px";
+    keyInput.style.fontSize = "12px";
+    keyInput.setAttribute(PARSER_SETTINGS_LITERAL_DEF_KEY_ATTRIBUTE, "true");
+    const valueInput = document.createElement("input");
+    valueInput.type = "text";
+    valueInput.value = attrVal;
+    valueInput.placeholder = "Attribute value (e.g., rounded=1)";
+    valueInput.style.flex = "1 1 auto";
+    valueInput.style.height = "26px";
+    valueInput.style.padding = "4px 6px";
+    valueInput.style.border = "1px solid var(--geInputBorderColor, #d5d5d5)";
+    valueInput.style.borderRadius = "2px";
+    valueInput.style.fontSize = "12px";
+    valueInput.setAttribute(PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE, "true");
+    let state;
+    const removeLiteralDefEntry = () => {
+      const index = literalDefEntries.indexOf(state);
+      if (index >= 0) {
+        literalDefEntries.splice(index, 1);
+      }
+      if (row.parentNode) {
+        row.parentNode.removeChild(row);
+      }
+    };
+    const removeButton = (() => {
+      if (typeof mxUtils.button === "function") {
+        return mxUtils.button("Remove", () => {
+          removeLiteralDefEntry();
+        });
+      }
+      const button = document.createElement("button");
+      button.textContent = "Remove";
+      button.addEventListener("click", () => {
+        removeLiteralDefEntry();
+      });
+      return button;
+    })();
+    removeButton.setAttribute(PARSER_SETTINGS_LITERAL_DEF_REMOVE_ATTRIBUTE, "true");
+    removeButton.className = removeButton.className || "geButton";
+    state = {
+      container: row,
+      keyInput,
+      valueInput
+    };
+    row.appendChild(keyInput);
+    row.appendChild(valueInput);
+    row.appendChild(removeButton);
+    literalDefList.appendChild(row);
+    literalDefEntries.push(state);
+  };
+  if (settings.literalDefinitions.length > 0) {
+    for (const def of settings.literalDefinitions) {
+      addLiteralDefEntry(def.attrKey, def.attrVal);
+    }
+  }
+  const literalDefAddButtonContainer = document.createElement("div");
+  literalDefAddButtonContainer.style.display = "flex";
+  literalDefAddButtonContainer.style.justifyContent = "flex-end";
+  const literalDefAddButton = (() => {
+    if (typeof mxUtils.button === "function") {
+      return mxUtils.button("Add literal definition", () => {
+        addLiteralDefEntry("", "");
+      });
+    }
+    const button = document.createElement("button");
+    button.textContent = "Add literal definition";
+    button.addEventListener("click", () => {
+      addLiteralDefEntry("", "");
+    });
+    return button;
+  })();
+  literalDefAddButton.setAttribute(PARSER_SETTINGS_LITERAL_DEF_ADD_ATTRIBUTE, "true");
+  literalDefAddButton.className = literalDefAddButton.className || "geButton";
+  literalDefAddButtonContainer.appendChild(literalDefAddButton);
+  literalDefSection.appendChild(literalDefAddButtonContainer);
   const buttons = document.createElement("div");
   buttons.style.position = "absolute";
   buttons.style.left = "30px";
@@ -24329,6 +24590,9 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
       stripHtml: stripHtmlCheckbox.checked,
+      mintFromLiterals: mintFromLiteralsCheckbox.checked,
+      mintFromTypes: mintFromTypesCheckbox.checked,
+      mintFromArrows: mintFromArrowsCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,
@@ -24337,6 +24601,10 @@ function createParserSettingsDialog(editorUi, graph, model, rootCell) {
       metacharacterEntries: entries.map((entry) => ({
         character: entry.select.value,
         replacement: entry.replacement.value
+      })),
+      literalDefinitions: literalDefEntries.map((entry) => ({
+        attrKey: entry.keyInput.value,
+        attrVal: entry.valueInput.value
       }))
     };
     if (indentationRaw.length > 0) {
@@ -24656,7 +24924,14 @@ Draw.loadPlugin(function(editorUi) {
     applyRmlEnabledMetadata(workingGraphXml, rmlEnabled);
     const stripHtml = options?.stripHtml ?? true;
     applyStripHtmlMetadata(workingGraphXml, stripHtml);
-    return mxUtils.getPrettyXml(workingGraphXml);
+    function elementToDocument(el) {
+      if (el.ownerDocument)
+        return el.ownerDocument;
+      const doc = document.implementation.createDocument(null, null, null);
+      doc.appendChild(doc.importNode(el, true));
+      return doc;
+    }
+    return mxUtils.getPrettyXml(elementToDocument(workingGraphXml));
   }
   mxResources.parse(`exportRdfXml=GBAD: Export as RDF/Turtle (.ttl)...
 ` + "exportRml=GBAD: Export as RML (.ttl)...");

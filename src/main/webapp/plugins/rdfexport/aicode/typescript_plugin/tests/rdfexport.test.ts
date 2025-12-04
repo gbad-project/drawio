@@ -2197,246 +2197,246 @@ test("parser settings dialog updates stored configuration and pipeline", async (
 test(
   "parser settings dialog stores and passes new minting knobs to pipeline",
   async () => {
-  await loadPluginModule();
+    await loadPluginModule();
 
-  const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
-  const sampleXml = await Bun.file(fixturePath).text();
-  const parser = new DOMParser();
-  const xmlDoc = parser.parseFromString(sampleXml, "application/xml");
-  const graphXmlElement = xmlDoc.documentElement;
+    const fixturePath = join(fixturesDir, "AA37 Department of Health.drawio");
+    const sampleXml = await Bun.file(fixturePath).text();
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(sampleXml, "application/xml");
+    const graphXmlElement = xmlDoc.documentElement;
 
-  const { graph, model, rootCell } = createGraphEnvironment();
+    const { graph, model, rootCell } = createGraphEnvironment();
 
-  const actions: Record<string, () => void | Promise<void>> = {};
-  const savedExports: Array<{ filename: string; data: string }> = [];
-  let lastDialogContainer: ElementStub | null = null;
-  let hideDialogCalls = 0;
+    const actions: Record<string, () => void | Promise<void>> = {};
+    const savedExports: Array<{ filename: string; data: string }> = [];
+    let lastDialogContainer: ElementStub | null = null;
+    let hideDialogCalls = 0;
 
-  const editorUi = {
-    editor: {
-      getGraphXml: () => graphXmlElement,
-      graph,
-    },
-    currentPage: null,
-    actions: {
-      addAction(name: string, fn: () => void | Promise<void>) {
-        actions[name] = fn;
+    const editorUi = {
+      editor: {
+        getGraphXml: () => graphXmlElement,
+        graph,
       },
-    },
-    menus: {
-      get: () => null,
-      addMenuItems: () => {},
-    },
-    getBaseFilename: () => "diagram",
-    saveData(filename: string, _format: string, data: string) {
-      savedExports.push({ filename, data });
-    },
-    handleError(err: Error) {
-      throw err;
-    },
-    showDialog(container: ElementStub) {
-      lastDialogContainer = container;
-    },
-    hideDialog() {
-      hideDialogCalls += 1;
-      lastDialogContainer = null;
-    },
-  };
+      currentPage: null,
+      actions: {
+        addAction(name: string, fn: () => void | Promise<void>) {
+          actions[name] = fn;
+        },
+      },
+      menus: {
+        get: () => null,
+        addMenuItems: () => {},
+      },
+      getBaseFilename: () => "diagram",
+      saveData(filename: string, _format: string, data: string) {
+        savedExports.push({ filename, data });
+      },
+      handleError(err: Error) {
+        throw err;
+      },
+      showDialog(container: ElementStub) {
+        lastDialogContainer = container;
+      },
+      hideDialog() {
+        hideDialogCalls += 1;
+        lastDialogContainer = null;
+      },
+    };
 
-  for (const callback of pluginCallbacks) {
-    callback(editorUi);
-  }
+    for (const callback of pluginCallbacks) {
+      callback(editorUi);
+    }
 
-  const panelRoot = document.createElement("div");
-  const existingViewSection = document.createElement("div");
-  existingViewSection.className = "geFormatSection";
-  panelRoot.appendChild(existingViewSection);
+    const panelRoot = document.createElement("div");
+    const existingViewSection = document.createElement("div");
+    existingViewSection.className = "geFormatSection";
+    panelRoot.appendChild(existingViewSection);
 
-  const panelContext = {
-    editorUi,
-    listeners: [] as Array<{ destroy(): void }>,
-    container: panelRoot,
-  };
+    const panelContext = {
+      editorUi,
+      listeners: [] as Array<{ destroy(): void }>,
+      container: panelRoot,
+    };
 
-  const container = document.createElement("div");
-  const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
-  const returned = addOptions.call(panelContext, container);
-  panelRoot.appendChild(returned ?? container);
+    const container = document.createElement("div");
+    const addOptions = (DiagramFormatPanel as any).prototype.addOptions;
+    const returned = addOptions.call(panelContext, container);
+    panelRoot.appendChild(returned ?? container);
 
-  const preambleSection = findChildByAttribute(
-    panelRoot,
-    PREAMBLE_SECTION_ATTRIBUTE,
-    "true",
-  );
-  expect(preambleSection).toBeDefined();
-  if (!preambleSection) {
-    throw new Error("Preamble section missing");
-  }
+    const preambleSection = findChildByAttribute(
+      panelRoot,
+      PREAMBLE_SECTION_ATTRIBUTE,
+      "true",
+    );
+    expect(preambleSection).toBeDefined();
+    if (!preambleSection) {
+      throw new Error("Preamble section missing");
+    }
 
-  const parserSettingsButton = findChildByAttribute(
-    preambleSection,
-    PARSER_SETTINGS_BUTTON_ATTRIBUTE,
-    "true",
-  );
+    const parserSettingsButton = findChildByAttribute(
+      preambleSection,
+      PARSER_SETTINGS_BUTTON_ATTRIBUTE,
+      "true",
+    );
 
-  expect(parserSettingsButton).toBeDefined();
-  if (!parserSettingsButton) {
-    throw new Error("Parser settings button was not rendered");
-  }
+    expect(parserSettingsButton).toBeDefined();
+    if (!parserSettingsButton) {
+      throw new Error("Parser settings button was not rendered");
+    }
 
-  parserSettingsButton.click();
+    parserSettingsButton.click();
 
-  expect(lastDialogContainer).toBeDefined();
-  const dialogContainer = lastDialogContainer;
-  if (!dialogContainer) {
-    throw new Error("Parser settings dialog did not open");
-  }
+    expect(lastDialogContainer).toBeDefined();
+    const dialogContainer = lastDialogContainer;
+    if (!dialogContainer) {
+      throw new Error("Parser settings dialog did not open");
+    }
 
-  // Find and toggle the new minting checkboxes
-  const mintFromLiteralsCheckbox = findChildByAttribute(
-    dialogContainer,
-    "data-rdfexport-parser-mint-from-literals",
-    "true",
-  ) as ElementStub & { checked: boolean };
-  const mintFromTypesCheckbox = findChildByAttribute(
-    dialogContainer,
-    "data-rdfexport-parser-mint-from-types",
-    "true",
-  ) as ElementStub & { checked: boolean };
-  const mintFromArrowsCheckbox = findChildByAttribute(
-    dialogContainer,
-    "data-rdfexport-parser-mint-from-arrows",
-    "true",
-  ) as ElementStub & { checked: boolean };
+    // Find and toggle the new minting checkboxes
+    const mintFromLiteralsCheckbox = findChildByAttribute(
+      dialogContainer,
+      "data-rdfexport-parser-mint-from-literals",
+      "true",
+    ) as ElementStub & { checked: boolean };
+    const mintFromTypesCheckbox = findChildByAttribute(
+      dialogContainer,
+      "data-rdfexport-parser-mint-from-types",
+      "true",
+    ) as ElementStub & { checked: boolean };
+    const mintFromArrowsCheckbox = findChildByAttribute(
+      dialogContainer,
+      "data-rdfexport-parser-mint-from-arrows",
+      "true",
+    ) as ElementStub & { checked: boolean };
 
-  expect(mintFromLiteralsCheckbox).toBeDefined();
-  expect(mintFromTypesCheckbox).toBeDefined();
-  expect(mintFromArrowsCheckbox).toBeDefined();
+    expect(mintFromLiteralsCheckbox).toBeDefined();
+    expect(mintFromTypesCheckbox).toBeDefined();
+    expect(mintFromArrowsCheckbox).toBeDefined();
 
-  // Check defaults
-  expect(mintFromLiteralsCheckbox?.checked).toBe(true);
-  expect(mintFromTypesCheckbox?.checked).toBe(false);
-  expect(mintFromArrowsCheckbox?.checked).toBe(true);
+    // Check defaults
+    expect(mintFromLiteralsCheckbox?.checked).toBe(true);
+    expect(mintFromTypesCheckbox?.checked).toBe(false);
+    expect(mintFromArrowsCheckbox?.checked).toBe(true);
     logInfo(
       LOG_PREFIX.TEST,
       "Verified default minting knob states: literals=true, types=false, arrows=true",
     );
 
-  // Toggle mintFromTypes to true (keep the others at their defaults to avoid breaking the fixture)
-  mintFromTypesCheckbox.checked = true;
+    // Toggle mintFromTypes to true (keep the others at their defaults to avoid breaking the fixture)
+    mintFromTypesCheckbox.checked = true;
     logInfo(
       LOG_PREFIX.TEST,
       "Updated minting knobs: mintFromTypes set to true",
     );
 
-  // Find the literal definitions add button
-  const addLiteralDefButton = findChildByAttribute(
-    dialogContainer,
-    "data-rdfexport-parser-literal-def-add",
-    "true",
-  );
-  expect(addLiteralDefButton).toBeDefined();
+    // Find the literal definitions add button
+    const addLiteralDefButton = findChildByAttribute(
+      dialogContainer,
+      "data-rdfexport-parser-literal-def-add",
+      "true",
+    );
+    expect(addLiteralDefButton).toBeDefined();
 
-  // Add a new literal definition entry
-  addLiteralDefButton?.click();
+    // Add a new literal definition entry
+    addLiteralDefButton?.click();
 
-  // Find the literal definitions list container
-  const literalDefList = findChildByAttribute(
-    dialogContainer,
-    "data-rdfexport-parser-literal-def-list",
-    "true",
-  );
-  expect(literalDefList).toBeDefined();
-  if (!literalDefList) {
-    throw new Error("Literal definitions list container not found");
-  }
+    // Find the literal definitions list container
+    const literalDefList = findChildByAttribute(
+      dialogContainer,
+      "data-rdfexport-parser-literal-def-list",
+      "true",
+    );
+    expect(literalDefList).toBeDefined();
+    if (!literalDefList) {
+      throw new Error("Literal definitions list container not found");
+    }
 
-  // Find the entry within the list
-  const firstEntry = findChildByAttribute(
-    literalDefList,
-    "data-rdfexport-parser-literal-def-entry",
-    "true",
-  );
-  expect(firstEntry).toBeDefined();
-  if (!firstEntry) {
-    throw new Error("No literal definition entry found after clicking add");
-  }
+    // Find the entry within the list
+    const firstEntry = findChildByAttribute(
+      literalDefList,
+      "data-rdfexport-parser-literal-def-entry",
+      "true",
+    );
+    expect(firstEntry).toBeDefined();
+    if (!firstEntry) {
+      throw new Error("No literal definition entry found after clicking add");
+    }
 
-  const keyInput = findChildByAttribute(
-    firstEntry,
-    "data-rdfexport-parser-literal-def-key",
-    "true",
-  ) as ElementStub;
-  const valueInput = findChildByAttribute(
-    firstEntry,
-    "data-rdfexport-parser-literal-def-value",
-    "true",
-  ) as ElementStub;
+    const keyInput = findChildByAttribute(
+      firstEntry,
+      "data-rdfexport-parser-literal-def-key",
+      "true",
+    ) as ElementStub;
+    const valueInput = findChildByAttribute(
+      firstEntry,
+      "data-rdfexport-parser-literal-def-value",
+      "true",
+    ) as ElementStub;
 
-  expect(keyInput).toBeDefined();
-  expect(valueInput).toBeDefined();
+    expect(keyInput).toBeDefined();
+    expect(valueInput).toBeDefined();
 
-  keyInput.value = "style";
-  valueInput.value = "ellipse";
-  logInfo(LOG_PREFIX.TEST, "Added custom literal definition: style=ellipse");
+    keyInput.value = "style";
+    valueInput.value = "ellipse";
+    logInfo(LOG_PREFIX.TEST, "Added custom literal definition: style=ellipse");
 
-  // Apply the settings
-  const applyButton = findChildByAttribute(
-    dialogContainer,
-    PARSER_SETTINGS_APPLY_ATTRIBUTE,
-    "true",
-  );
-  expect(applyButton).toBeDefined();
-  applyButton?.click();
-  logInfo(LOG_PREFIX.TEST, "Applied parser settings via dialog");
+    // Apply the settings
+    const applyButton = findChildByAttribute(
+      dialogContainer,
+      PARSER_SETTINGS_APPLY_ATTRIBUTE,
+      "true",
+    );
+    expect(applyButton).toBeDefined();
+    applyButton?.click();
+    logInfo(LOG_PREFIX.TEST, "Applied parser settings via dialog");
 
-  expect(hideDialogCalls).toBe(1);
+    expect(hideDialogCalls).toBe(1);
 
-  // Verify the settings were stored
-  const storedSettingsRaw = graph.getAttributeForCell(
-    rootCell,
-    PARSER_SETTINGS_CELL_ATTRIBUTE,
-    null,
-  );
-  expect(typeof storedSettingsRaw).toBe("string");
-  const storedSettings = JSON.parse(storedSettingsRaw as string) as {
-    version: number;
-    settings: any;
-  };
-  expect(storedSettings.version).toBe(1);
-  const stored = storedSettings.settings;
-  expect(stored.mintFromLiterals).toBe(true);
-  expect(stored.mintFromTypes).toBe(true);
-  expect(stored.mintFromArrows).toBe(true);
-  expect(Array.isArray(stored.literalDefinitions)).toBe(true);
-  expect(stored.literalDefinitions.length).toBeGreaterThan(0);
-  expect(stored.literalDefinitions[0]).toEqual({
-    attrKey: "style",
-    attrVal: "ellipse",
-  });
+    // Verify the settings were stored
+    const storedSettingsRaw = graph.getAttributeForCell(
+      rootCell,
+      PARSER_SETTINGS_CELL_ATTRIBUTE,
+      null,
+    );
+    expect(typeof storedSettingsRaw).toBe("string");
+    const storedSettings = JSON.parse(storedSettingsRaw as string) as {
+      version: number;
+      settings: any;
+    };
+    expect(storedSettings.version).toBe(1);
+    const stored = storedSettings.settings;
+    expect(stored.mintFromLiterals).toBe(true);
+    expect(stored.mintFromTypes).toBe(true);
+    expect(stored.mintFromArrows).toBe(true);
+    expect(Array.isArray(stored.literalDefinitions)).toBe(true);
+    expect(stored.literalDefinitions.length).toBeGreaterThan(0);
+    expect(stored.literalDefinitions[0]).toEqual({
+      attrKey: "style",
+      attrVal: "ellipse",
+    });
     logInfo(
       LOG_PREFIX.TEST,
       "Verified minting knobs stored in graph: literals=true, types=true, arrows=true, literalDefinitions=[{style:ellipse}]",
     );
 
-  // Export and verify the config was passed to Python
-  const exportAction = actions.exportRdfXml;
-  expect(exportAction).toBeDefined();
-  await exportAction?.();
+    // Export and verify the config was passed to Python
+    const exportAction = actions.exportRdfXml;
+    expect(exportAction).toBeDefined();
+    await exportAction?.();
 
-  const configJson = (await debugPyodide(
-    "import json\nfrom pyodide_pipeline.drawio_pipeline import get_last_parser_config\njson.dumps(get_last_parser_config())",
-  )) as string;
-  const config = JSON.parse(configJson) as Record<string, any>;
-  expect(config.mint_from_literals).toBe(true);
-  expect(config.mint_from_types).toBe(true);
-  expect(config.mint_from_arrows).toBe(true);
-  expect(Array.isArray(config.literal_definitions)).toBe(true);
-  expect(config.literal_definitions.length).toBeGreaterThan(0);
-  expect(config.literal_definitions[0]).toEqual({
-    attrKey: "style",
-    attrVal: "ellipse",
-  });
+    const configJson = (await debugPyodide(
+      "import json\nfrom pyodide_pipeline.drawio_pipeline import get_last_parser_config\njson.dumps(get_last_parser_config())",
+    )) as string;
+    const config = JSON.parse(configJson) as Record<string, any>;
+    expect(config.mint_from_literals).toBe(true);
+    expect(config.mint_from_types).toBe(true);
+    expect(config.mint_from_arrows).toBe(true);
+    expect(Array.isArray(config.literal_definitions)).toBe(true);
+    expect(config.literal_definitions.length).toBeGreaterThan(0);
+    expect(config.literal_definitions[0]).toEqual({
+      attrKey: "style",
+      attrVal: "ellipse",
+    });
     logInfo(
       LOG_PREFIX.TEST,
       "Verified minting knobs passed to Python pipeline: mint_from_literals=true, mint_from_types=true, mint_from_arrows=true, literal_definitions=[{style:ellipse}]",

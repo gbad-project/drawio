@@ -521,9 +521,7 @@ function normaliseParserSettings(
     metacharacterEntries: normalizeMetacharacterEntries(
       partial?.metacharacterEntries,
     ),
-    literalDefinitions: normalizeLiteralEntries(
-      partial?.literalDefinitions,
-    ),
+    literalDefinitions: normalizeLiteralEntries(partial?.literalDefinitions),
   };
 }
 
