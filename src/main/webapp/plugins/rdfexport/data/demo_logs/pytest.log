@@ -1,110 +1,28 @@
-Script started on Thu Dec  4 11:59:26 2025
+Script started on Thu Dec  4 12:11:20 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1muv run pytest[0m
-]9;4;3;\[1m============================================== test session starts ===============================================[0m
+]9;4;3;\[1m============================ test session starts =============================[0m
 platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0
 rootdir: /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollecting 15 items                                                                                              [0m[1mcollected 109 items                                                                                              [0m
+[1mcollecting ... [0m[1mcollected 109 items                                                          [0m
 
-aicode/integration/debug/tests/test_debug_cli.py ]9;4;1;0\[32m.[0m]9;4;1;0\[32m.[0m]9;4;1;1\[32m.[0m]9;4;1;2\[32m.[0m]9;4;1;3\[32m.[0m]9;4;1;4\[32m.[0m]9;4;1;5\[32m.[0m]9;4;1;6\[32m.[0m]9;4;1;7\[32m.[0m]9;4;1;8\[32m.[0m]9;4;1;9\[32m.[0m]9;4;1;10\[32m.[0m[32m                                              [ 11%][0m
-aicode/integration/debug/tests/test_dynamic_config.py ]9;4;1;11\[32m.[0m[32m                                                    [ 11%][0m
-aicode/integration/rmlmapper_workflows/tests/test_map_schema_workflow.py ]9;4;1;11\[32m.[0m]9;4;1;12\[32m.[0m[33m                                [ 13%][0m
-aicode/integration/rmlmapper_workflows/tests/test_pipeline_workflow.py ]9;4;1;13\[33mx[0m
-]9;4;1;14\[33mx[0m[33m                                  [ 15%][0m
-aicode/python_core/tests/test_cell_classifier.py ]9;4;1;15\[32m.[0m]9;4;1;16\[32m.[0m]9;4;1;17\[32m.[0m]9;4;1;18\[32m.[0m]9;4;1;19\[32m.[0m]9;4;1;20\[32m.[0m]9;4;1;21\[32m.[0m]9;4;1;22\[32m.[0m]9;4;1;22\[32m.[0m]9;4;1;23\[32m.[0m]9;4;1;24\[32m.[0m]9;4;1;25\[32m.[0m]9;4;1;26\[32m.[0m]9;4;1;27\[32m.[0m[33m                                            [ 28%][0m
-aicode/python_core/tests/test_curie_validator.py ]9;4;1;28\[32m.[0m]9;4;1;29\[32m.[0m]9;4;1;30\[32m.[0m[33m                                                       [ 31%][0m
-aicode/python_core/tests/test_drawio_meta_builder.py ]9;4;1;31\[32m.[0m]9;4;1;32\[32m.[0m]9;4;1;33\[32m.[0m]9;4;1;33\[32m.[0m]9;4;1;34\[32m.[0m]9;4;1;35\[32m.[0m[33m                                                [ 36%][0m
-aicode/python_core/tests/test_patched_parser.py ]9;4;1;36\[32m.[0m]9;4;1;37\[32m.[0m]9;4;1;38\[32m.[0m]9;4;1;39\[32m.[0m]9;4;1;40\[32m.[0m]9;4;1;41\[32m.[0m]9;4;1;42\[32m.[0m]9;4;1;43\[32m.[0m]9;4;1;44\[32m.[0m]9;4;1;44\[32m.[0m]9;4;1;45\[32m.[0m]9;4;1;46\[32m.[0m]9;4;1;47\[32m.[0m]9;4;1;48\[32m.[0m]9;4;1;49\[32m.[0m]9;4;1;50\[32m.[0m]9;4;1;51\[32m.[0m]9;4;1;52\[32m.[0m]9;4;1;53\[32m.[0m]9;4;1;54\[32m.[0m]9;4;1;55\[32m.[0m]9;4;1;55\[32m.[0m]9;4;1;56\[32m.[0m]9;4;1;57\[32m.[0m]9;4;1;58\[32m.[0m]9;4;1;59\[32m.[0m]9;4;1;60\[32m.[0m]9;4;1;61\[32m.[0m]9;4;1;62\[32m.[0m]9;4;1;63\[32m.[0m]9;4;1;64\[32m.[0m]9;4;1;65\[32m.[0m]9;4;1;66\[32m.[0m]9;4;1;66\[32m.[0m]9;4;1;67\[32m.[0m]9;4;2;68\[31mF[0m]9;4;2;69\[32m.[0m]9;4;2;70\[32m.[0m]9;4;2;71\[32m.[0m]9;4;2;72\[32m.[0m]9;4;2;73\[32m.[0m]9;4;2;74\[32m.[0m]9;4;2;75\[32m.[0m]9;4;2;76\[32m.[0m]9;4;2;77\[32m.[0m]9;4;2;77\[33mx[0m]9;4;2;78\[33mx[0m[31m            [ 79%][0m
-aicode/python_core/tests/test_pyodide_pipeline.py ]9;4;2;79\[32m.[0m]9;4;2;80\[32m.[0m]9;4;2;81\[32m.[0m]9;4;2;82\[32m.[0m]9;4;2;83\[32m.[0m]9;4;2;84\[32m.[0m]9;4;2;85\[32m.[0m[31m                                                  [ 86%][0m
-python_core/tests/test_draw_io_parser_graph.py ]9;4;2;86\[32m.[0m]9;4;2;87\[32m.[0m]9;4;2;88\[32m.[0m[31m                                                         [ 88%][0m
-python_core/tests/test_parse_drawio_type_values.py ]9;4;2;88\[32m.[0m]9;4;2;89\[32m.[0m]9;4;2;90\[32m.[0m]9;4;2;91\[32m.[0m]9;4;2;92\[32m.[0m]9;4;2;93\[32m.[0m]9;4;2;94\[32m.[0m]9;4;2;95\[32m.[0m]9;4;2;96\[32m.[0m]9;4;2;97\[32m.[0m]9;4;2;98\[32m.[0m]9;4;2;99\[32m.[0m[31m                                            [100%][0m]9;4;0;\
+aicode/integration/debug/tests/test_debug_cli.py ]9;4;1;0\[32m.[0m]9;4;1;0\[32m.[0m]9;4;1;1\[32m.[0m]9;4;1;2\[32m.[0m]9;4;1;3\[32m.[0m]9;4;1;4\[32m.[0m]9;4;1;5\[32m.[0m]9;4;1;6\[32m.[0m]9;4;1;7\[32m.[0m]9;4;1;8\[32m.[0m]9;4;1;9\[32m.[0m]9;4;1;10\[32m.[0m[32m          [ 11%][0m
+aicode/integration/debug/tests/test_dynamic_config.py ]9;4;1;11\[32m.[0m[32m                [ 11%][0m
+aicode/integration/rmlmapper_workflows/tests/test_map_schema_workflow.py ]9;4;1;11\[32m.[0m[32m [ 12%]
+[0m]9;4;1;12\[32m.[0m[33m                                                                      [ 13%][0m
+aicode/integration/rmlmapper_workflows/tests/test_pipeline_workflow.py ]9;4;1;13\[33mx[0m[33m [ 14%]
+[0m]9;4;1;14\[33mx[0m[33m                                                                      [ 15%][0m
+aicode/python_core/tests/test_cell_classifier.py ]9;4;1;15\[32m.[0m]9;4;1;16\[32m.[0m]9;4;1;17\[32m.[0m]9;4;1;18\[32m.[0m]9;4;1;19\[32m.[0m]9;4;1;20\[32m.[0m]9;4;1;21\[32m.[0m]9;4;1;22\[32m.[0m]9;4;1;22\[32m.[0m]9;4;1;23\[32m.[0m]9;4;1;24\[32m.[0m]9;4;1;25\[32m.[0m]9;4;1;26\[32m.[0m]9;4;1;27\[32m.[0m[33m        [ 28%][0m
+aicode/python_core/tests/test_curie_validator.py ]9;4;1;28\[32m.[0m]9;4;1;29\[32m.[0m]9;4;1;30\[32m.[0m[33m                   [ 31%][0m
+aicode/python_core/tests/test_drawio_meta_builder.py ]9;4;1;31\[32m.[0m]9;4;1;32\[32m.[0m]9;4;1;33\[32m.[0m]9;4;1;33\[32m.[0m]9;4;1;34\[32m.[0m]9;4;1;35\[32m.[0m[33m            [ 36%][0m
+aicode/python_core/tests/test_patched_parser.py ]9;4;1;36\[32m.[0m]9;4;1;37\[32m.[0m]9;4;1;38\[32m.[0m]9;4;1;39\[32m.[0m]9;4;1;40\[32m.[0m]9;4;1;41\[32m.[0m]9;4;1;42\[32m.[0m]9;4;1;43\[32m.[0m]9;4;1;44\[32m.[0m]9;4;1;44\[32m.[0m]9;4;1;45\[32m.[0m]9;4;1;46\[32m.[0m]9;4;1;47\[32m.[0m]9;4;1;48\[32m.[0m]9;4;1;49\[32m.[0m]9;4;1;50\[32m.[0m]9;4;1;51\[32m.[0m]9;4;1;52\[32m.[0m]9;4;1;53\[32m.[0m]9;4;1;54\[32m.[0m]9;4;1;55\[32m.[0m]9;4;1;55\[32m.[0m[33m [ 56%]
+[0m]9;4;1;56\[32m.[0m]9;4;1;57\[32m.[0m]9;4;1;58\[32m.[0m]9;4;1;59\[32m.[0m]9;4;1;60\[32m.[0m]9;4;1;61\[32m.[0m]9;4;1;62\[32m.[0m]9;4;1;63\[32m.[0m]9;4;1;64\[32m.[0m]9;4;1;65\[32m.[0m]9;4;1;66\[32m.[0m]9;4;1;66\[32m.[0m]9;4;1;67\[32m.[0m]9;4;1;68\[32m.[0m]9;4;1;69\[32m.[0m]9;4;1;70\[32m.[0m]9;4;1;71\[32m.[0m]9;4;1;72\[32m.[0m]9;4;1;73\[32m.[0m]9;4;1;74\[32m.[0m]9;4;1;75\[32m.[0m]9;4;1;76\[32m.[0m]9;4;1;77\[32m.[0m]9;4;1;77\[33mx[0m]9;4;1;78\[33mx[0m[33m                                              [ 79%][0m
+aicode/python_core/tests/test_pyodide_pipeline.py ]9;4;1;79\[32m.[0m]9;4;1;80\[32m.[0m]9;4;1;81\[32m.[0m]9;4;1;82\[32m.[0m]9;4;1;83\[32m.[0m]9;4;1;84\[32m.[0m]9;4;1;85\[32m.[0m[33m              [ 86%][0m
+python_core/tests/test_draw_io_parser_graph.py ]9;4;1;86\[32m.[0m]9;4;1;87\[32m.[0m]9;4;1;88\[32m.[0m[33m                     [ 88%][0m
+python_core/tests/test_parse_drawio_type_values.py ]9;4;1;88\[32m.[0m]9;4;1;89\[32m.[0m]9;4;1;90\[32m.[0m]9;4;1;91\[32m.[0m]9;4;1;92\[32m.[0m]9;4;1;93\[32m.[0m]9;4;1;94\[32m.[0m]9;4;1;95\[32m.[0m]9;4;1;96\[32m.[0m]9;4;1;97\[32m.[0m]9;4;1;98\[32m.[0m]9;4;1;99\[32m.[0m[33m        [100%][0m]9;4;0;\
 
-==================================================== FAILURES ====================================================
-[31m[1m__________________ test_parse_drawio_matches_baseline_graphs[diagram_RiC-CM-overview-RiC-v1-0] ___________________[0m
-
-baseline_path = PosixPath('/Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/data/fixtures/baselines/diagram_RiC-CM-overview-RiC-v1-0.nt')
-
->   [0m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[04m[91m?[39;49;00m[90m[39;49;00m
-[1m[31mE   AssertionError: Graphs are not isomorphic:[0m
-[1m[31mE     Extra triples (in actual, not in expected):[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock'), rdflib.term.URIRef('http://www.w3.org/2004/02/skos/core#note'), rdflib.term.Literal('RiC-E22 \xa0 \xa0Place'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock'), rdflib.term.URIRef('http://www.w3.org/2004/02/skos/core#note'), rdflib.term.Literal('s'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#Created%20By%20ICA-EGAD%20In%20September%202023.'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#Created%20By%20ICA-EGAD%20In%20September%202023.'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('Created by ICA-EGAD in September 2023.'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-CM%20V1.0%3A%20A%20Global%20Overview'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-CM%20V1.0%3A%20A%20Global%20Overview'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-CM v1.0: a global overview'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E02%20Record%20Resource'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E02%20Record%20Resource'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E02 Record Resource'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E03%20Record%20Set'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E03%20Record%20Set'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E03 Record Set'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E04%20Record'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E04%20Record'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E04 Record'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E05%20Record%20Part'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E05%20Record%20Part'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E05 Record Part'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E06%20Instantiation'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E06%20Instantiation'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E06 Instantiation'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E07%20Agent'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E07%20Agent'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E07 Agent'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E08%20Person'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E08%20Person'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E08 Person'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E09%20Group'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E09%20Group'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E09 Group'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E10%20Family'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E10%20Family'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E10 Family'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E11%20Corporate%20Body'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E11%20Corporate%20Body'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E11 Corporate Body'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E12%20Position'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E12%20Position'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E12 Position'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E13%20Mechanism'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E13%20Mechanism'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E13 Mechanism'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E14%20Event'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E14%20Event'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E14 Event'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E15%20Activity'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E15%20Activity'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E15 Activity'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E16%20Rule'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E16%20Rule'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E16 Rule'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E17%20Mandate'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E17%20Mandate'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E17 Mandate'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E18%20Date'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-E18%20Date'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-E18 Date'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R019%20Has%20Or%20Had%20Subject'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R019%20Has%20Or%20Had%20Subject'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R019 has or had subject'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R019i%20Is%20Or%20Was%20Subject%20Of'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R019i%20Is%20Or%20Was%20Subject%20Of'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R019i is or was subject of'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R025%20Has%20Or%20Had%20Instantiation'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R025%20Has%20Or%20Had%20Instantiation'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R025 has or had instantiation'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R025i%20Is%20Or%20Was%20Instantiation%20Of'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R025i%20Is%20Or%20Was%20Instantiation%20Of'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R025i is or was instantiation of'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R026%20Has%20Provenance'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R026%20Has%20Provenance'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R026 has provenance'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R026i%20Is%20Provenance%20Of'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R026i%20Is%20Provenance%20Of'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R026i is provenance of'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R033%20Documents'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R033%20Documents'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R033 documents'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R033i%20Documented%20By'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R033i%20Documented%20By'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R033i documented by'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R060%20Is%20Or%20Was%20Performed%20By'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R060%20Is%20Or%20Was%20Performed%20By'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R060 is or was performed by'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R060i%20Performs%20Or%20Performed'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R060i%20Performs%20Or%20Performed'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R060i performs or performed'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R063%20Regulates%20Or%20Regulated'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R063%20Regulates%20Or%20Regulated'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R063 regulates or regulated'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R063%20Regulates%20Or%20Regulated'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R063 regulates\xa0or regulated'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R063i%20Is%20Or%20Was%20Regutated%20By'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R063i%20Is%20Or%20Was%20Regutated%20By'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R063i   is or was regutated by'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R080%20Is%20Creation%20Date%20Of'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R080%20Is%20Creation%20Date%20Of'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R080 is creation date of'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R080i%20Has%20Creation%20Date'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#RiC-R080i%20Has%20Creation%20Date'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('RiC-R080i has creation date'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#This%20Diagram%20Is%20Licensed%20Under%20A%20Creative%20Commons%20Attribution%204.0%20International%20License.'), rdflib.term.URIRef('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'), rdflib.term.URIRef('http://www.w3.org/2002/07/owl#NamedIndividual'))[0m
-[1m[31mE       (rdflib.term.URIRef('ontology://generated-from-draw-io/mock#This%20Diagram%20Is%20Licensed%20Under%20A%20Creative%20Commons%20Attribution%204.0%20International%20License.'), rdflib.term.URIRef('http://www.w3.org/2000/01/rdf-schema#label'), rdflib.term.Literal('This diagram is licensed under a Creative Commons Attribution 4.0 International License.'))[0m
-[1m[31mE   assert False[0m
-[1m[31mE    +  where False = isomorphic(<Graph identifier=Na8af5f569e4f4ae0aa9382242fa48e31 (<class 'rdflib.graph.Graph'>)>)[0m
-[1m[31mE    +    where isomorphic = <Graph identifier=N67f292cc31234cabb9cb1cbba79040a4 (<class 'rdflib.graph.Graph'>)>.isomorphic[0m
-
-[1m[31m/Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/python_core/tests/test_patched_parser.py[0m:501: AssertionError
-[33m================================================ warnings summary ================================================[0m
+[33m============================== warnings summary ==============================[0m
 aicode/integration/rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_add
 aicode/integration/rmlmapper_workflows/tests/test_map_schema_workflow.py::test_map_schema_workflow_general_authority
 aicode/integration/rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pipeline_workflow_general_add
@@ -112,10 +30,7 @@ aicode/integration/rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pip
   /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integration/rmlmapper_workflows/tests/test_map_schema_workflow.py:42: UserWarning: RML canonicalization took too long and was skipped.
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[36m[1m============================================ short test summary info =============================================[0m
-[31mFAILED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[diagram_RiC-CM-overview-RiC-v1-0][0m - AssertionError: Graphs are not isomorphic:
-[31m============================= [31m[1m1 failed[0m, [32m104 passed[0m, [33m4 xfailed[0m, [33m4 warnings[0m[31m in 57.97s[0m[31m ==============================[0m
-[0m[31merror[0m[2m:[0m script [1m"test:pytest:all"[0m exited with code 1[0m
+[33m================ [32m105 passed[0m, [33m[1m4 xfailed[0m, [33m[1m4 warnings[0m[33m in 26.92s[0m[33m =================[0m
 
-Command exit status: 1
-Script done on Thu Dec  4 12:00:24 2025
+Command exit status: 0
+Script done on Thu Dec  4 12:11:47 2025

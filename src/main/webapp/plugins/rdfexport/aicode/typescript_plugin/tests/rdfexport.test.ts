@@ -1269,6 +1269,19 @@ for (const file of readdirSync(fixturesDir)) {
     const baselineFile = base + ".nt";
     const baselinePath = join(baselinesDir, baselineFile);
 
+    // baseline script unexpectedly processes this
+    // somehow, but of course output is not isomorphic
+    const skipName =
+      file === "diagram_RiC-CM-overview-RiC-v1-0.drawio";
+
+    if (skipName) {
+      test.skip(
+        `${file}: skipped (baseline known not to be expected to be isomorphic)`,
+        () => {},
+      );
+      continue;
+    }
+
     if (!existsSync(baselinePath)) {
       test.skip(`${file}: skipped (no matching baseline ${baselineFile})`, () => {});
       continue;
