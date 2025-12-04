@@ -15,21 +15,20 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
+from enum import Enum, auto
 import json
 from html import unescape
-from enum import Enum, auto
-import re
-from rdflib import BNode
-from rdflib.term import Node
 from typing import Callable
-from rdflib import SKOS
+from rdflib import BNode, SKOS
 from rdflib.collection import Collection
+import re
+from rdflib.term import Node
 from rdflib.namespace import NamespaceManager
-import typing
-import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
+import typing
+import logging
 
 
 class pipeline:
