@@ -1,8 +1,15 @@
 // Originally generated with OpenAI Codex on 2025-09-15
 // Ported to TypeScript with Claude Sonnet 4 on 2025-09-15
-import * as yaml from 'js-yaml';
+import * as yaml from "js-yaml";
 
 import defaultConfigYamlSource from "./pyodideRuntime";
+
+import {
+  createDefList,
+  createLiteralDefSection,
+  type LiteralParserSettingsEntry,
+  type LiteralDefEntryState,
+} from "../../../typescript_plugin/src/literalsKnob";
 
 /**
  * RDF/XML export plugin - TypeScript version
@@ -15,7 +22,7 @@ interface MxConstants {
   NODETYPE_CDATA: number;
 }
 
-interface MxUtils {
+export interface MxUtils {
   createXmlDocument(): Document;
   getPrettyXml(doc: Document): string;
   button?(label: string, handler: (evt?: any) => void): HTMLButtonElement;
@@ -241,12 +248,12 @@ const METACHARACTER_STRATEGY_OPTIONS: Array<{
   },
 ];
 
-interface ParserSettingsEntry {
+interface MetacharacterParserSettingsEntry {
   character: string;
   replacement: string;
 }
 
-interface ParserSettings {
+export interface ParserSettings {
   includePreamble: boolean;
   inferTypeOfLiterals: boolean;
   includeLabel: boolean;
@@ -259,7 +266,8 @@ interface ParserSettings {
   prefixIri: string | null;
   capitalisationScheme: CapitalisationScheme;
   metacharacterStrategy: MetacharacterStrategy;
-  metacharacterEntries: ParserSettingsEntry[];
+  metacharacterEntries: MetacharacterParserSettingsEntry[];
+  literalDefinitions: LiteralParserSettingsEntry[];
 }
 
 interface StoredParserSettings {
@@ -272,7 +280,7 @@ function createDefaultParserSettings(): ParserSettings {
   const parserConfig = defaultConfig.parser_config;
 
   let metacharacterStrategy: MetacharacterStrategy = "custom";
-  const metacharacterEntries: ParserSettingsEntry[] = [];
+  const metacharacterEntries: MetacharacterParserSettingsEntry[] = [];
 
   if (parserConfig.metacharacter_substitute.includes("url")) {
     metacharacterStrategy = "url";
@@ -285,6 +293,16 @@ function createDefaultParserSettings(): ParserSettings {
       metacharacterEntries.push({
         character: substitute.character,
         replacement: substitute.replacement,
+      });
+    }
+  }
+
+  const literalDefinitions: LiteralParserSettingsEntry[] = [];
+  for (const def of parserConfig.literal_definitions) {
+    if (typeof def === "object") {
+      literalDefinitions.push({
+        attrKey: def.attr_key,
+        attrVal: def.attr_value,
       });
     }
   }
@@ -303,6 +321,7 @@ function createDefaultParserSettings(): ParserSettings {
     capitalisationScheme: parserConfig.capitalisation_scheme,
     metacharacterStrategy,
     metacharacterEntries,
+    literalDefinitions,
   };
 }
 
@@ -384,12 +403,12 @@ function normalizeMetacharacterStrategy(
 
 function normalizeMetacharacterEntries(
   entries: unknown,
-): ParserSettingsEntry[] {
+): MetacharacterParserSettingsEntry[] {
   if (!Array.isArray(entries)) {
     return [];
   }
 
-  const normalized: ParserSettingsEntry[] = [];
+  const normalized: MetacharacterParserSettingsEntry[] = [];
 
   for (const entry of entries) {
     if (!entry || typeof entry !== "object") {
@@ -397,8 +416,8 @@ function normalizeMetacharacterEntries(
     }
 
     const character =
-      typeof (entry as ParserSettingsEntry).character === "string"
-        ? (entry as ParserSettingsEntry).character
+      typeof (entry as MetacharacterParserSettingsEntry).character === "string"
+        ? (entry as MetacharacterParserSettingsEntry).character
         : "";
 
     if (character.length === 0) {
@@ -406,11 +425,46 @@ function normalizeMetacharacterEntries(
     }
 
     const replacement =
-      typeof (entry as ParserSettingsEntry).replacement === "string"
-        ? (entry as ParserSettingsEntry).replacement
+      typeof (entry as MetacharacterParserSettingsEntry).replacement ===
+      "string"
+        ? (entry as MetacharacterParserSettingsEntry).replacement
         : "";
 
     normalized.push({ character, replacement });
+  }
+
+  return normalized;
+}
+
+function normalizeLiteralEntries(
+  entries: unknown,
+): LiteralParserSettingsEntry[] {
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+
+  const normalized: LiteralParserSettingsEntry[] = [];
+
+  for (const entry of entries) {
+    if (!entry || typeof entry !== "object") {
+      continue;
+    }
+
+    const attrKey =
+      typeof (entry as LiteralParserSettingsEntry).attrKey === "string"
+        ? (entry as LiteralParserSettingsEntry).attrKey
+        : "";
+
+    if (attrKey.length === 0) {
+      continue;
+    }
+
+    const attrVal =
+      typeof (entry as LiteralParserSettingsEntry).attrVal === "string"
+        ? (entry as LiteralParserSettingsEntry).attrVal
+        : "";
+
+    normalized.push({ attrKey, attrVal });
   }
 
   return normalized;
@@ -462,6 +516,7 @@ function normaliseParserSettings(
     metacharacterEntries: normalizeMetacharacterEntries(
       partial?.metacharacterEntries,
     ),
+    literalDefinitions: normalizeLiteralEntries(partial?.literalDefinitions),
   };
 }
 
@@ -532,6 +587,7 @@ function buildParserConfigPayloadFromSettings(
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
+    literal_definitions: normalized.literalDefinitions,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false,
   };
@@ -1976,16 +2032,19 @@ function createParserSettingsDialog(
     replacement: HTMLInputElement;
   };
 
-  const entriesList = document.createElement("div");
-  entriesList.style.display = "flex";
-  entriesList.style.flexDirection = "column";
-  entriesList.style.gap = "6px";
-  entriesList.setAttribute(PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE, "true");
-  metacharSection.appendChild(entriesList);
+  const metacharEntriesList = document.createElement("div");
+  metacharEntriesList.style.display = "flex";
+  metacharEntriesList.style.flexDirection = "column";
+  metacharEntriesList.style.gap = "6px";
+  metacharEntriesList.setAttribute(
+    PARSER_SETTINGS_METACHAR_LIST_ATTRIBUTE,
+    "true",
+  );
+  metacharSection.appendChild(metacharEntriesList);
 
-  const entries: MetacharEntryState[] = [];
+  const metacharEntries: MetacharEntryState[] = [];
 
-  const addEntry = (character: string, replacement: string) => {
+  const addMetacharEntry = (character: string, replacement: string) => {
     const row = document.createElement("div");
     row.style.display = "flex";
     row.style.alignItems = "center";
@@ -2041,10 +2100,10 @@ function createParserSettingsDialog(
 
     let state: MetacharEntryState;
 
-    const removeEntry = () => {
-      const index = entries.indexOf(state);
+    const removeMetacharEntry = () => {
+      const index = metacharEntries.indexOf(state);
       if (index >= 0) {
-        entries.splice(index, 1);
+        metacharEntries.splice(index, 1);
       }
       if (row.parentNode) {
         row.parentNode.removeChild(row);
@@ -2054,13 +2113,13 @@ function createParserSettingsDialog(
     const removeButton = ((): HTMLElement => {
       if (typeof mxUtils.button === "function") {
         return mxUtils.button("Remove", () => {
-          removeEntry();
+          removeMetacharEntry();
         });
       }
       const button = document.createElement("button");
       button.textContent = "Remove";
       button.addEventListener("click", () => {
-        removeEntry();
+        removeMetacharEntry();
       });
       return button;
     })();
@@ -2080,38 +2139,53 @@ function createParserSettingsDialog(
     row.appendChild(charSelect);
     row.appendChild(replacementInput);
     row.appendChild(removeButton);
-    entriesList.appendChild(row);
-    entries.push(state);
+    metacharEntriesList.appendChild(row);
+    metacharEntries.push(state);
   };
 
   if (settings.metacharacterEntries.length > 0) {
     for (const entry of settings.metacharacterEntries) {
-      addEntry(entry.character, entry.replacement);
+      addMetacharEntry(entry.character, entry.replacement);
     }
   }
 
-  const addButtonContainer = document.createElement("div");
-  addButtonContainer.style.display = "flex";
-  addButtonContainer.style.justifyContent = "flex-end";
+  const addMetacharButtonContainer = document.createElement("div");
+  addMetacharButtonContainer.style.display = "flex";
+  addMetacharButtonContainer.style.justifyContent = "flex-end";
 
-  const addButton = ((): HTMLElement => {
+  const addMetacharButton = ((): HTMLElement => {
     if (typeof mxUtils.button === "function") {
       return mxUtils.button("Add substitution", () => {
-        addEntry(" ", "");
+        addMetacharEntry(" ", "");
       });
     }
     const button = document.createElement("button");
     button.textContent = "Add substitution";
     button.addEventListener("click", () => {
-      addEntry(" ", "");
+      addMetacharEntry(" ", "");
     });
     return button;
   })();
 
-  addButton.setAttribute(PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE, "true");
-  addButton.className = (addButton as HTMLElement).className || "geButton";
-  addButtonContainer.appendChild(addButton);
-  metacharSection.appendChild(addButtonContainer);
+  addMetacharButton.setAttribute(
+    PARSER_SETTINGS_METACHAR_ADD_ATTRIBUTE,
+    "true",
+  );
+  addMetacharButton.className =
+    (addMetacharButton as HTMLElement).className || "geButton";
+  addMetacharButtonContainer.appendChild(addMetacharButton);
+  metacharSection.appendChild(addMetacharButtonContainer);
+
+  const literalDefList = createDefList();
+  const literalDefEntries: LiteralDefEntryState[] = [];
+  const literalDefSection = createLiteralDefSection(
+    settings,
+    mxUtils,
+    createSection,
+    literalDefEntries,
+    literalDefList,
+  );
+  scrollArea.appendChild(literalDefSection);
 
   const buttons = document.createElement("div");
   buttons.style.position = "absolute";
@@ -2161,9 +2235,13 @@ function createParserSettingsDialog(
       ontologyIri: ontologyIriInput.value,
       capitalisationScheme: capitalisationSelect.value as CapitalisationScheme,
       metacharacterStrategy: strategySelect.value as MetacharacterStrategy,
-      metacharacterEntries: entries.map((entry) => ({
+      metacharacterEntries: metacharEntries.map((entry) => ({
         character: entry.select.value,
         replacement: entry.replacement.value,
+      })),
+      literalDefinitions: literalDefEntries.map((entry) => ({
+        attrKey: entry.keyInput.value,
+        attrVal: entry.valueInput.value,
       })),
     };
 

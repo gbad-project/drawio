@@ -6,6 +6,14 @@ import type { BunPlugin } from "bun";
 import { join, extname, basename, normalize, dirname, resolve } from "path";
 import { patchDrawioWithMetadata } from "./utils/patchDrawioWithMetadata";
 import { LOG_PREFIX, logInfo } from "../src/logging";
+import {
+  PARSER_SETTINGS_LITERAL_DEF_LIST_ATTRIBUTE,
+  PARSER_SETTINGS_LITERAL_DEF_ENTRY_ATTRIBUTE,
+  PARSER_SETTINGS_LITERAL_DEF_KEY_ATTRIBUTE,
+  PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE,
+  PARSER_SETTINGS_LITERAL_DEF_REMOVE_ATTRIBUTE,
+  PARSER_SETTINGS_LITERAL_DEF_ADD_ATTRIBUTE,
+} from "../../../typescript_plugin/src/literalsKnob";
 
 const rdfexportUrl = fileURLToPath(
   new URL("../src/rdfexport.ts", import.meta.url),
@@ -107,6 +115,7 @@ const DEFAULT_PARSER_CONFIG: DrawioParserConfigPayload = {
   strict_mode: false,
   strip_html: true,
   metacharacter_substitute: ["url"],
+  literal_definitions: [{ attr_key: "style", attr_value: "rounded=1" }],
   capitalisation_scheme: "upper-camel",
   rml_enabled: false,
 };
@@ -1271,14 +1280,10 @@ for (const file of readdirSync(fixturesDir)) {
 
     // baseline script unexpectedly processes this
     // somehow, but of course output is not isomorphic
-    const skipName =
-      file === "diagram_RiC-CM-overview-RiC-v1-0.drawio";
+    const skipName = file === "diagram_RiC-CM-overview-RiC-v1-0.drawio";
 
     if (skipName) {
-      test.skip(
-        `${file}: skipped (baseline known not to be expected to be isomorphic)`,
-        () => {},
-      );
+      test.skip(`${file}: skipped (baseline known not to be expected to be isomorphic)`, () => {});
       continue;
     }
 
@@ -2104,29 +2109,61 @@ test("parser settings dialog updates stored configuration and pipeline", async (
   expect(addButton).toBeDefined();
   addButton?.click();
 
-  const entryRow = findChildByAttribute(
+  const metacharEntryRow = findChildByAttribute(
     dialogContainer,
     PARSER_SETTINGS_METACHAR_ENTRY_ATTRIBUTE,
     "true",
   );
-  expect(entryRow).toBeDefined();
-  if (!entryRow) {
+  expect(metacharEntryRow).toBeDefined();
+  if (!metacharEntryRow) {
     throw new Error("Metacharacter entry row was not created");
   }
 
   const entryCharSelect = findChildByAttribute(
-    entryRow,
+    metacharEntryRow,
     PARSER_SETTINGS_METACHAR_CHAR_ATTRIBUTE,
     "true",
   ) as ElementStub;
   const entryReplacementInput = findChildByAttribute(
-    entryRow,
+    metacharEntryRow,
     PARSER_SETTINGS_METACHAR_REPLACEMENT_ATTRIBUTE,
     "true",
   ) as ElementStub;
 
   entryCharSelect.value = "(";
   entryReplacementInput.value = "square";
+
+  const literalDefAddButton = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_LITERAL_DEF_ADD_ATTRIBUTE,
+    "true",
+  );
+  expect(literalDefAddButton).toBeDefined();
+  literalDefAddButton?.click();
+
+  const literalDefRow = findChildByAttribute(
+    dialogContainer,
+    PARSER_SETTINGS_LITERAL_DEF_ENTRY_ATTRIBUTE,
+    "true",
+  );
+  expect(literalDefRow).toBeDefined();
+  if (!literalDefRow) {
+    throw new Error("Literal definition entry row was not created");
+  }
+
+  const literalDefKeyInput = findChildByAttribute(
+    literalDefRow,
+    PARSER_SETTINGS_LITERAL_DEF_KEY_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+  const literalDefValueInput = findChildByAttribute(
+    literalDefRow,
+    PARSER_SETTINGS_LITERAL_DEF_VALUE_ATTRIBUTE,
+    "true",
+  ) as ElementStub;
+
+  literalDefKeyInput.value = "style";
+  literalDefValueInput.value = "rounded=1";
 
   const applyButton = findChildByAttribute(
     dialogContainer,
