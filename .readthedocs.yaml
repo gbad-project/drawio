@@ -11,7 +11,9 @@ build:
     pre_create_environment:
       - asdf plugin-add uv
       - asdf plugin-add bun
-      - asdf install
+      - |
+        cd src/main/webapp/plugins/rdfexport
+        asdf install
     create_environment:
       - |
         cd src/main/webapp/plugins/rdfexport
