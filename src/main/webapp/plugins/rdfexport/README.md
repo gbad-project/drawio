@@ -1,4 +1,4 @@
-# rdfexport
+# DrawRDF
 
 A draw\.io plugin that adds an option to export diagrams to RDF graphs.
 
