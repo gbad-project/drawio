@@ -3,7 +3,7 @@ name = "Draw RDF"
 version = "0.1.0"
 description = "A draw.io plugin that adds an option to export diagrams to RDF graphs."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.14"
 dependencies = [
     "pandas>=2.3.3",
     "rdflib>=7.4.0",
