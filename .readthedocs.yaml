@@ -13,7 +13,8 @@ build:
     python: "3.14"
   jobs:
     post_checkout:
-      # Install our own asdf to pin version
+      # Remove existing asdf and install pinned version
+      - rm -rf ~/.asdf
       - git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.18.0
       - . ~/.asdf/asdf.sh && asdf --version
 
