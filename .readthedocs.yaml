@@ -9,9 +9,9 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.14" # Or your preferred Python version, e.g., "3.12"
-  install:
-      - pip install -r rdfexport/docs/requirements.txt
   jobs:
+    install:
+      - pip install -r rdfexport/docs/requirements.txt
     pre_build:
       - python rdfexport/docs/scripts/build_docs.py
 
