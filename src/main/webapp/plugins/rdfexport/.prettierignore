@@ -5,6 +5,8 @@ dist/
 **/__pycache__/
 *.md
 docs/
-aicode/docs/
+aicode/.chats/
+aicode/.reports/
+aicode/.context/
 data/
 *.yml
