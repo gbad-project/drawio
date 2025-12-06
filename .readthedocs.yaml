@@ -41,4 +41,4 @@ build:
         # Copy built docs to Read the Docs output directory
         # Adjust the source path if your build outputs elsewhere
         - mkdir -p $READTHEDOCS_OUTPUT/html/
-        - cp -r src/main/webapp/plugins/rdfexport/docs/_build/html/* $READTHEDOCS_OUTPUT/html/
+        - cp -r src/main/webapp/plugins/rdfexport/docs/build/html/* $READTHEDOCS_OUTPUT/html/
