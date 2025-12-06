@@ -12,14 +12,14 @@ build:
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
-  configuration: docs/source/conf.py # Path to your Sphinx conf.py
+  configuration: rdfexport/docs/source/conf.py # Path to your Sphinx conf.py
   builder: html
   fail_on_warning: false # Set to true if you want builds to fail on warnings
 
 # Python dependencies
 python:
   install:
-    - requirements: docs/requirements.txt
+    - requirements: rdfexport/docs/requirements.txt
 
 # Custom build commands
 # This will run *before* Sphinx is invoked by Read the Docs
@@ -27,7 +27,7 @@ python:
 # Read the Docs will then automatically run Sphinx based on the 'sphinx' section.
 commands:
   pre_build:
-    - python docs/scripts/build_docs.py
+    - python rdfexport/docs/scripts/build_docs.py
 
 # Define the version of the documentation
 # This is usually handled by Git branches/tags, but you can configure specific versions
