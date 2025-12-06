@@ -10,13 +10,17 @@ Add your content using ``reStructuredText`` syntax. See the
 `reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
 documentation for details.
 
+.. toctree::
+   :maxdepth: 2
+   :caption: User Documentation
+
+   content/README
+   examples
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Developer Documentation
 
-   readme
-   user
-   developer
-   examples
-
+   python_core
+   aicode_artifacts
+   fixtures

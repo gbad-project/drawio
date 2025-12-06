@@ -28,7 +28,8 @@
     "setup": "bun install; bun run setup:uv; bun run setup:pyodide",
     "build:py": "uv run python -m aicode.python_core.meta_builder -o python_core/src/draw_io_parser.py && bun run lint:fix:py && bun run format:py",
     "build:ts": "bun run aicode/integration/scripts/build.ts && cp dist/rdfexport.js .. && bun run lint:fix:ts && bun run format:ts",
-    "build": "bun run build:py && bun run build:ts",
+    "build:docs": "uv run python docs/scripts/build_docs.py && uv run make -C docs html",
+    "build": "bun run build:py && bun run build:ts && bun run build:docs",
     "test": "bash integration/scripts/test_entrypoint.sh; bun --check test",
     "test:log:macos": "LOGFILE=\"data/demo_logs/test.log\" && script \"$LOGFILE\" bun run test",
     "test:log:linux": "LOGFILE=\"data/demo_logs/test.log\" && script -c \"bun run test\" \"$LOGFILE\"",
@@ -65,7 +66,6 @@
     "lint:fix": "bun run lint:fix:py; bun run lint:fix:ts",
     "check": "bun run lint && bun run format:check",
     "fix": "bun run lint:fix && bun run format",
-    "serve": "cd ../../../../.. && python -m http.server 8000",
-    "make:docs": "uv run make -C docs html"
+    "serve": "cd ../../../../.. && python -m http.server 8000"
   }
 }

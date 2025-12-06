@@ -25,11 +25,18 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'myst_parser',
+    'sphinxcontrib.mermaid',
 ]
+
+myst_fence_as_directive = ["mermaid"]
 
 templates_path = ['_templates']
 exclude_patterns = []
 
+
+myst_heading_anchors = 3
+myst_title_to_header = True
+myst_enable_extensions = ["linkify"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

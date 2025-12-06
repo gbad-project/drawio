@@ -18,7 +18,7 @@ rdfexport extension unreleased version [26d193c](https://github.com/gbad-project
 
 The online version runs fully in the client web browser and does not require any installation except that JavaScript should be turned on (on by default in modern browsers like Chrome).
 
-The entire rdfexport extension is condensed to a single file: [rdfexport.js](../rdfexport.js). If you would like to learn more about how it was built and/or modify it using modern tooling, refer to the section below.
+The entire rdfexport extension is condensed to a single file: [rdfexport.js](../../../../rdfexport.js). If you would like to learn more about how it was built and/or modify it using modern tooling, refer to the section below.
 
 **For developers:**
 

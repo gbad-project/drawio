@@ -20,6 +20,8 @@ dev = [
     "sphinx==7.3.7",
     "myst-parser>=4.0.1",
     "sphinx-rtd-theme>=3.0.2",
+    "sphinxcontrib-mermaid>=1.2.3",
+    "linkify-it-py>=2.0.3",
 ]
 
 [tool.ruff]
