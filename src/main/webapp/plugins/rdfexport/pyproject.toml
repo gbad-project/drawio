@@ -1,7 +1,7 @@
 [project]
-name = "rdfexport"
+name = "Draw RDF"
 version = "0.1.0"
-description = "Add your description here"
+description = "A draw.io plugin that adds an option to export diagrams to RDF graphs."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
