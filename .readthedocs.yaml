@@ -10,10 +10,14 @@ build:
   tools:
     python: "3.14" # Or your preferred Python version, e.g., "3.12"
   jobs:
+    pre_install:
+      - curl -LsSf https://astral.sh/uv/install.sh | sh
+      - source $HOME/.local/bin/env
+      - cd src/main/webapp/plugins/rdfexport
     install:
-      - pip install -r rdfexport/docs/requirements.txt
+      - uv sync --group docs
     pre_build:
-      - python rdfexport/docs/scripts/build_docs.py
+      - uv run python rdfexport/docs/scripts/build_docs.py
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
