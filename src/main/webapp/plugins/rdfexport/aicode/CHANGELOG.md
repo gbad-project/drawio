@@ -1,5 +1,8 @@
 # Changelog
 
+> [!WARNING]
+> This file was not kept up to date and as such should **NOT** be used.
+
 All notable changes to this project will be documented in this file. This is mostly AI-generated, however, so some notable changes may be missed.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
