@@ -16,28 +16,28 @@ build:
       # Remove existing asdf and install pinned version
       - rm -rf ~/.asdf
       - git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.18.0
-      - . ~/.asdf/asdf.sh && asdf --version
+      - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && asdf --version
 
     pre_install:
       # Change to the subdirectory where .tool-versions lives
       - cd src/main/webapp/plugins/rdfexport && cat .tool-versions
 
       # Add asdf plugins for uv and bun
-      - . ~/.asdf/asdf.sh && asdf plugin add uv
-      - . ~/.asdf/asdf.sh && asdf plugin add bun
+      - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && asdf plugin add uv
+      - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && asdf plugin add bun
 
       # Install versions specified in .tool-versions
-      - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && asdf install uv
-      - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && asdf install bun
+      - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && asdf install uv
+      - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && asdf install bun
 
     install:
       # Install dependencies using uv from the subdirectory
-      - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && uv sync --group docs
+      - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && uv sync --group docs
 
     build:
       html:
         # Run the docs build command from the subdirectory
-        - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && bun run build:docs
+        - export ASDF_DIR="$HOME/.asdf" && . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && bun run build:docs
         # Copy built docs to Read the Docs output directory
         # Adjust the source path if your build outputs elsewhere
         - mkdir -p $READTHEDOCS_OUTPUT/html/
