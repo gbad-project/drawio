@@ -1,29 +1,43 @@
-# .readthedocs.yaml
 # Read the Docs configuration file
 # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 
+# Originally generated with Claude Opus 4.5 on 2025-12-06, modified
+
 version: 2
 
-# Set the version of Python and other tools
 build:
   os: ubuntu-24.04
+  tools:
+    # We need a base tool to enable build.jobs - using python as placeholder
+    # since asdf will manage our actual tools
+    python: "3.14"
   jobs:
-    pre_create_environment:
-      - asdf plugin-add uv
-      - asdf plugin-add bun
-      - |
-        cd src/main/webapp/plugins/rdfexport
-        asdf install
-    create_environment:
-      - |
-        cd src/main/webapp/plugins/rdfexport
-        uv venv "${READTHEDOCS_VIRTUALENV_PATH}"
+    post_checkout:
+      # Install our own asdf to pin version
+      - git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.18.0
+      - . ~/.asdf/asdf.sh && asdf --version
+
+    pre_install:
+      # Change to the subdirectory where .tool-versions lives
+      - cd src/main/webapp/plugins/rdfexport && cat .tool-versions
+
+      # Add asdf plugins for uv and bun
+      - . ~/.asdf/asdf.sh && asdf plugin add uv
+      - . ~/.asdf/asdf.sh && asdf plugin add bun
+
+      # Install versions specified in .tool-versions
+      - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && asdf install uv
+      - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && asdf install bun
+
     install:
-      - |
-        cd src/main/webapp/plugins/rdfexport
-        UV_PROJECT_ENVIRONMENT="${READTHEDOCS_VIRTUALENV_PATH}" uv sync --frozen --group docs
+      # Install dependencies using uv from the subdirectory
+      - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && uv sync --group docs
+
     build:
       html:
-        - |
-          cd src/main/webapp/plugins/rdfexport
-          bun run build:docs
+        # Run the docs build command from the subdirectory
+        - . ~/.asdf/asdf.sh && cd src/main/webapp/plugins/rdfexport && bun run build:docs
+        # Copy built docs to Read the Docs output directory
+        # Adjust the source path if your build outputs elsewhere
+        - mkdir -p $READTHEDOCS_OUTPUT/html/
+        - cp -r src/main/webapp/plugins/rdfexport/docs/_build/html/* $READTHEDOCS_OUTPUT/html/
