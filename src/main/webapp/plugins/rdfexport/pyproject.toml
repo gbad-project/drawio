@@ -1,5 +1,5 @@
 [project]
-name = "Draw RDF"
+name = "DrawRDF"
 version = "0.1.0"
 description = "A draw.io plugin that adds an option to export diagrams to RDF graphs."
 readme = "README.md"
