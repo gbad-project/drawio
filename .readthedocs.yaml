@@ -9,27 +9,14 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.14" # Or your preferred Python version, e.g., "3.12"
+  install:
+      - pip install -r rdfexport/docs/requirements.txt
+  jobs:
+    pre_build:
+      - python rdfexport/docs/scripts/build_docs.py
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
   configuration: rdfexport/docs/source/conf.py # Path to your Sphinx conf.py
   builder: html
   fail_on_warning: false # Set to true if you want builds to fail on warnings
-
-# Python dependencies
-python:
-  install:
-    - requirements: rdfexport/docs/requirements.txt
-
-# Custom build commands
-# This will run *before* Sphinx is invoked by Read the Docs
-# It executes your preprocessing script.
-# Read the Docs will then automatically run Sphinx based on the 'sphinx' section.
-commands:
-  pre_build:
-    - python rdfexport/docs/scripts/build_docs.py
-
-# Define the version of the documentation
-# This is usually handled by Git branches/tags, but you can configure specific versions
-# See https://docs.readthedocs.io/en/stable/versions.html
-# main_branch: main # Uncomment and set if your main branch is not 'main' or 'master'
