@@ -725,10 +725,10 @@ class DrawIOCellClassifier:
         # Handle None - use default
         if self._literal_definitions is None:
             definitions_to_use = [{"attr_key": "style", "attr_value": "rounded=1"}]
-            # AICODE-TODO: implement reading from default.yml like 
+            # AICODE-TODO: implement reading from default.yml like
             # `aicode/python_core/pyodide_pipeline/drawio_pipeline.py``
             # does it, yet take into account that this is a part of
-            # metabuilt code so all paths should be relative to 
+            # metabuilt code so all paths should be relative to
             # `python_core/src/draw_io_parser.py` yet should also support
             # standalone use outside of metabuilder context
             # raise RuntimeError("Literal definitions not passed from upstream")

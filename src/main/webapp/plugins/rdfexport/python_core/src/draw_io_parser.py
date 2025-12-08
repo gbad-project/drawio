@@ -161,6 +161,7 @@ class pipeline:
                         strict_mode: bool = False,
                         max_gap: float | None = None,
                         strip_html: bool = True,
+                        literal_definitions: list[dict[str, str]] | None = None,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -186,6 +187,7 @@ class pipeline:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
                         self._strip_html = bool(strip_html)
+                        self._literal_definitions = literal_definitions
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
                         self._child_value_cache: dict[str, list[str]] = {}
@@ -819,12 +821,34 @@ class pipeline:
                             return False
                         return False
 
-                    @staticmethod
-                    def _style_denotes_literal(cell: Element, style: str) -> bool:
-                        if not style:
-                            return False
-                        if "rounded=1" in style:
+                    def _style_denotes_literal(self, cell: Element, style: str) -> bool:
+                        """Check if cell matches any literal definition.
+                        - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
+                        - []: Return True (treat everything as literal)
+                        - [...]: Use provided definitions
+                        """
+                        if self._literal_definitions is None:
+                            definitions_to_use = [
+                                {"attr_key": "style", "attr_value": "rounded=1"}
+                            ]
+                        elif (
+                            isinstance(self._literal_definitions, list)
+                            and len(self._literal_definitions) == 0
+                        ):
                             return True
+                        else:
+                            definitions_to_use = self._literal_definitions
+                        for definition in definitions_to_use:
+                            attr_name = definition.get("attr_key", "")
+                            pattern = definition.get("attr_value", "")
+                            if not attr_name or not pattern:
+                                continue
+                            attr_value = cell.attrib.get(attr_name, "")
+                            if not attr_value:
+                                continue
+                            if pattern in attr_value:
+                                return True
+                        return False
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
                         """Currently always returns False. Yet standalone literals
@@ -3006,12 +3030,14 @@ class internal_control_core:
             strip_html_enabled = metadata_strip_html
         else:
             strip_html_enabled = _is_flag_enabled(config_strip_html)
+        literal_definitions = config_args.get("literal_definitions")
         classifier = DrawIOCellClassifier(
             working_xml,
             prefixes,
             strict_mode=strict_mode,
             max_gap=max_gap,
             strip_html=strip_html_enabled,
+            literal_definitions=literal_definitions,
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]
