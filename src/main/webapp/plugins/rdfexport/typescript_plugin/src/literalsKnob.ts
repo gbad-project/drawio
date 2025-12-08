@@ -22,6 +22,11 @@ export type LiteralDefEntryState = {
   valueInput: HTMLInputElement;
 };
 
+export interface LiteralParserConfigEntry {
+  attr_key: string;
+  attr_value: string;
+}
+
 export interface LiteralParserSettingsEntry {
   attrKey: string;
   attrVal: string;
@@ -157,7 +162,7 @@ export function createLiteralDefSection(
     return literalDefAddButtonContainer;
   })();
 
-  if (settings.literalDefinitions.length > 0) {
+  if (settings.literalDefinitions && settings.literalDefinitions.length > 0) {
     for (const def of settings.literalDefinitions) {
       addLiteralDefEntry(def.attrKey, def.attrVal);
     }

@@ -123,7 +123,11 @@ function deriveStoredParserSettings(
   const settings: Record<string, unknown> = {};
 
   for (const [key, value] of Object.entries(parserConfig)) {
-    if (key === "metacharacter_substitute" || key === "rml_enabled" || key === "literal_definitions") {
+    if (
+      key === "metacharacter_substitute" ||
+      key === "rml_enabled" ||
+      key === "literal_definitions"
+    ) {
       continue;
     }
     settings[toCamelFromSnake(key)] = value;

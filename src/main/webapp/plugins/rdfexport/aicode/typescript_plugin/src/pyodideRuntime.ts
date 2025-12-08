@@ -30,7 +30,7 @@ export interface DrawioParserConfigPayload {
   strict_mode: boolean;
   strip_html: boolean;
   metacharacter_substitute: string[];
-  literal_definitions: Record<string, any>[];
+  literal_definitions: Record<string, any>[] | null;
   capitalisation_scheme: string;
   rml_enabled: boolean;
 }

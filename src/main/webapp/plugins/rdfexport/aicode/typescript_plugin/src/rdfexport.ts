@@ -7,6 +7,7 @@ import defaultConfigYamlSource from "./pyodideRuntime";
 import {
   createDefList,
   createLiteralDefSection,
+  type LiteralParserConfigEntry,
   type LiteralParserSettingsEntry,
   type LiteralDefEntryState,
 } from "../../../typescript_plugin/src/literalsKnob";
@@ -253,6 +254,16 @@ interface MetacharacterParserSettingsEntry {
   replacement: string;
 }
 
+/**
+ * This is distinct from how it comes in
+ * `DrawioParserConfigPayload` because this
+ * is only for YAML files (default or debug).
+ */
+interface MetacharacterParserYamlConfigEntry {
+  character: string;
+  replacement: string;
+}
+
 export interface ParserSettings {
   includePreamble: boolean;
   inferTypeOfLiterals: boolean;
@@ -267,7 +278,7 @@ export interface ParserSettings {
   capitalisationScheme: CapitalisationScheme;
   metacharacterStrategy: MetacharacterStrategy;
   metacharacterEntries: MetacharacterParserSettingsEntry[];
-  literalDefinitions: LiteralParserSettingsEntry[];
+  literalDefinitions: LiteralParserSettingsEntry[] | null;
 }
 
 interface StoredParserSettings {
@@ -275,37 +286,18 @@ interface StoredParserSettings {
   settings: ParserSettings;
 }
 
+/**
+ * Reads default YAML and creates default settings in JS/TS format.
+ */
 function createDefaultParserSettings(): ParserSettings {
   const defaultConfig = yaml.load(defaultConfigYamlSource) as any;
   const parserConfig = defaultConfig.parser_config;
 
-  let metacharacterStrategy: MetacharacterStrategy = "custom";
-  const metacharacterEntries: MetacharacterParserSettingsEntry[] = [];
-
-  if (parserConfig.metacharacter_substitute.includes("url")) {
-    metacharacterStrategy = "url";
-  } else if (parserConfig.metacharacter_substitute.includes("remove")) {
-    metacharacterStrategy = "remove";
-  }
-
-  for (const substitute of parserConfig.metacharacter_substitute) {
-    if (typeof substitute === "object") {
-      metacharacterEntries.push({
-        character: substitute.character,
-        replacement: substitute.replacement,
-      });
-    }
-  }
-
-  const literalDefinitions: LiteralParserSettingsEntry[] = [];
-  for (const def of parserConfig.literal_definitions) {
-    if (typeof def === "object") {
-      literalDefinitions.push({
-        attrKey: def.attr_key,
-        attrVal: def.attr_value,
-      });
-    }
-  }
+  const [metacharacterStrategy, metacharacterEntries] =
+    normalizeMetacharacterSubstitute(parserConfig.metacharacter_substitute);
+  const literalDefinitions = normalizeLiteralEntries(
+    parserConfig.literal_definitions,
+  );
 
   return {
     includePreamble: parserConfig.include_preamble,
@@ -391,6 +383,34 @@ function normalizeCapitalisationScheme(
   return fallback;
 }
 
+function normalizeMetacharacterSubstitute(
+  metacharacter_substitute: unknown,
+): [MetacharacterStrategy, MetacharacterParserSettingsEntry[]] {
+  let metacharacterStrategy: MetacharacterStrategy = "custom";
+  const metacharacterEntries: MetacharacterParserSettingsEntry[] = [];
+
+  if (!Array.isArray(metacharacter_substitute)) {
+    return [metacharacterStrategy, metacharacterEntries];
+  }
+
+  if (metacharacter_substitute[0] === "url") {
+    metacharacterStrategy = "url";
+  } else if (metacharacter_substitute[0] === "remove") {
+    metacharacterStrategy = "remove";
+  }
+
+  for (const substitute of metacharacter_substitute) {
+    if (typeof substitute === "object") {
+      metacharacterEntries.push({
+        character: substitute.character,
+        replacement: substitute.replacement,
+      });
+    }
+  }
+
+  return [metacharacterStrategy, metacharacterEntries];
+}
+
 function normalizeMetacharacterStrategy(
   value: unknown,
   fallback: MetacharacterStrategy,
@@ -416,8 +436,9 @@ function normalizeMetacharacterEntries(
     }
 
     const character =
-      typeof (entry as MetacharacterParserSettingsEntry).character === "string"
-        ? (entry as MetacharacterParserSettingsEntry).character
+      typeof (entry as MetacharacterParserYamlConfigEntry).character ===
+      "string"
+        ? (entry as MetacharacterParserYamlConfigEntry).character
         : "";
 
     if (character.length === 0) {
@@ -425,9 +446,9 @@ function normalizeMetacharacterEntries(
     }
 
     const replacement =
-      typeof (entry as MetacharacterParserSettingsEntry).replacement ===
+      typeof (entry as MetacharacterParserYamlConfigEntry).replacement ===
       "string"
-        ? (entry as MetacharacterParserSettingsEntry).replacement
+        ? (entry as MetacharacterParserYamlConfigEntry).replacement
         : "";
 
     normalized.push({ character, replacement });
@@ -436,11 +457,33 @@ function normalizeMetacharacterEntries(
   return normalized;
 }
 
+function denormalizeToMetacharacterSubstitute(
+  normalizedMetacharacterStrategy: MetacharacterStrategy,
+  normalizedMetacharacterEntries: MetacharacterParserSettingsEntry[],
+): string[] {
+  const substitutes: string[] = [];
+
+  if (normalizedMetacharacterStrategy === "url") {
+    substitutes.push("url");
+  } else if (normalizedMetacharacterStrategy === "remove") {
+    substitutes.push("remove");
+  }
+
+  for (const entry of normalizedMetacharacterEntries) {
+    substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
+  }
+
+  return substitutes;
+}
+
 function normalizeLiteralEntries(
   entries: unknown,
-): LiteralParserSettingsEntry[] {
+): LiteralParserSettingsEntry[] | null {
   if (!Array.isArray(entries)) {
-    return [];
+    // very important! preserve to pass None to Python,
+    // which drastically affects further logic
+    // vs. empty array, which defaults all to literals
+    return null;
   }
 
   const normalized: LiteralParserSettingsEntry[] = [];
@@ -451,8 +494,8 @@ function normalizeLiteralEntries(
     }
 
     const attrKey =
-      typeof (entry as LiteralParserSettingsEntry).attrKey === "string"
-        ? (entry as LiteralParserSettingsEntry).attrKey
+      typeof (entry as LiteralParserConfigEntry).attr_key === "string"
+        ? (entry as LiteralParserConfigEntry).attr_key
         : "";
 
     if (attrKey.length === 0) {
@@ -460,8 +503,8 @@ function normalizeLiteralEntries(
     }
 
     const attrVal =
-      typeof (entry as LiteralParserSettingsEntry).attrVal === "string"
-        ? (entry as LiteralParserSettingsEntry).attrVal
+      typeof (entry as LiteralParserConfigEntry).attr_value === "string"
+        ? (entry as LiteralParserConfigEntry).attr_value
         : "";
 
     normalized.push({ attrKey, attrVal });
@@ -470,6 +513,32 @@ function normalizeLiteralEntries(
   return normalized;
 }
 
+function denormalizeLiteralDefinitions(
+  normalizedLiteralDefs: LiteralParserSettingsEntry[] | null,
+): LiteralParserConfigEntry[] | null {
+  if (!Array.isArray(normalizedLiteralDefs)) {
+    // very important! pass None to Python,
+    // which drastically affects further logic
+    // vs. empty array, which defaults all to literals
+    return null;
+  }
+
+  const literal_definitions: LiteralParserConfigEntry[] = [];
+  for (const def of normalizedLiteralDefs) {
+    if (typeof def === "object") {
+      literal_definitions.push({
+        attr_key: def.attrKey,
+        attr_value: def.attrVal,
+      });
+    }
+  }
+
+  return literal_definitions;
+}
+
+/**
+ * Converts Pythonic/YAML entries -> JS/TS entries.
+ */
 function normaliseParserSettings(
   partial: Partial<ParserSettings> | null | undefined,
 ): ParserSettings {
@@ -563,17 +632,15 @@ function buildParserConfigPayloadFromSettings(
   settings: ParserSettings,
 ): DrawioParserConfigPayload {
   const normalized = normaliseParserSettings(settings);
-  const substitutes: string[] = [];
 
-  if (normalized.metacharacterStrategy === "url") {
-    substitutes.push("url");
-  } else if (normalized.metacharacterStrategy === "remove") {
-    substitutes.push("remove");
-  }
+  const substitutes = denormalizeToMetacharacterSubstitute(
+    normalized.metacharacterStrategy,
+    normalized.metacharacterEntries,
+  );
 
-  for (const entry of normalized.metacharacterEntries) {
-    substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
-  }
+  const literal_definitions = denormalizeLiteralDefinitions(
+    normalized.literalDefinitions,
+  );
 
   return {
     infer_type_of_literals: normalized.inferTypeOfLiterals,
@@ -587,7 +654,7 @@ function buildParserConfigPayloadFromSettings(
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
-    literal_definitions: normalized.literalDefinitions,
+    literal_definitions: literal_definitions,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false,
   };

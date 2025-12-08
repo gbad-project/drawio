@@ -25884,7 +25884,7 @@ function createLiteralDefSection(settings, mxUtils2, createSection, literalDefEn
     literalDefAddButtonContainer2.appendChild(literalDefAddButton);
     return literalDefAddButtonContainer2;
   })();
-  if (settings.literalDefinitions.length > 0) {
+  if (settings.literalDefinitions && settings.literalDefinitions.length > 0) {
     for (const def of settings.literalDefinitions) {
       addLiteralDefEntry(def.attrKey, def.attrVal);
     }
@@ -26004,30 +26004,8 @@ var METACHARACTER_STRATEGY_OPTIONS = [
 function createDefaultParserSettings() {
   const defaultConfig = load2(pyodideRuntime_default);
   const parserConfig = defaultConfig.parser_config;
-  let metacharacterStrategy = "custom";
-  const metacharacterEntries = [];
-  if (parserConfig.metacharacter_substitute.includes("url")) {
-    metacharacterStrategy = "url";
-  } else if (parserConfig.metacharacter_substitute.includes("remove")) {
-    metacharacterStrategy = "remove";
-  }
-  for (const substitute of parserConfig.metacharacter_substitute) {
-    if (typeof substitute === "object") {
-      metacharacterEntries.push({
-        character: substitute.character,
-        replacement: substitute.replacement
-      });
-    }
-  }
-  const literalDefinitions = [];
-  for (const def of parserConfig.literal_definitions) {
-    if (typeof def === "object") {
-      literalDefinitions.push({
-        attrKey: def.attr_key,
-        attrVal: def.attr_value
-      });
-    }
-  }
+  const [metacharacterStrategy, metacharacterEntries] = normalizeMetacharacterSubstitute(parserConfig.metacharacter_substitute);
+  const literalDefinitions = normalizeLiteralEntries(parserConfig.literal_definitions);
   return {
     includePreamble: parserConfig.include_preamble,
     inferTypeOfLiterals: parserConfig.infer_type_of_literals,
@@ -26099,6 +26077,27 @@ function normalizeCapitalisationScheme(value, fallback) {
   }
   return fallback;
 }
+function normalizeMetacharacterSubstitute(metacharacter_substitute) {
+  let metacharacterStrategy = "custom";
+  const metacharacterEntries = [];
+  if (!Array.isArray(metacharacter_substitute)) {
+    return [metacharacterStrategy, metacharacterEntries];
+  }
+  if (metacharacter_substitute[0] === "url") {
+    metacharacterStrategy = "url";
+  } else if (metacharacter_substitute[0] === "remove") {
+    metacharacterStrategy = "remove";
+  }
+  for (const substitute of metacharacter_substitute) {
+    if (typeof substitute === "object") {
+      metacharacterEntries.push({
+        character: substitute.character,
+        replacement: substitute.replacement
+      });
+    }
+  }
+  return [metacharacterStrategy, metacharacterEntries];
+}
 function normalizeMetacharacterStrategy(value, fallback) {
   if (value === "remove" || value === "custom" || value === "url") {
     return value;
@@ -26123,23 +26122,50 @@ function normalizeMetacharacterEntries(entries) {
   }
   return normalized;
 }
+function denormalizeToMetacharacterSubstitute(normalizedMetacharacterStrategy, normalizedMetacharacterEntries) {
+  const substitutes = [];
+  if (normalizedMetacharacterStrategy === "url") {
+    substitutes.push("url");
+  } else if (normalizedMetacharacterStrategy === "remove") {
+    substitutes.push("remove");
+  }
+  for (const entry of normalizedMetacharacterEntries) {
+    substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
+  }
+  return substitutes;
+}
 function normalizeLiteralEntries(entries) {
   if (!Array.isArray(entries)) {
-    return [];
+    return null;
   }
   const normalized = [];
   for (const entry of entries) {
     if (!entry || typeof entry !== "object") {
       continue;
     }
-    const attrKey = typeof entry.attrKey === "string" ? entry.attrKey : "";
+    const attrKey = typeof entry.attr_key === "string" ? entry.attr_key : "";
     if (attrKey.length === 0) {
       continue;
     }
-    const attrVal = typeof entry.attrVal === "string" ? entry.attrVal : "";
+    const attrVal = typeof entry.attr_value === "string" ? entry.attr_value : "";
     normalized.push({ attrKey, attrVal });
   }
   return normalized;
+}
+function denormalizeLiteralDefinitions(normalizedLiteralDefs) {
+  if (!Array.isArray(normalizedLiteralDefs)) {
+    return null;
+  }
+  const literal_definitions = [];
+  for (const def of normalizedLiteralDefs) {
+    if (typeof def === "object") {
+      literal_definitions.push({
+        attr_key: def.attrKey,
+        attr_value: def.attrVal
+      });
+    }
+  }
+  return literal_definitions;
 }
 function normaliseParserSettings(partial) {
   const defaults = createDefaultParserSettings();
@@ -26186,15 +26212,8 @@ function serializeParserSettings(settings) {
 var DEFAULT_SERIALIZED_PARSER_SETTINGS = serializeParserSettings(createDefaultParserSettings());
 function buildParserConfigPayloadFromSettings(settings) {
   const normalized = normaliseParserSettings(settings);
-  const substitutes = [];
-  if (normalized.metacharacterStrategy === "url") {
-    substitutes.push("url");
-  } else if (normalized.metacharacterStrategy === "remove") {
-    substitutes.push("remove");
-  }
-  for (const entry of normalized.metacharacterEntries) {
-    substitutes.push(`${entry.character}=${entry.replacement ?? ""}`);
-  }
+  const substitutes = denormalizeToMetacharacterSubstitute(normalized.metacharacterStrategy, normalized.metacharacterEntries);
+  const literal_definitions = denormalizeLiteralDefinitions(normalized.literalDefinitions);
   return {
     infer_type_of_literals: normalized.inferTypeOfLiterals,
     include_preamble: normalized.includePreamble,
@@ -26207,7 +26226,7 @@ function buildParserConfigPayloadFromSettings(settings) {
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
     metacharacter_substitute: substitutes,
-    literal_definitions: normalized.literalDefinitions,
+    literal_definitions,
     capitalisation_scheme: normalized.capitalisationScheme,
     rml_enabled: false
   };
