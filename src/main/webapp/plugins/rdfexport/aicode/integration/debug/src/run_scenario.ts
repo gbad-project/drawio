@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { DOMParser } from "@xmldom/xmldom";
 import { basename, normalize } from "path";
 import type { DrawioParserConfigPayload } from "../../../typescript_plugin/src/mockBlackBox";
+import type { LiteralParserSettingsEntry } from "../../../../typescript_plugin/src/literalsKnob";
 
 interface ScenarioConfig {
   xmlPath: string;
@@ -122,7 +123,7 @@ function deriveStoredParserSettings(
   const settings: Record<string, unknown> = {};
 
   for (const [key, value] of Object.entries(parserConfig)) {
-    if (key === "metacharacter_substitute" || key === "rml_enabled") {
+    if (key === "metacharacter_substitute" || key === "rml_enabled" || key === "literal_definitions") {
       continue;
     }
     settings[toCamelFromSnake(key)] = value;
@@ -136,6 +137,21 @@ function deriveStoredParserSettings(
   }
   if (metachar.entries && metachar.entries.length > 0) {
     settings.metacharacterEntries = metachar.entries;
+  }
+
+  const literalDefs: LiteralParserSettingsEntry[] = [];
+  if (Array.isArray(parserConfig["literal_definitions"])) {
+    for (const def of parserConfig["literal_definitions"]) {
+      if (typeof def === "object") {
+        literalDefs.push({
+          attrKey: def.attr_key,
+          attrVal: def.attr_value,
+        });
+      }
+    }
+  }
+  if (literalDefs && literalDefs.length > 0) {
+    settings.literalDefinitions = literalDefs;
   }
 
   if (Object.keys(settings).length === 0) {

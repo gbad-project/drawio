@@ -60456,6 +60456,103 @@
           "triples": 8
         }
       }
+    },
+    "tbl": {
+      "cell_classifications": {
+        "1": {
+          "declares_identifier": null,
+          "identifier": null,
+          "kind": "UNCLASSIFIED",
+          "parent_identifier": "0",
+          "raw_value": null,
+          "tokens": []
+        },
+        "ZojVrLWr7QVSXUzW-Ien-1": {
+          "declares_identifier": true,
+          "identifier": "Tim Berners-Lee",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "Tim Berners-Lee",
+          "tokens": []
+        },
+        "ZojVrLWr7QVSXUzW-Ien-2": {
+          "declares_identifier": true,
+          "identifier": "World Wide Web",
+          "kind": "STANDALONE_INDIVIDUAL",
+          "parent_identifier": null,
+          "raw_value": "World Wide Web",
+          "tokens": []
+        },
+        "ZojVrLWr7QVSXUzW-Ien-3": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "created",
+          "tokens": []
+        },
+        "ZojVrLWr7QVSXUzW-Ien-4": {
+          "declares_identifier": false,
+          "identifier": null,
+          "kind": "ARROW_LABEL",
+          "parent_identifier": null,
+          "raw_value": "created",
+          "tokens": []
+        }
+      },
+      "classification_counts": {
+        "by_kind": {
+          "ARROW_LABEL": 2,
+          "STANDALONE_INDIVIDUAL": 2,
+          "UNCLASSIFIED": 1
+        },
+        "classified": 4,
+        "total_cells": 5,
+        "unclassified": 1
+      },
+      "drawio": "data/fixtures/drawio_fixtures/TBL.drawio",
+      "errors": {
+        "py_legacy": [
+          "Legacy Python graph is None",
+          "ParseException: Could not parse XML tree: expecting an element with tag 'mxCell', but had tag 'gbadMetadata'"
+        ]
+      },
+      "format": "turtle",
+      "isomorphism": {
+        "ts_pipeline_vs_ts_plugin": true
+      },
+      "legacy_commit": "cf8f84bb84ff83843b6726ac96aff3a2055f4275",
+      "metadata_attributes": {
+        "baseUri": "ontology://generated-from-draw-io/mock#",
+        "csvPath": "/mock/path/to/file.csv"
+      },
+      "parser_config": {
+        "literal_definitions": [
+          {
+            "attr_key": "lol",
+            "attr_value": "kek"
+          }
+        ],
+        "ontology_iri": "mock://debug-ontology"
+      },
+      "preamble": [
+        {
+          "iri": "http://mock-uri.com",
+          "prefix": "mock1"
+        }
+      ],
+      "results": {
+        "ts_pipeline": {
+          "nt_sha256": "3a5fa4593ca69582a53832d7bbd6ef5ef4b3f142a29bdc1081a578f78f6ab753",
+          "path": "results/tbl/ts_pipeline.ttl",
+          "triples": 8
+        },
+        "ts_plugin": {
+          "nt_sha256": "3a5fa4593ca69582a53832d7bbd6ef5ef4b3f142a29bdc1081a578f78f6ab753",
+          "path": "results/tbl/ts_plugin.ttl",
+          "triples": 8
+        }
+      }
     }
   }
 }
