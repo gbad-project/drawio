@@ -16,7 +16,7 @@
 > 
 > Also, I archived the image <<https://i.sstatic.net/jBvaA.png>> referenced in the original question:
 > 
-> - [stackoverflow-q-60107654-source.png](./stackoverflow-q-60107654-source.png)
+> ![stackoverflow-q-60107654-source.png](./stackoverflow-q-60107654-source.png)
 > 
 > The fixture itself was generated using a reference image and a top-tier (at the time) LLM. Current path to chat with generation: `src/main/webapp/plugins/rdfexport/aicode/docs/chats/2025-12-07_claude/`
 > 
