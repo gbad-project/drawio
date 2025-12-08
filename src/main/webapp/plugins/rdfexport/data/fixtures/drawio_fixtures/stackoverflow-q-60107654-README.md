@@ -26,7 +26,7 @@
 > 
 > At first attempt, gpt-4.1-mini (if I recall correctly, via chatgpt.com interface) produced a diagram that would give an error when trying to open in Draw\.io GUI.
 > 
-> Claude Sonnet 4.5 produced a diagram that would load with Draw.\.io GUI and looked like a relatively faithful diagram, except that it reversed the source and target of `vcard:FN` arrow, which I then manually fixed.
+> Claude Sonnet 4.5 produced a diagram that would load with Draw\.io GUI and looked like a relatively faithful diagram, except that it reversed the source and target of `vcard:FN` arrow, which I then manually fixed.
 > 
 > However, the DrawRDF parser would not parse this when called usign `GBAD: Export as RDF/Turtle (.ttl)...` button due to:
 > 
@@ -39,4 +39,16 @@
 > draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'vcard:Given' (edge-middle-john) has a literal ('') as source.
 > ```
 > 
-> This was obviously because the source of `vcard:Given` was an empty ellipse. This made me consider that an `EMPTY_CELL` classification may be allowed to mint a blank node unless `mint_from_literals is False`.
+> This was obviously because the source of `vcard:Given` was an empty ellipse.
+>
+> If this was circumvented (e.g., some value added to the ellipse to mint an individual), the export would still fail because `vcard:` prefix was not set. For illustration, I used this `https://www.w3.org/2006/vcard/ns#` taken from here: <https://www.w3.org/TR/vcard-rdf/>
+>
+> Then this would export successfully.
+>
+> **Insights:**
+>
+> **1\. TODO:** The empty source error made me consider that an `EMPTY_CELL` classification may be allowed to mint a blank node unless `mint_from_literals is False`.
+>
+> **2\. TODO:** When trying to circumvent the error, I experimented with placing `#` or `:` as value of the empty ellipse. This interestingly led to diverse results, with `#` minting an ontology node and `:` minting a `<#%3A>` individual, which is probably what you would expect for the hash (although it might be best to check with the URI RFC), but the colon should definitely mint an ontology node. **These need to be aligned.** What was hopeful, though, was that even without setting `baseUri`, this correctly fell back to a default `ontology://...` URI as base.
+>
+> **3\. NOTE:** The need to set prefixes is important enough to stress it for all users because failure to do that will lead to export failures. Note also that the current implementation of DrawRDF does NOT define common prefixes by default (except RDF, RDFS, OWL, and specifically RiC-O – which may be changed in future), and it intentionally disables rdflib’s default prefixes via forcing `self.namespace_manager = NamespaceManager(self, bind_namespaces="none")` upon init of `DrawIOParserGraph` instances.
