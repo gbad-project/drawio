@@ -150,12 +150,15 @@ def _build_graph_from_raw_xml(
     else:
         strip_html_enabled = _is_flag_enabled(config_strip_html)
 
+    literal_definitions = config_args.get("literal_definitions")
+
     classifier = DrawIOCellClassifier(
         working_xml,
         prefixes,
         strict_mode=strict_mode,
         max_gap=max_gap,
         strip_html=strip_html_enabled,
+        literal_definitions=literal_definitions,
     )
 
     # 3. Generate Intermediate Blocks from Classifier's results

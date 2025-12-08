@@ -36,6 +36,7 @@ class DrawIOCellClassifier:
         strict_mode: bool = False,
         max_gap: float | None = None,
         strip_html: bool = True,
+        literal_definitions: list[dict[str, str]] | None = None,
     ):
         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
         if isinstance(source_tree, Element):
@@ -63,6 +64,7 @@ class DrawIOCellClassifier:
         self._max_gap = coerced_gap
 
         self._strip_html = bool(strip_html)
+        self._literal_definitions = literal_definitions
         self._html_parser = NodeHTMLParser()
         self._edge_incidence = self._build_edge_incidence()
         self._child_value_cache: dict[str, list[str]] = {}
@@ -714,17 +716,49 @@ class DrawIOCellClassifier:
         # return "text;" in style or "shape=text" in style
         return False
 
-    @staticmethod
-    def _style_denotes_literal(cell: Element, style: str) -> bool:
-        if not style:
-            return False
-        if "rounded=1" in style:
+    def _style_denotes_literal(self, cell: Element, style: str) -> bool:
+        """Check if cell matches any literal definition.
+        - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
+        - []: Return True (treat everything as literal)
+        - [...]: Use provided definitions
+        """
+        # Handle None - use default
+        if self._literal_definitions is None:
+            definitions_to_use = [{"attr_key": "style", "attr_value": "rounded=1"}]
+            # AICODE-TODO: implement reading from default.yml like 
+            # `aicode/python_core/pyodide_pipeline/drawio_pipeline.py``
+            # does it, yet take into account that this is a part of
+            # metabuilt code so all paths should be relative to 
+            # `python_core/src/draw_io_parser.py` yet should also support
+            # standalone use outside of metabuilder context
+            # raise RuntimeError("Literal definitions not passed from upstream")
+        # Handle explicit empty list - everything is literal
+        elif (
+            isinstance(self._literal_definitions, list)
+            and len(self._literal_definitions) == 0
+        ):
             return True
-        # Not restricting any other toggles
-        # if "ellipse" in style:
-        #     return True
-        # if "shape=" in style:
-        #     return True
+        # Use provided definitions
+        else:
+            definitions_to_use = self._literal_definitions
+
+        # Check each literal definition
+        for definition in definitions_to_use:
+            attr_name = definition.get("attr_key", "")
+            pattern = definition.get("attr_value", "")
+            if not attr_name or not pattern:
+                continue
+
+            # Get the attribute value from the cell
+            attr_value = cell.attrib.get(attr_name, "")
+            if not attr_value:
+                continue
+
+            # Check if the pattern exists in the attribute value
+            if pattern in attr_value:
+                return True
+
+        return False
 
     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
         """Currently always returns False. Yet standalone literals
