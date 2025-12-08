@@ -2354,3 +2354,82 @@ test("patchDrawioWithMetadata reproduces AA37 metadata artifact", () => {
   expect(patchedSnapshot.mxfile).toEqual(baseSnapshot.mxfile);
   expect(patchedSnapshot.graphModel).toEqual(baseSnapshot.graphModel);
 });
+
+test(
+  "runDrawioPipeline forwards literal_definitions to parser configuration",
+  async () => {
+    await loadPluginModule();
+
+    const xml = await Bun.file(
+      join(fixturesDir, "AA37 Department of Health.drawio"),
+    ).text();
+
+    // Test 1: When literal_definitions is null, Python should use defaults from YAML
+    const configWithNull = createParserConfig({ literal_definitions: null });
+    await runDrawioPipeline(xml, configWithNull);
+    const nullConfigResult = JSON.parse(
+      (await debugPyodide(`
+import json
+from pyodide_pipeline.drawio_pipeline import get_last_parser_config
+
+json.dumps(get_last_parser_config())
+      `)) as string,
+    ) as {
+      literal_definitions: Array<{
+        attr_key: string;
+        attr_value: string;
+      }> | null;
+    };
+
+    // Default from YAML is [{attr_key: "style", attr_value: "rounded=1"}]
+    expect(nullConfigResult.literal_definitions).toEqual([
+      { attr_key: "style", attr_value: "rounded=1" },
+    ]);
+
+    // Test 2: When literal_definitions is empty array, user explicitly cleared them
+    const configWithEmpty = createParserConfig({ literal_definitions: [] });
+    await runDrawioPipeline(xml, configWithEmpty);
+    const emptyConfigResult = JSON.parse(
+      (await debugPyodide(`
+import json
+from pyodide_pipeline.drawio_pipeline import get_last_parser_config
+
+json.dumps(get_last_parser_config())
+      `)) as string,
+    ) as {
+      literal_definitions: Array<{
+        attr_key: string;
+        attr_value: string;
+      }> | null;
+    };
+
+    // Empty array means user explicitly cleared - should be empty, not defaults
+    expect(emptyConfigResult.literal_definitions).toEqual([]);
+
+    // Test 3: When literal_definitions has custom values, Python should receive them
+    const customDefs = [
+      { attr_key: "customAttr", attr_value: "customVal" },
+      { attr_key: "anotherAttr", attr_value: "anotherVal" },
+    ];
+    const configWithCustom = createParserConfig({
+      literal_definitions: customDefs,
+    });
+    await runDrawioPipeline(xml, configWithCustom);
+    const customConfigResult = JSON.parse(
+      (await debugPyodide(`
+import json
+from pyodide_pipeline.drawio_pipeline import get_last_parser_config
+
+json.dumps(get_last_parser_config())
+      `)) as string,
+    ) as {
+      literal_definitions: Array<{
+        attr_key: string;
+        attr_value: string;
+      }> | null;
+    };
+
+    expect(customConfigResult.literal_definitions).toEqual(customDefs);
+  },
+  { timeout: 60000 },
+);

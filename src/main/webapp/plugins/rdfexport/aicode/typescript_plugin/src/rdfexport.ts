@@ -493,19 +493,25 @@ function normalizeLiteralEntries(
       continue;
     }
 
+    // Check both snake_case (from YAML) and camelCase (from UI) formats
+    const entryObj = entry as Record<string, unknown>;
     const attrKey =
-      typeof (entry as LiteralParserConfigEntry).attr_key === "string"
-        ? (entry as LiteralParserConfigEntry).attr_key
-        : "";
+      typeof entryObj.attr_key === "string"
+        ? entryObj.attr_key
+        : typeof entryObj.attrKey === "string"
+          ? entryObj.attrKey
+          : "";
 
     if (attrKey.length === 0) {
       continue;
     }
 
     const attrVal =
-      typeof (entry as LiteralParserConfigEntry).attr_value === "string"
-        ? (entry as LiteralParserConfigEntry).attr_value
-        : "";
+      typeof entryObj.attr_value === "string"
+        ? entryObj.attr_value
+        : typeof entryObj.attrVal === "string"
+          ? entryObj.attrVal
+          : "";
 
     normalized.push({ attrKey, attrVal });
   }

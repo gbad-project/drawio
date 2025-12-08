@@ -1,12 +1,12 @@
-Script started on Mon Dec  8 15:42:26 2025
+Script started on Mon Dec  8 16:46:54 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1muv run python -m aicode.integration.debug.src.debug_cli_regression[0m
-]9;4;3;\[1m===================================== test session starts ======================================[0m
+]9;4;3;\[1m====================================== test session starts ======================================[0m
 platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0 -- /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python3
 cachedir: .pytest_cache
 rootdir: /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 48 items                                                                             [0m
+[1mcollecting ... [0m[1mcollected 48 items                                                                              [0m
 
 aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] ]9;4;1;0\[32mPASSED[0m[32m [  2%][0m
 aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] ]9;4;1;2\[32mPASSED[0m[32m [  4%][0m
@@ -57,8 +57,8 @@ aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_exp
 aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] ]9;4;1;95\[32mPASSED[0m[32m [ 97%][0m
 aicode/integration/debug/src/debug_cli_regression.py::test_run_manual_scenarios_after_xfails ]9;4;1;97\[33mXFAIL[0m[32m [100%][0m]9;4;0;\
 
-============================================ PASSES ============================================
-[36m[1m=================================== short test summary info ====================================[0m
+============================================ PASSES =============================================
+[36m[1m==================================== short test summary info ====================================[0m
 [32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
 [32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
 [32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
@@ -107,7 +107,7 @@ aicode/integration/debug/src/debug_cli_regression.py::test_run_manual_scenarios_
 [33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-place.drawio][0m - ts_plugin expectedly fails due to: draw_io_parser.internal_data_core."ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Ambérieux-en-Dombes (Ain) RiC E-22 Place') as source." This is the correct behavior because the source node has `rounded=1`; once this is fixed, this works - see `a-place-fixed.drawio`.  |  Command: python python -m debug --scenario a-place-fixed
 [33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m=========================== [32m[1m42 passed[0m, [33m6 xfailed[0m[32m in 76.21s (0:01:16)[0m[32m ===========================[0m
+[32m=========================== [32m[1m42 passed[0m, [33m6 xfailed[0m[32m in 74.10s (0:01:14)[0m[32m ============================[0m
 
 Command exit status: 0
-Script done on Mon Dec  8 15:43:42 2025
+Script done on Mon Dec  8 16:48:09 2025
