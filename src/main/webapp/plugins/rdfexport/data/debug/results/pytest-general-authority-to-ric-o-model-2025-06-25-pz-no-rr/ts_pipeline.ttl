@@ -11,169 +11,13 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Date ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Agent/{SUC}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:CorporateBody ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{SUC} (Corporate Body)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/Agent/{SUC}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "{CONTAG} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:relationHasTarget ],
-        [ rr:objectMap [ rr:constant rico:AgentControlRelation ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasBeginningDate ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasEndDate ] ;
-    rr:subjectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{CMTAU}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate auth:privateNote ],
-        [ rr:objectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadIdentifier ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{PRED}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isSuccessorOf ],
-        [ rr:objectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isOrWasDescribedBy ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasBeginningDate ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{CONTAG}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadController ],
-        [ rr:objectMap [ rr:template "/KB/Mandate/{AA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:authorizedBy ],
-        [ rr:objectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:template "{FUN}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate auth:functionNote ],
-        [ rr:objectMap [ rr:template "{RICO_AUTHTP_CLASS}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/ParallelAgentName/{PAR}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasEndDate ],
-        [ rr:objectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasOrHadAgentName ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{SUC}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasSuccessor ],
-        [ rr:objectMap [ rr:constant "" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{REFA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:isEquivalentTo ],
-        [ rr:objectMap [ rr:template "{ADM}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:history ],
-        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:IdentifierType ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant "/Schema/Authority/AgencyReferenceCode" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/AgencyReferenceCode" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Person ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{HEADING} (Person)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_PERSON}/{HEADING}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_PERSON}/{HEADING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CorporateBodyType ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
         [ rr:objectMap [ rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant rico:CorporateBodyType ;
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
     rr:subjectMap [ rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
@@ -182,27 +26,121 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Authority/VariantAgentName" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Agent/{PRED}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isSuccessorOf ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Type ;
+        [ rr:objectMap [ rr:template "{CMTAU}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:privateNote ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/VariantAgentName" ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{CONTAG}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadController ],
+        [ rr:objectMap [ rr:template "{RICO_AUTHTP_CLASS}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{ADM}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:history ],
+        [ rr:objectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadIdentifier ],
+        [ rr:objectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{REFA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isEquivalentTo ],
+        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "{FUN}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:functionNote ],
+        [ rr:objectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:isOrWasDescribedBy ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ],
+        [ rr:objectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:constant "" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/KB/ParallelAgentName/{PAR}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasOrHadAgentName ],
+        [ rr:objectMap [ rr:template "/KB/Mandate/{AA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:authorizedBy ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{SUC}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasSuccessor ] ;
+    rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/Schema/Authority/WebReady#{WEBA}" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/KB/Rule/RulesForArchivalDescription> ] ;
+            rr:predicate rico:isOrWasRegulatedBy ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:Record ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/Schema/Authority/WebReady#{WEBA}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasRecordState ],
+        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/AuthorityRecord> ] ;
+            rr:predicate rico:hasDocumentaryFormType ],
+        [ rr:objectMap [ rr:template "{MOD_DATE}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:lastModificationDate ],
+        [ rr:objectMap [ rr:template "{SOURCE}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate auth:sourceNote ] ;
+    rr:subjectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Agent/{REFA}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:CorporateBody ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Agent/{REFA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/Schema/Authority/WebReady#{WEBA}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
         [ rr:objectMap [ rr:constant rico:RecordState ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
@@ -212,33 +150,149 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{REFA}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ],
+        [ rr:objectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant rico:AgentName ;
+        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/AgencyReferenceCode> ] ;
+            rr:predicate rico:hasIdentifierType ],
+        [ rr:objectMap [ rr:constant rico:Identifier ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/VariantAgentName> ] ;
-            rr:predicate rico:hasOrHadType ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
+    rr:subjectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Mandate/{AA}" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/KB/Rule/RulesForArchivalDescription" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:Rule ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Mandate ;
+        [ rr:objectMap [ rr:template "{RULES}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:title ],
+        [ rr:objectMap [ rr:constant "Rules for Archival Description" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/KB/Rule/RulesForArchivalDescription" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{CONTAG} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:CorporateBody ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{CONTAG}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:thingIsSourceOfRelation ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Mandate/{AA}" ;
+    rr:subjectMap [ rr:template "/KB/Agent/{CONTAG}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_PLACE}/{HEADING}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "{HEADING} (Place)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:Place ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_PLACE}/{HEADING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:Date ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant "/Schema/Authority/AgencyReferenceCode" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:IdentifierType ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/AgencyReferenceCode" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CorporateBody ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{SUC} (Corporate Body)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/KB/Agent/{SUC}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:template "/KB/Agent/{SUC}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "{NAME}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rico:normalizedValue ],
+        [ rr:objectMap [ rr:constant rico:AgentName ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/NaturalAgentName> ] ;
+            rr:predicate rico:hasOrHadType ],
+        [ rr:objectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -259,10 +313,70 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CorporateBody ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Date ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
+    rr:subjectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:Date ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:Date ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Type ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant "/Schema/Authority/VariantAgentName" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/VariantAgentName" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant rico:CorporateBody ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
         [ rr:objectMap [ rr:template "/KB/Agent/{PRED}" ;
@@ -277,102 +391,64 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Date ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_PERSON}/{HEADING}" ;
                     rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:Person ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{HEADING} (Person)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_PERSON}/{HEADING}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:RecordState ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Mandate ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/Mandate/{AA}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:template "/KB/Mandate/{AA}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Authority/AuthorityRecord" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
         [ rr:objectMap [ rr:constant rico:DocumentaryFormType ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant "/Schema/Authority/AuthorityRecord" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
+            rr:predicate rdf:type ] ;
     rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/AuthorityRecord" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Date ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/Date/{DATEEX_BEGINNING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/NaturalAgentName> ] ;
-            rr:predicate rico:hasOrHadType ],
-        [ rr:objectMap [ rr:constant rico:AgentName ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "{NAME}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:normalizedValue ] ;
-    rr:subjectMap [ rr:template "/KB/NaturalAgentName/{NAME}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CorporateBody ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{CONTAG}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "{CONTAG} (Corporate Body)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:thingIsSourceOfRelation ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:template "/KB/Agent/{CONTAG}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant "/Schema/Authority/ParallelAgentName" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant rico:Type ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
-    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/ParallelAgentName" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -384,115 +460,13 @@
         [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_FAMILY}/{HEADING}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "{HEADING} (Family)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
         [ rr:objectMap [ rr:constant rico:Family ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{HEADING} (Family)" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ] ;
     rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_FAMILY}/{HEADING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "{RULES}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:title ],
-        [ rr:objectMap [ rr:constant "/KB/Rule/RulesForArchivalDescription" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant rico:Rule ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant "Rules for Archival Description" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/KB/Rule/RulesForArchivalDescription" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:CorporateBody ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Agent/{REFA}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/Agent/{REFA}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:template "{SOURCE}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate auth:sourceNote ],
-        [ rr:objectMap [ rr:template "{MOD_DATE}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:lastModificationDate ],
-        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/AuthorityRecord> ] ;
-            rr:predicate rico:hasDocumentaryFormType ],
-        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/KB/Rule/RulesForArchivalDescription> ] ;
-            rr:predicate rico:isOrWasRegulatedBy ],
-        [ rr:objectMap [ rr:constant rico:Record ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/Schema/Authority/WebReady#{WEBA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ],
-        [ rr:objectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rico:hasRecordState ] ;
-    rr:subjectMap [ rr:template "/KB/AuthorityRecord/{HEADING}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:RecordState ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/Schema/Authority/Status#{STATUSA}" ;
-            rr:termType rr:IRI ] .
-
-[] a rr:TriplesMap ;
-    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
-            rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/AgencyReferenceCode> ] ;
-            rr:predicate rico:hasIdentifierType ],
-        [ rr:objectMap [ rr:constant rico:Identifier ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{REFA}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rico:normalizedValue ] ;
-    rr:subjectMap [ rr:template "/KB/AgencyReferenceCode/{REFA}" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
@@ -501,11 +475,11 @@
     rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/ParallelAgentName/{PAR}" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
-        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/ParallelAgentName> ] ;
-            rr:predicate rico:hasOrHadType ],
         [ rr:objectMap [ rr:constant rico:AgentName ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/ParallelAgentName> ] ;
+            rr:predicate rico:hasOrHadType ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ] ;
@@ -515,33 +489,30 @@
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Place ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:constant rico:Type ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_PLACE}/{HEADING}" ;
+        [ rr:objectMap [ rr:constant "/Schema/Authority/ParallelAgentName" ;
                     rr:termType rr:Literal ] ;
             rr:predicate rdfs:label ],
         [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "{HEADING} (Place)" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/{RICO_AUTHTP_PLACE}/{HEADING}" ;
+            rr:predicate rdf:type ] ;
+    rr:subjectMap [ rr:constant "ontology://generated-from-draw-io/mock/Schema/Authority/ParallelAgentName" ;
             rr:termType rr:IRI ] .
 
 [] a rr:TriplesMap ;
     rml:logicalSource [ rml:referenceFormulation ql:CSV ;
             rml:source "/mock/path/to/file.csv" ] ;
-    rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
-                    rr:termType rr:IRI ] ;
-            rr:predicate rdf:type ],
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_CORPORATEBODY}/{HEADING}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
         [ rr:objectMap [ rr:constant rico:CorporateBody ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_CORPORATEBODY}/{HEADING}" ;
-                    rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
         [ rr:objectMap [ rr:template "/Schema/Authority/AuthorityType#{AUTHTP}" ;
                     rr:termType rr:IRI ] ;
             rr:predicate rico:hasOrHadCorporateBodyType ],
@@ -557,12 +528,41 @@
     rr:predicateObjectMap [ rr:objectMap [ rr:constant owl:NamedIndividual ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:constant rico:Date ;
+        [ rr:objectMap [ rr:constant rico:AgentName ;
                     rr:termType rr:IRI ] ;
             rr:predicate rdf:type ],
-        [ rr:objectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
+        [ rr:objectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
                     rr:termType rr:Literal ] ;
-            rr:predicate rdfs:label ] ;
-    rr:subjectMap [ rr:template "/KB/Date/{DATEEX_END}" ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant <ontology://generated-from-draw-io/mock/Schema/Authority/VariantAgentName> ] ;
+            rr:predicate rico:hasOrHadType ] ;
+    rr:subjectMap [ rr:template "/KB/VariantAgentName/{VAR}" ;
+            rr:termType rr:IRI ] .
+
+[] a rr:TriplesMap ;
+    rml:logicalSource [ rml:referenceFormulation ql:CSV ;
+            rml:source "/mock/path/to/file.csv" ] ;
+    rr:predicateObjectMap [ rr:objectMap [ rr:template "/KB/{RICO_AUTHTP_TERM}/{HEADING}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:relationHasTarget ],
+        [ rr:objectMap [ rr:constant owl:NamedIndividual ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_BEGINNING}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasBeginningDate ],
+        [ rr:objectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:constant rico:AgentControlRelation ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rdf:type ],
+        [ rr:objectMap [ rr:template "{CONTAG} - {HEADING} (Agent Control Relation). Context: <urn:uuid:{UUID}>" ;
+                    rr:termType rr:Literal ] ;
+            rr:predicate rdfs:label ],
+        [ rr:objectMap [ rr:template "/KB/Date/{DATECONT_END}" ;
+                    rr:termType rr:IRI ] ;
+            rr:predicate rico:hasEndDate ] ;
+    rr:subjectMap [ rr:template "/KB/AgentControlRelation/{CONTAG}/{HEADING}/urn:uuid:{UUID}" ;
             rr:termType rr:IRI ] .
 
