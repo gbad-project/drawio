@@ -183,6 +183,39 @@ def _normalise_metacharacters(value: Any) -> list[str]:
         return []
 
 
+def _normalise_literal_definitions(
+    value: Any,
+) -> list[dict[str, str]] | None:
+    """Normalise literal_definitions from overrides.
+
+    Returns:
+        None: if value is None (use defaults from YAML)
+        []: if value is an empty list (user explicitly cleared definitions)
+        list of dicts: if value contains valid entries
+    """
+    if value is None:
+        return None
+
+    if not isinstance(value, list):
+        return None
+
+    result: list[dict[str, str]] = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        attr_key = item.get("attr_key")
+        attr_value = item.get("attr_value")
+        if isinstance(attr_key, str) and isinstance(attr_value, str):
+            result.append({"attr_key": attr_key, "attr_value": attr_value})
+
+    # Return empty list if input was empty list (user explicitly cleared)
+    # This is different from None which means "use defaults"
+    if len(value) == 0:
+        return []
+
+    return result
+
+
 def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
     config = _default_parser_config()
 
@@ -242,6 +275,15 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
                 overrides["rml_enabled"],
                 config["rml_enabled"],
             )
+        if "literal_definitions" in overrides:
+            normalised = _normalise_literal_definitions(
+                overrides["literal_definitions"]
+            )
+            # Only override if normalised is not None
+            # None means "use defaults from YAML"
+            # Empty list means "user explicitly cleared definitions"
+            if normalised is not None:
+                config["literal_definitions"] = normalised
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]
