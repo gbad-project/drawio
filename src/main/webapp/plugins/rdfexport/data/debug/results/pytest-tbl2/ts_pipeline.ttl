@@ -7,12 +7,9 @@
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: .
 
-<#Tim%20Berners-Lee> a owl:NamedIndividual ;
+:Tim%20Berners-Lee a owl:NamedIndividual ;
     rdfs:label "Tim Berners-Lee" ;
-    ns1:created ns1:World%20Wide%20Web .
+    :created "World Wide Web" .
 
-ns1:created a owl:ObjectProperty .
-
-ns1:World%20Wide%20Web a owl:NamedIndividual ;
-    rdfs:label "World Wide Web" .
+:created a owl:DatatypeProperty .
 

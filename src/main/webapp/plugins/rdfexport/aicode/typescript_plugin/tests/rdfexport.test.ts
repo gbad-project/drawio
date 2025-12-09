@@ -2401,8 +2401,9 @@ json.dumps(get_last_parser_config())
     // Test 2: When literal_definitions is empty array, user explicitly cleared them
     const configWithEmpty = createParserConfig({ literal_definitions: [] });
     // Expected to fail due to all nodes turning literals
-    await expect(runDrawioPipeline(xml, configWithEmpty))
-      .rejects.toThrow(/ArrowWithoutIndividualAsSourceException/);
+    await expect(runDrawioPipeline(xml, configWithEmpty)).rejects.toThrow(
+      /ArrowWithoutIndividualAsSourceException/,
+    );
 
     // Test 3: When literal_definitions has custom values, Python should receive them
     const customDefs = [

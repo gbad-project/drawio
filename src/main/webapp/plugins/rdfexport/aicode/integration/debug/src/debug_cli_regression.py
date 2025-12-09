@@ -115,6 +115,24 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
             "a-place-fixed",
         ],
     },
+    "tbl2.drawio": {
+        "reason": 'All three, but in particular ts workflows, expectedly fail due to: draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow \'created\' (ZojVrLWr7QVSXUzW-Ien-3) has a literal (\'Tim Berners-Lee\') as source. This is the correct behavior because the source node has `rdf_property="literal"`, with literal definitions present in the XML defining literalDefinitions":[{"attrKey":"rdf_entity","attrVal":"literal"}]; once this is fixed, this works - see the scenario with value of property changed.',
+        "command": [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "aicode.integration.debug.src",
+            "--slug",
+            "tbl2-fixed",
+            "--drawio",
+            "data/fixtures/drawio_fixtures/TBL2.drawio",
+            "--format",
+            "turtle",
+            "--parser-option",
+            'literal_definitions=[{"attr_key":"rdf_entity","attr_value":"individual"}]',
+        ],
+    },
 }
 
 ALLOWED_XFAILS_FOLLOWUP = {

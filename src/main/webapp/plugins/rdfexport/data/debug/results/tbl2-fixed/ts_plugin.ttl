@@ -4,15 +4,15 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
 
-<mock://pytest-debug-ontology> a owl:Ontology ;
+<ontology://generated-from-draw-io/2025-12-09T16-44-08> a owl:Ontology ;
     owl:imports rico: .
 
-<#Tim%20Berners-Lee> a owl:NamedIndividual ;
+:Tim%20Berners-Lee a owl:NamedIndividual ;
     rdfs:label "Tim Berners-Lee" ;
-    ns1:created ns1:World%20Wide%20Web .
+    :created :World%20Wide%20Web .
 
-ns1:created a owl:ObjectProperty .
+:created a owl:ObjectProperty .
 
-ns1:World%20Wide%20Web a owl:NamedIndividual ;
+:World%20Wide%20Web a owl:NamedIndividual ;
     rdfs:label "World Wide Web" .
 

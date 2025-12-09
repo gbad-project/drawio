@@ -111,6 +111,38 @@ class pipeline:
                     return (metadata_node, root)
 
                 # END override metadata_extraction.py._find_metadata_node
+                # BEGIN override object_flatten.py._flatten_object_wrappers
+                def _flatten_object_wrappers(
+                    raw_xml: str, root: Optional[Element]
+                ) -> str:
+                    if root is None:
+                        return raw_xml
+                    working_root = deepcopy(root)
+                    graph_root = working_root.find(".//mxGraphModel/root")
+                    if graph_root is None:
+                        return raw_xml
+                    for obj in graph_root.findall(".//object"):
+                        mxcell = obj.find("mxCell")
+                        if mxcell is not None:
+                            if "label" in obj.attrib:
+                                mxcell.attrib["value"] = obj.attrib["label"]
+                            if "id" in obj.attrib:
+                                mxcell.attrib["id"] = obj.attrib["id"]
+                            for key, value in obj.attrib.items():
+                                if (
+                                    key not in ("label", "id")
+                                    and key not in mxcell.attrib
+                                ):
+                                    mxcell.attrib[key] = value
+                            parent = graph_root
+                            for idx, child in enumerate(list(parent)):
+                                if child is obj:
+                                    parent.remove(obj)
+                                    parent.insert(idx, mxcell)
+                                    break
+                    return tostring(working_root, encoding="unicode")
+
+                # END override object_flatten.py._flatten_object_wrappers
 
             class data:
                 pass
@@ -3055,6 +3087,9 @@ class internal_control_core:
         prefixes = pipeline.pre.internal.metadata.get_prefixes()
         prefixes.update(metadata_prefixes)
         working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
+            raw_xml, parsed_root
+        )
+        working_xml = pipeline.pre.xml.metadata._flatten_object_wrappers(
             raw_xml, parsed_root
         )
         ontology_iri = config_args["ontology_iri"] or get_ontology_iri()

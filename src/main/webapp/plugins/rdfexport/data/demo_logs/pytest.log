@@ -1,4 +1,4 @@
-Script started on Tue Dec  9 16:00:16 2025
+Script started on Tue Dec  9 16:53:39 2025
 Command: bun run test:pytest:all
 [0m[2m[35m$[0m [2m[1muv run pytest[0m
 ]9;4;3;\[1m====================================== test session starts ======================================[0m
@@ -29,7 +29,7 @@ aicode/integration/rmlmapper_workflows/tests/test_pipeline_workflow.py::test_pip
   /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/aicode/integration/rmlmapper_workflows/tests/test_map_schema_workflow.py:42: UserWarning: RML canonicalization took too long and was skipped.
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-[33m========================== [32m112 passed[0m, [33m[1m4 xfailed[0m, [33m[1m4 warnings[0m[33m in 29.58s[0m[33m ==========================[0m
+[33m========================== [32m112 passed[0m, [33m[1m4 xfailed[0m, [33m[1m4 warnings[0m[33m in 27.28s[0m[33m ==========================[0m
 
 Command exit status: 0
-Script done on Tue Dec  9 16:00:45 2025
+Script done on Tue Dec  9 16:54:06 2025
