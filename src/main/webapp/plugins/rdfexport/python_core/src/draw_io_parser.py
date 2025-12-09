@@ -15,21 +15,20 @@ import traceback
 import os
 from rdflib import Graph, URIRef, Literal, Namespace
 from rdflib.namespace import RDF, RDFS, OWL, XSD
-from enum import Enum, auto
 import json
 from html import unescape
-import re
-from rdflib import BNode
-from rdflib.term import Node
+from enum import Enum, auto
 from typing import Callable
-from rdflib import SKOS
+from rdflib import BNode, SKOS
 from rdflib.collection import Collection
-import typing
-import logging
+import re
+from rdflib.term import Node
+from rdflib.namespace import NamespaceManager
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
-from rdflib.namespace import NamespaceManager
+import typing
+import logging
 
 
 class pipeline:
@@ -821,6 +820,82 @@ class pipeline:
                             return False
                         return False
 
+                    _DEFAULT_LITERAL_DEFINITIONS_CACHE: list[dict[str, str]] | None = (
+                        None
+                    )
+
+                    @classmethod
+                    def _load_default_literal_definitions(cls) -> list[dict[str, str]]:
+                        """Load DEFAULT_LITERAL_DEFINITIONS from default.yml.
+
+                        Supports three execution contexts:
+                        1. Metabuilt context (python_core/src/draw_io_parser.py) - root is 2 parents up
+                        2. Pyodide virtual FS (/app/src/draw_io_parser.py) - root is 1 parent up
+                        3. Standalone cell_classifier.py - root is 7 parents up
+
+                        Returns:
+                            List of literal definition dicts with 'attr_key' and 'attr_value' keys.
+                            Falls back to hardcoded default if file cannot be read.
+                        """
+                        if cls._DEFAULT_LITERAL_DEFINITIONS_CACHE is not None:
+                            return cls._DEFAULT_LITERAL_DEFINITIONS_CACHE
+                        fallback = [{"attr_key": "style", "attr_value": "rounded=1"}]
+                        try:
+                            import yaml
+                        except ImportError:
+                            cls._DEFAULT_LITERAL_DEFINITIONS_CACHE = fallback
+                            return fallback
+                        from pathlib import Path
+
+                        candidate_paths: list[Path] = []
+                        try:
+                            current_file = Path(__file__).resolve()
+                            try:
+                                metabuilt_root = current_file.parents[2]
+                                candidate_paths.append(
+                                    metabuilt_root
+                                    / "integration"
+                                    / "config"
+                                    / "default.yml"
+                                )
+                            except IndexError:
+                                pass
+                            try:
+                                pyodide_root = current_file.parents[1]
+                                candidate_paths.append(
+                                    pyodide_root / "config" / "default.yml"
+                                )
+                            except IndexError:
+                                pass
+                            if len(current_file.parents) > 7:
+                                standalone_root = current_file.parents[7]
+                                candidate_paths.append(
+                                    standalone_root
+                                    / "integration"
+                                    / "config"
+                                    / "default.yml"
+                                )
+                        except Exception:
+                            pass
+                        for config_path in candidate_paths:
+                            try:
+                                if config_path.exists():
+                                    with open(config_path, "r") as f:
+                                        config = yaml.safe_load(f)
+                                        parser_config = config.get("parser_config", {})
+                                        definitions = parser_config.get(
+                                            "literal_definitions", []
+                                        )
+                                        if isinstance(definitions, list):
+                                            cls._DEFAULT_LITERAL_DEFINITIONS_CACHE = (
+                                                definitions
+                                            )
+                                            return definitions
+                            except Exception:
+                                continue
+                        cls._DEFAULT_LITERAL_DEFINITIONS_CACHE = fallback
+                        return fallback
+
                     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
                         """Check if cell matches any literal definition.
                         - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
@@ -828,9 +903,9 @@ class pipeline:
                         - [...]: Use provided definitions
                         """
                         if self._literal_definitions is None:
-                            definitions_to_use = [
-                                {"attr_key": "style", "attr_value": "rounded=1"}
-                            ]
+                            definitions_to_use = (
+                                self._load_default_literal_definitions()
+                            )
                         elif (
                             isinstance(self._literal_definitions, list)
                             and len(self._literal_definitions) == 0

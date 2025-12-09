@@ -403,3 +403,127 @@ def test_classifier_strict_mode_raises_for_invalid_arrows():
         )
     ):
         DrawIOCellClassifier(raw_xml, prefixes, strict_mode=True)
+
+
+# Tests for default.yml reading in different scenarios
+class TestDefaultYamlReading:
+    """Tests for reliable default.yml reading across different execution contexts."""
+
+    @staticmethod
+    def _make_minimal_xml_with_rounded_node() -> str:
+        """Create minimal XML with a node that has rounded=1 style."""
+        return _drawio_xml(
+            _vertex_cell("literal_node", "Test Literal", style="rounded=1"),
+        )
+
+    @staticmethod
+    def _make_minimal_xml_without_rounded_node() -> str:
+        """Create minimal XML with a node that does NOT have rounded=1 style."""
+        return _drawio_xml(
+            _vertex_cell("non_literal_node", "Test Individual", style="rectangle"),
+        )
+
+    def test_default_yml_exists_in_expected_location(self):
+        """Verify default.yml exists in the integration/config directory."""
+        config_path = PLUGIN_DIR / "integration" / "config" / "default.yml"
+        assert config_path.exists(), f"default.yml not found at {config_path}"
+
+    def test_default_yml_contains_literal_definitions(self):
+        """Verify default.yml contains expected literal_definitions."""
+        import yaml
+
+        config_path = PLUGIN_DIR / "integration" / "config" / "default.yml"
+        with open(config_path, "r") as f:
+            config = yaml.safe_load(f)
+
+        parser_config = config.get("parser_config", {})
+        literal_defs = parser_config.get("literal_definitions", None)
+
+        assert literal_defs is not None, "literal_definitions not found in default.yml"
+        assert isinstance(literal_defs, list), "literal_definitions should be a list"
+        assert len(literal_defs) > 0, "literal_definitions should not be empty"
+
+        # Check for expected default definition
+        expected_def = {"attr_key": "style", "attr_value": "rounded=1"}
+        assert expected_def in literal_defs, (
+            f"Expected {expected_def} in literal_definitions"
+        )
+
+    def test_classifier_uses_default_yml_when_literal_definitions_is_none(self):
+        """Test that DrawIOCellClassifier loads defaults from default.yml when None is passed.
+
+        This tests the direct/metabuilt scenario where cell_classifier.py is
+        executed as part of the compiled draw_io_parser.py.
+        """
+        xml = self._make_minimal_xml_with_rounded_node()
+        prefixes = draw_io_parser.get_prefixes()
+
+        # Instantiate with literal_definitions=None (should use defaults from yaml)
+        classifier = DrawIOCellClassifier(
+            xml,
+            prefixes,
+            literal_definitions=None,
+        )
+
+        # A node with rounded=1 style should be classified as literal
+        assert "literal_node" in classifier._literals_by_id, (
+            "Node with rounded=1 should be classified as literal when using default.yml"
+        )
+
+    def test_classifier_treats_rounded_as_literal_per_default_yml(self):
+        """Test that rounded=1 nodes are treated as literals per default.yml config."""
+        xml_with_rounded = self._make_minimal_xml_with_rounded_node()
+        xml_without_rounded = self._make_minimal_xml_without_rounded_node()
+        prefixes = draw_io_parser.get_prefixes()
+
+        # With rounded=1 style and using defaults (None)
+        classifier_rounded = DrawIOCellClassifier(
+            xml_with_rounded,
+            prefixes,
+            literal_definitions=None,
+        )
+        assert "literal_node" in classifier_rounded._literals_by_id
+
+        # Without rounded=1 style and using defaults (None)
+        classifier_not_rounded = DrawIOCellClassifier(
+            xml_without_rounded,
+            prefixes,
+            literal_definitions=None,
+        )
+        # Non-rounded node should NOT be in literals (it becomes an individual)
+        assert "non_literal_node" not in classifier_not_rounded._literals_by_id
+
+    def test_classifier_empty_literal_definitions_treats_all_as_literals(self):
+        """Test that empty literal_definitions list treats all nodes as literals."""
+        xml = self._make_minimal_xml_without_rounded_node()
+        prefixes = draw_io_parser.get_prefixes()
+
+        # With empty list [] (explicit clear of definitions)
+        classifier = DrawIOCellClassifier(
+            xml,
+            prefixes,
+            literal_definitions=[],
+        )
+
+        # When literal_definitions is [], everything should be literal
+        assert "non_literal_node" in classifier._literals_by_id
+
+    def test_pipeline_scenario_uses_default_yml(self):
+        """Test that the full pipeline correctly uses default.yml for literal detection.
+
+        This tests the within-pipeline scenario.
+        """
+        xml = self._make_minimal_xml_with_rounded_node()
+        prefixes = draw_io_parser.get_prefixes()
+
+        # Use the pipeline to build graph (simulates full pipeline flow)
+        # This should internally use default.yml for literal detection
+        classifier = DrawIOCellClassifier(
+            xml,
+            prefixes,
+            literal_definitions=None,  # Should load from default.yml
+        )
+
+        # Verify the classifier correctly identified the rounded node as literal
+        assert "literal_node" in classifier._literals_by_id
+        assert len(classifier._literals_by_id) >= 1

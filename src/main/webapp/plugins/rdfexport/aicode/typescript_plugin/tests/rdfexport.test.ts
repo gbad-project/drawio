@@ -2419,3 +2419,91 @@ json.dumps(get_last_parser_config())
   },
   { timeout: 60000 },
 );
+
+test(
+  "DrawIOCellClassifier reads default.yml from pyodide virtual FS when literal_definitions is None",
+  async () => {
+    await loadPluginModule();
+
+    // Test that DrawIOCellClassifier can load default literal definitions from default.yml
+    // when instantiated with literal_definitions=None
+    const result = JSON.parse(
+      (await debugPyodide(`
+import json
+from pathlib import Path
+
+# Check that default.yml exists in the expected location
+config_path = Path("/app/config/default.yml")
+exists = config_path.exists()
+
+# Read the content if it exists
+content = None
+if exists:
+    with open(config_path, "r") as f:
+        import yaml
+        config = yaml.safe_load(f)
+        content = config.get("parser_config", {}).get("literal_definitions", None)
+
+json.dumps({
+    "default_yml_exists": exists,
+    "literal_definitions_from_file": content,
+})
+      `)) as string,
+    ) as {
+      default_yml_exists: boolean;
+      literal_definitions_from_file: Array<{ attr_key: string; attr_value: string }> | null;
+    };
+
+    expect(result.default_yml_exists).toBe(true);
+    expect(result.literal_definitions_from_file).toEqual([
+      { attr_key: "style", attr_value: "rounded=1" },
+    ]);
+
+    // Now test that DrawIOCellClassifier properly uses the default when None is passed
+    const classifierResult = JSON.parse(
+      (await debugPyodide(`
+import json
+from draw_io_parser import pipeline
+
+# Create a minimal valid XML
+test_xml = '''<mxfile>
+  <diagram id="test" name="test">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="Test Node" style="rounded=1" parent="1" vertex="1">
+          <mxGeometry x="0" y="0" width="80" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>'''
+
+prefixes = {"owl": "http://www.w3.org/2002/07/owl#"}
+
+# Instantiate classifier with literal_definitions=None (should use defaults from yaml)
+classifier = pipeline.core.xml.data.DrawIOCellClassifier(
+    test_xml,
+    prefixes,
+    literal_definitions=None,
+)
+
+# A node with rounded=1 style should be classified as literal based on default.yml
+is_literal = "2" in classifier._literals_by_id
+
+json.dumps({
+    "rounded_node_is_literal": is_literal,
+    "literals_count": len(classifier._literals_by_id),
+})
+      `)) as string,
+    ) as {
+      rounded_node_is_literal: boolean;
+      literals_count: number;
+    };
+
+    expect(classifierResult.rounded_node_is_literal).toBe(true);
+    expect(classifierResult.literals_count).toBeGreaterThan(0);
+  },
+  { timeout: 60000 },
+);

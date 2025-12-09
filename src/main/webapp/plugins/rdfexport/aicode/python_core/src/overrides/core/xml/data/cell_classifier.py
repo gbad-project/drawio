@@ -716,22 +716,100 @@ class DrawIOCellClassifier:
         # return "text;" in style or "shape=text" in style
         return False
 
+    # Class-level cache for default literal definitions loaded from default.yml
+    _DEFAULT_LITERAL_DEFINITIONS_CACHE: list[dict[str, str]] | None = None
+
+    @classmethod
+    def _load_default_literal_definitions(cls) -> list[dict[str, str]]:
+        """Load DEFAULT_LITERAL_DEFINITIONS from default.yml.
+
+        Supports three execution contexts:
+        1. Metabuilt context (python_core/src/draw_io_parser.py) - root is 2 parents up
+        2. Pyodide virtual FS (/app/src/draw_io_parser.py) - root is 1 parent up
+        3. Standalone cell_classifier.py - root is 7 parents up
+
+        Returns:
+            List of literal definition dicts with 'attr_key' and 'attr_value' keys.
+            Falls back to hardcoded default if file cannot be read.
+        """
+        # Return cached value if available
+        if cls._DEFAULT_LITERAL_DEFINITIONS_CACHE is not None:
+            return cls._DEFAULT_LITERAL_DEFINITIONS_CACHE
+
+        # Hardcoded fallback in case yaml cannot be loaded
+        fallback = [{"attr_key": "style", "attr_value": "rounded=1"}]
+
+        try:
+            import yaml
+        except ImportError:
+            cls._DEFAULT_LITERAL_DEFINITIONS_CACHE = fallback
+            return fallback
+
+        from pathlib import Path
+
+        candidate_paths: list[Path] = []
+
+        try:
+            # Get the current file location - this works because after metabuilding,
+            # the code runs in the context of draw_io_parser.py
+            current_file = Path(__file__).resolve()
+
+            # Scenario 2: Metabuilt context (python_core/src/draw_io_parser.py)
+            # Root is at parents[2]: python_core/src -> python_core -> rdfexport
+            try:
+                metabuilt_root = current_file.parents[2]
+                candidate_paths.append(
+                    metabuilt_root / "integration" / "config" / "default.yml"
+                )
+            except IndexError:
+                pass
+
+            # Scenario 3: Pyodide context (/app/src/draw_io_parser.py)
+            # Root is at parents[1]: src -> /app
+            try:
+                pyodide_root = current_file.parents[1]
+                candidate_paths.append(pyodide_root / "config" / "default.yml")
+            except IndexError:
+                pass
+
+            # Scenario 1: Standalone cell_classifier.py context
+            # aicode/python_core/src/overrides/core/xml/data/cell_classifier.py
+            # Root at parents[7]
+            if len(current_file.parents) > 7:
+                standalone_root = current_file.parents[7]
+                candidate_paths.append(
+                    standalone_root / "integration" / "config" / "default.yml"
+                )
+        except Exception:
+            pass
+
+        # Try each candidate path in order
+        for config_path in candidate_paths:
+            try:
+                if config_path.exists():
+                    with open(config_path, "r") as f:
+                        config = yaml.safe_load(f)
+                        parser_config = config.get("parser_config", {})
+                        definitions = parser_config.get("literal_definitions", [])
+                        if isinstance(definitions, list):
+                            cls._DEFAULT_LITERAL_DEFINITIONS_CACHE = definitions
+                            return definitions
+            except Exception:
+                continue
+
+        # Use fallback if no config file was found/readable
+        cls._DEFAULT_LITERAL_DEFINITIONS_CACHE = fallback
+        return fallback
+
     def _style_denotes_literal(self, cell: Element, style: str) -> bool:
         """Check if cell matches any literal definition.
         - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
         - []: Return True (treat everything as literal)
         - [...]: Use provided definitions
         """
-        # Handle None - use default
+        # Handle None - use default from default.yml
         if self._literal_definitions is None:
-            definitions_to_use = [{"attr_key": "style", "attr_value": "rounded=1"}]
-            # AICODE-TODO: implement reading from default.yml like
-            # `aicode/python_core/pyodide_pipeline/drawio_pipeline.py``
-            # does it, yet take into account that this is a part of
-            # metabuilt code so all paths should be relative to
-            # `python_core/src/draw_io_parser.py` yet should also support
-            # standalone use outside of metabuilder context
-            # raise RuntimeError("Literal definitions not passed from upstream")
+            definitions_to_use = self._load_default_literal_definitions()
         # Handle explicit empty list - everything is literal
         elif (
             isinstance(self._literal_definitions, list)
