@@ -64,6 +64,9 @@ def _build_graph_from_raw_xml(
     working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
         raw_xml, parsed_root
     )
+    working_xml = pipeline.pre.xml.metadata._flatten_object_wrappers(
+        raw_xml, parsed_root
+    )
 
     ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
     prefix = config_args["prefix"] or get_prefix()
