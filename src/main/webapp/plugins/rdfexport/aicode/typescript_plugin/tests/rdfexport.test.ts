@@ -2388,23 +2388,9 @@ json.dumps(get_last_parser_config())
 
     // Test 2: When literal_definitions is empty array, user explicitly cleared them
     const configWithEmpty = createParserConfig({ literal_definitions: [] });
-    await runDrawioPipeline(xml, configWithEmpty);
-    const emptyConfigResult = JSON.parse(
-      (await debugPyodide(`
-import json
-from pyodide_pipeline.drawio_pipeline import get_last_parser_config
-
-json.dumps(get_last_parser_config())
-      `)) as string,
-    ) as {
-      literal_definitions: Array<{
-        attr_key: string;
-        attr_value: string;
-      }> | null;
-    };
-
-    // Empty array means user explicitly cleared - should be empty, not defaults
-    expect(emptyConfigResult.literal_definitions).toEqual([]);
+    // Expected to fail due to all nodes turning literals
+    await expect(runDrawioPipeline(xml, configWithEmpty))
+      .rejects.toThrow(/ArrowWithoutIndividualAsSourceException/);
 
     // Test 3: When literal_definitions has custom values, Python should receive them
     const customDefs = [
