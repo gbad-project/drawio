@@ -284,6 +284,21 @@ def _apply_parser_overrides(overrides: dict[str, Any] | None) -> dict[str, Any]:
             # Empty list means "user explicitly cleared definitions"
             if normalised is not None:
                 config["literal_definitions"] = normalised
+        if "mint_from_literals" in overrides:
+            config["mint_from_literals"] = _coerce_bool(
+                overrides["mint_from_literals"],
+                config["mint_from_literals"],
+            )
+        if "mint_from_types" in overrides:
+            config["mint_from_types"] = _coerce_bool(
+                overrides["mint_from_types"],
+                config["mint_from_types"],
+            )
+        if "mint_from_arrows" in overrides:
+            config["mint_from_arrows"] = _coerce_bool(
+                overrides["mint_from_arrows"],
+                config["mint_from_arrows"],
+            )
 
     config["metacharacter_substitute"] = _normalise_metacharacters(
         config["metacharacter_substitute"]

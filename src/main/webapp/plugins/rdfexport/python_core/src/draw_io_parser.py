@@ -30,6 +30,8 @@ import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
+import yaml
+from pathlib import Path
 
 
 class pipeline:
@@ -118,7 +120,71 @@ class pipeline:
 
         class internal:
             class metadata:
-                pass
+                # BEGIN override load_yaml.py._load_config_yml
+                def _load_config_yml(
+                    yml_filename="default.yml",
+                ) -> tuple[
+                    dict[str, str],
+                    typing.Literal["pyodide", "metabuilder", "standalone", "unknown"],
+                ]:
+                    """Loads dict from a YAML file from a config dir, by default `default.yml`.
+
+                    Supports two execution contexts:
+
+                    1. From Pyodide virtual FS (/app/src/draw_io_parser.py)
+                    2. Normal repo tree (src/main/webapp/plugins/rdfexport/)
+
+                    Returns:
+                        Tuple of:
+                            - Dict after YAML loading. Empty dict if file cannot be read.
+                            - Literal['pyodide','metabuilder','standalone','unknown'] for the detected context.
+                    """
+                    REPO_PLUGIN_DIR_PATH = Path("src/main/webapp/plugins/rdfexport")
+                    NORMAL_CONFIG_DIR_PATH = (
+                        REPO_PLUGIN_DIR_PATH / "integration" / "config"
+                    )
+                    PYODIDE_ROOT_PATH = Path("/app")
+                    PYODIDE_CONFIG_DIR_PATH = PYODIDE_ROOT_PATH / "config"
+                    DRAW_IO_PARSER_FILENAME = "draw_io_parser.py"
+                    config: dict[str, str] = {}
+                    candidate_path: Path | None = None
+                    context = "unknown"
+                    try:
+                        current_file = Path(__file__).resolve()
+                        if current_file.is_relative_to(PYODIDE_ROOT_PATH):
+                            try:
+                                candidate_path = PYODIDE_CONFIG_DIR_PATH / yml_filename
+                                if candidate_path.exists():
+                                    context = "pyodide"
+                                else:
+                                    return (config, context)
+                            except IndexError:
+                                pass
+                        else:
+                            for parent in [current_file.parent] + list(
+                                current_file.parents
+                            ):
+                                full_config_path = (
+                                    parent / NORMAL_CONFIG_DIR_PATH / yml_filename
+                                )
+                                if full_config_path.exists():
+                                    candidate_path = full_config_path
+                                    context = (
+                                        "metabuilder"
+                                        if current_file.name == DRAW_IO_PARSER_FILENAME
+                                        else "standalone"
+                                    )
+                                    break
+                    except Exception:
+                        pass
+                    try:
+                        with open(candidate_path, "r") as f:
+                            config = yaml.safe_load(f)
+                    except Exception:
+                        pass
+                    return (config, context)
+
+                # END override load_yaml.py._load_config_yml
 
             class data:
                 pass
@@ -1282,12 +1348,16 @@ class pipeline:
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
                         return self.coerce_to_uriref(
-                            cfg=self, value=prop, mint_from_literal=True
+                            cfg=self,
+                            value=prop,
+                            mint_from_literal=self.serialisation_config.mint_from_arrows,
                         )
 
                     def resolve_type(self, rdf_type: str) -> Any:
                         return self.coerce_to_uriref(
-                            cfg=self, value=rdf_type, mint_from_literal=False
+                            cfg=self,
+                            value=rdf_type,
+                            mint_from_literal=self.serialisation_config.mint_from_types,
                         )
 
                     def declare_properties(self) -> None:
@@ -1380,7 +1450,11 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add triples for a single individual."""
-                        individual_uri = self.coerce_to_uriref(self, individual_id)
+                        individual_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
                             self.graph.add(
@@ -1408,7 +1482,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     self.graph.add(
                                         (individual_uri, prop_uri, target_uri)
                                     )
@@ -1654,7 +1732,11 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_uri = self.coerce_to_uriref(self, individual_id)
+                        subject_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
@@ -1716,7 +1798,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -2221,6 +2307,7 @@ class internal_metadata_pre:
 
     # END get_prefix_iri
     # BEGIN SerialisationConfig
+    # override from serialisation_config.py
     @dataclass(frozen=True)
     class SerialisationConfig:
         """
@@ -2235,6 +2322,9 @@ class internal_metadata_pre:
         prefix_iri: str | None
         indentation: int
         include_label: bool
+        mint_from_literals: bool = True
+        mint_from_types: bool = False
+        mint_from_arrows: bool = True
 
     # END SerialisationConfig
 
@@ -2989,6 +3079,11 @@ class internal_control_core:
         config_args["infer_type_of_literals"] = infer_type_of_literals
         config_args["infer_types_disable"] = not infer_type_of_literals
         config_args["rml_enabled"] = rml_enabled
+        mint_from_literals = _is_flag_enabled(
+            config_args.get("mint_from_literals", True)
+        )
+        mint_from_types = _is_flag_enabled(config_args.get("mint_from_types", False))
+        mint_from_arrows = _is_flag_enabled(config_args.get("mint_from_arrows", True))
         serialisation_config = SerialisationConfig(
             infer_type_of_literals=infer_type_of_literals,
             include_preamble=include_preamble,
@@ -2997,6 +3092,9 @@ class internal_control_core:
             prefix_iri=prefix_iri,
             indentation=config_args["indentation"],
             include_label=include_label,
+            mint_from_literals=mint_from_literals,
+            mint_from_types=mint_from_types,
+            mint_from_arrows=mint_from_arrows,
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
         strict_mode = _is_flag_enabled(config_args.get("strict_mode"))

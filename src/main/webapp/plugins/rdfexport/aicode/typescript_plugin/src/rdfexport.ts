@@ -167,6 +167,12 @@ const PARSER_SETTINGS_INFER_TYPES_ATTRIBUTE =
 const PARSER_SETTINGS_STRICT_MODE_ATTRIBUTE =
   "data-rdfexport-parser-strict-mode";
 const PARSER_SETTINGS_STRIP_HTML_ATTRIBUTE = "data-rdfexport-parser-strip-html";
+const PARSER_SETTINGS_MINT_FROM_LITERALS_ATTRIBUTE =
+  "data-rdfexport-parser-mint-from-literals";
+const PARSER_SETTINGS_MINT_FROM_TYPES_ATTRIBUTE =
+  "data-rdfexport-parser-mint-from-types";
+const PARSER_SETTINGS_MINT_FROM_ARROWS_ATTRIBUTE =
+  "data-rdfexport-parser-mint-from-arrows";
 const PARSER_SETTINGS_PREFIX_ATTRIBUTE = "data-rdfexport-parser-prefix";
 const PARSER_SETTINGS_PREFIX_IRI_ATTRIBUTE = "data-rdfexport-parser-prefix-iri";
 const PARSER_SETTINGS_ONTOLOGY_IRI_ATTRIBUTE =
@@ -270,6 +276,9 @@ export interface ParserSettings {
   includeLabel: boolean;
   strictMode: boolean;
   stripHtml: boolean;
+  mintFromLiterals: boolean;
+  mintFromTypes: boolean;
+  mintFromArrows: boolean;
   indentation: number;
   maxGap: number;
   ontologyIri: string | null;
@@ -305,6 +314,9 @@ function createDefaultParserSettings(): ParserSettings {
     includeLabel: parserConfig.include_label,
     strictMode: parserConfig.strict_mode,
     stripHtml: parserConfig.strip_html,
+    mintFromLiterals: parserConfig.mint_from_literals ?? true,
+    mintFromTypes: parserConfig.mint_from_types ?? false,
+    mintFromArrows: parserConfig.mint_from_arrows ?? true,
     indentation: parserConfig.indentation,
     maxGap: parserConfig.max_gap,
     ontologyIri: parserConfig.ontology_iri,
@@ -565,6 +577,18 @@ function normaliseParserSettings(
     ),
     strictMode: normalizeBoolean(partial?.strictMode, defaults.strictMode),
     stripHtml: normalizeBoolean(partial?.stripHtml, defaults.stripHtml),
+    mintFromLiterals: normalizeBoolean(
+      partial?.mintFromLiterals,
+      defaults.mintFromLiterals,
+    ),
+    mintFromTypes: normalizeBoolean(
+      partial?.mintFromTypes,
+      defaults.mintFromTypes,
+    ),
+    mintFromArrows: normalizeBoolean(
+      partial?.mintFromArrows,
+      defaults.mintFromArrows,
+    ),
     indentation: normalizeIndentation(
       partial?.indentation,
       defaults.indentation,
@@ -659,6 +683,9 @@ function buildParserConfigPayloadFromSettings(
     max_gap: normalized.maxGap,
     strict_mode: normalized.strictMode,
     strip_html: normalized.stripHtml,
+    mint_from_literals: normalized.mintFromLiterals,
+    mint_from_types: normalized.mintFromTypes,
+    mint_from_arrows: normalized.mintFromArrows,
     metacharacter_substitute: substitutes,
     literal_definitions: literal_definitions,
     capitalisation_scheme: normalized.capitalisationScheme,
@@ -2035,6 +2062,30 @@ function createParserSettingsDialog(
   generalSection.appendChild(stripHtmlRow.container);
   const stripHtmlCheckbox = stripHtmlRow.input;
 
+  const mintFromLiteralsRow = createCheckboxRow(
+    "Mint URIs from literals",
+    settings.mintFromLiterals,
+    PARSER_SETTINGS_MINT_FROM_LITERALS_ATTRIBUTE,
+  );
+  generalSection.appendChild(mintFromLiteralsRow.container);
+  const mintFromLiteralsCheckbox = mintFromLiteralsRow.input;
+
+  const mintFromTypesRow = createCheckboxRow(
+    "Mint URIs from types",
+    settings.mintFromTypes,
+    PARSER_SETTINGS_MINT_FROM_TYPES_ATTRIBUTE,
+  );
+  generalSection.appendChild(mintFromTypesRow.container);
+  const mintFromTypesCheckbox = mintFromTypesRow.input;
+
+  const mintFromArrowsRow = createCheckboxRow(
+    "Mint URIs from arrows",
+    settings.mintFromArrows,
+    PARSER_SETTINGS_MINT_FROM_ARROWS_ATTRIBUTE,
+  );
+  generalSection.appendChild(mintFromArrowsRow.container);
+  const mintFromArrowsCheckbox = mintFromArrowsRow.input;
+
   const identifiersSection = createSection("Identifiers");
   scrollArea.appendChild(identifiersSection);
 
@@ -2303,6 +2354,9 @@ function createParserSettingsDialog(
       inferTypeOfLiterals: inferTypesCheckbox.checked,
       strictMode: strictModeCheckbox.checked,
       stripHtml: stripHtmlCheckbox.checked,
+      mintFromLiterals: mintFromLiteralsCheckbox.checked,
+      mintFromTypes: mintFromTypesCheckbox.checked,
+      mintFromArrows: mintFromArrowsCheckbox.checked,
       prefix: prefixInput.value,
       prefixIri: prefixIriInput.value,
       ontologyIri: ontologyIriInput.value,

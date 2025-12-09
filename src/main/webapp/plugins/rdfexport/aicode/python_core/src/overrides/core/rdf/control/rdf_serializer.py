@@ -28,7 +28,11 @@ class RDFSerializer(RDFSerializationHelper):
         self, individual_id: str, individual_label: str, types_and_facts: dict
     ) -> None:
         """Add triples for a single individual."""
-        individual_uri = self.coerce_to_uriref(self, individual_id)
+        individual_uri = self.coerce_to_uriref(
+            self,
+            individual_id,
+            mint_from_literal=self.serialisation_config.mint_from_literals,
+        )
 
         # Add NamedIndividual type
         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
@@ -65,7 +69,11 @@ class RDFSerializer(RDFSerializationHelper):
 
                 if not is_literal:
                     # Object property - create URI reference
-                    target_uri = self.coerce_to_uriref(self, value)
+                    target_uri = self.coerce_to_uriref(
+                        self,
+                        value,
+                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                    )
                     self.graph.add((individual_uri, prop_uri, target_uri))
                 else:
                     # Datatype property - create literal

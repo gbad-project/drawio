@@ -102,6 +102,10 @@ def _build_graph_from_raw_xml(
     config_args["infer_types_disable"] = not infer_type_of_literals
     config_args["rml_enabled"] = rml_enabled
 
+    mint_from_literals = _is_flag_enabled(config_args.get("mint_from_literals", True))
+    mint_from_types = _is_flag_enabled(config_args.get("mint_from_types", False))
+    mint_from_arrows = _is_flag_enabled(config_args.get("mint_from_arrows", True))
+
     serialisation_config = SerialisationConfig(
         infer_type_of_literals=infer_type_of_literals,
         include_preamble=include_preamble,
@@ -110,6 +114,9 @@ def _build_graph_from_raw_xml(
         prefix_iri=prefix_iri,
         indentation=config_args["indentation"],
         include_label=include_label,
+        mint_from_literals=mint_from_literals,
+        mint_from_types=mint_from_types,
+        mint_from_arrows=mint_from_arrows,
     )
     _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
 
