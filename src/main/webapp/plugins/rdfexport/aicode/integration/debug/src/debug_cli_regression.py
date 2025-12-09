@@ -32,6 +32,8 @@ EXPECTED_TS_PLUGIN = {
     "AA37-with-metadata-severely-mocked.drawio": {
         "reason": "ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).",
         "command": [
+            "uv",
+            "run",
             "python",
             "-m",
             "debug",
@@ -56,6 +58,8 @@ Also, there is a separate reason for within-debug xfail. To quote codex:
 
 In short, the failure stems from the fixture's deliberately broken prefix IRI: the parser records `picoL:j`, the serializer removes the invalid `picoL` namespace, and the regression check can't reconcile the two unless you supply a valid preamble (as the manual scenario does).""",
         "command": [
+            "uv",
+            "run",
             "python",
             "-m",
             "debug",
@@ -66,6 +70,8 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
     "General_Authority_bleep_mock.drawio": {
         "reason": "ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.",
         "command": [
+            "uv",
+            "run",
             "python",
             "-m",
             "debug",
@@ -76,6 +82,8 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
     "AA37-with-metadata-even-more-severely-mocked-v2.drawio": {
         "reason": "ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.",
         "command": [
+            "uv",
+            "run",
             "python",
             "-m",
             "debug",
@@ -86,6 +94,8 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
     "Class_Diagram_tweaked.drawio": {
         "reason": "ts_plugin expectedly fails due to: \"Failed to coerce 'Purchase Parking Pass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE\". This is the correct behavior because 'Purchase Parking Pass' is put in a Type position in this diagram, and types intentionally refuse to mint individuals from literals. Another fixture, 'Class_Diagram_tweaked_compliant.drawio', has been crafted to illustrate one way to make this diagram compliant.",
         "command": [
+            "uv",
+            "run",
             "python",
             "-m",
             "debug",
@@ -96,6 +106,8 @@ In short, the failure stems from the fixture's deliberately broken prefix IRI: t
     "a-place.drawio": {
         "reason": "ts_plugin expectedly fails due to: draw_io_parser.internal_data_core.\"ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Ambérieux-en-Dombes (Ain) RiC E-22 Place') as source.\" This is the correct behavior because the source node has `rounded=1`; once this is fixed, this works - see `a-place-fixed.drawio`.",
         "command": [
+            "uv",
+            "run",
             "python",
             "-m",
             "debug",
