@@ -25,5 +25,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
-  }
+  },
+  "exclude": [
+    "aicode/typescript_plugin/src/next/py314Runtime.ts",
+  ]
 }
