@@ -1,4 +1,4 @@
-Script started on Tue Dec  9 12:00:25 2025
+Script started on Tue Dec  9 12:31:47 2025
 Command: bun run debug:all
 [0m[2m[35m$[0m [2m[1muv run python -m aicode.integration.debug.src.debug_cli_regression[0m
 ]9;4;3;\[1m================================== test session starts ==================================[0m
@@ -107,7 +107,7 @@ aicode/integration/debug/src/debug_cli_regression.py::test_run_manual_scenarios_
 [33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
 [33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-place.drawio][0m - ts_plugin expectedly fails due to: draw_io_parser.internal_data_core."ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Ambérieux-en-Dombes (Ain) RiC E-22 Place') as source." This is the correct behavior because the source node has `rounded=1`; once this is fixed, this works - see `a-place-fixed.drawio`.  |  Command: python python -m debug --scenario a-place-fixed
 [33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m======================= [32m[1m42 passed[0m, [33m6 xfailed[0m[32m in 75.33s (0:01:15)[0m[32m ========================[0m
+[32m======================= [32m[1m42 passed[0m, [33m6 xfailed[0m[32m in 75.88s (0:01:15)[0m[32m ========================[0m
 
 Command exit status: 0
-Script done on Tue Dec  9 12:01:40 2025
+Script done on Tue Dec  9 12:33:03 2025
