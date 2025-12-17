@@ -2397,12 +2397,20 @@ json.dumps(get_last_parser_config())
     expect(nullConfigResult.literal_definitions).toEqual([
       { attr_key: "style", attr_value: "rounded=1" },
     ]);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Success: When literal_definitions is null, Python uses defaults from YAML: ${JSON.stringify(nullConfigResult.literal_definitions)}`,
+    );
 
     // Test 2: When literal_definitions is empty array, user explicitly cleared them
     const configWithEmpty = createParserConfig({ literal_definitions: [] });
     // Expected to fail due to all nodes turning literals
     await expect(runDrawioPipeline(xml, configWithEmpty)).rejects.toThrow(
       /ArrowWithoutIndividualAsSourceException/,
+    );
+    logInfo(
+      LOG_PREFIX.TEST,
+      "Success: Expected to fail due to all nodes turning literals when literal_definitions is empty array as if user explicitly cleared them",
     );
 
     // Test 3: When literal_definitions has custom values, Python should receive them
@@ -2429,6 +2437,10 @@ json.dumps(get_last_parser_config())
     };
 
     expect(customConfigResult.literal_definitions).toEqual(customDefs);
+    logInfo(
+      LOG_PREFIX.TEST,
+      `Success: When literal_definitions has custom values, Python receives them: ${JSON.stringify(customConfigResult.literal_definitions)}`,
+    );
   },
   { timeout: 60000 },
 );
