@@ -1,0 +1,45 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "Created by ICA-EGAD in September 2023.",
+        "RiC-CM v1.0: a global overview",
+        "RiC-E02 Record Resource",
+        "RiC-E03 Record Set",
+        "RiC-E04 Record",
+        "RiC-E05 Record Part",
+        "RiC-E06 Instantiation",
+        "RiC-E07 Agent",
+        "RiC-E08 Person",
+        "RiC-E09 Group",
+        "RiC-E10 Family",
+        "RiC-E11 Corporate Body",
+        "RiC-E12 Position",
+        "RiC-E13 Mechanism",
+        "RiC-E14 Event",
+        "RiC-E15 Activity",
+        "RiC-E16 Rule",
+        "RiC-E17 Mandate",
+        "RiC-E18 Date",
+        "RiC-E22    Place",
+        "RiC-R019 has or had subject",
+        "RiC-R019i is or was subject of",
+        "RiC-R025 has or had instantiation",
+        "RiC-R025i is or was instantiation of",
+        "RiC-R026 has provenance",
+        "RiC-R026i is provenance of",
+        "RiC-R033 documents",
+        "RiC-R033i documented by",
+        "RiC-R060 is or was performed by",
+        "RiC-R060i performs or performed",
+        "RiC-R063 regulates or regulated",
+        "RiC-R063 regulates or regulated",
+        "RiC-R063i   is or was regutated by",
+        "RiC-R080 is creation date of",
+        "RiC-R080i has creation date",
+        "This diagram is licensed under a Creative Commons Attribution 4.0 International License.",
+        "s" .
+

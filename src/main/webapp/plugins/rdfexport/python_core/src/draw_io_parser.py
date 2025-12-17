@@ -24,12 +24,14 @@ from rdflib.term import Node
 from typing import Callable
 from rdflib import SKOS
 from rdflib.collection import Collection
+from rdflib.namespace import NamespaceManager
 import typing
 import logging
 from io import StringIO
 from rdflib.parser import InputSource, create_input_source
 from rdflib.plugins.parsers.notation3 import RDFSink, SinkParser
-from rdflib.namespace import NamespaceManager
+import yaml
+from pathlib import Path
 
 
 class pipeline:
@@ -109,6 +111,38 @@ class pipeline:
                     return (metadata_node, root)
 
                 # END override metadata_extraction.py._find_metadata_node
+                # BEGIN override object_flatten.py._flatten_object_wrappers
+                def _flatten_object_wrappers(
+                    raw_xml: str, root: Optional[Element]
+                ) -> str:
+                    if root is None:
+                        return raw_xml
+                    working_root = deepcopy(root)
+                    graph_root = working_root.find(".//mxGraphModel/root")
+                    if graph_root is None:
+                        return raw_xml
+                    for obj in graph_root.findall(".//object"):
+                        mxcell = obj.find("mxCell")
+                        if mxcell is not None:
+                            if "label" in obj.attrib:
+                                mxcell.attrib["value"] = obj.attrib["label"]
+                            if "id" in obj.attrib:
+                                mxcell.attrib["id"] = obj.attrib["id"]
+                            for key, value in obj.attrib.items():
+                                if (
+                                    key not in ("label", "id")
+                                    and key not in mxcell.attrib
+                                ):
+                                    mxcell.attrib[key] = value
+                            parent = graph_root
+                            for idx, child in enumerate(list(parent)):
+                                if child is obj:
+                                    parent.remove(obj)
+                                    parent.insert(idx, mxcell)
+                                    break
+                    return tostring(working_root, encoding="unicode")
+
+                # END override object_flatten.py._flatten_object_wrappers
 
             class data:
                 pass
@@ -118,7 +152,71 @@ class pipeline:
 
         class internal:
             class metadata:
-                pass
+                # BEGIN override load_yaml.py._load_config_yml
+                def _load_config_yml(
+                    yml_filename="default.yml",
+                ) -> tuple[
+                    dict[str, str],
+                    typing.Literal["pyodide", "metabuilder", "standalone", "unknown"],
+                ]:
+                    """Loads dict from a YAML file from a config dir, by default `default.yml`.
+
+                    Supports two execution contexts:
+
+                    1. From Pyodide virtual FS (/app/src/draw_io_parser.py)
+                    2. Normal repo tree (src/main/webapp/plugins/rdfexport/)
+
+                    Returns:
+                        Tuple of:
+                            - Dict after YAML loading. Empty dict if file cannot be read.
+                            - Literal['pyodide','metabuilder','standalone','unknown'] for the detected context.
+                    """
+                    REPO_PLUGIN_DIR_PATH = Path("src/main/webapp/plugins/rdfexport")
+                    NORMAL_CONFIG_DIR_PATH = (
+                        REPO_PLUGIN_DIR_PATH / "integration" / "config"
+                    )
+                    PYODIDE_ROOT_PATH = Path("/app")
+                    PYODIDE_CONFIG_DIR_PATH = PYODIDE_ROOT_PATH / "config"
+                    DRAW_IO_PARSER_FILENAME = "draw_io_parser.py"
+                    config: dict[str, str] = {}
+                    candidate_path: Path | None = None
+                    context = "unknown"
+                    try:
+                        current_file = Path(__file__).resolve()
+                        if current_file.is_relative_to(PYODIDE_ROOT_PATH):
+                            try:
+                                candidate_path = PYODIDE_CONFIG_DIR_PATH / yml_filename
+                                if candidate_path.exists():
+                                    context = "pyodide"
+                                else:
+                                    return (config, context)
+                            except IndexError:
+                                pass
+                        else:
+                            for parent in [current_file.parent] + list(
+                                current_file.parents
+                            ):
+                                full_config_path = (
+                                    parent / NORMAL_CONFIG_DIR_PATH / yml_filename
+                                )
+                                if full_config_path.exists():
+                                    candidate_path = full_config_path
+                                    context = (
+                                        "metabuilder"
+                                        if current_file.name == DRAW_IO_PARSER_FILENAME
+                                        else "standalone"
+                                    )
+                                    break
+                    except Exception:
+                        pass
+                    try:
+                        with open(candidate_path, "r") as f:
+                            config = yaml.safe_load(f)
+                    except Exception:
+                        pass
+                    return (config, context)
+
+                # END override load_yaml.py._load_config_yml
 
             class data:
                 pass
@@ -161,6 +259,7 @@ class pipeline:
                         strict_mode: bool = False,
                         max_gap: float | None = None,
                         strip_html: bool = True,
+                        literal_definitions: list[dict[str, str]] | None = None,
                     ):
                         source_tree = getattr(raw_xml, "draw_io_xml_tree", None)
                         if isinstance(source_tree, Element):
@@ -186,9 +285,10 @@ class pipeline:
                             coerced_gap = float(default_gap)
                         self._max_gap = coerced_gap
                         self._strip_html = bool(strip_html)
+                        self._literal_definitions = literal_definitions
                         self._html_parser = NodeHTMLParser()
                         self._edge_incidence = self._build_edge_incidence()
-                        self._child_token_cache: dict[str, list[str]] = {}
+                        self._child_value_cache: dict[str, list[str]] = {}
                         self.classifications: dict[str, Any] = {}
                         self.individuals: list[Individual] = []
                         self.arrows: list[Arrow] = []
@@ -214,16 +314,12 @@ class pipeline:
                         cell_id = cell.attrib.get("id")
                         classification = self.classifications[cell_id]
                         self._literals_by_id[cell_id] = cell
-                        if len(classification.tokens) > 1:
-                            self.decorations[cell_id] = {
-                                "value": classification.tokens,
-                                "connected": False,
-                            }
-                        else:
-                            self.decorations[cell_id] = {
-                                "value": classification.raw_value,
-                                "connected": False,
-                            }
+                        value = (
+                            [classification.raw_value] + classification.tokens
+                            if len(classification.tokens) > 0
+                            else classification.raw_value
+                        )
+                        self.decorations[cell_id] = {"value": value, "connected": False}
 
                     def _process_graph(self):
                         """
@@ -266,10 +362,16 @@ class pipeline:
                                 self.classifications[cell_id] = classification
                             kind_name = getattr(classification.kind, "name", "")
                             cell_id = cell.attrib.get("id")
+                            parent = classification.parent_cell
+                            parent_identifier = parent_cell_id = None
+                            if parent is not None:
+                                if self._is_layer(parent):
+                                    pass
+                                else:
+                                    parent_identifier = classification.parent_identifier
+                                    parent_cell_id = parent.attrib.get("id")
                             if kind_name == "TYPE_TOKEN":
-                                parent = classification.parent_cell
-                                parent_cell_id = parent.attrib.get("id")
-                                identifier = classification.parent_identifier
+                                identifier = parent_identifier
                                 if (
                                     cell_id is None
                                     or parent_cell_id in self._literals_by_id
@@ -361,9 +463,9 @@ class pipeline:
                             selected_value: str = (
                                 value.strip() if isinstance(value, str) else value
                             )
-                            if kind == CellKind.LITERAL and isinstance(
-                                literal_value, str
-                            ):
+                            if (
+                                kind == CellKind.LITERAL or kind == CellKind.DECORATION
+                            ) and isinstance(literal_value, str):
                                 selected_value = literal_value
                             return CellClassification(
                                 kind, selected_value, cell, **kwargs
@@ -376,7 +478,11 @@ class pipeline:
                             return build(CellKind.ARROW_LABEL)
                         if not raw_value:
                             return build(CellKind.EMPTY_CELL)
+                        if self._is_layer(cell):
+                            return build(CellKind.LAYER)
                         parent_cell, parent_identifier = self._resolve_parent(cell)
+                        if parent_cell is not None and self._is_layer(parent_cell):
+                            parent_cell = parent_identifier = None
                         if (
                             parent_cell is not None
                             and parent_cell.attrib.get("edge") == "1"
@@ -388,11 +494,12 @@ class pipeline:
                                 parent_identifier=parent_identifier,
                             )
                         tokens = self._tokenise(raw_value)
-                        child_tokens = self._collect_child_tokens(cell)
+                        child_values = self._collect_child_values(cell)
+                        child_tokens = [self._tokenise(t) for t in child_values]
                         if child_tokens:
                             tokens.extend((t for t in child_tokens if t not in tokens))
                         if self._style_denotes_literal(cell, style):
-                            return build(CellKind.LITERAL, tokens=tokens)
+                            return build(CellKind.LITERAL, tokens=child_values)
                         if parent_cell is not None and parent_identifier:
                             return build(
                                 CellKind.TYPE_TOKEN,
@@ -401,7 +508,7 @@ class pipeline:
                                 tokens=tokens,
                             )
                         elif self._is_decoration(cell, raw_value):
-                            return build(CellKind.DECORATION, tokens=tokens)
+                            return build(CellKind.DECORATION, tokens=child_values)
                         else:
                             return build(
                                 CellKind.STANDALONE_INDIVIDUAL,
@@ -777,25 +884,22 @@ class pipeline:
                         except Exception:
                             return False
 
-                    def _collect_child_tokens(self, cell: Element) -> list[str]:
+                    def _collect_child_values(self, cell: Element) -> list[str]:
                         _NoValueException = pipeline.core.xml.data._NoValueException
                         cell_id = cell.attrib.get("id")
                         if not cell_id:
                             return []
-                        if cell_id in self._child_token_cache:
-                            return list(self._child_token_cache[cell_id])
-                        tokens = []
+                        if cell_id in self._child_value_cache:
+                            return list(self._child_value_cache[cell_id])
+                        values = []
                         for child in self._child_of(cell_id):
                             try:
                                 child_value = self._value_of(child).strip()
-                                child_tokens = self._tokenise(child_value)
-                                tokens.extend(
-                                    (t for t in child_tokens if t not in tokens)
-                                )
+                                values.append(child_value)
                             except (_NoValueException, ParseException):
                                 continue
-                        self._child_token_cache[cell_id] = tokens
-                        return tokens
+                        self._child_value_cache[cell_id] = values
+                        return values
 
                     def _build_edge_incidence(self) -> set[str]:
                         return {
@@ -813,29 +917,48 @@ class pipeline:
                     def _style_suggests_decoration(style: str) -> bool:
                         if not style:
                             return False
-                        return "text;" in style or "shape=text" in style
+                        return False
 
-                    @staticmethod
-                    def _style_denotes_literal(cell: Element, style: str) -> bool:
-                        if not style:
-                            return False
-                        if "rounded=1" in style:
+                    def _style_denotes_literal(self, cell: Element, style: str) -> bool:
+                        """Check if cell matches any literal definition.
+                        - None: Use DEFAULT_LITERAL_DEFINITIONS from default.yml
+                        - []: Return True (treat everything as literal)
+                        - [...]: Use provided definitions
+                        """
+                        if self._literal_definitions is None:
+                            definitions_to_use = [
+                                {"attr_key": "style", "attr_value": "rounded=1"}
+                            ]
+                        elif (
+                            isinstance(self._literal_definitions, list)
+                            and len(self._literal_definitions) == 0
+                        ):
                             return True
-                        if "ellipse" in style:
-                            return True
-                        if "shape=" in style:
-                            return True
+                        else:
+                            definitions_to_use = self._literal_definitions
+                        for definition in definitions_to_use:
+                            attr_name = definition.get("attr_key", "")
+                            pattern = definition.get("attr_value", "")
+                            if not attr_name or not pattern:
+                                continue
+                            attr_value = cell.attrib.get(attr_name, "")
+                            if not attr_value:
+                                continue
+                            if pattern in attr_value:
+                                return True
+                        return False
 
                     def _is_decoration(self, cell: Element, raw_value: str) -> bool:
+                        """Currently always returns False. Yet standalone literals
+                        are still treated as decorations (added to registry) downstream."""
                         if not raw_value:
                             return False
-                        return (
-                            not self._collect_child_tokens(cell)
-                            and (not self._has_incident_edge(cell))
-                            and self._style_suggests_decoration(
-                                cell.attrib.get("style", "")
-                            )
+                        return self._style_suggests_decoration(
+                            cell.attrib.get("style", "")
                         )
+
+                    def _is_layer(self, cell: Element) -> bool:
+                        return cell.attrib.get("parent") == "0"
 
                 # END override cell_classifier.py.DrawIOCellClassifier
 
@@ -869,6 +992,7 @@ class pipeline:
                     LITERAL = auto()
                     DECORATION = auto()
                     EMPTY_CELL = auto()
+                    LAYER = auto()
 
                 # END override cell_models.py.CellKind
                 # BEGIN override curie_validator.py.DeimplementedException
@@ -1256,12 +1380,16 @@ class pipeline:
                     def resolve_predicate(self, prop: str) -> URIRef:
                         """Resolve a predicate string (property IRI) to a URIRef."""
                         return self.coerce_to_uriref(
-                            cfg=self, value=prop, mint_from_literal=True
+                            cfg=self,
+                            value=prop,
+                            mint_from_literal=self.serialisation_config.mint_from_arrows,
                         )
 
                     def resolve_type(self, rdf_type: str) -> Any:
                         return self.coerce_to_uriref(
-                            cfg=self, value=rdf_type, mint_from_literal=False
+                            cfg=self,
+                            value=rdf_type,
+                            mint_from_literal=self.serialisation_config.mint_from_types,
                         )
 
                     def declare_properties(self) -> None:
@@ -1354,7 +1482,11 @@ class pipeline:
                         types_and_facts: dict,
                     ) -> None:
                         """Add triples for a single individual."""
-                        individual_uri = self.coerce_to_uriref(self, individual_id)
+                        individual_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         self.graph.add((individual_uri, RDF.type, OWL.NamedIndividual))
                         for rdf_type in types_and_facts.get("Types", set()):
                             self.graph.add(
@@ -1382,7 +1514,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     self.graph.add(
                                         (individual_uri, prop_uri, target_uri)
                                     )
@@ -1628,7 +1764,11 @@ class pipeline:
                                 self.ql.CSV,
                             )
                         )
-                        subject_uri = self.coerce_to_uriref(self, individual_id)
+                        subject_uri = self.coerce_to_uriref(
+                            self,
+                            individual_id,
+                            mint_from_literal=self.serialisation_config.mint_from_literals,
+                        )
                         subject_map, subject_map_triples = self._build_subject_map(
                             subject_uri
                         )
@@ -1690,7 +1830,11 @@ class pipeline:
                                         and prop not in self.object_properties
                                     )
                                 if not is_literal:
-                                    target_uri = self.coerce_to_uriref(self, value)
+                                    target_uri = self.coerce_to_uriref(
+                                        self,
+                                        value,
+                                        mint_from_literal=self.serialisation_config.mint_from_literals,
+                                    )
                                     (
                                         fact_predicate_object_map,
                                         fact_predicate_object_map_triples,
@@ -2195,6 +2339,7 @@ class internal_metadata_pre:
 
     # END get_prefix_iri
     # BEGIN SerialisationConfig
+    # override from serialisation_config.py
     @dataclass(frozen=True)
     class SerialisationConfig:
         """
@@ -2209,6 +2354,9 @@ class internal_metadata_pre:
         prefix_iri: str | None
         indentation: int
         include_label: bool
+        mint_from_literals: bool = True
+        mint_from_types: bool = False
+        mint_from_arrows: bool = True
 
     # END SerialisationConfig
 
@@ -2941,6 +3089,9 @@ class internal_control_core:
         working_xml = pipeline.pre.xml.metadata._strip_metadata_user_object(
             raw_xml, parsed_root
         )
+        working_xml = pipeline.pre.xml.metadata._flatten_object_wrappers(
+            raw_xml, parsed_root
+        )
         ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
         prefix = config_args["prefix"] or get_prefix()
         prefix_iri = (
@@ -2963,6 +3114,11 @@ class internal_control_core:
         config_args["infer_type_of_literals"] = infer_type_of_literals
         config_args["infer_types_disable"] = not infer_type_of_literals
         config_args["rml_enabled"] = rml_enabled
+        mint_from_literals = _is_flag_enabled(
+            config_args.get("mint_from_literals", True)
+        )
+        mint_from_types = _is_flag_enabled(config_args.get("mint_from_types", False))
+        mint_from_arrows = _is_flag_enabled(config_args.get("mint_from_arrows", True))
         serialisation_config = SerialisationConfig(
             infer_type_of_literals=infer_type_of_literals,
             include_preamble=include_preamble,
@@ -2971,6 +3127,9 @@ class internal_control_core:
             prefix_iri=prefix_iri,
             indentation=config_args["indentation"],
             include_label=include_label,
+            mint_from_literals=mint_from_literals,
+            mint_from_types=mint_from_types,
+            mint_from_arrows=mint_from_arrows,
         )
         _parse_capitalisation_scheme(config_args["capitalisation_scheme"])
         strict_mode = _is_flag_enabled(config_args.get("strict_mode"))
@@ -3004,12 +3163,14 @@ class internal_control_core:
             strip_html_enabled = metadata_strip_html
         else:
             strip_html_enabled = _is_flag_enabled(config_strip_html)
+        literal_definitions = config_args.get("literal_definitions")
         classifier = DrawIOCellClassifier(
             working_xml,
             prefixes,
             strict_mode=strict_mode,
             max_gap=max_gap,
             strip_html=strip_html_enabled,
+            literal_definitions=literal_definitions,
         )
         space_substitute = internal_control_core._parse_space_substitute(
             config_args["metacharacter_substitute"]

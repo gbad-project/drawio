@@ -1,0 +1,13 @@
+slug: diagram-ric-cm-overview-ric-v1-0-cursed
+drawio: data/fixtures/drawio_fixtures/diagram_RiC-CM-overview-RiC-v1-0_cursed.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: /mock/path/to/file.csv
+    baseUri: ontology://generated-from-draw-io/mock#
+  preamble:
+  - prefix: mock1
+    iri: http://mock-uri.com
+parser_config:
+  ontology_iri: mock://debug-ontology

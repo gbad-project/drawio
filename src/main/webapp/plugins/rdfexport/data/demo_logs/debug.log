@@ -1,95 +1,115 @@
-Script started on Wed Nov 26 22:41:39 2025
+Script started on Wed Dec 17 11:04:06 2025
 Command: bun run debug:all
-[0m[2m[35m$[0m [2m[1muv run python -m aicode.integration_tests.debug.src.debug_cli_regression[0m
-]9;4;3;\[1m====================================== test session starts ======================================[0m
-platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0 -- /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python3
+[0m[2m[35m$[0m [2m[1muv run python -m aicode.integration.debug.src.debug_cli_regression[0m
+]9;4;3;\[1m=========================================== test session starts ============================================[0m
+platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0 -- /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/.venv/bin/python3
 cachedir: .pytest_cache
-rootdir: /Volumes/home/anonymous/drawio/src/main/webapp/plugins/rdfexport
+rootdir: /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
-[1mcollecting ... [0m[1mcollected 39 items                                                                              [0m
+[1mcollecting ... [0m[1mcollected 49 items                                                                                         [0m
 
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] ]9;4;1;0\[32mPASSED[0m[32m [  2%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] ]9;4;1;2\[32mPASSED[0m[32m [  5%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio] ]9;4;1;5\[32mPASSED[0m[32m [  7%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] ]9;4;1;7\[32mPASSED[0m[32m [ 10%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] ]9;4;1;10\[33mXFAIL[0m[32m [ 12%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] ]9;4;1;12\[32mPASSED[0m[32m [ 15%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio] ]9;4;1;15\[33mXFAIL[0m[32m [ 17%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] ]9;4;1;17\[32mPASSED[0m[32m [ 20%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] ]9;4;1;20\[32mPASSED[0m[32m [ 23%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio] ]9;4;1;23\[32mPASSED[0m[32m [ 25%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio] ]9;4;1;25\[32mPASSED[0m[32m [ 28%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] ]9;4;1;28\[33mXFAIL[0m[32m [ 30%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked_compliant.drawio] ]9;4;1;30\[32mPASSED[0m[32m [ 33%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio] ]9;4;1;33\[32mPASSED[0m[32m [ 35%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] ]9;4;1;35\[32mPASSED[0m[32m [ 38%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] ]9;4;1;38\[32mPASSED[0m[32m [ 41%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] ]9;4;1;41\[32mPASSED[0m[32m [ 43%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] ]9;4;1;43\[32mPASSED[0m[32m [ 46%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] ]9;4;1;46\[32mPASSED[0m[32m [ 48%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] ]9;4;1;48\[32mPASSED[0m[32m [ 51%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] ]9;4;1;51\[32mPASSED[0m[32m [ 53%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] ]9;4;1;53\[32mPASSED[0m[32m [ 56%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] ]9;4;1;56\[32mPASSED[0m[32m [ 58%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] ]9;4;1;58\[32mPASSED[0m[32m [ 61%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] ]9;4;1;61\[32mPASSED[0m[32m [ 64%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] ]9;4;1;64\[32mPASSED[0m[32m [ 66%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] ]9;4;1;66\[32mPASSED[0m[32m [ 69%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] ]9;4;1;69\[33mXFAIL[0m[32m [ 71%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[List_typed_decorations.drawio] ]9;4;1;71\[32mPASSED[0m[32m [ 74%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] ]9;4;1;74\[32mPASSED[0m[32m [ 76%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] ]9;4;1;76\[32mPASSED[0m[32m [ 79%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] ]9;4;1;79\[32mPASSED[0m[32m [ 82%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] ]9;4;1;82\[32mPASSED[0m[32m [ 84%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] ]9;4;1;84\[32mPASSED[0m[32m [ 87%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL.drawio] ]9;4;1;87\[32mPASSED[0m[32m [ 89%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL1.drawio] ]9;4;1;89\[32mPASSED[0m[32m [ 92%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] ]9;4;1;92\[32mPASSED[0m[32m [ 94%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] ]9;4;1;94\[32mPASSED[0m[32m [ 97%][0m
-aicode/integration_tests/debug/src/debug_cli_regression.py::test_run_manual_scenarios_after_xfails ]9;4;1;97\[33mXFAIL[0m[32m [100%][0m]9;4;0;\
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio] ]9;4;1;0\[32mPASSED[0m[32m [  2%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio] ]9;4;1;2\[32mPASSED[0m[32m [  4%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio] ]9;4;1;4\[32mPASSED[0m[32m [  6%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio] ]9;4;1;6\[32mPASSED[0m[32m [  8%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio] ]9;4;1;8\[33mXFAIL[0m[32m [ 10%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio] ]9;4;1;10\[32mPASSED[0m[32m [ 12%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio] ]9;4;1;12\[33mXFAIL[0m[32m [ 14%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio] ]9;4;1;14\[32mPASSED[0m[32m [ 16%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio] ]9;4;1;16\[32mPASSED[0m[32m [ 18%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio] ]9;4;1;18\[32mPASSED[0m[32m [ 20%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio] ]9;4;1;20\[32mPASSED[0m[32m [ 22%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio] ]9;4;1;22\[33mXFAIL[0m[32m [ 24%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked_compliant.drawio] ]9;4;1;24\[32mPASSED[0m[32m [ 26%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio] ]9;4;1;26\[32mPASSED[0m[32m [ 28%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio] ]9;4;1;28\[32mPASSED[0m[32m [ 30%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio] ]9;4;1;30\[32mPASSED[0m[32m [ 32%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio] ]9;4;1;32\[32mPASSED[0m[32m [ 34%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio] ]9;4;1;34\[32mPASSED[0m[32m [ 36%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio] ]9;4;1;36\[32mPASSED[0m[32m [ 38%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio] ]9;4;1;38\[32mPASSED[0m[32m [ 40%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio] ]9;4;1;40\[32mPASSED[0m[32m [ 42%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio] ]9;4;1;42\[32mPASSED[0m[32m [ 44%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio] ]9;4;1;44\[32mPASSED[0m[32m [ 46%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio] ]9;4;1;46\[32mPASSED[0m[32m [ 48%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio] ]9;4;1;48\[32mPASSED[0m[32m [ 51%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio] ]9;4;1;51\[32mPASSED[0m[32m [ 53%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio] ]9;4;1;53\[32mPASSED[0m[32m [ 55%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio] ]9;4;1;55\[33mXFAIL[0m[32m [ 57%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[List_typed_decorations.drawio] ]9;4;1;57\[32mPASSED[0m[32m [ 59%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio] ]9;4;1;59\[32mPASSED[0m[32m [ 61%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio] ]9;4;1;61\[32mPASSED[0m[32m [ 63%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio] ]9;4;1;63\[32mPASSED[0m[32m [ 65%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio] ]9;4;1;65\[32mPASSED[0m[32m [ 67%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio] ]9;4;1;67\[32mPASSED[0m[32m [ 69%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL.drawio] ]9;4;1;69\[32mPASSED[0m[32m [ 71%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL1.drawio] ]9;4;1;71\[32mPASSED[0m[32m [ 73%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[TBL2.drawio] ]9;4;1;73\[32mPASSED[0m[32m [ 75%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-complex-relation-and-its-shortcut.drawio] ]9;4;1;75\[32mPASSED[0m[32m [ 77%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-documentary-form-type.drawio] ]9;4;1;77\[32mPASSED[0m[32m [ 79%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-medieval-act-in-a-cartulary.drawio] ]9;4;1;79\[32mPASSED[0m[32m [ 81%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-place-fixed.drawio] ]9;4;1;81\[32mPASSED[0m[32m [ 83%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-place.drawio] ]9;4;1;83\[33mXFAIL[0m[32m [ 85%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-print-in-one-of-the-albums.drawio] ]9;4;1;85\[32mPASSED[0m[32m [ 87%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[a-series-of-albums-of-aerial-photographs.drawio] ]9;4;1;87\[32mPASSED[0m[32m [ 89%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[diagram_RiC-CM-overview-RiC-v1-0.drawio] ]9;4;1;89\[32mPASSED[0m[32m [ 91%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[diagram_RiC-CM-overview-RiC-v1-0_cursed.drawio] ]9;4;1;91\[32mPASSED[0m[32m [ 93%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio] ]9;4;1;93\[32mPASSED[0m[32m [ 95%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio] ]9;4;1;95\[32mPASSED[0m[32m [ 97%][0m
+aicode/integration/debug/src/debug_cli_regression.py::test_run_manual_scenarios_after_xfails ]9;4;1;97\[33mXFAIL[0m[32m   [100%][0m]9;4;0;\
 
-============================================ PASSES =============================================
-[36m[1m==================================== short test summary info ====================================[0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked_compliant.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[List_typed_decorations.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[TBL.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[TBL1.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio][0m
-[32mPASSED[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio][0m
-[33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
-[33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python python -m debug --scenario aa37-with-metadata-severely-mocked
-[33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio][0m - ts_plugin expectedly fails due to: "Failed to coerce 'Purchase Parking Pass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE". This is the correct behavior because 'Purchase Parking Pass' is put in a Type position in this diagram, and types intentionally refuse to mint individuals from literals. Another fixture, 'Class_Diagram_tweaked_compliant.drawio', has been crafted to illustrate one way to make this diagram compliant.  |  Command: python python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
-[33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python python -m debug --scenario general-authority-bleep-mock
-[33mXFAIL[0m aicode/integration_tests/debug/src/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
-[32m=========================== [32m[1m34 passed[0m, [33m5 xfailed[0m[32m in 60.08s (0:01:00)[0m[32m ============================[0m
+================================================== PASSES ==================================================
+[36m[1m========================================= short test summary info ==========================================[0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-preserve-html.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata-rml.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health-with-metadata.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37 Department of Health.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA42 Ministry of Health.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[BA619 Walkerton Inquiry.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1853 Chest Disease Service.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[CA1934 Division of Tuberculosis Prevention.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked_compliant.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47 Simcoe Family fonds.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11 Elizabeth Simcoe sketches.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1 Elizabeth Simcoe loose sketches.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1 (VDB test).drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-1-0-1.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-2 Elizabeth Simcoe sketchbook.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[F 4711 Orville Wood fonds.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Flowchart_tweaked.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[List_typed_decorations.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[RG 18-210 Walkerton Inquiry in RiC-O (original).drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[TBL.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[TBL1.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[TBL2.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-complex-relation-and-its-shortcut.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-documentary-form-type.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-medieval-act-in-a-cartulary.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-place-fixed.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-print-in-one-of-the-albums.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-series-of-albums-of-aerial-photographs.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[diagram_RiC-CM-overview-RiC-v1-0.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[diagram_RiC-CM-overview-RiC-v1-0_cursed.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[knut_olborgs_forskningsnotater.drawio][0m
+[32mPASSED[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[koronakommisjonen.drawio][0m
+[33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-even-more-severely-mocked-v2.drawio][0m - ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass. Manual command will mirror the outcome.  |  Command: python uv run python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
+[33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[AA37-with-metadata-severely-mocked.drawio][0m - ts_plugin expectedly fails because picoL: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once all prefixes are supplied (if prefixes are overriden, they are overriden completely, so all prefixes are resupplied through the scenario config).  |  Command: python uv run python -m debug --scenario aa37-with-metadata-severely-mocked
+[33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[Class_Diagram_tweaked.drawio][0m - ts_plugin expectedly fails due to: "Failed to coerce 'Purchase Parking Pass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE". This is the correct behavior because 'Purchase Parking Pass' is put in a Type position in this diagram, and types intentionally refuse to mint individuals from literals. Another fixture, 'Class_Diagram_tweaked_compliant.drawio', has been crafted to illustrate one way to make this diagram compliant.  |  Command: python uv run python -m debug --scenario aa37-with-metadata-even-more-severely-mocked-v2
+[33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[General_Authority_bleep_mock.drawio][0m - ts_plugin expectedly fails because bleep: prefix was intentionally not specified in XML UserObject. Run a manual scenario to confirm that this works once this prefix is supplied.  |  Command: python uv run python -m debug --scenario general-authority-bleep-mock
+[33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_debug_cli_matches_expected_triple_counts[a-place.drawio][0m - ts_plugin expectedly fails due to: draw_io_parser.internal_data_core."ArrowWithoutIndividualAsSourceException: Arrow 'owl:sameAs' (1QzVoJSBnvUrHcRH2k3W-53) has a literal ('Ambérieux-en-Dombes (Ain) RiC E-22 Place') as source." This is the correct behavior because the source node has `rounded=1`; once this is fixed, this works - see `a-place-fixed.drawio`.  |  Command: python uv run python -m debug --scenario a-place-fixed
+[33mXFAIL[0m aicode/integration/debug/src/debug_cli_regression.py::[1mtest_run_manual_scenarios_after_xfails[0m - Failure of manual command mirrors the outcome of pytest run: ts_plugin expectedly fails (for now) because now that rounded=1 is recognized as a literal, arrow lol:kek becomes an arrow between two literals. However, once `http://Some node that should...` is reclassified as an individual as it should, this should pass.
+[32m================================= [32m[1m43 passed[0m, [33m6 xfailed[0m[32m in 77.41s (0:01:17)[0m[32m =================================[0m
 
 Command exit status: 0
-Script done on Wed Nov 26 22:42:39 2025
+Script done on Wed Dec 17 11:05:23 2025

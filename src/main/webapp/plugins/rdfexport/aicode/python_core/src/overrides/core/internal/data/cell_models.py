@@ -19,6 +19,7 @@ class CellKind(Enum):
     LITERAL = auto()
     DECORATION = auto()
     EMPTY_CELL = auto()
+    LAYER = auto()
 
 
 @override(phase="core", type="internal", role="data")

@@ -31,21 +31,6 @@ declare function setStderr(options?: {
  */
 /** @deprecated Use `import type { TypedArray } from "pyodide/ffi"` instead */
 export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
-type FSNode = {
-	timestamp: number;
-	rdev: number;
-	contents: Uint8Array;
-	mode: number;
-};
-type FSStream = {
-	tty?: {
-		ops: object;
-	};
-	seekable?: boolean;
-	stream_ops: FSStreamOps;
-	node: FSNode;
-};
-type FSStreamOps = FSStreamOpsGen<FSStream>;
 type FSStreamOpsGen<T> = {
 	open: (a: T) => void;
 	close: (a: T) => void;
@@ -55,25 +40,10 @@ type FSStreamOpsGen<T> = {
 };
 /** @deprecated Use `import type { PyodideFSType } from "pyodide/ffi"` instead */
 interface PyodideFSType {
-	mkdirTree: (path: string, mode?: number) => void;
-	createDevice: ((parent: string, name: string, input?: (() => number | null) | null, output?: ((code: number) => void) | null) => FSNode) & {
-		major: number;
-	};
-	lookupPath: (path: string, options?: {
-		follow_mount?: boolean;
-	}) => {
-		node: FSNode;
-	};
-	open: (path: string, flags: string | number, mode?: number) => FSStream;
 	filesystems: any;
-	isMountpoint: (node: FSNode) => boolean;
-	closeStream: (fd: number) => void;
 	registerDevice<T>(dev: number, ops: FSStreamOpsGen<T>): void;
-	writeFile: (path: string, contents: any, o?: {
-		canOwn?: boolean;
-	}) => void;
 }
-type FSType = Omit<typeof FS, "lookupPath"> & PyodideFSType;
+type FSType = typeof FS & PyodideFSType;
 /**
  * The lockfile platform info. The ``abi_version`` field is used to check if the
  * lockfile is compatible with the interpreter. The remaining fields are
@@ -1543,50 +1513,10 @@ export type PyodideAPI = typeof PyodideAPI_;
  */
 export declare const version: string;
 /**
- * See documentation for loadPyodide.
- * @hidden
+ * The configuration options for loading Pyodide.
  */
-type ConfigType = {
-	indexURL: string;
-	packageCacheDir: string;
-	lockFileContents: Lockfile | string | Promise<Lockfile | string>;
-	fullStdLib?: boolean;
-	stdLibURL?: string;
-	stdin?: () => string;
-	stdout?: (msg: string) => void;
-	stderr?: (msg: string) => void;
-	jsglobals?: object;
-	_sysExecutable?: string;
-	args: string[];
-	fsInit?: (FS: FSType, info: {
-		sitePackages: string;
-	}) => Promise<void>;
-	env: {
-		[key: string]: string;
-	};
-	packages: string[];
-	_makeSnapshot: boolean;
-	enableRunUntilComplete: boolean;
-	checkAPIVersion: boolean;
-	BUILD_ID: string;
-	packageBaseUrl?: string;
-	cdnUrl: string;
-};
-/**
- * Load the main Pyodide wasm module and initialize it.
- *
- * @returns The :ref:`js-api-pyodide` module.
- * @example
- * async function main() {
- *   const pyodide = await loadPyodide({
- *     fullStdLib: true,
- *     stdout: (msg) => console.log(`Pyodide: ${msg}`),
- *   });
- *   console.log("Loaded Pyodide");
- * }
- * main();
- */
-export declare function loadPyodide(options?: {
+/** @deprecated Use `import type { PyodideConfig } from "pyodide/ffi"` instead */
+interface PyodideConfig {
 	/**
 	 * The URL from which Pyodide will load the main Pyodide runtime and
 	 * packages. It is recommended that you leave this unchanged, providing an
@@ -1650,7 +1580,7 @@ export declare function loadPyodide(options?: {
 	 * input. The :js:func:`pyodide.setStdin` function is more flexible and
 	 * should be preferred.
 	 */
-	stdin?: () => string;
+	stdin?: () => string | null;
 	/**
 	 * Override the standard output callback. The :js:func:`pyodide.setStdout`
 	 * function is more flexible and should be preferred in most cases, but
@@ -1672,11 +1602,6 @@ export declare function loadPyodide(options?: {
 	 * Default: ``globalThis``
 	 */
 	jsglobals?: object;
-	/**
-	 * Determine the value of ``sys.executable``.
-	 * @ignore
-	 */
-	_sysExecutable?: string;
 	/**
 	 * Command line arguments to pass to Python on startup. See `Python command
 	 * line interface options
@@ -1706,12 +1631,6 @@ export declare function loadPyodide(options?: {
 	 */
 	packages?: string[];
 	/**
-	 * Opt into the old behavior where :js:func:`PyProxy.toString() <pyodide.ffi.PyProxy.toString>`
-	 * calls :py:func:`repr` and not :py:class:`str() <str>`. Deprecated.
-	 * @deprecated
-	 */
-	pyproxyToStringRepr?: boolean;
-	/**
 	 * Make loop.run_until_complete() function correctly using stack switching.
 	 * Default: ``true``.
 	 */
@@ -1731,22 +1650,62 @@ export declare function loadPyodide(options?: {
 		sitePackages: string;
 	}) => Promise<void>;
 	/**
+	 * Opt into the old behavior where :js:func:`PyProxy.toString() <pyodide.ffi.PyProxy.toString>`
+	 * calls :py:func:`repr` and not :py:class:`str() <str>`. Deprecated.
+	 * @deprecated
+	 */
+	pyproxyToStringRepr?: boolean;
+	/**
 	 * Opt into the old behavior where JavaScript `null` is converted to `None`
 	 * instead of `jsnull`. Deprecated.
 	 * @deprecated
 	 */
 	convertNullToNone?: boolean;
+	/**
+	 * Opt into the old behavior where Python dictionaries are converted to
+	 * LiteralMap instead of Object.
+	 * @deprecated
+	 */
+	toJsLiteralMap?: boolean;
+	/**
+	 * Determine the value of ``sys.executable``.
+	 * @ignore
+	 */
+	_sysExecutable?: string;
 	/** @ignore */
 	_makeSnapshot?: boolean;
 	/** @ignore */
 	_loadSnapshot?: Uint8Array | ArrayBuffer | PromiseLike<Uint8Array | ArrayBuffer>;
 	/** @ignore */
 	_snapshotDeserializer?: (obj: any) => any;
-}): Promise<PyodideAPI>;
+	/** @ignore */
+	BUILD_ID?: string;
+	/** @ignore */
+	cdnUrl?: string;
+}
+/**
+ * @hidden
+ */
+export type PyodideConfigWithDefaults = Required<PyodideConfig>;
+/**
+ * Load the main Pyodide wasm module and initialize it.
+ *
+ * @returns The :ref:`js-api-pyodide` module.
+ * @example
+ * async function main() {
+ *   const pyodide = await loadPyodide({
+ *     fullStdLib: true,
+ *     stdout: (msg) => console.log(`Pyodide: ${msg}`),
+ *   });
+ *   console.log("Loaded Pyodide");
+ * }
+ * main();
+ */
+export declare function loadPyodide(options?: PyodideConfig): Promise<PyodideAPI>;
 
 export type {
 	PyodideAPI as PyodideInterface,
 };
 
 export type {};
-export type {Lockfile, LockfileInfo, LockfilePackage, PackageData};
+export type {Lockfile, LockfileInfo, LockfilePackage, PackageData, PyodideConfig};

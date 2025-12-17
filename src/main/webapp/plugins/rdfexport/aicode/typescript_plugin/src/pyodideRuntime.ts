@@ -3,8 +3,11 @@ import { loadPyodide, type PyodideInterface } from "pyodide";
 import drawIoParserSource from "../../../python_core/src/draw_io_parser.py?raw";
 import pipelineInitSource from "../../../aicode/python_core/pyodide_pipeline/__init__.py?raw";
 import drawioPipelineSource from "../../../aicode/python_core/pyodide_pipeline/drawio_pipeline.py?raw";
+import defaultConfigYamlSource from "../../../integration/config/default.yml?raw";
 import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
+
+export default defaultConfigYamlSource;
 
 export interface DrawioParserResult {
   graphId: string;
@@ -26,7 +29,11 @@ export interface DrawioParserConfigPayload {
   max_gap: number;
   strict_mode: boolean;
   strip_html: boolean;
+  mint_from_literals: boolean;
+  mint_from_types: boolean;
+  mint_from_arrows: boolean;
   metacharacter_substitute: string[];
+  literal_definitions: Record<string, any>[] | null;
   capitalisation_scheme: string;
   rml_enabled: boolean;
 }
@@ -40,7 +47,7 @@ type RawGraphSummary = {
   raw_turtle: string | null;
 };
 
-const CDN_FALLBACK_INDEX_URL = "https://cdn.pyodide.org/v0.28.3/full/";
+const CDN_FALLBACK_INDEX_URL = "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/";
 const LOCAL_RELATIVE_PYODIDE_PATH = "../plugins/rdfexport/.pyodide/";
 const PYODIDE_APP_ROOT = "/app";
 
@@ -56,6 +63,10 @@ const PYTHON_MODULES: Array<{ path: string; source: string }> = [
   {
     path: `${PYODIDE_APP_ROOT}/pyodide_pipeline/drawio_pipeline.py`,
     source: drawioPipelineSource,
+  },
+  {
+    path: `${PYODIDE_APP_ROOT}/config/default.yml`,
+    source: defaultConfigYamlSource,
   },
 ];
 
@@ -274,7 +285,7 @@ function writeBinaryFile(
     mkdirTree: (dir: string) => void;
     analyzePath: (target: string) => { exists: boolean };
     readFile: (target: string) => Uint8Array;
-    writeFile: (target: string, content: ArrayBuffer) => void;
+    writeFile: (target: string, content: Uint8Array | ArrayBuffer) => void;
   };
 
   const directory = path.split("/").slice(0, -1).join("/") || "/";
@@ -342,6 +353,7 @@ reset_graph_store()
 `;
 
     try {
+      await pyodide.loadPackage("pyyaml");
       await pyodide.runPythonAsync(bootstrapScript);
       logInfo(LOG_PREFIX.PIPELINE, "Pyodide Python environment ready");
     } catch (error) {

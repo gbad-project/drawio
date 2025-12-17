@@ -20,9 +20,10 @@ rdf:type a owl:ObjectProperty .
 
 <mock://pytest-debug-ontology> a owl:Ontology ;
     owl:imports rico: ;
-    skos:note ( "Heading" "This" "diagram" "illustrates" "that" "the" "current" "implementation" "has" "a" "neat" "feature" "that" "any" "node" "that" "doesn't" "look" "like" "an" "individual" "(i.e.," "two-part" "stacked" "box)" "nor" "is" "connected" "to" "an" "individual" "via" "a" "labeled" "arrow," "is" "ignored." "This" "allows" "users" "to" "add" "arbitrary" "decorations" "to" "the" "diagram" "without" "risking" "to" "break" "the" "onotology." "Anything" "that" "is" "the" "target" "of" "a" "labeled" "arrow" "(by" "the" "way," "this" "does" "not" "require" "strict" "linking" "by" "default" "unless" "\"strict" "arrow" "parsing\"" "is" "enabled" "in" "parser" "settings)" "but" "doesn't" "look" "like" "an" "individual" ),
-        "hellothere",
-        "hellothere2" .
+    skos:note "hellothere2" .
+
+:Heading%20This%20Diagram%20Illustrates%20That%20The%20Current%20Implementation%20Has%20A%20Neat%20Feature%20That%20Any%20Node%20That%20Doesn%27t%20Look%20Like%20An%20Individual%20%28i.e.%2C%20Two-part%20Stacked%20Box%29%20Nor%20Is%20Connected%20To%20An%20Individual%20Via%20A%20Labeled%20Arrow%2C%20Is%20Ignored.%20This%20Allows%20Users%20To%20Add%20Arbitrary%20Decorations%20To%20The%20Diagram%20Without%20Risking%20To%20Break%20The%20Onotology.%20Anything%20That%20Is%20The%20Target%20Of%20A%20Labeled%20Arrow%20%28by%20The%20Way%2C%20This%20Does%20Not%20Require%20Strict%20Linking%20By%20Default%20Unless%20%22strict%20Arrow%20Parsing%22%20Is%20Enabled%20In%20Parser%20Settings%29%20But%20Doesn%27t%20Look%20Like%20An%20Individual a owl:NamedIndividual ;
+    rdfs:label "Heading This diagram illustrates that the current implementation has a neat feature that any node that doesn't look like an individual (i.e., two-part stacked box) nor is connected to an individual via a labeled arrow, is ignored. This allows users to add arbitrary decorations to the diagram without risking to break the onotology.  Anything that is the target of a labeled arrow (by the way, this does not require strict linking by default unless \"strict arrow parsing\" is enabled in parser settings) but doesn't look like an individual" .
 
 :List%20Pnnpni a lol:Item%203,
         rdf:Item%202,
@@ -32,6 +33,9 @@ rdf:type a owl:ObjectProperty .
     rdfs:label "List pnnpni" ;
     rdf:some-predicate :Some%20Node ;
     hellow:there "lolabout" .
+
+:hellothere a owl:NamedIndividual ;
+    rdfs:label "hellothere" .
 
 rico:authorizedBy a owl:ObjectProperty .
 

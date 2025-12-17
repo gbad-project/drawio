@@ -425,7 +425,7 @@ def collect_overrides(
                 return True
             if module_name.startswith("python_core."):
                 return True
-            if module_name.startswith("integration_tests."):
+            if module_name.startswith("integration."):
                 return True
             if module_name.startswith("."):
                 return True
@@ -446,7 +446,7 @@ def collect_overrides(
                         for alias in node.names
                         if not alias.name.startswith("aicode.")
                         and not alias.name.startswith("python_core.")
-                        and not alias.name.startswith("integration_tests.")
+                        and not alias.name.startswith("integration.")
                     ]
                     if not names:
                         continue
