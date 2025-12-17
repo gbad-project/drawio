@@ -24466,9 +24466,6 @@ class internal_control_core:
         working_xml = pipeline.pre.xml.metadata._flatten_object_wrappers(
             raw_xml, parsed_root
         )
-        from sys import stderr
-
-        print(working_xml, file=stderr)
         ontology_iri = config_args["ontology_iri"] or get_ontology_iri()
         prefix = config_args["prefix"] or get_prefix()
         prefix_iri = (
