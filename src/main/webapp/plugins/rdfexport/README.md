@@ -49,7 +49,7 @@ Installation instructions (Linux or macOS):
 
 ## Repository structure
 
-Most of the code for rdfexport extension was systematically developed using an asynchronous AI coding agent ([OpenAI Codex](https://openai.com/index/introducing-codex/), with a little bit of [Google Jules](https://blog.google/technology/google-labs/jules/)).
+Most of the code for rdfexport extension was systematically developed using an asynchronous AI coding agent ([OpenAI Codex](https://openai.com/index/introducing-codex/), with a little bit of [Google Jules](https://blog.google/technology/google-labs/jules/)) and [Claude Code](https://code.claude.com/docs/en/overview).
 
 AI coding agents are known to produce noisy code. Although the best effort was made to polish it – both via context engineering and post hoc code review, to reflect the generational difference from handwritten code, most of the agentic code is placed under `aicode/` directory in hopes that clear separation is helpful for future maintainers. Its nested tree structure mirrors that of the root plugin dir to minimize friction when importing and switching between human and AI code. The code outside of `aicode/` has primarily been written manually – albeit usually still with code completion, but at the function or statement/expression rather than module or class level. Upon sufficient refactoring, some code from `aicode/` might sometimes become a first-class repo citizen and as such emigrate outside of the reserved dir.
 
