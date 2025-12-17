@@ -1,0 +1,62 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+owl:sameAs a owl:DatatypeProperty .
+
+rico:hasOrHadCoordinates a owl:NamedIndividual ;
+    rdfs:label "rico:hasOrHadCoordinates" .
+
+rico:hasOrHadPhysicalLocation a owl:NamedIndividual ;
+    rdfs:label "rico:hasOrHadPhysicalLocation" .
+
+rico:hasOrHadPlaceType a owl:NamedIndividual ;
+    rdfs:label "rico:hasOrHadPlaceType" .
+
+<mock://pytest-debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "Ain (Rhône-Alpes, département) RiC E-22 Place",
+        "Localisation physique d'Ambérieux-en-Dombes  rico:PhysicalLocation",
+        "Savigneux (Ain) RiC E-22 Place",
+        "commune française   rico:PlaceType skos:Concept",
+        "http://data.ign.fr/id/geofla/commune/01005   ign:commune",
+        "http://id.insee.fr/geo/commune/01005 insee:commune",
+        "rico:Coordinates" .
+
+:Ambérieux-en-Dombes%20%28Ain%29%20RiC%20E-22%20Place a owl:NamedIndividual ;
+    rdfs:label "Ambérieux-en-Dombes (Ain) RiC E-22 Place" ;
+    owl:sameAs "https://sws.geonames.org/3037941/ geonames:Feature" .
+
+<ontology://generated-from-draw-io/mock#Description%20Partielle%2C%20Conforme%20À%20RiC-O%2C%20D%27un%20Lieu%20%28la%20Commune%20D%27Ambérieux-en-Dombes%29%20Dans%20La%20Version%20RDF%20Du%20Référentiel%20Des%20Lieux%20Des%20Archives%20Nationales.> a owl:NamedIndividual ;
+    rdfs:label "Description partielle, conforme à RiC-O,  d'un lieu (la commune d'Ambérieux-en-Dombes) dans la version RDF du référentiel des lieux des Archives nationales." .
+
+:Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License a owl:NamedIndividual ;
+    rdfs:label "Document mis à disposition selon les termes  de la  Creative Commons Attribution 4.0 International License" .
+
+:Is%20Or%20Was%20Adjacent%20To a owl:NamedIndividual ;
+    rdfs:label "is or was adjacent to" .
+
+:Is%20Or%20Was%20Contained%20By a owl:NamedIndividual ;
+    rdfs:label "is or was contained by" .
+
+<ontology://generated-from-draw-io/mock#Les%20Relations%20Sont%20Présentées%20Uniquement%20Dans%20Un%20Sens%20%28les%20Relations%20Inverses%20Existent%20Mais%20Ne%20Figurent%20Pas%20Dans%20Le%20Diagramme%29.%20Le%20Préfixe%20Rico%3A%20Indique%20Que%20Le%20Composant%20%28classe%20Ou%20Propriété%29%20N%27existe%20Que%20Dans%20RiC-O.%20Lorsqu%27il%20N%27y%20A%20Pas%20De%20Préfixe%2C%20Le%20Composant%20Existe%20Dans%20RiC-CM%20Et%20Dans%20RiC-O.> a owl:NamedIndividual ;
+    rdfs:label "Les relations sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme). Le préfixe rico: indique que le composant (classe ou propriété) n'existe que dans RiC-O.  Lorsqu'il n'y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O." .
+
+:Name%3A%20%22Ambérieux-en-Dombes%20%28Ain%29%20Identifier%3A%20%22FRAN_RI_005.xml%23%20D3ntcnghfn-zgpbme3jri6v%22%20History%3A%20%22...%22%20Rico%3AbeginningDate%3A%20%221793%22 a owl:NamedIndividual ;
+    rdfs:label "name: \"Ambérieux-en-Dombes (Ain)  identifier: \"FRAN_RI_005.xml# d3ntcnghfn-zgpbme3jri6v\" history: \"...\" rico:beginningDate: \"1793\"" .
+
+<ontology://generated-from-draw-io/mock#Rico%3Adate%20DescriptiveNote%20Etc.> a owl:NamedIndividual ;
+    rdfs:label "rico:date descriptiveNote etc." .
+
+:Rico%3Alatitude%3A45.99894%20Rico%3Alongitude%3A4.90126%20Rico%3AgeodesicSystem%3A%22WGS84%22 a owl:NamedIndividual ;
+    rdfs:label "rico:latitude:45.99894 rico:longitude:4.90126                rico:geodesicSystem:\"WGS84\"" .
+
+:Rico%3Ameasure%3A%20%22MULTIPOLYGON%20%28%28%284.895580369402351%2045.979916181223366%2C%204.880940268964116%2045.98591608321336%2C%20%5B...%5D%29%29%29%22%20Rico%3AgeodesicSystem%3A%22WGS84%22 a owl:NamedIndividual ;
+    rdfs:label "rico:measure: \"MULTIPOLYGON  (((4.895580369402351 45.979916181223366,   4.880940268964116 45.98591608321336, [...])))\"  rico:geodesicSystem:\"WGS84\"" .
+
+<ontology://generated-from-draw-io/mock#©%20Archives%20Nationales%20De%20France%2C%20Janvier%202021> a owl:NamedIndividual ;
+    rdfs:label "© Archives nationales de France, janvier 2021" .
+

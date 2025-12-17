@@ -1,0 +1,13 @@
+Script started on Wed Dec 17 11:23:02 2025
+Command: bun run test:bun:all
+[0m[2m[35m$[0m [2m[1mbun run aicode/integration/scripts/dotReporter.ts[0m
+[36mRunning Bun tests...[0m
+
+aicode/typescript_plugin/tests/rdfexport.test.ts [32m.[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[33ms[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m [90m[100%][0m
+
+
+[32m37 passed[0m, [33m20 skipped[0m
+Ran 57 tests across 1 file. [4.68s]
+
+Command exit status: 0
+Script done on Wed Dec 17 11:23:07 2025

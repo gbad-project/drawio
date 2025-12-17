@@ -1,0 +1,47 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+rico:hasDocumentaryFormType a owl:NamedIndividual .
+
+rico:hasRecordSetType a owl:NamedIndividual .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: ;
+    skos:note "<b>Ambérieux-en-Dombes (Ain)</b><br><i>RiC E-22 Place</i>",
+        "<b>finding aid</b><br><div align=\"left\"><i>rico:DocumentaryFormType</i></div>",
+        "<div align=\"center\"><b>Ain (Rhône-Alpes, département)</b><br><i>RiC E-22 Place</i><br></div>",
+        "<div align=\"left\"><b>\"Amberieux en Dombes\"</b><br><i>RiC-E03 Record Set</i></div>",
+        "<div align=\"left\"><b>\"C.T. 104\",</b><br></div><div align=\"left\"><b>tirage numéroté \"1K\"</b><br></div><div><i>RiC-E04 Record</i></div><div><br></div>",
+        "<div align=\"left\"><b>Album n° 1 : département de l’Ain, Ambérieux-en-Dombes à Loyettes</b><i><br>RiC-E03 Record Set</i></div>",
+        "<div align=\"left\"><b>Album n° 2 : département de l’Ain, <i>Maillat à Villieu</i></b><i><br>RiC-E03 Record Set</i></div>",
+        "<div align=\"left\"><b>Fonds LAPIE.<br></b></div><div align=\"left\"><b>Albums de tirages en couleur</b></div><div align=\"left\"><i>RiC-E03 Record Set</i><br></div>",
+        "<div align=\"left\"><b>Fonds Lapie. Inventaire des albums de tirages couleur</b><br><i>RiC-E04 Record</i></div>",
+        "<div align=\"left\"><b>album</b><br></div><div align=\"left\"><i>rico:RecordSetType</i></div>",
+        "<div align=\"left\"><b>series</b><br></div><i>rico:RecordSetType</i>",
+        "<div align=\"left\"><h3><font style=\"font-size: 12px\"><span style=\"font-weight: normal\"><b>Les applications photographiques d'industrie et d'édition (France ; 1948-1970)</b></span></font><br><font size=\"1\"><i style=\"font-size: 11px\"><span style=\"font-weight: normal ; font-size: 12px\">RiC-E11 Corporate Body</span></i></font><br><font style=\"font-size: 12px\"><span style=\"font-weight: normal\"></span></font><font style=\"font-size: 12px\"><span style=\"font-weight: normal\"><br></span></font></h3></div>" .
+
+<ontology://generated-from-draw-io/mock#Description%20Partielle%2C%20Conforme%20À%20RiC%2C%20De%20La%20Série%20D%27albums%20De%20Tirages%20En%20Couleur%20Du%20Fonds%20De%20La%20Société%20LAPIE%20%28A.N.%201PH%2FC%2F1%20À%201PH%2FC%2F158%29%20%28instrument%20De%20Recherche%20En%20Cours%20De%20Réalisation%29.> a owl:NamedIndividual .
+
+:Document%20Mis%20À%20Disposition%20Selon%20Les%20Termes%20De%20La%20Creative%20Commons%20Attribution%204.0%20International%20License a owl:NamedIndividual .
+
+:Has%20Or%20Had%20Main%20Subject a owl:NamedIndividual .
+
+:Has%20Provenance a owl:NamedIndividual .
+
+:Includes%20Or%20Included a owl:NamedIndividual .
+
+:Is%20Or%20Was%20Contained%20By a owl:NamedIndividual .
+
+:Is%20Or%20Was%20Described%20By a owl:NamedIndividual .
+
+<ontology://generated-from-draw-io/mock#Les%20Relations%20Sont%20Présentées%20Uniquement%20Dans%20Un%20Sens%20%28les%20Relations%20Inverses%20Existent%20Mais%20Ne%20Figurent%20Pas%20Dans%20Le%20Diagramme%29.%20Le%20Préfixe%20Rico%3A%20Indique%20Que%20Le%20Composant%20%28classe%20Ou%20Propriété%29%20N%27existe%20Que%20Dans%20RiC-O.%20Lorsqu%27il%20N%27y%20A%20Pas%20De%20Préfixe%2C%20Le%20Composant%20Existe%20Dans%20RiC-CM%20Et%20Dans%20RiC-O.> a owl:NamedIndividual .
+
+<ontology://generated-from-draw-io/mock#Rico%3AbeginningDate%3A%201948-07-01%20Rico%3AendDate%3A%201970-12-14%20History%3A%20%22....%22%20Etc.> a owl:NamedIndividual .
+
+<ontology://generated-from-draw-io/mock#Rico%3AbeginningDate%3A%201955%20Rico%3AendDate%3A%201965%20History%3A%20%22....%22%20ConditionsOfAccess%3A%20%22...%22%20ConditionsOfUse%3A%20%22...%22%20Etc.> a owl:NamedIndividual .
+
+<ontology://generated-from-draw-io/mock#©%20Archives%20Nationales%20De%20France%2C%20Septembre%202020> a owl:NamedIndividual .
+

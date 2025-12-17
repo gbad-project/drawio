@@ -1,0 +1,18 @@
+@base <ontology://generated-from-draw-io/mock> .
+@prefix : <ontology://generated-from-draw-io/mock#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rico: <https://www.ica.org/standards/RiC/ontology#> .
+
+<mock://debug-ontology> a owl:Ontology ;
+    owl:imports rico: .
+
+:Tim%20Berners-Lee a owl:NamedIndividual ;
+    rdfs:label "Tim Berners-Lee" ;
+    :created :World%20Wide%20Web .
+
+:created a owl:ObjectProperty .
+
+:World%20Wide%20Web a owl:NamedIndividual ;
+    rdfs:label "World Wide Web" .
+

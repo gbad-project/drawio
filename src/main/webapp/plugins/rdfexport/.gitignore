@@ -38,7 +38,7 @@ __pycache__
 tmp
 
 # locally cached Pyodide distribution (downloaded via scripts/download_pyodide_assets.sh)
-pyodide
+.pyodide
 
 # locally cached Java and RMLMapper distribution (downloaded via scripts/setup_rmlmapper.sh)
-rmlmapper
+.rmlmapper

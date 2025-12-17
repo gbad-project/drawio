@@ -1,0 +1,222 @@
+<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="24.7.5">
+  <diagram id="1Ek9DC4Ea6Gk2K-SSXmf" name="Page-1">
+    <mxGraphModel dx="1621" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <gbadMetadata id="0">
+          <mxCell />
+          <mxCell />
+        </gbadMetadata>
+        <mxCell id="1" parent="0" />
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-1" value="&lt;div align=&quot;left&quot;&gt;&lt;h3&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&lt;b&gt;Les applications photographiques d&#39;industrie et d&#39;édition (France ; 1948-1970)&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;&lt;br&gt;&lt;font size=&quot;1&quot;&gt;&lt;i style=&quot;font-size: 11px&quot;&gt;&lt;span style=&quot;font-weight: normal ; font-size: 12px&quot;&gt;RiC-E11 Corporate Body&lt;/span&gt;&lt;/i&gt;&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&lt;/span&gt;&lt;/font&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;&lt;span style=&quot;font-weight: normal&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/font&gt;&lt;/h3&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="40" y="30" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-7" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;Fonds LAPIE.&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;&lt;b&gt;Albums de tirages en couleur&lt;/b&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;&lt;i&gt;RiC-E03 Record Set&lt;/i&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;align=left;" parent="1" vertex="1">
+          <mxGeometry x="130" y="190" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-8" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;Album n° 1 : département de l’Ain, Ambérieux-en-Dombes à Loyettes&lt;/b&gt;&lt;i&gt;&lt;br&gt;RiC-E03 Record Set&lt;/i&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="248" y="340" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-9" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;&quot;Amberieux en Dombes&quot;&lt;/b&gt;&lt;br&gt;&lt;i&gt;RiC-E03 Record Set&lt;/i&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;" parent="1" vertex="1">
+          <mxGeometry x="400" y="490" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-10" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;&quot;C.T. 104&quot;,&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;&lt;b&gt;tirage numéroté &quot;1K&quot;&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;RiC-E04 Record&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;" parent="1" vertex="1">
+          <mxGeometry x="637" y="670" width="190" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-12" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;Album n° 2 : département de l’Ain, &lt;i&gt;Maillat à Villieu&lt;/i&gt;&lt;/b&gt;&lt;i&gt;&lt;br&gt;RiC-E03 Record Set&lt;/i&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="248" y="630" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-13" value="" style="line;strokeWidth=1;html=1;fillColor=#fff2cc;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="200" y="60" width="40" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-21" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;strokeColor=#000000;strokeWidth=1;size=0.75;aspect=fixed;gradientColor=none;" parent="1" vertex="1">
+          <mxGeometry x="240" y="25" width="8" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-26" value="&lt;div align=&quot;left&quot;&gt;rico:beginningDate: 1948-07-01&lt;br&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;rico:endDate: 1970-12-14&lt;br&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;history: &quot;....&quot;&lt;br&gt;etc.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="25" width="190" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-29" value="" style="endArrow=classic;html=1;strokeColor=#D6B656;jumpStyle=arc;strokeWidth=2;jumpSize=2;fillColor=#fff2cc;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="187" as="sourcePoint" />
+            <mxPoint x="140" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-31" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;strokeColor=#66B2FF;strokeWidth=2;entryX=0.3;entryY=-0.057;entryDx=0;entryDy=0;exitX=0.306;exitY=1.043;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-7" target="Sj5iYcF8Cp8elQWM3jrW-8" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="60" y="130" as="sourcePoint" />
+            <mxPoint x="120" y="220" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-32" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;strokeColor=#66B2FF;strokeWidth=2;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.429;entryY=-0.017;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-8" target="Sj5iYcF8Cp8elQWM3jrW-9" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="410" as="sourcePoint" />
+            <mxPoint x="420" y="420" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="350" y="410" />
+              <mxPoint x="350" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-33" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;strokeColor=#66B2FF;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.632;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-9" target="Sj5iYcF8Cp8elQWM3jrW-10" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="500" as="sourcePoint" />
+            <mxPoint x="560" y="520" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="680" y="570" />
+              <mxPoint x="480" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-35" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;strokeColor=#66B2FF;strokeWidth=2;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.176;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-7" target="Sj5iYcF8Cp8elQWM3jrW-12" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="90" y="520" as="sourcePoint" />
+            <mxPoint x="178.98000000000002" y="573" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-37" value="&lt;div align=&quot;center&quot;&gt;&lt;b&gt;Ain (Rhône-Alpes, département)&lt;/b&gt;&lt;br&gt;&lt;i&gt;RiC E-22 Place&lt;/i&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82B366;strokeWidth=2;fillColor=#d5e8d4;align=center;" parent="1" vertex="1">
+          <mxGeometry x="690" y="195" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-38" value="&lt;b&gt;Ambérieux-en-Dombes (Ain)&lt;/b&gt;&lt;br&gt;&lt;i&gt;RiC E-22 Place&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#82B366;strokeWidth=2;fillColor=#d5e8d4;" parent="1" vertex="1">
+          <mxGeometry x="707" y="325" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-40" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;album&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;&lt;i&gt;rico:RecordSetType&lt;/i&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;strokeWidth=2;fillColor=#e1d5e7;align=left;" parent="1" vertex="1">
+          <mxGeometry x="620" y="50" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-41" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeColor=#9673A6;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#e1d5e7;exitX=1.012;exitY=0.143;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-8" target="Sj5iYcF8Cp8elQWM3jrW-40" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="350" as="sourcePoint" />
+            <mxPoint x="420" y="290" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="520" y="310" />
+              <mxPoint x="470" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-42" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;series&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;i&gt;rico:RecordSetType&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#666666;strokeWidth=2;fillColor=#f5f5f5;fontColor=#333333;" parent="1" vertex="1">
+          <mxGeometry x="250" y="120" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-43" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeColor=#666666;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#f5f5f5;" parent="1" target="Sj5iYcF8Cp8elQWM3jrW-42" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="230" y="187" as="sourcePoint" />
+            <mxPoint x="330" y="170" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="230" y="150" />
+              <mxPoint x="310" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-44" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeColor=#82b366;strokeWidth=2;entryX=-0.033;entryY=0.4;entryDx=0;entryDy=0;entryPerimeter=0;fillColor=#d5e8d4;exitX=1.018;exitY=0.357;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-8" target="Sj5iYcF8Cp8elQWM3jrW-37" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="280" as="sourcePoint" />
+            <mxPoint x="420" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-46" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeColor=#82b366;strokeWidth=2;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#d5e8d4;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-9" target="Sj5iYcF8Cp8elQWM3jrW-38" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="430" as="sourcePoint" />
+            <mxPoint x="806.04" y="279" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-47" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;endArrow=classic;html=1;strokeColor=#23445d;strokeWidth=2;fillColor=#bac8d3;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="731.5" y="319" as="sourcePoint" />
+            <mxPoint x="731.5" y="259" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-48" value="&lt;div align=&quot;left&quot;&gt;&lt;b&gt;Fonds Lapie. Inventaire des albums de tirages couleur&lt;/b&gt;&lt;br&gt;&lt;i&gt;RiC-E04 Record&lt;/i&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;strokeWidth=2;fillColor=#dae8fc;" parent="1" vertex="1">
+          <mxGeometry x="10" y="360" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-50" value="&lt;b&gt;finding aid&lt;/b&gt;&lt;br&gt;&lt;div align=&quot;left&quot;&gt;&lt;i&gt;rico:DocumentaryFormType&lt;/i&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#9673a6;strokeWidth=2;fillColor=#e1d5e7;align=left;" parent="1" vertex="1">
+          <mxGeometry x="30" y="500" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-51" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeColor=#9673A6;strokeWidth=2;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-48" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="30" y="480" as="sourcePoint" />
+            <mxPoint x="40" y="500" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="40" y="420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-52" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;strokeColor=#9673A6;strokeWidth=2;entryX=0.385;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="Sj5iYcF8Cp8elQWM3jrW-7" target="Sj5iYcF8Cp8elQWM3jrW-48" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="230" as="sourcePoint" />
+            <mxPoint x="110" y="275" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="60" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-53" value="&lt;i&gt;&lt;b&gt;includes or included&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="590" y="540" width="130" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-56" value="&lt;i&gt;&lt;b&gt;includes&lt;br&gt;or included&lt;br&gt;&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="478" y="430" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-57" value="&lt;i&gt;&lt;b&gt;includes&lt;/b&gt;&lt;/i&gt;&lt;br&gt;&lt;i&gt;&lt;b&gt;or included&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="190" y="270" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-58" value="&lt;i&gt;&lt;b&gt;includes&lt;br&gt;or included&lt;br&gt;&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="175" y="410" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-61" value="&lt;i&gt;&lt;b&gt;has provenance&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="30" y="150" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-62" value="&lt;i&gt;&lt;b&gt;is or was&lt;br&gt;contained by&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="735" y="285" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-68" value="&lt;i&gt;&lt;b&gt;is or was&lt;br&gt;described by&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="65" y="275" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-69" value="&lt;i&gt;&lt;b&gt;has or had main subject&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="540" y="190" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-70" value="&lt;i&gt;&lt;b&gt;has or had main subject&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="645" y="420" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-71" value="&lt;i&gt;&lt;b&gt;rico:hasRecordSetType&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="120" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-72" value="&lt;i&gt;&lt;b&gt;rico:hasDocumentaryFormType&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="470" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-73" value="&lt;i&gt;&lt;b&gt;rico:hasRecordSetType&lt;/b&gt;&lt;/i&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="235" y="160" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-74" value="" style="line;strokeWidth=1;html=1;fillColor=#fff2cc;strokeColor=#000000;" parent="1" vertex="1">
+          <mxGeometry x="300" y="220" width="20" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-75" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;strokeColor=#000000;strokeWidth=1;size=0;aspect=fixed;gradientColor=none;" parent="1" vertex="1">
+          <mxGeometry x="320" y="185" width="9" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-76" value="&lt;div align=&quot;left&quot;&gt;rico:beginningDate: 1955&lt;br&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;rico:endDate: 1965&lt;br&gt;&lt;/div&gt;&lt;div align=&quot;left&quot;&gt;history: &quot;....&quot;&lt;br&gt;conditionsOfAccess: &quot;...&quot;&lt;br&gt;conditionsOfUse: &quot;...&quot;&lt;br&gt;etc.&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="328" y="185" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Sj5iYcF8Cp8elQWM3jrW-77" value="&lt;hr&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="75" y="750" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LtzgzD4d0EfEqH-96QFC-2" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Description partielle, conforme à RiC, de la série d&#39;albums de tirages en couleur du fonds de la société LAPIE (A.N. 1PH/C/1 à 1PH/C/158)&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 14px&quot; align=&quot;right&quot;&gt;&lt;b&gt;(instrument de recherche en cours de réalisation).&lt;/b&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="-80" y="770" width="960" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LtzgzD4d0EfEqH-96QFC-3" value="&lt;div&gt;&lt;b&gt;&lt;font color=&quot;#6C8EBF&quot;&gt;Les relations sont présentées uniquement dans un sens (les relations inverses existent mais ne figurent pas dans le diagramme).&lt;br&gt;Le préfixe rico: indique que le composant (classe ou propriété) n&#39;existe que dans RiC-O.&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;font color=&quot;#6C8EBF&quot;&gt;Lorsqu&#39;il n&#39;y a pas de préfixe, le composant existe dans RiC-CM et dans RiC-O.&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="text;html=1;resizable=0;autosize=1;align=right;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="120" y="810" width="750" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="LtzgzD4d0EfEqH-96QFC-4" value="&lt;font style=&quot;font-size: 13px&quot;&gt;&lt;b&gt;&lt;span&gt;©&amp;nbsp;&lt;/span&gt;&lt;span&gt;Archives nationales de France, septembre 2020&lt;/span&gt;&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="540" y="859" width="330" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LtzgzD4d0EfEqH-96QFC-5" value="&lt;div align=&quot;right&quot;&gt;&lt;b&gt;Document mis à disposition selon les termes&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;b&gt;de la  &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;Creative Commons Attribution 4.0 International License&lt;/a&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="510" y="880" width="360" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LtzgzD4d0EfEqH-96QFC-6" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;align=right;image=data:image/png,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAYAAABjyArgAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAdnJLH8AAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAABTpJREFUaN7tWk1PG0cY9jlSLO5cOIYbbZUeU6T0B5AfkIh/UNRbJKqgiFSKVAlZrqLm0FCptyawxubDX3gNa2N71/Z6IeTKT+AnvNXzrt9ldlnwB84aE0Yasd6ZnR2efeZ5P2ZiRBSPxWJ0X0dfifCn+2Mnv017xV3KlbJUPChQySjRQbVMRt2gI7NK9WaNGq0GWW2TmrZFzU7TrbZFlm2S2WpwH/St1A1+VjdKPFaulOOx8Y5MNk1beylK7Wi0ub1BG5lPXD+lP9LHrf/uTFWAvgA3r+do/7BI5YpORu2QwWq06gxg22lR58Qm53OHjk+P6eSLW3HtfHa4DX0s2+Jn8CzGKFd1HhNjB0HWdjY9kAHwHQU55ge3WmYG1qwasxWgAdTVN6v09Oen9DD+8NJSwD20rf6+yn3bx23+KGB0pVFhNu8f7vtATme3KLWruSBnNkbG4pfLL2l2dvbSHHEPbWMBGLKgggtgmh2LWZlIJmh6erpv3UHfxJ8JfhYSAjZXPZCLnlxs5zKU3nNBHgWLk38l6dHsI28e8/PztLS0xBXXch990DdSgKGTkIULcJvMxIVnCz7wpqamaHFxkVZWVkjXda64xj20qX3xbKVmUMtxQQaTIReuJmdpt7Djl4obsHj93w8Uj8fd9y4s0NnZGQUL7qENfdA3CpA9gGHQoJeQBTA3CC7AA5Dn5+d0XVlfX/cBDbYAZHwwfDi8A4avUM5Tdn/PlYoQFg/6jwhz8aHVolhz3xxlbpEBjOULowTNxdJWwZ2bmwtlxFUFHwHPqEzGmNBkvONCKhQW76ZI294cSiagq8LcL6enPQFGESZ/bU32ADZYGups0KC5Kri9WNsPyNBkGD6WirpBesVlMWtx3tVikYlBARaDNggJ0FcMXyQAM3ttk6VBDBqWum3bNGwByCIXGBNjw4UTFhcPXBarHsUwMiEGLVggF/KBg9KBIoYvEoChjy2nxa6YTAqae9MieocKFw4rRLS41HXbVJkYFmB4CsESElX5Cp6JDGBEaPaJzb6ssFeVBngL0C18dVQV/GDb2tqa7x8RFmNsaDEivksykcu43oSiw3cKYBg3LGEJItQlBQDD/F2AqWlaaJv6vCxVjI2ID1JU7bpshXKBvQnosLhrd1IikE84PnW8CaksFGM1MzPDxgGA4xrLX9rE0wDg0hYmEwirmz4dLvjctWEAvs7IXcXeyI0cfF/kFWRCADE4yTBN7kev1RWAd8AnPjKPRgaw6qb1C3DkbtokAzxooCHaG2mg0a9EwPDBdcM1QFUlItgWlURMRKh8nZG7zpD1Y+SEMa6R6/C7RmnkVJDVZA8+OuaB96tBz1iSPeKmSYgM1yq4zK9y0wCy3A+2oYDRqpvWUNy0vH5zN20i0pUSaKhhctCfHWWgcdgNNJC6lEDjpgmfW51wrzbCQ+VB4vtxhcoTAbCa7Pnwz9+jT/YkEzw2kj14l6Qs1cT7sMmeiQAYdfnVspeufP7iuQ/kQZI+YH1ourJt0us3r7/F3eWLH0u//sJuVGeIhDva0EdNuD/+8TFLA/xsfMBvdPvef+O3V8scDABklcnDbBkB3FanSe/ev4vqHEJokBHsM1aAPZBtd9MTmjzwpmdSNj2tyMANghd2PQZwwwEWuVC37QFar2177Fzwtj3OR7TNyGWhV7ryVkiEWr//4TvS0hq7cPCTbe/giaMcPHH4nnrwJJXR6MlPT8ZxVOk2SUNvgKUCrLd/vKViuagcnepWHJ1qm9yGPuMAdmIZfF9HUInowT0QX+905f/GIzQzf2iprAAAAABJRU5ErkJggg==;" parent="1" vertex="1">
+          <mxGeometry x="386" y="879" width="88" height="31" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
