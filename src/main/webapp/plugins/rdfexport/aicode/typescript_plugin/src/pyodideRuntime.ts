@@ -4,7 +4,7 @@ import drawIoParserSource from "../../../python_core/src/draw_io_parser.py?raw";
 import pipelineInitSource from "../../../aicode/python_core/pyodide_pipeline/__init__.py?raw";
 import drawioPipelineSource from "../../../aicode/python_core/pyodide_pipeline/drawio_pipeline.py?raw";
 import defaultConfigYamlSource from "../../../integration/config/default.yml?raw";
-import rdflibWheelBase64 from "../../../.pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
+import rdflibWheelBase64 from "../../../assets/pyodide/wheels/rdflib-7.4.0-py3-none-any.whl.base64?raw";
 import { LOG_PREFIX, logError, logInfo } from "./logging";
 
 export default defaultConfigYamlSource;
@@ -48,7 +48,7 @@ type RawGraphSummary = {
 };
 
 const CDN_FALLBACK_INDEX_URL = "https://cdn.jsdelivr.net/pyodide/v0.29.0/full/";
-const LOCAL_RELATIVE_PYODIDE_PATH = "../plugins/rdfexport/.pyodide/";
+const LOCAL_RELATIVE_PYODIDE_PATH = "../plugins/rdfexport/assets/pyodide/";
 const PYODIDE_APP_ROOT = "/app";
 
 const PYTHON_MODULES: Array<{ path: string; source: string }> = [

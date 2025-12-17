@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 Pyodide Console v2 (Experimental)
 
@@ -136,7 +136,7 @@ of the stable console.
           pyodide.pyimport("pyodide.console");
 
         term.writeln(
-          `Welcome to the Pyodide ${pyodide.version} terminal emulator 🐍\n${BANNER}`
+          `Welcome to the Pyodide ${pyodide.version} terminal emulator 🐍\n${BANNER}`,
         );
 
         const pyconsole = PyodideConsole(pyodide.globals);
@@ -153,7 +153,7 @@ of the stable console.
         return to_js([res], depth=1)
       await_fut
       `,
-          { globals: namespace }
+          { globals: namespace },
         );
         namespace.destroy();
 
@@ -165,16 +165,16 @@ of the stable console.
           if (e.name === "Exit") {
             term.write(`\x1b[31m${e}\x1b[0m\r\n`);
             term.write(
-              "\x1b[31mPyodide exited and can no longer be used.\x1b[0m\r\n"
+              "\x1b[31mPyodide exited and can no longer be used.\x1b[0m\r\n",
             );
           } else {
             term.write(
-              "\x1b[31mPyodide has suffered a fatal error. Please report this to the Pyodide maintainers.\x1b[0m\r\n"
+              "\x1b[31mPyodide has suffered a fatal error. Please report this to the Pyodide maintainers.\x1b[0m\r\n",
             );
             term.write("\x1b[31mThe cause of the fatal error was:\x1b[0m\r\n");
             term.write(`\x1b[31m${e.message || e}\x1b[0m\r\n`);
             term.write(
-              "\x1b[31mLook in the browser console for more details.\x1b[0m\r\n"
+              "\x1b[31mLook in the browser console for more details.\x1b[0m\r\n",
             );
           }
         };
@@ -203,7 +203,7 @@ of the stable console.
           const leftPart = prompt + buffer.slice(0, cursorIndex);
           const rightPart = buffer.slice(cursorIndex);
           term.write(
-            `\x1b[0G${leftPart}\x1b[s${rightPart}${clearCommand}\x1b[u`
+            `\x1b[0G${leftPart}\x1b[s${rightPart}${clearCommand}\x1b[u`,
           );
         }
 
@@ -268,7 +268,7 @@ of the stable console.
               break;
             default:
               term.write(
-                `\r\nUnexpected syntax_check value: ${fut.syntax_check}`
+                `\r\nUnexpected syntax_check value: ${fut.syntax_check}`,
               );
           }
         }
@@ -377,9 +377,8 @@ of the stable console.
             directoryHandle = await showDirectoryPicker(opts);
             await set(directoryKey, directoryHandle);
           }
-          const permissionStatus = await directoryHandle.requestPermission(
-            opts
-          );
+          const permissionStatus =
+            await directoryHandle.requestPermission(opts);
           if (permissionStatus !== "granted") {
             throw new Error("readwrite access to directory not granted");
           }

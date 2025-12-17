@@ -3,7 +3,7 @@ import js from "@eslint/js";
 export default [
   js.configs.recommended,
   {
-    ignores: [".pyodide/", "dist/", ".venv/"],
+    ignores: ["assets/pyodide/", "dist/", ".venv/"],
   },
   {
     languageOptions: {

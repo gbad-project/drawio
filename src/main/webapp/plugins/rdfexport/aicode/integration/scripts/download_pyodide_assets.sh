@@ -3,7 +3,7 @@ set -euo pipefail
 
 VERSION="0.29.0"
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
-TARGET_DIR="${ROOT_DIR}/.pyodide"
+TARGET_DIR="${ROOT_DIR}/assets/pyodide"
 ARCHIVE="pyodide-${VERSION}.tar.bz2"
 ARCHIVE_URL="https://github.com/pyodide/pyodide/releases/download/${VERSION}/${ARCHIVE}"
 WHEEL_FILE="rdflib-7.4.0-py3-none-any.whl"
