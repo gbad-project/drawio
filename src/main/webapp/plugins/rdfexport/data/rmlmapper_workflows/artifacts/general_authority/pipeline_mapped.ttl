@@ -7,243 +7,243 @@
 @prefix rml: <http://semweb.mmlab.be/ns/rml#> .
 @prefix rr: <http://www.w3.org/ns/r2rml#> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Highways - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Highways - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1954>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Justice - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Justice - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1969>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Dept. of Lands and Forests. Division of Surveys and Engineering (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1944>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1957>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Division of Reforestation (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Division of Reforestation (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1941>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1957>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Division%20of%20Reforestation> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Forest Protection Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Forest Protection Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1960>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Forest%20Protection%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Land Management Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Lands and Forests - Ontario. Land Management Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Land%20Management%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Tourism and Information - Ontario. Dept. of Tourism and Information. Advertising Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Tourism and Information - Ontario. Dept. of Tourism and Information. Advertising Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1964>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of Transportation and Communications - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of Transportation and Communications - Ontario. Dept. of Highways. Operations Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of University Affairs - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of University Affairs - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1966>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario%20Committee%20on%20Student%20Awards> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1968>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1969>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of the Attorney General - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1897>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1914>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1971>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Community%20Information%20Services> .
 
-</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Dept. of the Provincial Secretary - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Dept. of the Provincial Secretary - Ontario. Office of the Provincial Municipal Auditor (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1914>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1917> .
 
-</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Select Committee on Common and Grammar Schools (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1868>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1869>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools> .
 
-</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Standing Committee on the Legislative Assembly (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Legislative Assembly - Ontario. Legislative Assembly. Standing Committee on the Legislative Assembly (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1986>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly> .
 
-</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Legislative Assembly - War Memorial Committee of Ontario (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Legislative Assembly - War Memorial Committee of Ontario (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1920>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1923>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/War%20Memorial%20Committee%20of%20Ontario> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Citizenship and Culture - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Citizenship and Culture - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1982>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario Committee on Student Awards (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1974> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Colleges and Universities - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1981>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1983> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1975> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Community and Social Services - Ontario. Ministry of Community and Social Services. Management Information Systems Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1986>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Culture and Communications - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Culture and Communications - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1989> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Culture and Recreation - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Culture and Recreation - Ontario. Community Information Services (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1975>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1982> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1993>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1995>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism - Ontario. Trade Development Branch (1993-1996) (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1995>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1996> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Education (1972-1993) - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Education (1972-1993) - Ontario. Ministry of Education (1972-1993). Research Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1981>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1983>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Energy (2003-2008) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Energy (2003-2008) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2002>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2008> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Energy, Science and Technology - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Energy, Science and Technology - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1997>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2002>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Energy%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Environment and Energy (2002) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Environment and Energy (2002) - Ontario. Energy Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/2002> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Industry and Tourism - Ontario. Travel Services Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Industry and Tourism - Ontario. Travel Services Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1974>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Travel%20Services%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Industry and Trade - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Industry and Trade - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1982>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1985>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Industry, Trade and Technology - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Industry, Trade and Technology - Ontario. Ministry of Industry and Trade. Trade Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1985>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1986> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Labour - Ontario. Occupational Health and Safety Branch (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Labour - Ontario. Occupational Health and Safety Branch (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1991>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Branch> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Transportation and Communications - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Transportation and Communications - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1976>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987>;
   rico:relationHasTarget <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Transportation%20Regulation%20Operations%20Division> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of Transportation - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of Transportation - Ontario. Transportation Regulation Operations Division (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1987>;
   rico:hasEndDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1991> .
 
-</KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>
+</KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>
   a owl:NamedIndividual, rico:AgentControlRelation;
-  rdfs:label "Ontario. Ministry of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>";
+  rdfs:label "Ontario. Ministry of the Attorney General - Ontario. Clerks of the Peace (1968-1984) (Agent Control Relation). Context: <urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>";
   rico:hasBeginningDate <https://data.archives.gov.on.test.gbad.ca/KB/Date/1972> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/AgencyReferenceCode/AA131> a owl:NamedIndividual,
@@ -740,12 +740,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Colleges%20and%20Universities>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Colleges and Universities (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Highways>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Highways (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Highways/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -767,7 +767,7 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Justice>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Justice (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Justice/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -784,10 +784,10 @@
   rico:isEquivalentTo <https://data.archives.gov.on.test.gbad.ca/KB/Agent/AA52>;
   rico:isOrWasDescribedBy <https://data.archives.gov.on.test.gbad.ca/KB/AuthorityRecord/Ontario.%20Dept.%20of%20Lands%20and%20Forests>;
   rico:isSuccessorOf <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%2C%20Forests%20and%20Mines>;
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys%20and%20Engineering/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Division%20of%20Reforestation/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Forest%20Protection%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Lands%20and%20Forests/Ontario.%20Land%20Management%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Lands%20and%20Forests.%20Division%20of%20Surveys>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -817,7 +817,7 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Tourism and Information (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Tourism%20and%20Information/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Tourism%20and%20Information.%20Advertising%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -836,28 +836,28 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20Transportation%20and%20Communications>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of Transportation and Communications (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20Transportation%20and%20Communications/Ontario.%20Dept.%20of%20Highways.%20Operations%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20University%20Affairs>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of University Affairs (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20University%20Affairs/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20the%20Attorney%20General>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of the Attorney General (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Attorney%20General/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of the Provincial Secretary (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary/Ontario.%20Office%20of%20the%20Provincial%20Municipal%20Auditor/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Dept. of the Provincial Secretary and Citizenship (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Dept.%20of%20the%20Provincial%20Secretary%20and%20Citizenship/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Division%20of%20Forest%20Protection>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -944,9 +944,9 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Legislative Assembly (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/Ontario.%20Legislative%20Assembly.%20Standing%20Committee%20on%20the%20Legislative%20Assembly/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Legislative%20Assembly/War%20Memorial%20Committee%20of%20Ontario/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Legislative%20Assembly.%20Select%20Committee%20on%20Common%20and%20Grammar%20Schools>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -993,19 +993,19 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Citizenship and Culture (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Citizenship%20and%20Culture/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Colleges%20and%20Universities>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Colleges and Universities (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario%20Committee%20on%20Student%20Awards/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Colleges%20and%20Universities/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Community and Social Services (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a>,
-    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09>,
+    </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Management%20Information%20Systems%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Community%20and%20Social%20Services.%20Information%20Systems%20and%20Applied%20Technology%20Division>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1031,17 +1031,17 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Communications>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Culture and Communications (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Communications/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Culture%20and%20Recreation>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Culture and Recreation (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Culture%20and%20Recreation/Ontario.%20Community%20Information%20Services/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Economic Development and Trade (1993-1995) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281993-1995%29/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%20and%20Trade%20%281999-2002%29>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1054,12 +1054,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Economic Development, Trade and Tourism (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Economic%20Development%2C%20Trade%20and%20Tourism/Ontario.%20Trade%20Development%20Branch%20%281993-1996%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Education (1972-1993) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Education%20%281972-1993%29/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Education%20%281972-1993%29.%20Research%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1084,12 +1084,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Energy (2003-2008) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%20%282003-2008%29/Ontario.%20Energy%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Energy, Science and Technology (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Energy%2C%20Science%20and%20Technology/Ontario.%20Energy%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Enterprise%2C%20Opportunity%20and%20Innovation>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1110,17 +1110,17 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Environment and Energy (2002) (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Environment%20and%20Energy%20%282002%29/Ontario.%20Energy%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Tourism>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Industry and Tourism (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Tourism/Ontario.%20Travel%20Services%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Industry and Trade (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%20and%20Trade/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,
@@ -1139,12 +1139,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Industry, Trade and Technology (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Industry%2C%20Trade%20and%20Technology/Ontario.%20Ministry%20of%20Industry%20and%20Trade.%20Trade%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Labour>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Labour (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Labour/Ontario.%20Occupational%20Health%20and%20Safety%20Branch/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Natural%20Resources>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1161,12 +1161,12 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Transportation>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Transportation (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of Transportation and Communications (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20Transportation%20and%20Communications/Ontario.%20Transportation%20Regulation%20Operations%20Division/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20Transportation%20and%20Communications.%20Operations%20Division>
   a owl:NamedIndividual, rico:CorporateBody;
@@ -1175,7 +1175,7 @@
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Ministry%20of%20the%20Attorney%20General>
   a owl:NamedIndividual, rico:CorporateBody;
   rdfs:label "Ontario. Ministry of the Attorney General (Corporate Body)";
-  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:452f867f-001f-5370-947f-dab77fbb9b9a> .
+  rico:thingIsSourceOfRelation </KB/AgentControlRelation/Ontario.%20Ministry%20of%20the%20Attorney%20General/Ontario.%20Clerks%20of%20the%20Peace%20%281968-1984%29/urn:uuid:7feaa497-a896-568b-8d9f-5166a9476b09> .
 
 <https://data.archives.gov.on.test.gbad.ca/KB/Agent/Ontario.%20Occupational%20Health%20and%20Safety%20Branch>
   a owl:NamedIndividual, <https://data.archives.gov.on.test.gbad.cahttps%3A%2F%2Fwww.ica.org%2Fstandards%2FRiC%2Fontology%23CorporateBody>,

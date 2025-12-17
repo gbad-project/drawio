@@ -1,0 +1,31 @@
+<mxfile host="[::]" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="24.7.5">
+  <diagram name="Page-1" id="cMgKV-XPXGdGce2DsmWq">
+    <mxGraphModel dx="794" dy="428" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <gbadMetadata id="0" rdfParserSettings="{&quot;version&quot;:1,&quot;settings&quot;:{&quot;includePreamble&quot;:true,&quot;inferTypeOfLiterals&quot;:true,&quot;includeLabel&quot;:true,&quot;strictMode&quot;:false,&quot;stripHtml&quot;:true,&quot;mintFromLiterals&quot;:true,&quot;mintFromTypes&quot;:false,&quot;mintFromArrows&quot;:true,&quot;indentation&quot;:2,&quot;maxGap&quot;:10,&quot;ontologyIri&quot;:null,&quot;prefix&quot;:null,&quot;prefixIri&quot;:null,&quot;capitalisationScheme&quot;:&quot;upper-camel&quot;,&quot;metacharacterStrategy&quot;:&quot;url&quot;,&quot;metacharacterEntries&quot;:[],&quot;literalDefinitions&quot;:[{&quot;attrKey&quot;:&quot;rdf_entity&quot;,&quot;attrVal&quot;:&quot;literal&quot;}]}}">
+          <userObjectPreambleElement rdfPrefix="dbo" rdfIRI="http://dbpedia.org/ontology/" />
+          <userObjectPreambleElement rdfPrefix="yago" rdfIRI="http://yago-knowledge.org/resource/" />
+          <mxCell />
+          <mxCell />
+        </gbadMetadata>
+        <mxCell id="1" parent="0" />
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ZojVrLWr7QVSXUzW-Ien-1" target="ZojVrLWr7QVSXUzW-Ien-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-4" value="created" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ZojVrLWr7QVSXUzW-Ien-3" vertex="1" connectable="0">
+          <mxGeometry x="-0.1867" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <object label="Tim Berners-Lee" rdf_entity="literal" id="ZojVrLWr7QVSXUzW-Ien-1">
+          <mxCell style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+            <mxGeometry x="120" y="210" width="120" height="60" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="ZojVrLWr7QVSXUzW-Ien-2" value="World Wide Web" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="470" y="210" width="130" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

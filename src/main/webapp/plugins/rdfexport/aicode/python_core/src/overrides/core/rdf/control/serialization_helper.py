@@ -111,14 +111,14 @@ class RDFSerializationHelper:
         return self.coerce_to_uriref(
             cfg=self,
             value=prop,
-            mint_from_literal=True,
+            mint_from_literal=self.serialisation_config.mint_from_arrows,
         )
 
     def resolve_type(self, rdf_type: str) -> Any:
         return self.coerce_to_uriref(
             cfg=self,
             value=rdf_type,
-            mint_from_literal=False,
+            mint_from_literal=self.serialisation_config.mint_from_types,
         )
 
     def declare_properties(self) -> None:

@@ -29,6 +29,9 @@ export interface DrawioParserConfigPayload {
   max_gap: number;
   strict_mode: boolean;
   strip_html: boolean;
+  mint_from_literals: boolean;
+  mint_from_types: boolean;
+  mint_from_arrows: boolean;
   metacharacter_substitute: string[];
   literal_definitions: Record<string, any>[] | null;
   capitalisation_scheme: string;

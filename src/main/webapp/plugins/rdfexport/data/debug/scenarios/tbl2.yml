@@ -1,0 +1,16 @@
+slug: tbl2
+drawio: data/fixtures/drawio_fixtures/TBL2.drawio
+legacy_commit: cf8f84bb84ff83843b6726ac96aff3a2055f4275
+format: turtle
+metadata:
+  attributes:
+    csvPath: /mock/path/to/file.csv
+    baseUri: ontology://generated-from-draw-io/mock#
+  preamble:
+  - prefix: mock1
+    iri: http://mock-uri.com
+parser_config:
+  ontology_iri: mock://debug-ontology
+  literal_definitions:
+    - attr_key:   rdf_entity
+      attr_value: literal
