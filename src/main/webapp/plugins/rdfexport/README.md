@@ -10,7 +10,7 @@ Example usage scenario: [AA37-with-metadata-severely-mocked fixture](data/fixtur
 
 draw\.io version [24.7.5 release](https://github.com/jgraph/drawio/releases/tag/v24.7.5) (Jul 25, 2024)
 
-rdfexport plugin version [0.1.0 release](https://github.com/gbad-project/drawio/tree/29afe9e1a7cfd647a63d2a4982523b5da7c871d2/src/main/webapp/plugins/rdfexport) commit `29afe9e1` (Dec 17, 2025)
+rdfexport plugin version [0.1.0 release](https://github.com/gbad-project/drawio/releases/tag/v0.1.0) commit `29afe9e1` (Dec 17, 2025)
 
 > [!TIP]
 > 🎉 Available online! Public and free, no registration or credit card required. Hosted complimentary by GitHub Pages.
