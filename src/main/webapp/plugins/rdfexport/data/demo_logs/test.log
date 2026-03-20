@@ -1,4 +1,4 @@
-Script started on Wed Dec 17 12:22:45 2025
+Script started on Fri Mar 20 14:59:31 2026
 Command: bun run test
 [0m[2m[35m$[0m [2m[1mbash integration/scripts/test_entrypoint.sh; bun --check test[0m
 [0m[2m[35m$[0m [2m[1muv run python -m aicode.python_core.meta_builder -o python_core/src/draw_io_parser.py && bun run lint:fix:py && bun run format:py[0m
@@ -76,8 +76,8 @@ Starting at: cf8f84bb84ff83843b6726ac96aff3a2055f4275
   ❌ data/fixtures/drawio_fixtures/koronakommisjonen.drawio
      An arrow has label 'rdfs:isDefinedBy', which is not a known object property or datatype property
 ]9;4;3;\[1m============================================== test session starts ===============================================[0m
-platform darwin -- Python 3.12.9, pytest-9.0.1, pluggy-1.6.0
-rootdir: /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport
+platform darwin -- Python 3.14.3, pytest-9.0.1, pluggy-1.6.0
+rootdir: /Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport
 configfile: pyproject.toml
 [1mcollecting ... [0m[1mcollected 99 items                                                                                               [0m
 
@@ -229,7 +229,7 @@ standalone {'metadata': {'attributes': {'csvPath': None, 'baseUri': None}, 'prea
 [32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[RG 18-210 Walkerton Inquiry in RiC-O (original)][0m
 [32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_matches_baseline_graphs[diagram_RiC-CM-overview-RiC-v1-0][0m
 [32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[knut_olborgs_forskningsnotater.drawio][0m
-[32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio][0m
+[32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_accepts_previous_unknown_properties[koronakommisjonen.drawio][0m
 [32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_with_metadata_exposes_namespace_and_csv_path[0m
 [32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_with_rml_metadata_adds_triples_map[0m
 [32mPASSED[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_parse_drawio_default_strips_html_literals[0m
@@ -267,13 +267,13 @@ standalone {'metadata': {'attributes': {'csvPath': None, 'baseUri': None}, 'prea
 [32mPASSED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Rel IRI Individual-/someClass-http://example.com/someClass-False][0m
 [32mPASSED[0m python_core/tests/test_parse_drawio_type_values.py::[1mtest_parse_drawio_type_values[True-Nefarious Individual-Unexpected Literal As Type-None-True][0m
 [33mXFAIL[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_individual_blocks_rejects_unknown_prefix[0m - Deprecated behavior - prefixes are not checked now before serialisation.
-[33mXFAIL[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - Fixture Class_Diagram_tweaked.drawio with original metadata failed to parse to graph: Failed to coerce 'Name' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE
-[32m========================================= [32m[1m97 passed[0m, [33m2 xfailed[0m[32m in 1.35s[0m[32m ==========================================[0m
+[33mXFAIL[0m aicode/python_core/tests/test_patched_parser.py::[1mtest_generated_metadata_fixtures_round_trip[0m - Fixture Class_Diagram_tweaked.drawio with original metadata failed to parse to graph: Failed to coerce 'Pass' to ['URIRef']: Exhausted all possibilities: Does not look like any of: absolute IRI, relative IRI, CURIE
+[32m========================================= [32m[1m97 passed[0m, [33m2 xfailed[0m[32m in 1.08s[0m[32m ==========================================[0m
 [0m[1mbun test [0m[2mv1.3.3 (274e01c7)[0m
 [0m
 aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Received serialized payload (36445 characters)
-[PIPELINE] Initializing Pyodide runtime from /Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/node_modules/pyodide/
+[PIPELINE] Initializing Pyodide runtime from /Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/node_modules/pyodide/
 [PIPELINE] Pyodide runtime ready
 [PIPELINE] Preparing Pyodide Python environment
 [PIPELINE] Syncing Python module to virtual FS: /app/src/draw_io_parser.py
@@ -288,9 +288,9 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-0 with 91 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 91 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1447.75ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.70ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m21.55ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runMockBlackBox returns DrawIO parser summary[0m [0m[2m[[1m1293.12ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m debugPyodide evaluates Python expressions[0m [0m[2m[0.68ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m compiled rdfexport plugin bundle includes CSV property hook[0m [0m[2m[[1m29.76ms[0m[2m][0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
 [0m[33m»[2m[0m[2m a-place-fixed.drawio: skipped (no matching baseline a-place-fixed.nt)[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata.nt)[0m
@@ -323,7 +323,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-3 (27149 characters)
 [PIPELINE] Saving RML export payload to F 4711 Orville Wood fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 4711 Orville Wood fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m223.61ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 4711 Orville Wood fonds.drawio: no regression[0m [0m[2m[[1m210.23ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (46360 characters)
@@ -352,7 +352,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-6 (20886 characters)
 [PIPELINE] Saving RML export payload to AA42 Ministry of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA42 Ministry of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m131.24ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA42 Ministry of Health.drawio: no regression[0m [0m[2m[[1m129.16ms[0m[2m][0m
 [0m[33m»[2m[0m[2m General Authority to RiC-O Model_2025-06-25_PZ_no_rr.drawio: skipped (no matching baseline General Authority to RiC-O Model_2025-06-25_PZ_no_rr.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -382,7 +382,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-9 (11739 characters)
 [PIPELINE] Saving RML export payload to RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl
 [PIPELINE] Export pipeline completed for RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m80.63ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 1-659 - Northern pike lamprey mark, Rondeau Park, April 20, 1955.drawio: no regression[0m [0m[2m[[1m76.39ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (24889 characters)
@@ -411,7 +411,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-12 (11828 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m77.58ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1.drawio: no regression[0m [0m[2m[[1m73.99ms[0m[2m][0m
 [0m[33m»[2m[0m[2m knut_olborgs_forskningsnotater.drawio: skipped (no matching baseline knut_olborgs_forskningsnotater.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -441,7 +441,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-15 (16985 characters)
 [PIPELINE] Saving RML export payload to F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-4 Notes on Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m119.18ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-4 Notes on Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m113.82ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (47098 characters)
@@ -470,7 +470,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-18 (19373 characters)
 [PIPELINE] Saving RML export payload to F 47-11 Elizabeth Simcoe sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11 Elizabeth Simcoe sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m129.04ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11 Elizabeth Simcoe sketches.drawio: no regression[0m [0m[2m[[1m122.80ms[0m[2m][0m
 [0m[33m»[2m[0m[2m List_typed_decorations.drawio: skipped (no matching baseline List_typed_decorations.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -500,7 +500,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-21 (16872 characters)
 [PIPELINE] Saving RML export payload to F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m111.48ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-3 Elizabeth Simcoe miscellaneous sketches and fragments.drawio: no regression[0m [0m[2m[[1m106.33ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (76844 characters)
@@ -529,7 +529,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-24 (29954 characters)
 [PIPELINE] Saving RML export payload to General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General Authority to RiC-O Model_2025-06-25_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m189.36ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General Authority to RiC-O Model_2025-06-25_PZ.drawio: no regression[0m [0m[2m[[1m184.94ms[0m[2m][0m
 [0m[33m»[2m[0m[2m Flowchart_tweaked.drawio: skipped (no matching baseline Flowchart_tweaked.nt)[0m
 [0m[33m»[2m[0m[2m AA37-with-metadata-even-more-severely-mocked.drawio: skipped (no matching baseline AA37-with-metadata-even-more-severely-mocked.nt)[0m
 [0m[33m»[2m[0m[2m Class_Diagram_tweaked.drawio: skipped (no matching baseline Class_Diagram_tweaked.nt)[0m
@@ -567,7 +567,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-27 (39019 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Walkerton Inquiry in RiC-O (original).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m267.45ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Walkerton Inquiry in RiC-O (original).drawio: no regression[0m [0m[2m[[1m255.12ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39601 characters)
@@ -596,7 +596,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-30 (16035 characters)
 [PIPELINE] Saving RML export payload to F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-2 Elizabeth Simcoe sketchbook.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m109.13ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-2 Elizabeth Simcoe sketchbook.drawio: no regression[0m [0m[2m[[1m105.48ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (99120 characters)
@@ -625,7 +625,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-33 (29320 characters)
 [PIPELINE] Saving RML export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m233.10ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ.drawio: no regression[0m [0m[2m[[1m221.01ms[0m[2m][0m
 [0m[33m»[2m[0m[2m Class_Diagram_tweaked_compliant.drawio: skipped (no matching baseline Class_Diagram_tweaked_compliant.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -655,7 +655,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-36 (27344 characters)
 [PIPELINE] Saving RML export payload to General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.rml.ttl
 [PIPELINE] Export pipeline completed for General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: no regression[0m [0m[2m[[1m212.04ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m General ADD (Descriptions and Listings) to RiC-O Model_2025-06-20_PZ_no_rr.drawio: no regression[0m [0m[2m[[1m207.14ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (56519 characters)
@@ -684,7 +684,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-39 (21824 characters)
 [PIPELINE] Saving RML export payload to CA1934 Division of Tuberculosis Prevention.rml.ttl
 [PIPELINE] Export pipeline completed for CA1934 Division of Tuberculosis Prevention.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m141.94ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1934 Division of Tuberculosis Prevention.drawio: no regression[0m [0m[2m[[1m136.11ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (61155 characters)
@@ -713,7 +713,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-42 (25894 characters)
 [PIPELINE] Saving RML export payload to F 47 Simcoe Family fonds.rml.ttl
 [PIPELINE] Export pipeline completed for F 47 Simcoe Family fonds.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m157.91ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47 Simcoe Family fonds.drawio: no regression[0m [0m[2m[[1m153.36ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36570 characters)
@@ -742,7 +742,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-45 (17597 characters)
 [PIPELINE] Saving RML export payload to AA37 Department of Health.rml.ttl
 [PIPELINE] Export pipeline completed for AA37 Department of Health.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m102.13ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m AA37 Department of Health.drawio: no regression[0m [0m[2m[[1m97.91ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (52335 characters)
@@ -771,7 +771,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-48 (22371 characters)
 [PIPELINE] Saving RML export payload to RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl
 [PIPELINE] Export pipeline completed for RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m140.79ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 18-210 Records of the Walkerton Inquiry - revised to ADD mapping.drawio: no regression[0m [0m[2m[[1m134.57ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (33936 characters)
@@ -800,7 +800,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-51 (14033 characters)
 [PIPELINE] Saving RML export payload to RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-145 Mobile Tuberculosis Testing Clinic photographs.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m96.33ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-145 Mobile Tuberculosis Testing Clinic photographs.drawio: no regression[0m [0m[2m[[1m91.25ms[0m[2m][0m
 [0m[33m»[2m[0m[2m TBL1.drawio: skipped (no matching baseline TBL1.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -830,7 +830,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-54 (19734 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1-0-1 (VDB test).rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1-0-1 (VDB test).rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m160.07ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1-0-1 (VDB test).drawio: no regression[0m [0m[2m[[1m149.44ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (50585 characters)
@@ -859,7 +859,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-57 (19723 characters)
 [PIPELINE] Saving RML export payload to RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for RG 10-142 Correspondence of the Chief of the Chest Disease Service.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m131.65ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m RG 10-142 Correspondence of the Chief of the Chest Disease Service.drawio: no regression[0m [0m[2m[[1m127.60ms[0m[2m][0m
 [0m[33m»[2m[0m[2m koronakommisjonen.drawio: skipped (no matching baseline koronakommisjonen.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -889,7 +889,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-60 (15416 characters)
 [PIPELINE] Saving RML export payload to BA619 Walkerton Inquiry.rml.ttl
 [PIPELINE] Export pipeline completed for BA619 Walkerton Inquiry.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m95.60ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m BA619 Walkerton Inquiry.drawio: no regression[0m [0m[2m[[1m91.23ms[0m[2m][0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (39162 characters)
@@ -918,7 +918,7 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-63 (16394 characters)
 [PIPELINE] Saving RML export payload to CA1853 Chest Disease Service.rml.ttl
 [PIPELINE] Export pipeline completed for CA1853 Chest Disease Service.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m107.92ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m CA1853 Chest Disease Service.drawio: no regression[0m [0m[2m[[1m105.29ms[0m[2m][0m
 [0m[33m»[2m[0m[2m TBL.drawio: skipped (no matching baseline TBL.nt)[0m
 [TEST] Patched ontology IRI in fixture, set to: ontology://generated-from-draw-io/mock#
 [PIPELINE] exportRdfXml action invoked
@@ -948,43 +948,43 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-66 (18255 characters)
 [PIPELINE] Saving RML export payload to F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl
 [PIPELINE] Export pipeline completed for F 47-11-1 Elizabeth Simcoe loose sketches.rml.ttl (RML mode)
-[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m117.15ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m F 47-11-1 Elizabeth Simcoe loose sketches.drawio: no regression[0m [0m[2m[[1m113.51ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36621)
 [PIPELINE] DrawIO parser produced graph graph-67 with 447 triples
 [BLACKBOX] Parsed DrawIO graph graph-67 with 447 triples
 [BLACKBOX] Returning Turtle payload for graph graph-67 (16848 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m36.58ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline emits rr:TriplesMap triple when RML metadata enabled[0m [0m[2m[[1m35.73ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36621)
 [PIPELINE] DrawIO parser produced graph graph-68 with 447 triples
 [BLACKBOX] Parsed DrawIO graph graph-68 with 447 triples
 [BLACKBOX] Returning Turtle payload for graph graph-68 (16848 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline strips literal HTML when stripHtml enabled[0m [0m[2m[[1m36.29ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline strips literal HTML when stripHtml enabled[0m [0m[2m[[1m34.56ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36621 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36621)
 [PIPELINE] DrawIO parser produced graph graph-69 with 447 triples
 [BLACKBOX] Parsed DrawIO graph graph-69 with 447 triples
 [BLACKBOX] Returning Turtle payload for graph graph-69 (17180 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m39.98ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline preserves literal HTML when stripHtml disabled[0m [0m[2m[[1m38.58ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-70 with 75 triples
 [BLACKBOX] Parsed DrawIO graph graph-70 with 75 triples
 [BLACKBOX] Returning Turtle payload for graph graph-70 (5950 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline omits rdfs:label triples when includeLabel disabled[0m [0m[2m[[1m16.96ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline omits rdfs:label triples when includeLabel disabled[0m [0m[2m[[1m16.13ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-71 with 89 triples
 [BLACKBOX] Parsed DrawIO graph graph-71 with 89 triples
 [BLACKBOX] Returning Turtle payload for graph graph-71 (6631 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline omits ontology declaration when includePreamble disabled[0m [0m[2m[[1m16.67ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline omits ontology declaration when includePreamble disabled[0m [0m[2m[[1m16.05ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-72 with 91 triples
 [BLACKBOX] Parsed DrawIO graph graph-72 with 91 triples
 [BLACKBOX] Returning Turtle payload for graph graph-72 (6615 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline keeps literals untyped when inference disabled[0m [0m[2m[[1m18.37ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline keeps literals untyped when inference disabled[0m [0m[2m[[1m16.86ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-73 with 91 triples
@@ -995,13 +995,13 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [PIPELINE] DrawIO parser produced graph graph-74 with 91 triples
 [BLACKBOX] Parsed DrawIO graph graph-74 with 91 triples
 [BLACKBOX] Returning Turtle payload for graph graph-74 (6676 characters)
-[0m[32m✓[0m[0m[1m runDrawioPipeline forwards strictMode flag to parser configuration[0m [0m[2m[[1m28.45ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline forwards strictMode flag to parser configuration[0m [0m[2m[[1m27.92ms[0m[2m][0m
 [BLACKBOX] Received serialized payload (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-0 with 91 triples
 [BLACKBOX] Parsed DrawIO graph graph-0 with 91 triples
 [BLACKBOX] Black box processing completed
-[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m16.03ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m rdfexport plugin exposes preamble controls and diagram properties[0m [0m[2m[[1m17.65ms[0m[2m][0m
 [PIPELINE] exportRdfXml action invoked
 [PIPELINE] Generated DrawIO XML payload (36445 characters)
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -1011,8 +1011,8 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 [BLACKBOX] Returning Turtle payload for graph graph-75 (5906 characters)
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
-[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m18.09ms[0m[2m][0m
-[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[4.07ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog updates stored configuration and pipeline[0m [0m[2m[[1m20.09ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m patchDrawioWithMetadata reproduces AA37 metadata artifact[0m [0m[2m[7.70ms[0m[2m][0m
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
 [PIPELINE] Invoking DrawIO parser via Pyodide (input length 36445)
 [PIPELINE] DrawIO parser produced graph graph-74 with 91 triples
@@ -1059,13 +1059,13 @@ aicode/typescript_plugin/tests/rdfexport.test.ts:
 draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow 'rico:normalizedValue' (gmwnegnUR_CNORKRYM6Y-10) has a literal ('Ontario. Dept. of Health') as source.
 [0m
        type[0m[2m:[0m [0m[32m"internal_data_core.ArrowWithoutIndividualAsSourceException"[0m[0m[2m,[0m
- __error_address[0m[2m:[0m [0m[33m47356488[0m[0m[2m,[0m
+ __error_address[0m[2m:[0m [0m[33m44367968[0m[0m[2m,[0m
 
-[0m      [2mat [0m[0m[1m[3mnew_error[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m578922[0m[2m)[0m
-[0m      [2mat [0m[0m[1m[3mcallPyObjectKwargs[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m632818[0m[2m)[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m633977[0m[2m)[0m
-[0m      [2mat [0m[0m[1m[3mwrapper[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m596545[0m[2m)[0m
-[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawio/src/main/webapp/plugins/rdfexport/[0m[36maicode/typescript_plugin/tests/rdfexport.test.ts[0m[2m:[0m[33m2408[0m[2m:[33m67[0m[2m)[0m
+[0m      [2mat [0m[0m[1m[3mnew_error[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m578922[0m[2m)[0m
+[0m      [2mat [0m[0m[1m[3mcallPyObjectKwargs[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m632818[0m[2m)[0m
+[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m633977[0m[2m)[0m
+[0m      [2mat [0m[0m[1m[3mwrapper[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/[0m[36mnode_modules/pyodide/pyodide.asm.js[0m[2m:[0m[33m8[0m[2m:[33m596545[0m[2m)[0m
+[0m      [2mat [0m[0m[2m<anonymous>[0m[2m ([0m[0m[36m[2m/Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/[0m[36maicode/typescript_plugin/tests/rdfexport.test.ts[0m[2m:[0m[33m2408[0m[2m:[33m67[0m[2m)[0m
 [0m
 [TEST] Success: Expected to fail due to all nodes turning literals when literal_definitions is empty array as if user explicitly cleared them
 [BLACKBOX] Generating Turtle payload for serialized input (36445 characters)
@@ -1074,7 +1074,7 @@ draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow
 [BLACKBOX] Parsed DrawIO graph graph-76 with 101 triples
 [BLACKBOX] Returning Turtle payload for graph graph-76 (13247 characters)
 [TEST] Success: When literal_definitions has custom values, Python receives them: [{"attr_key":"customAttr","attr_value":"customVal"},{"attr_key":"anotherAttr","attr_value":"anotherVal"}]
-[0m[32m✓[0m[0m[1m runDrawioPipeline forwards literal_definitions to parser configuration[0m [0m[2m[[1m45.73ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m runDrawioPipeline forwards literal_definitions to parser configuration[0m [0m[2m[[1m73.97ms[0m[2m][0m
 [TEST] Verified default minting knob states: literals=true, types=false, arrows=true
 [TEST] Updated minting knobs: mintFromTypes set to true
 [TEST] Added custom literal definition: style=ellipse
@@ -1090,7 +1090,7 @@ draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow
 [PIPELINE] Saving export payload to diagram.ttl
 [PIPELINE] Export pipeline completed for diagram.ttl
 [TEST] Verified minting knobs passed to Python pipeline: mint_from_literals=true, mint_from_types=true, mint_from_arrows=true, literal_definitions=[{style:ellipse}]
-[0m[32m✓[0m[0m[1m parser settings dialog stores and passes new minting knobs to pipeline[0m [0m[2m[[1m21.17ms[0m[2m][0m
+[0m[32m✓[0m[0m[1m parser settings dialog stores and passes new minting knobs to pipeline[0m [0m[2m[[1m22.76ms[0m[2m][0m
 
 [0m[2m20 tests skipped:[0m
 [0m[33m»[2m[0m[2m AA37 Department of Health-with-metadata-preserve-html.drawio: skipped (no matching baseline AA37 Department of Health-with-metadata-preserve-html.nt)[0m
@@ -1118,7 +1118,7 @@ draw_io_parser.internal_data_core.ArrowWithoutIndividualAsSourceException: Arrow
  [0m[33m20 skip[0m
 [0m[2m 0 fail[0m
  740 expect() calls
-Ran 57 tests across 1 file. [0m[2m[[1m4.94s[0m[2m][0m
+Ran 57 tests across 1 file. [0m[2m[[1m4.70s[0m[2m][0m
 
 Command exit status: 0
-Script done on Wed Dec 17 12:22:52 2025
+Script done on Fri Mar 20 14:59:38 2026

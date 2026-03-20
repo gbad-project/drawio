@@ -5,13 +5,17 @@
 - Located the draw.io-specific Help popup definition that produces the `Search`, `Keyboard Shortcuts`, `Quick Start Video`, `Support`, and version rows shown in the supplied HTML.
 - Located the generic popup renderer that emits the `mxPopupMenu` table, `mxPopupMenuItem` rows, and separator `<hr>` rows.
 - Located the runtime browser-title path that turns the app name into `draw.io`, plus additional hardcoded `<title>draw.io</title>` occurrences used in generated HTML strings.
-- Per request, no application code was changed. Only this report was added.
+- Implemented a Bun-based post-copy patch script at `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts` that reads `menu.yml` and injects only a marked block into the copied `src/main/webapp/plugins/rdfexport.js`.
+- Confirmed the current build wiring now uses `build:script:patch` after the normal TypeScript bundle copy step, and the package also contains targeted script-specific `format`, `lint`, and `check` commands plus a dedicated `tsconfig.patchCopiedPluginMenu.json`.
+- Documented the validation work, including a temporary-file patch test, the accidental `bun --check` execution against the live copied artifact, the subsequent rollback performed by the user, and the actual TypeScript nullability fix required for the script.
 
 ## Request Scope
 - Identify where the rendered `Help` top-menu item is specified.
 - Identify where the popup shown after clicking `Help` is specified.
 - Identify where `draw.io` can be changed in the browser `<title>`.
 - Record the investigation under `src/main/webapp/plugins/rdfexport/aicode/docs/reports`.
+- Follow up by implementing a post-copy patcher that reads `src/main/webapp/plugins/rdfexport/menu.yml` and injects only the required title/help-menu overrides into the copied plugin artifact.
+- Follow up again by validating the patcher with Bun-based checks and reflecting the final package-command layout in this report.
 
 ## Investigation Log
 - Inspected the existing report directory first to match naming and formatting conventions already used in this repository.
@@ -26,6 +30,15 @@
   - `src/main/webapp/resources/dia.txt`
   - `src/main/webapp/index.html`
 - Initial read-only shell commands were blocked by the local sandbox with `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`, so repository inspection was rerun with elevated access.
+- For the implementation follow-up, additionally inspected:
+  - `src/main/webapp/plugins/rdfexport/package.json`
+  - `src/main/webapp/plugins/rdfexport/menu.yml`
+  - `src/main/webapp/plugins/rdfexport.js`
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/build.ts`
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts`
+  - `src/main/webapp/plugins/rdfexport/tsconfig.patchCopiedPluginMenu.json`
+  - `src/main/webapp/plugins/rdfexport/eslint.config.js`
+  - `src/main/webapp/js/grapheditor/Actions.js`
 
 ## Findings
 
@@ -168,6 +181,101 @@
   - edit `src/main/webapp/js/diagramly/EditorUi.js:2032`
   - edit `src/main/webapp/js/diagramly/EditorUi.js:2071`
 
+## Follow-Up Implementation
+
+### Goal
+- The follow-up implementation work was to avoid editing draw.io core sources directly and instead patch the copied plugin artifact after `dist/rdfexport.js` is copied up one level for serving.
+- The source of truth for the injected values is `src/main/webapp/plugins/rdfexport/menu.yml`.
+- The specific runtime behaviors targeted by the follow-up were:
+  - the browser title/app name
+  - the `quickStart...` Help action URL
+  - the `support...` Help action URL
+
+### Final Patch Script
+- The current patcher is `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts`.
+- Path and argument handling:
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:24-27`
+  - Defaults to `menu.yml` inside the plugin root and `../rdfexport.js` as the copied target
+  - Supports `--config` and `--target` overrides for validation against alternate files
+- YAML loading and validation:
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:33-99`
+  - Enforces non-empty string values for:
+    - `title`
+    - `quick-start-video`
+    - `support`
+- Injected runtime behavior:
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:101-135`
+  - Builds one marked block between:
+    - `/* RDFEXPORT_MENU_PATCH_START */`
+    - `/* RDFEXPORT_MENU_PATCH_END */`
+  - The injected block:
+    - sets `editorUi.editor.appName`
+    - calls `editorUi.updateDocumentTitle()` when available
+    - overrides `quickStart...` through `editorUi.actions.addAction(...)`
+    - overrides `support...` through `editorUi.actions.addAction(...)`
+- Surgical patching behavior:
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:138-196`
+  - If the marker block already exists, only that exact block is replaced
+  - If it does not exist, the script injects immediately after the single `Draw.loadPlugin(function(editorUi) {` bootstrap match
+  - The script throws if the bootstrap match is missing or ambiguous, rather than editing broadly
+- Main execution path:
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:199-214`
+  - Reads config, patches the target content, writes only when the resulting content differs
+
+### Current Package Wiring
+- The current package wiring is now:
+  - `src/main/webapp/plugins/rdfexport/package.json:31-33`
+  - `build:ts` still builds and copies the bundle
+  - `build:script:patch` runs the patcher explicitly against `../rdfexport.js`
+  - `build` now chains `build:py`, `build:ts`, and `build:script:patch`
+- The current script-specific developer commands are:
+  - `src/main/webapp/plugins/rdfexport/package.json:59`
+    - `format:script:patch`
+  - `src/main/webapp/plugins/rdfexport/package.json:66`
+    - `lint:script:patch`
+  - `src/main/webapp/plugins/rdfexport/package.json:71`
+    - `check:script:patch`
+- The current targeted typecheck command uses:
+  - `src/main/webapp/plugins/rdfexport/package.json:66`
+  - `bun x tsc --noEmit -p tsconfig.patchCopiedPluginMenu.json`
+- The dedicated script-only TypeScript project is:
+  - `src/main/webapp/plugins/rdfexport/tsconfig.patchCopiedPluginMenu.json:1-4`
+  - It extends the main plugin `tsconfig.json`
+  - It includes only `./aicode/integration/scripts/patchCopiedPluginMenu.ts`
+
+### Validation Timeline
+- A temporary copy of the copied plugin was created at `/tmp/rdfexport-menu-test.js` for safe validation.
+- The patcher was run against the temporary file and successfully inserted one marked block containing only the three `menu.yml`-driven values.
+- The same patcher was then rerun against that same temporary file and reported no changes needed, confirming idempotent replacement behavior.
+- The new script was formatted with Prettier.
+- An attempt to use `bun --check aicode/integration/scripts/patchCopiedPluginMenu.ts` for typechecking was misleading:
+  - it executed the script entrypoint instead of acting as a safe standalone compiler pass
+  - this caused the live copied `src/main/webapp/plugins/rdfexport.js` to be patched unintentionally during validation
+  - the user later rolled that accidental artifact change back manually
+- After that, the actual targeted compiler pass used for the script was:
+  - `bun x tsc --noEmit --pretty false --target ESNext --module Preserve --moduleResolution bundler --allowImportingTsExtensions true --verbatimModuleSyntax true --strict --skipLibCheck --noFallthroughCasesInSwitch true --noUncheckedIndexedAccess true --noImplicitOverride true aicode/integration/scripts/patchCopiedPluginMenu.ts`
+- That compiler pass surfaced real script-local errors:
+  - `patchCopiedPluginMenu.ts(175,7): error TS18048: 'match' is possibly 'undefined'`
+  - `patchCopiedPluginMenu.ts(179,26): error TS18048: 'match' is possibly 'undefined'`
+  - `patchCopiedPluginMenu.ts(179,40): error TS18048: 'match' is possibly 'undefined'`
+- Those errors were fixed by explicitly narrowing the `matchAll` result before using `match.index`:
+  - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:173-179`
+- The targeted compiler pass was rerun after the fix and completed cleanly.
+- A full project-level `bun x tsc --noEmit --pretty false -p tsconfig.json` was also run.
+  - That project-wide pass still reports unrelated pre-existing errors elsewhere in the repository
+  - those errors were not caused by the new patch script
+  - this is why the current package uses a script-only `tsconfig.patchCopiedPluginMenu.json` for targeted validation
+
+### Linting Note
+- The plugin’s ESLint flat config currently does not provide actual TypeScript-aware linting for this standalone `.ts` integration script:
+  - `src/main/webapp/plugins/rdfexport/eslint.config.js`
+- A direct `bun x eslint aicode/integration/scripts/patchCopiedPluginMenu.ts` reported that the file had no matching configuration.
+- In practice, the current `lint:script:patch` command is compiler-backed and uses `tsc` via the dedicated script tsconfig.
+- This means the current targeted workflow is:
+  - format with Prettier
+  - validate with script-only `tsc`
+  - use `check:script:patch` as the combined targeted verification entrypoint
+
 ## Files Inspected
 - `src/main/webapp/js/grapheditor/Menus.js`
 - `src/main/webapp/js/diagramly/Menus.js`
@@ -177,6 +285,13 @@
 - `src/main/webapp/js/diagramly/EditorUi.js`
 - `src/main/webapp/resources/dia.txt`
 - `src/main/webapp/index.html`
+- `src/main/webapp/plugins/rdfexport/package.json`
+- `src/main/webapp/plugins/rdfexport/menu.yml`
+- `src/main/webapp/plugins/rdfexport.js`
+- `src/main/webapp/plugins/rdfexport/tsconfig.patchCopiedPluginMenu.json`
+- `src/main/webapp/plugins/rdfexport/eslint.config.js`
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/build.ts`
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts`
 - `src/main/webapp/plugins/rdfexport/aicode/docs/reports/*`
 
 ## Conclusion
@@ -184,6 +299,18 @@
 - The popup contents shown after clicking `Help` are defined by the draw.io-specific `diagramly/Menus.js` Help menu override.
 - The popup HTML shape itself is rendered by the generic `mxPopupMenu` class.
 - The main runtime browser title branding comes from `Editor.prototype.appName = 'draw.io'`, not from `index.html`.
+- The follow-up implementation now patches the copied plugin artifact rather than editing draw.io core sources directly.
+- The current build/package wiring performs the patch as a post-copy step and exposes targeted developer commands for formatting and validating the patch script.
 
 ## Testing
-- Repository inspection only; no build or runtime tests were needed for this trace.
+- Temporary artifact validation:
+  - copied `src/main/webapp/plugins/rdfexport.js` to `/tmp/rdfexport-menu-test.js`
+  - ran the patch script against the temporary file
+  - reran it to confirm idempotency
+- Formatting:
+  - `node_modules/.bin/prettier --write aicode/integration/scripts/patchCopiedPluginMenu.ts package.json`
+- Targeted script typecheck:
+  - `bun x tsc --noEmit --pretty false --target ESNext --module Preserve --moduleResolution bundler --allowImportingTsExtensions true --verbatimModuleSyntax true --strict --skipLibCheck --noFallthroughCasesInSwitch true --noUncheckedIndexedAccess true --noImplicitOverride true aicode/integration/scripts/patchCopiedPluginMenu.ts`
+- Project-wide compiler check:
+  - `bun x tsc --noEmit --pretty false -p tsconfig.json`
+  - still reports unrelated pre-existing repository errors outside the new patch script
