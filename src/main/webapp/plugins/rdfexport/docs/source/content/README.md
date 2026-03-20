@@ -2,15 +2,15 @@
 
 A draw\.io plugin that adds an option to export diagrams to RDF graphs.
 
-Supports export to [RDF Mapping Language](https://rml.io/docs/rml/introduction/) graphs.
-
 Example usage scenario: [AA37-with-metadata-severely-mocked fixture](data/fixtures/drawio_fixtures/AA37-with-metadata-severely-mocked-README.md)
+
+Upcoming functionality: [RDF Mapping Language](https://rml.io/docs/rml/introduction/) graphs.
 
 ## Environment
 
 draw\.io version [24.7.5 release](https://github.com/jgraph/drawio/releases/tag/v24.7.5) (Jul 25, 2024)
 
-rdfexport extension unreleased version [29afe9e1](https://github.com/gbad-project/drawio/tree/29afe9e1a7cfd647a63d2a4982523b5da7c871d2/src/main/webapp/plugins/rdfexport) (Dec 17, 2025)
+rdfexport extension unreleased version [26d193c](https://github.com/gbad-project/drawio/tree/26d193ca4937dfe650079dab0e33a3c2801093dc/src/main/webapp/plugins/rdfexport) (Oct 10, 2025)
 
 > [!TIP]
 > 🎉 Available online! Public and free, no registration or credit card required. Hosted complimentary by GitHub Pages.
