@@ -12,11 +12,11 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Draw RDF Documentation'
-copyright = '2025, Pavel Zhelnov'
+copyright = '2026, Pavel Zhelnov'
 author = 'Pavel Zhelnov'
 
-version = '0.1'
-release = '0.1'
+version = '0.1.0'
+release = '0.1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
