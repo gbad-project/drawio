@@ -26,6 +26,7 @@ exclude = [
     "docs/",
     "aicode/docs/",
     "data/",
+    "assets/",
 ]
 
 [tool.pytest.ini_options]
