@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["./aicode/integration/scripts/patchCopiedPluginMenu.ts"]
+}
