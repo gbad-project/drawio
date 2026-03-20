@@ -285,9 +285,11 @@
 - `src/main/webapp/js/diagramly/EditorUi.js`
 - `src/main/webapp/resources/dia.txt`
 - `src/main/webapp/index.html`
+- `src/main/webapp/teams.html`
 - `src/main/webapp/plugins/rdfexport/package.json`
 - `src/main/webapp/plugins/rdfexport/menu.yml`
 - `src/main/webapp/plugins/rdfexport.js`
+- `src/main/webapp/plugins/rdfexport/assets/index.html`
 - `src/main/webapp/plugins/rdfexport/tsconfig.patchCopiedPluginMenu.json`
 - `src/main/webapp/plugins/rdfexport/eslint.config.js`
 - `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/build.ts`
@@ -314,3 +316,64 @@
 - Project-wide compiler check:
   - `bun x tsc --noEmit --pretty false -p tsconfig.json`
   - still reports unrelated pre-existing repository errors outside the new patch script
+
+## Additional Follow-Up: Version Prefix and Google Tag Blueprint Patch
+
+### Request Refinement
+- The next round of work added two new requirements on top of the existing post-copy patcher:
+  - preserve the existing Help-menu version item exactly as draw.io computes it, but prefix it with `draw.io `
+  - inject the provided Google tag snippet immediately after `<head>`, with `{{ gtag }}` populated from `src/main/webapp/plugins/rdfexport/menu.yml`
+- The version row in the rendered popup was traced back to the `about` action label in `src/main/webapp/js/diagramly/Menus.js:794-797`.
+- The menu renderer uses the current action label at render time in `src/main/webapp/js/grapheditor/Menus.js:1450-1457`, so the safest non-core-source change was to adjust that existing action label inside the plugin patch block rather than replacing draw.io’s own version computation.
+- The Google-tag requirement initially pointed at the live editor shell HTML.
+- After clarifying scope, the final requirement became:
+  - `src/main/webapp/plugins/rdfexport/assets/index.html` must remain the untouched static blueprint
+  - the patcher should render from that blueprint and write the patched output to the real served `src/main/webapp/index.html`
+
+### Final Script Behavior
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:22-41`
+  - the argument model now includes:
+    - `--config`
+    - `--target` for the copied `rdfexport.js`
+    - `--html-source` for the static HTML blueprint
+    - `--html-target` for the served HTML output location
+  - the defaults are now:
+    - `menu.yml`
+    - `../rdfexport.js`
+    - `assets/index.html`
+    - `../../index.html`
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:130-148`
+  - `menu.yml` loading now also accepts an optional `gtag` key in addition to:
+    - `title`
+    - `quick-start-video`
+    - `support`
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:151-195`
+  - the injected runtime patch block still remains bounded by the existing marker comments
+  - that block now also reads the live `about` action and prefixes its label with `draw.io ` only if it is not already prefixed
+  - this preserves the original draw.io-managed version text, so `v24.7.5` becomes `draw.io v24.7.5` without hardcoding or recomputing the version
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:267-345`
+  - the Google tag HTML generation uses the exact snippet body requested by the user
+  - the patcher:
+    - builds the snippet with the configured `gtag`
+    - removes any existing matching Google tag block first
+    - reinserts the configured snippet immediately after the single `<head>` tag
+  - this keeps reruns idempotent and limits HTML edits to the intended snippet area
+- `src/main/webapp/plugins/rdfexport/aicode/integration/scripts/patchCopiedPluginMenu.ts:362-417`
+  - HTML handling now uses blueprint-to-target synchronization instead of in-place editing
+  - the patcher reads `assets/index.html`, applies the Google tag transform to that source content, compares it with the current served `index.html`, and writes only when the rendered output differs
+  - this satisfies the final requirement that the asset copy stays static while the served file is regenerated on demand
+
+### Validation and Tooling Notes
+- An attempt was made to use the existing package command exactly as written:
+  - `bun run check:script:patch`
+- That failed before running the real checks because the script chain resolves a local macOS-specific `node_modules/.bin/bun` binary in this environment:
+  - `/usr/bin/bash: line 1: /Volumes/home/aicode/drawrdf/src/main/webapp/plugins/rdfexport/node_modules/.bin/bun: cannot execute binary file: Exec format error`
+- After the user clarified that `package.json` is intentionally macOS-configured, the package scripts were left unchanged.
+- The direct command equivalents were used instead, per user instruction:
+  - `./node_modules/.bin/tsc --noEmit -p tsconfig.patchCopiedPluginMenu.json`
+  - `./node_modules/.bin/prettier --write aicode/integration/scripts/patchCopiedPluginMenu.ts`
+  - `./node_modules/.bin/tsc --noEmit -p tsconfig.patchCopiedPluginMenu.json`
+- All three direct validation commands completed successfully.
+- No production HTML or copied plugin artifact was patched during validation in this round.
+  - only the patch script itself and this report were changed
+  - the new blueprint-to-target behavior is implemented and ready for the normal patch flow to invoke later

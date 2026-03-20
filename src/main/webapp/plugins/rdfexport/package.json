@@ -29,7 +29,7 @@
     "setup:test:pytest:all:rmlmapper": "bash aicode/integration/scripts/setup_rmlmapper.sh",
     "build:py": "uv run python -m aicode.python_core.meta_builder -o python_core/src/draw_io_parser.py && bun run lint:fix:py && bun run format:py",
     "build:ts": "bun run aicode/integration/scripts/build.ts && cp dist/rdfexport.js .. && bun run lint:fix:ts && bun run format:ts",
-    "build:script:patch": "bun run aicode/integration/scripts/patchCopiedPluginMenu.ts --target ../rdfexport.js",
+    "build:script:patch": "bun run aicode/integration/scripts/patchCopiedPluginMenu.ts --config menu.yml --target ../rdfexport.js --html-source assets/index.html --html-target ../../index.html",
     "build": "bun run build:py && bun run build:ts && bun run build:script:patch",
     "test": "bash integration/scripts/test_entrypoint.sh; bun --check test",
     "test:log:macos": "LOGFILE=\"data/demo_logs/test.log\" && script \"$LOGFILE\" bun run test",

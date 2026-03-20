@@ -27833,6 +27833,12 @@ Draw.loadPlugin(function(editorUi) {
       window.open(url);
     }
   };
+  if (editorUi != null && editorUi.actions != null && typeof editorUi.actions.get === "function") {
+    var __rdfexportAboutAction = editorUi.actions.get("about");
+    if (__rdfexportAboutAction != null && typeof __rdfexportAboutAction.label === "string" && __rdfexportAboutAction.label.indexOf("draw.io ") !== 0) {
+      __rdfexportAboutAction.label = "draw.io " + __rdfexportAboutAction.label;
+    }
+  }
   if (__rdfexportMenuConfig.title) {
     if (editorUi != null && editorUi.editor != null) {
       editorUi.editor.appName = __rdfexportMenuConfig.title;
