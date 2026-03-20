@@ -10,6 +10,7 @@ interface RawMenuConfig {
   "quick-start-video"?: unknown;
   support?: unknown;
   gtag?: unknown;
+  canonical?: unknown;
 }
 
 interface MenuConfig {
@@ -17,6 +18,7 @@ interface MenuConfig {
   quickStartVideo: string;
   support: string;
   gtag: string | null;
+  canonical: string | null;
 }
 
 interface ParsedArgs {
@@ -32,6 +34,7 @@ const LOAD_PLUGIN_PATTERN = /Draw\.loadPlugin\(function\(editorUi\)\s*\{/g;
 const HEAD_TAG_PATTERN = /<head>/g;
 const GOOGLE_TAG_PATTERN =
   /<!-- Google tag \(gtag\.js\) -->\r?\n<script async src="https:\/\/www\.googletagmanager\.com\/gtag\/js\?id=[^"\r\n]+"><\/script>\r?\n<script>\r?\n  window\.dataLayer = window\.dataLayer \|\| \[\];\r?\n  function gtag\(\)\{dataLayer\.push\(arguments\);\}\r?\n  gtag\('js', new Date\(\)\);\r?\n\r?\n  gtag\('config', '[^'\r\n]+'\);\r?\n<\/script>/g;
+const CANONICAL_TAG_PATTERN = /<link rel="canonical" href="[^"]*"\s*\/?>/i;
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const pluginRoot = resolve(scriptDir, "../../..");
@@ -145,6 +148,7 @@ async function loadMenuConfig(configPath: string): Promise<MenuConfig> {
     ),
     support: requireString(config.support, "support"),
     gtag: readOptionalString(config.gtag, "gtag"),
+    canonical: readOptionalString(config.canonical, "canonical"),
   };
 }
 
@@ -311,15 +315,37 @@ function stripExistingGoogleTag(content: string): string {
   return content.slice(0, start) + content.slice(end);
 }
 
-function patchHtmlHead(content: string, gtag: string | null): string {
-  const newline = content.includes("\r\n") ? "\r\n" : "\n";
-  const withoutExistingTag = stripExistingGoogleTag(content);
-
-  if (gtag == null) {
-    return withoutExistingTag;
+function replaceCanonicalTag(
+  content: string,
+  canonical: string | null,
+): string {
+  if (canonical == null) {
+    return content;
   }
 
-  const matches = [...withoutExistingTag.matchAll(HEAD_TAG_PATTERN)];
+  const replacement = `<link rel="canonical" href="${escapeHtmlAttribute(canonical)}">`;
+
+  if (CANONICAL_TAG_PATTERN.test(content)) {
+    return content.replace(CANONICAL_TAG_PATTERN, replacement);
+  }
+
+  return content;
+}
+
+function patchHtmlHead(
+  content: string,
+  gtag: string | null,
+  canonical: string | null,
+): string {
+  const newline = content.includes("\r\n") ? "\r\n" : "\n";
+  let updated = stripExistingGoogleTag(content);
+  updated = replaceCanonicalTag(updated, canonical);
+
+  if (gtag == null) {
+    return updated;
+  }
+
+  const matches = [...updated.matchAll(HEAD_TAG_PATTERN)];
 
   if (matches.length !== 1) {
     throw new Error(
@@ -337,10 +363,10 @@ function patchHtmlHead(content: string, gtag: string | null): string {
   const snippet = createGoogleTagSnippet(gtag, newline);
 
   return (
-    withoutExistingTag.slice(0, insertionIndex) +
+    updated.slice(0, insertionIndex) +
     newline +
     snippet +
-    withoutExistingTag.slice(insertionIndex)
+    updated.slice(insertionIndex)
   );
 }
 
@@ -411,7 +437,7 @@ async function main(): Promise<void> {
 
   if (
     await patchBlueprintToTarget(htmlSourcePath, htmlTargetPath, (content) =>
-      patchHtmlHead(content, config.gtag),
+      patchHtmlHead(content, config.gtag, config.canonical),
     )
   ) {
     changedPaths.push(htmlTargetPath);
