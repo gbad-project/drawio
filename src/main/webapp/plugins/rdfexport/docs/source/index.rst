@@ -12,6 +12,7 @@ Draw RDF Documentation
 
    content/README
    examples
+   demo
 
 .. toctree::
    :maxdepth: 2

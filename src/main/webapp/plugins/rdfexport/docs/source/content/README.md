@@ -6,6 +6,8 @@ Supports export to [RDF Mapping Language](https://rml.io/docs/rml/introduction/)
 
 Example usage scenario: [AA37-with-metadata-severely-mocked fixture](data/fixtures/drawio_fixtures/AA37-with-metadata-severely-mocked-README.md)
 
+5-minute video demo of basic functionality: [YouTube](https://www.youtube.com/watch?v=LaUAY8NCPqY)
+
 ## Environment
 
 draw\.io version [24.7.5 release](https://github.com/jgraph/drawio/releases/tag/v24.7.5) (Jul 25, 2024)

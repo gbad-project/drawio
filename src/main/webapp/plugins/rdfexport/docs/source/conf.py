@@ -26,6 +26,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'myst_parser',
     'sphinxcontrib.mermaid',
+    'sphinxcontrib.youtube',
 ]
 
 myst_fence_as_directive = ["mermaid"]
