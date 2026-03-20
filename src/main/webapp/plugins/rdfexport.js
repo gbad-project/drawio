@@ -27825,7 +27825,7 @@ function createPreambleDialog(editorUi, model, rootCell, labels) {
 installCsvPathProperty();
 Draw.loadPlugin(function(editorUi) {
   /* RDFEXPORT_MENU_PATCH_START */
-  var __rdfexportMenuConfig = {"title":"Sample title replacing draw.io","quickStartVideo":"http://example.com/sample-video-link","support":"http://example.com/sample-link-replacing-support"};
+  var __rdfexportMenuConfig = {"title":"Draw RDF","quickStartVideo":"https://www.youtube.com/watch?v=LaUAY8NCPqY","support":"https://drawrdf.readthedocs.io"};
   var __rdfexportOpenConfiguredLink = function(url) {
     if (typeof editorUi.openLink === "function") {
       editorUi.openLink(url);
